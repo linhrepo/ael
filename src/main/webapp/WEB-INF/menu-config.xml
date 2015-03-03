@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuConfig>
+    <Displayers>
+        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
+    </Displayers>
+    <Menus>
+        <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER">
+        	<Item name="UserMenu" title="menu.user" page="/userform"/>
+        </Menu>
+        <Menu name="SalesMenu" title="menu.sales" description="Sales Menu" roles="ROLE_ADMIN,ROLE_SALES">
+        	<Item name="ManageCustomer" title="menu.sales.customers" page="/admin/sales/customerList"/>
+        	<Item name="ManageOfferPrice" title="menu.sales.prices" page="/admin/sales/offerPriceList"/>
+        </Menu>
+         <Menu name="DocsMenu" title="menu.docs" description="Sales Menu" roles="ROLE_ADMIN,ROLE_DOCS" >
+         	<Item name="DVTQ" title="menu.docs.dvtq" page="/admin/docs/packageInfoList"/>
+            <Item name="DVVT" title="menu.docs.dvvt" page="/admin/docs/inlandList"/>
+            <Item name="DVTL" title="menu.docs.dvtl" page="/admin/docs/exhibitionList"/>
+<!--             <Item name="Othes" title="menu.docs.dvk" page="/admin/config/constantList"/> -->
+        </Menu>
+         <Menu name="TrackingMenu" title="menu.tracking" description="Tracking Menu" roles="ROLE_ADMIN,ROLE_TRUCK" >
+         	<Item name="Trucking" title="menu.tracking.trucking" page="/admin/trucking/list"/>
+         	<Item name="Nhathau" title="menu.tracking.nhathau" page="/admin/trucking/nhathauList"/>
+        </Menu>
+        <Menu name="AccountingMenu" title="menu.accounting" description="Accounting Menu" roles="ROLE_ADMIN,ROLE_ACCOUNTING" >
+        	<Item name="DVTQ" title="menu.docs.dvtq" page="/admin/accounting/customList"/>
+        	<Item name="DVVT" title="menu.docs.dvvt" page="/admin/accounting/transportList"/>
+        	<Item name="DVTL" title="menu.docs.dvtl" page="/admin/accounting/exhibitionList"/>
+        </Menu>
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
+            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
+            <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
+            <Item name="ViewRoles" title="menu.admin.roles" page="/admin/roles"/>
+            <Item name="ViewConfigs" title="menu.admin.configs" page="/admin/config/constantList"/>
+        </Menu>
+        <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
+    </Menus>
+</MenuConfig>

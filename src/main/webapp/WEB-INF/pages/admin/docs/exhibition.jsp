@@ -1,0 +1,296 @@
+<%@ include file="/common/taglibs.jsp"%>
+<head>
+    <title><fmt:message key="exhibition.title"/></title>
+    <meta name="menu" content="DocsMenu"/>
+</head>
+ <c:set var="delObject" scope="request"><fmt:message key="exhibition.title"/></c:set>
+<script type="text/javascript">var msgDelConfirm =
+   "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
+</script>
+    <h2><fmt:message key='exhibition.heading'/></h2>
+ 
+<div class="col-sm-12">
+    <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
+    <form:form commandName="exhibition" method="post" action="exhibition" id="exhibitionForm" cssClass="well">
+    <form:hidden path="id"/>
+    <form:hidden path="creator.id"/>
+    <form:hidden path="createdDate"/>
+    <form:hidden path="counting"/>
+    <form:hidden path="docsgeneral.id"/>
+    <div class="container-fluid">
+	    <div class="row">
+		    <spring:bind path="exhibition.docsgeneral.jobNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.refNo"/>
+		        <form:input path="docsgeneral.jobNo" id="jobNo" maxlength="45" autofocus="true" cssClass="form-control" readonly="true"/>
+		        <form:errors path="docsgeneral.jobNo" cssClass="help-block"/>
+		    </div>
+		    
+		    <c:choose >
+		    	<c:when test="${empty  exhibition.docsgeneral.customer}">
+				   	<spring:bind path="exhibition.docsgeneral.customer.code">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+				    </spring:bind>
+				        <appfuse:label styleClass="control-label" key="exhibition.customerCode"/>
+				        <form:select path="docsgeneral.customer.id" id="customercode" autofocus="true" cssClass="form-control select2" readonly="${packageInfo.id != null ? 'true' : 'false' }">
+				        	<c:forEach items="${docsSelection.customers}" var="cust">
+				        		<form:option value="${cust.id}">${cust.code}</form:option>
+				        	</c:forEach>
+				        </form:select>
+				        <form:errors path="docsgeneral.customer.id" cssClass="help-block"/>
+				    </div>
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="docsgeneral.customer.id"/>
+					<spring:bind path="exhibition.docsgeneral.customer.code">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+				    </spring:bind>
+				        <appfuse:label styleClass="control-label" key="exhibition.customerCode"/>
+				        <form:input path="docsgeneral.customer.code" id="customercode" maxlength="45" autofocus="true" cssClass="form-control" disabled="true"/>
+				        <form:errors path="docsgeneral.customer.code" cssClass="help-block"/>
+				    </div>
+				</c:otherwise>
+		    </c:choose>
+		    
+		    <spring:bind path="exhibition.typeOfEx">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.typeOfEx"/>
+		        <form:select path="typeOfEx.id" id="typeOfEx"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfExhs']}"/>
+		        <form:errors path="typeOfEx.id" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.exName">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.exName"/>
+		        <form:input path="exName" id="jobNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="exName" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.openDate">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.openDate"/>
+		        <form:input path="openDate" id="openDate" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="openDate" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.endDate">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.endDate"/>
+		        <form:input path="endDate" id="joendDatebNo" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="endDate" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.devDate">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.devDate"/>
+		        <form:input path="devDate" id="devDate" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="devDate" cssClass="help-block"/>
+		    </div>
+		    
+	    	<spring:bind path="exhibition.location">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.location"/>
+		        <form:input path="location" id="jobNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="location" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.docsgeneral.noOfPkgs">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.noOfPkgs"/>
+		        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="45" autofocus="true" cssClass="form-control number"/>
+		        <form:errors path="docsgeneral.noOfPkgs" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.docsgeneral.weigth">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.weigth"/>
+		        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45" autofocus="true" cssClass="form-control money"/>
+		        <form:errors path="docsgeneral.weigth" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.docsgeneral.cmb">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.cmb"/>
+		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45" autofocus="true" cssClass="form-control number"/>
+		        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
+		    </div>
+		    
+	    	<spring:bind path="exhibition.exhibitor">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.exhibitor"/>
+		        <form:input path="exhibitor" id="exhibitor" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="exhibitor" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.exhPlace">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.exhPlace"/>
+		        <form:input path="exhPlace" id="exhPlace" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="exhPlace" cssClass="help-block"/>
+		    </div>
+		    
+	    	<spring:bind path="exhibition.docsgeneral.typeOfContainer">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.typeOfContainer"/>
+		        <form:select showElements="-1:consealContainer" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
+		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.etd">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.etd"/>
+		        <form:input path="etd" id="etd" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="etd" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.eta">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.eta"/>
+		        <form:input path="eta" id="eta" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="eta" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.docsgeneral.shippingLine">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.shippingLine"/>
+		        <form:select path="docsgeneral.shippingLine.id" id="shippingLine"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['shippingLines']}"/>
+		        <form:errors path="docsgeneral.shippingLine.id" cssClass="help-block"/>
+		    </div>
+		    
+	    	<spring:bind path="exhibition.operator">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.operator"/>
+		        <form:select path="operator.id" id="operator"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['operatorExhs']}"/>
+		        <form:errors path="operator.id" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.albwNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.albwNo"/>
+		        <form:input path="albwNo" id="albwNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="albwNo" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.pol">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.pol"/>
+		        <form:input path="pol" id="pol" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="pol" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.poa">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.poa"/>
+		        <form:input path="poa" id="poa" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="poa" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.demdet">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.demdet"/>
+		        <form:input path="demdet" id="demdet" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="demdet" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.tkhqDate">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.tkhqDate"/>
+		        <form:input path="tkhqDate" id="tkhqDate" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="tkhqDate" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.cusDept">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.cusDept"/>
+		        <form:select path="cusDept.id" id="cusDept"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['customDepts']}"/>
+		        <form:errors path="cusDept.id" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.tkhqNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.tkhqNo"/>
+		        <form:input path="tkhqNo" id="tkhqNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="tkhqNo" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="exhibition.docsgeneral.contactDelivery">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+				    </spring:bind>
+				        <appfuse:label styleClass="control-label" key="inland.contactDelivery"/>
+				        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"  autofocus="true" cssClass="form-control"/>
+				        <form:errors path="docsgeneral.contactDelivery" cssClass="help-block"/>
+				    </div>
+				    
+				    <spring:bind path="exhibition.docsgeneral.infoInvoice">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+				    </spring:bind>
+				        <appfuse:label styleClass="control-label" key="inland.infoInvoice"/>
+				        <form:input path="docsgeneral.infoInvoice" id="infoInvoice"  autofocus="true" cssClass="form-control"/>
+				        <form:errors path="docsgeneral.infoInvoice" cssClass="help-block"/>
+				    </div>
+	    </div>
+	    <div class='row'>
+	    	<div class="col-md-12">
+	    		<jsp:include page="fragment/exhibition/feeTables.jsp"></jsp:include>
+	    	</div>
+	    	<div class="col-md-12">
+	    		<jsp:include page="fragment/exhibition/contsealTables.jsp"></jsp:include>
+	    	</div>
+	    	<div class="col-md-12">
+	    		<jsp:include page="fragment/exhibition/inlandSizes.jsp"></jsp:include>
+	    	</div>
+	    </div>
+	</div>
+	<jsp:include page="fragment/exhibition/checkboxInput.jsp"></jsp:include>
+    <div class="form-group form-actions">
+        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+        </button>
+        <c:if test="${not empty exhibition.id}">
+          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+              <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+          </button>
+        </c:if>
+        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
+            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+        </button>
+    </div>
+    </form:form>
+    <hr>
+    <div class="row">
+    	<div class="col-md-7"></div>
+    	<div class="col-md-5">
+    		<fmt:message key="notify.createdBy"/>: <span style="color:green;">${exhibition.creator.username}</span> on ${exhibition.createdDate}
+    		<br/>
+    		<fmt:message key="notify.lastUpdatedBy"/>: <span style="color:green;">${exhibition.updator.username}</span> on ${exhibition.lastUpdateDate}
+    	</div>
+    </div>
+    
+</div>
+ 
+<v:javascript formName="exhibitionForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>

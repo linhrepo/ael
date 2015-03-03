@@ -1,0 +1,3 @@
+native2ascii lang.properties lang_out.properties -encoding UTF-8
+native2ascii langjs.properties lang_outjs.properties -encoding UTF-8
+git push origin master --force
