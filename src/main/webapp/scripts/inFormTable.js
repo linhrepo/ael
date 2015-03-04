@@ -70,7 +70,7 @@
     	 * Format data displaying
     	 */
     	var formmatRow = function(lastTr){
-    		$(lastTr).find("select").select2();
+    		SELECT_CONTROL.init(lastTr);
 			$(lastTr).find("input.money").on("blur",function(){
 				$(this).val(accounting.formatMoney($(this).val(),UTIL.MONEY_STYLE)); 
 			});

@@ -5,21 +5,23 @@ import java.util.Map;
 
 public enum ServicesType {
 	
-	DVTQ(0,"CUS","serviceType.cus"),
-	DVVT(1,"VTT","serviceType.vtt"),
-	EXHS(2,"EXH","serviceType.exh"),
-	OTHERS(3,"OTHERS","serviceType.others"),
-	DVVT_INLAND(4,"INLAND","serviceType.vtt"),
-	DVVT_SEALAND(5,"SEALAND","serviceType.vtt");
+	DVTQ(0,"CUS","serviceType.cus","DBHQ"),
+	DVVT(1,"VTT","serviceType.vtt",null),
+	EXHS(2,"EXH","serviceType.exh",null),
+	OTHERS(3,"OTHERS","serviceType.others",null),
+	DVVT_INLAND(4,"INLAND","serviceType.vtt",null),
+	DVVT_SEALAND(5,"SEALAND","serviceType.vtt",null);
 	
 	private int value;
 	private String label;
 	private String textKey;
+	private String debit;
 	
-	ServicesType(int val, String label, String text){
+	ServicesType(int val, String label, String text,String debit){
 		this.value = val;
 		this.label = label;
 		this.textKey = text;
+		this.debit = debit;
 	}
 
 	public int getValue() {
@@ -71,4 +73,13 @@ public enum ServicesType {
 		}
 		return null;
 	}
+
+	public String getDebit() {
+		return debit;
+	}
+
+	public void setDebit(String debit) {
+		this.debit = debit;
+	}
+	
 }

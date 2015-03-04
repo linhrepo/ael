@@ -1,7 +1,10 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -23,12 +26,14 @@ public class Accountingcus extends BasedEntityTracking implements Serializable {
 	private String refNo;
 
 	//bi-directional many-to-one association to Accountingcusdetail
-	@OneToMany(mappedBy="accountingcus")
+	@OneToMany(mappedBy="accountingcus", cascade = CascadeType.ALL)
 	private List<Accountingcusdetail> accountingcusdetails;
 	
 	//bi-directional many-to-one association to Accountingcusdetail
-	@OneToMany(mappedBy="accountingcus")
+	@OneToMany(mappedBy="accountingcus", cascade = CascadeType.ALL)
 	private List<Extendfeeacc> extendfeeaccs;
+	
+	private Integer counting;
 
 	public Accountingcus() {
 	}
@@ -79,6 +84,16 @@ public class Accountingcus extends BasedEntityTracking implements Serializable {
 
 	public void setExtendfeeaccs(List<Extendfeeacc> extendfeeaccs) {
 		this.extendfeeaccs = extendfeeaccs;
+	}
+
+
+	public Integer getCounting() {
+		return counting;
+	}
+
+
+	public void setCounting(Integer counting) {
+		this.counting = counting;
 	}
 	
 }

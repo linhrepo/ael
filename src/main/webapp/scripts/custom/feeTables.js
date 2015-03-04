@@ -8,7 +8,9 @@ var FEE_TABLE_CONTROL ={
 	calculate_total:	function(tr){
 			var amount = parseFloat(accounting.unformat($(tr).find("input.amount").val())),
 			vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),
-			total = amount*vat/100+amount;
+			vatAmount = amount*vat/100,
+			total = vatAmount+amount;
+			$(tr).find("input.vatAmount").val(accounting.formatMoney(vatAmount,UTIL.MONEY_STYLE));
 			$(tr).find("input.total").val(accounting.formatMoney(total,UTIL.MONEY_STYLE));
 	},
 	/**

@@ -7,10 +7,13 @@ import java.util.Map;
 
 import org.springframework.data.domain.Sort;
 
+import com.vn.ael.persistence.entity.Accountingcus;
+import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docservice;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.Extendfeeacc;
 import com.vn.ael.persistence.entity.Inlandsize;
 import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Nhathau;
@@ -138,6 +141,23 @@ public class EntityUtil {
 				}
 			}
 			truckingdetail.setExfeetables(items);
+		}
+	}
+	
+	/**
+	 * Attach child of offer price
+	 * @param accountingcus
+	 */
+	public static void wireChildOfAccountingcus(Accountingcus accountingcus){
+		List<Accountingcusdetail> items = new ArrayList<>();
+		if (accountingcus.getAccountingcusdetails() != null && !accountingcus.getAccountingcusdetails().isEmpty()){
+			for (Accountingcusdetail item: accountingcus.getAccountingcusdetails()){
+				if (item.getIsAdded() == null || !item.getIsAdded()){
+					item.setAccountingcus(accountingcus);
+					items.add(item);
+				}
+			}
+			accountingcus.setAccountingcusdetails(items);
 		}
 	}
 	

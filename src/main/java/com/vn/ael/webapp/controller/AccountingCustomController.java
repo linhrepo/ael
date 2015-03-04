@@ -34,6 +34,7 @@ import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.manager.AccountingcusManager;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.webapp.util.EntityUtil;
 
@@ -41,6 +42,12 @@ import com.vn.ael.webapp.util.EntityUtil;
 @RequestMapping(URLReference.ACCOUNTING_CUSTOM+"*")
 public class AccountingCustomController extends BaseFormController {
 
+	private ExfeetableManager exfeetableManager = null;
+	@Autowired
+    public void setExfeetableManager(final ExfeetableManager exfeetableManager) {
+        this.exfeetableManager = exfeetableManager;
+    }
+    
 	private DocsgeneralManager docsgeneralManager = null;
 	 
     @Autowired
@@ -111,6 +118,7 @@ public class AccountingCustomController extends BaseFormController {
             saveMessage(request, getText("accountingcus.deleted", locale));
         } else {
         	getEntityService().checkUpdateInfo(accountingcus, isNew, request);
+        	exfeetableManager.updateVats(accountingcus.getExtendfeeaccs());
         	accountingcusManager.saveWholePackage(accountingcus);
             String key = (isNew) ? "accountingcus.added" : "accountingcus.updated";
             saveMessage(request, getText(key, locale));

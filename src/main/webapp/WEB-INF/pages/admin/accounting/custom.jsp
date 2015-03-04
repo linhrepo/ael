@@ -9,13 +9,14 @@
 </script>
     <h2><fmt:message key='accountingcus.heading'/></h2>
  	<form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="accountingcus" method="post" action="service" id="accountingcusForm" cssClass="well">
+    <form:form commandName="accountingcus" method="post" action="custom" id="accountingcusForm" cssClass="well">
     <form:hidden path="id"/>
     <form:hidden path="creator.id"/>
     <form:hidden path="createdDate"/>
     <form:hidden path="docsgeneral.id"/>
     <div class="container-fluid">
     	<jsp:include page="fragment/custom/generalInput.jsp"></jsp:include>
+    	<jsp:include page="fragment/custom/customFeeTables.jsp"></jsp:include>
     	<jsp:include page="fragment/custom/feeTables.jsp"></jsp:include>
 	</div>
     <div class="form-group form-actions">

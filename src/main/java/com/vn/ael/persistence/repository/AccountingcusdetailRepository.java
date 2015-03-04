@@ -14,6 +14,6 @@ import com.vn.ael.persistence.entity.Docsgeneral;
  */
 public interface AccountingcusdetailRepository extends GenericRepository<Accountingcusdetail> {
 	
-	Accountingcus findByAccountingcus(Accountingcus accountingcus);
+	List<Accountingcusdetail> findByAccountingcus(Accountingcus accountingcus);
 	
 }

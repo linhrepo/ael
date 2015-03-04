@@ -40,6 +40,9 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	private Integer quantity40;
 
 	private Integer quantityLCL;
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal total;
 
 	//bi-directional many-to-one association to Accountingcus
 	@ManyToOne
@@ -73,36 +76,60 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 		this.note = note;
 	}
 
-	public int getQuantity20() {
-		return this.quantity20;
-	}
-
-	public void setQuantity20(int quantity20) {
-		this.quantity20 = quantity20;
-	}
-
-	public int getQuantity40() {
-		return this.quantity40;
-	}
-
-	public void setQuantity40(int quantity40) {
-		this.quantity40 = quantity40;
-	}
-
-	public int getQuantityLCL() {
-		return this.quantityLCL;
-	}
-
-	public void setQuantityLCL(int quantityLCL) {
-		this.quantityLCL = quantityLCL;
-	}
-
 	public Accountingcus getAccountingcus() {
 		return this.accountingcus;
 	}
 
 	public void setAccountingcus(Accountingcus accountingcusBean) {
 		this.accountingcus = accountingcusBean;
+	}
+
+	public Configuration getDescription() {
+		return description;
+	}
+
+	public void setDescription(Configuration description) {
+		this.description = description;
+	}
+
+	public Configuration getName() {
+		return name;
+	}
+
+	public void setName(Configuration name) {
+		this.name = name;
+	}
+
+	public Integer getQuantity20() {
+		return quantity20;
+	}
+
+	public void setQuantity20(Integer quantity20) {
+		this.quantity20 = quantity20;
+	}
+
+	public Integer getQuantity40() {
+		return quantity40;
+	}
+
+	public void setQuantity40(Integer quantity40) {
+		this.quantity40 = quantity40;
+	}
+
+	public Integer getQuantityLCL() {
+		return quantityLCL;
+	}
+
+	public void setQuantityLCL(Integer quantityLCL) {
+		this.quantityLCL = quantityLCL;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 
 }

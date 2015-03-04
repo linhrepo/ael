@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <div class="row">
-			<c:if test="${not empty refNo }">
-			<div class="form-group col-md-2" style="text-align: center">
+			<c:if test="${not empty accountingcus.refNo }">
+			<div class="form-group col-md-2">
 		        <appfuse:label styleClass="control-label" key="accountingcus.refNo"/>
 		        <form:input path="refNo" id="refNo" maxlength="45" autofocus="true" cssClass="form-control" disabled="true"/>
 		    </div>

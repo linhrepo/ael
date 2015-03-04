@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
+import com.vn.ael.persistence.entity.Extendfeeacc;
 import com.vn.ael.persistence.repository.ConfigurationRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
@@ -36,5 +38,22 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
         this.exfeetableRepository = exfeetableRepository;
         this.repository = exfeetableRepository;
     }
+
+	@Override
+	public void updateVats(List<Extendfeeacc> exs) {
+		if (exs != null && !exs.isEmpty()){
+			List<Exfeetable> exfeetables = new ArrayList<>();
+			for (Extendfeeacc extendfeeacc: exs){
+				if(extendfeeacc.getFeeowner() != null && extendfeeacc.getFeeowner().getId()!= null){
+					Exfeetable exfeetable2 = exfeetableRepository.getOne(extendfeeacc.getFeeowner().getId());
+					if (exfeetable2!=null && exfeetable2.getId() != null){
+						exfeetable2.setVat(extendfeeacc.getFeeowner().getVat());
+						exfeetables.add(exfeetable2);
+					}
+				}
+			}
+			exfeetableRepository.save(exfeetables);
+		}
+	}
 
 }

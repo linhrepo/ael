@@ -1,6 +1,9 @@
 var SELECT_CONTROL = {
-		init: function(){
-			$("select").each(function(){
+		init: function(scope){
+			if (scope == undefined){
+				scope = $("body");
+			}
+			$(scope).find("select").each(function(){
 				if ($(this).parent().attr("addUrl") != undefined){
 					var itemType = $(this).parent().attr("type"),
 					select = $(this);

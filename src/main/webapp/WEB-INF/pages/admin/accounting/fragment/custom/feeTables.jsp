@@ -1,7 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
+<h3><fmt:message key="accountingcus.chiholist" /></h3>
 <hr>
-<table id="detailsList"
-	class="display table table-condensed" cellspacing="0"
+<table id="chihoList"
+	class="display table table-condensed feeTable" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
@@ -23,117 +24,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td colType="index">1</td>
-			<td>
-				<spring:bind path="accountingcus.name.id">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-				</spring:bind> 
-				<form:select
-							path="name.id"
-							id="typeOfCont${idx.index}" autofocus="true"
-							cssClass="form-control"
-							items="${selections['debitfees']}" /> <form:errors
-							path="name.id"
-							cssClass="help-block" />
-						</div>
-			</td>
-			<td>
-				<spring:bind path="accountingcus.description.id">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="24">
-				</spring:bind> 
-				<form:select 
-							path="description.id"
-							id="description${idx.index}" autofocus="true"
-							items="${selections['debitfeesDes']}"
-							cssClass="form-control"/>
-							 <form:errors
-							path="description.id"
-							cssClass="help-block" />
-						</div>
-			</td>
-			<td >
-				<div class="form-group">
-				<form:input
-							path="docsgeneral.noOf20Cont" readonly="true" 
-							id="noOf20Cont${idx.index}" autofocus="true"
-							cssClass="form-control"/>
-				</div>
-			</td>
-			<td >
-				<div class="form-group">
-				<form:input
-							path="docsgeneral.noOf40Cont" readonly="true" 
-							id="noOf40Cont${idx.index}" autofocus="true"
-							cssClass="form-control"/>
-				</div>
-			</td>
-			<td>
-					<div class="form-group">
-						<input readonly="readonly" class="form-control" value="${accountingcus.docsgeneral.isLCL ? 'x' : ''}">
-					</div>
-					<form:hidden path="docsgeneral.isLCL"/>
-			</td>
-			<td>
-				<div class="form-group">
-			        <form:input path="total" id="total" maxlength="45" autofocus="true" cssClass="form-control money" readonly="true"/>
-			    </div>
-			</td>
-			<td>
-				<spring:bind path="accountingcus.generalVat">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-				</spring:bind> 
-				<form:input
-							path="generalVat"
-							id="generalVat${idx.index}" autofocus="true"
-							cssClass="form-control money"/>
-							 <form:errors
-							path="generalVat"
-							cssClass="help-block" />
-				</div>
-			</td>
-			<td>
-				<div class="form-group">
-			        <form:input path="vatRealFee" id="vatRealFee" maxlength="45" autofocus="true" cssClass="form-control money" readonly="true"/>
-			    </div>
-			</td>
-			<td>
-				<div class="form-group">
-			        <form:input path="finalValue" id="finalValue" maxlength="45" autofocus="true" cssClass="form-control money" readonly="true"/>
-			    </div>
-			</td>
-			<td>
-				<spring:bind path="accountingcus.note">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-				</spring:bind> 
-				<form:input
-							path="note"
-							id="note${idx.index}" autofocus="true"
-							cssClass="form-control"/>
-							 <form:errors
-							path="note"
-							cssClass="help-block" />
-				</div>
-			</td>
-			<td>
-				<spring:bind path="accountingcus.invoice">
-				<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-				</spring:bind> 
-				<form:input
-							path="invoice"
-							id="invoice${idx.index}" autofocus="true"
-							cssClass="form-control"/>
-							 <form:errors
-							path="invoice"
-							cssClass="help-block" />
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="12">
-				<h3><fmt:message key="accountingcus.chiholist" /></h3>
-			</td>
-		<tr>
 		<c:forEach items="${accountingcus.extendfeeaccs}" var="extendfeeacc" varStatus="idx"  >
 			<tr>
 				<td colType="index">${idx.index+1}</td>
@@ -173,22 +63,32 @@
 				</td>
 				<td>
 					<div class="form-group">
-				        <input value="${extendfeeacc.feeowner.amount}"  maxlength="45" autofocus="true" class="form-control money" readonly="true"/>
+				        <input value="${extendfeeacc.feeowner.amount}"  maxlength="45" autofocus="true" class="form-control money amount" readonly="true"/>
 				    </div>
 			    </td>
 			    <td>
 					<div class="form-group">
-				        <input value="${extendfeeacc.feeowner.vat}" maxlength="45" autofocus="true" class="form-control money" readonly="true"/>
+						<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].feeowner.vat">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="24">
+					</spring:bind>
+					<form:input
+							path="extendfeeaccs[${idx.index}].feeowner.vat"
+							id="description${idx.index}" autofocus="true"
+							cssClass="form-control money vat"/> 
+								 <form:errors
+								path="extendfeeaccs[${idx.index}].feeowner.vat"
+								cssClass="help-block" />
+					<form:hidden path="extendfeeaccs[${idx.index}].feeowner.id"/>
+					</div>
+			    </td>
+			     <td>
+					<div class="form-group">
+				        <input value="${extendfeeacc.feeowner.vatFee}"  maxlength="45" autofocus="true" class="form-control money vatAmount" readonly="true"/>
 				    </div>
 			    </td>
 			     <td>
 					<div class="form-group">
-				        <input value="${extendfeeacc.feeowner.vatFee}"  maxlength="45" autofocus="true" class="form-control money" disabled="true"/>
-				    </div>
-			    </td>
-			     <td>
-					<div class="form-group">
-				        <input value="${extendfeeacc.feeowner.total}"  maxlength="45" autofocus="true" class="form-control money" disabled="true"/>
+				        <input value="${extendfeeacc.feeowner.total}"  maxlength="45" autofocus="true" class="form-control money total" disabled="true"/>
 				    </div>
 			    </td>
 			    <td>
