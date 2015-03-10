@@ -21,6 +21,7 @@
                 <th><fmt:message key="nhathau.taxNo"/></th>
                 <th><fmt:message key="nhathau.contactName"/></th>
                 <th><fmt:message key="nhathau.phoneNumber"/></th>
+                <th><fmt:message key="nhathau.type"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                 <th><fmt:message key="nhathau.taxNo"/></th>
                 <th><fmt:message key="nhathau.contactName"/></th>
                 <th><fmt:message key="nhathau.phoneNumber"/></th>
+                <th><fmt:message key="nhathau.type"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -43,6 +45,7 @@
                 <td>${cons.taxNo}</td>
                 <td>${cons.contactName}</td>
               	<td>${cons.phoneNumber}</td>
+              	<td><fmt:message key="${types[cons.type]}"/></td>
               	<td>
                 	<a href="nhathauForm?id=${cons.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
                 </td>

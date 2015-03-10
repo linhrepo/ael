@@ -35,6 +35,7 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.StringUtil;
 
 /**
  * @author liv1hc
@@ -93,17 +94,37 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 	public void saveWholePackage(Accountingcus accountingcus) {
 		//calculate ref no
 		this.updateJobNo(accountingcus);
+		this.deleteRemoval(accountingcus);
 		EntityUtil.wireChildOfAccountingcus(accountingcus);
 		//persit object
 		this.save(accountingcus);
 	}
 	
 	/**
+	 * Remove the child which has been removed at client side
+	 * @param accountingcus
+	 */
+	private void deleteRemoval(Accountingcus accountingcus) {
+		if (accountingcus != null && accountingcus.getAccountingcusdetails() != null && !accountingcus.getAccountingcusdetails().isEmpty()){
+			List<Accountingcusdetail> accountingcusdetails = new ArrayList<>();
+			for (Accountingcusdetail accountingcusdetail : accountingcus.getAccountingcusdetails()){
+				if (accountingcusdetail.getIsDeleted() != null && accountingcusdetail.getIsDeleted() == true){
+					this.accountingcusdetailRepository.delete(accountingcusdetail);
+				}else if (accountingcusdetail.getIsAdded() == null || !accountingcusdetail.getIsAdded()){
+					accountingcusdetails.add(accountingcusdetail);
+				}
+			}
+			accountingcus.setAccountingcusdetails(accountingcusdetails);
+		}
+		
+	}
+
+	/**
 	 * Update Jobno 
 	 * @param accountingcus
 	 */
 	private void updateJobNo(Accountingcus accountingcus){
-		if (accountingcus.getId() == null ){
+		if (accountingcus.getId() == null || accountingcus.getRefNo() == null || accountingcus.getRefNo().isEmpty()){
 			if (accountingcus.getDocsgeneral() != null && accountingcus.getDocsgeneral().getId() != null){
 				accountingcus.setDocsgeneral(docsgeneralRepository.getOne(accountingcus.getDocsgeneral().getId()));
 			}
@@ -112,7 +133,7 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 					counting = AELConst.START_COUNT_JOB_ID;
 				}
 				accountingcus.setCounting(counting+1);
-			String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+accountingcus.getCounting();
+			String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+StringUtil.addZero(accountingcus.getCounting().toString(), StringUtil.LENGTH_OF_COUNTER);
 			accountingcus.setRefNo(jobNo);
 		}
 		

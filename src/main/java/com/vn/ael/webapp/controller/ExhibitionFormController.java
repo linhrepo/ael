@@ -15,17 +15,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.NhathauType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Exhibition;
 import com.vn.ael.persistence.entity.Inland;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExhibitionManager;
+import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
 @RequestMapping(URLReference.EXHIBITION_FORM)
 public class ExhibitionFormController extends BaseFormController {
 
+	private NhathauManager nhathauManager;
+	
+	@Autowired
+	private void setNhauthauManager(NhathauManager nhathauManager){
+		this.nhathauManager = nhathauManager;
+	}
+	
 	private ExhibitionManager exhibitionManager = null;
 	
 	private DocsgeneralManager docsgeneralManager;
@@ -61,13 +71,14 @@ public class ExhibitionFormController extends BaseFormController {
         DocsSelection docsSelection = configurationManager.loadSelectionForDocsPage(
         		ConfigurationType.EXH_TYPE_OF_EXH,
         		ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-        		ConfigurationType.DOCS_SHIPPING_LINE,
+//        		ConfigurationType.DOCS_SHIPPING_LINE,
         		ConfigurationType.EXH_OPERATOR,
         		ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
         		ConfigurationType.DOCS_TYPE_OF_CONTAINER_CONT,
         		ConfigurationType.EXH_MASTER_FEE,
         		ConfigurationType.FEE_NAMES
         		);
+        mav.addObject("nhathaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.NHATHAU)));
         mav.addObject("docsSelection", docsSelection);
         return mav;
     }

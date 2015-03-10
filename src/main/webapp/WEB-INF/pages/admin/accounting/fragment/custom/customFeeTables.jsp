@@ -1,6 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 <table id="generalList"
-	class="display table table-condensed inFormTable feeTable" cellspacing="0"
+	class="display table table-condensed inFormTable feeTable no-more-tables" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
@@ -25,14 +25,14 @@
 	<tbody>
 		<c:forEach items="${accountingcus.accountingcusdetails}" var="detail" varStatus="idx"  >
 			<tr class="${detail.isAdded == true ? 'hidden' :''}">
-				<td colType="index">${idx.index+1}</td>
+				<td colType="index" data-title="<fmt:message key="table.no" />">${idx.index+1}</td>
 				<td colType="generalInfo" class="hidden"><form:hidden
 						path="accountingcusdetails[${idx.index}].id" /> <form:hidden
 						path="accountingcusdetails[${idx.index}].isAdded"
 						valueType="added" /> <form:hidden
 						path="accountingcusdetails[${idx.index}].isDeleted"
 						valueType="deleted" /></td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.feeName" />">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].name.id">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="23">
 					</spring:bind>
@@ -46,7 +46,7 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.feeDescription" />">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].description.id">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="24">
 					</spring:bind>
@@ -60,22 +60,46 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
-					<div class="form-group">
-						<input readonly="readonly" class="form-control readonly">
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.20" />">
+					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantity20">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind>
+					<form:input
+							path="accountingcusdetails[${idx.index}].quantity20"
+							id="description${idx.index}" autofocus="true"
+							cssClass="form-control number"/> 
+					<form:errors
+								path="accountingcusdetails[${idx.index}].quantity20"
+								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
-					<div class="form-group">
-						<input readonly="readonly" class="form-control readonly">
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.40" />">
+					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantity40">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind>
+					<form:input
+							path="accountingcusdetails[${idx.index}].quantity40"
+							id="description${idx.index}" autofocus="true"
+							cssClass="form-control number"/> 
+					<form:errors
+								path="accountingcusdetails[${idx.index}].quantity40"
+								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
-					<div class="form-group">
-						<input readonly="readonly" class="form-control readonly">
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.LCL" />">
+					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantityLCL">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind>
+					<form:input
+							path="accountingcusdetails[${idx.index}].quantityLCL"
+							id="description${idx.index}" autofocus="true"
+							cssClass="form-control number"/> 
+					<form:errors
+								path="accountingcusdetails[${idx.index}].quantityLCL"
+								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.total"/>">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].total">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind>
@@ -88,7 +112,7 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.vat"/>">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].generalVat">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind>
@@ -101,17 +125,17 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.feevat"/>">
 					<div class="form-group">
 				        <input value=""  maxlength="45" autofocus="true" class="form-control money vatAmount readonly" readonly="readonly"/>
 				    </div>
 			    </td>
-			    <td>
+			    <td data-title="<fmt:message key="accountingcus.feewithvat"/>">
 					<div class="form-group">
 				        <input value=""  maxlength="45" autofocus="true" class="form-control money total readonly" readonly="readonly"/>
 				    </div>
 			    </td>
-			    <td>
+			    <td data-title="<fmt:message key="accountingcus.note"/>">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].note">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind>
@@ -124,7 +148,7 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.invoice"/>">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].invoice">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.NhathauType;
 import com.vn.ael.persistence.manager.ConfigurationManager;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.NhathauManager;
@@ -44,6 +45,7 @@ public class NhathauListController extends BaseFormController {
     public ModelAndView handleRequest() throws Exception {
         Model model = new ExtendedModelMap();
         model.addAttribute(nhathauManager.getAll());
+        model.addAttribute("types",NhathauType.getLabelsMap());
         return new ModelAndView(URLReference.NHATHAU_LIST, model.asMap());
     }
 

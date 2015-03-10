@@ -15,8 +15,20 @@
     <form:hidden path="id"/>
     <div class="container-fluid">
 	    <div class="row">
+	    	<spring:bind path="nhathau.type">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="nhathau.type"/>
+		        <form:select path="type" id="type" cssClass="form-control select2" autofocus="true">
+		         <c:forEach items="${types}" var="sem" varStatus="cnt">
+                  <option value="${sem.key}" <c:if test="${sem.key == nhathau.type}">selected</c:if>><fmt:message key="${sem.value}"/></option>
+     			 </c:forEach>
+		        </form:select>
+		        <form:errors path="type" cssClass="help-block"/>
+		    </div>
+		    
 		    <spring:bind path="nhathau.name">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="nhathau.name"/>
 		        <form:input path="name"  maxlength="255" autofocus="true" cssClass="form-control"/>

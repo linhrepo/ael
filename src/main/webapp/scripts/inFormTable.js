@@ -52,7 +52,7 @@
     			//No. col
     			$(lastTr).find("td[colType='index']").first().html(newRolNum);
     			//count current data rows in table
-    			var numOfRow = table.find("tr").length - 2;
+    			var numOfRow = table.find("tr").length - table.find("thead").find("tr").length-1;
     			//reset added row content
     			this._refreshDataRow(numOfRow, lastTr,true);
     			// active remove buttons

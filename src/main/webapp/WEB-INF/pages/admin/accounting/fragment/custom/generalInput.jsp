@@ -1,11 +1,11 @@
 <%@ include file="/common/taglibs.jsp"%>
-<div class="row">
 			<c:if test="${not empty accountingcus.refNo }">
-			<div class="form-group col-md-2">
-		        <appfuse:label styleClass="control-label" key="accountingcus.refNo"/>
-		        <form:input path="refNo" id="refNo" maxlength="45" autofocus="true" cssClass="form-control" disabled="true"/>
-		    </div>
+		      <b><fmt:message key="accountingcus.refNo"/>:</b> ${accountingcus.refNo}
+		      <hr>
 		    </c:if>
+
+<div class="row">
+			<form:hidden path="refNo"/>
 		    <div class="form-group col-md-3">
 		        <appfuse:label styleClass="control-label" key="accountingcus.companyType"/>
 		        <form:input path="docsgeneral.customer.name" id="companyType" maxlength="45" autofocus="true" cssClass="form-control" disabled="true"/>

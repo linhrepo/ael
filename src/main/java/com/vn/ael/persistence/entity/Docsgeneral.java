@@ -52,7 +52,7 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "shippingLine")
-	private Configuration shippingLine;
+	private Nhathau shippingLine;
 	
 	@OneToMany(mappedBy="docsgeneral", cascade = CascadeType.ALL)
 	private List<Contseal> contseals;
@@ -253,11 +253,11 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.docReceiveDate = docReceiveDate;
 	}
 
-	public Configuration getShippingLine() {
+	public Nhathau getShippingLine() {
 		return shippingLine;
 	}
 
-	public void setShippingLine(Configuration shippingLine) {
+	public void setShippingLine(Nhathau shippingLine) {
 		this.shippingLine = shippingLine;
 	}
 

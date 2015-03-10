@@ -1,6 +1,7 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -28,6 +29,12 @@ public class Extendfeeacc extends BaseEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="accountingcus")
 	private Accountingcus accountingcus;
+	
+	private Integer quantity20;
+
+	private Integer quantity40;
+
+	private Integer quantityLCL;
 
 	public Extendfeeacc() {
 	}
@@ -64,4 +71,36 @@ public class Extendfeeacc extends BaseEntity implements Serializable {
 		this.note = note;
 	}
 
+	public Accountingcus getAccountingcus() {
+		return accountingcus;
+	}
+
+	public void setAccountingcus(Accountingcus accountingcus) {
+		this.accountingcus = accountingcus;
+	}
+
+	public Integer getQuantity20() {
+		return quantity20;
+	}
+
+	public void setQuantity20(Integer quantity20) {
+		this.quantity20 = quantity20;
+	}
+
+	public Integer getQuantity40() {
+		return quantity40;
+	}
+
+	public void setQuantity40(Integer quantity40) {
+		this.quantity40 = quantity40;
+	}
+
+	public Integer getQuantityLCL() {
+		return quantityLCL;
+	}
+
+	public void setQuantityLCL(Integer quantityLCL) {
+		this.quantityLCL = quantityLCL;
+	}
+	
 }

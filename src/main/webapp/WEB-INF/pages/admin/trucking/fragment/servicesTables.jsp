@@ -18,7 +18,7 @@
 			    </div>
 </div>
 <table id="detailsList"
-	class="display table table-condensed inFormTableDetail" cellspacing="0"
+	class="display table table-condensed inFormTableDetail no-more-tables" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
@@ -48,7 +48,7 @@
 		<c:forEach items="${truckingservice.truckingdetails}"
 			var="detail" varStatus="idx">
 			<tr class="parent ${detail.isAdded == true ? 'hidden' :''} ">
-				<td colType="index">${idx.index+1}</td>
+				<td colType="index" data-title="<fmt:message key="table.no"/>">${idx.index+1}</td>
 				<td colType="generalInfo" class="hidden">
 					<form:hidden path="truckingdetails[${idx.index}].id" /> 
 					<form:hidden path="truckingdetails[${idx.index}].isAdded"
@@ -58,13 +58,13 @@
 								valueType="deleted" />
 				</td>
 					<c:if test="${not empty truckingservice.docsgeneral.contseals && truckingservice.docsgeneral.typeOfContainer.id == -1 }">
-						<td style="min-width:120px;">
+						<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.contNo"/>">
 						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						 <form:input path="truckingdetails[${idx.index}].consteal.noOfCont" id="contseal${idx.index}" autofocus="true" cssClass="form-control selectOwner" disabled="true"/> 
 						 <form:hidden path="truckingdetails[${idx.index}].consteal.id"/>
 					</div></td>
 					
-					<td style="min-width:120px;"> 
+					<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.sealNo"/>"> 
 						<div class="form-group">
 							<select class="form-control selectClient"
 							 disabled="true"> 
@@ -76,20 +76,21 @@
 					</td>
 					</c:if>
 					<c:choose>
-					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 6}">
-						<td class="feeSelect"><spring:bind
+					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
+						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLineSea"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].shippingline.id">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:select path="truckingdetails[${idx.index}].shippingline.id"
 						id="shippingline${idx.index}" autofocus="true" cssClass="form-control"
-						items="${selections['shippingLines']}" /> <form:errors
+						items="${hangtaus}" /> <form:errors
 						path="truckingdetails[${idx.index}].shippingline.id"
 						cssClass="help-block" />
 					</div></td>
+					<td style="min-width:100px;" data-title="<fmt:message key="truckingservice.shipName"/>" >
 					</c:when>
 					<c:otherwise>
-						<td class="feeSelect"><spring:bind
+						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -99,10 +100,10 @@
 						path="truckingdetails[${idx.index}].nhathau.id"
 						cssClass="help-block" />
 					</div></td>
+					<td style="min-width:100px;" data-title="<fmt:message key="truckingservice.vehicleNo"/>">
 					</c:otherwise>
 				</c:choose>
 					
-				<td style="min-width:100px;">
 							<spring:bind path="truckingdetails[${idx.index}].vehicleNo">
 								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							</spring:bind> 
@@ -115,8 +116,8 @@
 							</div>
 				</td>
 				<c:choose>
-					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 6}">
-						<td>
+					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
+						<td data-title="<fmt:message key="truckingservice.transCount"/>">
 							<spring:bind path="truckingdetails[${idx.index}].noOfVehicle">
 								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							</spring:bind> 
@@ -166,14 +167,14 @@
 	<tbody>
 		<c:forEach items="${detail.exfeetables}" var="exfeetable" varStatus="idxx"> 
 			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}">
-				<td colType="index">${idxx.index+1}</td>
+				<td colType="index" data-title="<fmt:message key="table.no"/>">${idxx.index+1}</td>
 				<td colType="generalInfo" class="hidden"><form:hidden
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].id" /> <form:hidden
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].isAdded"
 						valueType="added" /> <form:hidden
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].isDeleted"
 						valueType="deleted" /></td>
-					<td><spring:bind
+					<td data-title="<fmt:message key="inland.feeName"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -183,7 +184,7 @@
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id"
 						cssClass="help-block" />
 					</div></td>
-					<td><spring:bind
+					<td data-title="<fmt:message key="inland.feevalue"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].amount">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -193,7 +194,7 @@
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].amount"
 						cssClass="help-block" />
 					</div></td>
-				<td><spring:bind
+				<td data-title="<fmt:message key="inland.feevavat"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].vat">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -203,12 +204,12 @@
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].vat"
 						cssClass="help-block" />
 					</div></td>
-				<td>
+				<td data-title="<fmt:message key="inland.total"/>">
 					<form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].total"
 						id="total${idxx.index}" maxlength="45" autofocus="true" 
 						cssClass="form-control total readonly" disabled="true" readonly="true"/>
 				</td>
-				<td rowType="actions"><span class="iconButton removeRow"
+				<td rowType="actions"><span class="iconButton removeRow" data-title="<fmt:message key="table.action"/>"
 					title="<fmt:message key='table.buttonEditTitle'/>"> <i
 						class="fa fa-trash"></i>
 				</span></td>

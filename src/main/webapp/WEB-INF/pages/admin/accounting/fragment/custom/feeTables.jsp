@@ -2,7 +2,7 @@
 <h3><fmt:message key="accountingcus.chiholist" /></h3>
 <hr>
 <table id="chihoList"
-	class="display table table-condensed feeTable" cellspacing="0"
+	class="display table table-condensed feeTable no-more-tables" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
@@ -26,13 +26,14 @@
 	<tbody>
 		<c:forEach items="${accountingcus.extendfeeaccs}" var="extendfeeacc" varStatus="idx"  >
 			<tr>
-				<td colType="index">${idx.index+1}</td>
-				<td>
+				<td colType="index" data-title="<fmt:message key="table.no" />">${idx.index+1}</td>
+				<td data-title="<fmt:message key="accountingcus.feeName" />">
 					<div class="form-group">
 				        <input value="${extendfeeacc.feeowner.name.value}" maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+				        <form:hidden path="extendfeeaccs[${idx.index}].id"/>
 				    </div>
 			    </td>
-			    <td>
+			    <td data-title="<fmt:message key="accountingcus.feeDescription" />">
 					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].description.id">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="24">
 					</spring:bind>
@@ -46,29 +47,56 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.20" />">
 					<div class="form-group">
-						<input readonly="readonly" class="form-control">
+					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].quantity20">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind>
+					<form:input
+							path="extendfeeaccs[${idx.index}].quantity20"
+							id="description${idx.index}" autofocus="true"
+							cssClass="form-control number"/> 
+								 <form:errors
+								path="extendfeeaccs[${idx.index}].quantity20"
+								cssClass="help-block" />
+					</div>
+				</td >
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.40" />">
+					<div class="form-group">
+					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].quantity40">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind>
+					<form:input
+							path="extendfeeaccs[${idx.index}].quantity40"
+							id="description${idx.index}" autofocus="true"
+							cssClass="form-control number"/> 
+								 <form:errors
+								path="extendfeeaccs[${idx.index}].quantity40"
+								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.LCL" />">
 					<div class="form-group">
-						<input readonly="readonly" class="form-control">
+					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].quantityLCL">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind>
+					<form:input
+							path="extendfeeaccs[${idx.index}].quantityLCL"
+							id="description${idx.index}" autofocus="true"
+							cssClass="form-control number"/> 
+								 <form:errors
+								path="extendfeeaccs[${idx.index}].quantityLCL"
+								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
-					<div class="form-group">
-						<input readonly="readonly" class="form-control">
-					</div>
-				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.total"/>">
 					<div class="form-group">
 				        <input value="${extendfeeacc.feeowner.amount}"  maxlength="45" autofocus="true" class="form-control money amount" readonly="true"/>
 				    </div>
 			    </td>
-			    <td>
+			    <td data-title="<fmt:message key="accountingcus.vat"/>">
 					<div class="form-group">
-						<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].feeowner.vat">
+					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].feeowner.vat">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="24">
 					</spring:bind>
 					<form:input
@@ -81,17 +109,17 @@
 					<form:hidden path="extendfeeaccs[${idx.index}].feeowner.id"/>
 					</div>
 			    </td>
-			     <td>
+			     <td data-title="<fmt:message key="accountingcus.feevat"/>">
 					<div class="form-group">
 				        <input value="${extendfeeacc.feeowner.vatFee}"  maxlength="45" autofocus="true" class="form-control money vatAmount" readonly="true"/>
 				    </div>
 			    </td>
-			     <td>
+			     <td data-title="<fmt:message key="accountingcus.feewithvat"/>">
 					<div class="form-group">
 				        <input value="${extendfeeacc.feeowner.total}"  maxlength="45" autofocus="true" class="form-control money total" disabled="true"/>
 				    </div>
 			    </td>
-			    <td>
+			    <td data-title="<fmt:message key="accountingcus.note"/>">
 					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].note">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> 
@@ -104,7 +132,7 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingcus.invoice"/>">
 					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].invoice">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> 

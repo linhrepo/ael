@@ -16,16 +16,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.NhathauType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Inland;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.InlandManager;
+import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
 @RequestMapping(URLReference.INLAND_FORM)
 public class InlandFormController extends BaseFormController {
 
+	private NhathauManager nhathauManager;
+	
+	@Autowired
+	private void setNhauthauManager(NhathauManager nhathauManager){
+		this.nhathauManager = nhathauManager;
+	}
+	
 	private InlandManager inlandManager = null;
 	 
     @Autowired
@@ -70,7 +80,7 @@ public class InlandFormController extends BaseFormController {
         		configurationManager.loadSelectionForDocsPage
         		(
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-        				ConfigurationType.DOCS_SHIPPING_LINE,
+//        				ConfigurationType.DOCS_SHIPPING_LINE,
         				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
         				ConfigurationType.DOCS_TRANS_TYPE_OF_SER,
         				ConfigurationType.DOCS_ROUTE,
@@ -79,6 +89,7 @@ public class InlandFormController extends BaseFormController {
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER_CONT
         		);
         mav.addObject("docsSelection", docsSelection);
+        mav.addObject("hangtaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.HANGTAU)));
         return mav;
     }
  

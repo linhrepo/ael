@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.NhathauType;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.OfferItem;
@@ -84,7 +85,8 @@ public class TruckingFormController extends BaseFormController {
         mav.addObject("truckingservice", truckingservice);
         //create selection
         mav.addObject("selections", configurationManager.createSelections(ConfigurationType.DOCS_SHIPPING_LINE, ConfigurationType.MASTER_FEE,ConfigurationType.FEE_NAMES));
-        mav.addObject("nhathaus", EntityUtil.fromNhathauList2Map(nhathauManager.getAll()));
+        mav.addObject("nhathaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.NHATHAU)));
+        mav.addObject("hangtaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.HANGTAU)));
         return mav;
     }
  

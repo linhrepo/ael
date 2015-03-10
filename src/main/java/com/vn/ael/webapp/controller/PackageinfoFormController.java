@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.NhathauType;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docservice;
@@ -27,13 +28,22 @@ import com.vn.ael.persistence.manager.ContsealManager;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocserviceManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
 @RequestMapping(URLReference.PACKAGEINFO_FORM+"*")
 public class PackageinfoFormController extends BaseFormController {
 
+	private NhathauManager nhathauManager;
+	
+	@Autowired
+	private void setNhauthauManager(NhathauManager nhathauManager){
+		this.nhathauManager = nhathauManager;
+	}
+	
 	private DocserviceManager docserviceManager = null;
 	 
     @Autowired
@@ -94,7 +104,7 @@ public class PackageinfoFormController extends BaseFormController {
         				ConfigurationType.DOCS_CODE_IME,
         				ConfigurationType.DOCS_TYPE_OF_TRANSPORT,
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-        				ConfigurationType.DOCS_SHIPPING_LINE,
+//        				ConfigurationType.DOCS_SHIPPING_LINE,
         				ConfigurationType.DOCS_COLOUR_APPLYING,
         				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER_CONT,
@@ -102,7 +112,9 @@ public class PackageinfoFormController extends BaseFormController {
         				ConfigurationType.MASTER_FEE,
         				ConfigurationType.FEE_NAMES
         		);
+        mav.addObject("shippings", docsSelection);
         mav.addObject("docsSelection", docsSelection);
+        mav.addObject("hangtaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.HANGTAU)));
         return mav;
     }
  

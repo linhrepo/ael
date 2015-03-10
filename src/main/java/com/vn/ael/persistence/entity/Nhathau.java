@@ -20,6 +20,8 @@ public class Nhathau extends com.vn.ael.persistence.entity.BaseEntity implements
 	private String phoneNumber;
 	
 	private String taxNo;
+	
+	private Integer type;
 
 	public Nhathau() {
 	}
@@ -61,5 +63,12 @@ public class Nhathau extends com.vn.ael.persistence.entity.BaseEntity implements
 		return this.contactName+" "+this.name+" "+this.phoneNumber;
 	}
 
-	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 }

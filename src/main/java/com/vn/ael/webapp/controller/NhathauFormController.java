@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.NhathauType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Nhathau;
@@ -62,6 +63,7 @@ public class NhathauFormController extends BaseFormController {
         	saveMessage(request, getText("nhathau.error.wrongCustomer", locale));
         }
         mav.addObject("nhathau", nhathau);
+        mav.addObject("types",NhathauType.getLabelsMap());
         return mav;
     }
  

@@ -169,7 +169,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.shippingLine"/>
-		        <form:select path="docsgeneral.shippingLine.id" id="shippingLine"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['shippingLines']}"/>
+		        <form:select path="docsgeneral.shippingLine.id" id="shippingLine"  autofocus="true" cssClass="form-control" items="${nhathaus}"/>
 		        <form:errors path="docsgeneral.shippingLine.id" cssClass="help-block"/>
 		    </div>
 		    
