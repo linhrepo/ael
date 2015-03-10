@@ -75,5 +75,12 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("conditions",new AccountingTransCondition());
         return new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST, model.asMap());
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_EXHIBITION_LIST)
+    public ModelAndView handleExhRequest() throws Exception {
+        Model model = new ExtendedModelMap();
+        model.addAttribute(docsgeneralManager.findByDoAccountingAndTypeOfDocs(true,ServicesType.EXHS));
+        return new ModelAndView(URLReference.ACCOUNTING_EXHIBITION_LIST, model.asMap());
+    }
 }
 
