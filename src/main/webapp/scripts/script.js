@@ -164,4 +164,8 @@ $(document).ready(function(){
 	}).on("blur",function(){
 		$(this).val(accounting.formatMoney($(this).val(),UTIL.NUMBER_STYLE)); 
 	});
+	
+	$(".money").each(function(){
+		$(this).html(accounting.formatMoney($(this).html(),UTIL.MONEY_STYLE)); 
+	});
 });

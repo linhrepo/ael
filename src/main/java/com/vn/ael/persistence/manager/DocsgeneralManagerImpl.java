@@ -228,7 +228,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 					for (Exfeetable exfeetable : exfeetables){
 						if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
 							//add to accounting cus
-							docsgeneral.setChiho(docsgeneral.getChiho().add(ConvertUtil.getNotNullValue(exfeetable.getAmount())));
+							docsgeneral.setChiho(docsgeneral.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
 						}
 					}
 				}

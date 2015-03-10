@@ -10,6 +10,9 @@
     <h2><fmt:message key='accountingTrans.heading'/> - ${accountingTrans.condition.month}/${accountingTrans.condition.year}</h2>
  	<form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="accountingTrans" method="post" action="transport" id="accountingTransForm" cssClass="well">
+    <form:hidden path="condition.customerId"/>
+    <form:hidden path="condition.month"/>
+    <form:hidden path="condition.year"/>
     <div class="container-fluid">
     	<jsp:include page="fragment/transport/generalInput.jsp"></jsp:include>
     	<jsp:include page="fragment/transport/transTable.jsp"></jsp:include>

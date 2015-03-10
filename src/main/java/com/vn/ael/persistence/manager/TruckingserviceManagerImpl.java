@@ -101,16 +101,35 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 				truckingdetails.add(truckingdetail);
 				truckingservice.setTruckingdetails(truckingdetails);
 				EntityUtil.updateExfeetableForNewTruckingdetail(truckingdetails);
-			}else{
-				List<Truckingdetail> truckingdetailsEmpty = new  ArrayList<>();
-				for (Truckingdetail truckingdetail: truckingservice.getTruckingdetails()){
-					truckingdetail.setExfeetables(exfeetableRepository.findByTruckingdetail(truckingdetail));
-					if (truckingdetail.getExfeetables() == null || truckingdetail.getExfeetables().isEmpty() ){
-						truckingdetailsEmpty.add(truckingdetail);
+			}
+			//check conteal again
+			if (contseals != null || !contseals.isEmpty()){
+				for (Contseal contseal: contseals){
+					boolean isSet = false;
+					for (Truckingdetail truckingdetail : truckingservice.getTruckingdetails()){
+						if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getId() == contseal.getId()){
+							isSet = true;
+							break;
+						}
+					}
+					if (!isSet){
+						//this is new consteal
+						Truckingdetail truckingdetail = new Truckingdetail();
+						truckingdetail.setConsteal(contseal);
+						truckingservice.getTruckingdetails().add(truckingdetail);
 					}
 				}
-				EntityUtil.updateExfeetableForNewTruckingdetail(truckingdetailsEmpty,true);
 			}
+			
+			//wire fees
+			List<Truckingdetail> truckingdetailsEmpty = new  ArrayList<>();
+			for (Truckingdetail truckingdetail: truckingservice.getTruckingdetails()){
+				truckingdetail.setExfeetables(exfeetableRepository.findByTruckingdetail(truckingdetail));
+				if (truckingdetail.getExfeetables() == null || truckingdetail.getExfeetables().isEmpty() ){
+					truckingdetailsEmpty.add(truckingdetail);
+				}
+			}
+			EntityUtil.updateExfeetableForNewTruckingdetail(truckingdetailsEmpty,true);
 		}
 		
 	}

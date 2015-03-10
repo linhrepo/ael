@@ -1,5 +1,6 @@
 package com.vn.ael.webapp.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.data.domain.Sort;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Contseal;
@@ -213,5 +215,15 @@ public class EntityUtil {
 			}
 		}
 		return nhathauMap;
+	}
+	
+	/**
+	 * Calculate total by amount and vat
+	 * @param amount
+	 * @param vat
+	 * @return
+	 */
+	public static BigDecimal calTotalWithVat(BigDecimal amount, BigDecimal vat){
+		return ConvertUtil.getNotNullValue(amount).add(ConvertUtil.getNotNullValue(amount).multiply(ConvertUtil.getNotNullValue(vat).divide(new BigDecimal(AELConst.VAT_PERCENT))));
 	}
 }

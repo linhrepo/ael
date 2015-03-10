@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <hr>
 <table id="detailsList"
-	class="display table table-condensed" cellspacing="0"
+	class="display table table-condensed no-more-tables feeTable" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
@@ -31,108 +31,116 @@
 	<tbody>
 		<c:forEach items="${accountingTrans.docs}" var="doc" varStatus="idx">
 			<tr>
-				<td colType="index">${idx.index+1}</td>
+				<td colType="index" data-title="<fmt:message key="table.no" />">${idx.index+1}</td>
 				<td class="hidden">
 					<form:hidden path="docs[${idx.index}].id"/>
 					<form:hidden path="docs[${idx.index}].inland.id"/>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.jobNo" />">
 					<div class="form-group">
-				        <input value="${doc.jobNo}"  maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+				        ${doc.jobNo}
 				    </div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.dateDev" />">
 					<div class="form-group">
-				        <input value="${doc.inland.dateDevPack}" data-provide="datepicker" maxlength="45" autofocus="true" class="form-control"/>
+					<fmt:formatDate value="${doc.inland.dateDevPack}" pattern="dd/MM/yyyy"/>
 				    </div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.khonhan" />">
 					<div class="form-group">
-				        <input value="${doc.placeRev}"  maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+				        ${doc.placeRev}
+				        <hr>
 				        <c:if test="${not empty doc.placeRev1}">
-				        	<input value="${doc.placeRev1}"  maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+				        	${doc.placeRev1}
 				        </c:if>
 				    </div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.khogiao" />">
 					<div class="form-group">
-				        <input value="${doc.placeDelivery}"  maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+				        ${doc.placeDelivery}
+				        <hr>
 				        <c:if test="${not empty doc.placeDelivery1}">
-				        	<input value="${doc.placeDelivery1}"  maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+				        	${doc.placeDelivery1}
 				        </c:if>
 				    </div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
 					<div class="form-group">
-						<form:input path="docs[${idx.index}].noOf20Cont" readonly="true" autofocus="true" cssClass="form-control"/>
+						${doc.noOf20Cont}
 					</div>
+					<form:hidden path="docs[${idx.index}].noOf20Cont"/>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.40"/>">
 					<div class="form-group">
-						<form:input path="docs[${idx.index}].noOf40Cont" readonly="true" autofocus="true" cssClass="form-control"/>
+						${doc.noOf40Cont}
 					</div>
+					<form:hidden path="docs[${idx.index}].noOf40Cont"/>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.LCL"/>">
 					<div class="form-group">
-						<input readonly="readonly" class="form-control" value="${doc.isLCL ? 'x' : ''}">
+						${doc.isLCL ? 'x' : ''}
 					</div>
 					<form:hidden path="docs[${idx.index}].isLCL"/>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.vehicleNo"/>">
 					<div class="form-group">
 						<c:forEach items="${doc.truckingservice.truckingdetails}" var="trucking">
-							<input value="${trucking.vehicleNo}" maxlength="45" autofocus="true" class="form-control" readonly="readonly"/>
+							${trucking.vehicleNo}
+							<hr>
 						</c:forEach>
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.contNo"/>">
 					<div class="form-group">
 						<c:forEach items="${doc.truckingservice.truckingdetails}" var="trucking">
-							<input value="${trucking.consteal.noOfCont}" maxlength="45" autofocus="true" class="form-control" readonly="readonly"/>
+							${trucking.consteal.noOfCont}
+							<hr>
 						</c:forEach>
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.volumn"/>">
 					<div class="form-group">
-						<input value="${doc.cmbText}" maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+						${doc.cmbText}
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.kg"/>">
 					<div class="form-group">
-						<input value="${doc.weigthText}" maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+						${doc.weigthText}
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						<input value="${doc.placeEmptyUp}" maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+						${doc.placeEmptyUp}
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						<input value="${doc.placeEmptyDown}" maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+						${doc.placeEmptyDown}
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.chiho"/>">
+					<div class="form-group money">
+						${doc.chiho}
+					</div>
+					<form:hidden path="docs[${idx.index}].chiho"/>
+				</td>
+				<td data-title="<fmt:message key="accountingtrans.price"/>">
 					<div class="form-group">
-						<form:input  path="docs[${idx.index}].chiho" maxlength="45" autofocus="true" cssClass="form-control" readonly="true"/>
+						<form:input path="docs[${idx.index}].inland.accountingPrice"  maxlength="45" autofocus="true" cssClass="form-control money amount" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.otherfee"/>">
 					<div class="form-group">
-						<input maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+						<form:input path="docs[${idx.index}].inland.otherFees"  maxlength="45" autofocus="true" cssClass="form-control money amount" />
 					</div>
 				</td>
-				<td>
+				<td data-title="<fmt:message key="accountingtrans.total"/>">
 					<div class="form-group">
-						<input maxlength="45" autofocus="true" class="form-control" readonly="true"/>
-					</div>
-				</td>
-				<td>
-					<div class="form-group">
-						<input maxlength="45" autofocus="true" class="form-control" readonly="true"/>
+						<input maxlength="45" autofocus="true" class="form-control total" readonly="true"/>
 					</div>
 				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
+<script type="text/javascript" src="<c:url value='/scripts/custom/feeTables.js'></c:url>"></script>

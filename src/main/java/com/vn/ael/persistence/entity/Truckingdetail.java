@@ -32,10 +32,6 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	private Integer noOfVehicle;
 
-	@ManyToOne
-	@JoinColumn(name = "shippingline")
-	private Configuration shippingline;
-
 	private String vehicleNo;
 	
 	//bi-directional many-to-one association to Truckingservice
@@ -67,14 +63,6 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setNoOfVehicle(Integer noOfVehicle) {
 		this.noOfVehicle = noOfVehicle;
-	}
-
-	public Configuration getShippingline() {
-		return this.shippingline;
-	}
-
-	public void setShippingline(Configuration shippingline) {
-		this.shippingline = shippingline;
 	}
 
 	public String getVehicleNo() {

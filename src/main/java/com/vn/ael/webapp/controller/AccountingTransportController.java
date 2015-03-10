@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,14 +13,13 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
-import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.service.AccountingTransService;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 
@@ -39,6 +39,12 @@ public class AccountingTransportController extends BaseFormController {
     @Autowired
     public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
         this.docsgeneralManager = docsgeneralManager;
+    }
+    
+    private AccountingTransService accountingTransService;
+    @Autowired
+    public void setAccountingTransService(final AccountingTransService accountingTransService) {
+        this.accountingTransService = accountingTransService;
     }
     
     public AccountingTransportController() {
@@ -85,38 +91,32 @@ public class AccountingTransportController extends BaseFormController {
     }
  
     @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(Accountingcus accountingcus, BindingResult errors, HttpServletRequest request,
+    public String onSubmit(AccountingTrans accountingTrans, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {
-//        if (request.getParameter("cancel") != null) {
-//            return getCancelView();
-//        }
-// 
-//        if (validator != null) { // validator is null during testing
-//            validator.validate(accountingcus, errors);
-// 
-//            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-//                return URLReference.ACCOUNTING_CUSTOM;
-//            }
-//        }
-// 
-//        log.debug("entering 'onSubmit' method...");
-// 
-//        boolean isNew = (accountingcus.getId() == null);
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+ 
+        if (validator != null) { // validator is null during testing
+            validator.validate(accountingTrans, errors);
+ 
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return URLReference.ACCOUNTING_TRANSPORT;
+            }
+        }
+ 
+        log.debug("entering 'onSubmit' method...");
+ 
         String success = getSuccessView();
-//        Locale locale = request.getLocale();
-// 
-//        if (request.getParameter("delete") != null) {
-//        	success = "redirect:"+URLReference.ACCOUNTING_CUSTOM;
-//            accountingcusManager.remove(accountingcus.getId());
-//            saveMessage(request, getText("accountingcus.deleted", locale));
-//        } else {
-//        	getEntityService().checkUpdateInfo(accountingcus, isNew, request);
-//        	accountingcusManager.saveWholePackage(accountingcus);
-//            String key = (isNew) ? "accountingcus.added" : "accountingcus.updated";
-//            saveMessage(request, getText(key, locale));
-//            success = "redirect:"+URLReference.ACCOUNTING_CUSTOM+"?docId=" + accountingcus.getDocsgeneral().getId();
-//        }
+        Locale locale = request.getLocale();
+ 
+        accountingTransService.saveWholePackage(accountingTrans);
+        String key = "accountingcus.updated";
+        saveMessage(request, getText(key, locale));
+        success = "redirect:"+URLReference.ACCOUNTING_TRANSPORT+"?customerId=" + accountingTrans.getCondition().getCustomerId()+
+        		"&month="+ accountingTrans.getCondition().getMonth()+
+        		"&year="+accountingTrans.getCondition().getYear();
  
         return success;
     }

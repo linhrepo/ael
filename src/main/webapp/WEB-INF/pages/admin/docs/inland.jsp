@@ -20,6 +20,8 @@
     <form:hidden path="createdDate"/>
     <form:hidden path="counting"/>
     <form:hidden path="docsgeneral.id"/>
+    <form:hidden path="accountingPrice"/>
+    <form:hidden path="otherFees"/>
     <form:hidden path="isInland"/>
     <div class="container-fluid">
 	    <c:if test ="${inland.isInland == null || inland.isInland}">

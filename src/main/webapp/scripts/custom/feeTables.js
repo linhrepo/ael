@@ -6,8 +6,12 @@ var FEE_TABLE_CONTROL ={
 	 * Calculate total value for a specific row
 	 */	
 	calculate_total:	function(tr){
-			var amount = parseFloat(accounting.unformat($(tr).find("input.amount").val())),
-			vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),
+			var amount = 0;
+			$(tr).find("input.amount").each(function(){
+				amount+=parseFloat(accounting.unformat($(this).val()));
+			});
+			
+			var vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),
 			vatAmount = amount*vat/100,
 			total = vatAmount+amount;
 			$(tr).find("input.vatAmount").val(accounting.formatMoney(vatAmount,UTIL.MONEY_STYLE));

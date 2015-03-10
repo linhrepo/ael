@@ -24,7 +24,7 @@
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
         </button>
-        <c:if test="${not empty truckingservice.id}">
+        <c:if test="${not empty truckingservice.id and !truckingservice.docsgeneral.doAccounting}">
           <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
               <i class="icon-trash"></i> <fmt:message key="button.delete"/>
           </button>

@@ -78,13 +78,13 @@
 					<c:choose>
 					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
 						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLineSea"/>"><spring:bind
-						path="truckingservice.truckingdetails[${idx.index}].shippingline.id">
+						path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					</spring:bind> <form:select path="truckingdetails[${idx.index}].shippingline.id"
+					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
 						id="shippingline${idx.index}" autofocus="true" cssClass="form-control"
 						items="${hangtaus}" /> <form:errors
-						path="truckingdetails[${idx.index}].shippingline.id"
+						path="truckingdetails[${idx.index}].nhathau.id"
 						cssClass="help-block" />
 					</div></td>
 					<td style="min-width:100px;" data-title="<fmt:message key="truckingservice.shipName"/>" >
