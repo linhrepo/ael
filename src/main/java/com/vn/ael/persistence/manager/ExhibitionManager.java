@@ -23,4 +23,17 @@ public interface ExhibitionManager extends GenericManager<Exhibition> {
 	 */
 	void saveWholeExh(Exhibition exhibition);
 
+	/**
+	 * Load information for report
+	 * @param id
+	 * @return
+	 */
+	Exhibition findReportObjects(String id);
+
+	/**
+	 * Update values for exhibition report
+	 * @param exhibition
+	 */
+	void saveWholeExhReport(Exhibition exhibition);
+
 }

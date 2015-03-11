@@ -122,35 +122,6 @@ public class ExhibitionFormController extends BaseFormController {
  
         return success;
     }
-    
-//    @RequestMapping(method = RequestMethod.POST, value= URLReference.INLAND_SIZES_FORM)
-//    @ResponseBody
-//    public JsonResponse submitInlandSizes(@RequestBody Inlandsize inlandsize, BindingResult errors, HttpServletRequest request,
-//                           HttpServletResponse response)
-//    throws Exception {
-//        Locale locale = request.getLocale();
-//        if (validator != null) { // validator is null during testing
-//            validator.validate(inlandsize, errors);
-// 
-//            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-//                return JsonResponse.getErrorMessage(getText("inlandSize.updateFail", locale));
-//            }
-//        }
-// 
-//        log.debug("entering 'onSubmit' method...");
-// 
-//        boolean isNew = (inlandsize.getId() == null);
-// 
-//        if (request.getParameter("delete") != null) {
-//            inlandsizeManager.remove(inlandsize);
-//            return JsonResponse.getSuccessMessage(getText("inland.deleted", locale));
-//        } else {
-////        	getEntityService().checkUpdateInfo(inlandsize, isNew, request);
-//        	inlandsizeManager.save(inlandsize);
-//            String key = (isNew) ? "inland.added" : "inland.updated";
-//            return JsonResponse.getSuccessMessage(getText(key, locale));
-//        }
-//    }
 
 }
 

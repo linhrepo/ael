@@ -61,6 +61,19 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 	private String tkhqNo;
 	
 	private Integer counting;
+	
+	@OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL)
+	private List<Exfeetable> exfeetables;
+	
+	@ManyToOne
+	@JoinColumn(name="mode")
+	private Configuration mode;
+	
+	private String invoiceNo;
+	
+	private String accountNo;
+	
+	private String attn;
 
 	public Exhibition(){
 		this.docsgeneral = new Docsgeneral();
@@ -297,6 +310,44 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 
 	public void setAlbwNo(String albwNo) {
 		this.albwNo = albwNo;
+	}
+	
+	public List<Exfeetable> getExfeetables() {
+		return exfeetables;
+	}
+	
+	public void setExfeetables(List<Exfeetable> exfeetables) {
+		this.exfeetables = exfeetables;
+	}
+	
+	public Configuration getMode() {
+		return mode;
+	}
+	
+	public void setMode(Configuration mode) {
+		this.mode = mode;
+	}
+	
+	public String getInvoiceNo() {
+		return invoiceNo;
+	}
+	
+	public void setInvoiceNo(String invoiceNo) {
+		this.invoiceNo = invoiceNo;
+	}
+	
+	public String getAccountNo() {
+		return accountNo;
+	}
+	
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+	public String getAttn() {
+		return attn;
+	}
+	public void setAttn(String attn) {
+		this.attn = attn;
 	}
 
 }

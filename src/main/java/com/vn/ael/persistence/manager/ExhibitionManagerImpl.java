@@ -3,25 +3,22 @@
  */
 package com.vn.ael.persistence.manager;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.AELConst;
-import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
-import com.vn.ael.persistence.entity.Configuration;
-import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
-import com.vn.ael.persistence.repository.ConfigurationRepository;
 import com.vn.ael.persistence.repository.CustomerRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
+import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.ExhibitionRepository;
 import com.vn.ael.persistence.repository.UserRepository;
-import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -42,6 +39,9 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
     
     @Autowired
     private DocsgeneralRepository docsgeneralRepository;
+    
+    @Autowired
+    private ExfeetableRepository exfeetableRepository;
 
     @Autowired
     public ExhibitionManagerImpl(final ExhibitionRepository exhibitionRepository) {
@@ -98,6 +98,53 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 			exhibition.getDocsgeneral().setJobNo(jobNo);
 		}
 
+	}
+
+	@Override
+	public Exhibition findReportObjects(String id) {
+		Exhibition exhibition = this.exhibitionRepository.findOne(new Long(id));
+		List<Exfeetable> exfeetables;
+		if (exhibition != null){
+			exfeetables = this.exfeetableRepository.findByExhibition(exhibition);
+		}else{
+			exhibition = new Exhibition();
+			exfeetables = null;
+		}
+		
+		if (exfeetables == null || exfeetables.isEmpty()){
+			exfeetables = new ArrayList<>();
+			Exfeetable exfeetable = new Exfeetable();
+			exfeetable.setIsAdded(true);
+			exfeetables.add(exfeetable);
+		}
+		exhibition.setExfeetables(exfeetables);
+		return exhibition;
+	}
+
+	@Override
+	public void saveWholeExhReport(Exhibition exhibition) {
+		Exhibition loadExhibition = this.exhibitionRepository.findOne(exhibition.getId());
+		loadExhibition.setAttn(exhibition.getAttn());
+		loadExhibition.setInvoiceNo(exhibition.getInvoiceNo());
+		loadExhibition.setAccountNo(exhibition.getAccountNo());
+		loadExhibition.setMode(exhibition.getMode());
+		
+		if (exhibition.getExfeetables() != null && !exhibition.getExfeetables().isEmpty()){
+			//check to add or delete
+			List<Exfeetable> exfeetables = new ArrayList<>();
+			for (Exfeetable exfeetable : exhibition.getExfeetables()){
+				if (exfeetable.getIsAdded() == null || !exfeetable.getIsAdded()){
+					if (exfeetable.getIsDeleted() != null && exfeetable.getIsDeleted() == true){
+						this.exfeetableRepository.delete(exfeetable);
+					}else{
+						exfeetable.setExhibition(loadExhibition);
+						exfeetables.add(exfeetable);
+					}
+				}
+			}
+			loadExhibition.setExfeetables(exfeetables);
+		}
+		this.exhibitionRepository.save(loadExhibition);
 	}
 
 }

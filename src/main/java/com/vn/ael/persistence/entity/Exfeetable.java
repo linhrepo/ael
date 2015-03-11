@@ -50,6 +50,10 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	
 	@OneToOne(mappedBy = "feeowner")
 	private Extendfeeacc extendfeeacc;
+	
+	@ManyToOne
+	@JoinColumn(name= "exhibition")
+	private Exhibition exhibition;
 
 	public Exfeetable() {
 	}
@@ -132,6 +136,13 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	public void setTruckingdetail(Truckingdetail truckingdetail) {
 		this.truckingdetail = truckingdetail;
 	}
-	
+
+	public Exhibition getExhibition() {
+		return exhibition;
+	}
+
+	public void setExhibition(Exhibition exhibition) {
+		this.exhibition = exhibition;
+	}
 	
 }
