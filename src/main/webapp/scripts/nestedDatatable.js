@@ -92,6 +92,7 @@
 	                         "searching": false
 	                    });
 	                    that.iTableCounter = that.iTableCounter + 1;
+	                    $(nTr).trigger("afterOpenChild",oInnerTable);
 	                }
 	            });
 	    };
@@ -171,6 +172,10 @@
 	    	//check type
 	    	if (value && type == "[Date]"){
 	    		value =(new Date(value)).toLocaleDateString("vn");
+	    	}
+	    	
+	    	if (value && type == "[Key]"){
+	    		value = showMessage(value);
 	    	}
 	    	if (!value){
 	    		value = "";

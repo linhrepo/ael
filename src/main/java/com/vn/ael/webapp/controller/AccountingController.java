@@ -1,5 +1,6 @@
 package com.vn.ael.webapp.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,17 +13,18 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ServicesType;
-import com.vn.ael.persistence.entity.OfferPrice;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.OfferItemManager;
-import com.vn.ael.persistence.manager.OfferPriceManager;
-import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 
 @Controller
@@ -31,6 +33,13 @@ public class AccountingController extends BaseFormController {
 	private CustomerManager customerManager;
 	
 	private OfferItemManager offerItemManager;
+	
+	private ExfeetableManager exfeetableManager;
+	
+	@Autowired
+	public void setExfeetableManager(ExfeetableManager exfeetableManager){
+		this.exfeetableManager = exfeetableManager;
+	}
 	
 	@Autowired
 	public void setCustomerManager(CustomerManager customerManager){
@@ -81,6 +90,35 @@ public class AccountingController extends BaseFormController {
         Model model = new ExtendedModelMap();
         model.addAttribute(docsgeneralManager.findByDoAccountingAndTypeOfDocs(true,ServicesType.EXHS));
         return new ModelAndView(URLReference.ACCOUNTING_EXHIBITION_LIST, model.asMap());
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_FEE_LIST)
+    public ModelAndView handleFeeRequest() throws Exception {
+        Model model = new ExtendedModelMap();
+        model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+        return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST, model.asMap());
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_LIST_DETAIL)
+    public @ResponseBody List<Exfeetable> handleFeeDetailRequest(@RequestParam(value="docId") Long id) throws Exception {
+    	return this.exfeetableManager.findByDocsgeneral(id);
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL)
+    public @ResponseBody String approvalFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    	Exfeetable exfee = this.exfeetableManager.get(id);
+    	if (exfee == null){
+    		return AELConst.AJAX_ERROR;
+    	}
+    	if (exfee.getApproved() == null || !exfee.getApproved()){
+    		exfee.setApproved(true);
+    		exfee.setDateChange(Calendar.getInstance().getTime());
+    	}
+    	else{
+    		exfee.setApproved(false);
+    	}
+    	this.exfeetableManager.save(exfee);
+    	return AELConst.AJAX_SUCCESS;
     }
 }
 

@@ -46,5 +46,10 @@ public interface URLReference {
 	String ACCOUNTING_TRANSPORT = "/admin/accounting/transport";
 	String ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition";
 	
+	String ACCOUNTING_FEE_LIST = "/admin/accounting/feeTables";
+	String ACCOUNTING_FEE_LIST_DETAIL = "/admin/accounting/feesDetail";
+	
+	String ACCOUNTING_FEE_CHANGE_APPROVAL = "/admin/accounting/changeApproval";
+	
 	String AJAX_ADD_CONSTANT = "/admin/accounting/addOptions";
 }

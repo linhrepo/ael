@@ -2,6 +2,7 @@ package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.vn.ael.constants.AELConst;
@@ -36,10 +38,12 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	private BigDecimal vat;
 
 	//bi-directional many-to-one association to Exhibition
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="docsgeneral")
 	private Docsgeneral docsgeneral;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="truckingdetail")
 	private Truckingdetail truckingdetail;
@@ -48,12 +52,18 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	@JoinColumn(name="masterFee")
 	private Configuration masterFee;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "feeowner")
 	private Extendfeeacc extendfeeacc;
 	
+	private Boolean approved;
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "exhibition")
 	private Exhibition exhibition;
+	
+	private Date dateChange;
 
 	public Exfeetable() {
 	}
@@ -143,6 +153,30 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	public void setExhibition(Exhibition exhibition) {
 		this.exhibition = exhibition;
+	}
+
+	public Boolean getApproved() {
+		return approved;
+	}
+
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
+	}
+	
+	@Transient
+	public String getApprovedText(){
+		if (this.approved == null || ! this.approved){
+			return AELConst.ACC_FEE_ISNOT_APPROVED;
+		}
+		return AELConst.ACC_FEE_IS_APPROVED;
+	}
+
+	public Date getDateChange() {
+		return dateChange;
+	}
+
+	public void setDateChange(Date dateChange) {
+		this.dateChange = dateChange;
 	}
 	
 }

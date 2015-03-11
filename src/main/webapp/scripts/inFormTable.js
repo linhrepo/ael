@@ -118,6 +118,9 @@
     					name = name.substring(0,startIndex+1)+(newIndex)+name.substring(endIndex);
     					input.attr("name",name);
     					input.attr("id",id);
+    					if (!$(input).hasClass("readonly")){
+    						$(input).attr("readonly",false);
+    					}
     				}
     			//empty this row value if necessary
     			if (isEmptyValue == true)

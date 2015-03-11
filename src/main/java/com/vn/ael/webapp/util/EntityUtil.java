@@ -61,7 +61,7 @@ public class EntityUtil {
 		List<Exfeetable> exfeetables = new ArrayList<>();
 		if (docsgeneral.getExfeetables() != null && !docsgeneral.getExfeetables().isEmpty()){
 			for (Exfeetable exfeetable: docsgeneral.getExfeetables()){
-				if (exfeetable.getIsAdded() == null || !exfeetable.getIsAdded()){
+				if ((exfeetable.getIsAdded() == null || !exfeetable.getIsAdded()) &&( exfeetable.getApproved() == null || !exfeetable.getApproved())){
 					exfeetable.setDocsgeneral(docsgeneral);
 					exfeetables.add(exfeetable);
 				}

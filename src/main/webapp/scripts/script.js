@@ -168,4 +168,13 @@ $(document).ready(function(){
 	$(".money").each(function(){
 		$(this).html(accounting.formatMoney($(this).html(),UTIL.MONEY_STYLE)); 
 	});
+	
+	$("tr[readonly='readonly']").each(function(){
+		var newRowInputs = $(this).find("input");
+		newRowInputs = newRowInputs.add($(this).find("select"));
+		for (var i=0 ; i<newRowInputs.length;++i){
+			if ($(newRowInputs[i]).attr("valueType") != "deleted")
+			$(newRowInputs[i]).attr("readonly",true);
+		}
+	});
 });

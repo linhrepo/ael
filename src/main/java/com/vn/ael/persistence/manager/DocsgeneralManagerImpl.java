@@ -107,7 +107,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		if (docsgeneral.getExfeetables() != null){
 			List<Exfeetable> exfeetables = new ArrayList<>();
 			for (Exfeetable exfeetable: docsgeneral.getExfeetables()){
-				if (exfeetable.getIsDeleted() != null && exfeetable.getIsDeleted() == true){
+				if (exfeetable.getIsDeleted() != null && exfeetable.getIsDeleted() == true && (exfeetable.getApproved() == null || !exfeetable.getApproved())){
 					exfeetableRepository.delete(exfeetable);
 				}else{
 					exfeetables.add(exfeetable);

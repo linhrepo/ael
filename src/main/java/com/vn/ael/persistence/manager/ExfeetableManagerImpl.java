@@ -22,6 +22,7 @@ import com.vn.ael.persistence.repository.DocsgeneralRepository;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.ExhibitionRepository;
 import com.vn.ael.webapp.util.ConvertUtil;
+import com.vn.ael.webapp.util.EntityUtil;
 
 /**
  * @author liv1hc
@@ -31,6 +32,9 @@ import com.vn.ael.webapp.util.ConvertUtil;
 @Service
 public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implements ExfeetableManager{
 
+	@Autowired
+	private DocsgeneralRepository docsgeneralRepository;
+	
     private ExfeetableRepository exfeetableRepository;
 
     @Autowired
@@ -54,6 +58,17 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 			}
 			exfeetableRepository.save(exfeetables);
 		}
+	}
+
+	@Override
+	public List<Exfeetable> findByDocsgeneral(Docsgeneral docsgeneral) {
+		return this.exfeetableRepository.findByDocsgeneral(docsgeneral, EntityUtil.EXFEETABLE_DEFAULT_SORTING);
+	}
+
+	@Override
+	public List<Exfeetable> findByDocsgeneral(Long id) {
+		Docsgeneral docsgeneral = this.docsgeneralRepository.findOne(id);
+		return this.findByDocsgeneral(docsgeneral);
 	}
 
 }

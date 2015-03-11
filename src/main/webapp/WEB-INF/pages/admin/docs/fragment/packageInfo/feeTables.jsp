@@ -36,14 +36,21 @@
 	<tbody>
 		<c:forEach items="${packageInfo.docsgeneral.exfeetables}"
 			var="exfeetable" varStatus="idx">
-			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}">
+			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}" readonly="${empty exfeetable.approved or exfeetable.approved == false ? '':'readonly'}">
 				<td colType="index">${idx.index+1}</td>
 				<td colType="generalInfo" class="hidden"><form:hidden
 						path="docsgeneral.exfeetables[${idx.index}].id" /> <form:hidden
 						path="docsgeneral.exfeetables[${idx.index}].isAdded"
 						valueType="added" /> <form:hidden
 						path="docsgeneral.exfeetables[${idx.index}].isDeleted"
-						valueType="deleted" /></td>
+						valueType="deleted" />
+						 <form:hidden
+						path="docsgeneral.exfeetables[${idx.index}].approved"
+						/>
+						<form:hidden
+						path="docsgeneral.exfeetables[${idx.index}].dateChange"
+						/>
+				</td>
 				<td><spring:bind
 						path="packageInfo.docsgeneral.exfeetables[${idx.index}].masterFee.id">
 						<div
@@ -91,10 +98,16 @@
 						id="total${idx.index}" maxlength="45" autofocus="true" 
 						cssClass="form-control money total readonly" disabled="true" readonly="true"/>
 				</td>
-				<td rowType="actions"><span class="iconButton removeRow"
-					title="<fmt:message key='table.buttonEditTitle'/>"> <i
-						class="fa fa-trash"></i>
-				</span></td>
+				
+					<td rowType="actions">
+					<c:if test="${ empty exfeetable.approved or exfeetable.approved == false }">
+						<span class="iconButton removeRow"
+							title="<fmt:message key='table.buttonEditTitle'/>"> <i
+								class="fa fa-trash"></i>
+						</span>
+					</c:if>
+					</td>
+				
 			</tr>
 		</c:forEach>
 	</tbody>
