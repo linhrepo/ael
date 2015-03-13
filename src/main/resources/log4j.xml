@@ -20,7 +20,7 @@
     </logger>
 
     <logger name="org.apache">
-        <level value="WARN"/>
+        <level value="ERROR"/>
     </logger>
 
     <logger name="org.apache.velocity">
@@ -62,15 +62,15 @@
     </logger>
 
     <logger name="org.appfuse">
-        <level value="DEBUG"/>
+        <level value="ERROR"/>
     </logger>
 
     <logger name="org.appfuse.tool">
-        <level value="INFO"/>
+        <level value="ERROR"/>
     </logger>
 
     <root>
-        <level value="DEBUG"/>
+        <level value="ERROR"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 

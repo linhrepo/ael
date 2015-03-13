@@ -43,6 +43,8 @@ public class OfferPrice extends BasedEntityTracking implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy="offerPrice", cascade = CascadeType.ALL)
 	private List<OfferItem> offerItems;
+	
+	private Boolean isValid;
 		
 	public OfferPrice() {
 	}
@@ -84,5 +86,12 @@ public class OfferPrice extends BasedEntityTracking implements Serializable {
 		return this.typeOfService != null ? this.typeOfService.getTextKey() : "";
 	}
 
-	
+	public Boolean getIsValid() {
+		return isValid;
+	}
+
+	public void setIsValid(Boolean isValid) {
+		this.isValid = isValid;
+	}
+
 }

@@ -40,15 +40,6 @@ CREATE TABLE `accountingcus` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `accountingcus`
---
-
-LOCK TABLES `accountingcus` WRITE;
-/*!40000 ALTER TABLE `accountingcus` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accountingcus` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `accountingcusdetail`
 --
 
@@ -76,15 +67,6 @@ CREATE TABLE `accountingcusdetail` (
   CONSTRAINT `toDescCon` FOREIGN KEY (`description`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `accountingcusdetail`
---
-
-LOCK TABLES `accountingcusdetail` WRITE;
-/*!40000 ALTER TABLE `accountingcusdetail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `accountingcusdetail` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `app_user`
@@ -120,16 +102,6 @@ CREATE TABLE `app_user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `app_user`
---
-
-LOCK TABLES `app_user` WRITE;
-/*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-INSERT INTO `app_user` VALUES (-3,'\0','\0','','Denver','US','80210','CO','\0','two_roles_user@appfuse.org','','Two Roles','User','$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO','Not a female kitty.','','two_roles_user',1,'http://raibledesigns.com'),(-2,'\0','\0','','Denver','US','80210','CO','\0','matt@raibledesigns.com','','Matt','Raible','$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO','Not a female kitty.','','admin',1,'http://raibledesigns.com'),(-1,'\0','\0','','Denver','US','80210','CO','\0','matt_raible@yahoo.com','','Tomcat','User','$2a$10$CnQVJ9bsWBjMpeSKrrdDEeuIptZxXrwtI6CZ/OgtNxhIgpKxXeT9y','A male kitty.','','user',1,'http://tomcat.apache.org'),(2,'\0','\0','','','','','','\0','tlinh211110@yahoo.com','','linh','vo','$2a$10$pGFCNkhsmBPopOflv128TuXzFmiNu/ZLbIlVTR78w7qB/tBIn2Ai6','liv1hc','09090909','liv1hc',4,'adsdsad'),(4,'\0','\0','','','','','','\0','tlinh21110@yahoo.com','','Linh','Vo','$2a$10$pGFCNkhsmBPopOflv128TuXzFmiNu/ZLbIlVTR78w7qB/tBIn2Ai6','from 1 to 9','0912344545','saleman',2,''),(5,'\0','\0','','','','','','\0','tlinh2110@yahoo.com','','linh ','vo','$2a$10$3.sRzOGZargn5.syZC5Tdex.uarsilLNAAxlkvPMF0G1Da6rS/XFy','liv1hc','','linh',0,'');
-/*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `configuration`
 --
 
@@ -146,16 +118,6 @@ CREATE TABLE `configuration` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=269 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `configuration`
---
-
-LOCK TABLES `configuration` WRITE;
-/*!40000 ALTER TABLE `configuration` DISABLE KEYS */;
-INSERT INTO `configuration` VALUES (-10,'Chi phí chi hộ',20,'Thông tin customs service',0,'{1}'),(-2,'LCL',7,NULL,0,NULL),(-1,'FCL',7,NULL,0,NULL),(60,'Công ty nước ngoài',4,'Thông tin customer',1,NULL),(61,'Công ty Việt Nam',4,'Thông tin customer',1,NULL),(62,'Công ty đầu tư nước ngoài',4,'Thông tin customer',1,NULL),(63,'Công ty liên doanh',4,'Thông tin customer',1,NULL),(64,'Doanh nghiệp chế xuất',4,'Thông tin customer',1,NULL),(65,'Văn phòng đại diện',4,'Thông tin customer',1,NULL),(66,'Vietnam',5,'Thông tin customer',1,NULL),(67,'Thailand',5,'Thông tin customer',1,NULL),(68,'Singapore',5,'Thông tin customer',1,NULL),(69,'Campodia',5,'Thông tin customer',1,NULL),(70,'Malaysia',5,'Thông tin customer',1,NULL),(71,'Indonesia',5,'Thông tin customer',1,NULL),(72,'Philippine',5,'Thông tin customer',1,NULL),(73,'Myanmar',5,'Thông tin customer',1,NULL),(74,'China',5,'Thông tin customer',1,NULL),(75,'Korea',5,'Thông tin customer',1,NULL),(76,'Japan',5,'Thông tin customer',1,NULL),(77,'Taiwan',5,'Thông tin customer',1,NULL),(78,'Hongkong',5,'Thông tin customer',1,NULL),(79,'Germany',5,'Thông tin customer',1,NULL),(80,'Denmark',5,'Thông tin customer',1,NULL),(81,'France',5,'Thông tin customer',1,NULL),(82,'England',5,'Thông tin customer',1,NULL),(83,'Nertherland',5,'Thông tin customer',1,NULL),(84,'Australia',5,'Thông tin customer',1,NULL),(85,'USA',5,'Thông tin customer',1,NULL),(86,'Dịch vụ hải quan',0,'Thông tin báo giá',1,NULL),(87,'Dịch vụ vận chuyển',0,'Thông tin báo giá',1,NULL),(88,'Dịch vụ hải quan và vận chuyển',0,'Thông tin báo giá',1,NULL),(89,'Dịch vụ triển lãm',0,'Thông tin báo giá',1,NULL),(90,'Dịch vụ đóng gói, lắp đặt',0,'Thông tin báo giá',1,NULL),(91,'VND',1,'Thông tin báo giá',1,NULL),(92,'USD',1,'Thông tin báo giá',1,NULL),(93,'SGD',1,'Thông tin báo giá',1,NULL),(94,'AUD',1,'Thông tin báo giá',1,NULL),(96,'Xuất kinh doanh',11,'Thông tin customs service',1,NULL),(97,'Xuất phi mậu dịch',11,'Thông tin customs service',1,NULL),(98,'Tạm xuất tái nhập',11,'Thông tin customs service',1,NULL),(99,'Nhập SXXK',11,'Thông tin customs service',1,NULL),(100,'Tái xuất',11,'Thông tin customs service',1,NULL),(101,'Xuất SXXK',11,'Thông tin customs service',1,NULL),(102,'Nhập kinh doanh',11,'Thông tin customs service',1,NULL),(103,'Nhập phi mậu dịch',11,'Thông tin customs service',1,NULL),(104,'Tạm nhập tái xuất',11,'Thông tin customs service',1,NULL),(105,'Đường không',6,'Thông tin customs service',1,NULL),(106,'Biển',6,'Thông tin customs service',1,NULL),(107,'NYK',12,'Thông tin customs service',1,NULL),(108,'APL',12,'Thông tin customs service',1,NULL),(109,'MOL',12,'Thông tin customs service',1,NULL),(110,'OOCL',12,'Thông tin customs service',1,NULL),(111,'COSCO',12,'Thông tin customs service',1,NULL),(112,'PIL',12,'Thông tin customs service',1,NULL),(113,'NAMSUNG',12,'Thông tin customs service',1,NULL),(114,'INTERASIA',12,'Thông tin customs service',1,NULL),(115,'TSLINE',12,'Thông tin customs service',1,NULL),(116,'MYANGMINH',12,'Thông tin customs service',1,NULL),(117,'SITC',12,'Thông tin customs service',1,NULL),(118,'RCL',12,'Thông tin customs service',1,NULL),(119,'KLINE',12,'Thông tin customs service',1,NULL),(120,'UASC',12,'Thông tin customs service',1,NULL),(121,'MAERSK',12,'Thông tin customs service',1,NULL),(122,'BIEN DONG',12,'Thông tin customs service',1,NULL),(123,'MARINA',12,'Thông tin customs service',1,NULL),(124,'VOSCO',12,'Thông tin customs service',1,NULL),(125,'SINOKOR',12,'Thông tin customs service',1,NULL),(126,'DHL',12,'Thông tin customs service',1,NULL),(127,'FEDEX',12,'Thông tin customs service',1,NULL),(128,'TNT',12,'Thông tin customs service',1,NULL),(129,'Quản lý hàng đầu tư HCM',13,'Thông tin customs service',1,NULL),(130,'Mỹ Phước 1',13,'Thông tin customs service',1,NULL),(131,'Cảng Bình Dương',13,'Thông tin customs service',1,NULL),(132,'VSIP',13,'Thông tin customs service',1,NULL),(133,'Biên Hoà',13,'Thông tin customs service',1,NULL),(134,'Long Bình Tân',13,'Thông tin customs service',1,NULL),(135,'Cảng Cát Lái',13,'Thông tin customs service',1,NULL),(136,'Khánh Hội',13,'Thông tin customs service',1,NULL),(155,'VICT',13,'Thông tin customs service',1,NULL),(156,'Bến Nghé',13,'Thông tin customs service',1,NULL),(157,'ICD TRANSIMEX',13,'Thông tin customs service',1,NULL),(158,'ICD Phước Long 1',13,'Thông tin customs service',1,NULL),(159,'ICD Phước Long 3',13,'Thông tin customs service',1,NULL),(160,'ICD TAMAMEXCO',13,'Thông tin customs service',1,NULL),(161,'ICD SOTRANS',13,'Thông tin customs service',1,NULL),(162,'Cảng Hải Phòng',13,'Thông tin customs service',1,NULL),(163,'Bắc Hà Nội',13,'Thông tin customs service',1,NULL),(164,'1',8,'Thông tin customs service',1,NULL),(165,'2',8,'Thông tin customs service',1,NULL),(166,'3',8,'Thông tin customs service',1,NULL),(167,'20 DR',10,'Thông tin CONT',1,NULL),(168,'20 FR',10,'Thông tin CONT',1,NULL),(169,'20 OP',10,'Thông tin CONT',1,NULL),(170,'20 TK',10,'Thông tin CONT',1,NULL),(171,'40 DR',10,'Thông tin CONT',1,NULL),(172,'40 HQ',10,'Thông tin CONT',1,NULL),(173,'40 FR',10,'Thông tin CONT',1,NULL),(174,'40 OP',10,'Thông tin CONT',1,NULL),(175,'40 TK',10,'Thông tin CONT',1,NULL),(176,'45 HQ',10,'Thông tin CONT',1,NULL),(178,'Chi phí AEL',20,'Thông tin customs service',1,NULL),(179,'Cước CONT',20,'Thông tin customs service',1,NULL),(180,'Khác',20,'Thông tin customs service',1,NULL),(181,'Cước vận chuyển nội địa',19,'Thông tin báo giá',1,NULL),(182,'Cước vận chuyển quốc tế',19,'Thông tin báo giá',1,NULL),(183,'Phí hạ',19,'Thông tin báo giá',1,NULL),(184,'Phí nâng',19,'Thông tin báo giá',1,NULL),(185,'Phí chứng từ',19,'Thông tin báo giá',1,NULL),(186,'Phí D/O',19,'Thông tin báo giá',1,NULL),(187,'Phí xếp dỡ',19,'Thông tin báo giá',1,NULL),(188,'Phí lưu bãi',19,'Thông tin báo giá',1,NULL),(189,'Phí lưu cont',19,'Thông tin báo giá',1,NULL),(190,'Phí lưu kho',19,'Thông tin báo giá',1,NULL),(191,'Phí vệ sinh',19,'Thông tin báo giá',1,NULL),(192,'Phí sữa chữa',19,'Thông tin báo giá',1,NULL),(193,'Phí kiểm dịch',19,'Thông tin báo giá',1,NULL),(194,'Chi phí hải quan',19,'Thông tin báo giá',1,NULL),(195,'Lệ phí hải quan',19,'Thông tin báo giá',1,NULL),(196,'Phí bốc hàng',19,'Thông tin báo giá',1,NULL),(197,'Phí ký chứng từ',19,'Thông tin báo giá',1,NULL),(198,'Phí thanh lý',19,'Thông tin báo giá',1,NULL),(199,'Hàng thuỷ bộ',7,'Thông tin Transportation Services',1,NULL),(200,'Xuất',14,'Thông tin Transportation Services',1,NULL),(201,'Nhập',14,'Thông tin Transportation Services',1,NULL),(202,'Nội địa ',14,'Thông tin Transportation Services',1,NULL),(203,'Bắc - Nam',15,'Thông tin Transportation Services',1,NULL),(204,'Nam - Bắc',15,'Thông tin Transportation Services',1,NULL),(205,'Tạm xuất',17,'Thông tin exhibition',1,NULL),(206,'Tạm nhập',17,'Thông tin exhibition',1,NULL),(207,'Xuất KD',17,'Thông tin exhibition',1,NULL),(208,'Tái nhập',17,'Thông tin exhibition',1,NULL),(209,'Nhập sau',17,'Thông tin exhibition',1,NULL),(210,'Onsite',17,'Thông tin exhibition',1,NULL),(211,'Phí xin GP',21,'Thông tin exhibition',1,NULL),(212,'Local charge at depart',21,'Thông tin exhibition',1,NULL),(213,'Local charge at dest',21,'Thông tin exhibition',1,NULL),(214,'Phí onsite',21,'Thông tin exhibition',1,NULL),(215,'Phí XN - CN',21,'Thông tin exhibition',1,NULL),(216,'Phí giao nhận',21,'Thông tin exhibition',1,NULL),(217,'Phí OF',21,'Thông tin exhibition',1,NULL),(218,'Phí đại lý',21,'Thông tin exhibition',1,NULL),(219,'Tiền thuế XNK',21,'Thông tin exhibition',1,NULL),(220,'Phí khác',21,'Thông tin exhibition',1,NULL),(260,'Phí dịch vụ hải quan và vận chuyển',23,'',1,NULL),(261,'Customs clearance  & Transportation fee',24,'',1,NULL);
-/*!40000 ALTER TABLE `configuration` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `contseal`
@@ -179,15 +141,6 @@ CREATE TABLE `contseal` (
   CONSTRAINT `toGenerals` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `contseal`
---
-
-LOCK TABLES `contseal` WRITE;
-/*!40000 ALTER TABLE `contseal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contseal` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `customers`
@@ -225,15 +178,6 @@ CREATE TABLE `customers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `customers`
---
-
-LOCK TABLES `customers` WRITE;
-/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `docservices`
 --
 
@@ -254,15 +198,6 @@ CREATE TABLE `docservices` (
   CONSTRAINT `docsGeneralFromServices` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `docservices`
---
-
-LOCK TABLES `docservices` WRITE;
-/*!40000 ALTER TABLE `docservices` DISABLE KEYS */;
-/*!40000 ALTER TABLE `docservices` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `docsgeneral`
@@ -311,15 +246,6 @@ CREATE TABLE `docsgeneral` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `docsgeneral`
---
-
-LOCK TABLES `docsgeneral` WRITE;
-/*!40000 ALTER TABLE `docsgeneral` DISABLE KEYS */;
-/*!40000 ALTER TABLE `docsgeneral` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `exfeetable`
 --
 
@@ -351,15 +277,6 @@ CREATE TABLE `exfeetable` (
   CONSTRAINT `totruckingdetail` FOREIGN KEY (`truckingdetail`) REFERENCES `truckingdetail` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `exfeetable`
---
-
-LOCK TABLES `exfeetable` WRITE;
-/*!40000 ALTER TABLE `exfeetable` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exfeetable` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `exhibition`
@@ -418,15 +335,6 @@ CREATE TABLE `exhibition` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `exhibition`
---
-
-LOCK TABLES `exhibition` WRITE;
-/*!40000 ALTER TABLE `exhibition` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exhibition` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `extendfeeacc`
 --
 
@@ -452,15 +360,6 @@ CREATE TABLE `extendfeeacc` (
   CONSTRAINT `tofeedebit` FOREIGN KEY (`description`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `extendfeeacc`
---
-
-LOCK TABLES `extendfeeacc` WRITE;
-/*!40000 ALTER TABLE `extendfeeacc` DISABLE KEYS */;
-/*!40000 ALTER TABLE `extendfeeacc` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `inland`
@@ -509,15 +408,6 @@ CREATE TABLE `inland` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inland`
---
-
-LOCK TABLES `inland` WRITE;
-/*!40000 ALTER TABLE `inland` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inland` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `inlandsize`
 --
 
@@ -538,15 +428,6 @@ CREATE TABLE `inlandsize` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inlandsize`
---
-
-LOCK TABLES `inlandsize` WRITE;
-/*!40000 ALTER TABLE `inlandsize` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inlandsize` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `multitypes`
 --
 
@@ -565,15 +446,6 @@ CREATE TABLE `multitypes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `multitypes`
---
-
-LOCK TABLES `multitypes` WRITE;
-/*!40000 ALTER TABLE `multitypes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `multitypes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `nhathau`
 --
 
@@ -588,18 +460,8 @@ CREATE TABLE `nhathau` (
   `taxNo` varchar(45) DEFAULT NULL,
   `type` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `nhathau`
---
-
-LOCK TABLES `nhathau` WRITE;
-/*!40000 ALTER TABLE `nhathau` DISABLE KEYS */;
-INSERT INTO `nhathau` VALUES (1,'A. Hòa','CTY CP AN LONG TRƯỜNG','0912.146839','03010271497',0),(2,'A. Hùng','An Hòa','0915640077','',0),(3,'','NYK','','',1),(5,NULL,'APL',NULL,NULL,1),(6,NULL,'MOL',NULL,NULL,1),(7,NULL,'OOCL',NULL,NULL,1),(8,NULL,'COSCO',NULL,NULL,1),(9,NULL,'PIL',NULL,NULL,1),(10,NULL,'NAMSUNG',NULL,NULL,1),(11,NULL,'INTERASIA',NULL,NULL,1),(12,NULL,'TSLINE',NULL,NULL,1),(13,NULL,'MYANGMINH',NULL,NULL,1),(14,NULL,'SITC',NULL,NULL,1),(15,NULL,'RCL',NULL,NULL,1),(16,NULL,'KLINE',NULL,NULL,1),(17,NULL,'UASC',NULL,NULL,1),(18,NULL,'MAERSK',NULL,NULL,1),(19,NULL,'BIEN DONG',NULL,NULL,1),(20,NULL,'MARINA',NULL,NULL,1),(21,NULL,'VOSCO',NULL,NULL,1),(22,NULL,'SINOKOR',NULL,NULL,1),(23,NULL,'DHL',NULL,NULL,1),(24,NULL,'FEDEX',NULL,NULL,1),(25,NULL,'TNT',NULL,NULL,1),(26,NULL,'EMS',NULL,NULL,1),(27,NULL,'UPS',NULL,NULL,1),(28,NULL,'INTER LOGISTICS',NULL,NULL,1),(29,NULL,'KONOIKE',NULL,NULL,1),(30,NULL,'SUPERSTAR',NULL,NULL,1),(31,NULL,'VINATRANS',NULL,NULL,1),(32,NULL,'DACHSER',NULL,NULL,1),(33,NULL,'ANC',NULL,NULL,1),(34,NULL,'LOGITEM',NULL,NULL,1),(35,NULL,'NNR',NULL,NULL,1),(36,NULL,'THAMI',NULL,NULL,1),(37,NULL,'EVERGREEN',NULL,NULL,1),(38,NULL,'EVERICH',NULL,NULL,1),(39,NULL,'P&O',NULL,NULL,1),(40,NULL,'PT SHIPPING',NULL,NULL,1),(41,NULL,'KHAI MINH',NULL,NULL,1),(42,NULL,'SCHENKER',NULL,NULL,1),(43,NULL,'AGILITY',NULL,NULL,1);
-/*!40000 ALTER TABLE `nhathau` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `offeritem`
@@ -637,15 +499,6 @@ CREATE TABLE `offeritem` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `offeritem`
---
-
-LOCK TABLES `offeritem` WRITE;
-/*!40000 ALTER TABLE `offeritem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `offeritem` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `offerprice`
 --
 
@@ -668,15 +521,6 @@ CREATE TABLE `offerprice` (
   CONSTRAINT `owner` FOREIGN KEY (`customer`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `offerprice`
---
-
-LOCK TABLES `offerprice` WRITE;
-/*!40000 ALTER TABLE `offerprice` DISABLE KEYS */;
-/*!40000 ALTER TABLE `offerprice` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `packageinfo`
@@ -738,15 +582,6 @@ CREATE TABLE `packageinfo` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `packageinfo`
---
-
-LOCK TABLES `packageinfo` WRITE;
-/*!40000 ALTER TABLE `packageinfo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `packageinfo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `planservice`
 --
 
@@ -776,15 +611,6 @@ CREATE TABLE `planservice` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `planservice`
---
-
-LOCK TABLES `planservice` WRITE;
-/*!40000 ALTER TABLE `planservice` DISABLE KEYS */;
-/*!40000 ALTER TABLE `planservice` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `role`
 --
 
@@ -798,16 +624,6 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `role`
---
-
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (-2,'Default role for all Users','ROLE_USER'),(-1,'Administrator role (can edit Users)','ROLE_ADMIN'),(1,'Sales','ROLE_SALES'),(2,'Docs','ROLE_DOCS'),(3,'Trucking','ROLE_TRUCK');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `truckingdetail`
@@ -832,15 +648,6 @@ CREATE TABLE `truckingdetail` (
   CONSTRAINT `toTruckingFD` FOREIGN KEY (`trucking`) REFERENCES `truckingservice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `truckingdetail`
---
-
-LOCK TABLES `truckingdetail` WRITE;
-/*!40000 ALTER TABLE `truckingdetail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `truckingdetail` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `truckingservice`
@@ -873,15 +680,6 @@ CREATE TABLE `truckingservice` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `truckingservice`
---
-
-LOCK TABLES `truckingservice` WRITE;
-/*!40000 ALTER TABLE `truckingservice` DISABLE KEYS */;
-/*!40000 ALTER TABLE `truckingservice` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user_role`
 --
 
@@ -898,16 +696,6 @@ CREATE TABLE `user_role` (
   CONSTRAINT `FK143BF46AF503D155` FOREIGN KEY (`user_id`) REFERENCES `app_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_role`
---
-
-LOCK TABLES `user_role` WRITE;
-/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (-3,-2),(-1,-2),(-3,-1),(-2,-1);
-/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -918,4 +706,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-13  0:57:35
+-- Dump completed on 2015-03-13  0:25:36

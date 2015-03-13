@@ -7,11 +7,11 @@
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
-    <h2><fmt:message key='offerPrice.heading'/></h2>
+    <h2><fmt:message key='offerPrice.heading'/>${isValid}</h2>
  
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="offerPrice" method="post" action="offerPrice" id="offerPriceForm" cssClass="well">
+    <form:form commandName="offerPrice" method="post" action="offerPrice" id="offerPriceForm" cssClass="well" readonly="${offerPrice.isValid == 'true' ? 'readonly' :''}">
     <form:hidden path="id"/>
     <form:hidden path="customer.id"/>
     <form:hidden path="creator.id"/>
@@ -67,7 +67,9 @@
                 <th><fmt:message key="offerItem.feeNoVAT"/></th>
                 <th><fmt:message key="offerItem.currency"/></th>
                 <th><fmt:message key="offerItem.feeUnit"/></th>
-                <th><fmt:message key="table.action"/></th>
+                <c:if test="${empty offerPrice.isValid or offerPrice.isValid==false}">
+                	<th><fmt:message key="table.action"/></th>
+                </c:if>
             </tr>
         </thead>
         <tbody>
@@ -105,7 +107,7 @@
 				</td>
               	<td>
               			<spring:bind path="offerItems[${idx.index}].currency.id">
-					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="1">
 					    </spring:bind>
 					        <form:select path="offerItems[${idx.index}].currency.id" id="currency${idx.index}" autofocus="true" cssClass="form-control" items="${selections['currencies']}"/>
 					        <form:errors path="offerItems[${idx.index}].currency.id" cssClass="help-block"/>
@@ -113,38 +115,71 @@
 				</td>
               	<td>
               			<spring:bind path="offerItems[${idx.index}].feeUnit.id">
-					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="3">
 					    </spring:bind>
 					        <form:select path="offerItems[${idx.index}].feeUnit.id" id="feeUnit${idx.index}" autofocus="true" cssClass="form-control" items="${selections['units']}"/>
 					        <form:errors path="offerItems[${idx.index}].feeUnit.id" cssClass="help-block"/>
 					    </div>
 				</td>
-                <td>
-                	<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">
-	                			<i class="fa fa-trash"></i>
-	                	</span>
-                </td>
+				<c:if test="${empty offerPrice.isValid or offerPrice.isValid==false}">
+	                <td>
+	                	<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">
+		                			<i class="fa fa-trash"></i>
+		                	</span>
+	                </td>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <div class="row">
-	    	<div class="col-md-10"></div>
-	    	<div class="col-md-2">
-	    		<span class="btn btn-primary" target-table="offerItemList">
-		            <i class="icon-ok"></i> <fmt:message key="button.add"/></span>
-	    	</div>
-    </div>
+    <c:if test="${empty offerPrice.isValid or offerPrice.isValid==false}">
+	    <div class="row">
+		    	<div class="col-md-10"></div>
+		    	<div class="col-md-2">
+		    		<span class="btn btn-primary" target-table="offerItemList">
+			            <i class="icon-ok"></i> <fmt:message key="button.add"/></span>
+		    	</div>
+	    </div>
+    </c:if>
     <hr>
+    <div class="row">
+	     	<table class="table">
+		  		<thead>
+		  			<tr >
+			  			<th style="text-align: center"><fmt:message key="offerPrice.isValid"/></th>
+		  			</tr>
+		  		</thead>
+		  		<tbody>
+		  			<tr style="text-align: center">
+		  				<td verify="true"><form:checkbox path="isValid" />
+		  				<security:authorize ifNotGranted="ROLE_ADMIN">
+			  				<c:if test="${offerPrice.isValid==true}">
+			  					<form:hidden path="isValid" />
+			  				</c:if>
+		  				</security:authorize>
+		  			</tr>
+		  		</tbody>
+			</table>
+		</div>
+		<hr>
     <div class="form-group form-actions">
-        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
-            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
-        </button>
-        <c:if test="${not empty offerPrice.id}">
-          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
-              <i class="icon-trash"></i> <fmt:message key="button.delete"/>
-          </button>
-        </c:if>
+    		<c:if test="${offerPrice.isValid != true}">
+		        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+		            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+		        </button>
+	        </c:if>
+	        <c:if test="${offerPrice.isValid == true}">
+	        	<security:authorize ifAnyGranted="ROLE_ADMIN"> 
+	        		<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+		           	 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+		        	</button>
+	        	</security:authorize>
+	        </c:if>
+	        <c:if test="${not empty offerPrice.id && offerPrice.isValid != true}">
+	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+	              <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+	          </button>
+	        </c:if>
         <a type="submit" class="btn btn-default" name="cancel" href="customer?id=${offerPrice.customer.id }">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
         </a>

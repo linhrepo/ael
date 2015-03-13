@@ -11,7 +11,7 @@ var SELECT_CONTROL = {
 					    allowClear:true,
 					    formatNoMatches: function(term) {
 					        /* customize the no matches output */
-					        return "<input class='form-control' id='newTerm' value='"+term+"' itemType='"+itemType+"'><a href='#' id='addNewOption' class='btn btn-default'>"+showMessage('select2.addMissing')+"</a>";
+					        return "<input class='form-control' id='newTerm' value='"+term+"' itemType='"+itemType+"'><a href='#' id='addNewOption' class='btn btn-link'>"+showMessage('select2.addMissing')+"</a>";
 					    }
 					  })
 					  .parent().find('.select2-with-searchbox').on('click','#addNewOption',function(){
@@ -39,26 +39,31 @@ var SELECT_CONTROL = {
 						value : value,
 						type : type
 			};
-			$.ajax({
-				headers: {
-			        "Accept": "application/json",
-			        "Content-Type": "application/json"
-			    },
-			  type: "POST",
-			  url: contextPath+"/admin/accounting/addOptions",
-			  data: JSON.stringify(postData),
-			  success: function(data){
-				  if (data.id != undefined){
-					  SELECT_CONTROL._addToAllSelection(data,select);
-				  }
-				  else{
+			if (value !=undefined && value.length >0){
+				$.ajax({
+					headers: {
+				        "Accept": "application/json",
+				        "Content-Type": "application/json"
+				    },
+				  type: "POST",
+				  url: contextPath+"/admin/accounting/addOptions",
+				  data: JSON.stringify(postData),
+				  success: function(data){
+					  if (data.id != undefined){
+						  SELECT_CONTROL._addToAllSelection(data,select);
+					  }
+					  else{
+						  UTIL.showMessage(showMessage("ajax.error"), "error");
+					  }
+				  },
+				  dataType: "json",
+				  error: function (xhr, status,response) {
 					  UTIL.showMessage(showMessage("ajax.error"), "error");
-				  }
-			  },
-			  dataType: "json",
-			  error: function (xhr, status,response) {
-				  UTIL.showMessage(showMessage("ajax.error"), "error");
-		      }
-			});
+			      }
+				});
+			}else{
+				UTIL.showMessage(showMessage("configuration.add.empty"), "error");
+			}
+			
 		}
 };

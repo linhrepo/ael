@@ -177,4 +177,13 @@ $(document).ready(function(){
 			$(newRowInputs[i]).attr("readonly",true);
 		}
 	});
+	
+	$("form[readonly='readonly']").each(function(){
+		var newRowInputs = $(this).find("input");
+		newRowInputs = newRowInputs.add($(this).find("select"));
+		for (var i=0 ; i<newRowInputs.length;++i){
+			if ($(newRowInputs[i]).attr("valueType") != "deleted")
+			$(newRowInputs[i]).attr("readonly",true);
+		}
+	});
 });

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ include file="/common/taglibs.jsp"%>
-<html lang="en">
+<html lang="vn">
 <head>
     <meta http-equiv="Cache-Control" content="no-store"/>
     <meta http-equiv="Pragma" content="no-cache"/>
@@ -61,5 +61,13 @@
         </span>
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
+<script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
+<security:authorize ifAnyGranted="ROLE_ADMIN"> 
+    		<script type="text/javascript">
+    			$(document).ready(function(){
+    				$("form").find('[verify="true"]').find('input[type="checkbox"]').removeAttr("disabled");
+    			});
+    		</script>
+</security:authorize>
 </body>
 </html>
