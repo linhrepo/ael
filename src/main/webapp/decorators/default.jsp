@@ -61,7 +61,6 @@
         </span>
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
-<script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
 <security:authorize ifAnyGranted="ROLE_ADMIN"> 
     		<script type="text/javascript">
     			$(document).ready(function(){

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
 import com.vn.ael.persistence.repository.CustomerRepository;
@@ -61,14 +62,15 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 	}
 
 	@Override
-	public void saveWholeExh(Exhibition exhibition) {
+	public Exhibition saveWholeExh(Exhibition exhibition) {
 		// wire staff
 		exhibition.getDocsgeneral().setCustomer(customerRepository.findOne(exhibition.getDocsgeneral().getCustomer().getId()));
 		this.updateJobNo(exhibition);
 		exhibition.getDocsgeneral().setTypeOfDocs(ServicesType.EXHS);
 		exhibition.getDocsgeneral().setExhibition(exhibition);
 		EntityUtil.wiredChildOfDocsGeneral(exhibition.getDocsgeneral());
-		docsgeneralRepository.save(exhibition.getDocsgeneral());
+		Docsgeneral docsgeneral = docsgeneralRepository.save(exhibition.getDocsgeneral());
+		return docsgeneral.getExhibition();
 	}
 
 	/**

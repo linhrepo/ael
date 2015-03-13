@@ -98,4 +98,10 @@ public class OfferPriceManagerImpl extends GenericManagerImpl<OfferPrice> implem
 			ServicesType servicesType) {
 		return this.offerPriceRepository.findByCustomerAndTypeOfService(customer, servicesType);
 	}
+
+	@Override
+	public List<OfferPrice> findByCustomerAndTypeOfServiceAndIsValid(
+			Customer customer, ServicesType servicesType, Boolean isValid) {
+		return this.offerPriceRepository.findByCustomerAndTypeOfServiceAndIsValid(customer, servicesType, isValid);
+	}
 }

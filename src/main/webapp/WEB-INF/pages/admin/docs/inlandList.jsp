@@ -5,7 +5,7 @@
     <meta name="menu" content="DocsMenu"/>
 </head>
 
-<div class="col-sm-10">
+<div class="col-sm-12">
     <h2><fmt:message key="inlandList.heading"/></h2>
     <div id="actions" class="btn-group">
     	 <a class="btn btn-primary" href="<c:url value='inland?method=Add&from=list'/>">
@@ -23,6 +23,7 @@
                 <th><fmt:message key="inland.customerCode"/></th>
                 <th><fmt:message key="inland.typeOfContainer"/></th>
                 <th><fmt:message key="inland.inlandsealand"/></th>
+                <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -34,6 +35,7 @@
                 <th><fmt:message key="inland.customerCode"/></th>
                 <th><fmt:message key="inland.typeOfContainer"/></th>
                 <th><fmt:message key="inland.inlandsealand"/></th>
+                <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -47,6 +49,11 @@
               	<td>
               		<c:if test="${inland.isInland == false}"><fmt:message key='inland.sealand'/></c:if>
      				<c:if test="${inland.isInland != false}"><fmt:message key='inland.inland'/></c:if>
+              	</td>
+              	<td>
+              		<c:if test="${inland.docsgeneral.doDelivery}">
+              			<a><i class="fa fa-check"></i></a>
+              		</c:if>
               	</td>
                 <td>
                 	<a href="inland?id=${inland.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>

@@ -177,7 +177,7 @@
 					<td data-title="<fmt:message key="inland.feeName"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id">
 						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="19">
 					</spring:bind> <form:select path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id"
 						id="name${idxx.index}" autofocus="true" cssClass="form-control"
 						items="${selections['exhFeeNames']}" /> <form:errors

@@ -11,7 +11,7 @@
     	childDetailURL="/admin/accounting/feesDetail" 
     	emptyMessage="accounting.fees.detailFailed"
     	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="packageInfo.masterFee" />,<fmt:message key="packageInfo.feeName" />,<fmt:message key="packageInfo.feevalue" />,<fmt:message key="packageInfo.feevavat" />,<fmt:message key="packageIngo.total" />,<fmt:message key="accounting.approval" />,<fmt:message key="accounting.approvalDate" />,<fmt:message key="accounting.changeApproval" />"
-    	detailTableMapping="masterFee.value,name.value,amount,vat,total,approvedText[Key],dateChange[Date]"
+    	detailTableMapping="masterFee.value,name.value,amount[money],vat[money],total[money],approvedText[Key],dateChange[Date]"
     	editDetail="/admin/accounting/changeApproval"
     	successLoadMessage="accounting.fees.detailLoaded"
     	>

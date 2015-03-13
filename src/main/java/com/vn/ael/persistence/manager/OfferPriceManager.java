@@ -44,5 +44,14 @@ public interface OfferPriceManager extends GenericManager<OfferPrice> {
 	 * @return
 	 */
 	List<OfferPrice> findByCustomerAndTypeOfService(Customer customer, ServicesType servicesType);
+	
+	/**
+	 * Find all by customer and type of service and isValid
+	 * @param customer
+	 * @param servicesType
+	 * @param isValid
+	 * @return
+	 */
+	List<OfferPrice> findByCustomerAndTypeOfServiceAndIsValid(Customer customer, ServicesType servicesType, Boolean isValid);
 
 }

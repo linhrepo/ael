@@ -121,13 +121,10 @@ public class InlandFormController extends BaseFormController {
         } else {
         	getEntityService().checkUpdateInfo(inland, isNew, request);
         	docsgeneralManager.checkToDeleteChilds(inland.getDocsgeneral());
-        	inlandManager.saveWholeInland(inland);
+        	inland = inlandManager.saveWholeInland(inland);
             String key = (isNew) ? "inland.added" : "inland.updated";
             saveMessage(request, getText(key, locale));
- 
-            if (!isNew) {
-                success = "redirect:"+URLReference.INLAND_FORM+"?id=" + inland.getId();
-            }
+            success = "redirect:"+URLReference.INLAND_FORM+"?id=" + inland.getId();
         }
  
         return success;

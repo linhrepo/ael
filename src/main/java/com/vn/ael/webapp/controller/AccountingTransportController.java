@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.service.AccountingTransService;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
@@ -27,6 +30,13 @@ import com.vn.ael.webapp.dto.AccountingTransCondition;
 @RequestMapping(URLReference.ACCOUNTING_TRANSPORT+"*")
 public class AccountingTransportController extends BaseFormController {
 
+	private OfferPriceManager offerpriceManager;
+
+    @Autowired
+    public void setOfferpriceManager(final OfferPriceManager offerpriceManager) {
+        this.offerpriceManager = offerpriceManager;
+    }
+    
 	private CustomerManager customerManager = null;
 	 
     @Autowired
@@ -87,6 +97,7 @@ public class AccountingTransportController extends BaseFormController {
         accountingTrans.setDocs(docs);
         
         mav.addObject("accountingTrans", accountingTrans);
+        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
         return mav;
     }
  

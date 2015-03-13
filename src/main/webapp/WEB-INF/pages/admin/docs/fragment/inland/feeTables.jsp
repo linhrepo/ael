@@ -54,7 +54,7 @@
 				<td><spring:bind
 						path="inland.docsgeneral.exfeetables[${idx.index}].masterFee.id">
 						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="20">
 					</spring:bind> <form:select
 						path="docsgeneral.exfeetables[${idx.index}].masterFee.id"
 						id="masterFee${idx.index}" autofocus="true"
@@ -66,7 +66,7 @@
 				<td><spring:bind
 						path="inland.docsgeneral.exfeetables[${idx.index}].name.id">
 						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="19">
 					</spring:bind> <form:select path="docsgeneral.exfeetables[${idx.index}].name.id"
 						id="name${idx.index}" autofocus="true" cssClass="form-control"
 						items="${docsSelection.selections['exhFeeNames']}" /> <form:errors

@@ -28,9 +28,9 @@
 							valueType="deleted" /></td>
 
 					<td><spring:bind
-							path="inland.docsgeneral.contTypes[${idx.index}].type.id">
+							path="inland.docsgeneral.contTypes[${idx.index}].type.id" >
 							<div
-								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="10">
 						</spring:bind> <form:select path="docsgeneral.contTypes[${idx.index}].type.id"
 							id="type${idx.index}" autofocus="true" cssClass="form-control"
 							items="${docsSelection.selections['typeOfContainerConts']}" /> <form:errors

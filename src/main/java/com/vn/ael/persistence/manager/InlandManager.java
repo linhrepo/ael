@@ -17,6 +17,6 @@ public interface InlandManager extends GenericManager<Inland> {
 	 * Store whole Inland object
 	 * @param inland
 	 */
-	void saveWholeInland(Inland inland);
+	Inland saveWholeInland(Inland inland);
 	
 }

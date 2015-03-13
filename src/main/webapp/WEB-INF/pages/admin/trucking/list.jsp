@@ -14,6 +14,7 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
+                <th><fmt:message key="trucking.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -24,6 +25,7 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
+                <th><fmt:message key="trucking.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -34,6 +36,11 @@
               	<td>${trucking.jobNo}</td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
               	<td>${trucking.typeOfContainer.value}</td>
+              	<td>
+              		<c:if test="${trucking.doAccounting}">
+              			<a><i class="fa fa-check"></i></a>
+              		</c:if>
+              	</td>
                 <td>
                 	<a href="service?docId=${trucking.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-file-text-o"></i></a>
                 </td>

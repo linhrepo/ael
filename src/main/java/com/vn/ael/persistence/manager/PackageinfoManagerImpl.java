@@ -66,7 +66,7 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
     }
 
 	@Override
-	public void saveWholePackage(Packageinfo packageinfo) {
+	public Packageinfo saveWholePackage(Packageinfo packageinfo) {
 		//wire staff
 		packageinfo.getDocsgeneral().setCustomer(customerRepository.findOne(packageinfo.getDocsgeneral().getCustomer().getId()));
 		packageinfo.getDocsgeneral().setProcessingStaff(userRepository.findOne(packageinfo.getDocsgeneral().getProcessingStaff().getId()));
@@ -74,7 +74,9 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
 		packageinfo.getDocsgeneral().setTypeOfDocs(ServicesType.DVTQ);
 		packageinfo.getDocsgeneral().setPackageinfo(packageinfo);
 		EntityUtil.wiredChildOfDocsGeneral(packageinfo.getDocsgeneral());
-		docsgeneralRepository.save(packageinfo.getDocsgeneral());
+		Docsgeneral docsgeneral = docsgeneralRepository.save(packageinfo.getDocsgeneral());
+		return docsgeneral.getPackageinfo();
+		
 	}
 	
 	/**

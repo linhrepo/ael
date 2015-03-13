@@ -146,13 +146,10 @@ public class PackageinfoFormController extends BaseFormController {
         } else {
         	getEntityService().checkUpdateInfo(packageInfo, isNew, request);
         	docsgeneralManager.checkToDeleteChilds(packageInfo.getDocsgeneral());
-        	packageinfoManager.saveWholePackage(packageInfo);
+        	packageInfo = packageinfoManager.saveWholePackage(packageInfo);
             String key = (isNew) ? "packageInfo.added" : "packageInfo.updated";
             saveMessage(request, getText(key, locale));
- 
-            if (!isNew) {
-                success = "redirect:"+URLReference.PACKAGEINFO_FORM+"?id=" + packageInfo.getId();
-            }
+            success = "redirect:"+URLReference.PACKAGEINFO_FORM+"?id=" + packageInfo.getId();
         }
  
         return success;

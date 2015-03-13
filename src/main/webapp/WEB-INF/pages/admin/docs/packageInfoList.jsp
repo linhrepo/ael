@@ -20,6 +20,7 @@
                 <th><fmt:message key="packageInfo.jobNo"/></th>
                 <th><fmt:message key="packageInfo.customerCode"/></th>
                 <th><fmt:message key="packageInfo.imExMode"/></th>
+                <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <th><fmt:message key="packageInfo.jobNo"/></th>
                 <th><fmt:message key="packageInfo.customerCode"/></th>
                 <th><fmt:message key="packageInfo.imExMode"/></th>
+                <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -40,6 +42,11 @@
               	<td>${packageInfo.docsgeneral.jobNo}</td>
               	<td>${packageInfo.docsgeneral.customer.code}</td>
               	<td>${packageInfo.imExMode.value}</td>
+              	<td>
+              		<c:if test="${packageInfo.docsgeneral.doDelivery}">
+              			<a><i class="fa fa-check"></i></a>
+              		</c:if>
+              	</td>
                 <td>
                 	<a href="packageInfo?id=${packageInfo.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
                 </td>

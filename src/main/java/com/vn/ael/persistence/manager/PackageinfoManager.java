@@ -10,8 +10,9 @@ public interface PackageinfoManager extends GenericManager<Packageinfo> {
 	/**
 	 * Persit whole package to db
 	 * @param packageinfo
+	 * @return 
 	 */
-	void saveWholePackage(Packageinfo packageinfo);
+	Packageinfo saveWholePackage(Packageinfo packageinfo);
 	
 	/**
 	 * Delete whole package info

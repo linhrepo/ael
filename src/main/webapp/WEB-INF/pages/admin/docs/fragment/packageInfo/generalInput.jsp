@@ -43,7 +43,7 @@
 		    </div>
 		    
 		    <spring:bind path="packageInfo.imExMode">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" addUrl="/admin/config/constant" type="11">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.imExMode"/>
 		        <form:select path="imExMode.id" id="imExMode"  autofocus="true" cssClass="form-control select2" items="${docsSelection.selections['imExModes']}"/>

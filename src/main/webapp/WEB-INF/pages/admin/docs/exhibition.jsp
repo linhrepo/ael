@@ -54,7 +54,7 @@
 		    </c:choose>
 		    
 		    <spring:bind path="exhibition.typeOfEx">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" addUrl="/admin/config/constant" type="17">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.typeOfEx"/>
 		        <form:select path="typeOfEx.id" id="typeOfEx"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfExhs']}"/>
@@ -174,7 +174,7 @@
 		    </div>
 		    
 	    	<spring:bind path="exhibition.operator">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" addUrl="/admin/config/constant" type="22">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.operator"/>
 		        <form:select path="operator.id" id="operator"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['operatorExhs']}"/>
@@ -222,7 +222,7 @@
 		    </div>
 		    
 		    <spring:bind path="exhibition.cusDept">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" addUrl="/admin/config/constant" type="13">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.cusDept"/>
 		        <form:select path="cusDept.id" id="cusDept"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['customDepts']}"/>

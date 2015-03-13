@@ -82,7 +82,7 @@
 		    </div>
 		    
 		    <spring:bind path="customer.country">
-			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" addUrl="/admin/config/constant" type="5">
 		    </spring:bind>
 			   <appfuse:label styleClass="control-label" key="customer.country"/>
 			   <form:select path="country.id" id="country" cssClass="form-control select2" items="${selections['countries']}"/>
@@ -90,7 +90,7 @@
 			</div>
 		    
 			<spring:bind path="customer.companyType">
-			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+			<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6" addUrl="/admin/config/constant" type="4">
 		    </spring:bind>
 			   <appfuse:label styleClass="control-label" key="customer.companyType"/>
 			   <form:select path="companyType.id" id="companyType" cssClass="form-control" items="${selections['companyTypes']}" />
@@ -124,8 +124,8 @@
     	<table id="offerPriceList" class="display nestedDatatable" cellspacing="0" width="100%"
     	childDetailURL="/admin/sales/offerItemList/list" 
     	emptyMessage="customer.offerItems.empty"
-    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="offerItem.nameOfService"/>,<fmt:message key="offerItem.feeWithVAT"/>,<fmt:message key="offerItem.feeNoVAT"/>,<fmt:message key="offerItem.currency"/>,<fmt:message key="offerItem.feeUnit"/>,<fmt:message key="table.action"/>"
-    	detailTableMapping="nameOfService.value,feeWithVAT,feeNoVAT,currency.value,feeUnit.value"
+    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="offerItem.nameOfService"/>,<fmt:message key="offerItem.feeWithVAT"/>,<fmt:message key="offerItem.feeNoVAT"/>,<fmt:message key="offerItem.currency"/>,<fmt:message key="offerItem.feeUnit"/>"
+    	detailTableMapping="nameOfService.value,feeWithVAT[money],feeNoVAT[money],currency.value,feeUnit.value"
     	editDetail=""
     	successLoadMessage="customer.offerItems.loaded"
     	>
@@ -134,6 +134,7 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="offerPrice.typeOfService"/></th>
                 <th><fmt:message key="offerPrice.dateOffer"/></th>
+                <th><fmt:message key="offerPrice.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -143,6 +144,7 @@
                 <th><fmt:message key="table.no"/>
                 <th><fmt:message key="offerPrice.typeOfService"/></th>
                 <th><fmt:message key="offerPrice.dateOffer"/></th>
+                <th><fmt:message key="offerPrice.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -151,7 +153,12 @@
         	<tr params="offerId=${offerPrice.id}">
                 <td colType="index">${idx.index+1}</td>
               	<td><fmt:message key="${offerPrice.typeOfServiveText}"/></td>
-              	<td>${offerPrice.dateOffer}</td>
+              	<td><fmt:formatDate value="${offerPrice.dateOffer}" pattern="dd-MM-yyyy"/></td>
+              	<td>
+              		<c:if test="${offerPrice.isValid}">
+              			<a><i class="fa fa-check"></i></a>
+              		</c:if>
+              	</td>
                 <td>
                 	<a href="offerPrice?id=${offerPrice.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
                 </td>

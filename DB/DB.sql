@@ -36,7 +36,7 @@ CREATE TABLE `accountingcus` (
   PRIMARY KEY (`id`),
   KEY `custodocgeneral_idx` (`docsgeneral`),
   CONSTRAINT `custodocgeneral` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `accountingcusdetail` (
   CONSTRAINT `acountingToDocs` FOREIGN KEY (`accountingcus`) REFERENCES `accountingcus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `nameDebit` FOREIGN KEY (`name`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toDescCon` FOREIGN KEY (`description`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `configuration` (
   `enabled` int(1) DEFAULT '1',
   `implyActions` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +139,7 @@ CREATE TABLE `contseal` (
   KEY `toContCOnt_idx` (`typeOfCont`),
   CONSTRAINT `toContCOnt` FOREIGN KEY (`typeOfCont`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toGenerals` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,9 +172,8 @@ CREATE TABLE `customers` (
   KEY `FK600E7C55A11345A0` (`companyType`),
   KEY `FK600E7C553B176372` (`creator`),
   KEY `FK600E7C55F86957FF` (`country`),
-  KEY `FK600E7C55EFCFC545` (`updator`),
-  CONSTRAINT `ownerUser` FOREIGN KEY (`creator`) REFERENCES `app_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+  KEY `FK600E7C55EFCFC545` (`updator`)
+) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +195,7 @@ CREATE TABLE `docservices` (
   PRIMARY KEY (`id`),
   KEY `toPackageFromService_idx` (`docsgeneral`),
   CONSTRAINT `docsGeneralFromServices` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,17 +231,17 @@ CREATE TABLE `docsgeneral` (
   `portPutCont` varchar(255) DEFAULT NULL,
   `placeGetCont` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `jobNo_UNIQUE` (`jobNo`),
   KEY `docsCustomer_idx` (`customer`),
   KEY `docsStaff_idx` (`processingStaff`),
   KEY `docsTypeOfService_idx` (`typeOfPackage`),
   KEY `docsTypeOfContainer_idx` (`typeOfContainer`),
   KEY `docsShippingline_idx` (`shippingLine`),
   CONSTRAINT `docsCustmer` FOREIGN KEY (`customer`) REFERENCES `customers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `docsShippingline` FOREIGN KEY (`shippingLine`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `docsStaff` FOREIGN KEY (`processingStaff`) REFERENCES `app_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `docsTypeOfContainer` FOREIGN KEY (`typeOfContainer`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `docsTypeOfService` FOREIGN KEY (`typeOfPackage`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,21 +255,26 @@ CREATE TABLE `exfeetable` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` bigint(20) DEFAULT NULL,
   `amount` decimal(20,2) DEFAULT NULL,
-  `vat` decimal(5,2) DEFAULT NULL,
+  `vat` decimal(10,2) DEFAULT NULL,
   `docsgeneral` bigint(20) DEFAULT NULL,
   `masterFee` bigint(20) DEFAULT NULL,
   `truckingdetail` bigint(20) DEFAULT NULL,
+  `exhibition` bigint(20) DEFAULT NULL,
+  `approved` int(1) DEFAULT NULL,
+  `dateChange` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `nameOfFee_idx` (`name`),
   KEY `feeToexhibition_idx` (`docsgeneral`),
   KEY `toMasterFee_idx` (`masterFee`),
   KEY `totruckingdetail_idx` (`id`,`truckingdetail`),
   KEY `totruckingdetail_idx1` (`truckingdetail`),
+  KEY `fromfeetoexh_idx` (`exhibition`),
   CONSTRAINT `feeToexhibition` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fromfeetoexh` FOREIGN KEY (`exhibition`) REFERENCES `exhibition` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `nameOfFee` FOREIGN KEY (`name`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toMasterFee` FOREIGN KEY (`masterFee`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `totruckingdetail` FOREIGN KEY (`truckingdetail`) REFERENCES `truckingdetail` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,6 +317,10 @@ CREATE TABLE `exhibition` (
   `doPacking` int(1) DEFAULT '0',
   `albwNo` varchar(255) DEFAULT NULL,
   `counting` bigint(20) DEFAULT NULL,
+  `mode` bigint(20) DEFAULT NULL,
+  `invoiceNo` varchar(45) DEFAULT NULL,
+  `accountNo` varchar(45) DEFAULT NULL,
+  `attn` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `extodocgeneral_idx` (`docsgeneral`),
   KEY `typeOfEx_idx` (`typeOfEx`),
@@ -322,7 +330,7 @@ CREATE TABLE `exhibition` (
   CONSTRAINT `operatorConf` FOREIGN KEY (`operator`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toCusDept` FOREIGN KEY (`cusDept`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `typeOfEx` FOREIGN KEY (`typeOfEx`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,6 +347,9 @@ CREATE TABLE `extendfeeacc` (
   `invoice` varchar(1000) DEFAULT NULL,
   `feeowner` bigint(20) DEFAULT NULL,
   `accountingcus` bigint(20) DEFAULT NULL,
+  `quantity20` int(10) DEFAULT NULL,
+  `quantity40` int(10) DEFAULT NULL,
+  `quantityLCL` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `toFee_idx` (`feeowner`),
   KEY `toCounting_idx` (`accountingcus`),
@@ -346,7 +357,7 @@ CREATE TABLE `extendfeeacc` (
   CONSTRAINT `toCounting` FOREIGN KEY (`accountingcus`) REFERENCES `accountingcus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `toFee` FOREIGN KEY (`feeowner`) REFERENCES `exfeetable` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tofeedebit` FOREIGN KEY (`description`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,7 +391,7 @@ CREATE TABLE `inland` (
   `freeTimeInHCM` int(10) DEFAULT NULL,
   `freeTimeInHP` int(10) DEFAULT NULL,
   `attachServices` varchar(1000) DEFAULT NULL,
-  `accountingPrice` bigint(20) DEFAULT NULL,
+  `accountingPrice` decimal(20,2) DEFAULT NULL,
   `otherFees` decimal(20,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `typeOfInland_idx` (`typeOfInland`),
@@ -389,11 +400,10 @@ CREATE TABLE `inland` (
   KEY `routeToConf_idx` (`route`),
   KEY `priceItemAcc_idx` (`accountingPrice`),
   CONSTRAINT `inlandToGeneral` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `priceItemAcc` FOREIGN KEY (`accountingPrice`) REFERENCES `offeritem` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `routeToConf` FOREIGN KEY (`route`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toCreator` FOREIGN KEY (`creator`) REFERENCES `app_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `typeOfInland` FOREIGN KEY (`typeOfInland`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,7 +423,7 @@ CREATE TABLE `inlandsize` (
   PRIMARY KEY (`id`),
   KEY `toInlandFCL_idx` (`docsgeneral`),
   CONSTRAINT `toInland` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -431,7 +441,7 @@ CREATE TABLE `multitypes` (
   PRIMARY KEY (`id`),
   KEY `multiToDocs_idx` (`docsgeneral`),
   CONSTRAINT `multiToDocs` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -447,8 +457,9 @@ CREATE TABLE `nhathau` (
   `name` varchar(1000) DEFAULT NULL,
   `phoneNumber` varchar(15) DEFAULT NULL,
   `taxNo` varchar(45) DEFAULT NULL,
+  `type` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -483,7 +494,7 @@ CREATE TABLE `offeritem` (
   CONSTRAINT `configFeeUnit` FOREIGN KEY (`feeUnit`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `configNameServices` FOREIGN KEY (`nameOfService`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `offerPriceLink` FOREIGN KEY (`offerPrice`) REFERENCES `offerprice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -502,12 +513,13 @@ CREATE TABLE `offerprice` (
   `createdDate` datetime DEFAULT NULL,
   `lastUpdateDate` datetime DEFAULT NULL,
   `customer` bigint(20) NOT NULL,
+  `isValid` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `typeOfService_idx` (`typeOfService`),
   KEY `owner_idx` (`customer`),
   KEY `FK7FA09C6DECE1D869` (`customer`),
   CONSTRAINT `owner` FOREIGN KEY (`customer`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -566,7 +578,7 @@ CREATE TABLE `packageinfo` (
   CONSTRAINT `toCustDept` FOREIGN KEY (`customsDept`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toDocsGeneral` FOREIGN KEY (`docsGeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `toTypeOfTransp` FOREIGN KEY (`typeOfTransport`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -610,7 +622,7 @@ CREATE TABLE `role` (
   `description` varchar(64) DEFAULT NULL,
   `name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -624,20 +636,17 @@ CREATE TABLE `truckingdetail` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `consteal` bigint(20) DEFAULT NULL,
   `trucking` bigint(20) DEFAULT NULL,
-  `shippingline` bigint(20) DEFAULT NULL,
   `vehicleNo` varchar(45) DEFAULT NULL,
   `noOfVehicle` int(10) DEFAULT NULL,
   `nhathau` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `toContealtrucking_idx` (`consteal`),
   KEY `toTruckingFD_idx` (`trucking`),
-  KEY `todhipping_idx` (`shippingline`),
   KEY `toNhathauDe_idx` (`nhathau`),
-  CONSTRAINT `toContealtrucking` FOREIGN KEY (`consteal`) REFERENCES `contseal` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `todhipping` FOREIGN KEY (`shippingline`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `toContealtrucking` FOREIGN KEY (`consteal`) REFERENCES `contseal` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `toNhathauDe` FOREIGN KEY (`nhathau`) REFERENCES `nhathau` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toTruckingFD` FOREIGN KEY (`trucking`) REFERENCES `truckingservice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -667,7 +676,7 @@ CREATE TABLE `truckingservice` (
   PRIMARY KEY (`id`),
   KEY `truckingdocs_idx` (`docsgeneral`),
   CONSTRAINT `truckingdocs` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -697,4 +706,4 @@ CREATE TABLE `user_role` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-04 23:16:19
+-- Dump completed on 2015-03-14  2:05:26

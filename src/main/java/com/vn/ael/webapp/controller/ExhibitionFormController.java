@@ -111,13 +111,10 @@ public class ExhibitionFormController extends BaseFormController {
         } else {
         	getEntityService().checkUpdateInfo(exhibition, isNew, request);
         	docsgeneralManager.checkToDeleteChilds(exhibition.getDocsgeneral());
-        	exhibitionManager.saveWholeExh(exhibition);
+        	exhibition = exhibitionManager.saveWholeExh(exhibition);
             String key = (isNew) ? "exhibition.added" : "exhibition.updated";
             saveMessage(request, getText(key, locale));
- 
-            if (!isNew) {
-                success = "redirect:"+URLReference.EXHIBITION_FORM+"?id=" + exhibition.getId();
-            }
+            success = "redirect:"+URLReference.EXHIBITION_FORM+"?id=" + exhibition.getId();
         }
  
         return success;

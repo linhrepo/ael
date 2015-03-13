@@ -21,7 +21,7 @@ public interface ExhibitionManager extends GenericManager<Exhibition> {
 	 * Persit whole object
 	 * @param exhibition
 	 */
-	void saveWholeExh(Exhibition exhibition);
+	Exhibition saveWholeExh(Exhibition exhibition);
 
 	/**
 	 * Load information for report

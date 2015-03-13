@@ -6,11 +6,6 @@
 </head>
 
 <div class="col-sm-12">
-    <h2><fmt:message key="offerPriceList.heading"/></h2>
-    <div id="actions" class="btn-group">
-        <a class="btn btn-default" href="<c:url value='/home'/>">
-            <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
-    </div>
     <table id="offerPriceList" class="display nestedDatatable" cellspacing="0" width="100%"
     	childDetailURL="/admin/sales/offerItemList/list" 
     	emptyMessage="customer.offerItems.empty"
@@ -27,7 +22,6 @@
                 <th><fmt:message key="offerPrice.typeOfService"/></th>
                 <th><fmt:message key="offerPrice.dateOffer"/></th>
                 <th><fmt:message key="offerPrice.status"/></th>
-                <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
  
@@ -39,11 +33,10 @@
                 <th><fmt:message key="offerPrice.typeOfService"/></th>
                 <th><fmt:message key="offerPrice.dateOffer"/></th>
                 <th><fmt:message key="offerPrice.status"/></th>
-                <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
         <tbody>
-        <c:forEach items="${offerPriceList}" var="offerPrice" varStatus="idx">
+        <c:forEach items="${sales}" var="offerPrice" varStatus="idx">
         	<tr params="offerId=${offerPrice.id}">
                 <td colType="index">${idx.index+1}</td>
               	<td>${offerPrice.customer.code}</td>
@@ -55,9 +48,6 @@
               			<a><i class="fa fa-check"></i></a>
               		</c:if>
               	</td>
-                <td>
-                	<a href="offerPrice?id=${offerPrice.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
-                </td>
             </tr>
         </c:forEach>
         </tbody>

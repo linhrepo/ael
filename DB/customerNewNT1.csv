@@ -1,0 +1,236 @@
+﻿id,name,address,taxno,tel,fax,contact,email,companyType,country,code,creator,updator,createdDate,lastUpdateDate
+1,DNTN MÁY VÀ THIẾT BỊ Á CHÂU,"55/11B Tổ 55, khu phố 4, P. Tân Chánh Hiệp, Quận 12, Tp.HCM",302090088,,,,empty@email.com,63,66,ACHAU-DNTN,,,3/13/2015 0:00,3/13/2015 0:00
+2,CÔNG TY TNHH AGILITY LOGISTICS VIỆT NAM,"364 Cộng Hòa, Phường 13, Quận Tân Bình, Tp.HCM",303588782,,,,empty@email.com,63,66,AGILITY,,,3/13/2015 0:00,3/13/2015 0:00
+3,CÔNG TY TNHH AGILITY,"Toà nhà ETOWN, 364 Cộng Hòa, Phường 13, Quận Tân Bình, Tp.HCM",305244593,,,,empty@email.com,63,66,AGILITY 1,,,3/13/2015 0:00,3/13/2015 0:00
+4,CÔNG TY CỔ PHẦN THỰC PHẨM AGREX SAIGON,"Lô H.01 - H.02, Đường Trung Tâm, Khu công nghiệp Long Hậu, Xã Long hậu, Huyện Cần Giuộc, Tỉnh Long An, Việt Nam",1100928386,,,,empty@email.com,63,66,AGREX SAIGON,,,3/13/2015 0:00,3/13/2015 0:00
+5,CÔNG TY TNHH AKITA OIL SEAL VIỆT NAM,"Lô A4, KCN Nomura Hải Phòng, An Dương, Hải Phòng",200653158,,,,empty@email.com,63,66,AKITA,,,3/13/2015 0:00,3/13/2015 0:00
+6,CÔNG TY TNHH ĐẦU TƯ PHÁT TRIỂN CÔNG NGHỆ ÁNH DƯƠNG,"78/9A Ba Vân, Phường 14, Quận Tân Bình, TP HCM",311112122,,,,empty@email.com,63,66,ANH DUONG,,,3/13/2015 0:00,3/13/2015 0:00
+7,CÔNG TY TNHH MTV THƯƠNG MẠI KỸ THUẬT ĐIỆN ÁNH SÁNG VIỆT,"216 Âu Dương Lân, Phường 3, Quận 8, TP HCM.",304886686,,,,empty@email.com,63,66,ANH SANG VIET,,,3/13/2015 0:00,3/13/2015 0:00
+8,CÔNG TY TNHH VIỄN THÔNG ANH KHÔI,"42 Nguyễn Thái Bình, Phường Nguyễn Thái Bình, Quận 1, TP HCM",310964854,,,,empty@email.com,63,66,ANHKHOI,,,3/13/2015 0:00,3/13/2015 0:00
+9,CÔNG TY CỔ PHẦN XUẤT NHẬP KHẨU THUỶ SẢN AN MỸ,Lô A2 - A3 Cụm CN Phú Hoà - Thị Trấn  Phú Hoà - Huyện  Thoại Sơn - An Giang,1600903460,,,,empty@email.com,63,66,ANMY,,,3/13/2015 0:00,3/13/2015 0:00
+10,CÔNG TY TNHH ĐẦU TƯ XÂY DỰNG THƯƠNG MẠI VÀ DỊCH VỤ VẬN TẢI AN THỊNH,"Số 4 Chợ Lũng, P. Đằng Hải, Q. Hải An, Hải Phòng",201166855,,,,empty@email.com,63,66,ANTHINH,,,3/13/2015 0:00,3/13/2015 0:00
+11,CÔNG TY TNHH NUÔI TRỒNG THUỶ SẢN APOLLO,"3 - 1B Lô H14, Đường P, Khu Phố Mỹ Cảnh, Trung Tâm Đô Thị mới Nam Sài Gòn, Phường Tân Phong, Quận 7, TP HCM.",311506663,,,,empty@email.com,63,66,APOLLO,,,3/13/2015 0:00,3/13/2015 0:00
+12,CÔNG TY TNHH THƯƠNG MẠI ARTREND ( VIỆT NAM ),"357 / 31 / 25 Tân Hòa Đông, Phường Bình Trị Đông, Quận Bình Tân, TP HCM",311771767,,,,empty@email.com,63,66,ARTREND,,,3/13/2015 0:00,3/13/2015 0:00
+13,CÔNG TY TNHH BA HÁT,"Ấp 1A, Xã An Phú, Thị Xã Thuận An, Tỉnh Bình Dương",3700669948,,,,empty@email.com,63,66,BA HAT,,,3/13/2015 0:00,3/13/2015 0:00
+14,CÔNG TY TNHH MTV TM VÀ DV VẬN TẢI BẮC BÌNH,"24K/3B KP Bình Đáng, P. Bình Hòa, TX Thuận An, Bình Dương",3702151781, 072 3503 999,072 3866 999,,empty@email.com,63,66,BACBINH,,,3/13/2015 0:00,3/13/2015 0:00
+15,CÔNG TY TNHH SX - XK HÀNG TCMN & TM BẮC NINH,"Xóm 8B, xã Cổ Nhuế, Huyện Từ Liêm, Hà Nội",100968940,,,,empty@email.com,63,66,BACNINH,,,3/13/2015 0:00,3/13/2015 0:00
+16,CÔNG TY TNHH BÌNH AN,"Đường 10, Thượng Thôn, Xã Yên Tiến, Huyện Ý Yên, Nam Định",600341315,,,,empty@email.com,63,66,BINHAN,,,3/13/2015 0:00,3/13/2015 0:00
+17,CÔNG TY TNHH KỸ NGHỆ BÌNH NGUYÊN,"838 Bạch Đằng, Hai Bà Trưng, Hà Nội",101072089,,,,empty@email.com,63,66,BINHNGUYEN,,,3/13/2015 0:00,3/13/2015 0:00
+18,CÔNG TY CỔ PHẦN ĐẦU TƯ XÂY DỰNG BMT,"36 Võ Văn Tần, Phường 6, Quận 3, Tp.HCM",301449021,,,,empty@email.com,63,66,BMT,,,3/13/2015 0:00,3/13/2015 0:00
+19,CÔNG TY TNHH CÁNH ĐỎ,"65 Lê Trung Nghĩa, Phường 15, Quận Tân Bình, Tp.HCM",309718163,,,,empty@email.com,63,66,CANHDO,,,3/13/2015 0:00,3/13/2015 0:00
+20,CÔNG TY TNHH TRE NỨA CUỐN MỸ NGHỆ CÁT ĐẰNG,"Yên Tiến, Ý Yên, Nam Định",600518587,,,,empty@email.com,63,66,CATDANG,,,3/13/2015 0:00,3/13/2015 0:00
+21,CÔNG TY CP ĐẦU TƯ VÀ SẢN XUẤT VIỆT CNC,"số 16, Ngách 10/11 Hoàng Ngọc Phách, Đống Đa, Hà Nội",104071319,,,,empty@email.com,63,66,CNC,,,3/13/2015 0:00,3/13/2015 0:00
+22,DNTN CÔNG BÌNH,"Ấp Bình Hòa, Xã Bình Tịnh, Huyện Tân Trụ, Tỉnh Long An",1100745375,,,,empty@email.com,63,66,CONGBINH,,,3/13/2015 0:00,3/13/2015 0:00
+23,CÔNG TY TNHH CÔNG NGHIỆP SẮT THÉP CONNEX-AIKO,"Lô C-8D-CN, Khu Công Nghiệp Mỹ Phước 3, Huyện Bến Cát, Tỉnh Bình Dương",3700806270,,,,empty@email.com,63,66,CONNEX,,,3/13/2015 0:00,3/13/2015 0:00
+24,CÔNG TY CỔ PHẦN CONTINENTIAL LOGISTICS,"1/26 Thăng Long, Phường 4, Quận Tân Bình, TP.HCM",312153097,,,,empty@email.com,63,66,CONTINENTIAL LOGISTICS,,,3/13/2015 0:00,3/13/2015 0:00
+25,CÔNG TY TNHH COSTAR VIỆT NAM,"588/72 Tỉnh Lộ 10, P. Bình Trị Đông, Q. Bình Tân, Tp HCM.",311933545,,,,empty@email.com,63,66,COSTAR,,,3/13/2015 0:00,3/13/2015 0:00
+26,CROWN VAN LINE,"4-4FL, No. 165 Sec. 5, MIN SHENG E.RD, TAIPEI, TAIWAN",,,,,empty@email.com,63,66,CROWN VAN LINE,,,3/13/2015 0:00,3/13/2015 0:00
+27,CÔNG TY TNHH CỬA ĐỎ,"Số 212 Nguyễn Sơn, Phường Bồ Đề, Quận Long Biên, TP Hà Nội",101455557,,,,empty@email.com,63,66,CUADO,,,3/13/2015 0:00,3/13/2015 0:00
+28,CÔNG TY TNHH MỘT THÀNH VIÊN DADU VIỆT NAM,"Lô số 14-16-18-20, Đường số 3, KCN Tân Đức, Xã Đức Hòa Hạ, Huyện Đức Hòa, Tỉnh Long An",1101723536,,,,empty@email.com,63,66,DADU,,,3/13/2015 0:00,3/13/2015 0:00
+29,CÔNG TY TNHH MTV TM-DV ĐÀI BẮC,"Số 31, đường số 6, tổ 8, Ấp Bàu Sim, ã Tân Thông Hội, Huyện Củ Chi, TP HCM",308617099,,,,empty@email.com,63,66,DAIBAC,,,3/13/2015 0:00,3/13/2015 0:00
+30,CÔNG TY CỔ PHẦN ĐẠI ĐỒNG TIẾN,"216 Tân Thành, Phường 15, Quận 5, TP HCM.",304690411,,,,empty@email.com,63,66,DAIDONGTIEN,,,3/13/2015 0:00,3/13/2015 0:00
+31,CN CÔNG TY CỔ PHẦN CƠ KHÍ VẬN TẢI THƯƠNG MẠI ĐẠI HƯNG TẠI BÌNH DƯƠNG,"Tổ 12, KP Ngãi Thắng, P. Bình Thắng, TX. Dĩ An, Tỉnh Bình Dương",0200426067-005,,,,empty@email.com,63,66,DAIHUNG,,,3/13/2015 0:00,3/13/2015 0:00
+32,CÔNG TY TNHH TM DV XUẤT NHẬP KHẨU ĐẠI KHANG,"122/15/36 Bùi Tư Toàn, KP 4, P. An Lạc, Quận Bình Tân",312149608,,,,empty@email.com,63,66,DAIKHANG,,,3/13/2015 0:00,3/13/2015 0:00
+33,CÔNG TY TNHH ĐẠI TÂN,"Khu A, Lô G.27C - 28 B, đường số 8, KCX Tân Thuận, P.Tân Thuận Đông, Quận 7, TP HCM",300757288,,,,empty@email.com,63,66,DAITAN,,,3/13/2015 0:00,3/13/2015 0:00
+34,CÔNG TY TNHH ĐẠI THÀNH,"Ấp Đông Hòa, Xã Song Thuận, Huyện Châu Thành, Tỉnh Tiền Giang",1200631935,,,,empty@email.com,63,66,DAITHANH,,,3/13/2015 0:00,3/13/2015 0:00
+35,DOANH NGHIỆP TƯ NHÂN ĐẠI TUẤN,"850/22 Đường 30/4, P. 11, Tp Vũng Tàu",3500671869,,,,empty@email.com,63,66,DAITUAN,,,3/13/2015 0:00,3/13/2015 0:00
+36,CÔNG TY TNHH MỘT THÀNH VIÊN ĐẠI TUẤN ĐỒNG,"Số 2, Lô C1, làng chuyên gia Rubyland, Thị Trấn Mỹ Phước, huyện Bến Cát, Tỉnh Bình Dương.",3701944548,,,,empty@email.com,63,66,DAITUANDONG,,,3/13/2015 0:00,3/13/2015 0:00
+37,CÔNG TY CỔ PHẦN ĐẠI TƯỜNG PHÁT,"18 An Dương Vương, Phường 9, Quận 5, TP HCM",310524074,,,,empty@email.com,63,66,DAITUONGPHAT,,,3/13/2015 0:00,3/13/2015 0:00
+38,CÔNG TY TNHH XUẤT KHẨU THỦ CÔNG MỸ NGHỆ ĐẠI VIỆT,"Thôn Thái Hòa, Xã Bình Phú, Huyện Thạch Thất, TP Hà Nội",500465532,,,,empty@email.com,63,66,DAIVIET,,,3/13/2015 0:00,3/13/2015 0:00
+39,CÔNG TY CỔ PHẦN ĐÁ LAM ĐỒNG,"Lô DM1, KCN Lộc Sơn, Phường Lộc Sơn, Bảo lộc, Lâm Đồng",5800966560,,,,empty@email.com,63,66,DALAMDONG,,,3/13/2015 0:00,3/13/2015 0:00
+40,CÔNG TY DÂY DẪN KIM LOẠI VIỆT NAM,"Phước Thái, Long Thành, Đồng Nai",3600359477,,,,empty@email.com,63,66,DAYDANKLVN,,,3/13/2015 0:00,3/13/2015 0:00
+41,CÔNG TY TNHH ĐẾ LONG,"3A/42 Ấp Bình Đức, Xã Bình Hòa, Huyện Thuận An, Bình Dương",3701711173,,,,empty@email.com,63,66,DELONG,,,3/13/2015 0:00,3/13/2015 0:00
+42,CÔNG TY TNHH DEWX VIETNAM,"Tầng 3, số 45 Trần Thái Tông, C3-D2 Khu đô thị mới Cầu Giấy, phường Dịch Vọng Hậu, quận Cầu Giấy, Tp Hà Nội",106098700,,,,empty@email.com,63,66,DEWX,,,3/13/2015 0:00,3/13/2015 0:00
+43,CÔNG TY TNHH GIAO NHẬN DƯƠNG MINH TOÀN CẦU,"127/137 Điện Biên Phủ, Phường Đa Kao, Quận 1, TP HCM",303645374,,,,empty@email.com,63,66,DM TOANCAU,,,3/13/2015 0:00,3/13/2015 0:00
+44,DOANH NGHIỆP TƯ NHÂN THANH TUẤN,"Thôn Đồi 3, Xã Đông Phương Yên, Huyện Chương Mỹ, Hà Nội",500444074,,,,empty@email.com,63,66,DN THANHTUAN,,,3/13/2015 0:00,3/13/2015 0:00
+45,CÔNG TY TNHH MÁY ĐO ĐẠC THÁI BÌNH DƯƠNG,"213 Điện Biên Phủ, Phường 15, Quận Bình Thạnh, TP HCM",310708258,,,,empty@email.com,63,66,?O ??C TBD,,,3/13/2015 0:00,3/13/2015 0:00
+46,CÔNG TY LIÊN DOANH ĐỒ GỖ QUỐC TẾ,"14 -16- 18 Song Hành, KCN Tân Tạo, Quận Bình Tân, TP HCM",301892603,,,,empty@email.com,63,66,DO GO QUOC TE,,,3/13/2015 0:00,3/13/2015 0:00
+47,CÔNG TY TNHH MỘT THÀNH VIÊN DOÃN NHẬT,"208 Nguyễn Thị Minh Khai, KP 8, P.Phú  Hòa, TP Thủ Dầu Một, Tỉnh Bình Dương",3701792581,,,,empty@email.com,63,66,DOANNHAT,,,3/13/2015 0:00,3/13/2015 0:00
+48,DNTN ĐÔ THÀNH,"137A, Tân Bình, Tân Phú, Dĩ An, Bình Dương.",3700520401,,,,empty@email.com,63,66,DOTHANH,,,3/13/2015 0:00,3/13/2015 0:00
+49,CÔNG TY CỔ PHẦN ĐẦU TƯ CÁT ĐẰNG,"Xóm Đông Thịnh, Thôn Cát Đằng, Xã Yên Tiến, Huyện Ý Yên, Tỉnh Nam Định",600355205,,,,empty@email.com,63,66,?T CAT DANG,,,3/13/2015 0:00,3/13/2015 0:00
+50,CÔNG TY TNHH XUẤT KHẨU HÀNG TCMN DUY THÀNH,"Lô A5-5, A5-6 khu Đảo Xanh, P. Hòa Cường Bắc, Hải Châu, Đà Nẵng",400411879,,,,empty@email.com,63,66,DUYTHANH,,,3/13/2015 0:00,3/13/2015 0:00
+51,CÔNG TY CỔ PHẦN FECON MILTEC,"Lô NX- D2, KCN Long Hậu, Xã Long Hậu, Huyện Cần Giuộc,  Long An",1101436813,,,,empty@email.com,63,66,FECON MILTEC,,,3/13/2015 0:00,3/13/2015 0:00
+52,CÔNG TY CỔ PHẦN TIẾP VẬN FIAN,"Phòng TH6, Lầu 3, Số 02 Phùng Khắc Khoan, P.Đa Kao, Quận 1, TP HCM",312353868,,,,empty@email.com,63,66,FIAN,,,3/13/2015 0:00,3/13/2015 0:00
+53,CÔNG TY TNHH CN FUSHENG VIỆT NAM,"Số 6, đường 3A, Khu CN Biên Hòa II, Đồng Nai",3600259881,,,,empty@email.com,63,66,FUSHENG,,,3/13/2015 0:00,3/13/2015 0:00
+54,CÔNG TY TNHH GEA REFRIGERATION VIỆT NAM,"3G Phổ Quang, Phường 2, Q. Tân Bình, Tp.HCM",305510654,,,,empty@email.com,63,66,GEA,,,3/13/2015 0:00,3/13/2015 0:00
+55,CÔNG TY TNHH THƯƠNG MẠI GIA BẢO KHANH,"347 Bình Lợi , Phường 13, Quận Bình Thạnh, TP HCM",303846024,,,,empty@email.com,63,66,GIA BAO KHANH,,,3/13/2015 0:00,3/13/2015 0:00
+56,CÔNG TY TNHH GLOBE EXPRESS VIỆT NAM,"P.102, Lấu 01, Số 43 Mạc Đĩnh Chi, Quân 1, TP HCM",304489600,,,,empty@email.com,63,66,GLOBE EXPRESS,,,3/13/2015 0:00,3/13/2015 0:00
+57,CHI NHÁNH CÔNG TY CP GIAO NHẬN VẬN TẢI VÀ THƯƠNG MẠI,"Tầng 6, Số 14 Láng Hạ, P. Thành Công, Q. Ba Đình, Hà Nội.",0301776205-001,,,,empty@email.com,63,66,GNVT & TM-HN,,,3/13/2015 0:00,3/13/2015 0:00
+58,CÔNG TY TNHH GIẢI PHÁP TÀI NĂNG,"117B Nguyễn Đình Chính, P. 15, Q. Phú Nhuận, Tp HCM",308923843,,,,empty@email.com,63,66,GP TAI NANG,,,3/13/2015 0:00,3/13/2015 0:00
+59,CÔNG TY TNHH GRUNDFOS VIỆT NAM,"Số 15, Đường 9B, Phường An Phú, Quận 2, Tp HCM",306557849,,,,empty@email.com,63,66,GRUNDFOS VN,,,3/13/2015 0:00,3/13/2015 0:00
+60,CÔNG TY TNHH HÓA CHẤT H & T,"B45 lê Thị Hồng, Phường 17, Quận Gò Vấp, Tp.HCM",311234057,,,,empty@email.com,63,66,H&T,,,3/13/2015 0:00,3/13/2015 0:00
+61,CHI NHÁNH DOANH NGHIỆP TƯ NHÂN HA SA,"Số 20/23 Khu Phố Bình Phước A, Phường Bình Chuẩn, Thị Xã Thuận An, Tỉnh Bình Dương",0303237907-002,,,,empty@email.com,63,66,HA SA,,,3/13/2015 0:00,3/13/2015 0:00
+62,CÔNG TY TNHH THƯƠNG MẠI -DỊCH VỤ -VẬN TẢI HẢI TIẾN,"59/29/1 Phạm Văn Chiêu, P. 14, Q. Gò Vấp, TP HCM",305988553,,,,empty@email.com,63,66,HAI TIEN,,,3/13/2015 0:00,3/13/2015 0:00
+63,CÔNG TY CP SẢN XUẤT - THƯƠNG MẠI XUẤT NHẬP KHẨU VỚ HẠNH TRANG,"106/26 Tôn Thất Hiệp, Phường 13, Quận 11, Tp. Hồ Chí Minh",312969569,,,,empty@email.com,63,66,HANHTRANG,,,3/13/2015 0:00,3/13/2015 0:00
+64,CÔNGTY TNHH SX-TM HÁN THÀNH,"288 đường Bình Long, P. Phú Thạnh, Q. Tân Phú, Tp.HCM",302383937,,,,empty@email.com,63,66,HANTHANH,,,3/13/2015 0:00,3/13/2015 0:00
+65,DOANH NGHIỆP TƯ NHÂN HIỀN UYÊN VI,"22C/4 đường 672, P.Phước Long B, Quận 9, TP HCM",1200757053,,,,empty@email.com,63,66,HIEN UYEN VI,,,3/13/2015 0:00,3/13/2015 0:00
+66,CÔNG TY TNHH KINH DOANH XNK HOÀNG BẢO,"Số 06 Man Thiện, Phường Hoà Thuận Tây, Quận Hải Châu, Tp. Đà Nẵng",400441665,,,,empty@email.com,63,66,HOANGBAO,,,3/13/2015 0:00,3/13/2015 0:00
+67,CÔNG TY TNHH KỸ THUẬT TỰ ĐỘNG HOÀNG TRANG,"15A Nguyễn Trung Trực, P. 5, Q. Bình Thạnh, Tp HCM.",304992130,,,,empty@email.com,63,66,HOANGTRANG,,,3/13/2015 0:00,3/13/2015 0:00
+68,CÔNG TY TNHH XK MÂY TRE MỸ NGHỆ HỘI AN,"454/4 Nguyễn Tri Phương, P.Hòa Thuận Tây, Q.Hải Châu, TP Đà Nẵng, Việt Nam",400437316,,,,empty@email.com,63,66,HOIAN,,,3/13/2015 0:00,3/13/2015 0:00
+69,CÔNG TY TNHH TMDV HOMY,"144 Đường D1, Phường 25, Quận Bình Thạnh, Tp.HCM",310937064,,,,empty@email.com,63,66,HOMY,,,3/13/2015 0:00,3/13/2015 0:00
+70,CÔNG TY TNHH HỐ NAI,"Khu phố 8, phường Long Bình, Biên Hòa, Đồng Nai,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",3600276005,,,,empty@email.com,63,66,HONAI,,,3/13/2015 0:00,3/13/2015 0:00
+71,CÔNG TY TNHH XUẤT NHẬP KHẨU HỢP THÀNH,"Đội 2 Thôn Ngọc Động, Huyện Duy Tiên, Tỉnh Hà Nam",700272880,,,,empty@email.com,63,66,HOPTHANH,,,3/13/2015 0:00,3/13/2015 0:00
+72,CÔNG TY TNHH ZENG HSING INDUSTRIAL,"20A VSIP, Đường số 6, KCN VSIP, TX Thuận An, Tỉnh Bình Dương",3700619760,,,,empty@email.com,63,66,HSING INDUSTRIAL,,,3/13/2015 0:00,3/13/2015 0:00
+73,CÔNG TY TNHH THỦ CÔNG MỸ NGHỆ HT,"189 Thôn 6, Song Phương, Hoài Đức, Hà Nội.",105384120,,,,empty@email.com,63,66,HT,,,3/13/2015 0:00,3/13/2015 0:00
+74,CÔNG TY TNHH TM DV VÀ VẬN TẢI HTC VN,"Số 7/9 Khu Phố 1, P Trung Mỹ Tây, Quận 12, TP HCM",312279276,,,,empty@email.com,63,66,HTC VN,,,3/13/2015 0:00,3/13/2015 0:00
+75,CÔNG TY CỔ PHẦN HUỆ MINH,"Phòng 908 - Tòa nhà 17T7 khu đô thị Trung Hòa, Nhân Chính, Thanh Xuân, Hà Nội",101269631,,,,empty@email.com,63,66,HUEMINH,,,3/13/2015 0:00,3/13/2015 0:00
+76,CÔNG TY TNHH HÙNG CÁ,"Cụm CN Thanh Bình, Ấp Bình Chánh, Xã Bình Thành, Huyện Thanh Bình, Tỉnh Đồng Tháp.",1400528082,,,,empty@email.com,63,66,HUNGCA,,,3/13/2015 0:00,3/13/2015 0:00
+77,CÔNG TY TNHH SƠN MÀI HÙNG HÀ,"thôn Phúc An, xã Duyên Thái, huyện Thường Tín, Tp. Hà Nội",105221750,,,,empty@email.com,63,66,HUNGHA,,,3/13/2015 0:00,3/13/2015 0:00
+78,CÔNG TY TNHH GIAO NHẬN HƯNG LONG THỊNH,"442/4/3/14D Nguyễn Thái Sơn, Phường 5, Quận Gò Vấp, TP HCM",312973607,,,,empty@email.com,63,66,HUNGLONGTHINH,,,3/13/2015 0:00,3/13/2015 0:00
+79,CÔNG TY TNHH XNK VIỆT NAM HÙNG THÁI,"931 Quốc lộ 1A, P. An Phú Đông, Quận 12, Tp.HCM",310473616,,,,empty@email.com,63,66,HUNGTHAI,,,3/13/2015 0:00,3/13/2015 0:00
+80,"INFORUS VIETNAM CO.,LTD","12 Mạc Đỉnh Chi, P. Đa Kao, Quận 1, Tp.HCM",304842657,,,,empty@email.com,63,66,INFORUS,,,3/13/2015 0:00,3/13/2015 0:00
+81,"ISHIDA CO., LTD - VN REPRESENTATIVE OFFICE","SA1-1 Mỹ Khang Complex, Phú Mỹ Hưng, P. Tân Phú, Quận 7, Tp.HCM",,,,,empty@email.com,63,66,ISHIDA,,,3/13/2015 0:00,3/13/2015 0:00
+82,CÔNG TY TNHH ISHIDA VIỆT NAM,"R4 - 51 Hưng Phước 4, Phường Tân Phong, Quận 7, TP HCM",311764939,,,,empty@email.com,63,66,ISHIDA VN,,,3/13/2015 0:00,3/13/2015 0:00
+83,CÔNG TY TNHH DỊCH VỤ HÀNG HẢI JARDINE(VIỆT NAM),"Phòng 304, Lầu 3, Số 2 Bis 4-6 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP HCM",304147893,,,,empty@email.com,63,66,JARDINE,,,3/13/2015 0:00,3/13/2015 0:00
+84,CÔNG TY CP CÔNG NGHIỆP JK VIỆT NAM,"Thôn Đồng Du, Xã Hợp Đồng, Huyện Chương Mỹ, TP Hà Nội",500556620,,,,empty@email.com,63,66,JK VN,,,3/13/2015 0:00,3/13/2015 0:00
+85,CÔNG TY TNHH MTV JORDAN MANUFACTURING VIỆT NAM,"Lô IV, 16A-16B, Nhóm Công Nghiệp IV, KCN Tân Bình, P.Tây Thạnh, Q.Tân Phú, TP HCM",309621179,,,,empty@email.com,63,66,JORDAN,,,3/13/2015 0:00,3/13/2015 0:00
+86,CÔNG TY TNHH TM - DV KIM ÁNH,"157/1 khu phố Long Thới, P.Lái Thiêu, TX. Thuận An, Bình Dương",3701636381,,,,empty@email.com,63,66,KIMANH,,,3/13/2015 0:00,3/13/2015 0:00
+87,CÔNG TY TNHH THƯƠNG MẠI MÁY MÓC THIẾT BỊ KIM CƯƠNG,"158/1 Hoàng Hoa Thám, Phường 12, Quận Tân Bình, Tp HCM",310762079,,,,empty@email.com,63,66,KIMCUONG,,,3/13/2015 0:00,3/13/2015 0:00
+88,CÔNG TY TNHH TMDV KIM ĐẠI HẢI,"62 Đường số 8, Bình Trị Đông B, Quận Bình Tân, TP HCM",303357961,,,,empty@email.com,63,66,KIMDAIHAI,,,3/13/2015 0:00,3/13/2015 0:00
+89,CÔNG TY TNHH CÔNG NGHIỆP KING TAI,"Đường 7A, KCN Nhơn Trạch 2, Huyện Nhơn Trạch, Tỉnh Đồng Nai.",3600938788,,,,empty@email.com,63,66,KING TAI,,,3/13/2015 0:00,3/13/2015 0:00
+90,CÔNG TY TNHH VẬN TẢI QUỐC TẾ KẾT NỐI THÔNG MINH,"51 Đường số 9, Khu dân cư Him Lam, Phường Tân Hưng, Quận 7, TP HCM",310383930,,,,empty@email.com,63,66,KN THONGMINH,,,3/13/2015 0:00,3/13/2015 0:00
+91,"KOREA GLS, INC","1F JIN BLDG., YANGJAE-DONG, SEOCHO-GU, SEOUL 137-30, KOREA",,,,,empty@email.com,63,66,KOREA GLS,,,3/13/2015 0:00,3/13/2015 0:00
+92,CÔNG TY CP TIN HỌC LẠC TIÊN,"43 Vĩnh Nam, Phường 1, Quận 8, Tp.HCM",306261785,,,,empty@email.com,63,66,LACTIEN,,,3/13/2015 0:00,3/13/2015 0:00
+93,CÔNG TY CP THƯƠNG MẠI LA GIANG,"16 Trương Định, Phường 6, Quận 3, Tp.HCM",301415417,,,,empty@email.com,63,66,LAGIANG,,,3/13/2015 0:00,3/13/2015 0:00
+94,CÔNG TY TNHH LÂM CHÂU HÀ,"18 Đường số 1, Tổ 1, KP 3, P. Phước Long A, Q. 9, TP HCM.",304252739,,,,empty@email.com,63,66,LAMCHAUHA,,,3/13/2015 0:00,3/13/2015 0:00
+95,CÔNG TY TNHH MỸ NGHỆ LÂM SƠN,"Thôn Cát Đằng, Xã Yên Tiến, Hyện Ý Yên, Tỉnh Nam Định",600955072,,,,empty@email.com,63,66,LAMSON,,,3/13/2015 0:00,3/13/2015 0:00
+96,CÔNG TY TNHH MÁY CÔNG CỤ LIÊN MINH,"50/2 Khu Phố 4, Nguyễn Văn Quá, P. Đông Hưng Thuận, Q. 12, TP HCM.",304542205,,,,empty@email.com,63,66,LIENMINH,,,3/13/2015 0:00,3/13/2015 0:00
+97,CÔNG TY TNHH TM - DV QUỐC TẾ LIÊN THẮNG,"38/27 Chế Lan Viên, Phường Tây Thạnh, Quận Tân Phú, TP HCM",310731539,,,,empty@email.com,63,66,LIENTHANG,,,3/13/2015 0:00,3/13/2015 0:00
+98,CÔNG TY TNHH LIÊN TRUNG,"Số 397B/A2, Ấp Nhị Hòa, Xã Hiệp Hòa, TP Biên Hòa, Đồng Nai",3600975211,,,,empty@email.com,63,66,LIENTRUNG,,,3/13/2015 0:00,3/13/2015 0:00
+99,CÔNG TY CỔ PHẦN LP VIỆT NAM,"Cổ Nhuế, Từ Liêm, Hà Nội",102987730,,,,empty@email.com,63,66,LP VIETNAM,,,3/13/2015 0:00,3/13/2015 0:00
+100,CÔNG TY TNHH LUCKY STAR PLAST,"Số 5, đường số 15A, KCN Biên Hòa 2, Đồng Nai",3600262362,,,,empty@email.com,63,66,LUCKY STAR,,,3/13/2015 0:00,3/13/2015 0:00
+101,CÔNG TY TNHH MAI CO,"216/5 Khu Phố 4, Phường An Phú, Thị Xã Thuận An, Tỉnh Bình Dương.",3700308324,,,,empty@email.com,63,66,MAICO,,,3/13/2015 0:00,3/13/2015 0:00
+102,CÔNG TY TNHH THƯƠNG MẠI SẢN XUẤT BAO BÌ MAI THƯ,"24 Trương Quốc Dung, Phường 8, Quận Phú Nhuận, TP HCM",302177349,,,,empty@email.com,63,66,MAITHU,,,3/13/2015 0:00,3/13/2015 0:00
+103,CÔNG TY TNHH MẦM XANH VIỆT,"198/39 Thoại Ngọc Hầu, Phường Phú Thạnh, Quận Tân Phú, TP HCM.",311615888,,,,empty@email.com,63,66,MAMXANHVIET,,,3/13/2015 0:00,3/13/2015 0:00
+104,CÔNG TY TNHH GỐM MẠNH DẦN,"89B Giang Cao, Bát Tràng, Gia Lâm, Hà Nội",102816799,,,,empty@email.com,63,66,MANHDAN,,,3/13/2015 0:00,3/13/2015 0:00
+105,VPĐD MAREL FOOD SYSTEMS LTD. TẠI TP.HCM,"10 Hưng Phước 3, Tân Phong, Quận 7",304670535,,,,empty@email.com,63,66,MAREL FOOD,,,3/13/2015 0:00,3/13/2015 0:00
+106,CÔNG TY TNHH MARINE FARMS ASA VIỆT NAM,31 Đặng Tất - Nha Trang - Khánh Hoà,4200538297,,,,empty@email.com,63,66,MARINE FARMS,,,3/13/2015 0:00,3/13/2015 0:00
+107,CÔNG TY TNHH HÙNG VƯƠNG MASCATO,"Lô 41-42 Khu Công Nghiệp Mỹ Tho, Tiền Giang",1201283261,,,,empty@email.com,63,66,MASCATO,,,3/13/2015 0:00,3/13/2015 0:00
+108,CÔNG TY TNHH MÂY TRE ĐAN PHÚC THỊNH,"Thôn Lưu Thượng, Xã Phú Túc, Huyện Phú Xuyên, TP Hà Nội",105484830,,,,empty@email.com,63,66,MAYTRE PHUCTHINH,,,3/13/2015 0:00,3/13/2015 0:00
+109,CÔNG TY TNHH MÂY TRE THÀNH PHÁT,"Thôn Yên Trường, Xã Trường Yên, Huyện Chương Mỹ, Hà Nội",104826915,,,,empty@email.com,63,66,MAYTRE THANHPHAT,,,3/13/2015 0:00,3/13/2015 0:00
+110,CÔNG TY CỔ PHẦN HÀNG HẢI MERMAID VIỆT NAM,"Đường 12, Khu Công Nghiệp Đông Xuyên , Phường Rạch Dừa, Thành Phố  Vũng Tàu, Tỉnh Bà Rịa Vũng Tàu.",3500674108,,,,empty@email.com,63,66,MERMAID,,,3/13/2015 0:00,3/13/2015 0:00
+111,CÔNG TY TNHH CƠ KHÍ CHÍNH XÁC MIEN HUA,"KM 1954, QL 1A, Phường Tân Khánh, Thành Phố Tân An, Tỉnh Long An",1100499578,,,,empty@email.com,63,66,MIENHUA,,,3/13/2015 0:00,3/13/2015 0:00
+112,CÔNG TY TNHH THƯƠNG MẠI MIỀN NAM,235 Cộng Hoà - P. 13 - Q. Tân Bình - TP HCM,304787893,,,,empty@email.com,63,66,MIENNAM,,,3/13/2015 0:00,3/13/2015 0:00
+113,CÔNG TY CP ĐẦU TƯ VÀ PHÁT TRIỂN VIỄN THÔNG MIỀN TÂY,"40 Hoàng Việt, Phường 4, Quận Tân Bình, Tp.HCM",304405664,,,,empty@email.com,63,66,MIENTAY,,,3/13/2015 0:00,3/13/2015 0:00
+114,CÔNG TY TNHH VẬN TẢI MINH AN,"153/14 Điện Biên Phủ, Phường 15, Quận Bình Thạnh, TP HCM",310030903,,,,empty@email.com,63,66,MINH AN,,,3/13/2015 0:00,3/13/2015 0:00
+115,CÔNG TY TNHH VẬN TẢI QUỐC TẾ MINH LONG,"36L Đường Miếu Nổi , KDC Miếu Nổi , P. 3, Q. Bình Thạnh, TP HCM.",305247964,,,,empty@email.com,63,66,MINH LONG,,,3/13/2015 0:00,3/13/2015 0:00
+116,CÔNG TY TNHH QUỐC TẾ MINH ANH,"36 Trần Văn Quang, Phường 10, Quận Tân Bình, Tp. HCM",304525979,,,,empty@email.com,63,66,MINHANH,,,3/13/2015 0:00,3/13/2015 0:00
+117,DOANH NGHIỆP TƯ NHÂN MINH DŨNG,"1A, khu phố Trung Lương, Phướng 10, Tp. Mỹ Tho, tỉnh Tiền Giang",1200328262,,,,empty@email.com,63,66,MINHDUNG,,,3/13/2015 0:00,3/13/2015 0:00
+118,CÔNG TY TNHH XUẤT NHẬP KHẨU MINH HẢI,"Cụm tiểu thủ CN Kim Bình, Kim Bằng, Hà Nam",700253091,,,,empty@email.com,63,66,MINHHAI,,,3/13/2015 0:00,3/13/2015 0:00
+119,CÔNG TY TNHH TM DV VẬN TẢI MINH HƯNG,"31/19 Hoàng Hoa Thám, Phường 13, Quận Tân Bình, Tp HCM",312330684,,,,empty@email.com,63,66,MINHHUNG,,,3/13/2015 0:00,3/13/2015 0:00
+120,CÔNG TY TNHH MINH KÔN,"Thôn Trung, Xã Chuyên Mỹ, Huyện Phú Xuyên, Hà Nội",104349765,,,,empty@email.com,63,66,MINHKON,,,3/13/2015 0:00,3/13/2015 0:00
+121,CÔNG TY CỔ PHẦN THƯƠNG MẠI MINH THỊNH,"số 47A/358 Đoạn Xá 1, P. Đông Hải 1, Q. Hải An, Tp. Hải Phòng",200830960,,,,empty@email.com,63,66,MINHTHINH,,,3/13/2015 0:00,3/13/2015 0:00
+122,CÔNG TY TNHH MKP SHIPPING,"52 Đường 239, Cư Xá Bùi Minh Trực, Phường 5, Quận 8, TP HCM",312122116,,,,empty@email.com,63,66,MKP,,,3/13/2015 0:00,3/13/2015 0:00
+123,CÔNG TY CỔ PHẦN MỸ NGHỆ THÀNH NAM,"Đường 10, Yên Tiến, Ý Yên, Nam Định",600802284,,,,empty@email.com,63,66,MN THANHNAM,,,3/13/2015 0:00,3/13/2015 0:00
+124,CÔNG TY TNHH THƯƠNG MẠI & DỊCH VỤ MND,"2 Ngô Đức Kế, Phường Bến Nghé, Quận 1, TP HCM",310348277,,,,empty@email.com,63,66,MND,,,3/13/2015 0:00,3/13/2015 0:00
+125,CÔNG TY CP TẬP ĐOÀN MUỐI MIỀN NAM,"173 Hai Bà Trưng, Phường 6, Quận 3, Tp.HCM",300547185,,,,empty@email.com,63,66,MUOIMIENNAM,,,3/13/2015 0:00,3/13/2015 0:00
+126,CHI NHÁNH CÔNG TY CỔ PHẦN QUANG & MỸ NGHỆ XUẤT KHẨU,"Mạo Khê, Đông Triều, Quảng Ninh",0101157889-001,,,,empty@email.com,63,66,MYNGHEXK,,,3/13/2015 0:00,3/13/2015 0:00
+127,CÔNG TY TNH SX & XK HÀNG TCMN MỸ THÁI,"Thôn Hạ Thái, xã Duyên Thái, H. Thường Tín, Hà Nội",500467307,,,,empty@email.com,63,66,MYTHAI,,,3/13/2015 0:00,3/13/2015 0:00
+128,CÔNG TY TNHH NĂM HAI NĂM,"Số 12, Đường DC 7, Phường Sơn Kỳ, Quận Tân Phú, TP HCM",304943567,,,,empty@email.com,63,66,NAMHAINAM,,,3/13/2015 0:00,3/13/2015 0:00
+129,CÔNG TY TNHH KỸ THUẬT NAM PHONG,"910 Lầu 9, 4/9/32 Hoàng Long Building, P. Nhi Đồng, Dĩ An, Bình Dương",3700769685,,,,empty@email.com,63,66,NAMPHONG,,,3/13/2015 0:00,3/13/2015 0:00
+130,CÔNG TY TNHH NHỰA NAM VIỆT,"Đường 2A/1 Khu Công Nghiệp Đồng An, Thuận An, Bình Dương",3700263962,,,,empty@email.com,63,66,NAMVIET-BD,,,3/13/2015 0:00,3/13/2015 0:00
+131,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ KỸ THUẬT NĂNG LƯỢNG SẠCH,"91/1B Nguyễn Ảnh Thủ, Ấp Tây Lân, Xã Bà Điểm, Huyện Hóc Môn, Tp HCM",306274417,,,,empty@email.com,63,66,NANGLUONGSACH,,,3/13/2015 0:00,3/13/2015 0:00
+132,CÔNG TY TNHH TM - DV NGHỊ TÍN,"61 Tạ Uyên, Phường 15, Quận 5, TP HCM",303381160,,,,empty@email.com,63,66,NGHITIN,,,3/13/2015 0:00,3/13/2015 0:00
+133,CÔNG TY TNHH CHẾ BIẾN THỰC PHẨM THƯƠNG MẠI NGỌC HÀ,"Ấp Hội, Xã Kim Sơn, Huyện Châu Thành, Tỉnh Tiền Giang",1200536671,,,,empty@email.com,63,66,NGOCHA,,,3/13/2015 0:00,3/13/2015 0:00
+134,CÔNG TY TNHH VẬN TẢI NGUYÊN THÀNH,"63A An Phú Đông 27, Phường An Phú Đông, Quận 12, Tp.HCM",310369446,,,,empty@email.com,63,66,NGUYENTHANH,,,3/13/2015 0:00,3/13/2015 0:00
+135,CÔNG TY TNHH XUẤT NHẬP KHẨU NGUYỄN XUÂN,"42 Ngõ 158, Tổ 25, Phường Ngọc Hà, Q.Ba Đình, TP Hà Nội",105043681,,,,empty@email.com,63,66,NGUYENXUAN,,,3/13/2015 0:00,3/13/2015 0:00
+136,CÔNG TY CỔ PHẦN ĐẦU TƯ NHÀ BÈ,"Khu phố 3, Bến Nghé, Phường Tân Thuận Đông, Quận 7, TP HCM",3700574051,,,,empty@email.com,63,66,NHABE,,,3/13/2015 0:00,3/13/2015 0:00
+137,CÔNG TY TNHH DỊCH VỤ - THƯƠNG MẠI NHẬT CƯỜNG,"352 Trần Văn Kiểu, Phường 11, Quận 6, TP HCM",302560181,,,,empty@email.com,63,66,NHATCUONG,,,3/13/2015 0:00,3/13/2015 0:00
+138,CÔNG TY CP GIẢI PHÁP CÔNG NGHỆ MÔI TRƯỜNG NHẤT TINH,"17/12N, Phan Huy Ích, P.12, Q.Gò Vấp, TP HCM",306885800,,,,empty@email.com,63,66,NHATTINH,,,3/13/2015 0:00,3/13/2015 0:00
+139,CÔNG TY TNHH CÔNG NGHỆ GỐM SỨ OHIO,"Khu Công Nghiệp Tiền Hải, Xã Đông Cơ, Huyện Tiền Hải, Tỉnh Thái Bình",1000317753,,,,empty@email.com,63,66,OHIO,,,3/13/2015 0:00,3/13/2015 0:00
+140,CÔNG TY TNHH OKAMURA VIỆT NAM,"Số 111D Lý Chính Thắng, Phường 7, Quận 3, TP HCM",312503707,,,,empty@email.com,63,66,OKAMURA,,,3/13/2015 0:00,3/13/2015 0:00
+141,CÔNG TY TNHH THỰC PHẨM ORION VINA,"Khu Công Nghiệp Mỹ Phước 2, Huyện Bến Cát, Tỉnh Bình Dương",3700667933,,,,empty@email.com,63,66,ORION VINA,,,3/13/2015 0:00,3/13/2015 0:00
+142,CÔNG TY TNHH NHÀ THÉP PEB,"Khu công nghiệp Đông Xuyên, Phường Rạch Dừa, Thành phố Vũng Tàu, Tỉnh Bà Rịa - Vũng Tàu.",3500684522,(08) 3933 0148,,,empty@email.com,63,66,PEB,,,3/13/2015 0:00,3/13/2015 0:00
+143,CÔNG TY TNHH PENTAX VIỆT NAM,"Số 76 Ngõ Vạn Ứng, Đường Khâm Thiên, Phường Trung Phụng, Quận Đống đa, Hà Nội",106402534,,,,empty@email.com,63,66,PENTAX VN,,,3/13/2015 0:00,3/13/2015 0:00
+144,CÔNG TY TNHH TM PHONG CÁCH SỐNG,"16A Đường 5A, Khu Đô Thị Mới An Phú - An Khánh, Phường An Phú, Quận 2, TP HCM",3602447270,,,,empty@email.com,63,66,PHONGCACHSONG,,,3/13/2015 0:00,3/13/2015 0:00
+145,CÔNG TY TNHH THƯƠNG MẠI PHÚ BANG,"134/2B Thành Thái, Phường 12, Quận 10, TP HCM",303384429,,,,empty@email.com,63,66,PHUBANG,,,3/13/2015 0:00,3/13/2015 0:00
+146,CÔNG TY TNHH THƯƠNG MẠI - DỊCH VỤ PHÚ ĐẠI LỢI,"114/2 Yên Thế, Phường 2, Quận Tân Bình, Tp.HCM",303241170,,,,empty@email.com,63,66,PHUDAILOI,,,3/13/2015 0:00,3/13/2015 0:00
+147,CÔNG TY TNHH TM - XNK PHÚ LỘC TRƯỜNG,"D2/483, Ấp 4, Xã Bình Lợi, Huyện Bình Chánh, TP HCM",309311138,,,,empty@email.com,63,66,PHULOCTRUONG,,,3/13/2015 0:00,3/13/2015 0:00
+148,DNTN XĂNG DẦU PHƯỚC THẠNH,"Ấp Mây Đắng, Xã Phước Thạnh, Huyện Củ Chi, TP HCM",301446503,,,,empty@email.com,63,66,PHUOC THANH,,,3/13/2015 0:00,3/13/2015 0:00
+149,CÔNG TY TNHH CẢNG PHƯỚC LONG,"Lầu 19, Germadept Tower, 2Bis-4-6 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Tp.HCM",304791385,,,,empty@email.com,63,66,PHUOCLONGICD,,,3/13/2015 0:00,3/13/2015 0:00
+150,CÔNG TY TNHH TM & DV GIAO NHẬN VẬN TẢI PHƯƠNG NHUNG,"193/2D Bùi Thị Xuân, Phường 1, Quận Tân Bình, TP HCM",312347198,,,,empty@email.com,63,66,PHUONG NHUNG,,,3/13/2015 0:00,3/13/2015 0:00
+151,CÔNG TY TNHH THUỶ SẢN PHƯƠNG ĐÔNG,"Lô 17D, Đường số 5, KCN Trà Nóc, Q. Bình Thuỷ, TP Cần Thơ.",1800405254,,,,empty@email.com,63,66,PHUONGDONG,,,3/13/2015 0:00,3/13/2015 0:00
+152,CÔNG TY TNHH MTV THÉP PHÚ THẮNG,"Ấp 4, xã Hiệp Phước, Huyện Nhơn Trạch, Đồng Nai",3602153753,,,,empty@email.com,63,66,PHUTHANG,,,3/13/2015 0:00,3/13/2015 0:00
+153,CÔNG TY CP PIN ẮC QUY MIỀN NAM,"321 Trần Hưng Đạo, Quận 1, TP HCM",300405462,,,,empty@email.com,63,66,PIN ACQUY,,,3/13/2015 0:00,3/13/2015 0:00
+154,CÔNG TY TNHH PLG VIỆT NAM,"P.701, Lầu 7, Tòa nhà Hà Phan, Số 5 Phan Xích Long, Phường 2, Quận Phú Nhuận,Tp HCM",312103963,,,,empty@email.com,63,66,PLG VIETNAM,,,3/13/2015 0:00,3/13/2015 0:00
+155,CÔNG TY CỔ PHẦN TƯ VẤN ĐẦU TƯ QUỐC TẾ PROMANA,"193-203 Trần Hưng Đạo, Phường Cô Giang, Quận 1, Tp HCM",305479309,,,,empty@email.com,63,66,PROMANA,,,3/13/2015 0:00,3/13/2015 0:00
+156,CÔNG TY TNHH QST VIỆT NAM,"Đơn vị 3A, Tòa nhà Xưởng Tiêu Chuấn, Đường 14, KCX Tân Thuận, Q.7, TP HCM",310854675,,,,empty@email.com,63,66,QST,,,3/13/2015 0:00,3/13/2015 0:00
+157,CÔNG TY TNHH QUỐC TẾ Z.C (VIỆT NAM),"Khu C, Lô S, Đường 19, KCX Tân Thuận, Phường Tân Thuận Đông, Quận 7, TP HCM",300761728,,,,empty@email.com,63,66,QT Z.C,,,3/13/2015 0:00,3/13/2015 0:00
+158,CÔNG TY CP GIAO NHẬN TIẾP VẬN QUỐC TẾ,"Tầng 5, Tòa nhà cảng Sài Gòn, 03 Nguyễn tất Thành, P.12, Quận 4, Tp.HCM",303957341,,,,empty@email.com,63,66,QUOCTE,,,3/13/2015 0:00,3/13/2015 0:00
+159,CÔNG TY TNHH RINNAI VIỆT NAM,"Đường số 2, KCN Đồng An, Thuận An,  Bình Dương",3700300974,,,,empty@email.com,63,66,RINNAI,,,3/13/2015 0:00,3/13/2015 0:00
+160,CÔNG TY TNHH TM VẬT LIỆU MÁY IN SANXIN,"Tầng trệt và Lầu 1, 21 Công Trường An Đông, P. 9, Q. 5, Tp HCM",305445821,,,,empty@email.com,63,66,SANXIN,,,3/13/2015 0:00,3/13/2015 0:00
+161,CÔNG TY CỔ PHẦN SAO Á,"Số 5 Lý Tự Trọng, P. Minh Khai, Q. Hồng Bàng, TP Hải Phòng",200504188,,,,empty@email.com,63,66,SAOA,,,3/13/2015 0:00,3/13/2015 0:00
+162,CÔNG TY TNHH SATO-SANGYO VIỆT NAM,"37 Đường số 6, KCN VSIP, Huyện Thuận An, tỉnh Bình Dương",3700635868,,,,empty@email.com,63,66,SATO-SANGYO,,,3/13/2015 0:00,3/13/2015 0:00
+163,CÔNG TY TNHH SCG TRADING VIỆT NAM,"117 - 119 Lý Chính Thắng, Phường 7, Quận 3, Tp.HCM",304189477,,,,empty@email.com,63,66,SCG-TRADING,,,3/13/2015 0:00,3/13/2015 0:00
+164,CÔNG TY TNHH SX - TM SÀI GÒN RIVER VIỆT NAM,"0589/E Hóa Nhựt, Tân Vĩnh Hiệp, Tân Uyên, Bình Dương",3700579483,,,,empty@email.com,63,66,SG RIVER VN,,,3/13/2015 0:00,3/13/2015 0:00
+165,CÔNG TY TNHH SHOWA VALVE VIỆT NAM,"KCN Tân Trường, Huyện Cẩm Giàng, Tỉnh Hải Dương",801040780,,,,empty@email.com,63,66,SHOWA VALVE VN,,,3/13/2015 0:00,3/13/2015 0:00
+166,CÔNG TY TNHH DỊCH VỤ GIAO NHẬN VẬN CHUYỂN - THƯƠNG MẠI SIÊU KỶ,"4/9C Nguyễn Thị Minh Khai, P. Đa Kao, Q. 1, TP HCM.",305327754,,,,empty@email.com,63,66,SIEUKY,,,3/13/2015 0:00,3/13/2015 0:00
+167,CÔNG TY CỔ PHẦN SINH LỘC PHÁT,"11B3 Hà Huy Giáp, Khu Biệt Thự Thạnh Xuân, P.Thạnh Xuân, Quận 12, TP HCM",309708870,,,,empty@email.com,63,66,SINHLOCPHAT,,,3/13/2015 0:00,3/13/2015 0:00
+168,CÔNG TY TNHH TM VÀ DV SONG MÃ,"Số 229 Km 87 - Quốc Lộ 5 mới, Nam Sơn, An Dương, Hải Phòng",200689958,,,,empty@email.com,63,66,SONGMA,,,3/13/2015 0:00,3/13/2015 0:00
+169,CÔNG TY TNHH TM& DV KT SONG PHƯƠNG MINH,"45/10 Liên khu 16-18 Bình Trị Đông, Bình Tân, Tp.HCM",304122842,,,,empty@email.com,63,66,SONGPHUONGMINH,,,3/13/2015 0:00,3/13/2015 0:00
+170,CÔNG TY TNHH THẾ GIỚI SƠN MÀI,"788 La Thành, Phường Giảng Võ, Quận Ba Đình, Tp Hà Nội, Việt Nam",101058101,,,,empty@email.com,63,66,SONMAI,,,3/13/2015 0:00,3/13/2015 0:00
+171,CÔNG TY TNHH NỘI THẤT - SƠN MÀI VIỆT,"Thôn Bối Khê, Xã Chuyên Mỹ, Huyện Phú xuyên, Hà Nội",104191976,,,,empty@email.com,63,66,SONMAI VIET,,,3/13/2015 0:00,3/13/2015 0:00
+172,CÔNG TY TNHH SURINT OMYA VIỆT NAM,"khu công nghiệp Gò dầu, Long Thành, Đồng Nai",3600749484,,,,empty@email.com,63,66,SURINT,,,3/13/2015 0:00,3/13/2015 0:00
+173,CÔNG TY TNHH GIAO NHẬN T.A.C,"2A Nguyễn Thị Minh Khai, P. Đa Kao, Quận 1, Tp.HCM",310273423,,,,empty@email.com,63,66,TAC,,,3/13/2015 0:00,3/13/2015 0:00
+174,CÔNG TY CỔ PHẦN Á CHÂU TÀI NGUYÊN,"37 Hoàng Văn Thụ, P. 15, Q. Phú Nhuận,Tp.HCM",302749620,,,,empty@email.com,63,66,TAINGUYEN  ,,,3/13/2015 0:00,3/13/2015 0:00
+175,CÔNG TY ĐIỆN VÀ ĐIỆN TỬ TCL (VIỆT NAM),"Phường Tân Biên, Thành phố Biên Hòa, Tỉnh Đồng Nai",3600243296,,,,empty@email.com,63,66,TCL,,,3/13/2015 0:00,3/13/2015 0:00
+176,CÔNG TY CỔ PHẦN THÁI LINH,"Hạ Thái, Duyên Thái, Thường Tín, Hà Nội",500467025,,,,empty@email.com,63,66,THAILINH,,,3/13/2015 0:00,3/13/2015 0:00
+177,CÔNG TY CP SẢN XUẤT VÀ XUẤT KHẨU MỸ NGHỆ THĂNG LONG,"D14-TT14 Khu Đô Thị Văn Quán, Phường Văn Quán, Quận Hà Đông, Hà Nội",104164771,,,,empty@email.com,63,66,TH?NG LONG,,,3/13/2015 0:00,3/13/2015 0:00
+178,CÔNG TY TNHH VẬN TẢI BIỂN THẮNG LỢI,"37 Hoàng Diệu, Phường 12, Quận Tân Bình, Tp.HCM",304777581,,,,empty@email.com,63,66,THANGLOI,,,3/13/2015 0:00,3/13/2015 0:00
+179,CÔNG TY TNHH MTV PKĐK THANH QUAN,"54 Nguyễn Thiện Thuật, Phường 2, Quận 3, Tp.HCM",309201826,,,,empty@email.com,63,66,THANH QUANG,,,3/13/2015 0:00,3/13/2015 0:00
+180,CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ THÀNH TUẤN,"1444 Hoàng Văn Thụ, Phường 4, Quận Tân Bình, TP HCM",304223311,,,,empty@email.com,63,66,THANH TUAN,,,3/13/2015 0:00,3/13/2015 0:00
+181,DNTN THÀNH ĐÔ,"137C, Khu B, Tân Thắng, Tân Bình, Dĩ An, Bình Dương.",3700598687,,,,empty@email.com,63,66,THANHDO,,,3/13/2015 0:00,3/13/2015 0:00
+182,CÔNG TY CỔ PHẦN THÀNH ĐỒNG ,"Bình Dương, Đông Triều, Quảng Ninh",5700428488,,,,empty@email.com,63,66,THANHDONG,,,3/13/2015 0:00,3/13/2015 0:00
+183,CÔNG TY TNHH THIẾT KẾ QUẬN TÁM,"343-345 Bến Bình Đông, P. 11, Q. 8, TP HCM",310502722,,,,empty@email.com,63,66,THIETKE Q8,,,3/13/2015 0:00,3/13/2015 0:00
+184,CÔNG TY TNHH DỊCH VỤ HÀNG HÓA THÔNG MINH,"Phòng 203, Lầu 2, Tòa nhà Thăng Long, Số 6 Thăng Long, Phường 4, Quận Tân Bình, Tp HCM",304980801,,,,empty@email.com,63,66,THONGMINH,,,3/13/2015 0:00,3/13/2015 0:00
+185,CÔNG TY TNHH XE Ô TÔ THUẬN PHONG PHÁT,"261 Tùng Thiện Vương, Phường 11, Quận 8, TP HCM",312367934,,,,empty@email.com,63,66,THUAN PHONG PHAT,,,3/13/2015 0:00,3/13/2015 0:00
+186,CÔNG TY TNHH TM TÍCH LŨY,"131/6 Thích Quảng Đức, Phường 4, Q. Phú Nhuận, Tp.HCM",302911538,,,,empty@email.com,63,66,TICHLUY,,,3/13/2015 0:00,3/13/2015 0:00
+187,CÔNG TY CỔ PHẦN QUỐC TẾ TICO,"Số 1, ngách 165/53 Đường Cầu Giấy, Phường Dịch Vọng, Quận Cầu Giấy, TP.Hà Nội",105837677,,,,empty@email.com,63,66,TICO,,,3/13/2015 0:00,3/13/2015 0:00
+188,CHI NHÁNH CÔNG TY CỔ PHẦN QUỐC TẾ TICO tại HẢI PHÒNG,"Số 3 Lê Thánh Tông, Phường Máy Tơ, Quận Ngô Quyền, TP Hải Phòng",0105837677-001,,,,empty@email.com,63,66,TICO HAI PHONG,,,3/13/2015 0:00,3/13/2015 0:00
+189,CÔNG TY TNHH VẬN TẢI BIỂN TÍN NGHĨA,"386-388 Hoàng Diệu, Phường 5, Quận 4, Tp.HCM",302783692,,,,empty@email.com,63,66,TINNGHIA,,,3/13/2015 0:00,3/13/2015 0:00
+190,CÔNG TY TNHH MTV THƯƠNG MẠI DỊCH VỤ MỸ NGHỆ TRẦM HƯƠNG BA TRUNG PHƯỚC,"17/22 Gò Dầu, Phường Tân Quý, Quận Tân Phú, TP HCM",309455235,,,,empty@email.com,63,66,TRAMHUONGBA,,,3/13/2015 0:00,3/13/2015 0:00
+191,CÔNG TY CỔ PHẦN TRUNG ĐÔNG,"Cụm Công Nghiệp Tam Phước 1, Xã Tam Phước, TP Biên Hòa, Tỉnh Đồng Nai",3600669165,,,,empty@email.com,63,66,TRUNGDONG,,,3/13/2015 0:00,3/13/2015 0:00
+192,CÔNG TY TNHH THƯƠNG MẠI VÀ KỸ THUẬT TRƯƠNG NGUYỆT,"319-A7 Lý Thường Kiệt, Phường 15, Quận 11, TP HCM",303716385,,,,empty@email.com,63,66,TRUONGNGUYET,,,3/13/2015 0:00,3/13/2015 0:00
+193,TRUNG TÂM KHUYẾN CÔNG VÀ TƯ VẤN PHÁT TRIỂN CÔNG NGHIỆP,"176 Quang Trung, Hà Đông, Hà Nội",500472956,,,,empty@email.com,63,66,TT KC & TV PT CN,,,3/13/2015 0:00,3/13/2015 0:00
+194,TRUNG TÂM SÁCH PHÁP LUẬT TÀI CHÍNH,"51/18F Chu Văn An, Phường 12, Quận Bình Thạnh, TP HCM",307997680,,,,empty@email.com,63,66,TT SACH PLTC,,,3/13/2015 0:00,3/13/2015 0:00
+195,CÔNG TY CỔ PHẦN VẬN TẢI QUỐC TẾ TIẾN TỚI THÀNH CÔNG,"Phòng 65, tầng 3, 49 Hoàng Văn Thụ, Phường 15, Quận Phú Nhuận, TP HCM",310526272,,,,empty@email.com,63,66,TT THANHCONG,,,3/13/2015 0:00,3/13/2015 0:00
+196,CÔNG TY TNHH TM-DV TUẤN HIỆP,"96/18 hẻm 96, KP4, Đường Tây Hòa, P. Phước Long A, Quận 9, Tp.HCM",303848180,,,,empty@email.com,63,66,TUANHIEP,,,3/13/2015 0:00,3/13/2015 0:00
+197,CÔNG TY TNHH MỘT THÀNH VIÊN TUẤN MÃ,"38 Đường số 14B, P.Bình Hưng Hòa A, Q.Bình Tân, TP HCM",305124578,,,,empty@email.com,63,66,TUANMA,,,3/13/2015 0:00,3/13/2015 0:00
+198,CÔNG TY TNHH CHẾ BIẾN THỦY HẢI SẢN VÀ NƯỚC ĐÁ TUNG KONG,"KCN Nhơn Trạch 3, Nhơn Trạch, Đồng Nai",3600602273,,,,empty@email.com,63,66,TUNGKONG,,,3/13/2015 0:00,3/13/2015 0:00
+199,CÔNG TY CP XNK NAM HÀ - UDOMXAY,"số 5, Hàng Tiện, Tp. Nam Định, Nam Định",600159842,,,,empty@email.com,63,66,UDOMXAY,,,3/13/2015 0:00,3/13/2015 0:00
+200,CÔNG TY TNHH U-HOUSE ENTERPRISE,"Lô B7, Khu Công Nghiệp Đại Đăng, TP Thủ Dầu Một, Tỉnh Bình Dương",3700776516,,,,empty@email.com,63,66,U-HOUSE ENTERPRISE,,,3/13/2015 0:00,3/13/2015 0:00
+201,TRUNG TÂM ĐÀO TẠO VÀ XÚC TIẾN THƯƠNG MẠI VASEP,"Số 10, Nguyễn Công Hoan, Quận Ba Đình, Hà Nội",102322542,,,,empty@email.com,63,66,VASEP,,,3/13/2015 0:00,3/13/2015 0:00
+202,CÔNG TY CP VẬT LIỆU TỰ DÍNH VIỆT NAM,"Lô 2/10 KCN Phan Thiết, Tp. Phan Thiết, tỉnh Bình Thuận, Việt Nam",3400446309,,,,empty@email.com,63,66,VATLIEUVN,,,3/13/2015 0:00,3/13/2015 0:00
+203,CÔNG TY TNHH THƯƠNG MẠI VẬT TƯ KHOA HỌC KỸ THUẬT,"12 Hàng Đường, Hoàn Kiếm, Hà Nội",100236496,,,,empty@email.com,63,66,VATTUKHKT,,,3/13/2015 0:00,3/13/2015 0:00
+204,CÔNG TY TNHH ĐẦU TƯ ỨNG DỤNG SẢN XUẤT BAO BÌ VIỆT,"Đường D1, KCN Phố Nối A, Xã Giai Phạm, Huyện Yên Mỹ, Tỉnh Hưng Yên",900254328,,,,empty@email.com,63,66,VENUS PLASTIC,,,3/13/2015 0:00,3/13/2015 0:00
+205,"VPĐD CTY VEOLIA WATER SYSTEMS SOUTH ASIA SDN . , BHD","Phòng 9.2B Lầu 9, Toà Nhà ETOWN 1, 364 Cộng Hoà, Phường 13, Quận Tân Bình, TP HCM",304644334,,,,empty@email.com,63,66,VEOLIA,,,3/13/2015 0:00,3/13/2015 0:00
+206,VIỆN LOGISTIC VIỆT NAM,"Số 5, Nguyễn Gia Thiều, P. 6, Q. 3, TP HCM",305524329,,,,empty@email.com,63,66,VIEN LOGISTIC,,,3/13/2015 0:00,3/13/2015 0:00
+207,CÔNG TY CP PHÁT TRIỂN HÀNG HẢI VIỄN ĐÔNG,"84/4 Tôn Thất Thuyết, Phường 16, Quận 4, Tp.HCM",310693481,,,,empty@email.com,63,66,VIENDONG,,,3/13/2015 0:00,3/13/2015 0:00
+208,CÔNG TY TNHH VIỄN TÂY,"121 Yersin, Phường Phạm Ngũ Lão, Quận 1, TP HCM",303941736,,,,empty@email.com,63,66,VIENTAY,,,3/13/2015 0:00,3/13/2015 0:00
+209,CÔNG TY  TNHH VIÊN THÀNH,"123 Lê Lợi, Phường Bến Nghé, Quận 1, Tp.Hồ Chí Minh",301909543,,,,empty@email.com,63,66,VIENTHANH,,,3/13/2015 0:00,3/13/2015 0:00
+210,CÔNG TY TNHH DU LỊCH - SỰ KIỆN VIỆT SAO Á,"50 Bis Yersin, P. Phương Sài, Nha Trang",4201552311,,,,empty@email.com,63,66,VIET SAO A,,,3/13/2015 0:00,3/13/2015 0:00
+211,CÔNG TY TNHH VIỆT THĂNG,"307/10 Nguyễn Văn Trỗi, Phường 1, Quận Tân Bình, TP HCM",302615708,,,,empty@email.com,63,66,VIET THANG,,,3/13/2015 0:00,3/13/2015 0:00
+212,CÔNG TY TNHH ĐT & SX VIỆT TÍN,"338C Nơ Trang Long, Phường 13, Quận Bình Thạnh, TP HCM",310281047,,,,empty@email.com,63,66,VIET TIN,,,3/13/2015 0:00,3/13/2015 0:00
+213,CÔNG TY TNHH KỸ THUẬT VÀ XÂY DỰNG VIỆT THIÊN,"242/106 Nguyễn Thiện Thuật, Phường 3, Quận 3, TP HCM",312534198,,,,empty@email.com,63,66,VIETTHIEN,,,3/13/2015 0:00,3/13/2015 0:00
+214,CÔNG TY TNHH ĐẦU TƯ & SẢN XUẤT VIỆT TÍN,"388C Nơ Trang Long, Phường 13, Quận Bình Thạnh, Tp.HCM",310281047,,,,empty@email.com,63,66,VIIETTIN,,,3/13/2015 0:00,3/13/2015 0:00
+215,CÔNG TY CỔ PHẦN VẬN TẢI VINAFCO,"Số 33C Cát Linh, P. Cát Linh, Q. Đống Đa, TP Hà Nội",105275178,,,,empty@email.com,63,66,VINAFCO,,,3/13/2015 0:00,3/13/2015 0:00
+216,CN CÔNG TY CP GIAO NHẬN VẬN TẢI VÀ THƯƠNG MẠI,"Tầng 6, Số 14 Láng Hạ, P. Thành Công, Q. Ba Đình, Hà Nội",0301776205-001,,,,empty@email.com,63,66,VINALINK-HN,,,3/13/2015 0:00,3/13/2015 0:00
+217,CÔNG TY TNHH VINA TAK,"Đường Số 4B, KCN Nhơn Trạch 1, Nhơn Trạch, Đồng Nai.",3602703358,,,,empty@email.com,63,66,VINATAK,,,3/13/2015 0:00,3/13/2015 0:00
+218,CÔNG TY TNHH MỘT THÀNH VIÊN VĨNH HƯNG,"Thôn 5, Xã Vĩnh Hưng, Huyện Vĩnh Lộc, Tỉnh Thanh Hóa",2801560173,,,,empty@email.com,63,66,VINHHUNG,,,3/13/2015 0:00,3/13/2015 0:00
+219,CÔNG TY TNHH SX TM VINH TRÀ,"693/A2 Xô Viết Nghệ Tĩnh, Phường 27, Quận Bình Thạnh, Tp.HCM",302950745,,,,empty@email.com,63,66,VINHTRA,,,3/13/2015 0:00,3/13/2015 0:00
+220,CÔNG TY CỔ PHẦN VẬN TẢI BIỂN VIỆT NAM,"215 Lạch Tray, P. Đằng Giang, Q. Ngô Quyền, Hải Phòng",200106490,,,,empty@email.com,63,66,VOSCO VN,,,3/13/2015 0:00,3/13/2015 0:00
+221,VĂN PHÒNG ĐẠI DIỆN DAMFASSS INDUSTRIES PTE LTD,"P 10.2 lầu 10, Etown1, 364 Cộng Hòa, P.13, Quận Tân Bình, Tp.HCM",,,,,empty@email.com,63,66,VP?D DANFOSS,,,3/13/2015 0:00,3/13/2015 0:00
+222,VĂN PHÒNG TỔNG CỤC DẠY NGHỀ,"37B Nguyễn Bỉnh Khiêm, Hai Bà Trưng, Hà Nội",,84 31 3733580,84 31 3731930,,empty@email.com,63,66,VPTONGCUCDAYNGHE,,,3/13/2015 0:00,3/13/2015 0:00
+223,CÔNG TY CP HÀNG HẢI VSICO,"Số 9 ngõ 84 phố Ngọc Khánh, P. Giảng Võ, Quận Ba Đình, Tp. Hà Nội.",102195421,,,,empty@email.com,63,66,VSICO,,,3/13/2015 0:00,3/13/2015 0:00
+224,CÔNG TY TNHH WILO VIỆT NAM,"P.1C, Lầu 3, Tòa Nhà ETOWN 1, 364 Cộng Hòa, Phường 13, Quận Tân Bình, Tp HCM",311056767,,,,empty@email.com,63,66,WILO VN,,,3/13/2015 0:00,3/13/2015 0:00
+225,CÔNG TY TNHH WOLSUNG VINA,"lô 10-1 Cụm CN Tp. Đẹp, ấp Đông, Tân Hiệp, H. Tân Uyên, Bình Dương",3700388841,4.7711089,4.7711094,,empty@email.com,63,66,WOLSUNG,,,3/13/2015 0:00,3/13/2015 0:00
+226,CÔNG TY CP XÂY DỰNG VÀ KINH DOANH ĐỊA ỐC HÒA BÌNH,"235 Võ Thị Sáu, Phường 7, Quận 3, TP HCM",302158498,,,,empty@email.com,63,66,XD HOABINH,,,3/13/2015 0:00,3/13/2015 0:00
+227,CÔNG TY TNHH XUẤT NHẬP KHẨU GIA HUY,"Số 5 Trần Quang Diệu, Phường 13, Quận 3, TP HCM",311896438,,,,empty@email.com,63,66,XNK GIAHUY,,,3/13/2015 0:00,3/13/2015 0:00
+228,CÔNG TY TNHH XUẤT NHẬP KHẨU PHÚ TUẤN,"Thôn Lưu Thượng, Xã Phú Túc, Huyện Phú Xuyên, TP Hà Nội",500452685,,,,empty@email.com,63,66,XNK PHUTUAN,,,3/13/2015 0:00,3/13/2015 0:00
+229,CÔNG TY TNHH MỘT THÀNH VIÊN NỘI THẤT XUÂN HÒA,"Phường Xuân Hòa, Thị xã Phúc Yên, Vĩnh Phúc",2500161922,,,,empty@email.com,63,66,XUANHOA,,,3/13/2015 0:00,3/13/2015 0:00
+230,CÔNG TY TNHH MTV TM VD XNK XUÂN TÍNH,"101T Trần Văn Đang, Phường 9, Quận 3, Tp.HCM",310849481,,,,empty@email.com,63,66,XUANTINH,,,3/13/2015 0:00,3/13/2015 0:00
+231,CÔNG TY TNHH YANG MING VIỆT NAM,"Lầu 19, Toà nhà Ree Tower, Số 9 Đoàn Văn Bơ, P. 12, Q. 4, TP HCM.",303419992,,,,empty@email.com,63,66,YANGMING,,,3/13/2015 0:00,3/13/2015 0:00
+232,CÔNG TY TNHH YANTAI MOON ( VIỆT NAM ),"Lô 55, KCX - CN Linh Trung III, H. Trảng Bàng, Tây Ninh.",3900392299,,,,empty@email.com,63,66,YANTAI MOON,,,3/13/2015 0:00,3/13/2015 0:00
+233,CÔNG TY TNHH YCH-PROTRADE - CHI NHÁNH TẠI TP. HÀ NỘI,"Phòng 301, Tầng 3, Toà nhà 30 Nguyễn Du, P. Bùi Thị Xuân,  Q. Hai Bà Trưng, Hà Nội",3701654454-001,,,,empty@email.com,63,66,YCH-PROTRADE,,,3/13/2015 0:00,3/13/2015 0:00
+234,CÔNG TY TNHH YNG HUA VIỆT NAM,"Lô 24, KCN Biên Hòa 2, P.An Bình, TP Biên Hòa, Đồng Nai",3600255340,0838 116 110,,,empty@email.com,63,66,YNG HUA,,,3/13/2015 0:00,3/13/2015 0:00
+235,CÔNG TY TNHH YUSEN LOGISTICS QUỐC TẾ (VIỆT NAM),"2A-4A Tôn Đức Thắng, Phường Bến Nghé, Quận 1, TP HCM",303467869,,,,empty@email.com,63,66,YUSEN LOGISTICS QUOCTE,,,3/13/2015 0:00,3/13/2015 0:00

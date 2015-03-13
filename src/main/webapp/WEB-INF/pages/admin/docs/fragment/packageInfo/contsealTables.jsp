@@ -42,7 +42,7 @@
 					<td><spring:bind
 							path="packageInfo.docsgeneral.contseals[${idx.index}].typeOfCont.id">
 							<div
-								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="10">
 						</spring:bind> <form:select
 							path="docsgeneral.contseals[${idx.index}].typeOfCont.id"
 							id="typeOfCont${idx.index}" autofocus="true"

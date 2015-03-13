@@ -32,7 +32,7 @@
 				<td><spring:bind
 						path="docsgeneral.docservices[${idx.index}].nameOfServices.id">
 						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="0">
 					</spring:bind> <form:select
 						path="docsgeneral.docservices[${idx.index}].nameOfServices.id"
 						id="nameOfServices${idx.index}" autofocus="true"

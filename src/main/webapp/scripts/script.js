@@ -121,7 +121,7 @@ $(document).ready(function(){
 			detailTableInfo: detailTableInfo,
 			openIcon: contextPath+"/images/SD7Dz.png",
 			closeIcon:contextPath+"/images/d4ICC.png",
-			editDetail:editDetail.length >0 ? contextPath+editDetail : false,
+			editDetail:editDetail!="" && editDetail.length >0 ? contextPath+editDetail : false,
 			detailTableMapping:detailTableMapping,
 			successLoadMessage:showMessage(successLoadMessage)
 		});

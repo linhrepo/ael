@@ -3,8 +3,6 @@
  */
 package com.vn.ael.persistence.manager;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +18,6 @@ import com.vn.ael.persistence.repository.InlandRepository;
 import com.vn.ael.persistence.repository.InlandsizeRepository;
 import com.vn.ael.persistence.repository.MultitypeRepository;
 import com.vn.ael.persistence.repository.UserRepository;
-import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -63,7 +60,7 @@ public class InlandManagerImpl extends GenericManagerImpl<Inland> implements Inl
 	}
 
 	@Override
-	public void saveWholeInland(Inland inland) {
+	public Inland saveWholeInland(Inland inland) {
 		//wire staff
 		inland.getDocsgeneral().setCustomer(customerRepository.findOne(inland.getDocsgeneral().getCustomer().getId()));
 		inland.getDocsgeneral().setProcessingStaff(userRepository.findOne(inland.getDocsgeneral().getProcessingStaff().getId()));
@@ -76,7 +73,8 @@ public class InlandManagerImpl extends GenericManagerImpl<Inland> implements Inl
 		
 		inland.getDocsgeneral().setInland(inland);
 		EntityUtil.wiredChildOfDocsGeneral(inland.getDocsgeneral());
-		docsgeneralRepository.save(inland.getDocsgeneral());
+		Docsgeneral docsgeneral =  docsgeneralRepository.save(inland.getDocsgeneral());
+		return docsgeneral.getInland();
 	}
 	
 	/**

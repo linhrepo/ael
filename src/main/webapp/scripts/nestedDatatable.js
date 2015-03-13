@@ -143,8 +143,6 @@
 	        	}
 	        	if (options.editDetail){
 	        		sOut+="<td class='actions'><a href="+options.editDetail+"?id="+html[i]["id"]+" class='iconButton'><i class='fa fa-pencil-square-o'></i></a></td>";
-	        	}else{
-	        		sOut+="<td></td>";
 	        	}
 	        	sOut+="</tr>";
 	        }
@@ -177,6 +175,11 @@
 	    	if (value && type == "[Key]"){
 	    		value = showMessage(value);
 	    	}
+	    	
+	    	if (value && type == "[money]"){
+	    		value = accounting.formatMoney(value,UTIL.MONEY_STYLE);
+	    	}
+	    	
 	    	if (!value){
 	    		value = "";
 	    	}
