@@ -41,6 +41,8 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 
 	private Integer quantityLCL;
 	
+	private Integer quantityOt;
+	
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal total;
 
@@ -132,4 +134,12 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 		this.total = total;
 	}
 
+	public Integer getQuantityOt() {
+		return quantityOt;
+	}
+
+	public void setQuantityOt(Integer quantityOt) {
+		this.quantityOt = quantityOt;
+	}
+	
 }

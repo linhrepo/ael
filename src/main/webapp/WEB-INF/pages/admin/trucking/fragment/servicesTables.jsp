@@ -39,6 +39,7 @@
 						<th><fmt:message key="truckingservice.vehicleNo" /></th>
 					</c:otherwise>
 				</c:choose>
+			<th><fmt:message key="truckingservice.dateDev" /></th>
 			<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 			<th><fmt:message key="table.action" /></th>
 			</c:if>
@@ -131,6 +132,18 @@
 						</td>
 					</c:when>
 				</c:choose>
+				<td data-title="<fmt:message key="truckingservice.dateDev"/>">
+							<spring:bind path="truckingdetails[${idx.index}].dateDev">
+								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+							</spring:bind> 
+							<form:input path="truckingdetails[${idx.index}].dateDev"
+								id="dateDev${idx.index}" maxlength="45" data-provide="datepicker" 
+								cssClass="form-control" /> 
+							<form:errors
+								path="truckingdetails[${idx.index}].dateDev"
+								cssClass="help-block" />
+							</div>
+						</td>
 						<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">		
 							<td rowType="actions">
 								<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>"> 
@@ -147,8 +160,24 @@
 				</td>
 				<td colspan="10">
 <!-- 				DETAIL -->
-<div class="in" id="child${idx.index}">				
-				<h3>
+<div class="in" id="child${idx.index}">		
+
+<!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+    	<a href="#home${idx.index}" aria-controls="home" role="tab" data-toggle="tab">
+    		<fmt:message key="exhibition.feeTablesDetail" />
+		</a>
+	</li>
+    <li role="presentation"><a href="#profile${idx.index}" aria-controls="profile" role="tab" data-toggle="tab">
+    	<fmt:message key="exhibition.feeTablesSummary" />
+    </a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home${idx.index}">
+<h3>
 	<fmt:message key="exhibition.feeTables" />
 </h3>
 <table id="childTable${idx.index}" 
@@ -157,10 +186,12 @@
 	<thead>
 		<tr>
 			<th><fmt:message key="table.no" /></th>
+			<th><fmt:message key="inland.masterFee" /></th>
 			<th><fmt:message key="inland.feeName" /></th>
 			<th><fmt:message key="inland.feevalue" /></th>
 			<th><fmt:message key="inland.feevavat" /></th>
 			<th><fmt:message key="inland.total" /></th>
+			<th><fmt:message key="inland.feeInvoiceNo" /></th>
 			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
@@ -174,6 +205,18 @@
 						valueType="added" /> <form:hidden
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].isDeleted"
 						valueType="deleted" /></td>
+					<td><spring:bind
+						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].masterFee.id">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:select
+						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].masterFee.id"
+						id="masterFee${idx.index}" autofocus="true"
+						cssClass="form-control masterFee"
+						items="${selections['masterFees']}" /> <form:errors
+						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].masterFee.id"
+						cssClass="help-block" />
+					</div></td>
 					<td data-title="<fmt:message key="inland.feeName"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id">
 						<div
@@ -209,6 +252,16 @@
 						id="total${idxx.index}" maxlength="45" autofocus="true" 
 						cssClass="form-control total readonly" disabled="true" readonly="true"/>
 				</td>
+				<td data-title="<fmt:message key="inland.feeInvoiceNo"/>"><spring:bind
+						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo"
+						id="vat${idxx.index}" maxlength="45" autofocus="true" 
+						cssClass="form-control" /> <form:errors
+						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo"
+						cssClass="help-block" />
+					</div></td>
 				<td rowType="actions"><span class="iconButton removeRow" data-title="<fmt:message key="table.action"/>"
 					title="<fmt:message key='table.buttonEditTitle'/>"> <i
 						class="fa fa-trash"></i>
@@ -224,6 +277,24 @@
 			class="icon-ok"></i> +</span>
 	</div>
 </div>
+
+	</div>
+    <div role="tabpanel" class="tab-pane" id="profile${idx.index}">
+    	<table id="childTable${idx.index}Summary" class="display table table-striped ">
+			<thead>
+				<tr>
+					<th><fmt:message key="table.no" /></th>
+					<th><fmt:message key="inland.masterFee" /></th>
+					<th><fmt:message key="inland.total" /></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+  </div>
+</div>		
+
 
 				</td>
 			</tr>

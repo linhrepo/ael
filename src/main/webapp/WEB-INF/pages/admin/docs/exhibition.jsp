@@ -23,7 +23,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.refNo"/>
-		        <form:input path="docsgeneral.jobNo" id="jobNo" maxlength="45" autofocus="true" cssClass="form-control" readonly="true"/>
+		        <form:input path="docsgeneral.jobNo" id="jobNo" maxlength="45"  cssClass="form-control" readonly="true"/>
 		        <form:errors path="docsgeneral.jobNo" cssClass="help-block"/>
 		    </div>
 		    
@@ -33,7 +33,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="exhibition.customerCode"/>
-				        <form:select path="docsgeneral.customer.id" id="customercode" autofocus="true" cssClass="form-control select2" readonly="${packageInfo.id != null ? 'true' : 'false' }">
+				        <form:select path="docsgeneral.customer.id" id="customercode"  cssClass="form-control select2" readonly="${packageInfo.id != null ? 'true' : 'false' }">
 				        	<c:forEach items="${docsSelection.customers}" var="cust">
 				        		<form:option value="${cust.id}">${cust.code}</form:option>
 				        	</c:forEach>
@@ -47,7 +47,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="exhibition.customerCode"/>
-				        <form:input path="docsgeneral.customer.code" id="customercode" maxlength="45" autofocus="true" cssClass="form-control" disabled="true"/>
+				        <form:input path="docsgeneral.customer.code" id="customercode" maxlength="45"  cssClass="form-control" disabled="true"/>
 				        <form:errors path="docsgeneral.customer.code" cssClass="help-block"/>
 				    </div>
 				</c:otherwise>
@@ -57,23 +57,47 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" addUrl="/admin/config/constant" type="17">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.typeOfEx"/>
-		        <form:select path="typeOfEx.id" id="typeOfEx"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfExhs']}"/>
+		        <form:select path="typeOfEx.id" id="typeOfEx"   cssClass="form-control" items="${docsSelection.selections['typeOfExhs']}"/>
 		        <form:errors path="typeOfEx.id" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="exhibition.exName">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-5">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.exName"/>
-		        <form:input path="exName" id="jobNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="exName" id="jobNo" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="exName" cssClass="help-block"/>
+		    </div>
+		    
+		    <div class="form-group col-md-1">
+		    	<fmt:message key='packageInfo.imported' var="importText"/>
+		        <form:radiobutton path="docsgeneral.isImport" value="true" label="${importText}"/>
+		        <br>
+		        <fmt:message key='packageInfo.exported' var="exportText"/>
+		        <form:radiobutton path="docsgeneral.isImport" value="false" label="${exportText}"/>
+		    </div>
+		    
+		     <spring:bind path="exhibition.docsgeneral.productDescription">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 ">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.productDescription"/>
+		        <form:textarea path="docsgeneral.productDescription" id="productDescription"  cssClass="form-control" />
+		        <form:errors path="docsgeneral.processingStaff" cssClass="help-block"/>
+		    </div>
+		    
+	    	 <spring:bind path="exhibition.docsgeneral.note">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 has-warning">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="exhibition.note"/>
+		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control "/>
+		        <form:errors path="docsgeneral.note" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="exhibition.openDate">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.openDate"/>
-		        <form:input path="openDate" id="openDate" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="openDate" id="openDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="openDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -81,7 +105,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.endDate"/>
-		        <form:input path="endDate" id="joendDatebNo" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="endDate" id="joendDatebNo" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="endDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -89,7 +113,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.devDate"/>
-		        <form:input path="devDate" id="devDate" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="devDate" id="devDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="devDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -97,7 +121,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.location"/>
-		        <form:input path="location" id="jobNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="location" id="jobNo" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="location" cssClass="help-block"/>
 		    </div>
 		    
@@ -105,7 +129,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.noOfPkgs"/>
-		        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="45" autofocus="true" cssClass="form-control number"/>
+		        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="45"  cssClass="form-control number"/>
 		        <form:errors path="docsgeneral.noOfPkgs" cssClass="help-block"/>
 		    </div>
 		    
@@ -113,7 +137,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.weigth"/>
-		        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45" autofocus="true" cssClass="form-control money"/>
+		        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45"  cssClass="form-control money"/>
 		        <form:errors path="docsgeneral.weigth" cssClass="help-block"/>
 		    </div>
 		    
@@ -121,7 +145,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.cmb"/>
-		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45" autofocus="true" cssClass="form-control number"/>
+		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45"  cssClass="form-control number"/>
 		        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
 		    </div>
 		    
@@ -129,7 +153,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.exhibitor"/>
-		        <form:input path="exhibitor" id="exhibitor" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="exhibitor" id="exhibitor" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="exhibitor" cssClass="help-block"/>
 		    </div>
 		    
@@ -137,7 +161,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.exhPlace"/>
-		        <form:input path="exhPlace" id="exhPlace" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="exhPlace" id="exhPlace" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="exhPlace" cssClass="help-block"/>
 		    </div>
 		    
@@ -145,7 +169,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.typeOfContainer"/>
-		        <form:select showElements="-1:consealContainer" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
+		        <form:select showElements="-1:consealContainer" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
 		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
 		    </div>
 		    
@@ -153,7 +177,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.etd"/>
-		        <form:input path="etd" id="etd" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="etd" id="etd" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="etd" cssClass="help-block"/>
 		    </div>
 		    
@@ -161,7 +185,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.eta"/>
-		        <form:input path="eta" id="eta" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="eta" id="eta" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="eta" cssClass="help-block"/>
 		    </div>
 		    
@@ -169,7 +193,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.shippingLine"/>
-		        <form:select path="docsgeneral.shippingLine.id" id="shippingLine"  autofocus="true" cssClass="form-control" items="${nhathaus}"/>
+		        <form:select path="docsgeneral.shippingLine.id" id="shippingLine"   cssClass="form-control" items="${nhathaus}"/>
 		        <form:errors path="docsgeneral.shippingLine.id" cssClass="help-block"/>
 		    </div>
 		    
@@ -177,7 +201,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" addUrl="/admin/config/constant" type="22">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.operator"/>
-		        <form:select path="operator.id" id="operator"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['operatorExhs']}"/>
+		        <form:select path="operator.id" id="operator"   cssClass="form-control" items="${docsSelection.selections['operatorExhs']}"/>
 		        <form:errors path="operator.id" cssClass="help-block"/>
 		    </div>
 		    
@@ -185,7 +209,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.albwNo"/>
-		        <form:input path="albwNo" id="albwNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="albwNo" id="albwNo" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="albwNo" cssClass="help-block"/>
 		    </div>
 		    
@@ -193,7 +217,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.pol"/>
-		        <form:input path="pol" id="pol" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="pol" id="pol" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="pol" cssClass="help-block"/>
 		    </div>
 		    
@@ -201,7 +225,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.poa"/>
-		        <form:input path="poa" id="poa" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="poa" id="poa" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="poa" cssClass="help-block"/>
 		    </div>
 		    
@@ -209,7 +233,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.demdet"/>
-		        <form:input path="demdet" id="demdet" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="demdet" id="demdet" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="demdet" cssClass="help-block"/>
 		    </div>
 		    
@@ -217,7 +241,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.tkhqDate"/>
-		        <form:input path="tkhqDate" id="tkhqDate" data-provide="datepicker" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="tkhqDate" id="tkhqDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="tkhqDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -225,7 +249,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" addUrl="/admin/config/constant" type="13">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.cusDept"/>
-		        <form:select path="cusDept.id" id="cusDept"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['customDepts']}"/>
+		        <form:select path="cusDept.id" id="cusDept"   cssClass="form-control" items="${docsSelection.selections['customDepts']}"/>
 		        <form:errors path="cusDept.id" cssClass="help-block"/>
 		    </div>
 		    
@@ -233,7 +257,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.tkhqNo"/>
-		        <form:input path="tkhqNo" id="tkhqNo" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="tkhqNo" id="tkhqNo" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="tkhqNo" cssClass="help-block"/>
 		    </div>
 		    
@@ -241,7 +265,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.contactDelivery"/>
-				        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"  autofocus="true" cssClass="form-control"/>
+				        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"   cssClass="form-control"/>
 				        <form:errors path="docsgeneral.contactDelivery" cssClass="help-block"/>
 				    </div>
 				    
@@ -249,7 +273,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.infoInvoice"/>
-				        <form:input path="docsgeneral.infoInvoice" id="infoInvoice"  autofocus="true" cssClass="form-control"/>
+				        <form:input path="docsgeneral.infoInvoice" id="infoInvoice"   cssClass="form-control"/>
 				        <form:errors path="docsgeneral.infoInvoice" cssClass="help-block"/>
 				    </div>
 	    </div>

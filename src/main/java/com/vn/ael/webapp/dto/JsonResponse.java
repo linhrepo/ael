@@ -1,5 +1,8 @@
 package com.vn.ael.webapp.dto;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class JsonResponse {
 	
 	public static final String SUCCESS= "success";
@@ -43,4 +46,5 @@ public class JsonResponse {
 	public static JsonResponse getSuccessMessage(String message){
 		return new JsonResponse(JsonResponse.SUCCESS, message);
 	}
+	
 }

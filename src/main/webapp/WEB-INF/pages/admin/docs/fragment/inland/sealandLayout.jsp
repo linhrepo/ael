@@ -51,7 +51,7 @@
 		    </div>
 		    
 		    <spring:bind path="inland.docsgeneral.processingStaff">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.processingStaff"/>
 		        <form:select path="docsgeneral.processingStaff.id" id="processingStaff" autofocus="true" cssClass="form-control select2">
@@ -60,6 +60,30 @@
 		        	</c:forEach>
 		        </form:select>
 		        <form:errors path="docsgeneral.processingStaff.id" cssClass="help-block"/>
+		    </div>
+		    
+		    <div class="form-group col-md-1">
+		    	<fmt:message key='packageInfo.imported' var="importText"/>
+		        <form:radiobutton path="docsgeneral.isImport" value="true" label="${importText}"/>
+		        <br>
+		        <fmt:message key='packageInfo.exported' var="exportText"/>
+		        <form:radiobutton path="docsgeneral.isImport" value="false" label="${exportText}"/>
+		    </div>
+		    
+		    <spring:bind path="inland.docsgeneral.productDescription">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 ">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="inland.productDescription"/>
+		        <form:textarea path="docsgeneral.productDescription" id="productDescription"  cssClass="form-control" />
+		        <form:errors path="docsgeneral.processingStaff" cssClass="help-block"/>
+		    </div>
+		    
+	    	 <spring:bind path="inland.docsgeneral.note">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 has-warning">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="inland.note"/>
+		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control "/>
+		        <form:errors path="docsgeneral.note" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="inland.etd">

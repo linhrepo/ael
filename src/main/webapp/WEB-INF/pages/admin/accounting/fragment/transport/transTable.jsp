@@ -10,7 +10,7 @@
 			<th rowspan="2"><fmt:message key="accountingtrans.dateDev"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.khonhan"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.khogiao"/></th>
-			<th colspan="3" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th>
+			<th colspan="4" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.vehicleNo" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.contNo" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.volumn" /></th>
@@ -25,6 +25,7 @@
 		<tr>
 			<th class="numberCol"><fmt:message key="accountingtrans.20"/></th>
 			<th class="numberCol"><fmt:message key="accountingtrans.40"/></th>
+			<th class="numberCol"><fmt:message key="accountingcus.otCont"/></th>
 			<th class="numberCol"><fmt:message key="accountingtrans.LCL"/></th>
 		</tr>
 	</thead>
@@ -73,6 +74,12 @@
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.40"/>">
 					<div class="form-group">
 						${doc.noOf40Cont}
+					</div>
+					<form:hidden path="docs[${idx.index}].noOf40Cont"/>
+				</td>
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.otCont" />">
+					<div class="form-group">
+						${doc.otCont}
 					</div>
 					<form:hidden path="docs[${idx.index}].noOf40Cont"/>
 				</td>

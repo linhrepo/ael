@@ -129,6 +129,14 @@
 		 * @returns {String}
 		 */
 		var fnFormatDetails = function(table_id, html) {
+			//action
+			var actionCheckText = "",actionvalues=""
+			if (options.actionCheck != undefined && options.actionCheck.length>0){
+				var tem = options.actionCheck.split(":");
+				actionCheckText = tem[0],
+				actionvalues = tem[1].split(",");
+			};
+			
 	        var sOut = "<table class='detailTable' id=\"childTable_" + table_id + "\">";
 	        sOut += "<thead><tr>";
 	        for (var header in options.detailTableInfo){
@@ -142,7 +150,22 @@
 	        		sOut+="<td>"+getValue(html[i],options.detailTableMapping[j])+"</td>";
 	        	}
 	        	if (options.editDetail){
-	        		sOut+="<td class='actions'><a href="+options.editDetail+"?id="+html[i]["id"]+" class='iconButton'><i class='fa fa-pencil-square-o'></i></a></td>";
+	        		var hasAction = false;
+	        		if (actionCheckText != ""){
+	        			for (var id in actionvalues){
+	        				if (html[i][actionCheckText]+"" === actionvalues[id]){
+	        					hasAction = true;
+	        				}
+	        			}
+	        		}else{
+	        			hasAction = true;
+	        		}
+	        		
+	        		if (hasAction){
+	        			sOut+="<td class='actions'><a href="+options.editDetail+"?id="+html[i]["id"]+" class='iconButton'><i class='fa fa-pencil-square-o'></i></a></td>";
+	        		}else{
+	        			sOut+="<td></td>";
+	        		}
 	        	}
 	        	sOut+="</tr>";
 	        }

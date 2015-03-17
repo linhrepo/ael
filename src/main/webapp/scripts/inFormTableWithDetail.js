@@ -98,6 +98,13 @@
     			$(lastDetail).find("table").inFormTable({
 					tableId:newTableId
 				});
+    			
+    			$(lastDetail).find("[aria-controls='home']").attr("href","#home"+newIndex);
+    			$(lastDetail).find("[aria-controls='profile']").attr("href","#profile"+newIndex);
+    			$(lastDetail).find("[role='tabpanel']").first().attr("id","home"+newIndex);
+    			$(lastDetail).find("[role='tabpanel']").last().attr("id","profile"+newIndex);
+    			$(lastDetail).find("table").last().attr("id",newTableId+"Summary");
+    			
     			FEE_TABLE_CONTROL.init(newTableId);
     		}
     	};

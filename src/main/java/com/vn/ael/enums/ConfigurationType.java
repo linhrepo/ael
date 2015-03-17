@@ -11,7 +11,7 @@ public enum ConfigurationType {
 	COUNTRY(5,"configuration.country","countries"),
 	DOCS_TYPE_OF_TRANSPORT(6,"configuration.typeOfTransport","typeOfTransports"),
 	DOCS_TYPE_OF_CONTAINER(7,"configuration.typeOfContainer","typeOfContainers"),
-	DOCS_COLOUR_APPLYING(8,"configuration.colourApplying","colourApplyings"),
+	DOCS_COLOUR_APPLYING(8,"configuration.colourApplying","colourApplyings",true),
 	DOCS_ATTACH_SERCICES(9,"configuration.attachServices","attachServices"),
 	DOCS_TYPE_OF_CONTAINER_CONT(10,"configuration.typeOfContainerCont","typeOfContainerConts"),
 	DOCS_CODE_IME(11,"configuration.imExMode","imExModes"),
@@ -35,6 +35,7 @@ public enum ConfigurationType {
 	private int value;
 	private String textKey;
 	private String key;
+	private boolean isDisplayWithDes = false;
 	
 	static Map<Integer,String> ALL_CONFIG = null;
 	
@@ -42,6 +43,13 @@ public enum ConfigurationType {
 		this.value = value;
 		this.textKey = text;
 		this.key = key;
+	}
+	
+	ConfigurationType(int value, String text, String key, boolean isDisplayWithDes){
+		this.value = value;
+		this.textKey = text;
+		this.key = key;
+		this.isDisplayWithDes = isDisplayWithDes;
 	}
 
 	public int getValue() {
@@ -94,5 +102,13 @@ public enum ConfigurationType {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public boolean isDisplayWithDes() {
+		return isDisplayWithDes;
+	}
+
+	public void setDisplayWithDes(boolean isDisplayWithDes) {
+		this.isDisplayWithDes = isDisplayWithDes;
 	}
 }

@@ -30,6 +30,7 @@
 			<th><fmt:message key="inland.feevalue" /></th>
 			<th><fmt:message key="inland.feevavat" /></th>
 			<th><fmt:message key="inland.total" /></th>
+			<th><fmt:message key="inland.feeInvoiceNo" /></th>
 			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
@@ -98,6 +99,16 @@
 						id="total${idx.index}" maxlength="45" autofocus="true" 
 						cssClass="form-control total readonly" disabled="true" readonly="true"/>
 				</td>
+				<td><spring:bind
+						path="exhibition.docsgeneral.exfeetables[${idx.index}].invoiceNo">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].invoiceNo"
+						id="vat${idx.index}" maxlength="45" 
+						cssClass="form-control" /> <form:errors
+						path="docsgeneral.exfeetables[${idx.index}].invoiceNo"
+						cssClass="help-block" />
+					</div></td>
 				<td rowType="actions"><c:if test="${ empty exfeetable.approved or exfeetable.approved == false }">
 						<span class="iconButton removeRow"
 							title="<fmt:message key='table.buttonEditTitle'/>"> <i

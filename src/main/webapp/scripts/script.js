@@ -113,7 +113,8 @@ $(document).ready(function(){
 		detailTableInfo = $(this).attr("detailTableInfo"),
 		detailTableMapping = $(this).attr("detailTableMapping"),
 		editDetail = $(this).attr("editDetail"),
-		successLoadMessage = $(this).attr("successLoadMessage");
+		successLoadMessage = $(this).attr("successLoadMessage"),
+		actionCheck = $(this).attr("actionCheck");
 		$(this).nestedTable({
 			tableId : id,
 			urlForChild:contextPath+childUrl,
@@ -123,7 +124,8 @@ $(document).ready(function(){
 			closeIcon:contextPath+"/images/d4ICC.png",
 			editDetail:editDetail!="" && editDetail.length >0 ? contextPath+editDetail : false,
 			detailTableMapping:detailTableMapping,
-			successLoadMessage:showMessage(successLoadMessage)
+			successLoadMessage:showMessage(successLoadMessage),
+			actionCheck:actionCheck
 		});
 	});
 	

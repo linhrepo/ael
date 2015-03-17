@@ -127,7 +127,7 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 	public void saveWholeExhReport(Exhibition exhibition) {
 		Exhibition loadExhibition = this.exhibitionRepository.findOne(exhibition.getId());
 		loadExhibition.setAttn(exhibition.getAttn());
-		loadExhibition.setInvoiceNo(exhibition.getInvoiceNo());
+		loadExhibition.setDateRe(exhibition.getDateRe());
 		loadExhibition.setAccountNo(exhibition.getAccountNo());
 		loadExhibition.setMode(exhibition.getMode());
 		

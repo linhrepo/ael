@@ -30,6 +30,7 @@
 			<th><fmt:message key="inland.feevalue" /></th>
 			<th><fmt:message key="inland.feevavat" /></th>
 			<th><fmt:message key="inland.total" /></th>
+			<th><fmt:message key="inland.feeInvoiceNo" /></th>
 			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
@@ -54,10 +55,10 @@
 				<td><spring:bind
 						path="inland.docsgeneral.exfeetables[${idx.index}].masterFee.id">
 						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="20">
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:select
 						path="docsgeneral.exfeetables[${idx.index}].masterFee.id"
-						id="masterFee${idx.index}" autofocus="true"
+						id="masterFee${idx.index}" 
 						cssClass="form-control masterFee"
 						items="${docsSelection.selections['masterFees']}" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].masterFee.id"
@@ -68,7 +69,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="19">
 					</spring:bind> <form:select path="docsgeneral.exfeetables[${idx.index}].name.id"
-						id="name${idx.index}" autofocus="true" cssClass="form-control"
+						id="name${idx.index}"  cssClass="form-control"
 						items="${docsSelection.selections['exhFeeNames']}" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].name.id"
 						cssClass="help-block" />
@@ -78,7 +79,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].amount"
-						id="amount${idx.index}" maxlength="45" autofocus="true"
+						id="amount${idx.index}" maxlength="45" 
 						cssClass="form-control amount money" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].amount"
 						cssClass="help-block" />
@@ -88,16 +89,26 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].vat"
-						id="vat${idx.index}" maxlength="45" autofocus="true" 
+						id="vat${idx.index}" maxlength="45"  
 						cssClass="form-control vat money" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].vat"
 						cssClass="help-block" />
 					</div></td>
 				<td>
 					<form:input path="docsgeneral.exfeetables[${idx.index}].total"
-						id="total${idx.index}" maxlength="45" autofocus="true"
+						id="total${idx.index}" maxlength="45" 
 						cssClass="form-control total readonly" disabled="true" readonly="true"/> 
 				</td>
+				<td><spring:bind
+						path="inland.docsgeneral.exfeetables[${idx.index}].invoiceNo">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].invoiceNo"
+						id="vat${idx.index}" maxlength="45"
+						cssClass="form-control" /> <form:errors
+						path="docsgeneral.exfeetables[${idx.index}].invoiceNo"
+						cssClass="help-block" />
+					</div></td>
 				<td rowType="actions"><c:if test="${ empty exfeetable.approved or exfeetable.approved == false }">
 						<span class="iconButton removeRow"
 							title="<fmt:message key='table.buttonEditTitle'/>"> <i

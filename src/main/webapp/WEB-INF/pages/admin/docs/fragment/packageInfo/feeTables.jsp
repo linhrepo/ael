@@ -30,6 +30,7 @@
 			<th><fmt:message key="packageInfo.feevalue" /></th>
 			<th><fmt:message key="packageInfo.feevavat" /></th>
 			<th><fmt:message key="packageIngo.total" /></th>
+			<th><fmt:message key="inland.feeInvoiceNo" /></th>
 			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
@@ -54,7 +55,7 @@
 				<td><spring:bind
 						path="packageInfo.docsgeneral.exfeetables[${idx.index}].masterFee.id">
 						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="20">
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:select
 						path="docsgeneral.exfeetables[${idx.index}].masterFee.id"
 						id="masterFee${idx.index}" autofocus="true"
@@ -98,7 +99,16 @@
 						id="total${idx.index}" maxlength="45" autofocus="true" 
 						cssClass="form-control money total readonly" disabled="true" readonly="true"/>
 				</td>
-				
+				<td><spring:bind
+						path="packageInfo.docsgeneral.exfeetables[${idx.index}].invoiceNo">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].invoiceNo"
+						id="amount${idx.index}" maxlength="45" 
+						cssClass="form-control" /> <form:errors
+						path="docsgeneral.exfeetables[${idx.index}].invoiceNo"
+						cssClass="help-block" />
+					</div></td>
 					<td rowType="actions">
 					<c:if test="${ empty exfeetable.approved or exfeetable.approved == false }">
 						<span class="iconButton removeRow"

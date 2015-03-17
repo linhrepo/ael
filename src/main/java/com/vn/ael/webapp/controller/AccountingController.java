@@ -99,6 +99,13 @@ public class AccountingController extends BaseFormController {
         return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST, model.asMap());
     }
     
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_FEE_LIST_ADMIN)
+    public ModelAndView handleFeeAdminRequest() throws Exception {
+        Model model = new ExtendedModelMap();
+        model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+        return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN, model.asMap());
+    }
+    
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_LIST_DETAIL)
     public @ResponseBody List<Exfeetable> handleFeeDetailRequest(@RequestParam(value="docId") Long id) throws Exception {
     	return this.exfeetableManager.findByDocsgeneral(id);
@@ -114,8 +121,25 @@ public class AccountingController extends BaseFormController {
     		exfee.setApproved(true);
     		exfee.setDateChange(Calendar.getInstance().getTime());
     	}
-    	else{
+    	else if(exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()){
     		exfee.setApproved(false);
+    	}
+    	this.exfeetableManager.save(exfee);
+    	return AELConst.AJAX_SUCCESS;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN)
+    public @ResponseBody String approvalAdminFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    	Exfeetable exfee = this.exfeetableManager.get(id);
+    	if (exfee == null){
+    		return AELConst.AJAX_ERROR;
+    	}
+    	if ((exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) && exfee.getApproved() != null && exfee.getApproved()){
+    		exfee.setCheckByAdmin(true);
+    		exfee.setDateChange(Calendar.getInstance().getTime());
+    	}
+    	else{
+    		exfee.setCheckByAdmin(false);
     	}
     	this.exfeetableManager.save(exfee);
     	return AELConst.AJAX_SUCCESS;

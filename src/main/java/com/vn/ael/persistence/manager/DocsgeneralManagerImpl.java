@@ -249,6 +249,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				List<Contseal> contseals = contsealRepository.findByDocsgeneral(docsgeneral);
 				int count20 = 0;
 				int count40 = 0;
+				int countOt = 0;
 				if (contseals != null && !contseals.isEmpty()){
 					for (Contseal contseal :  contseals){
 						if (contseal.getTypeOfCont() != null)
@@ -256,11 +257,14 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 								count20+=1;
 							}else if(contseal.getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_40_START)){
 								count40+=1;
+							}else{
+								countOt+=1;
 							}
 						}	
 					}
 				docsgeneral.setNoOf20Cont(count20);
 				docsgeneral.setNoOf40Cont(count40);
+				docsgeneral.setOtCont(countOt);
 				}
 			}
 		//load trucking service

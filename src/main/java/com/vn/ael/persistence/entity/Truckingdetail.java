@@ -2,6 +2,7 @@ package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -45,6 +46,8 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "truckingdetail")
 	private List<Exfeetable> exfeetables;
+	
+	private Date dateDev;
 
 	public Truckingdetail() {
 	}
@@ -96,5 +99,15 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	public void setNhathau(Nhathau nhathau) {
 		this.nhathau = nhathau;
 	}
+
+	public Date getDateDev() {
+		return dateDev;
+	}
+
+	public void setDateDev(Date dateDev) {
+		this.dateDev = dateDev;
+	}
+	
+	
 	
 }

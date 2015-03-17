@@ -58,12 +58,16 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	
 	private Boolean approved;
 	
+	private Boolean checkByAdmin;
+	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name= "exhibition")
 	private Exhibition exhibition;
 	
 	private Date dateChange;
+	
+	private String invoiceNo;
 
 	public Exfeetable() {
 	}
@@ -170,6 +174,14 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		}
 		return AELConst.ACC_FEE_IS_APPROVED;
 	}
+	
+	@Transient
+	public String getCheckByAdminText(){
+		if (this.checkByAdmin == null || ! this.checkByAdmin){
+			return AELConst.ACC_FEE_ISNOT_APPROVED;
+		}
+		return AELConst.ACC_FEE_IS_APPROVED;
+	}
 
 	public Date getDateChange() {
 		return dateChange;
@@ -177,6 +189,22 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	public void setDateChange(Date dateChange) {
 		this.dateChange = dateChange;
+	}
+
+	public String getInvoiceNo() {
+		return invoiceNo;
+	}
+
+	public void setInvoiceNo(String invoiceNo) {
+		this.invoiceNo = invoiceNo;
+	}
+
+	public Boolean getCheckByAdmin() {
+		return checkByAdmin;
+	}
+
+	public void setCheckByAdmin(Boolean checkByAdmin) {
+		this.checkByAdmin = checkByAdmin;
 	}
 	
 }

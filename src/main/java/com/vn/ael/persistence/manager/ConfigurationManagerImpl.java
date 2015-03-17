@@ -61,7 +61,7 @@ public class ConfigurationManagerImpl extends GenericManagerImpl<Configuration> 
 
 	@Override
 	public Map<Long, String> getSelectionsByType(ConfigurationType type, Boolean... enabled) {
-			return ConvertUtil.fromConfigurationList2Map(this.getAllByType(type,enabled));
+		return ConvertUtil.fromConfigurationList2Map(this.getAllByType(type,enabled),type.isDisplayWithDes());
 	}
 
 	@Override

@@ -16,4 +16,6 @@ public interface AELConst {
 	String AJAX_SUCCESS= "success";
 	String AJAX_ERROR = "error";
 	
+	String SEPARATOR = "-";
+	
 }

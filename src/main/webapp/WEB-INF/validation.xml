@@ -57,9 +57,18 @@
 		    <field property="code" depends="required">
 		        <arg key="customer.code"/>
 		    </field>
-		    <field property="email" depends="required,email">
+		    <field property="email" depends="email">
                 <arg key="customer.email"/>
             </field>
+             <field property="address" depends="required">
+		        <arg key="customer.address"/>
+		    </field>
+		     <field property="taxno" depends="required">
+		        <arg key="customer.taxno"/>
+		    </field>
+		    <field property="contact" depends="required">
+		        <arg key="customer.contact"/>
+		    </field>
 		</form>
     </formset>
 </form-validation>

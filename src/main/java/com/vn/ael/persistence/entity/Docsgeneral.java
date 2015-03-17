@@ -115,6 +115,12 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	private Boolean doDelivery;
 	
+	private String productDescription;
+	
+	private String note;
+	
+	private Boolean isImport;
+	
 	public Integer getCmb() {
 		return this.cmb;
 	}
@@ -405,6 +411,9 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	@Transient
 	private boolean isLCL;
+	
+	@Transient
+	private int otCont;
 
 	public Integer getNoOf20Cont() {
 		return noOf20Cont;
@@ -449,6 +458,37 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	public void setChiho(BigDecimal chiho) {
 		this.chiho = chiho;
 	}
-	
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public Boolean getIsImport() {
+		return isImport;
+	}
+
+	public void setIsImport(Boolean isImport) {
+		this.isImport = isImport;
+	}
+
+	public int getOtCont() {
+		return otCont;
+	}
+
+	public void setOtCont(int otCont) {
+		this.otCont = otCont;
+	}
 	
 }

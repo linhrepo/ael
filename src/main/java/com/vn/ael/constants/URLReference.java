@@ -51,5 +51,8 @@ public interface URLReference {
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL = "/admin/accounting/changeApproval";
 	
+	String ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN = "/admin/changeApproval";
+	String ACCOUNTING_FEE_LIST_ADMIN = "/admin/feeTables";
+	
 	String AJAX_ADD_CONSTANT = "/admin/accounting/addOptions";
 }

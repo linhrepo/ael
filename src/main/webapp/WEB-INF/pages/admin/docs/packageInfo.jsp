@@ -33,6 +33,11 @@
               <i class="icon-trash"></i> <fmt:message key="button.delete"/>
           </button>
         </c:if>
+         <c:if test="${not empty packageInfo.doRelease and packageInfo.doRelease == true}">
+          <button type="submit" class="btn btn-success" name="print" onclick="bCancel=true">
+              <i class="icon-trash"></i> <fmt:message key="packageInfo.button.printBienbang"/>
+          </button>
+        </c:if>
         <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
         </button>

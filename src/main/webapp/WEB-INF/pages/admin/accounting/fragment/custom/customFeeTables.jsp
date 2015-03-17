@@ -7,7 +7,7 @@
 			<th rowspan="2"><fmt:message key="table.no" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.feeName" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.feeDescription"/></th>
-			<th colspan="3" class="centerText"><fmt:message key="accountingcus.typeOfContainer"/></th>
+			<th colspan="4" class="centerText"><fmt:message key="accountingcus.typeOfContainer"/></th>
 			<th rowspan="2"><fmt:message key="accountingcus.total" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.vat" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.feevat" /></th>
@@ -19,6 +19,7 @@
 		<tr>
 			<th class="numberCol"><fmt:message key="accountingcus.20"/></th>
 			<th class="numberCol"><fmt:message key="accountingcus.40"/></th>
+			<th class="numberCol"><fmt:message key="accountingcus.otCont"/></th>
 			<th class="numberCol"><fmt:message key="accountingcus.LCL"/></th>
 		</tr>
 	</thead>
@@ -38,7 +39,7 @@
 					</spring:bind>
 					<form:select
 							path="accountingcusdetails[${idx.index}].name.id"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" 
 							items="${selections['debitfees']}"
 							cssClass="form-control"/> 
 					<form:errors
@@ -52,7 +53,7 @@
 					</spring:bind>
 					<form:select
 							path="accountingcusdetails[${idx.index}].description.id"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" 
 							items="${selections['debitfeesDes']}"
 							cssClass="form-control"/> 
 					<form:errors
@@ -62,12 +63,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.20" />">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantity20">
-					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" defaultValue="${accountingcus.docsgeneral.noOf20Cont}">
 					</spring:bind>
 					<form:input
-							path="accountingcusdetails[${idx.index}].quantity20"
-							id="description${idx.index}" autofocus="true"
-							cssClass="form-control number"/> 
+							path="accountingcusdetails[${idx.index}].quantity20" 
+							id="description${idx.index}"  value="${accountingcus.docsgeneral.noOf20Cont}"
+							cssClass="form-control number" /> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].quantity20"
 								cssClass="help-block" />
@@ -75,24 +76,37 @@
 				</td>
 				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.40" />">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantity40">
-					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" defaultValue="${accountingcus.docsgeneral.noOf40Cont}">
 					</spring:bind>
 					<form:input
-							path="accountingcusdetails[${idx.index}].quantity40"
-							id="description${idx.index}" autofocus="true"
+							path="accountingcusdetails[${idx.index}].quantity40" 
+							id="description${idx.index}" 
 							cssClass="form-control number"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].quantity40"
 								cssClass="help-block" />
 					</div>
 				</td>
+				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.otCont" />">
+					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantityOt">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" defaultValue="${accountingcus.docsgeneral.otCont}">
+					</spring:bind>
+					<form:input
+							path="accountingcusdetails[${idx.index}].quantityOt" 
+							id="description${idx.index}" 
+							cssClass="form-control number"/> 
+					<form:errors
+								path="accountingcusdetails[${idx.index}].quantityOt"
+								cssClass="help-block" />
+					</div>
+				</td>
 				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.LCL" />">
-					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantityLCL">
-					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantityLCL" >
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" defaultValue="${accountingcus.docsgeneral.isLCL ? 1 : 0}">
 					</spring:bind>
 					<form:input
 							path="accountingcusdetails[${idx.index}].quantityLCL"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" 
 							cssClass="form-control number"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].quantityLCL"
@@ -105,7 +119,7 @@
 					</spring:bind>
 					<form:input
 							path="accountingcusdetails[${idx.index}].total"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" 
 							cssClass="form-control money amount"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].total"
@@ -118,7 +132,7 @@
 					</spring:bind>
 					<form:input
 							path="accountingcusdetails[${idx.index}].generalVat"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" 
 							cssClass="form-control money vat"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].generalVat"
@@ -127,12 +141,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingcus.feevat"/>">
 					<div class="form-group">
-				        <input value=""  maxlength="45" autofocus="true" class="form-control money vatAmount readonly" readonly="readonly"/>
+				        <input value=""  maxlength="45"  class="form-control money vatAmount readonly" readonly="readonly"/>
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.feewithvat"/>">
 					<div class="form-group">
-				        <input value=""  maxlength="45" autofocus="true" class="form-control money total readonly" readonly="readonly"/>
+				        <input value=""  maxlength="45"  class="form-control money total readonly" readonly="readonly"/>
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.note"/>">
@@ -141,7 +155,7 @@
 					</spring:bind>
 					<form:input
 							path="accountingcusdetails[${idx.index}].note"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" 
 							cssClass="form-control"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].note"
@@ -154,7 +168,7 @@
 					</spring:bind>
 					<form:input
 							path="accountingcusdetails[${idx.index}].invoice"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" 
 							cssClass="form-control"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].invoice"

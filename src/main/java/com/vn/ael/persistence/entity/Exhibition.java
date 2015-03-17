@@ -69,7 +69,7 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 	@JoinColumn(name="mode")
 	private Configuration mode;
 	
-	private String invoiceNo;
+	private Date dateRe;
 	
 	private String accountNo;
 	
@@ -328,14 +328,6 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 		this.mode = mode;
 	}
 	
-	public String getInvoiceNo() {
-		return invoiceNo;
-	}
-	
-	public void setInvoiceNo(String invoiceNo) {
-		this.invoiceNo = invoiceNo;
-	}
-	
 	public String getAccountNo() {
 		return accountNo;
 	}
@@ -349,5 +341,11 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 	public void setAttn(String attn) {
 		this.attn = attn;
 	}
-
+	public Date getDateRe() {
+		return dateRe;
+	}
+	public void setDateRe(Date dateRe) {
+		this.dateRe = dateRe;
+	}
+	
 }
