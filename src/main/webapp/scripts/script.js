@@ -114,7 +114,8 @@ $(document).ready(function(){
 		detailTableMapping = $(this).attr("detailTableMapping"),
 		editDetail = $(this).attr("editDetail"),
 		successLoadMessage = $(this).attr("successLoadMessage"),
-		actionCheck = $(this).attr("actionCheck");
+		actionCheck = $(this).attr("actionCheck"),
+		actionIcon = $(this).attr("actionIcon")
 		$(this).nestedTable({
 			tableId : id,
 			urlForChild:contextPath+childUrl,
@@ -125,7 +126,8 @@ $(document).ready(function(){
 			editDetail:editDetail!="" && editDetail.length >0 ? contextPath+editDetail : false,
 			detailTableMapping:detailTableMapping,
 			successLoadMessage:showMessage(successLoadMessage),
-			actionCheck:actionCheck
+			actionCheck:actionCheck,
+			actionIcon : actionIcon
 		});
 	});
 	

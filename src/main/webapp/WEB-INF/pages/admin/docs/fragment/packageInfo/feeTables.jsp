@@ -1,8 +1,4 @@
 <%@ include file="/common/taglibs.jsp"%>
-<h3>
-	<fmt:message key="packageInfo.feeTables" />
-</h3>
-<hr>
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">

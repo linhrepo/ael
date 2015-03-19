@@ -18,4 +18,12 @@ public interface AELConst {
 	
 	String SEPARATOR = "-";
 	
+	String ATTACHMENT_REQUEST_PARAM = "attachments";
+	String ATTACHMENT_REQUEST_DATA = "data";
+	char INDEX_OPEN = '[';
+	char INDEX_CLOSE = ']';
+	char DOT = '.';
+	
+	String ATTACHMENT_PREFIX_DOCS = "docsgeneral";
+	
 }

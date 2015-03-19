@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
+import com.vn.ael.persistence.manager.AttachmentManager;
 import com.vn.ael.persistence.manager.OfferItemManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
 
@@ -26,11 +28,19 @@ import com.vn.ael.persistence.manager.OfferPriceManager;
 public class OfferPriceListController extends BaseFormController {
 
     private OfferPriceManager offerpriceManager;
+    
+    private AttachmentManager attachmentManager;
 
     @Autowired
     public void setOfferpriceManager(final OfferPriceManager offerpriceManager) {
         this.offerpriceManager = offerpriceManager;
     }
+    
+    @Autowired
+    public void setAttachmentManager(final AttachmentManager attachmentManager) {
+        this.attachmentManager = attachmentManager;
+    }
+    
     
     private OfferItemManager offerItemManager = null;
 	 
@@ -76,6 +86,16 @@ public class OfferPriceListController extends BaseFormController {
     		return offerItemManager.findWithOfferPriceId(offerPriceId);
     	}
     	return new ArrayList<OfferItem>();
+    }
+    
+    @RequestMapping(value=URLReference.OFFERPRICE_ATTACHMENT_LIST+"*", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Attachment> getListItemsFiles(HttpServletRequest request){
+    	String offerPriceId = request.getParameter("offerId");
+    	if (offerPriceId != null){
+    		return attachmentManager.findWithOfferPriceId(offerPriceId);
+    	}
+    	return new ArrayList<Attachment>();
     }
 }
 

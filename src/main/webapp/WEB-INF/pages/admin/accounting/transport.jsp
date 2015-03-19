@@ -25,11 +25,15 @@
 		    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
 		    	<fmt:message key="menu.sales.prices"/>
 		    </a></li>
+		     <li role="presentation"><a href="#files" aria-controls="profile" role="tab" data-toggle="tab">
+		    	<fmt:message key="offerPrice.files"/>
+		    </a></li>
 		  </ul>
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="fragment/transport/transTable.jsp"></jsp:include></div>
 		    <div role="tabpanel" class="tab-pane" id="profile"><jsp:include page="fragment/transport/offers.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="files"><jsp:include page="fragment/transport/fileOffers.jsp"></jsp:include></div>
 		  </div>
 		</div>
     	

@@ -16,6 +16,7 @@ import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docservice;
@@ -28,6 +29,7 @@ import com.vn.ael.persistence.entity.Inlandsize;
 import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
+import com.vn.ael.persistence.repository.AttachmentRepository;
 import com.vn.ael.persistence.repository.ConfigurationRepository;
 import com.vn.ael.persistence.repository.ContsealRepository;
 import com.vn.ael.persistence.repository.DocserviceRepository;
@@ -71,6 +73,9 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
     
     @Autowired
     private TruckingdetailRepository truckingdetailRepository;
+    
+    @Autowired
+    private AttachmentRepository attachmentRepository;
     
     @Autowired
     public DocsgeneralManagerImpl(final DocsgeneralRepository docsgeneralRepository) {
@@ -128,6 +133,18 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			docsgeneral.setContTypes(multitypes);
 		}
 		
+		if (docsgeneral.getAttachments() != null){
+			List<Attachment> attachments = new ArrayList<>();
+			for (Attachment attachment: docsgeneral.getAttachments()){
+				if (attachment.getIsDeleted() != null && attachment.getIsDeleted() == true){
+					attachmentRepository.delete(attachment.getId());
+				}else{
+					attachments.add(attachment);
+				}
+			}
+			docsgeneral.setAttachments(attachments);
+		}
+		
 	}
 
 	@Override
@@ -138,6 +155,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	    	docsgeneral.setExfeetables(exfeetableRepository.findByDocsgeneral(docsgeneral, EntityUtil.EXFEETABLE_DEFAULT_SORTING));
 	    	docsgeneral.setInlandsizes(inlandsizeRepository.findByDocsgeneral(docsgeneral));
 	    	docsgeneral.setContTypes(multitypeRepository.findByDocsgeneral(docsgeneral));
+	    	docsgeneral.setAttachments(attachmentRepository.findByDocsgeneral(docsgeneral));
 		}
 		
 		if (docsgeneral.getContseals() == null || docsgeneral.getContseals().isEmpty()){
@@ -178,6 +196,19 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			multitype.setIsAdded(true);
 			multitypes.add(multitype);
 			docsgeneral.setContTypes(multitypes);
+		}
+		
+		if (docsgeneral.getAttachments() == null
+				|| docsgeneral.getAttachments().isEmpty()) {
+			List<Attachment> attachments = new ArrayList<>();
+			Attachment attachment = new Attachment();
+			attachment.setIsAdded(true);
+			attachments.add(attachment);
+			docsgeneral.setAttachments(attachments);
+		}else{
+			for (Attachment attachment: docsgeneral.getAttachments()){
+				attachment.setIsAdded(true);
+			}
 		}
 		
 	}

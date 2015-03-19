@@ -1,8 +1,4 @@
 <%@ include file="/common/taglibs.jsp"%>
-<h3>
-	<fmt:message key="packageInfo.addServicesTitle" />
-</h3>
-<hr>
 <table id="docservice" class="display table table-condensed inFormTable"
 	cellspacing="0" width="100%">
 	<thead>

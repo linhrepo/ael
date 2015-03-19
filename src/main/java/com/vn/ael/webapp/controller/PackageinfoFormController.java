@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
@@ -145,6 +146,7 @@ public class PackageinfoFormController extends BaseFormController {
             saveMessage(request, getText("packageInfo.deleted", locale));
         } else {
         	getEntityService().checkUpdateInfo(packageInfo, isNew, request);
+        	EntityUtil.updateFilesUpload(packageInfo.getDocsgeneral().getAttachments(), request,AELConst.ATTACHMENT_PREFIX_DOCS);
         	docsgeneralManager.checkToDeleteChilds(packageInfo.getDocsgeneral());
         	packageInfo = packageinfoManager.saveWholePackage(packageInfo);
             String key = (isNew) ? "packageInfo.added" : "packageInfo.updated";

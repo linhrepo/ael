@@ -1,16 +1,24 @@
 package com.vn.ael.webapp.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
+import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docservice;
 import com.vn.ael.persistence.entity.Docsgeneral;
@@ -21,6 +29,7 @@ import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Nhathau;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
+import com.vn.ael.persistence.entity.Realattachment;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.webapp.dto.ContsealSelections;
@@ -91,6 +100,17 @@ public class EntityUtil {
 			docsgeneral.setContTypes(multitypes);
 		}
 		
+		List<Attachment> attachments = new ArrayList<>();
+		if (docsgeneral.getAttachments() != null && !docsgeneral.getAttachments().isEmpty()){
+			for (Attachment attachment: docsgeneral.getAttachments()){
+				if (attachment.getIsAdded() == null || !attachment.getIsAdded()){
+					attachment.setDocsgeneral(docsgeneral);
+					attachments.add(attachment);
+				}
+			}
+			docsgeneral.setAttachments(attachments);
+		}
+		
 	}
 	
 	/**
@@ -107,6 +127,17 @@ public class EntityUtil {
 				}
 			}
 			offerPrice.setOfferItems(items);
+		}
+		
+		List<Attachment> attachments = new ArrayList<>();
+		if (offerPrice.getAttachments() != null && !offerPrice.getAttachments().isEmpty()){
+			for (Attachment attachment: offerPrice.getAttachments()){
+				if (attachment.getIsAdded() == null || !attachment.getIsAdded()){
+					attachment.setOfferPrice(offerPrice);
+					attachments.add(attachment);
+				}
+			}
+			offerPrice.setAttachments(attachments);
 		}
 	}
 
@@ -226,4 +257,33 @@ public class EntityUtil {
 	public static BigDecimal calTotalWithVat(BigDecimal amount, BigDecimal vat){
 		return ConvertUtil.getNotNullValue(amount).add(ConvertUtil.getNotNullValue(amount).multiply(ConvertUtil.getNotNullValue(vat).divide(new BigDecimal(AELConst.VAT_PERCENT))));
 	}
+	
+	/**
+     * Load file from request
+     * @param attachments
+     * @param request
+     */
+    public static void updateFilesUpload(List<Attachment>attachments, HttpServletRequest request,String... prefix){
+    	 final MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+    	 if (attachments != null && !attachments.isEmpty()){
+    		 for (int i = 0 ; i< attachments.size(); ++ i){
+    			 String filePath = (prefix.length >0 ? prefix[0]+AELConst.DOT: "")+AELConst.ATTACHMENT_REQUEST_PARAM+AELConst.INDEX_OPEN+i+AELConst.INDEX_CLOSE+AELConst.DOT+AELConst.ATTACHMENT_REQUEST_DATA+AELConst.DOT+AELConst.ATTACHMENT_REQUEST_DATA;
+    			 final CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile(filePath);
+    			 if(file != null && file.getSize() > 0){
+    				 try{
+     				 	final InputStream stream = file.getInputStream();
+     				 	attachments.get(i).getData().setAttachment(attachments.get(i));
+     				 	attachments.get(i).getData().setData(IOUtils.toByteArray(stream));
+     				 	attachments.get(i).setIsAdded(false);
+     				} catch (IOException e) {
+     					e.printStackTrace();
+     				}
+    			 }else{
+    				 attachments.get(i).setIsAdded(false);
+    				 attachments.get(i).setData(null);
+    			 }
+    			 
+    		 }
+    	 }
+    }
 }

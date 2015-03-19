@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.appfuse.model.User;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.vn.ael.constants.AELConst;
@@ -65,6 +66,10 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	@OneToMany(mappedBy="docsgeneral", cascade = CascadeType.ALL)
 	private List<Multitype> contTypes;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="docsgeneral", cascade = CascadeType.ALL)
+	private List<Attachment> attachments;
 	
 	@OneToOne(mappedBy = "docsgeneral")
 	private Truckingservice truckingservice;
@@ -489,6 +494,14 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 
 	public void setOtCont(int otCont) {
 		this.otCont = otCont;
+	}
+
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
 	}
 	
 }

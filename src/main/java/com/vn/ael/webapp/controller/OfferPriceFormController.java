@@ -1,9 +1,6 @@
 package com.vn.ael.webapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,31 +11,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Customer;
-import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
-import com.vn.ael.persistence.manager.ConfigurationManager;
 import com.vn.ael.persistence.manager.CustomerManager;
-import com.vn.ael.persistence.manager.OfferItemManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
-import com.vn.ael.webapp.util.ConvertUtil;
+import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
-@RequestMapping(URLReference.OFFERPRICE_FORM+"*")
 public class OfferPriceFormController extends BaseFormController {
 
-	private OfferItemManager offerItemManager = null;
-	 
-    @Autowired
-    public void setOfferpriceManager(final OfferItemManager offerItemManager) {
-        this.offerItemManager = offerItemManager;
-    }
-    
 	private OfferPriceManager offerpriceManager = null;
 	 
     @Autowired
@@ -59,12 +46,11 @@ public class OfferPriceFormController extends BaseFormController {
     }
  
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.OFFERPRICE_FORM)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         String id = request.getParameter("id");
         ModelAndView mav = new ModelAndView(URLReference.OFFERPRICE_FORM);
-        List<OfferItem> offerItems = new ArrayList<>();
         OfferPrice offerPrice = null;
         if (!StringUtils.isBlank(id)) {
         	offerPrice = offerpriceManager.get(new Long(id));
@@ -92,7 +78,7 @@ public class OfferPriceFormController extends BaseFormController {
         return mav;
     }
  
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.OFFERPRICE_FORM)
     public String onSubmit(OfferPrice offerPrice, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {
@@ -123,6 +109,7 @@ public class OfferPriceFormController extends BaseFormController {
         	if (!isNew){
         		offerPrice.setCustomer(customerManager.get(offerPrice.getCustomer().getId()));
         	}
+        	EntityUtil.updateFilesUpload(offerPrice.getAttachments(), request);
         	offerpriceManager.saveWholePackage(offerPrice);
             String key = (isNew) ? "offerPrice.added" : "offerPrice.updated";
             saveMessage(request, getText(key, locale));
@@ -131,6 +118,6 @@ public class OfferPriceFormController extends BaseFormController {
  
         return success;
     }
-
+    
 }
 

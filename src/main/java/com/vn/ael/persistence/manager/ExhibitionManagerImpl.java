@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
@@ -19,6 +20,7 @@ import com.vn.ael.persistence.repository.CustomerRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.ExhibitionRepository;
+import com.vn.ael.persistence.repository.RealattachmentRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.util.EntityUtil;
 
@@ -43,7 +45,7 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
     
     @Autowired
     private ExfeetableRepository exfeetableRepository;
-
+    
     @Autowired
     public ExhibitionManagerImpl(final ExhibitionRepository exhibitionRepository) {
         this.exhibitionRepository = exhibitionRepository;

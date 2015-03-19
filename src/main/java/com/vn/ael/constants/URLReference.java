@@ -14,12 +14,15 @@ public interface URLReference {
 	String CUSTOMER_LIST = "/admin/sales/customerList";
 	
 	String OFFERPRICE_FORM = "/admin/sales/offerPrice";
+	String OFFERFORM_DOWN_ATTACHMENT = "/admin/sales/download/offerAttachment";
+	String OFFERPRICE_ATTACHMENT_LIST = "/admin/sales/attachment/list";
 	String OFFERPRICE_LIST = "/admin/sales/offerPriceList";
 	
 	String OFFERITEM_FORM = "/admin/sales/offerItem";
 	String OFFERITEM_LIST = "/admin/sales/offerItemList";
 
 	String PACKAGEINFO_FORM = "/admin/docs/packageInfo";
+	String DOCSGENERAL_INVOICES = "/admin/docs/download/offerAttachment";
 	String PACKAGEINFO_LIST= "/admin/docs/packageInfoList";
 	
 	String CONTSEAL_FORM = "/admin/docs/contseal";

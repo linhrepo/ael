@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
@@ -110,6 +111,7 @@ public class ExhibitionFormController extends BaseFormController {
             saveMessage(request, getText("exhibition.deleted", locale));
         } else {
         	getEntityService().checkUpdateInfo(exhibition, isNew, request);
+        	EntityUtil.updateFilesUpload(exhibition.getDocsgeneral().getAttachments(), request,AELConst.ATTACHMENT_PREFIX_DOCS);
         	docsgeneralManager.checkToDeleteChilds(exhibition.getDocsgeneral());
         	exhibition = exhibitionManager.saveWholeExh(exhibition);
             String key = (isNew) ? "exhibition.added" : "exhibition.updated";

@@ -14,7 +14,7 @@
  
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="inland" method="post" action="inland" id="inlandForm" cssClass="well">
+    <form:form commandName="inland" method="post" action="inland" id="inlandForm" cssClass="well" enctype="multipart/form-data">
     <form:hidden path="id"/>
     <form:hidden path="creator.id"/>
     <form:hidden path="createdDate"/>
@@ -30,8 +30,22 @@
 	    <c:if test ="${inland.isInland == false}">
 	    	<jsp:include page="fragment/inland/sealandLayout.jsp"></jsp:include>
 	    </c:if>
-	    <jsp:include page="fragment/inland/contsealTables.jsp"></jsp:include>
-	    <jsp:include page="fragment/inland/feeTables.jsp"></jsp:include>
+	    <hr>
+	    <div role="tabpanel">
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="inland.listContsealDetail" /></a></li>
+		    <li role="presentation"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="inland.feeTables" /></a></li>
+		    <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab"><fmt:message key="docsgeneral.invoices" /></a></li>
+		  </ul>
+		
+		  <!-- Tab panes -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="services"><jsp:include page="fragment/inland/contsealTables.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="contss"><jsp:include page="fragment/inland/feeTables.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="invoices"><jsp:include page="fragment/inland/attachments.jsp"></jsp:include></div>
+		  </div>
+		</div>   	
 	    <br/>
 	     <div class="row">
 	     	<table class="table">

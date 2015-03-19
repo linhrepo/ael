@@ -11,10 +11,13 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.util.StringUtil;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
@@ -29,8 +32,13 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Attachment;
+import com.vn.ael.persistence.entity.Realattachment;
+import com.vn.ael.persistence.manager.AttachmentManager;
 import com.vn.ael.persistence.manager.ConfigurationManager;
+import com.vn.ael.persistence.manager.RealattachmentManager;
 import com.vn.ael.persistence.manager.UserManager;
 import com.vn.ael.persistence.service.EntityService;
 import com.vn.ael.webapp.formatter.CustomNumberFormatter;
@@ -60,11 +68,17 @@ public class BaseFormController implements ServletContextAware {
     private MessageSourceAccessor messages;
     private ServletContext servletContext;
     
+    protected RealattachmentManager realattachmentManager = null;
     protected ConfigurationManager configurationManager = null;
 	 
     @Autowired
     public void setConfigurationManager(final ConfigurationManager configurationManager) {
         this.configurationManager = configurationManager;
+    }
+    
+    @Autowired
+    public void setRealattachmentManager(final RealattachmentManager realattachmentManager) {
+        this.realattachmentManager = realattachmentManager;
     }
 
     @Autowired(required = false)
@@ -274,4 +288,29 @@ public class BaseFormController implements ServletContextAware {
     protected ServletContext getServletContext() {
         return servletContext;
     }
+    
+    /**
+     * Load attachment and review on browser
+     * @param request
+     * @param response
+     * @param id
+     * @throws Exception
+     */
+    protected void loadFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String id = request.getParameter("id");
+    	try{
+	    	Realattachment uploadedFile = this.realattachmentManager.findByAttachment(Long.valueOf(id));
+	        response.setHeader("Content-Disposition","inline; filename=\"" + uploadedFile.getAttachment().getFileName() + "\"");
+
+	    	// Send the file.
+	    	ServletOutputStream  out = response.getOutputStream();
+	    	if(uploadedFile != null){
+	    		out.write(uploadedFile.getData(), 0, uploadedFile.getData().length);
+	    	}
+	        out.flush();
+	        out.close();
+        }catch(Exception ex){
+        	log.error("file not found in db", ex);
+        }
+	}
 }

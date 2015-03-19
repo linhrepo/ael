@@ -1,9 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
 <div id="contsealListContainer">
-	<h3>
-		<fmt:message key="inland.listContsealDetail" />
-	</h3>
-	<hr>
 	<table id="contsealList"
 		class="display table table-condensed inFormTable" cellspacing="0"
 		width="100%">

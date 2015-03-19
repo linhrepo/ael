@@ -22,6 +22,8 @@
         <class>com.vn.ael.persistence.entity.Truckingservice</class>
         <class>com.vn.ael.persistence.entity.Extendfeeacc</class>
         <class>com.vn.ael.persistence.entity.Nhathau</class>
+        <class>com.vn.ael.persistence.entity.Attachment</class>
+        <class>com.vn.ael.persistence.entity.Realattachment</class>
         <properties>
           <property name="hibernate.ejb.interceptor"
                       value="com.vn.ael.persistence.entity.interceptors.StaticInterceptor" />          

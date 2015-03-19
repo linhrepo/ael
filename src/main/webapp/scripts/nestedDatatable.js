@@ -130,7 +130,10 @@
 		 */
 		var fnFormatDetails = function(table_id, html) {
 			//action
-			var actionCheckText = "",actionvalues=""
+			var actionCheckText = "",actionvalues="", actionIcon="fa fa-pencil-square-o";
+			if (options.actionIcon != undefined && options.actionIcon.length>0){
+				actionIcon = options.actionIcon;
+			}
 			if (options.actionCheck != undefined && options.actionCheck.length>0){
 				var tem = options.actionCheck.split(":");
 				actionCheckText = tem[0],
@@ -162,7 +165,7 @@
 	        		}
 	        		
 	        		if (hasAction){
-	        			sOut+="<td class='actions'><a href="+options.editDetail+"?id="+html[i]["id"]+" class='iconButton'><i class='fa fa-pencil-square-o'></i></a></td>";
+	        			sOut+="<td class='actions'><a href="+options.editDetail+"?id="+html[i]["id"]+" class='iconButton' target='_blank'><i class='"+actionIcon+"'></i></a></td>";
 	        		}else{
 	        			sOut+="<td></td>";
 	        		}

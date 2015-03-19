@@ -11,7 +11,7 @@
  
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="exhibition" method="post" action="exhibition" id="exhibitionForm" cssClass="well">
+    <form:form commandName="exhibition" method="post" action="exhibition" id="exhibitionForm" cssClass="well" enctype="multipart/form-data">
     <form:hidden path="id"/>
     <form:hidden path="creator.id"/>
     <form:hidden path="createdDate"/>
@@ -277,17 +277,24 @@
 				        <form:errors path="docsgeneral.infoInvoice" cssClass="help-block"/>
 				    </div>
 	    </div>
-	    <div class='row'>
-	    	<div class="col-md-12">
-	    		<jsp:include page="fragment/exhibition/feeTables.jsp"></jsp:include>
-	    	</div>
-	    	<div class="col-md-12">
-	    		<jsp:include page="fragment/exhibition/contsealTables.jsp"></jsp:include>
-	    	</div>
-	    	<div class="col-md-12">
-	    		<jsp:include page="fragment/exhibition/inlandSizes.jsp"></jsp:include>
-	    	</div>
-	    </div>
+	     <hr>
+	    <div role="tabpanel">
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="exhibition.tableDetail" /></a></li>
+		    <li role="presentation"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="exhibition.listContsealDetail" /></a></li>
+		    <li role="presentation"><a href="#fees" aria-controls="fees" role="tab" data-toggle="tab"><fmt:message key="exhibition.feeTables" /></a></li>
+		    <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab"><fmt:message key="docsgeneral.invoices" /></a></li>
+		  </ul>
+		
+		  <!-- Tab panes -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="services"><jsp:include page="fragment/exhibition/inlandSizes.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="contss"><jsp:include page="fragment/exhibition/contsealTables.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="fees"><jsp:include page="fragment/exhibition/feeTables.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="invoices"><jsp:include page="fragment/exhibition/attachments.jsp"></jsp:include></div>
+		  </div>
+		</div>   
 	</div>
 	<jsp:include page="fragment/exhibition/checkboxInput.jsp"></jsp:include>
     <div class="form-group form-actions">

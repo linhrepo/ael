@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
+import com.vn.ael.persistence.repository.AttachmentRepository;
 import com.vn.ael.persistence.repository.CustomerRepository;
 import com.vn.ael.persistence.repository.OfferItemRepository;
 import com.vn.ael.persistence.repository.OfferPriceRepository;
@@ -34,6 +36,8 @@ public class OfferPriceManagerImpl extends GenericManagerImpl<OfferPrice> implem
     private OfferItemRepository offerItemRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private AttachmentRepository attachmentRepository;
     
 
     @Autowired
@@ -56,6 +60,7 @@ public class OfferPriceManagerImpl extends GenericManagerImpl<OfferPrice> implem
 	public void updateChilds(OfferPrice offerPrice) {
 		if (offerPrice != null && offerPrice.getId() != null) {
 			offerPrice.setOfferItems(offerItemRepository.findByOfferPrice(offerPrice));
+			offerPrice.setAttachments(attachmentRepository.findByOfferPrice(offerPrice));
 		}
 
 		if (offerPrice.getOfferItems() == null
@@ -65,7 +70,20 @@ public class OfferPriceManagerImpl extends GenericManagerImpl<OfferPrice> implem
 			offerItem.setIsAdded(true);
 			items.add(offerItem);
 			offerPrice.setOfferItems(items);
-		}		
+		}	
+		
+		if (offerPrice.getAttachments() == null
+				|| offerPrice.getAttachments().isEmpty()) {
+			List<Attachment> attachments = new ArrayList<>();
+			Attachment attachment = new Attachment();
+			attachment.setIsAdded(true);
+			attachments.add(attachment);
+			offerPrice.setAttachments(attachments);
+		}else{
+			for (Attachment attachment: offerPrice.getAttachments()){
+				attachment.setIsAdded(true);
+			}
+		}
 	}
 
 	@Override
@@ -91,6 +109,17 @@ public class OfferPriceManagerImpl extends GenericManagerImpl<OfferPrice> implem
 			offerPrice.setOfferItems(items);
 		}
 		
+		if (offerPrice.getAttachments() != null){
+			List<Attachment> attachments = new ArrayList<>();
+			for (Attachment attachment: offerPrice.getAttachments()){
+				if (attachment.getIsDeleted() != null && attachment.getIsDeleted() == true){
+					attachmentRepository.delete(attachment);
+				}else{
+					attachments.add(attachment);
+				}
+			}
+			offerPrice.setAttachments(attachments);
+		}
 	}
 
 	@Override

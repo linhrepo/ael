@@ -11,17 +11,32 @@
  
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="packageInfo" method="post" action="packageInfo" id="packageInfoForm" cssClass="well">
+    <form:form commandName="packageInfo" method="post" action="packageInfo" id="packageInfoForm" cssClass="well" enctype="multipart/form-data">
     <form:hidden path="id"/>
     <form:hidden path="creator.id"/>
     <form:hidden path="counting"/>
     <form:hidden path="docsgeneral.id"/>
     <form:hidden path="createdDate"/>
     <div class="container-fluid">
-	    <jsp:include page="fragment/packageInfo/generalInput.jsp"></jsp:include>   	
-	    <jsp:include page="fragment/packageInfo/serviceTables.jsp"></jsp:include>   	
-		<jsp:include page="fragment/packageInfo/contsealTables.jsp"></jsp:include>    
-	    <jsp:include page="fragment/packageInfo/feeTables.jsp"></jsp:include>
+	    <jsp:include page="fragment/packageInfo/generalInput.jsp"></jsp:include>
+	    <hr>
+	    <div role="tabpanel">
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="packageInfo.addServicesTitle" /></a></li>
+		    <li role="presentation"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="packageInfo.listContsealDetail" /></a></li>
+		    <li role="presentation"><a href="#fees" aria-controls="fees" role="tab" data-toggle="tab"><fmt:message key="packageInfo.feeTables" /></a></li>
+		    <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab"><fmt:message key="docsgeneral.invoices" /></a></li>
+		  </ul>
+		
+		  <!-- Tab panes -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="services"><jsp:include page="fragment/packageInfo/serviceTables.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="contss"><jsp:include page="fragment/packageInfo/contsealTables.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="fees"><jsp:include page="fragment/packageInfo/feeTables.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="invoices"><jsp:include page="fragment/packageInfo/attachments.jsp"></jsp:include></div>
+		  </div>
+		</div>   	
 	    <jsp:include page="fragment/packageInfo/checkboxInput.jsp"></jsp:include>
 	</div>
     <div class="form-group form-actions">

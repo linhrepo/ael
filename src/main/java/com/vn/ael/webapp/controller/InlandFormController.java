@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
@@ -120,6 +121,7 @@ public class InlandFormController extends BaseFormController {
             saveMessage(request, getText("inland.deleted", locale));
         } else {
         	getEntityService().checkUpdateInfo(inland, isNew, request);
+        	EntityUtil.updateFilesUpload(inland.getDocsgeneral().getAttachments(), request,AELConst.ATTACHMENT_PREFIX_DOCS);
         	docsgeneralManager.checkToDeleteChilds(inland.getDocsgeneral());
         	inland = inlandManager.saveWholeInland(inland);
             String key = (isNew) ? "inland.added" : "inland.updated";

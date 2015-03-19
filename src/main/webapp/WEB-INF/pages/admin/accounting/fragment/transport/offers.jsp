@@ -1,10 +1,5 @@
 <%@ include file="/common/taglibs.jsp" %>
 
-<head>
-    <title><fmt:message key="offerPriceList.title"/></title>
-    <meta name="menu" content="SalesMenu"/>
-</head>
-
 <div class="col-sm-12">
     <table id="offerPriceList" class="display nestedDatatable" cellspacing="0" width="100%"
     	childDetailURL="/admin/sales/offerItemList/list" 
