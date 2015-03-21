@@ -77,6 +77,16 @@ public class Packageinfo extends DocsEntity implements Serializable {
 	private Date eta;
 
 	private Date etd;
+	
+	private Date dateSendGood;
+	
+	private Date dateCloseGood;
+	
+	private Date closingTime;
+	
+	private String closingPlace;
+	
+	private String bookingNo;
 
 	private Date freeDemDate;
 
@@ -349,6 +359,46 @@ public class Packageinfo extends DocsEntity implements Serializable {
 
 	public void setDocsgeneral(Docsgeneral docsgeneral) {
 		this.docsgeneral = docsgeneral;
+	}
+
+	public Date getDateSendGood() {
+		return dateSendGood;
+	}
+
+	public void setDateSendGood(Date dateSendGood) {
+		this.dateSendGood = dateSendGood;
+	}
+
+	public Date getDateCloseGood() {
+		return dateCloseGood;
+	}
+
+	public void setDateCloseGood(Date dateCloseGood) {
+		this.dateCloseGood = dateCloseGood;
+	}
+
+	public Date getClosingTime() {
+		return closingTime;
+	}
+
+	public void setClosingTime(Date closingTime) {
+		this.closingTime = closingTime;
+	}
+
+	public String getClosingPlace() {
+		return closingPlace;
+	}
+
+	public void setClosingPlace(String closingPlace) {
+		this.closingPlace = closingPlace;
+	}
+
+	public String getBookingNo() {
+		return bookingNo;
+	}
+
+	public void setBookingNo(String bookingNo) {
+		this.bookingNo = bookingNo;
 	}
 
 }

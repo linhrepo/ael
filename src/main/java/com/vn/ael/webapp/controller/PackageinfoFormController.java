@@ -105,7 +105,7 @@ public class PackageinfoFormController extends BaseFormController {
         				ConfigurationType.DOCS_CODE_IME,
         				ConfigurationType.DOCS_TYPE_OF_TRANSPORT,
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-//        				ConfigurationType.DOCS_SHIPPING_LINE,
+        				ConfigurationType.TYPE_OF_IMPORT,
         				ConfigurationType.DOCS_COLOUR_APPLYING,
         				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER_CONT,

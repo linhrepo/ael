@@ -24,7 +24,7 @@
 		  <!-- Nav tabs -->
 		  <ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="packageInfo.addServicesTitle" /></a></li>
-		    <li role="presentation"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="packageInfo.listContsealDetail" /></a></li>
+		    <li role="presentation" id="contsstab"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="packageInfo.listContsealDetail" /></a></li>
 		    <li role="presentation"><a href="#fees" aria-controls="fees" role="tab" data-toggle="tab"><fmt:message key="packageInfo.feeTables" /></a></li>
 		    <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab"><fmt:message key="docsgeneral.invoices" /></a></li>
 		  </ul>

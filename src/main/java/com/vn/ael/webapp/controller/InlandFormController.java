@@ -1,5 +1,6 @@
 package com.vn.ael.webapp.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +10,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.AELConst;
@@ -20,6 +21,7 @@ import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Inland;
+import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.InlandManager;
 import com.vn.ael.persistence.manager.NhathauManager;
@@ -27,7 +29,6 @@ import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
-@RequestMapping(URLReference.INLAND_FORM)
 public class InlandFormController extends BaseFormController {
 
 	private NhathauManager nhathauManager;
@@ -55,7 +56,7 @@ public class InlandFormController extends BaseFormController {
         this.docsgeneralManager = docsgeneralManager;
     }
  
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = URLReference.INLAND_FORM)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         String id = request.getParameter("id");
@@ -94,7 +95,7 @@ public class InlandFormController extends BaseFormController {
         return mav;
     }
  
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.INLAND_FORM)
     public String onSubmit(Inland inland, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {
@@ -130,6 +131,16 @@ public class InlandFormController extends BaseFormController {
         }
  
         return success;
+    }
+    
+    /**
+     * 
+     * @param request
+     * @return
+     */
+    
+    public @ResponseBody List<Multitype> importMultiType(HttpServletRequest request){
+    	return null;
     }
     
 }
