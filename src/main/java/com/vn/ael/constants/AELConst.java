@@ -26,4 +26,6 @@ public interface AELConst {
 	
 	String ATTACHMENT_PREFIX_DOCS = "docsgeneral";
 	
+	String EMPTY_STRING = "";
+	
 }

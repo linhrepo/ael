@@ -42,12 +42,14 @@
 		        <form:errors path="docsgeneral.docReceiveDate" cssClass="help-block"/>
 		    </div>
 		    
-		    <spring:bind path="inland.route">
+		    <spring:bind path="inland.docsgeneral.typeOfContainer">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
-		        <appfuse:label styleClass="control-label" key="inland.route"/>
-		        <form:select path="route.id" id="route"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['routes']}"/>
-		        <form:errors path="route.id" cssClass="help-block"/>
+		        <appfuse:label styleClass="control-label" key="inland.typeOfContainer"/>
+		        <form:select 
+		         showElements="-2:refNo,inlandSizesContainer;-1:dateCutOff,dateExpired,contTypesListContainer,contsealListContainer"
+		        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
+		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="inland.docsgeneral.processingStaff">
@@ -109,8 +111,16 @@
 		        <form:errors path="docsgeneral.shippingLine.id" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="inland.route">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="inland.route"/>
+		        <form:select path="route.id" id="route"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['routes']}"/>
+		        <form:errors path="route.id" cssClass="help-block"/>
+		    </div>
+		    
 		     <spring:bind path="inland.attachServices">
-					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.attachServices"/>
 					        <form:input path="attachServices" id="attachServices"  autofocus="true" cssClass="form-control"/>

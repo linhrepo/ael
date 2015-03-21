@@ -34,7 +34,7 @@
 	    <div role="tabpanel">
 		  <!-- Nav tabs -->
 		  <ul class="nav nav-tabs" role="tablist">
-		    <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="inland.listContsealDetail" /></a></li>
+		    <li role="presentation" class="active" id="servicesTab"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="inland.listContsealDetail" /></a></li>
 		    <li role="presentation"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="inland.feeTables" /></a></li>
 		    <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab"><fmt:message key="docsgeneral.invoices" /></a></li>
 		  </ul>
@@ -63,6 +63,11 @@
 			</table>
 		</div>
     <div class="form-group form-actions">
+     <c:if test="${not empty inland.id}">
+     <button type="submit" class="btn btn-primary" name="export" value="export">
+            <i class="icon-ok icon-white"></i> <fmt:message key="button.export"/>
+        </button>
+     </c:if>
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
         </button>

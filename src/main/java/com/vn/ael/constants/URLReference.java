@@ -58,4 +58,6 @@ public interface URLReference {
 	String ACCOUNTING_FEE_LIST_ADMIN = "/admin/feeTables";
 	
 	String AJAX_ADD_CONSTANT = "/admin/accounting/addOptions";
+	
+	String AJAX_REPORT_SALES = "/admin/sales/download";
 }

@@ -6,3 +6,6 @@ load data local infile 'E:\\Working\\Projects\\GitHub\\ael\\DB\\customerNewNT1.c
 enclosed by '"'
 lines terminated by '\r\n'
 (id,name,address,taxno,tel,fax,contact,email,companyType,country,code,creator,updator,createdDate,lastUpdateDate)
+
+622013764
+aeladmin
