@@ -124,7 +124,9 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	private String note;
 	
-	private Boolean isImport;
+	@ManyToOne
+	@JoinColumn(name = "typeOfImport")
+	private Configuration typeOfImport;
 	
 	public Integer getCmb() {
 		return this.cmb;
@@ -480,14 +482,6 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.note = note;
 	}
 
-	public Boolean getIsImport() {
-		return isImport;
-	}
-
-	public void setIsImport(Boolean isImport) {
-		this.isImport = isImport;
-	}
-
 	public int getOtCont() {
 		return otCont;
 	}
@@ -502,6 +496,14 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
+	}
+
+	public Configuration getTypeOfImport() {
+		return typeOfImport;
+	}
+
+	public void setTypeOfImport(Configuration typeOfImport) {
+		this.typeOfImport = typeOfImport;
 	}
 	
 }

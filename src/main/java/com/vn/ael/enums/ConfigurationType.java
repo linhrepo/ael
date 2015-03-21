@@ -29,7 +29,9 @@ public enum ConfigurationType {
 	DEBIT_GENERAL_FEE(23,"configuration.debitFeeName","debitfees"),
 	DEBIT_FEE_DESCRIPTION(24,"configuration.debitFeeDes","debitfeesDes"),
 	EXH_MASTER_FEE_REPORT(25,"configuration.exhmasterFeeReport","exhmasterFeesReport"),
-	EXH_FEE_NAMES_REPORT(26,"configuration.exhFeeNameReport","exhFeeNamesReport")
+	EXH_FEE_NAMES_REPORT(26,"configuration.exhFeeNameReport","exhFeeNamesReport"),
+	TYPE_OF_IMPORT(27,"configuration.typeOfImport","importTypes"),
+	TYPE_OF_IMPORT_SEA(28,"configuration.typeOfImportSea","importTypeSeas")
 	;
 	
 	private int value;
