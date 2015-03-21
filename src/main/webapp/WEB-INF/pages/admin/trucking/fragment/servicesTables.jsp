@@ -40,6 +40,7 @@
 					</c:otherwise>
 				</c:choose>
 			<th><fmt:message key="truckingservice.dateDev" /></th>
+			<th><fmt:message key="truckingservice.deliveryPlace" /></th>
 			<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 			<th><fmt:message key="table.action" /></th>
 			</c:if>
@@ -144,13 +145,25 @@
 								cssClass="help-block" />
 							</div>
 						</td>
+				<td>
+					<spring:bind path="truckingdetails[${idx.index}].deliveryPlace">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> 
+					<form:input path="truckingdetails[${idx.index}].deliveryPlace"
+								id="deliveryPlace${idx.index}" maxlength="45" autofocus="true"
+								cssClass="form-control" /> 
+					<form:errors
+								path="truckingdetails[${idx.index}].deliveryPlace"
+								cssClass="help-block" />
+					</div>
+				</td>
 						<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">		
 							<td rowType="actions">
 								<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>"> 
 									<i class="fa fa-trash"></i>
 								</span>
 							</td>
-				</c:if>
+						</c:if>
 			</tr>
 			<tr colType="detail" class="${detail.isAdded == true ? 'hidden' :''}">
 				<td>

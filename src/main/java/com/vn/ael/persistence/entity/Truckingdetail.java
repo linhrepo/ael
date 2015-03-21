@@ -48,6 +48,8 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	private List<Exfeetable> exfeetables;
 	
 	private Date dateDev;
+	
+	private String deliveryPlace;
 
 	public Truckingdetail() {
 	}
@@ -107,7 +109,13 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	public void setDateDev(Date dateDev) {
 		this.dateDev = dateDev;
 	}
-	
-	
+
+	public String getDeliveryPlace() {
+		return deliveryPlace;
+	}
+
+	public void setDeliveryPlace(String deliveryPlace) {
+		this.deliveryPlace = deliveryPlace;
+	}
 	
 }

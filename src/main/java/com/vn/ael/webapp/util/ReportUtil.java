@@ -40,7 +40,7 @@ public class ReportUtil {
 			for (OfferItem offerItem : offerPrice.getOfferItems()) {
 				if (offerItem.getIsAdded() != null && offerItem.getIsAdded() == false){
 					i++;
-					offerPriceExport.add(new OfferItemExportModel(i,offerItem.getNameOfService().getValue(),offerItem.getFeeWithVAT().toEngineeringString(),offerItem.getFeeNoVAT().toEngineeringString(),offerItem.getCurrency().getValue(),offerItem.getFeeUnit().getValue()));
+					offerPriceExport.add(new OfferItemExportModel(i,offerItem.getNameOfService().getValue(),ConvertUtil.getNotNullValue(offerItem.getFeeWithVAT()).toEngineeringString(),ConvertUtil.getNotNullValue(offerItem.getFeeNoVAT()).toEngineeringString(),offerItem.getCurrency().getValue(),offerItem.getFeeUnit().getValue()));
 				}
 			}
 		}

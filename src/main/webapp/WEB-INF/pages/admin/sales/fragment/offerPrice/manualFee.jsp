@@ -27,7 +27,7 @@
               			<spring:bind path="offerItems[${idx.index}].nameOfService.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:select path="offerItems[${idx.index}].nameOfService.id" id="nameOfService${idx.index}" autofocus="true" cssClass="form-control" items="${selections['services']}"/>
+					        <form:select path="offerItems[${idx.index}].nameOfService.id" id="nameOfService${idx.index}" autofocus="true" cssClass="form-control" items="${selections['services']}" empty-on-add="false"/>
 					        <form:errors path="offerItems[${idx.index}].nameOfService.id" cssClass="help-block"/>
 					    </div>
 				</td>
@@ -51,7 +51,7 @@
               			<spring:bind path="offerItems[${idx.index}].currency.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="1">
 					    </spring:bind>
-					        <form:select path="offerItems[${idx.index}].currency.id" id="currency${idx.index}" autofocus="true" cssClass="form-control" items="${selections['currencies']}"/>
+					        <form:select path="offerItems[${idx.index}].currency.id" id="currency${idx.index}" autofocus="true" cssClass="form-control" items="${selections['currencies']}" empty-on-add="false"/>
 					        <form:errors path="offerItems[${idx.index}].currency.id" cssClass="help-block"/>
 					    </div>
 				</td>
@@ -59,7 +59,7 @@
               			<spring:bind path="offerItems[${idx.index}].feeUnit.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="3">
 					    </spring:bind>
-					        <form:select path="offerItems[${idx.index}].feeUnit.id" id="feeUnit${idx.index}" autofocus="true" cssClass="form-control" items="${selections['units']}"/>
+					        <form:select path="offerItems[${idx.index}].feeUnit.id" id="feeUnit${idx.index}" autofocus="true" cssClass="form-control" items="${selections['units']}" empty-on-add="false"/>
 					        <form:errors path="offerItems[${idx.index}].feeUnit.id" cssClass="help-block"/>
 					    </div>
 				</td>

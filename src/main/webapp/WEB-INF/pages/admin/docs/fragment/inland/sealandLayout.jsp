@@ -47,7 +47,7 @@
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.typeOfContainer"/>
 		        <form:select 
-		         showElements="-2:refNo,inlandSizesContainer;-1:dateCutOff,dateExpired,contTypesListContainer,contsealListContainer"
+		         showElements="-2:refNo,inlandSizesContainer;-1:dateCutOff,dateExpired,contTypesListContainer,contsealListContainer,servicesTab"
 		        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
 		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
 		    </div>

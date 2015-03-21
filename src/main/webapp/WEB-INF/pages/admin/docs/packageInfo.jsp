@@ -40,12 +40,6 @@
 	    <jsp:include page="fragment/packageInfo/checkboxInput.jsp"></jsp:include>
 	</div>
     <div class="form-group form-actions">
-     <c:if test="${not empty packageInfo.id}">
-      <button type="submit" class="btn btn-primary" name="export" value="export">
-            <i class="icon-ok icon-white"></i> <fmt:message key="button.export"/>
-        </button>
-        </c:if>
-   
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
         </button>
