@@ -46,5 +46,12 @@ public class AdvanceFormListController extends BaseFormController {
         return new ModelAndView(URLReference.ADVANCE_LIST,model.asMap());
     }
     
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_FORM_ACC)
+    public ModelAndView handleRequestAcc(HttpServletRequest request) throws Exception {
+    	Model model = new ExtendedModelMap();
+    	model.addAttribute(advanceFormManager.getAll());
+        return new ModelAndView(URLReference.ADVANCE_FORM_ACC,model.asMap());
+    }
+    
 }
 

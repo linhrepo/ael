@@ -38,11 +38,12 @@
 		  		<tbody>
 		  			<tr style="text-align: center">
 		  				<td verify="true"><form:checkbox path="isValid" />
-		  				<security:authorize ifNotGranted="ROLE_ADMIN">
-			  				<c:if test="${offerPrice.isValid==true}">
-			  					<form:hidden path="isValid" />
-			  				</c:if>
-		  				</security:authorize>
+			  				<security:authorize ifNotGranted="ROLE_ADMIN">
+				  				<c:if test="${offerPrice.isValid==true}">
+				  					<form:hidden path="isValid" />
+				  				</c:if>
+			  				</security:authorize>
+		  				</td>
 		  			</tr>
 		  		</tbody>
 			</table>

@@ -31,6 +31,9 @@
 		        <form:input data-provide="datepicker" path="date" id="date"  cssClass="form-control"/>
 		        <form:errors path="date" cssClass="help-block"/>
 		    </div>
-		    
+		    <div class="form-group col-md-3">
+		    		<appfuse:label styleClass="control-label" key="advanceform.total"/>
+		    		<input class="form-control money" value="${advanceform.total}" readonly="readonly"/>
+		    	</div>
 	    </div>
 	</div>

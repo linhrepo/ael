@@ -14,6 +14,7 @@
     <form:form commandName="advanceform" method="post" action="advanceForm" id="advanceformForm" cssClass="well" readonly="${advanceform.doApproval == 'true' ? 'readonly' :''}" >
     	<jsp:include page="fragment/advanceInput.jsp"></jsp:include>
     	<jsp:include page="fragment/advanceDetails.jsp"></jsp:include>
+    	<jsp:include page="fragment/accInput.jsp"></jsp:include>
     	 <div class="form-group form-actions">
     		<c:if test="${advanceform.doApproval != true}">
 		        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
@@ -21,10 +22,13 @@
 		        </button>
 	        </c:if>
 	        <c:if test="${advanceform.doApproval == true}">
-	        	<security:authorize ifAnyGranted="ROLE_ADMIN"> 
+	        	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
 	        		<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 		           	 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
 		        	</button>
+		        	<a class="btn btn-success">
+		           	 <i class="icon-ok icon-white"></i> <fmt:message key="advanceform.printPayment"/>
+		        	</a>
 	        	</security:authorize>
 	        </c:if>
 	        <c:if test="${not empty advanceform.id && advanceform.doApproval != true}">

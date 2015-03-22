@@ -43,6 +43,8 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 	private List<Advancedetail> advancedetails;
 	
 	private Boolean doApproval;
+	
+	private String payReason;
 
 	public Advanceform() {
 	}
@@ -120,6 +122,14 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 			}
 		}
 		return this.total;
+	}
+
+	public String getPayReason() {
+		return payReason;
+	}
+
+	public void setPayReason(String payReason) {
+		this.payReason = payReason;
 	}
 
 }

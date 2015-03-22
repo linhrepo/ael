@@ -64,4 +64,6 @@ public interface URLReference {
 	
 	String ADVANCE_LIST = "/users/advanceForms";
 	String ADVANCE_FORM = "/users/advanceForm";
+	
+	String ADVANCE_FORM_ACC = "/admin/accounting/advanceForms";
 }

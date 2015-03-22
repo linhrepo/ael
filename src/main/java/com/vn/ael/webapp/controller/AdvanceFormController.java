@@ -15,18 +15,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
-import com.vn.ael.enums.ConfigurationType;
-import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Advanceform;
-import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
-import com.vn.ael.persistence.manager.UserManager;
+import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
-import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
 public class AdvanceFormController extends BaseFormController {
 
+	private PermissionCheckingService permissionCheckingService;
+	
+	@Autowired
+	public void setPermissionChecking(PermissionCheckingService permissionCheckingService){
+		this.permissionCheckingService = permissionCheckingService;
+		
+	}
+	
 	private AdvanceFormManager advanceFormManager;
 	
 	@Autowired
@@ -47,12 +51,16 @@ public class AdvanceFormController extends BaseFormController {
      */
     private Advanceform loadAdvancesByRequest(HttpServletRequest request){
     	String id = request.getParameter("id");
+    	User customer = getUserManager().getLoggedUser(request);
     	Advanceform advanceform = null;
         if (!StringUtils.isBlank(id)) {
         	advanceform = advanceFormManager.get(new Long(id));
+        	if (advanceform == null || !(advanceform.getEmployee().getId().compareTo(customer.getId()) ==0  
+        			|| permissionCheckingService.couldViewUserAdvance(customer))){
+        		return null;
+        	}
         }else{
         		 //load user
-        		 User customer = getUserManager().getLoggedUser(request);
         		 if (customer != null){
         			 advanceform = new Advanceform();
         			 advanceform.setEmployee(customer);

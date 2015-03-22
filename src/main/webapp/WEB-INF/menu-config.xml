@@ -27,6 +27,7 @@
         	<Item name="DVVT" title="menu.docs.dvvt" page="/admin/accounting/transportList"/>
         	<Item name="DVTL" title="menu.docs.dvtl" page="/admin/accounting/exhibitionList"/>
         	<Item name="Fees" title="menu.docs.fees" page="/admin/accounting/feeTables"/>
+        	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceForms"/>
         </Menu>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
