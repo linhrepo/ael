@@ -69,7 +69,7 @@
 		        <form:select path="docsgeneral.typeOfImport.id" id="typeOfImport"  
 		        showElements="-3:dEta,dDateSendGood,dBillOfLading,dFreeDemDate,dFreeDetDate,dWareHouseNo,dPlaceEmptyDown,dPlaceEmptyUp,dPlaceDelivery,dPlaceRev;-4:dEtd,dDateCloseGood,dBookingNo,dClosingPlace,dClosingTime" 
 		        cssClass="form-control select2" items="${docsSelection.selections['importTypes']}"/>
-		        <form:errors path="docsgeneral.processingStaff.id" cssClass="help-block"/>
+		        <form:errors path="docsgeneral.typeOfImport.id" cssClass="help-block"/>
 		    </div>
 	    </div>
 	    <hr>
@@ -224,8 +224,8 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dDateSendGood">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.dateSendGood"/>
-		        <form:input path="eta" id="dateSendGood" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
-		        <form:errors path="eta" cssClass="help-block"/>
+		        <form:input path="dateSendGood" id="dateSendGood" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="dateSendGood" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.eta">
@@ -240,8 +240,8 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dDateCloseGood">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.dateCloseGood"/>
-		        <form:input path="eta" id="dateCloseGood" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
-		        <form:errors path="eta" cssClass="help-block"/>
+		        <form:input path="dateCloseGood" id="dateCloseGood" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="dateCloseGood" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.etd">

@@ -23,7 +23,9 @@ import com.vn.ael.constants.AELConst;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
+import com.vn.ael.persistence.entity.Packageinfo;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
+import com.vn.ael.webapp.formatter.FormatterUtil;
 
 public class ReportUtil {
 	private static final transient Log log = LogFactory.getLog(ReportUtil.class);
@@ -82,6 +84,28 @@ public class ReportUtil {
 		catch (Exception e){
 			log.error("Could not write report to response", e);
 		}
+		
+	}
+
+	/**
+	 * Create data for bienbangiaohang report
+	 * @param packageInfo
+	 * @return
+	 */
+	public static Map<String, Object> prepareDataForBienbangiaohang(
+			Packageinfo packageInfo) {
+		Map<String,Object> beans = new LinkedHashMap<>();
+		Customer cust = packageInfo.getDocsgeneral().getCustomer();
+		beans.put("cusCode", cust.getCode());
+		beans.put("cusName", cust.getName());
+		beans.put("invoiceNo", packageInfo.getInvoice());
+		beans.put("contract", packageInfo.getPo());
+		beans.put("description", packageInfo.getDocsgeneral().getProductDescription());
+		beans.put("weight", FormatterUtil.formatBigDecimal(packageInfo.getDocsgeneral().getWeigth()));
+		beans.put("pkgs", packageInfo.getDocsgeneral().getNoOfPkgsText());
+		beans.put("jobTK", AELConst.PREFFIX_TK+AELConst.COLON+packageInfo.getCusDecOnNo()+AELConst.SEPARATOR+packageInfo.getDocsgeneral().getJobNo());
+		
+		return beans;
 		
 	}
 

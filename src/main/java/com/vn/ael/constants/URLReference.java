@@ -60,4 +60,8 @@ public interface URLReference {
 	String AJAX_ADD_CONSTANT = "/admin/accounting/addOptions";
 	
 	String AJAX_REPORT_SALES = "/admin/sales/download";
+	String AJAX_REPORT_BIENBAN= "/admin/docs/downloadBienbang";
+	
+	String ADVANCE_LIST = "/advanceForms";
+	String ADVANCE_FORM = "/advanceForm";
 }

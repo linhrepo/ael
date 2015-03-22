@@ -49,12 +49,6 @@
 		</div>
 		<hr>
     <div class="form-group form-actions">
-    		<c:if test="${not empty offerPrice.id}">
-				<a class="btn btn-primary" href="download?id=${offerPrice.id}">
-					<i class="icon-ok icon-white"></i>
-					<fmt:message key="export.sales.offer" />
-				</a>
-			</c:if>
     		<c:if test="${offerPrice.isValid != true}">
 		        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 		            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>

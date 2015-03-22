@@ -9,6 +9,7 @@ public interface AELConst {
 	String SUFFIX_PKGS = "pkgs";
 	String SUFFIX_KG = "kgs";
 	String SUFFIX_CMB = "cmb";
+	String PREFFIX_TK = "TK";
 	
 	String ACC_FEE_IS_APPROVED ="accounting.fee.isApproved";
 	String ACC_FEE_ISNOT_APPROVED ="accounting.fee.notApproved";
@@ -27,5 +28,7 @@ public interface AELConst {
 	String ATTACHMENT_PREFIX_DOCS = "docsgeneral";
 	
 	String EMPTY_STRING = "";
+
+	String COLON = ":";
 	
 }

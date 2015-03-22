@@ -49,9 +49,10 @@
           </button>
         </c:if>
          <c:if test="${not empty packageInfo.doRelease and packageInfo.doRelease == true}">
-          <button type="submit" class="btn btn-success" name="print" onclick="bCancel=true">
-              <i class="icon-trash"></i> <fmt:message key="packageInfo.button.printBienbang"/>
-          </button>
+         	<a class="btn btn-success" href="downloadBienbang?id=${packageInfo.id}">
+							<i class="icon-ok icon-white"></i>
+							<fmt:message key="packageInfo.button.printBienbang" />
+			</a>
         </c:if>
         <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
             <i class="icon-remove"></i> <fmt:message key="button.cancel"/>

@@ -19,7 +19,7 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="packageInfo.jobNo"/></th>
                 <th><fmt:message key="packageInfo.customerCode"/></th>
-                <th><fmt:message key="packageInfo.imExMode"/></th>
+                <th><fmt:message key="configuration.typeOfImport"/></th>
                 <th><fmt:message key="packageInfo.doRelease"/></th>
                 <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
@@ -43,7 +43,7 @@
                 <td>${idx.index+1}</td>
               	<td>${packageInfo.docsgeneral.jobNo}</td>
               	<td>${packageInfo.docsgeneral.customer.code}</td>
-              	<td>${packageInfo.imExMode.value}</td>
+              	<td>${packageInfo.docsgeneral.typeOfImport.value}</td>
               	<td>
               		<c:if test="${packageInfo.doRelease}">
               			<a><i class="fa fa-check"></i></a>

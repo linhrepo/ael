@@ -22,6 +22,7 @@
                 <th><fmt:message key="inland.jobNo"/></th>
                 <th><fmt:message key="inland.customerCode"/></th>
                 <th><fmt:message key="inland.typeOfContainer"/></th>
+                <th><fmt:message key="configuration.typeOfImport"/></th>
                 <th><fmt:message key="inland.inlandsealand"/></th>
                 <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
@@ -34,6 +35,7 @@
                 <th><fmt:message key="inland.jobNo"/></th>
                 <th><fmt:message key="inland.customerCode"/></th>
                 <th><fmt:message key="inland.typeOfContainer"/></th>
+                <th><fmt:message key="configuration.typeOfImport"/></th>
                 <th><fmt:message key="inland.inlandsealand"/></th>
                 <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
@@ -46,6 +48,7 @@
               	<td>${inland.docsgeneral.jobNo}</td>
               	<td>${inland.docsgeneral.customer.code}</td>
               	<td>${inland.docsgeneral.typeOfContainer.value}</td>
+              	<td>${inland.docsgeneral.typeOfImport.value}</td>
               	<td>
               		<c:if test="${inland.isInland == false}"><fmt:message key='inland.sealand'/></c:if>
      				<c:if test="${inland.isInland != false}"><fmt:message key='inland.inland'/></c:if>

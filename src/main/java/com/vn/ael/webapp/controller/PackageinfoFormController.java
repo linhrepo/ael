@@ -1,5 +1,6 @@
 package com.vn.ael.webapp.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docservice;
+import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.entity.Packageinfo;
 import com.vn.ael.persistence.manager.ConfigurationManager;
 import com.vn.ael.persistence.manager.ContsealManager;
@@ -33,9 +36,9 @@ import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
-@RequestMapping(URLReference.PACKAGEINFO_FORM+"*")
 public class PackageinfoFormController extends BaseFormController {
 
 	private NhathauManager nhathauManager;
@@ -84,18 +87,28 @@ public class PackageinfoFormController extends BaseFormController {
         setCancelView("redirect:"+URLReference.PACKAGEINFO_LIST);
         setSuccessView("redirect:"+URLReference.PACKAGEINFO_LIST);
     }
+    
+    /**
+     * 
+     * @param request
+     * @return
+     */
+    private Packageinfo loadPackgageByRequest(HttpServletRequest request){
+    	 String id = request.getParameter("id");
+         Packageinfo packageInfo = null;
+         if (!StringUtils.isBlank(id)) {
+         	packageInfo= packageinfoManager.get(new Long(id));
+         }else{
+         	packageInfo= new Packageinfo();
+         }
+         docsgeneralManager.updateChilds(packageInfo.getDocsgeneral());
+         return packageInfo;
+    }
  
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.PACKAGEINFO_FORM)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
-        String id = request.getParameter("id");
-        Packageinfo packageInfo = null;
-        if (!StringUtils.isBlank(id)) {
-        	packageInfo= packageinfoManager.get(new Long(id));
-        }else{
-        	packageInfo= new Packageinfo();
-        }
-        docsgeneralManager.updateChilds(packageInfo.getDocsgeneral());
+    	Packageinfo packageInfo = this.loadPackgageByRequest(request);
         ModelAndView mav = new ModelAndView(URLReference.PACKAGEINFO_FORM);
         mav.addObject("packageInfo", packageInfo);
         //selection
@@ -119,7 +132,7 @@ public class PackageinfoFormController extends BaseFormController {
         return mav;
     }
  
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST,value=URLReference.PACKAGEINFO_FORM)
     public String onSubmit(Packageinfo packageInfo, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {
@@ -157,5 +170,14 @@ public class PackageinfoFormController extends BaseFormController {
         return success;
     }
 
+    @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_BIENBAN)
+    public void doDownload(HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+    		Packageinfo packageInfo = this.loadPackgageByRequest(request);
+    		if(packageInfo!=null){
+        		//offer the user the option of opening or downloading the resulting Excel file
+    			ReportUtil.dispatchReport(response, ReportTeamplates.PACK_INFO_BIENBAN, ReportTeamplates.PACK_INFO_BIENBAN_TEMPLATE, ReportUtil.prepareDataForBienbangiaohang(packageInfo));
+    	    }
+    }
 }
 

@@ -21,7 +21,9 @@ public class Advancedetail implements Serializable {
 
 	private String description;
 
-	private java.math.BigInteger docs;
+	@ManyToOne
+	@JoinColumn(name="docs")
+	private Docsgeneral docs;
 
 	//bi-directional many-to-one association to Advanceform
 	@ManyToOne
@@ -55,11 +57,11 @@ public class Advancedetail implements Serializable {
 		this.description = description;
 	}
 
-	public java.math.BigInteger getDocs() {
+	public Docsgeneral getDocs() {
 		return this.docs;
 	}
 
-	public void setDocs(java.math.BigInteger docs) {
+	public void setDocs(Docsgeneral docs) {
 		this.docs = docs;
 	}
 

@@ -72,7 +72,7 @@ public class ExhibitionFormController extends BaseFormController {
         DocsSelection docsSelection = configurationManager.loadSelectionForDocsPage(
         		ConfigurationType.EXH_TYPE_OF_EXH,
         		ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-//        		ConfigurationType.DOCS_SHIPPING_LINE,
+        		ConfigurationType.TYPE_OF_IMPORT,
         		ConfigurationType.EXH_OPERATOR,
         		ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
         		ConfigurationType.DOCS_TYPE_OF_CONTAINER_CONT,

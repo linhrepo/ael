@@ -53,7 +53,7 @@
 		    </div>
 		    
 		    <spring:bind path="inland.docsgeneral.processingStaff">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.processingStaff"/>
 		        <form:select path="docsgeneral.processingStaff.id" id="processingStaff" autofocus="true" cssClass="form-control select2">
@@ -64,12 +64,13 @@
 		        <form:errors path="docsgeneral.processingStaff.id" cssClass="help-block"/>
 		    </div>
 		    
-		    <div class="form-group col-md-1">
-		    	<fmt:message key='packageInfo.imported' var="importText"/>
-		        <form:radiobutton path="docsgeneral.isImport" value="true" label="${importText}"/>
-		        <br>
-		        <fmt:message key='packageInfo.exported' var="exportText"/>
-		        <form:radiobutton path="docsgeneral.isImport" value="false" label="${exportText}"/>
+		     <spring:bind path="inland.docsgeneral.typeOfImport">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="configuration.typeOfImport"/>
+		        <form:select path="docsgeneral.typeOfImport.id" id="typeOfImport"  
+		        cssClass="form-control select2" items="${docsSelection.selections['importTypeSeas']}"/>
+		        <form:errors path="docsgeneral.typeOfImport.id" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="inland.docsgeneral.productDescription">

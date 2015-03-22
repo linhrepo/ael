@@ -23,6 +23,7 @@ import com.vn.ael.persistence.repository.ExhibitionRepository;
 import com.vn.ael.persistence.repository.RealattachmentRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.StringUtil;
 
 /**
  * @author liv1hc
@@ -98,7 +99,7 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 				exhibition.setCounting(counting + 1);
 			}
 			String jobNo = exhibition.getDocsgeneral().getCustomer().getCode()
-					+ ServicesType.EXHS.getLabel() + exhibition.getCounting();
+					+ ServicesType.EXHS.getLabel() + StringUtil.addZero(exhibition.getCounting(), StringUtil.LENGTH_OF_COUNTER);
 			exhibition.getDocsgeneral().setJobNo(jobNo);
 		}
 

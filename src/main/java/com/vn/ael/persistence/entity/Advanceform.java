@@ -1,10 +1,16 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import org.appfuse.model.User;
 
 
 /**
@@ -13,61 +19,24 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Advanceform.findAll", query="SELECT a FROM Advanceform a")
-public class Advanceform implements Serializable {
+public class Advanceform extends BasedEntityTracking implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdDate;
-
-	private BigInteger creator;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
-	private BigInteger employee;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastUpdateDate;
+	@ManyToOne
+	@JoinColumn(name="employee")
+	private User employee;
 
 	private String refNo;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeRefund;
-
-	private BigInteger updator;
 
 	//bi-directional many-to-one association to Advancedetail
 	@OneToMany(mappedBy="advanceform")
 	private List<Advancedetail> advancedetails;
 
 	public Advanceform() {
-	}
-
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Date getCreatedDate() {
-		return this.createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public BigInteger getCreator() {
-		return this.creator;
-	}
-
-	public void setCreator(BigInteger creator) {
-		this.creator = creator;
 	}
 
 	public Date getDate() {
@@ -78,20 +47,12 @@ public class Advanceform implements Serializable {
 		this.date = date;
 	}
 
-	public BigInteger getEmployee() {
+	public User getEmployee() {
 		return this.employee;
 	}
 
-	public void setEmployee(BigInteger employee) {
+	public void setEmployee(User employee) {
 		this.employee = employee;
-	}
-
-	public Date getLastUpdateDate() {
-		return this.lastUpdateDate;
-	}
-
-	public void setLastUpdateDate(Date lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
 	}
 
 	public String getRefNo() {
@@ -108,14 +69,6 @@ public class Advanceform implements Serializable {
 
 	public void setTimeRefund(Date timeRefund) {
 		this.timeRefund = timeRefund;
-	}
-
-	public BigInteger getUpdator() {
-		return this.updator;
-	}
-
-	public void setUpdator(BigInteger updator) {
-		this.updator = updator;
 	}
 
 	public List<Advancedetail> getAdvancedetails() {

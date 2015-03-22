@@ -62,19 +62,20 @@
 		    </div>
 		    
 		    <spring:bind path="exhibition.exName">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-5">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.exName"/>
 		        <form:input path="exName" id="jobNo" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="exName" cssClass="help-block"/>
 		    </div>
 		    
-		    <div class="form-group col-md-1">
-		    	<fmt:message key='packageInfo.imported' var="importText"/>
-		        <form:radiobutton path="docsgeneral.isImport" value="true" label="${importText}"/>
-		        <br>
-		        <fmt:message key='packageInfo.exported' var="exportText"/>
-		        <form:radiobutton path="docsgeneral.isImport" value="false" label="${exportText}"/>
+		     <spring:bind path="exhibition.docsgeneral.typeOfImport">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="configuration.typeOfImport"/>
+		        <form:select path="docsgeneral.typeOfImport.id" id="typeOfImport"  
+		        cssClass="form-control select2" items="${docsSelection.selections['importTypes']}"/>
+		        <form:errors path="docsgeneral.typeOfImport.id" cssClass="help-block"/>
 		    </div>
 		    
 		     <spring:bind path="exhibition.docsgeneral.productDescription">

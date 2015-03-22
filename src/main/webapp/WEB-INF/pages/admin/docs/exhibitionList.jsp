@@ -20,6 +20,7 @@
                 <th><fmt:message key="exhibition.refNo"/></th>
                 <th><fmt:message key="exhibition.customerCode"/></th>
                 <th><fmt:message key="exhibition.typeOfContainer"/></th>
+                <th><fmt:message key="configuration.typeOfImport"/></th>
                 <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
@@ -31,6 +32,7 @@
                 <th><fmt:message key="exhibition.refNo"/></th>
                 <th><fmt:message key="exhibition.customerCode"/></th>
                 <th><fmt:message key="exhibition.typeOfContainer"/></th>
+                <th><fmt:message key="configuration.typeOfImport"/></th>
                 <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
@@ -42,6 +44,7 @@
               	<td>${exhibition.docsgeneral.jobNo}</td>
               	<td>${exhibition.docsgeneral.customer.code}</td>
               	<td>${exhibition.docsgeneral.typeOfContainer.value}</td>
+              	<td>${exhibition.docsgeneral.typeOfImport.value}</td>
               	<td>
               		<c:if test="${exhibition.docsgeneral.doDelivery}">
               			<a><i class="fa fa-check"></i></a>

@@ -19,6 +19,7 @@ import com.vn.ael.persistence.repository.InlandsizeRepository;
 import com.vn.ael.persistence.repository.MultitypeRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.StringUtil;
 
 /**
  * @author liv1hc
@@ -90,7 +91,7 @@ public class InlandManagerImpl extends GenericManagerImpl<Inland> implements Inl
 				}
 				inland.setCounting(counting+1);
 			}
-			String jobNo = inland.getDocsgeneral().getCustomer().getCode()+ServicesType.DVVT.getLabel()+inland.getCounting();
+			String jobNo = inland.getDocsgeneral().getCustomer().getCode()+ServicesType.DVVT.getLabel()+StringUtil.addZero(inland.getCounting(), StringUtil.LENGTH_OF_COUNTER);
 			inland.getDocsgeneral().setJobNo(jobNo);
 		}
 		

@@ -80,6 +80,12 @@
 		    	<div class="col-md-2">
 		    		<span class="btn btn-primary" target-table="offerItemList">
 			            <i class="icon-ok"></i> <fmt:message key="button.add"/></span>
+			         <c:if test="${not empty offerPrice.id}">
+						<a class="btn btn-success" href="download?id=${offerPrice.id}">
+							<i class="icon-ok icon-white"></i>
+							<fmt:message key="export.sales.offer" />
+						</a>
+					</c:if>
 		    	</div>
 	    </div>
     </c:if>

@@ -30,6 +30,7 @@ import com.vn.ael.persistence.repository.OfferPriceRepository;
 import com.vn.ael.persistence.repository.PackageinfoRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.StringUtil;
 
 /**
  * @author liv1hc
@@ -92,7 +93,7 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
 				}
 				packageinfo.setCounting(counting+1);
 			}
-			String jobNo = packageinfo.getDocsgeneral().getCustomer().getCode()+ServicesType.DVTQ.getLabel()+packageinfo.getCounting();
+			String jobNo = packageinfo.getDocsgeneral().getCustomer().getCode()+ServicesType.DVTQ.getLabel()+StringUtil.addZero(packageinfo.getCounting(), StringUtil.LENGTH_OF_COUNTER);
 			packageinfo.getDocsgeneral().setJobNo(jobNo);
 		}
 		

@@ -82,7 +82,8 @@ public class InlandFormController extends BaseFormController {
         		configurationManager.loadSelectionForDocsPage
         		(
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-//        				ConfigurationType.DOCS_SHIPPING_LINE,
+        				ConfigurationType.TYPE_OF_IMPORT,
+        				ConfigurationType.TYPE_OF_IMPORT_SEA,
         				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
         				ConfigurationType.DOCS_TRANS_TYPE_OF_SER,
         				ConfigurationType.DOCS_ROUTE,

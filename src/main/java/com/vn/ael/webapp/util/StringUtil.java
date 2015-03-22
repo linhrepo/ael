@@ -58,5 +58,15 @@ public class StringUtil {
 		}
 		return AELConst.EMPTY_STRING;
 	}
+
+	/**
+	 * 
+	 * @param counting
+	 * @param lENGTH_OF_COUNTER2
+	 * @return
+	 */
+	public static String addZero(int counting, int len) {
+		return addZero(String.valueOf(counting), len);
+	}
 	
 }
