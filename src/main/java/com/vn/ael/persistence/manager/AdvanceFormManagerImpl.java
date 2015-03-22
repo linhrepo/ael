@@ -84,6 +84,6 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 
 	@Override
 	public List<Advanceform> findByEmpoyee(User employee) {
-		return null;
+		return this.advanceFormRepository.findByEmployee(employee);
 	}
 }

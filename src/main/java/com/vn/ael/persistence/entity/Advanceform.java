@@ -1,17 +1,22 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.appfuse.model.User;
+
+import com.vn.ael.webapp.util.ConvertUtil;
 
 
 /**
@@ -34,7 +39,7 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 	private Date timeRefund;
 
 	//bi-directional many-to-one association to Advancedetail
-	@OneToMany(mappedBy="advanceform", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="advanceform", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Advancedetail> advancedetails;
 	
 	private Boolean doApproval;
@@ -102,6 +107,19 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 
 	public void setDoApproval(Boolean doApproval) {
 		this.doApproval = doApproval;
+	}
+	
+	@Transient
+	private BigDecimal total;
+	
+	public BigDecimal getTotal(){
+		this.total = BigDecimal.ZERO;
+		if (this.advancedetails != null && !this.advancedetails.isEmpty()){
+			for (Advancedetail advancedetail : this.advancedetails){
+				this.total = this.total.add(ConvertUtil.getNotNullValue(advancedetail.getAmount()));
+			}
+		}
+		return this.total;
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
+import com.vn.ael.persistence.manager.UserManager;
 
 @Controller
 public class AdvanceFormListController extends BaseFormController {
@@ -25,6 +26,7 @@ public class AdvanceFormListController extends BaseFormController {
 		this.advanceFormManager = advanceFormManager;
 		
 	}
+	
     public AdvanceFormListController() {
         setCancelView("redirect:"+URLReference.HOME_PAGE);
         setSuccessView("redirect:"+URLReference.OFFERPRICE_LIST);
@@ -38,10 +40,10 @@ public class AdvanceFormListController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_LIST)
-    public ModelAndView handleRequest() throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
     	Model model = new ExtendedModelMap();
-    	model.addAttribute(advanceFormManager.getAll());
-        return new ModelAndView(URLReference.ADVANCE_LIST);
+    	model.addAttribute(advanceFormManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
+        return new ModelAndView(URLReference.ADVANCE_LIST,model.asMap());
     }
     
 }

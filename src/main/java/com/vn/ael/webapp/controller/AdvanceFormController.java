@@ -35,14 +35,6 @@ public class AdvanceFormController extends BaseFormController {
 		
 	}
 	
-	private UserManager userManager;
-	
-	@Autowired
-	public void setUserManager(UserManager userManager){
-		this.userManager = userManager;
-		
-	}
- 
     public AdvanceFormController() {
         setCancelView("redirect:"+URLReference.ADVANCE_LIST);
         setSuccessView("redirect:"+URLReference.ADVANCE_LIST);
@@ -59,8 +51,8 @@ public class AdvanceFormController extends BaseFormController {
         if (!StringUtils.isBlank(id)) {
         	advanceform = advanceFormManager.get(new Long(id));
         }else{
-        		 //load customer
-        		 User customer = userManager.getLoggedUser(request);
+        		 //load user
+        		 User customer = getUserManager().getLoggedUser(request);
         		 if (customer != null){
         			 advanceform = new Advanceform();
         			 advanceform.setEmployee(customer);
