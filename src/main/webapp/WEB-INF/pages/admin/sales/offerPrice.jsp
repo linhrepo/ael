@@ -7,7 +7,7 @@
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
-    <h2><fmt:message key='offerPrice.heading'/>${isValid}</h2>
+    <h2><fmt:message key='offerPrice.heading'/></h2>
  
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>

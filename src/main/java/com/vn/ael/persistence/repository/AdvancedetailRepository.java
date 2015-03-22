@@ -19,5 +19,7 @@ import com.vn.ael.persistence.entity.OfferPrice;
  * @author liv1hc
  */
 public interface AdvancedetailRepository extends GenericRepository<Advancedetail> {
+
+	List<Advancedetail> findByAdvanceform(Advanceform advanceform);
 	
 }

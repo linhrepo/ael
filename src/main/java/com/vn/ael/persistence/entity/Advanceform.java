@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,8 +34,10 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 	private Date timeRefund;
 
 	//bi-directional many-to-one association to Advancedetail
-	@OneToMany(mappedBy="advanceform")
+	@OneToMany(mappedBy="advanceform", cascade = CascadeType.ALL)
 	private List<Advancedetail> advancedetails;
+	
+	private Boolean doApproval;
 
 	public Advanceform() {
 	}
@@ -91,6 +94,14 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 		advancedetail.setAdvanceform(null);
 
 		return advancedetail;
+	}
+
+	public Boolean getDoApproval() {
+		return doApproval;
+	}
+
+	public void setDoApproval(Boolean doApproval) {
+		this.doApproval = doApproval;
 	}
 
 }

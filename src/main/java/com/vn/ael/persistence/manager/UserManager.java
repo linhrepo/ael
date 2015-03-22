@@ -142,4 +142,7 @@ public interface UserManager {
      * @return
      */
     User findById(Long id);
+
+
+	User findById(String id);
 }

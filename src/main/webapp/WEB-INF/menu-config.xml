@@ -6,10 +6,11 @@
     <Menus>
         <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER">
         	<Item name="UserMenu" title="menu.user" page="/userform"/>
+        	<Item name="AdvanceMenu" title="menu.advanceList" page="/users/advanceForms"/>
         </Menu>
         <Menu name="SalesMenu" title="menu.sales" description="Sales Menu" roles="ROLE_ADMIN,ROLE_SALES">
         	<Item name="ManageCustomer" title="menu.sales.customers" page="/admin/sales/customerList"/>
-        	<Item name="ManageOfferPrice" title="menu.sales.prices" page="/admin/sales/offerPriceList"/>
+<!--         	<Item name="ManageOfferPrice" title="menu.sales.prices" page="/admin/sales/offerPriceList"/> -->
         </Menu>
          <Menu name="DocsMenu" title="menu.docs" description="Sales Menu" roles="ROLE_ADMIN,ROLE_DOCS" >
          	<Item name="DVTQ" title="menu.docs.dvtq" page="/admin/docs/packageInfoList"/>

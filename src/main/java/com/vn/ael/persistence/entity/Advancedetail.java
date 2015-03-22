@@ -1,7 +1,13 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.springframework.format.annotation.NumberFormat;
+
+import com.vn.ael.constants.FormatterPattern;
+
 import java.math.BigDecimal;
 
 
@@ -11,15 +17,15 @@ import java.math.BigDecimal;
  */
 @Entity
 @NamedQuery(name="Advancedetail.findAll", query="SELECT a FROM Advancedetail a")
-public class Advancedetail implements Serializable {
+public class Advancedetail extends BasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
-
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal amount;
 
 	private String description;
+	
+	private String goodDes;
 
 	@ManyToOne
 	@JoinColumn(name="docs")
@@ -31,14 +37,6 @@ public class Advancedetail implements Serializable {
 	private Advanceform advanceform;
 
 	public Advancedetail() {
-	}
-
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public BigDecimal getAmount() {
@@ -73,4 +71,12 @@ public class Advancedetail implements Serializable {
 		this.advanceform = advanceform;
 	}
 
+	public String getGoodDes() {
+		return goodDes;
+	}
+
+	public void setGoodDes(String goodDes) {
+		this.goodDes = goodDes;
+	}
+	
 }

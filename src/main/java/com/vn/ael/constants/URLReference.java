@@ -62,6 +62,6 @@ public interface URLReference {
 	String AJAX_REPORT_SALES = "/admin/sales/download";
 	String AJAX_REPORT_BIENBAN= "/admin/docs/downloadBienbang";
 	
-	String ADVANCE_LIST = "/advanceForms";
-	String ADVANCE_FORM = "/advanceForm";
+	String ADVANCE_LIST = "/users/advanceForms";
+	String ADVANCE_FORM = "/users/advanceForm";
 }

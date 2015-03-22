@@ -287,4 +287,9 @@ public class UserManagerImpl extends GenericManagerImpl<User> implements UserMan
 	public User findById(Long id) {
 		return this.repository.getOne(id);
 	}
+
+	@Override
+	public User findById(String id) {
+		return this.findById(Long.valueOf(id));
+	}
 }

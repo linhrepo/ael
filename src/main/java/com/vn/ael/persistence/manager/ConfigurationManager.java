@@ -37,6 +37,14 @@ public interface ConfigurationManager extends GenericManager<Configuration> {
 	
 	/**
 	 * 
+	 * @param hasJobs
+	 * @param configurationTypes
+	 * @return
+	 */
+	DocsSelection loadSelectionForDocsPage(boolean hasJobs,ConfigurationType... configurationTypes);
+	
+	/**
+	 * 
 	 * @param configurationTypes
 	 * @return
 	 */

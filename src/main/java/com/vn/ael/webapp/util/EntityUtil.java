@@ -18,6 +18,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
+import com.vn.ael.persistence.entity.Advancedetail;
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docservice;
@@ -286,4 +288,20 @@ public class EntityUtil {
     		 }
     	 }
     }
+
+    /**
+     * Wired childs of advance form
+     */
+	public static void wireChildOfAdvanceform(Advanceform advanceform) {
+		List<Advancedetail> items = new ArrayList<>();
+		if (advanceform.getAdvancedetails() != null && !advanceform.getAdvancedetails().isEmpty()){
+			for (Advancedetail advancedetail: advanceform.getAdvancedetails()){
+				if (advancedetail.getIsAdded() == null || !advancedetail.getIsAdded()){
+					advancedetail.setAdvanceform(advanceform);
+					items.add(advancedetail);
+				}
+			}
+			advanceform.setAdvancedetails(items);
+		}
+	}
 }

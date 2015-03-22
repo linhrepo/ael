@@ -8,6 +8,7 @@ import java.util.Map;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.persistence.entity.Configuration;
+import com.vn.ael.persistence.entity.Docsgeneral;
 
 public class ConvertUtil {
 	
@@ -41,6 +42,21 @@ public class ConvertUtil {
 			return BigDecimal.ZERO;
 		}
 		return bigDecimal;
+	}
+
+	/**
+	 * From docslist 2 map
+	 * @param docs
+	 * @return
+	 */
+	public static Map<Long,String> fromDocsList2MapCus(List<Docsgeneral> docs) {
+		Map<Long,String> map = new LinkedHashMap<>();
+		if (docs != null && !docs.isEmpty()){
+			for (Docsgeneral docsgeneral : docs){
+				map.put( docsgeneral.getId(), docsgeneral.getJobNo()+AELConst.SEPARATOR+docsgeneral.getCustomer().getName());
+			}
+		}
+		return map;
 	}
 
 }

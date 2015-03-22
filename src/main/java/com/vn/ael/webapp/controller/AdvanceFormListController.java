@@ -1,8 +1,5 @@
 package com.vn.ael.webapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +10,10 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
-import com.vn.ael.persistence.entity.Attachment;
-import com.vn.ael.persistence.entity.OfferItem;
-import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
-import com.vn.ael.persistence.manager.AttachmentManager;
-import com.vn.ael.persistence.manager.OfferItemManager;
-import com.vn.ael.persistence.manager.OfferPriceManager;
 
 @Controller
 public class AdvanceFormListController extends BaseFormController {
@@ -47,11 +37,11 @@ public class AdvanceFormListController extends BaseFormController {
         binder.setDisallowedFields("password", "confirmPassword");
     }
     
-    @RequestMapping(method = RequestMethod.GET, value=URLReference.OFFERPRICE_LIST)
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_LIST)
     public ModelAndView handleRequest() throws Exception {
-        Model model = new ExtendedModelMap();
-        model.addAttribute(advanceFormManager.getAll());
-        return new ModelAndView(URLReference.OFFERPRICE_LIST, model.asMap());
+    	Model model = new ExtendedModelMap();
+    	model.addAttribute(advanceFormManager.getAll());
+        return new ModelAndView(URLReference.ADVANCE_LIST);
     }
     
 }

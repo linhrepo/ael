@@ -31,4 +31,6 @@ public interface AELConst {
 
 	String COLON = ":";
 	
+	String SELECTION_DOCSGENERAL = "docs";
+	
 }

@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Customer;
+import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.repository.ConfigurationRepository;
 import com.vn.ael.persistence.repository.CustomerRepository;
+import com.vn.ael.persistence.repository.DocsgeneralRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.ConvertUtil;
@@ -37,6 +40,9 @@ public class ConfigurationManagerImpl extends GenericManagerImpl<Configuration> 
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private DocsgeneralRepository docsgeneralRepository;
 
     @Autowired
     public ConfigurationManagerImpl(final ConfigurationRepository configurationRepository) {
@@ -73,6 +79,17 @@ public class ConfigurationManagerImpl extends GenericManagerImpl<Configuration> 
 		docsSelection.setCustomers(customerRepository.findAll());
         //load staff
 		docsSelection.setStaff(userRepository.findAll());
+		return docsSelection;
+	}
+	
+	@Override
+	public DocsSelection loadSelectionForDocsPage(boolean hasJobs,ConfigurationType... configurationTypes) {
+		// TODO Auto-generated method stub
+		DocsSelection docsSelection = this.loadSelectionForDocsPage(configurationTypes);
+		//load docs
+		if (hasJobs){
+			docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL,ConvertUtil.fromDocsList2MapCus(docsgeneralRepository.findAll()));
+		}
 		return docsSelection;
 	}
 

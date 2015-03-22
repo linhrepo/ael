@@ -6,6 +6,7 @@ import java.util.Map;
 import org.appfuse.model.User;
 
 import com.vn.ael.persistence.entity.Customer;
+import com.vn.ael.persistence.entity.Docsgeneral;
 
 public class DocsSelection {
 	private Map<String,Map<Long,String>> selections;
@@ -37,5 +38,5 @@ public class DocsSelection {
 	public void setSelections(Map<String,Map<Long,String>> selections) {
 		this.selections = selections;
 	}
-	
+
 }
