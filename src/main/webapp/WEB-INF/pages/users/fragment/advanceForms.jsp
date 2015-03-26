@@ -1,12 +1,6 @@
 <%@ include file="/common/taglibs.jsp" %>
-
-<head>
-    <title><fmt:message key="advanceList.title"/></title>
-    <meta name="menu" content=Home/>
-</head>
-
+<br>
 <div class="col-sm-12">
-    <h2><fmt:message key="advanceList.heading"/></h2>
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='advanceForm'/>">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
@@ -19,7 +13,7 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
-                <th><fmt:message key="accounting.approval"/></th>
+                <th><fmt:message key="advanceform.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -29,7 +23,7 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
-                <th><fmt:message key="accounting.approval"/></th>
+                <th><fmt:message key="advanceform.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>

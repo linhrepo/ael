@@ -25,52 +25,16 @@ import com.vn.ael.webapp.util.ConvertUtil;
  */
 @Entity
 @NamedQuery(name="Advanceform.findAll", query="SELECT a FROM Advanceform a")
-public class Advanceform extends BasedEntityTracking implements Serializable {
+public class Advanceform extends BasicAdvance implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private Date date;
-
-	@ManyToOne
-	@JoinColumn(name="employee")
-	private User employee;
-
-	private String refNo;
 
 	private Date timeRefund;
 
 	//bi-directional many-to-one association to Advancedetail
 	@OneToMany(mappedBy="advanceform", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Advancedetail> advancedetails;
-	
-	private Boolean doApproval;
-	
-	private String payReason;
 
 	public Advanceform() {
-	}
-
-	public Date getDate() {
-		return this.date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public User getEmployee() {
-		return this.employee;
-	}
-
-	public void setEmployee(User employee) {
-		this.employee = employee;
-	}
-
-	public String getRefNo() {
-		return this.refNo;
-	}
-
-	public void setRefNo(String refNo) {
-		this.refNo = refNo;
 	}
 
 	public Date getTimeRefund() {
@@ -103,14 +67,6 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 		return advancedetail;
 	}
 
-	public Boolean getDoApproval() {
-		return doApproval;
-	}
-
-	public void setDoApproval(Boolean doApproval) {
-		this.doApproval = doApproval;
-	}
-	
 	@Transient
 	private BigDecimal total;
 	
@@ -122,14 +78,6 @@ public class Advanceform extends BasedEntityTracking implements Serializable {
 			}
 		}
 		return this.total;
-	}
-
-	public String getPayReason() {
-		return payReason;
-	}
-
-	public void setPayReason(String payReason) {
-		this.payReason = payReason;
 	}
 
 }

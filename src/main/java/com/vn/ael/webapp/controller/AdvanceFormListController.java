@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
+import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.manager.UserManager;
 
 @Controller
@@ -24,6 +25,14 @@ public class AdvanceFormListController extends BaseFormController {
 	@Autowired
 	public void setAdvanceFormManager(AdvanceFormManager advanceFormManager){
 		this.advanceFormManager = advanceFormManager;
+		
+	}
+	
+	private RefundManager refundManager;
+	
+	@Autowired
+	public void setRefundManager(RefundManager refundManager){
+		this.refundManager = refundManager;
 		
 	}
 	
@@ -39,17 +48,19 @@ public class AdvanceFormListController extends BaseFormController {
         binder.setDisallowedFields("password", "confirmPassword");
     }
     
-    @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_LIST)
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_REFUNDS)
     public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
     	Model model = new ExtendedModelMap();
     	model.addAttribute(advanceFormManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
-        return new ModelAndView(URLReference.ADVANCE_LIST,model.asMap());
+    	model.addAttribute(refundManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
+        return new ModelAndView(URLReference.ADVANCE_REFUNDS,model.asMap());
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_FORM_ACC)
     public ModelAndView handleRequestAcc(HttpServletRequest request) throws Exception {
     	Model model = new ExtendedModelMap();
     	model.addAttribute(advanceFormManager.getAll());
+    	model.addAttribute(refundManager.getAll());
         return new ModelAndView(URLReference.ADVANCE_FORM_ACC,model.asMap());
     }
     

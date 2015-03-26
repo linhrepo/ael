@@ -32,6 +32,8 @@ import com.vn.ael.persistence.entity.Nhathau;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.entity.Realattachment;
+import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.webapp.dto.ContsealSelections;
@@ -303,5 +305,19 @@ public class EntityUtil {
 			}
 			advanceform.setAdvancedetails(items);
 		}
+	}
+
+	public static void wireChildOfRefund(Refund refund) {
+		List<Refunddetail> items = new ArrayList<>();
+		if (refund.getRefunddetails() != null && !refund.getRefunddetails().isEmpty()){
+			for (Refunddetail refunddetail: refund.getRefunddetails()){
+				if (refunddetail.getIsAdded() == null || !refunddetail.getIsAdded()){
+					refunddetail.setRefund(refund);
+					items.add(refunddetail);
+				}
+			}
+			refund.setRefunddetails(items);
+		}
+		
 	}
 }

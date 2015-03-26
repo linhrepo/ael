@@ -26,7 +26,8 @@
         <class>com.vn.ael.persistence.entity.Realattachment</class>
         <class>com.vn.ael.persistence.entity.Advancedetail</class>
         <class>com.vn.ael.persistence.entity.Advanceform</class>
-        <class>com.vn.ael.persistence.entity.Receiptacc</class>
+        <class>com.vn.ael.persistence.entity.Refund</class>
+        <class>com.vn.ael.persistence.entity.Refunddetail</class>
         <properties>
           <property name="hibernate.ejb.interceptor"
                       value="com.vn.ael.persistence.entity.interceptors.StaticInterceptor" />          

@@ -40,8 +40,8 @@ public class AdvanceFormController extends BaseFormController {
 	}
 	
     public AdvanceFormController() {
-        setCancelView("redirect:"+URLReference.ADVANCE_LIST);
-        setSuccessView("redirect:"+URLReference.ADVANCE_LIST);
+        setCancelView("redirect:"+URLReference.ADVANCE_REFUNDS);
+        setSuccessView("redirect:"+URLReference.ADVANCE_REFUNDS);
     }
  
     /**

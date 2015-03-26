@@ -6,7 +6,7 @@
     <Menus>
         <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER">
         	<Item name="UserMenu" title="menu.user" page="/userform"/>
-        	<Item name="AdvanceMenu" title="menu.advanceList" page="/users/advanceForms"/>
+        	<Item name="AdvanceMenu" title="menu.advanceList" page="/users/advanceRefunds"/>
         </Menu>
         <Menu name="SalesMenu" title="menu.sales" description="Sales Menu" roles="ROLE_ADMIN,ROLE_SALES">
         	<Item name="ManageCustomer" title="menu.sales.customers" page="/admin/sales/customerList"/>
@@ -27,7 +27,7 @@
         	<Item name="DVVT" title="menu.docs.dvvt" page="/admin/accounting/transportList"/>
         	<Item name="DVTL" title="menu.docs.dvtl" page="/admin/accounting/exhibitionList"/>
         	<Item name="Fees" title="menu.docs.fees" page="/admin/accounting/feeTables"/>
-        	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceForms"/>
+        	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceRefunds"/>
         </Menu>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
