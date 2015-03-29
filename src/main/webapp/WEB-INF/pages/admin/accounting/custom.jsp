@@ -20,6 +20,12 @@
     	<jsp:include page="fragment/custom/feeTables.jsp"></jsp:include>
 	</div>
     <div class="form-group form-actions">
+     <c:if test="${not empty accountingcus.id}">
+						<a class="btn btn-success" href="custom/download?docId=${accountingcus.docsgeneral.id}">
+							<i class="icon-ok icon-white"></i>
+							<fmt:message key="export.accounting.custom" />
+						</a>
+					</c:if>
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
         </button>

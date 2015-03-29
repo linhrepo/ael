@@ -20,10 +20,15 @@ import net.sf.jxls.exception.ParsePropertyException;
 import net.sf.jxls.transformer.XLSTransformer;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.persistence.entity.Accountingcus;
+import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Customer;
+import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Extendfeeacc;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.entity.Packageinfo;
+import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
 import com.vn.ael.webapp.formatter.FormatterUtil;
 
@@ -108,5 +113,58 @@ public class ReportUtil {
 		return beans;
 		
 	}
-
+	
+	/**
+	 * Prepare data for accounting custom report
+	 * @param accountingcus
+	 * @return
+	 */
+	public static Map<String,Object> prepareDataForOffers(Accountingcus accountingcus){
+		List<CustomFeeExportModel> customFee = new ArrayList<>();
+		if (accountingcus.getAccountingcusdetails()!=null) {
+			for (Accountingcusdetail accountingCusDetailItem : accountingcus.getAccountingcusdetails()) {
+				if (accountingCusDetailItem.getIsAdded() != null && accountingCusDetailItem.getIsAdded() == false){
+					CustomFeeExportModel item = new CustomFeeExportModel(accountingCusDetailItem.getName() !=null ? accountingCusDetailItem.getName().getValue():AELConst.EMPTY_STRING,
+							accountingCusDetailItem.getDescription()!=null ? accountingCusDetailItem.getDescription().getValue():AELConst.EMPTY_STRING, 
+									accountingCusDetailItem.getQuantity20(), 
+							accountingCusDetailItem.getQuantity40(), accountingCusDetailItem.getQuantityOt(), accountingCusDetailItem.getQuantityLCL(), 
+							ConvertUtil.getNotNullValue(accountingCusDetailItem.getTotal()), ConvertUtil.getNotNullValue(accountingCusDetailItem.getGeneralVat()),
+							accountingCusDetailItem.getNote(), accountingCusDetailItem.getInvoice());
+					customFee.add(item);
+				}
+			}
+		}
+		List<CustomFeeExportModel> fee = new ArrayList<>();
+		if (accountingcus.getExtendfeeaccs()!=null) {
+			for (Extendfeeacc extendFeeAcc : accountingcus.getExtendfeeaccs()) {
+				CustomFeeExportModel item = new CustomFeeExportModel(extendFeeAcc.getFeeowner().getName().getValue(), extendFeeAcc.getDescription().getValue(), extendFeeAcc.getQuantity20(), 
+						extendFeeAcc.getQuantity40(), extendFeeAcc.getQuantityLCL(), 
+						ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getAmount()), ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getVat()),
+						extendFeeAcc.getNote(), extendFeeAcc.getInvoice());
+				fee.add(item);
+				
+			}
+		}
+		Map<String,Object> beans = new LinkedHashMap<>();
+		beans.put("customFee", customFee);
+		beans.put("fee", fee);
+		Customer cust = accountingcus.getDocsgeneral().getCustomer();
+		Docsgeneral doc = accountingcus.getDocsgeneral();
+		beans.put("custName", cust.getName());
+		beans.put("custAddress", cust.getAddress());
+		beans.put("custTaxNo", cust.getTaxno());
+		beans.put("custTel", cust.getTel());
+		beans.put("custFax", cust.getFax());
+		beans.put("infoInvoice", doc.getInfoInvoice());
+		beans.put("cusDecOnNo", doc.getPackageinfo().getCusDecOnNo());
+		beans.put("placeDelivery", doc.getPlaceDelivery());
+		beans.put("cmb", doc.getCmbText());
+		beans.put("aelcmb", doc.getCmbText());
+		beans.put("noOfPkgs", doc.getNoOfPkgsText());
+		beans.put("kg", doc.getWeigthText());
+		beans.put("colourApplying", doc.getPackageinfo() != null ? doc.getPackageinfo().getColourApplying().getValue() : AELConst.EMPTY_STRING);
+		beans.put("po", doc.getPackageinfo() != null ? doc.getPackageinfo().getPo() : AELConst.EMPTY_STRING);
+		beans.put("PTVT", doc.getPTVT());
+		return beans;
+	}
 }
