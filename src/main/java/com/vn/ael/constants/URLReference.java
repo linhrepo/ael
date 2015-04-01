@@ -68,5 +68,4 @@ public interface URLReference {
 	
 	String ADVANCE_FORM_ACC = "/admin/accounting/advanceRefunds";
 
-	String AJAX_REPORT_DEBIT_NOTE = "/admin/accounting/custom/download";
 }
