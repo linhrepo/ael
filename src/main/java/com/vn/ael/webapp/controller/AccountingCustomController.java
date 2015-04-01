@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.persistence.entity.Accountingcus;
@@ -37,9 +38,10 @@ import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
-@RequestMapping(URLReference.ACCOUNTING_CUSTOM+"*")
+/*@RequestMapping(URLReference.ACCOUNTING_CUSTOM+"*")*/
 public class AccountingCustomController extends BaseFormController {
 
 	private ExfeetableManager exfeetableManager = null;
@@ -152,5 +154,20 @@ public class AccountingCustomController extends BaseFormController {
 //        }
 //        return null;
 //    }
+    @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_DEBIT_NOTE)
+    public void doDownload(HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+    	String id = request.getParameter("docId");
+        Accountingcus accountingcus = null;
+        if (!StringUtils.isBlank(id)) {
+        	//load docsgeneral
+        	Docsgeneral docsgeneral = docsgeneralManager.find(id);
+        	accountingcus = accountingcusManager.createFromDocsgeneral(docsgeneral);
+        	this.docsgeneralManager.updateContTruck(accountingcus.getDocsgeneral());
+        }
+        if (accountingcus!=null) {
+        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForOffers(accountingcus));
+		}
+    }
 }
 

@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 public class Accountingcusdetail extends BasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="description")
 	private Configuration description;
 
@@ -29,7 +29,7 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 
 	private String invoice;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="name")
 	private Configuration name;
 
@@ -47,7 +47,7 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	private BigDecimal total;
 
 	//bi-directional many-to-one association to Accountingcus
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="accountingcus")
 	private Accountingcus accountingcus;
 
