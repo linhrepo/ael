@@ -18,6 +18,20 @@ var FEE_TABLE_CONTROL ={
 			$(tr).find("input.total").val(accounting.formatMoney(total,UTIL.MONEY_STYLE));
 	},
 	/**
+	 * Calculate total value for a specific row
+	 */	
+	calculate_amount:	function(tr){
+			var total = 0;
+			$(tr).find("input.total").each(function(){
+				total+=parseFloat(accounting.unformat($(this).val()));
+			});
+			
+			var vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),
+			vatAmount = parseFloat(total)*vat/100,
+			amount = total-vatAmount;
+			$(tr).find("input.amount").val(accounting.formatMoney(amount,UTIL.MONEY_STYLE));
+	},
+	/**
 	 * Init fee table
 	 */
 	init	: function(tableId){
@@ -35,6 +49,11 @@ var FEE_TABLE_CONTROL ={
 		var tableId= $(tr).closest("table").attr("id");
 		$(tr).find("input.amount").on("change",function(){
 			FEE_TABLE_CONTROL.calculate_total($(this).closest("tr"));
+			FEE_TABLE_CONTROL.initTotalTable(tableId);
+		});
+		
+		$(tr).find("input.total").on("change",function(){
+			FEE_TABLE_CONTROL.calculate_amount($(this).closest("tr"));
 			FEE_TABLE_CONTROL.initTotalTable(tableId);
 		});
 		

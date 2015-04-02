@@ -71,7 +71,7 @@
 							<select class="form-control selectClient"
 							 disabled="true"> 
 							<c:forEach items="${contsealsSelection.seal}" var="seal">
-								<option value="${seal.key}">${seal.value}</option>
+								<option value="${seal.key}" <c:if test="${detail.consteal.id == seal.key}">selected='selected'</c:if>>${seal.value}</option>
 							</c:forEach>
 							</select>
 						</div>
@@ -367,7 +367,7 @@ $(document).ready(function(){
 		$(selectOwner).on("change",function(){
 			$(selectClient).val($(this).val());
 		});
-	}
+	};
 	
 	$("tr").each(function(){
 		addEventForContseal($(this));
