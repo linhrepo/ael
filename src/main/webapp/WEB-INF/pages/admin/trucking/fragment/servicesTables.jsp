@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <h3><fmt:message key="truckingservice.services"/></h3>
     	<hr>
-<div class="row">
+<%-- <div class="row">
 	 <spring:bind path="truckingservice.departure">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 			    </spring:bind>
@@ -16,7 +16,7 @@
 			        <form:input path="arrival" id="arrival" autofocus="true" cssClass="form-control"/>
 			        <form:errors path="arrival" cssClass="help-block"/>
 			    </div>
-</div>
+</div> --%>
 <table id="detailsList"
 	class="display table table-condensed inFormTableDetail no-more-tables" cellspacing="0"
 	width="100%">
@@ -30,7 +30,9 @@
 			
 				<c:choose>
 					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
+						<th><fmt:message key="truckingservice.shippingLine1" /></th>
 						<th><fmt:message key="truckingservice.shippingLineSea" /></th>
+						<th><fmt:message key="truckingservice.shippingLine2" /></th>
 						<th><fmt:message key="truckingservice.shipName" /></th>
 						<th><fmt:message key="truckingservice.transCount" /></th>
 					</c:when>
@@ -71,7 +73,7 @@
 							<select class="form-control selectClient"
 							 disabled="true"> 
 							<c:forEach items="${contsealsSelection.seal}" var="seal">
-								<option value="${seal.key}">${seal.value}</option>
+								<option value="${seal.key}" <c:if test="${detail.consteal.id == seal.key}">selected='selected'</c:if>>${seal.value}</option>
 							</c:forEach>
 							</select>
 						</div>
@@ -79,6 +81,16 @@
 					</c:if>
 					<c:choose>
 					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
+						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine1"/>"><spring:bind
+							path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
+							<div
+								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id" style="min-width:120px;"
+							id="phuthau1${idx.index}" autofocus="true" cssClass="form-control"
+							items="${nhathaus}" /> <form:errors
+							path="truckingdetails[${idx.index}].nhathau.id"
+							cssClass="help-block" />
+						</div></td>
 						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLineSea"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
 						<div
@@ -86,6 +98,16 @@
 					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
 						id="shippingline${idx.index}" autofocus="true" cssClass="form-control"
 						items="${hangtaus}" /> <form:errors
+						path="truckingdetails[${idx.index}].nhathau.id"
+						cssClass="help-block" />
+					</div></td>
+					<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine2"/>"><spring:bind
+						path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
+						id="phuthau2${idx.index}" autofocus="true" cssClass="form-control"
+						items="${nhathaus}" /> <form:errors
 						path="truckingdetails[${idx.index}].nhathau.id"
 						cssClass="help-block" />
 					</div></td>
@@ -367,7 +389,7 @@ $(document).ready(function(){
 		$(selectOwner).on("change",function(){
 			$(selectClient).val($(this).val());
 		});
-	}
+	};
 	
 	$("tr").each(function(){
 		addEventForContseal($(this));

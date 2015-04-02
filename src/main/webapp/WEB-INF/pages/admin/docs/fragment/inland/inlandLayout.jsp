@@ -96,7 +96,7 @@
 		        <form:errors path="typeOfInland.id" cssClass="help-block"/>
 		    </div>
 		    
-		    <spring:bind path="inland.dateRecPack">
+		    <%-- <spring:bind path="inland.dateRecPack">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.dateRecPack"/>
@@ -110,7 +110,7 @@
 			        <appfuse:label styleClass="control-label" key="inland.dateDevPack"/>
 			        <form:input path="dateDevPack" data-provide="datepicker" id="dateDevPack" autofocus="true" cssClass="form-control"/>
 			        <form:errors path="dateDevPack" cssClass="help-block"/>
-			    </div>
+			    </div> --%>
 			    
 			    <spring:bind path="inland.attachServices">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
@@ -136,7 +136,7 @@
 			        <form:errors path="docsgeneral.placeDelivery" cssClass="help-block"/>
 			    </div>
 			    
-			    <spring:bind path="inland.docsgeneral.placeRev1">
+			    <%-- <spring:bind path="inland.docsgeneral.placeRev1">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.gettingPlace2"/>
@@ -150,7 +150,7 @@
 			        <appfuse:label styleClass="control-label" key="inland.deliveryPlace2"/>
 			        <form:input path="docsgeneral.placeDelivery1" id="deliveryPlace2"  autofocus="true" cssClass="form-control"/>
 			        <form:errors path="docsgeneral.placeDelivery1" cssClass="help-block"/>
-			    </div>
+			    </div> --%>
 			    
 			    <spring:bind path="inland.docsgeneral.contactDelivery">
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
@@ -166,21 +166,9 @@
 				        <appfuse:label styleClass="control-label" key="inland.infoInvoice"/>
 				        <form:input path="docsgeneral.infoInvoice" id="infoInvoice"  autofocus="true" cssClass="form-control"/>
 				        <form:errors path="docsgeneral.infoInvoice" cssClass="help-block"/>
-				    </div>
-	    	</div>
-	    	
-	    	<div class="row">
-	    		<div class="col-md-6 inner">
-		    		<spring:bind path="inland.nameOfPack">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-12">
-				    </spring:bind>
-				        <appfuse:label styleClass="control-label" key="inland.nameOfPack"/>
-				        <form:input path="nameOfPack" id="nameOfPack"  autofocus="true" cssClass="form-control"/>
-				        <form:errors path="nameOfPack" cssClass="help-block"/>
-				    </div>
-				    
+				    </div>	
 				    <spring:bind path="inland.docsgeneral.noOfPkgs">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.noOfPkgs"/>
 				        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="45" autofocus="true" cssClass="form-control number"/>
@@ -188,7 +176,7 @@
 				    </div>
 				    
 				    <spring:bind path="inland.docsgeneral.weigth">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.weigth"/>
 				        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45" autofocus="true" cssClass="form-control money"/>
@@ -196,12 +184,19 @@
 				    </div>
 				    
 				    <spring:bind path="inland.docsgeneral.cmb">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.cmb"/>
 				        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45" autofocus="true" cssClass="form-control number"/>
 				        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
 				    </div>
+	    	</div>
+	    	
+	    	<div class="row">
+	    		<div class="col-md-6 inner">
+		    		
+				    
+				    
 				    
 				    <spring:bind path="inland.docsgeneral.placeEmptyUp">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
