@@ -9,7 +9,7 @@
 				<th><fmt:message key="contseal.noOfCont" /></th>
 				<th><fmt:message key="contseal.typeOfCont" /></th>
 				<th><fmt:message key="contseal.noSeal" /></th>
-				<th><fmt:message key="contseal.noOfPKGS" /></th>
+				<th><fmt:message key="contseal.depotDev" /></th>
 				<th><fmt:message key="contseal.weight" /></th>
 				<th><fmt:message key="table.action" /></th>
 			</tr>
@@ -61,9 +61,9 @@
 							path="inland.docsgeneral.contseals[${idx.index}].noOfPKGS">
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].noOfPKGS"
+						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].depotDev"
 							id="noOfPKGS${idx.index}" maxlength="45" autofocus="true"
-							cssClass="form-control number" /> <form:errors
+							cssClass="form-control" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].noOfPKGS"
 							cssClass="help-block" />
 						</div></td>

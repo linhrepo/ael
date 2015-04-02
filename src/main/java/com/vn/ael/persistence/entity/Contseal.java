@@ -27,6 +27,8 @@ public class Contseal extends BasedChildEntity implements Serializable {
 	private Integer noOfPKGS;
 
 	private String noSeal;
+	
+	private String depotDev;
 
 	@ManyToOne
 	@JoinColumn(name="typeOfCont")
@@ -89,6 +91,14 @@ public class Contseal extends BasedChildEntity implements Serializable {
 
 	public void setDocsgeneral(Docsgeneral docsgeneral) {
 		this.docsgeneral = docsgeneral;
+	}
+
+	public String getDepotDev() {
+		return depotDev;
+	}
+
+	public void setDepotDev(String depotDev) {
+		this.depotDev = depotDev;
 	}
 
 }

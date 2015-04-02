@@ -39,17 +39,20 @@
 				  <appfuse:label styleClass="control-label" key="truckingservice.infoInvoice"/>
 				  <form:input path="docsgeneral.infoInvoice" id="infoInvoice"  autofocus="true" cssClass="form-control" disabled="true"/>
 			</div>
-			
-			<div class="form-group col-md-3">
-				 <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyDown"/>
-				 <form:input path="docsgeneral.placeEmptyDown" id="placeEmptyDown"  autofocus="true" cssClass="form-control" disabled="true"/>
-			</div>
-				    
-			<div class="form-group col-md-3">
-				  <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyUp"/>
-				  <form:input path="docsgeneral.placeEmptyUp" id="infoInvoice"  autofocus="true" cssClass="form-control" disabled="true"/>
-			</div>
-			
+			<c:choose>
+				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value != 0}">
+					<div class="form-group col-md-3">
+						 <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyDown"/>
+						 <form:input path="docsgeneral.placeEmptyDown" id="placeEmptyDown"  autofocus="true" cssClass="form-control" disabled="true"/>
+					</div>
+						    
+					<div class="form-group col-md-3">
+						  <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyUp"/>
+						  <form:input path="docsgeneral.placeEmptyUp" id="infoInvoice"  autofocus="true" cssClass="form-control" disabled="true"/>
+					</div>
+				</c:when>
+			</c:choose>
+							
 			<c:if test="${truckingservice.docsgeneral.portPutCont != null}">
 				<div class="form-group col-md-3">
 					 <appfuse:label styleClass="control-label" key="truckingservice.portPutCont"/>
