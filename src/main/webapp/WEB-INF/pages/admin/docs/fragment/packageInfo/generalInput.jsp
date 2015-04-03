@@ -67,7 +67,7 @@
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="configuration.typeOfImport"/>
 		        <form:select path="docsgeneral.typeOfImport.id" id="typeOfImport"  
-		        showElements="-3:dEta,dDateSendGood,dBillOfLading,dFreeDemDate,dFreeDetDate,dWareHouseNo,dPlaceEmptyDown,dPlaceEmptyUp,dPlaceDelivery,dPlaceRev;-4:dEtd,dDateCloseGood,dBookingNo,dClosingPlace,dClosingTime" 
+		        showElements="-3:dEta,dDateSendGood,dBillOfLading,dFreeDemDate,dFreeDetDate,dWareHouseNo,dPlaceDelivery,dPlaceRev;-4:dEtd,dDateCloseGood,dBookingNo,dClosingPlace,dClosingTime" 
 		        cssClass="form-control select2" items="${docsSelection.selections['importTypes']}"/>
 		        <form:errors path="docsgeneral.typeOfImport.id" cssClass="help-block"/>
 		    </div>
@@ -308,7 +308,7 @@
 		        <form:errors path="docsgeneral.shippingLine" cssClass="help-block"/>
 		    </div>
 		    
-		    <spring:bind path="packageInfo.docsgeneral.placeEmptyDown">
+		    <%-- <spring:bind path="packageInfo.docsgeneral.placeEmptyDown">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dPlaceEmptyDown">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.placeEmptyDown"/>
@@ -322,7 +322,7 @@
 		        <appfuse:label styleClass="control-label" key="packageInfo.placeEmptyUp"/>
 		        <form:input path="docsgeneral.placeEmptyUp" id="placeEmptyUp" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="docsgeneral.placeEmptyUp" cssClass="help-block"/>
-		    </div>
+		    </div> --%>
 		    
 		    <spring:bind path="packageInfo.colourApplying">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">

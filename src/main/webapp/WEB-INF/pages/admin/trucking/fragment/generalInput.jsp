@@ -39,9 +39,9 @@
 				  <appfuse:label styleClass="control-label" key="truckingservice.infoInvoice"/>
 				  <form:input path="docsgeneral.infoInvoice" id="infoInvoice"  autofocus="true" cssClass="form-control" disabled="true"/>
 			</div>
-			<c:choose>
-				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value != 0}">
-					<div class="form-group col-md-3">
+			<%-- <c:choose>
+				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value != 0}"> --%>
+					<%-- <div class="form-group col-md-3">
 						 <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyDown"/>
 						 <form:input path="docsgeneral.placeEmptyDown" id="placeEmptyDown"  autofocus="true" cssClass="form-control" disabled="true"/>
 					</div>
@@ -49,7 +49,30 @@
 					<div class="form-group col-md-3">
 						  <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyUp"/>
 						  <form:input path="docsgeneral.placeEmptyUp" id="infoInvoice"  autofocus="true" cssClass="form-control" disabled="true"/>
-					</div>
+					</div> --%>
+					
+			<c:choose>
+				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4 || truckingservice.docsgeneral.typeOfDocs.value == 5}">
+				    <div class="form-group col-md-3">			    
+				        <appfuse:label styleClass="control-label" key="inland.placeEmptyDown"/>
+				        <form:input path="departure" id="departure" autofocus="true" cssClass="form-control" disabled="true"/>
+				    </div>
+				    
+				    <div class="form-group col-md-3">
+				        <appfuse:label styleClass="control-label" key="inland.placeEmptyUp"/>
+				        <form:input path="arrival" id="arrival" autofocus="true" cssClass="form-control" disabled="true"/>
+				    </div>
+				</c:when>
+				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 0}">
+					<div class="form-group col-md-3">			    
+				        <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyDown"/>
+				        <form:input path="departure" id="departure" autofocus="true" cssClass="form-control" disabled="true"/>
+				    </div>
+				    
+				    <div class="form-group col-md-3">
+				        <appfuse:label styleClass="control-label" key="truckingservice.placeEmptyUp"/>
+				        <form:input path="arrival" id="arrival" autofocus="true" cssClass="form-control" disabled="true"/>
+				    </div>
 				</c:when>
 			</c:choose>
 							
