@@ -89,7 +89,7 @@
 		    </div>
 		    
 		    <spring:bind path="inland.typeOfInland">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.typeOfInland"/>
 		        <form:select path="typeOfInland.id" id="typeOfInland"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['docsTypeOfServices']}"/>
@@ -113,7 +113,7 @@
 			    </div> --%>
 			    
 			    <spring:bind path="inland.attachServices">
-					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.attachServices"/>
 					        <form:input path="attachServices" id="attachServices"  autofocus="true" cssClass="form-control"/>
