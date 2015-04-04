@@ -44,6 +44,7 @@
         <script type="text/javascript" src="${base}/webjars/jquery-i18n-properties/1.0.9/jquery.i18n.properties.js"></script>
 		<script type="text/javascript" src="${base}/scripts/libs/jquery.blockUI.js"></script>
 		<script type="text/javascript" src="${base}/scripts/libs/accounting.js"></script>
+		<script type="text/javascript" src="${base}/scripts/libs/bootstrap.file-input.js"></script>
 		<script type="text/javascript" src="${base}/scripts/inFormTable.js"></script>
 		<script type="text/javascript" src="${base}/scripts/inFormTableWithDetail.js"></script>
 		<script type="text/javascript" src="${base}/scripts/nestedDatatable.js"></script>
