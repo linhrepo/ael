@@ -70,5 +70,18 @@
 		        <arg key="customer.contact"/>
 		    </field>
 		</form>
+		<form name="advanceForm">
+			<field property="timeRefund" depends="required">
+				<arg key="advanceform.refundDate"/>
+			</field>
+			<field property="payReason" depends="required">
+				<arg key="advanceform.payReason"></arg>
+			</field>
+		</form>
+		<form name="offerPriceForm">
+				<field property="dateOffer" depends="required">
+				<arg key="offerPrice.dateOffer"/>
+				</field>
+			</form>
     </formset>
 </form-validation>

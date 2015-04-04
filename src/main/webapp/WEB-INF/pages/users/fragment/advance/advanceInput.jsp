@@ -33,7 +33,13 @@
 		    </div>
 		    <div class="form-group col-md-3">
 		    		<appfuse:label styleClass="control-label" key="advanceform.total"/>
-		    		<input class="form-control money" value="${advanceform.total}" readonly="readonly"/>
+		    		<input class="form-control money" value="${advanceform.total}" id="totalAdvance" readonly="readonly"/>
 		    	</div>
+		    	 <spring:bind path="advanceform.timeRefund">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="advanceform.refundDate"/>
+		        <form:input data-provide="datepicker" path="timeRefund" id="timeRefund"  cssClass="form-control"/>
+		        <form:errors path="timeRefund" cssClass="help-block"/>
 	    </div>
 	</div>

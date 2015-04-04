@@ -11,7 +11,7 @@
  
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="advanceform" method="post" action="advanceForm" id="advanceformForm" cssClass="well" readonly="${advanceform.doApproval == 'true' ? 'readonly' :''}" >
+    <form:form commandName="advanceform" method="post" action="advanceForm" id="advanceForm" cssClass="well" readonly="${advanceform.doApproval == 'true' ? 'readonly' :''}" >
     	<jsp:include page="fragment/advance/advanceInput.jsp"></jsp:include>
     	<jsp:include page="fragment/advance/advanceDetails.jsp"></jsp:include>
     	<jsp:include page="fragment/advance/accInput.jsp"></jsp:include>
@@ -50,7 +50,11 @@
     		<fmt:message key="notify.lastUpdatedBy"/>: <span style="color:green;">${advanceform.updator.username}</span> on ${advanceform.lastUpdateDate}
     	</div>
     </div>
-</div>
- 
-<v:javascript formName="advanceformForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
-<script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
+</div> 
+
+
+
+<c:set var="scripts" scope="request">
+<v:javascript formName="advanceForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+</c:set>

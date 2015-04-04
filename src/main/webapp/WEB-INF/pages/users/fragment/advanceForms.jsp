@@ -50,4 +50,7 @@
         </tbody>
     </table>
 </div>
-
+<c:set var="scripts" scope="request">
+<v:javascript formName="advanceForm" staticJavascript="false"/>
+<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+</c:set>

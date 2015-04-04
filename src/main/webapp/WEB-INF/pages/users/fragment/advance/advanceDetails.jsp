@@ -52,7 +52,7 @@
 	            		<spring:bind path="advancedetails[${idx.index}].amount">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="advancedetails[${idx.index}].amount" id="amount${idx.index}" cssClass="form-control money"/>
+					        <form:input path="advancedetails[${idx.index}].amount" id="amount${idx.index}" cssClass="form-control money advanceAmount"/>
 					        <form:errors path="advancedetails[${idx.index}].amount" cssClass="help-block"/>
 					    </div>
 	            </td>
@@ -82,3 +82,16 @@
 	    </div>
     </c:if>
     <hr>
+    
+    <script>
+    //Calculate total amount
+    $("#advanceformList").change(function(){ 
+    	var sum = 0;
+    	$('#advanceformList  .advanceAmount').each(function()
+    			{
+    		sum += parseFloat($(this).val());
+    			});
+    	$('#totalAdvance').val(sum);
+    });
+
+    </script>
