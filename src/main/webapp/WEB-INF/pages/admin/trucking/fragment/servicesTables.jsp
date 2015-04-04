@@ -1,8 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
 <h3><fmt:message key="truckingservice.services"/></h3>
     	<hr>
-<%-- <div class="row">
-	 <spring:bind path="truckingservice.departure">
+	<div class="row">
+	 <%-- <spring:bind path="truckingservice.departure">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="truckingservice.departure"/>
@@ -15,8 +15,8 @@
 			        <appfuse:label styleClass="control-label" key="truckingservice.arrival"/>
 			        <form:input path="arrival" id="arrival" autofocus="true" cssClass="form-control"/>
 			        <form:errors path="arrival" cssClass="help-block"/>
-			    </div>
-</div> --%>
+			    </div> --%>
+	</div> 
 <table id="detailsList"
 	class="display table table-condensed inFormTableDetail no-more-tables" cellspacing="0"
 	width="100%">
