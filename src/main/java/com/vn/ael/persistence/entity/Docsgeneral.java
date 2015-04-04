@@ -76,6 +76,8 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	private String contactDelivery;
 	
+	private String contactReceive;
+	
 	private String infoInvoice;
 	
 	private Integer noOfPkgs;
@@ -504,6 +506,14 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 
 	public void setTypeOfImport(Configuration typeOfImport) {
 		this.typeOfImport = typeOfImport;
+	}
+
+	public String getContactReceive() {
+		return contactReceive;
+	}
+
+	public void setContactReceive(String contactReceive) {
+		this.contactReceive = contactReceive;
 	}
 	
 }
