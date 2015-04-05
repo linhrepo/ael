@@ -69,7 +69,7 @@ public class AccountingCustomController extends BaseFormController {
         setSuccessView("redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST);
     }
  
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = URLReference.ACCOUNTING_CUSTOM)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         String id = request.getParameter("docId");
@@ -92,7 +92,7 @@ public class AccountingCustomController extends BaseFormController {
         return mav;
     }
  
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST,value = URLReference.ACCOUNTING_CUSTOM)
     public String onSubmit(Accountingcus accountingcus, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {

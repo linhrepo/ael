@@ -190,4 +190,6 @@ $(document).ready(function(){
 			$(newRowInputs[i]).attr("readonly",true);
 		}
 	});
+	
+	$('.fileStyle').bootstrapFileInput();
 });

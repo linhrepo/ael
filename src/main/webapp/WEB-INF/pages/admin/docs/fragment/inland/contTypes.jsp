@@ -4,7 +4,7 @@
 		<fmt:message key="inland.contTypesList" />
 	</h3>
 	<hr>
-	<table id="contTypesList" class="display table table-condensed inFormTable" cellspacing="0"
+	<table id="contTypesList" class="display table table-condensed inFormTable contImportable" cellspacing="0"
 		width="100%">
 		<thead>
 			<tr>
@@ -63,4 +63,3 @@
 	</div>
 </div>
 </div>
-
