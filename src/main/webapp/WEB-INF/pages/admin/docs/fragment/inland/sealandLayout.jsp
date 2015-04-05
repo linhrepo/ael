@@ -190,15 +190,8 @@
 				        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45" autofocus="true" cssClass="form-control number"/>
 				        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
 				    </div>
-	    			<%-- <spring:bind path="inland.nameOfPack">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
-				    </spring:bind>
-				        <appfuse:label styleClass="control-label" key="inland.nameOfPack"/>
-				        <form:input path="nameOfPack" id="nameOfPack"  autofocus="true" cssClass="form-control"/>
-				        <form:errors path="nameOfPack" cssClass="help-block"/>
-				    </div> --%>
 				    
-	    			<spring:bind path="inland.docsgeneral.placeEmptyUp">
+	    			<%-- <spring:bind path="inland.docsgeneral.placeEmptyUp">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 					   </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.placeEmptyUp"/>
@@ -212,7 +205,7 @@
 					        <appfuse:label styleClass="control-label" key="inland.placeEmptyDown"/>
 					        <form:input path="docsgeneral.placeEmptyDown" id="placeEmptyDown"  autofocus="true" cssClass="form-control"/>
 					        <form:errors path="docsgeneral.placeEmptyDown" cssClass="help-block"/>
-					    </div>
+					    </div> --%>
 					    
 					    <spring:bind path="inland.docsgeneral.contactDelivery">
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">

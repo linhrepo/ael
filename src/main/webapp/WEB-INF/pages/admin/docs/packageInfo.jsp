@@ -73,7 +73,7 @@
 </script>
 <v:javascript formName="customer" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function(){
 		var customerCode = $("#customercode").val();
 		var typeOfImport = $("#typeOfImport").val();
@@ -81,22 +81,22 @@
 			<c:forEach items="${docsSelection.customers}" var="cust">
 	    		if(${cust.id} == customerCode && typeOfImport == -3){
 	    			$("#consignee").val("${cust.name}");
-	    			$("#consignee").attr("disabled", "disabled");
+	    			$("#consignee").attr('readonly', true);
 	    		}
 	    		else if(${cust.id} == customerCode && typeOfImport == -4){
 	    			$("#consignee").val("${cust.name}");
-	    			$("#consignee").attr("disabled", "disabled");
+	    			$("#consignee").attr('readonly', true);
 	    		}
 	    	</c:forEach>
 		}
 		else{
 			if(typeOfImport == -4){
 				$("#shipper").val("${packageInfo.shipper}");
-    			$("#shipper").attr("disabled", "disabled");
+    			$("#shipper").attr('readonly', true);
 			}
 			else if(typeOfImport == -3){
 				$("#consignee").val("${packageInfo.consignee}");
-    			$("#consignee").attr("disabled", "disabled");
+    			$("#consignee").attr('readonly', true);
 			}
 		}
 		$("#typeOfImport").change(function(){
@@ -105,30 +105,30 @@
 				<c:forEach items="${docsSelection.customers}" var="cust">
 		    		if(${cust.id} == customerCode && typeOfImport == -3){
 		    			$("#consignee").val("${cust.name}");
-		    			$("#consignee").attr("disabled", "disabled");
+		    			$("#consignee").attr('readonly', true);
 		    			$("#shipper").val("");
-		    			$("#shipper").removeAttr("disabled");
+		    			$("#shipper").removeAttr("readonly");
 		    		}
 		    		else if(${cust.id} == customerCode && typeOfImport == -4){
 		    			$("#shipper").val("${cust.name}");
-		    			$("#shipper").attr("disabled", "disabled");
+		    			$("#shipper").attr('readonly', true);
 		    			$("#consignee").val("");
-		    			$("#consignee").removeAttr("disabled");
+		    			$("#consignee").removeAttr("readonly");
 					}
-		    	</c:forEach>				
-			}	
+		    	</c:forEach>
+			}
 			else{
 				if(typeOfImport == -4){
 					$("#shipper").val($("#consignee").val());
-	    			$("#shipper").attr("disabled", "disabled");
+	    			$("#shipper").attr('readonly', true);
 	    			$("#consignee").val("");
-	    			$("#consignee").removeAttr("disabled");
+	    			$("#consignee").removeAttr("readonly");
 				}
 				else if(typeOfImport == -3){
 					$("#consignee").val($("#shipper").val());
-	    			$("#consignee").attr("disabled", "disabled");
+	    			$("#consignee").attr('readonly', true);
 	    			$("#shipper").val("");
-	    			$("#shipper").removeAttr("disabled");
+	    			$("#shipper").removeAttr("readonly");
 				}
 			}
 		});
@@ -137,17 +137,17 @@
 			<c:forEach items="${docsSelection.customers}" var="cust">
     		if(${cust.id} == customerCode && typeOfImport == -3){
     			$("#consignee").val("${cust.name}");
-    			$("#consignee").attr("disabled", "disabled");
+    			$("#consignee").attr('readonly', true);
     			$("#shipper").val("");
-    			$("#shipper").removeAttr("disabled");
+    			$("#shipper").removeAttr("readonly");
     		}
     		else if(${cust.id} == customerCode && typeOfImport == -4){
     			$("#shipper").val("${cust.name}");
-    			$("#shipper").attr("disabled", "disabled");
+    			$("#shipper").attr('readonly', true);
     			$("#consignee").val("");
-    			$("#consignee").removeAttr("disabled");
+    			$("#consignee").removeAttr("readonly");
 			}
     	</c:forEach>
 		});
 	});
-</script> -->
+</script>

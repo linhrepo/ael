@@ -81,36 +81,39 @@
 					</c:if>
 					<c:choose>
 					<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
-						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine1"/>"><spring:bind
+						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine1"/>">
+							<spring:bind path="truckingservice.truckingdetails[${idx.index}].phuthau1.id">
+								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+							</spring:bind> 
+								<form:select path="truckingdetails[${idx.index}].phuthau1.id" style="min-width:120px;"
+									id="phuthau1${idx.index}" autofocus="true" cssClass="form-control"
+									items="${nhathaus}" /> 
+								<form:errors path="truckingdetails[${idx.index}].phuthau1.id"
+									cssClass="help-block" />
+							</div>
+						</td>
+						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLineSea"/>"><spring:bind
 							path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id" style="min-width:120px;"
-							id="phuthau1${idx.index}" autofocus="true" cssClass="form-control"
-							items="${nhathaus}" /> <form:errors
-							path="truckingdetails[${idx.index}].nhathau.id"
-							cssClass="help-block" />
-						</div></td>
-						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLineSea"/>"><spring:bind
-						path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
-						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
-						id="shippingline${idx.index}" autofocus="true" cssClass="form-control"
-						items="${hangtaus}" /> <form:errors
-						path="truckingdetails[${idx.index}].nhathau.id"
-						cssClass="help-block" />
-					</div></td>
-					<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine2"/>"><spring:bind
-						path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
-						<div
-							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
-						id="phuthau2${idx.index}" autofocus="true" cssClass="form-control"
-						items="${nhathaus}" /> <form:errors
-						path="truckingdetails[${idx.index}].nhathau.id"
-						cssClass="help-block" />
-					</div></td>
+							</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
+								id="shippingline${idx.index}" autofocus="true" cssClass="form-control"
+								items="${hangtaus}" /> <form:errors
+								path="truckingdetails[${idx.index}].nhathau.id"
+								cssClass="help-block" />
+							</div>
+						</td>
+					<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine2"/>">
+						<spring:bind path="truckingservice.truckingdetails[${idx.index}].phuthau2.id">
+							<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						</spring:bind> 
+							<form:select path="truckingdetails[${idx.index}].phuthau2.id"
+								id="phuthau2${idx.index}" autofocus="true" cssClass="form-control"
+								items="${nhathaus}" /> <form:errors
+								path="truckingdetails[${idx.index}].phuthau2.id"
+								cssClass="help-block" />
+							</div>
+					</td>
 					<td style="min-width:100px;" data-title="<fmt:message key="truckingservice.shipName"/>" >
 					</c:when>
 					<c:otherwise>
@@ -147,7 +150,7 @@
 							</spring:bind> 
 							<form:input path="truckingdetails[${idx.index}].noOfVehicle"
 								id="amount${idx.index}" maxlength="45" autofocus="true"
-								cssClass="form-control" /> 
+								cssClass="form-control number" /> 
 							<form:errors
 								path="truckingdetails[${idx.index}].noOfVehicle"
 								cssClass="help-block" />

@@ -190,6 +190,22 @@
 				        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45" autofocus="true" cssClass="form-control number"/>
 				        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
 				    </div>
+				    
+				    <spring:bind path="inland.otherInfo">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
+				    </spring:bind>
+				        <appfuse:label styleClass="control-label" key="inland.otherInfo"/>
+				        <form:input path="otherInfo" id="otherInfo"  autofocus="true" cssClass="form-control"/>
+				        <form:errors path="otherInfo" cssClass="help-block"/>
+				    </div>
+				    
+				    <spring:bind path="inland.refNo">
+				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6" id="refNo">
+				    </spring:bind>
+				        <appfuse:label styleClass="control-label" key="inland.refNo"/>
+				        <form:input path="refNo"   autofocus="true" cssClass="form-control"/>
+				        <form:errors path="refNo" cssClass="help-block"/>
+				    </div>
 	    	</div>
 	    	
 	    	<div class="row">
@@ -198,7 +214,7 @@
 				    
 				    
 				    
-				    <spring:bind path="inland.docsgeneral.placeEmptyUp">
+				    <%-- <spring:bind path="inland.docsgeneral.placeEmptyUp">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.placeEmptyUp"/>
@@ -212,22 +228,8 @@
 					        <appfuse:label styleClass="control-label" key="inland.placeEmptyDown"/>
 					        <form:input path="docsgeneral.placeEmptyDown" id="placeEmptyDown"  autofocus="true" cssClass="form-control"/>
 					        <form:errors path="docsgeneral.placeEmptyDown" cssClass="help-block"/>
-					    </div>
-					    
-				    <spring:bind path="inland.otherInfo">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
-				    </spring:bind>
-				        <appfuse:label styleClass="control-label" key="inland.otherInfo"/>
-				        <form:input path="otherInfo" id="otherInfo"  autofocus="true" cssClass="form-control"/>
-				        <form:errors path="otherInfo" cssClass="help-block"/>
-				    </div>
-					    <spring:bind path="inland.refNo">
-					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6" id="refNo">
-					    </spring:bind>
-					        <appfuse:label styleClass="control-label" key="inland.refNo"/>
-					        <form:input path="refNo"   autofocus="true" cssClass="form-control"/>
-					        <form:errors path="refNo" cssClass="help-block"/>
-					    </div>
+					    </div> --%>
+
 					    <spring:bind path="inland.dateCutOff">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6" id="dateCutOff">
 					    </spring:bind>

@@ -55,12 +55,12 @@
 				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4 || truckingservice.docsgeneral.typeOfDocs.value == 5}">
 				    <div class="form-group col-md-3">			    
 				        <appfuse:label styleClass="control-label" key="inland.placeEmptyDown"/>
-				        <form:input path="departure" id="departure" autofocus="true" cssClass="form-control" disabled="true"/>
+				        <form:input path="departure" id="departure" autofocus="true" cssClass="form-control"/>
 				    </div>
 				    
 				    <div class="form-group col-md-3">
 				        <appfuse:label styleClass="control-label" key="inland.placeEmptyUp"/>
-				        <form:input path="arrival" id="arrival" autofocus="true" cssClass="form-control" disabled="true"/>
+				        <form:input path="arrival" id="arrival" autofocus="true" cssClass="form-control"/>
 				    </div>
 				</c:when>
 				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 0}">

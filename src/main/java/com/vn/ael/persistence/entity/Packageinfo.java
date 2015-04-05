@@ -88,9 +88,9 @@ public class Packageinfo extends DocsEntity implements Serializable {
 	
 	private String bookingNo;
 
-	private Date freeDemDate;
+	private Integer freeDemDate;
 
-	private Date freeDetDate;
+	private Integer freeDetDate;
 
 	private String invoice;
 
@@ -265,19 +265,19 @@ public class Packageinfo extends DocsEntity implements Serializable {
 		this.etd = etd;
 	}
 
-	public Date getFreeDemDate() {
+	public Integer getFreeDemDate() {
 		return this.freeDemDate;
 	}
 
-	public void setFreeDemDate(Date freeDemDate) {
+	public void setFreeDemDate(Integer freeDemDate) {
 		this.freeDemDate = freeDemDate;
 	}
 
-	public Date getFreeDetDate() {
+	public Integer getFreeDetDate() {
 		return this.freeDetDate;
 	}
 
-	public void setFreeDetDate(Date freeDetDate) {
+	public void setFreeDetDate(Integer freeDetDate) {
 		this.freeDetDate = freeDetDate;
 	}
 

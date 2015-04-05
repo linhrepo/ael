@@ -22,7 +22,7 @@
 		    
 		    <div class="form-group col-md-2">
 			    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
-			    <input name="startDate" data-provide="datepicker" maxlength="45"  class="form-control"/>
+			    <input name="startDate" data-provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
 			    <%-- <select name="month" class="form-control">
 		    			<c:forEach begin="1" end="12" var="month">
 		    				<option value="${month}">${month}</option>
@@ -32,7 +32,7 @@
 		    
 		    <div class="form-group col-md-2">
 			    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
-			    <input name="endDate" data-provide="datepicker" maxlength="45"  class="form-control"/>
+			    <input name="endDate" data-provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
 			    <%-- <select name="year" class="form-control">
 		    			<c:forEach begin="2015" end="2016" var="year">
 		    				<option value="${year}">${year}</option>
@@ -64,4 +64,11 @@
     </div>
     </form>
 </div>
-
+<script>
+	$(document).ready(function(){
+		$("#startDate").datepicker("setDate",new Date());
+		$("#endDate").datepicker("setDate",new Date());
+		/* $("#startDate").datepicker({defaultDate: new Date()}); */
+	});
+	
+</script>

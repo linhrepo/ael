@@ -109,12 +109,10 @@
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.tiennang" />">
 					<div class="form-group">
-				        So tien nang
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.tienha" />">
 					<div class="form-group">
-				        So tien ha
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
@@ -124,12 +122,10 @@
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.hdnang" />">
 					<div class="form-group">
-				        HD nang
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.hdha" />">
 					<div class="form-group">
-				        HD ha
 				    </div>
 				</td>
 			</tr>
