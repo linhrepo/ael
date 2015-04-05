@@ -246,7 +246,7 @@ public class EntityUtil {
 		
 		if (nhathaus != null && !nhathaus.isEmpty()){
 			for (Nhathau nhathau : nhathaus){
-				nhathauMap.put(nhathau.getId(), nhathau.getFullInfo());
+				nhathauMap.put(nhathau.getId(), nhathau.getCode());
 			}
 		}
 		return nhathauMap;
