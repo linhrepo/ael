@@ -85,7 +85,7 @@
 							path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id" style="min-width:120px;"
+						</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.code" style="min-width:120px;"
 							id="phuthau1${idx.index}" autofocus="true" cssClass="form-control"
 							items="${nhathaus}" /> <form:errors
 							path="truckingdetails[${idx.index}].nhathau.id"
@@ -105,7 +105,7 @@
 						path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
+					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.code"
 						id="phuthau2${idx.index}" autofocus="true" cssClass="form-control"
 						items="${nhathaus}" /> <form:errors
 						path="truckingdetails[${idx.index}].nhathau.id"
