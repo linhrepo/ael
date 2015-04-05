@@ -1,7 +1,9 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +37,10 @@ public class Truckingservice extends BasedEntityTracking implements Serializable
 	private Boolean doCollectInfo;
 	
 	private Boolean doAccounting;
+	
+	private String contactDelivery;	
+	
+	private String infoInvoice;
 
 	@OneToOne
 	@JoinColumn(name = "docsgeneral")
@@ -157,4 +163,19 @@ public class Truckingservice extends BasedEntityTracking implements Serializable
 		this.doAccounting = doAccounting;
 	}
 	
+	public String getContactDelivery() {
+		return contactDelivery;
+	}
+
+	public void setContactDelivery(String contactDelivery) {
+		this.contactDelivery = contactDelivery;
+	}
+	
+	public String getInfoInvoice() {
+		return infoInvoice;
+	}
+
+	public void setInfoInvoice(String infoInvoice) {
+		this.infoInvoice = infoInvoice;
+	}
 }

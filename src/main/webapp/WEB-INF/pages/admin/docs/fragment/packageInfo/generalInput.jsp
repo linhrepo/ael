@@ -67,7 +67,7 @@
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="configuration.typeOfImport"/>
 		        <form:select path="docsgeneral.typeOfImport.id" id="typeOfImport"  
-		        showElements="-3:dEta,dDateSendGood,dBillOfLading,dFreeDemDate,dFreeDetDate,dWareHouseNo,dPlaceDelivery,dPlaceRev,dContactDelivery;-4:dEtd,dDateCloseGood,dBookingNo,dClosingPlace,dClosingTime,dContactReceive" 
+		        showElements="-3:dEta,dDateSendGood,dBillOfLading,dFreeDemDate,dFreeDetDate,dWareHouseNo,dPlaceDelivery,dPlaceRev;-4:dEtd,dDateCloseGood,dBookingNo,dClosingPlace,dClosingTime" 
 		        cssClass="form-control select2" items="${docsSelection.selections['importTypes']}"/>
 		        <form:errors path="docsgeneral.typeOfImport.id" cssClass="help-block"/>
 		    </div>
@@ -108,24 +108,24 @@
 		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
 		    </div>
 		    
-		    <spring:bind path="packageInfo.shipper">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
-		    </spring:bind>
-		        <appfuse:label styleClass="control-label" key="packageInfo.shipper"/>
-		        <form:input path="shipper" id="shipper" maxlength="45"  cssClass="form-control"/>
-		        <form:errors path="shipper" cssClass="help-block"/>
-		    </div>
-		    
 		    <spring:bind path="packageInfo.nameVehicle">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.nameVehicle"/>
 		        <form:input path="nameVehicle" id="nameVehicle" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="nameVehicle" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="packageInfo.shipper">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.shipper"/>
+		        <form:input path="shipper" id="shipper" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="shipper" cssClass="help-block"/>
+		    </div>
+		    		    		    
 		    <spring:bind path="packageInfo.po">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.po"/>
 		        <form:input path="po" id="po" maxlength="45"  cssClass="form-control"/>
@@ -148,6 +148,14 @@
 		        <form:errors path="consignee" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="packageInfo.billOfLading">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dBillOfLading">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.billOfLading"/>
+		        <form:input path="billOfLading" id="billOfLading" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="billOfLading" cssClass="help-block"/>
+		    </div>
+		    
 		    <spring:bind path="packageInfo.docsgeneral.placeDelivery">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dPlaceDelivery">
 		    </spring:bind>
@@ -162,14 +170,6 @@
 		        <appfuse:label styleClass="control-label" key="packageInfo.placeRev"/>
 		        <form:input path="docsgeneral.placeRev" id="placeRev" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="docsgeneral.placeRev" cssClass="help-block"/>
-		    </div>
-		    
-		    <spring:bind path="packageInfo.billOfLading">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dBillOfLading">
-		    </spring:bind>
-		        <appfuse:label styleClass="control-label" key="packageInfo.billOfLading"/>
-		        <form:input path="billOfLading" id="billOfLading" maxlength="45"  cssClass="form-control"/>
-		        <form:errors path="billOfLading" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.bookingNo">
@@ -196,6 +196,14 @@
 		        <form:errors path="docsgeneral.noOfPkgs" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="packageInfo.docsgeneral.weigth">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.weigth"/>
+		        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45"  cssClass="form-control money"/>
+		        <form:errors path="docsgeneral.weigth" cssClass="help-block"/>
+		    </div>
+		    
 		    <spring:bind path="packageInfo.portOfLoading">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
@@ -210,14 +218,6 @@
 		        <appfuse:label styleClass="control-label" key="packageInfo.portOfArrival"/>
 		        <form:input path="portOfArrival" id="portOfArrival" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="portOfArrival" cssClass="help-block"/>
-		    </div>
-		    
-		    <spring:bind path="packageInfo.docsgeneral.weigth">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
-		    </spring:bind>
-		        <appfuse:label styleClass="control-label" key="packageInfo.weigth"/>
-		        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45"  cssClass="form-control money"/>
-		        <form:errors path="docsgeneral.weigth" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.dateSendGood">
@@ -253,35 +253,35 @@
 		    </div>
 		    
 		    <spring:bind path="packageInfo.wareHouseNo">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dWareHouseNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.wareHouseNo"/>
 		        <form:input path="wareHouseNo" id="wareHouseNo" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="wareHouseNo" cssClass="help-block"/>
 		    </div>
-		    
-		    <spring:bind path="packageInfo.customsDept">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
-		    </spring:bind>
-		        <appfuse:label styleClass="control-label" key="packageInfo.customsDept"/>
-		        <form:select path="customsDept.id" id="customsDept"   cssClass="form-control" items="${docsSelection.selections['customDepts']}"/>
-		        <form:errors path="customsDept" cssClass="help-block"/>
-		    </div>
-		    
+		   
 		     <spring:bind path="packageInfo.freeDemDate">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dFreeDemDate">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dFreeDemDate">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.freeDemDate"/>
-		        <form:input path="freeDemDate" id="freeDemDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="freeDemDate" id="freeDemDate" maxlength="45"  cssClass="form-control number"/>
 		        <form:errors path="freeDemDate" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.freeDetDate">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dFreeDetDate">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dFreeDetDate">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.freeDetDate"/>
-		        <form:input path="freeDetDate" id="freeDetDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="freeDetDate" id="freeDetDate" maxlength="45"  cssClass="form-control number"/>
 		        <form:errors path="freeDetDate" cssClass="help-block"/>
+		    </div>
+		     
+		    <spring:bind path="packageInfo.customsDept">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.customsDept"/>
+		        <form:select path="customsDept.id" id="customsDept"   cssClass="form-control" items="${docsSelection.selections['customDepts']}"/>
+		        <form:errors path="customsDept" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.closingPlace">
@@ -348,28 +348,28 @@
 		        <form:errors path="cusDecOnNo" cssClass="help-block"/>
 		    </div>
 		    
-		    <spring:bind path="packageInfo.docsgeneral.contactDelivery">
+		   <%--  <spring:bind path="packageInfo.docsgeneral.contactDelivery">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dContactDelivery">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.contactDelivery"/>
 			        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"   cssClass="form-control"/>
 			        <form:errors path="docsgeneral.contactDelivery" cssClass="help-block"/>
-			    </div>
+			    </div> --%>
 			    
-			    <spring:bind path="packageInfo.docsgeneral.contactReceive">
+			    <%-- <spring:bind path="packageInfo.docsgeneral.contactReceive">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dContactReceive">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.contactReceive"/>
 			        <form:input path="docsgeneral.contactReceive" id="contactReceive"   cssClass="form-control"/>
 			        <form:errors path="docsgeneral.contactReceive" cssClass="help-block"/>
-			    </div>
+			    </div> --%>
 				    
-				    <spring:bind path="packageInfo.docsgeneral.infoInvoice">
+				    <%-- <spring:bind path="packageInfo.docsgeneral.infoInvoice">
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.infoInvoice"/>
 				        <form:input path="docsgeneral.infoInvoice" id="infoInvoice"   cssClass="form-control"/>
 				        <form:errors path="docsgeneral.infoInvoice" cssClass="help-block"/>
-				    </div>
+				    </div> --%>
 		    
 	    </div>

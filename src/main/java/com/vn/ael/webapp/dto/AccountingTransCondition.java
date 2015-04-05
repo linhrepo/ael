@@ -9,6 +9,7 @@ public class AccountingTransCondition {
 	Integer year;
 	Date startDate;
 	Date endDate;
+	Long nhathauId;
 	
 	public Long getCustomerId() {
 		return customerId;
@@ -39,6 +40,12 @@ public class AccountingTransCondition {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	public Long getNhathauId() {
+		return nhathauId;
+	}
+	public void setNhathauId(Long nhathauId) {
+		this.nhathauId = nhathauId;
 	}
 
 }

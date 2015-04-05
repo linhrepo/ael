@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -30,5 +31,8 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	 */
 	@Query("SELECT h FROM Truckingdetail h LEFT JOIN FETCH h.exfeetables WHERE h.truckingservice.id = :serviceId ")
 	List<Truckingdetail> findWithFullTruckingservice(@Param("serviceId")Long id);
+	
+	@Query("from Truckingdetail t where t.nhathau.id=:nhathauId and t.dateDev between :startDate and :endDate")
+	List<Truckingdetail> findAllByConditionDateTime(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, @Param(value="nhathauId")long nhathauId);
 	
 }

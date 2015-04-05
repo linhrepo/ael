@@ -19,11 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.NhathauType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
+import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.OfferItemManager;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 
@@ -35,6 +37,8 @@ public class AccountingController extends BaseFormController {
 	private OfferItemManager offerItemManager;
 	
 	private ExfeetableManager exfeetableManager;
+	
+	private NhathauManager nhathauManager;
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -62,8 +66,13 @@ public class AccountingController extends BaseFormController {
         setCancelView("redirect:"+URLReference.HOME_PAGE);
         setSuccessView("redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST);
     }
+        
+    @Autowired
+    public void setNhathauManager(NhathauManager nhathauManager) {
+		this.nhathauManager = nhathauManager;
+	}
 
-    @Override
+	@Override
     @InitBinder
     protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
         super.initBinder(request, binder);
@@ -143,6 +152,14 @@ public class AccountingController extends BaseFormController {
     	}
     	this.exfeetableManager.save(exfee);
     	return AELConst.AJAX_SUCCESS;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_NHATHAU_LIST)
+    public ModelAndView handleNhathauRequest() throws Exception {
+        Model model = new ExtendedModelMap();
+        model.addAttribute("nhathauList", nhathauManager.findByType(NhathauType.NHATHAU));
+        model.addAttribute("conditions",new AccountingTransCondition());
+        return new ModelAndView(URLReference.ACCOUNTING_NHATHAU_LIST, model.asMap());
     }
 }
 

@@ -22,6 +22,10 @@ public class Nhathau extends com.vn.ael.persistence.entity.BaseEntity implements
 	private String taxNo;
 	
 	private Integer type;
+	
+	private String address;
+	
+	private String code;
 
 	public Nhathau() {
 	}
@@ -69,6 +73,22 @@ public class Nhathau extends com.vn.ael.persistence.entity.BaseEntity implements
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }
