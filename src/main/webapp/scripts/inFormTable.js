@@ -43,6 +43,7 @@
     		var lastTr = this._findLastDataRow(table,true).row;
     		if ($(lastTr).hasClass("hidden")){
     			this._refreshDataRow(0, lastTr,true);
+    			$(table).trigger("afterAddRow",lastTr);
     		}else{
     			var newRolNum = parseInt($(lastTr).find("td[colType='index']").first().html()) + 1;
     			//add new row with the same content as last row

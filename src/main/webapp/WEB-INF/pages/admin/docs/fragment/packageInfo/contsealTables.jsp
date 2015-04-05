@@ -31,7 +31,7 @@
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].noOfCont"
 							id="noOfCont${idx.index}" maxlength="45" autofocus="true"
-							cssClass="form-control" /> <form:errors
+							cssClass="form-control cont" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].noOfCont"
 							cssClass="help-block" />
 						</div></td>
@@ -53,7 +53,7 @@
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].noSeal"
 							id="noSeal${idx.index}" maxlength="45" autofocus="true"
-							cssClass="form-control" /> <form:errors
+							cssClass="form-control seal" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].noSeal"
 							cssClass="help-block" />
 						</div></td>
@@ -85,11 +85,22 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<div class="row">
-		<div class="col-md-10"></div>
+<div class="row">
+		<div class="col-md-8"></div>
+		<div class="col-md-2"><input type="file" name="xlfile" id="xlf" class="fileStyle btn btn-success"  data-filename-placement="inside" title="<fmt:message key='inland.uploadCont'/>"/></div>
 		<div class="col-md-2">
 			<span class="btn btn-primary" target-table="contsealList"> <i
 				class="icon-ok"></i> <fmt:message key="button.add" /></span>
 		</div>
 	</div>
 </div>
+<script src="<c:url value='/scripts/libs/xls/shim.js'/>"></script>
+<script src="<c:url value='/scripts/libs/xls/xls.js'/>"></script>
+<script src="<c:url value='/scripts/excelUtil.js'/>"></script>
+<script type="text/javascript">
+var CONT_IMPORT = {
+	fileId : 	'xlf',
+	tableId : 'contsealList'
+};
+</script>
+<script src="<c:url value='/scripts/custom/importCont.js'/>"></script>
