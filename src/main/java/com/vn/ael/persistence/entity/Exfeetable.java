@@ -37,6 +37,9 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal vat;
 
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal total;
+	
 	//bi-directional many-to-one association to Exhibition
 	@JsonIgnore
 	@ManyToOne
@@ -111,9 +114,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	public void setMasterFee(Configuration masterFee) {
 		this.masterFee = masterFee;
 	}
-	
-	@Transient
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+
 	public BigDecimal getTotal(){
 		if (this.amount == null){
 			return BigDecimal.ZERO;
@@ -121,9 +122,13 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		if (this.vat == null){
 			return this.amount;
 		}
-		return this.amount.multiply(this.vat).divide(new BigDecimal(AELConst.VAT_PERCENT)).add(this.amount);
+		return this.total;
 	}
 	
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
 	@Transient
 	public BigDecimal getVatFee(){
 		if (this.vat == null){
