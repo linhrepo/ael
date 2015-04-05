@@ -1,9 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
 <div id="inlandSizesContainer">
-<h3>
-	<fmt:message key="inland.tableDetail" />
-</h3>
-<hr>
 <table id="inlandsizes"
 	class="display table table-condensed inFormTable" cellspacing="0"
 	width="100%">

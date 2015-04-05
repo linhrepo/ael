@@ -6,7 +6,7 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
+    <link rel="icon" href="<c:url value="/images/icons/main.png"/>"/>
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
     <t:assets/>
     <script>
@@ -24,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
+            <a class="navbar-brand" href="<c:url value='/'/>"><img alt="" src="<c:url value="/images/icons/main.png"/>"><fmt:message key="webapp.name"/></a>
         </div>
 
         <%@ include file="/common/menu.jsp" %>

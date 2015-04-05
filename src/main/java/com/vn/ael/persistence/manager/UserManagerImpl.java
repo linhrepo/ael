@@ -1,7 +1,6 @@
 package com.vn.ael.persistence.manager;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserService;
-import org.appfuse.service.impl.PasswordTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
@@ -25,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vn.ael.persistence.repository.UserRepository;
+import com.vn.ael.persistence.service.PasswordTokenManager;
 
 
 /**

@@ -288,7 +288,7 @@
 				<td data-title="<fmt:message key="inland.total"/>">
 					<form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].total"
 						id="total${idxx.index}" maxlength="45" autofocus="true" 
-						cssClass="form-control total readonly" disabled="true" readonly="true"/>
+						cssClass="form-control total "/>
 				</td>
 				<td data-title="<fmt:message key="inland.feeInvoiceNo"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo">

@@ -46,9 +46,16 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.typeOfContainer"/>
-		        <form:select 
-		         showElements="-2:refNo,inlandSizesContainer;-1:dateCutOff,dateExpired,contTypesListContainer,contsealListContainer,servicesTab"
+		        <c:if test="${inland.docsgeneral.doDelivery}">
+			        <form:select 
+		         showElements="-2:refNo,inlandSizesContainer;-1:dateCutOff,dateExpired,contTypesListContainer,contsealListContainer,servicesTab,contTypesTab"
+		        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  autofocus="true" cssClass="form-control selectReadOnly" items="${docsSelection.selections['typeOfContainers']}"/>
+			     </c:if>
+			     <c:if test="${!inland.docsgeneral.doDelivery}">
+			     <form:select 
+		         showElements="-2:refNo,inlandSizesContainer;-1:dateCutOff,dateExpired,contTypesListContainer,contsealListContainer,servicesTab,contTypesTab"
 		        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  autofocus="true" cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
+			       </c:if>
 		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
 		    </div>
 		    
@@ -207,13 +214,13 @@
 					        <form:errors path="docsgeneral.placeEmptyDown" cssClass="help-block"/>
 					    </div> --%>
 					    
-					    <spring:bind path="inland.docsgeneral.contactDelivery">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
-				    </spring:bind>
-				        <appfuse:label styleClass="control-label" key="inland.contactDelivery"/>
-				        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"  autofocus="true" cssClass="form-control"/>
-				        <form:errors path="docsgeneral.contactDelivery" cssClass="help-block"/>
-				    </div>
+<%-- 					    <spring:bind path="inland.docsgeneral.contactDelivery"> --%>
+<%-- 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6"> --%>
+<%-- 				    </spring:bind> --%>
+<%-- 				        <appfuse:label styleClass="control-label" key="inland.contactDelivery"/> --%>
+<%-- 				        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"  autofocus="true" cssClass="form-control"/> --%>
+<%-- 				        <form:errors path="docsgeneral.contactDelivery" cssClass="help-block"/> --%>
+<!-- 				    </div> -->
 					    
 					<spring:bind path="inland.docsgeneral.portPutCont">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
@@ -256,7 +263,7 @@
 				    </div>
 	    	</div>
 	    	
-	    	<div class="row">
+<!-- 	    	<div class="row"> -->
 	    		<%-- <div class="col-md-6 inner">
 	    			<spring:bind path="inland.docsgeneral.infoInvoice">
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
@@ -273,13 +280,6 @@
 					        <form:input path="dateCutOff" id="dateCutOff" data-provide="datepicker" autofocus="true" cssClass="form-control"/>
 					        <form:errors path="dateCutOff" cssClass="help-block"/>
 					    </div>
-					    
-				    
-				    
-				    
 	    		</div> --%>
-	    		<div class="col-md-6">
-					<jsp:include page="contTypes.jsp"></jsp:include>
-	    		</div>
-	    	</div>
+<!-- 	    	</div> -->
 	    </div>

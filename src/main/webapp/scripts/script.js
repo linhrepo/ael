@@ -74,13 +74,18 @@ $(document).ready(function(){
 		UTIL.hideLoadingMask();
 	});
 	
+	$("form").submit(function(){
+		UTIL.showLoadingMask();
+		return true;
+	});
+	
 	//init all datatable
 	$(".datatable").dataTable();
 	
 	//init all select2
-	
 	SELECT_CONTROL.init();
 	
+	$(".selectReadOnly").prop("disabled", "disabled");
 	//init datatable wihout paging, ordering
 	$(".datatableEmpty").dataTable( {
         "paging":   false,

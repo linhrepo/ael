@@ -95,5 +95,5 @@
 
     <!-- Password reset token encoder -->
     <bean id="passwordTokenEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
-	
+    
 </beans>

@@ -66,9 +66,9 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="configuration.typeOfImport"/>
-		        <form:select path="docsgeneral.typeOfImport.id" id="typeOfImport"  
-		        showElements="-3:dEta,dDateSendGood,dBillOfLading,dFreeDemDate,dFreeDetDate,dWareHouseNo,dPlaceDelivery,dPlaceRev;-4:dEtd,dDateCloseGood,dBookingNo,dClosingPlace,dClosingTime" 
-		        cssClass="form-control select2" items="${docsSelection.selections['importTypes']}"/>
+			        <form:select path="docsgeneral.typeOfImport.id" id="typeOfImport" 
+			        showElements="-3:dEta,dDateSendGood,dBillOfLading,dFreeDemDate,dFreeDetDate,dWareHouseNo,dPlaceDelivery,dPlaceRev,doGetDO,ldoGetDO,doGetTaxDec,ldoGetTaxDec;-4:dEtd,dDateCloseGood,dBookingNo,dClosingPlace,dClosingTime" 
+			        cssClass="form-control select2" items="${docsSelection.selections['importTypes']}"/>
 		        <form:errors path="docsgeneral.typeOfImport.id" cssClass="help-block"/>
 		    </div>
 	    </div>
@@ -102,10 +102,22 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.typeOfContainer"/>
-		        <form:select 
-		        showElements="-1:consealContainer,contsstab" 
-		        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control select2" items="${docsSelection.selections['typeOfContainers']}"/>
+		         <c:if test="${packageInfo.docsgeneral.doDelivery}">
+			        <form:select 
+			        showElements="-1:consealContainer,contsstab" 
+			        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  
+			        cssClass='form-control select2 selectReadOnly'
+			        items="${docsSelection.selections['typeOfContainers']}"/>
+			     </c:if>
+			     <c:if test="${!packageInfo.docsgeneral.doDelivery}">
+			      <form:select 
+			        showElements="-1:consealContainer,contsstab" 
+			        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  
+			        cssClass='form-control select2'
+			        items="${docsSelection.selections['typeOfContainers']}"/>
+			       </c:if>
 		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
+		       
 		    </div>
 		    
 		    <spring:bind path="packageInfo.nameVehicle">
