@@ -73,7 +73,7 @@
 </script>
 <v:javascript formName="customer" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function(){
 		var customerCode = $("#customercode").val();
 		var typeOfImport = $("#typeOfImport").val();
@@ -150,4 +150,4 @@
     	</c:forEach>
 		});
 	});
-</script>
+</script> -->

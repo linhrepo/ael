@@ -35,20 +35,28 @@
 		        <form:errors path="name" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="nhathau.code">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="nhathau.code"/>
+		        <form:input path="code"  maxlength="255" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="code" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="nhathau.address">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="nhathau.address"/>
+		        <form:input path="address"  maxlength="255" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="address" cssClass="help-block"/>
+		    </div>
+		    
 		    <spring:bind path="nhathau.taxNo">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="nhathau.taxNo"/>
 		        <form:input path="taxNo" maxlength="255" autofocus="true" cssClass="form-control"/>
 		        <form:errors path="taxNo" cssClass="help-block"/>
-		    </div>
-		    
-		    <spring:bind path="nhathau.contactName">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
-		    </spring:bind>
-		        <appfuse:label styleClass="control-label" key="nhathau.contactName"/>
-		        <form:input path="contactName" maxlength="255" autofocus="true" cssClass="form-control"/>
-		        <form:errors path="contactName" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="nhathau.phoneNumber">
@@ -58,6 +66,14 @@
 		        <form:input path="phoneNumber" maxlength="255" autofocus="true" cssClass="form-control"/>
 		        <form:errors path="phoneNumber" cssClass="help-block"/>
 		    </div>
+		    
+		    <spring:bind path="nhathau.contactName">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="nhathau.contactName"/>
+		        <form:input path="contactName" maxlength="255" autofocus="true" cssClass="form-control"/>
+		        <form:errors path="contactName" cssClass="help-block"/>
+		    </div>		    
 		    
 	    </div>
 	</div>

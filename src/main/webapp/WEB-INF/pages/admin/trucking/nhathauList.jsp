@@ -18,6 +18,7 @@
             <tr>
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="nhathau.name"/></th>
+                <th><fmt:message key="nhathau.code"/></th>
                 <th><fmt:message key="nhathau.taxNo"/></th>
                 <th><fmt:message key="nhathau.contactName"/></th>
                 <th><fmt:message key="nhathau.phoneNumber"/></th>
@@ -30,6 +31,7 @@
             <tr>
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="nhathau.name"/></th>
+                <th><fmt:message key="nhathau.code"/></th>
                 <th><fmt:message key="nhathau.taxNo"/></th>
                 <th><fmt:message key="nhathau.contactName"/></th>
                 <th><fmt:message key="nhathau.phoneNumber"/></th>
@@ -42,6 +44,7 @@
         	<tr>
         		<td>${idx.index+1}</td>
                 <td>${cons.name}</td>
+                <td>${cons.code}</td>
                 <td>${cons.taxNo}</td>
                 <td>${cons.contactName}</td>
               	<td>${cons.phoneNumber}</td>

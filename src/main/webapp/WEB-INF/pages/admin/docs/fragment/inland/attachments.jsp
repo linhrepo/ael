@@ -45,7 +45,7 @@
 							<spring:bind path="docsgeneral.attachments[${idx.index}].data.data">
 						    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						    </spring:bind>
-						        <input name="docsgeneral.attachments[${idx.index}].data.data" id="data${idx.index}" class="form-control" type="file"/>
+						        <input name="docsgeneral.attachments[${idx.index}].data.data" id="data${idx.index}" class="form-control" type="file""/>
 						        <form:errors path="docsgeneral.attachments[${idx.index}].data.data" cssClass="help-block"/>
 						    </div>
 				</td>
