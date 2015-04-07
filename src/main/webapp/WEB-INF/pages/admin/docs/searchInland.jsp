@@ -30,6 +30,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
+			
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="inland.doDelivery" />
