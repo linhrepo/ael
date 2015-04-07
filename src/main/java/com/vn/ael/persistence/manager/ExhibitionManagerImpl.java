@@ -22,6 +22,7 @@ import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.ExhibitionRepository;
 import com.vn.ael.persistence.repository.RealattachmentRepository;
 import com.vn.ael.persistence.repository.UserRepository;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.StringUtil;
 
@@ -150,6 +151,11 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 			loadExhibition.setExfeetables(exfeetables);
 		}
 		this.exhibitionRepository.save(loadExhibition);
+	}
+
+	@Override
+	public List<Exhibition> searchInland(Search search) {
+		return exhibitionRepository.searchExhibition(search.getCustomer(), search.getTypeOfImport(), search.getDoDelivery(), search.getTypeOfContainer());
 	}
 
 }

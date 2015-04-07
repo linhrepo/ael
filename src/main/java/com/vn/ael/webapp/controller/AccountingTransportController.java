@@ -1,5 +1,6 @@
 package com.vn.ael.webapp.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,19 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
-import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.service.AccountingTransService;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
-@RequestMapping(URLReference.ACCOUNTING_TRANSPORT+"*")
+/*@RequestMapping(URLReference.ACCOUNTING_TRANSPORT+"*")*/
 public class AccountingTransportController extends BaseFormController {
 
 	private OfferPriceManager offerpriceManager;
@@ -69,7 +71,7 @@ public class AccountingTransportController extends BaseFormController {
         binder.setDisallowedFields("password", "confirmPassword");
     }
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_TRANSPORT)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_TRANSPORT);
@@ -101,7 +103,7 @@ public class AccountingTransportController extends BaseFormController {
         return mav;
     }
  
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_TRANSPORT)
     public String onSubmit(AccountingTrans accountingTrans, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {
@@ -130,6 +132,35 @@ public class AccountingTransportController extends BaseFormController {
         		"&year="+accountingTrans.getCondition().getYear();
  
         return success;
+    }
+    @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_TRANSPORT)
+    public void doDownload(HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+    	AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
+        
+        //load condition
+        String customerId = request.getParameter("customerId");
+        String month = request.getParameter("month");
+        String year = request.getParameter("year");
+        accountingTransCondition.setCustomerId(new Long(customerId));
+        accountingTransCondition.setMonth(Integer.parseInt(month));
+        accountingTransCondition.setYear(Integer.parseInt(year));
+        
+        
+        //Set up command
+        List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
+        if (docs !=null && !docs.isEmpty()){
+        	for (Docsgeneral docsgeneral : docs){
+        		this.docsgeneralManager.updateContTruck(docsgeneral);
+        	}
+        }
+        AccountingTrans accountingTrans = new AccountingTrans();
+        accountingTrans.setCustomer(customerManager.find(customerId));
+        accountingTrans.setCondition(accountingTransCondition);
+        accountingTrans.setDocs(docs);
+       if (accountingTrans!=null) {
+    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans));
+	}
     }
 }
 

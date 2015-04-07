@@ -7,6 +7,7 @@
 
 <div class="col-sm-12">
     <h2><fmt:message key="exhibitionList.heading"/></h2>
+    <jsp:include page="searchExhibition.jsp"></jsp:include>
     <div id="actions" class="btn-group">
     	 <a class="btn btn-primary" href="<c:url value='exhibition?method=Add&from=list'/>">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>

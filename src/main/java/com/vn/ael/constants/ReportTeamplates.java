@@ -9,4 +9,7 @@ public interface ReportTeamplates {
 	
 	String ACCOUNTING_CUSTOM_ITEMS = "DebitNoteReport.xlsx";
 	String ACCOUNTING_CUSTOM_ITEMS_TEMPLATE = "ExportTemplate/DebitNoteTemplate.xlsx";
+	
+	String ACCOUNTING_TRANSPORT_ITEMS = "BangKeCuocVanChuyen.xlsx";
+	String ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE = "ExportTemplate/BangKeCuocVanChuyenTemplate.xlsx";
 }

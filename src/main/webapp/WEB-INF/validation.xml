@@ -83,5 +83,9 @@
 				<arg key="offerPrice.dateOffer"/>
 				</field>
 			</form>
+			<form name="advanceInput">
+			<field property="timeRefund" depends="required">
+				<arg key="advanceform.refundDate"/>
+			</field></form>
     </formset>
 </form-validation>

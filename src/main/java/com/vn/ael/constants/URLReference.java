@@ -72,4 +72,10 @@ public interface URLReference {
 	
 	String ACCOUNTING_NHATHAU_LIST = "/admin/accounting/nhathauList";
 	String ACCOUNTING_NHATHAU = "/admin/accounting/nhathau";
+	
+	String PACKAGEINFO_SEARCH = "/admin/docs/searchPackageInfo";
+	String INLAND_SEARCH = "/admin/docs/searchInland";
+	String EXHIBITION_SEARCH = "/admin/docs/searchExhibition";
+	
+	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
 }

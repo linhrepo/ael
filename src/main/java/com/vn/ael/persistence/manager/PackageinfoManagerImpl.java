@@ -29,6 +29,7 @@ import com.vn.ael.persistence.repository.OfferItemRepository;
 import com.vn.ael.persistence.repository.OfferPriceRepository;
 import com.vn.ael.persistence.repository.PackageinfoRepository;
 import com.vn.ael.persistence.repository.UserRepository;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.StringUtil;
 
@@ -102,6 +103,13 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
 	@Override
 	public void deleteWholePackage(Packageinfo packageinfo) {
 		docsgeneralRepository.delete(packageinfo.getDocsgeneral());
+	}
+
+	@Override
+	public List<Packageinfo> searchPackageInfo(Search search) {
+		return packageinfoRepository.searchPackageInfo(search.getCustomer(),
+				search.getTypeOfImport(), search.getTypeOfContainer(),
+				search.getDoDelivery(), search.getDoRelease());
 	}
 
 }

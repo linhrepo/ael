@@ -3,6 +3,8 @@
  */
 package com.vn.ael.persistence.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,4 +18,12 @@ public interface ExhibitionRepository extends GenericRepository<Exhibition> {
 	@Query("SELECT max(e.counting) FROM Exhibition e WHERE e.docsgeneral.customer.id = :customerId")
 	Integer findMaxCountingByCustomer(@Param("customerId")Long id);
 	
+	@Query("SELECT e FROM Exhibition e where (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
+			+ "(e.docsgeneral.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
+			+ "(e.docsgeneral.doDelivery =:doDelivery or :doDelivery is null) and "
+			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null)")
+	List<Exhibition> searchExhibition(@Param("customerId") Long customerId,
+			@Param("typeOfImport") Long typeOfImport,
+			@Param("doDelivery") Boolean doDelivery,
+			@Param("typeOfContainer") Long typeOfContainer);
 }
