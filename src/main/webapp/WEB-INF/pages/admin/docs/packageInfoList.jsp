@@ -4,9 +4,9 @@
     <title><fmt:message key="packageInfoList.title"/></title>
     <meta name="menu" content="DocsMenu"/>
 </head>
-
 <div class="col-sm-12">
     <h2><fmt:message key="packageInfoList.heading"/></h2>
+    <jsp:include page="searchPackageInfo.jsp"></jsp:include>
     <div id="actions" class="btn-group">
     	 <a class="btn btn-primary" href="<c:url value='packageInfo?method=Add&from=list'/>">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>

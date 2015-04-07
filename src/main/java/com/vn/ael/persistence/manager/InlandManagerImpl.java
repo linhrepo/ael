@@ -3,6 +3,8 @@
  */
 package com.vn.ael.persistence.manager;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import com.vn.ael.persistence.repository.InlandRepository;
 import com.vn.ael.persistence.repository.InlandsizeRepository;
 import com.vn.ael.persistence.repository.MultitypeRepository;
 import com.vn.ael.persistence.repository.UserRepository;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.StringUtil;
 
@@ -95,6 +98,11 @@ public class InlandManagerImpl extends GenericManagerImpl<Inland> implements Inl
 			inland.getDocsgeneral().setJobNo(jobNo);
 		}
 		
+	}
+
+	@Override
+	public List<Inland> searchInland(Search search) {
+		return inlandRepository.searchInland(search.getCustomer(), search.getTypeOfContainer(), search.getDoDelivery());
 	}
 
 }

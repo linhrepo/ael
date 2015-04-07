@@ -3,7 +3,7 @@ package com.vn.ael.persistence.manager;
 import java.util.List;
 
 import com.vn.ael.persistence.entity.Inland;
-import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.dto.Search;
 
 public interface InlandManager extends GenericManager<Inland> {
 
@@ -19,4 +19,5 @@ public interface InlandManager extends GenericManager<Inland> {
 	 */
 	Inland saveWholeInland(Inland inland);
 	
+	List<Inland> searchInland(Search search);	
 }

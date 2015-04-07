@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -56,4 +57,8 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			)
 	List<Docsgeneral> getDoAccountingInlandSealandAndTime(@Param(value = "doAccounting")Boolean doAccounting,@Param(value = "inland")ServicesType inland,@Param(value = "seaType")ServicesType seaType
 			,@Param(value="month") int month, @Param(value="year") int year, @Param(value="customerId")long customerId);
+	
+	@Query("from Docsgeneral d where d.shippingLine.id=:nhathauId and d.doAccounting = :doAccounting and d.docReceiveDate between :startDate and :endDate")
+	List<Docsgeneral> findAllByConditionDateTime(@Param(value = "doAccounting")Boolean doAccounting,
+			@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, @Param(value="nhathauId")long nhathauId);
 }

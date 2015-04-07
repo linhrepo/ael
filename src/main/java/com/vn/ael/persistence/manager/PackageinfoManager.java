@@ -2,8 +2,11 @@ package com.vn.ael.persistence.manager;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Packageinfo;
+import com.vn.ael.webapp.dto.Search;
 
 public interface PackageinfoManager extends GenericManager<Packageinfo> {
 	
@@ -20,4 +23,5 @@ public interface PackageinfoManager extends GenericManager<Packageinfo> {
 	 */
 	void deleteWholePackage(Packageinfo packageinfo);
 	
+	List<Packageinfo> searchPackageInfo(Search search);	
 }

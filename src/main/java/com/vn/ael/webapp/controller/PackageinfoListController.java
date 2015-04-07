@@ -2,12 +2,15 @@ package com.vn.ael.webapp.controller;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,21 +19,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.OfferPrice;
+import com.vn.ael.persistence.entity.Packageinfo;
+import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
+import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.dto.Search;
 
 @Controller
 public class PackageinfoListController extends BaseFormController {
 
     private PackageinfoManager packageinfoManager;
+    
+    private DocsgeneralManager docsgeneralManager;
+    
+    private EntityManager entityManager;
 
     @Autowired
     public void setPackageinfoManager(final PackageinfoManager packageinfoManager) {
         this.packageinfoManager = packageinfoManager;
     }
 
-    public PackageinfoListController() {
+    @Autowired
+    public void setDocsgeneralManager(DocsgeneralManager docsgeneralManager) {
+		this.docsgeneralManager = docsgeneralManager;
+	}
+        
+    @Autowired
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+	public PackageinfoListController() {
         setCancelView("redirect:"+URLReference.HOME_PAGE);
         setSuccessView("redirect:"+URLReference.PACKAGEINFO_LIST);
     }
@@ -43,10 +66,44 @@ public class PackageinfoListController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PACKAGEINFO_LIST)
-    public ModelAndView handleRequest() throws Exception {
+    public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
         Model model = new ExtendedModelMap();
         model.addAttribute(packageinfoManager.getAll());
+        Search searchPackageInfo = new Search();
+        model.addAttribute("search", searchPackageInfo);
+      //selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT,
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        		);
+        model.addAttribute("docsSelection", docsSelection);
+        model.addAttribute("enumStatus", StatusType.values());
         return new ModelAndView(URLReference.PACKAGEINFO_LIST, model.asMap());
     }
+    
+	@RequestMapping(method = RequestMethod.POST, value = URLReference.PACKAGEINFO_SEARCH)
+	public ModelAndView searchPackageInfo(Search searchPackageInfo)
+			throws Exception {
+		// Model model = new ExtendedModelMap();
+		ModelAndView mav = new ModelAndView(URLReference.PACKAGEINFO_LIST);
+		
+		List<Packageinfo> packageinfos = packageinfoManager.searchPackageInfo(searchPackageInfo);
+		mav.addObject(packageinfos);
+		
+		//selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT,
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        		);
+        mav.addObject("docsSelection", docsSelection);
+        mav.addObject("enumStatus", StatusType.values());
+		return mav;
+	}
 }
 

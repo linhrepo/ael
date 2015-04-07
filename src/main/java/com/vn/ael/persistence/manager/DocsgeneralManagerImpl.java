@@ -5,9 +5,11 @@ package com.vn.ael.persistence.manager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -247,7 +249,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> findAllByCondition(
 			AccountingTransCondition accountingTransCondition) {
-		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getMonth(), accountingTransCondition.getYear(),accountingTransCondition.getCustomerId());
+		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getMonth(), accountingTransCondition.getYear(),accountingTransCondition.getCustomerId());		
 		if (docsgenerals != null && !docsgenerals.isEmpty()){
 			for (Docsgeneral docsgeneral : docsgenerals){
 				List<Exfeetable> exfeetables = exfeetableRepository.findByDocsgeneral(docsgeneral);
@@ -303,6 +305,14 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		List<Truckingdetail> truckingdetails = this.truckingdetailRepository.findByTruckingservice(truckingservice);
 		docsgeneral.setTruckingservice(truckingservice);
 		truckingservice.setTruckingdetails(truckingdetails);
+	}
+
+	@Override
+	public List<Docsgeneral> findAllByConditionDateTime(
+			AccountingTransCondition accountingTransCondition) {
+		List<Docsgeneral> docsgenerals = null;
+		docsgenerals = this.docsgeneralRepository.findAllByConditionDateTime(true,accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId());
+		return docsgenerals;
 	}
 
 }

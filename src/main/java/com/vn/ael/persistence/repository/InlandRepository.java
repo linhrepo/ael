@@ -3,6 +3,8 @@
  */
 package com.vn.ael.persistence.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,4 +18,10 @@ public interface InlandRepository extends GenericRepository<Inland> {
 	@Query("SELECT max(e.counting) FROM Inland e WHERE e.docsgeneral.customer.id = :customerId")
 	Integer findMaxCountingByCustomer(@Param("customerId")Long id);
 	
+	@Query("SELECT e FROM Inland e WHERE (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
+			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
+			+ "(e.docsgeneral.doDelivery =:doDelivery or :doDelivery is null)")
+	List<Inland> searchInland(@Param("customerId") Long customerId,
+			@Param("typeOfContainer") Long typeOfContainer,
+			@Param("doDelivery") Boolean doDelivery);
 }
