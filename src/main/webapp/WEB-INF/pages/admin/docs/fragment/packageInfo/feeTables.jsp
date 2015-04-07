@@ -93,7 +93,7 @@
 				<td>
 					<form:input path="docsgeneral.exfeetables[${idx.index}].total"
 						id="total${idx.index}" maxlength="45" autofocus="true" 
-						cssClass="form-control money total readonly" disabled="true" readonly="true"/>
+						cssClass="form-control money total"/>
 				</td>
 				<td><spring:bind
 						path="packageInfo.docsgeneral.exfeetables[${idx.index}].invoiceNo">

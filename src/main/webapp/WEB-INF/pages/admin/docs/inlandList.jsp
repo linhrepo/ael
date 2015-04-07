@@ -49,7 +49,7 @@
               	<td>${inland.docsgeneral.jobNo}</td>
               	<td>${inland.docsgeneral.customer.code}</td>
               	<td>${inland.docsgeneral.typeOfContainer.value}</td>
-              	<td>${inland.docsgeneral.typeOfImport.value}</td>
+              	<td>${inland.typeOfInland.value}</td>
               	<td>
               		<c:if test="${inland.isInland == false}"><fmt:message key='inland.sealand'/></c:if>
      				<c:if test="${inland.isInland != false}"><fmt:message key='inland.inland'/></c:if>

@@ -27,8 +27,7 @@ var FEE_TABLE_CONTROL ={
 			});
 			
 			var vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),
-			vatAmount = parseFloat(total)*vat/100,
-			amount = total-vatAmount;
+			amount = parseFloat(total)*100/parseFloat(vat+100);
 			$(tr).find("input.amount").val(accounting.formatMoney(amount,UTIL.MONEY_STYLE));
 	},
 	/**
@@ -36,7 +35,7 @@ var FEE_TABLE_CONTROL ={
 	 */
 	init	: function(tableId){
 		$("#"+tableId).find("tr").each(function(){
-			FEE_TABLE_CONTROL.calculate_total($(this));
+//			FEE_TABLE_CONTROL.calculate_total($(this));
 			FEE_TABLE_CONTROL.addRowEvents($(this));
 		});
 		FEE_TABLE_CONTROL.addTableEvents(tableId);

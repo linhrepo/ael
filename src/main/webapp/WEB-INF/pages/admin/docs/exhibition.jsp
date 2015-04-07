@@ -170,7 +170,12 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.typeOfContainer"/>
-		        <form:select showElements="-1:consealContainer" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
+		        <c:if test="${exhibition.docsgeneral.doDelivery}">
+			        <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control selectReadOnly" items="${docsSelection.selections['typeOfContainers']}"/>
+			     </c:if>
+			     <c:if test="${!exhibition.docsgeneral.doDelivery}">
+			     <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
+			       </c:if>
 		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
 		    </div>
 		    
@@ -262,28 +267,28 @@
 		        <form:errors path="tkhqNo" cssClass="help-block"/>
 		    </div>
 		    
-		    <spring:bind path="exhibition.docsgeneral.contactDelivery">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
-				    </spring:bind>
-				        <appfuse:label styleClass="control-label" key="inland.contactDelivery"/>
-				        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"   cssClass="form-control"/>
-				        <form:errors path="docsgeneral.contactDelivery" cssClass="help-block"/>
-				    </div>
+<%-- 		    <spring:bind path="exhibition.docsgeneral.contactDelivery"> --%>
+<%-- 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3"> --%>
+<%-- 				    </spring:bind> --%>
+<%-- 				        <appfuse:label styleClass="control-label" key="inland.contactDelivery"/> --%>
+<%-- 				        <form:input path="docsgeneral.contactDelivery" id="contactDelivery"   cssClass="form-control"/> --%>
+<%-- 				        <form:errors path="docsgeneral.contactDelivery" cssClass="help-block"/> --%>
+<!-- 				    </div> -->
 				    
-				    <spring:bind path="exhibition.docsgeneral.infoInvoice">
-				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
-				    </spring:bind>
-				        <appfuse:label styleClass="control-label" key="inland.infoInvoice"/>
-				        <form:input path="docsgeneral.infoInvoice" id="infoInvoice"   cssClass="form-control"/>
-				        <form:errors path="docsgeneral.infoInvoice" cssClass="help-block"/>
-				    </div>
+<%-- 				    <spring:bind path="exhibition.docsgeneral.infoInvoice"> --%>
+<%-- 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3"> --%>
+<%-- 				    </spring:bind> --%>
+<%-- 				        <appfuse:label styleClass="control-label" key="inland.infoInvoice"/> --%>
+<%-- 				        <form:input path="docsgeneral.infoInvoice" id="infoInvoice"   cssClass="form-control"/> --%>
+<%-- 				        <form:errors path="docsgeneral.infoInvoice" cssClass="help-block"/> --%>
+<!-- 				    </div> -->
 	    </div>
 	     <hr>
 	    <div role="tabpanel">
 		  <!-- Nav tabs -->
 		  <ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="exhibition.tableDetail" /></a></li>
-		    <li role="presentation"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="exhibition.listContsealDetail" /></a></li>
+		    <li role="presentation" id="consealTab"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="exhibition.listContsealDetail" /></a></li>
 		    <li role="presentation"><a href="#fees" aria-controls="fees" role="tab" data-toggle="tab"><fmt:message key="exhibition.feeTables" /></a></li>
 		    <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab"><fmt:message key="docsgeneral.invoices" /></a></li>
 		  </ul>

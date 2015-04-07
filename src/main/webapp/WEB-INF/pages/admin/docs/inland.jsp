@@ -36,6 +36,10 @@
 		  <ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active" id="servicesTab"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><fmt:message key="inland.listContsealDetail" /></a></li>
 		    <li role="presentation"><a href="#contss" aria-controls="contss" role="tab" data-toggle="tab"><fmt:message key="inland.feeTables" /></a></li>
+		    <li role="presentation"><a href="#contTypes" id="contTypesTab" aria-controls="contTypes" role="tab" data-toggle="tab"><fmt:message key="inland.contTypesList" /></a></li>
+		    <c:if test="${inland.isInland == null || inland.isInland}">
+		    	<li role="presentation"><a href="#inlandSize" id="inlandSizeTab" aria-controls="inlandSize" role="tab" data-toggle="tab"><fmt:message key="inland.tableDetail" /></a></li>
+		    </c:if>
 		    <li role="presentation"><a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab"><fmt:message key="docsgeneral.invoices" /></a></li>
 		  </ul>
 		
@@ -44,6 +48,10 @@
 		    <div role="tabpanel" class="tab-pane active" id="services"><jsp:include page="fragment/inland/contsealTables.jsp"></jsp:include></div>
 		    <div role="tabpanel" class="tab-pane" id="contss"><jsp:include page="fragment/inland/feeTables.jsp"></jsp:include></div>
 		    <div role="tabpanel" class="tab-pane" id="invoices"><jsp:include page="fragment/inland/attachments.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="contTypes"><jsp:include page="fragment/inland/contTypes.jsp"></jsp:include></div>
+		    <c:if test="${inland.isInland == null || inland.isInland}">
+		    	<div role="tabpanel" class="tab-pane" id="inlandSize"><jsp:include page="fragment/inland/inlandSizes.jsp"></jsp:include></div>
+		    </c:if>
 		  </div>
 		</div>   	
 	    <br/>
@@ -56,8 +64,16 @@
 		  		</thead>
 		  		<tbody>
 		  			<tr style="text-align: center">
-		  				<td><form:checkbox path="docsgeneral.doDelivery" id="doDelivery" />
-		  				<form:hidden path="docsgeneral.doAccounting" /></td>
+		  				<td>
+		  				<c:if test="${inland.docsgeneral.doDelivery == true}">
+	  						<form:checkbox path="docsgeneral.doDelivery" id="doMoveMethod" disabled = "true"/>
+	  						<form:hidden path="docsgeneral.doDelivery" />
+	  					</c:if>
+	  					<c:if test="${empty inland.docsgeneral.doDelivery || inland.docsgeneral.doDelivery ==false}">
+	  						<form:checkbox path="docsgeneral.doDelivery" id="doDelivery" />
+	  					</c:if>
+		  				<form:hidden path="docsgeneral.doAccounting" />
+		  				</td>
 		  			</tr>
 		  		</tbody>
 			</table>
