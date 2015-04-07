@@ -89,9 +89,9 @@
     	var sum = 0;
     	$('#advanceformList  .advanceAmount').each(function()
     			{
-    		sum += parseFloat($(this).val());
+    		sum += parseFloat(accounting.unformat($(this).val()));
     			});
-    	$('#totalAdvance').val(sum);
+    	$('#totalAdvance').val(accounting.formatMoney(sum,UTIL.MONEY_STYLE));
     });
 
     </script>

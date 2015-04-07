@@ -172,6 +172,7 @@
 		        <appfuse:label styleClass="control-label" key="exhibition.typeOfContainer"/>
 		        <c:if test="${exhibition.docsgeneral.doDelivery}">
 			        <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control selectReadOnly" items="${docsSelection.selections['typeOfContainers']}"/>
+			        <form:hidden path="docsgeneral.typeOfContainer.id"/>
 			     </c:if>
 			     <c:if test="${!exhibition.docsgeneral.doDelivery}">
 			     <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>

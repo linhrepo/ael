@@ -103,11 +103,12 @@
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.typeOfContainer"/>
 		         <c:if test="${packageInfo.docsgeneral.doDelivery}">
-			        <form:select 
+			        <form:select disabled="disabled"
 			        showElements="-1:consealContainer,contsstab" 
 			        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  
 			        cssClass='form-control select2 selectReadOnly'
 			        items="${docsSelection.selections['typeOfContainers']}"/>
+			        <form:hidden path="docsgeneral.typeOfContainer.id"/>
 			     </c:if>
 			     <c:if test="${!packageInfo.docsgeneral.doDelivery}">
 			      <form:select 
