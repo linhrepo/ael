@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,12 +14,12 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jxls.exception.ParsePropertyException;
+import net.sf.jxls.transformer.XLSTransformer;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-
-import net.sf.jxls.exception.ParsePropertyException;
-import net.sf.jxls.transformer.XLSTransformer;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.persistence.entity.Accountingcus;
@@ -28,6 +30,9 @@ import com.vn.ael.persistence.entity.Extendfeeacc;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.entity.Packageinfo;
+import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.webapp.dto.AccountingTrans;
+import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
 import com.vn.ael.webapp.formatter.FormatterUtil;
@@ -165,6 +170,70 @@ public class ReportUtil {
 		beans.put("colourApplying", doc.getPackageinfo() != null ? doc.getPackageinfo().getColourApplying().getValue() : AELConst.EMPTY_STRING);
 		beans.put("po", doc.getPackageinfo() != null ? doc.getPackageinfo().getPo() : AELConst.EMPTY_STRING);
 		beans.put("PTVT", doc.getPTVT());
+		return beans;		
+	}
+	
+	/**
+	 * Prepare data for ACCOUNTING TRANSPORT report
+	 * @param offerPrice
+	 * @return
+	 */
+	public static Map<String,Object> prepareDataForAccountingTransport(AccountingTrans accountingTrans){
+		List<AccountingTransportExport> accountingTransExport	 = new ArrayList<>();
+		if (accountingTrans.getDocs()!=null) {
+			int i=0;
+			for (Docsgeneral doc : accountingTrans.getDocs()) {
+				AccountingTransportExport item = new AccountingTransportExport();
+				DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+				item.setJobNo(doc.getJobNo());
+				item.setDateDev(df.format(doc.getInland().getDateDevPack()));
+				item.setPlaceRev1(doc.getPlaceRev1());
+				item.setPlaceDelivery1(doc.getPlaceDelivery1());
+				item.setNoOf20Cont(doc.getNoOf20Cont());
+				item.setNoOf40Cont(doc.getNoOf40Cont());
+				item.setNoOfOthCont(doc.getOtCont());
+				item.setIsLCL(doc.getIsLCL()? "x":"");
+				String vehicle = "";
+				try {
+					for (Truckingdetail truckDetail : doc.getTruckingservice().getTruckingdetails()) {
+						vehicle+=" "+truckDetail.getVehicleNo();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					log.error("ERROR: WHEN LOAD VEHICLE NO: "+e.getMessage());
+				}
+				item.setVehicleNo(vehicle);
+				String noOfCont = "";
+				try {
+					for (Truckingdetail truckDetail : doc.getTruckingservice().getTruckingdetails()) {
+						noOfCont+=" "+truckDetail.getConsteal().getNoOfCont();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					log.error("ERROR: WHEN LOAD NO OF CONT: "+e.getMessage());
+				}
+				item.setNoOfCont(noOfCont);
+				item.setVolumn(doc.getCmbText());
+				item.setKg(doc.getWeigthText());
+				item.setPlacegetcont(doc.getPlaceEmptyUp());
+				item.setPlaceputcont(doc.getPlaceEmptyDown());
+				item.setChiho(doc.getChiho().toString());
+				item.setAccountingPrice(doc.getInland()!=null?doc.getInland().getAccountingPrice().toString():"");
+				item.setOtherfee(doc.getInland()!=null?doc.getInland().getOtherFees().toString():"");
+				
+				accountingTransExport.add(item);
+				}
+		}
+		
+		Map<String,Object> beans = new LinkedHashMap<>();
+		Customer cust = accountingTrans.getCustomer();
+		beans.put("custCode", cust.getCode());
+		beans.put("custName", cust.getName());
+		beans.put("custAddress", cust.getAddress());
+		beans.put("custTaxNo", cust.getTaxno());
+		beans.put("custPhone", cust.getTel());
+		beans.put("custFax", cust.getFax());
+		beans.put("accountingTrans", accountingTransExport);
 		return beans;
 	}
 }

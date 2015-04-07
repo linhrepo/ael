@@ -116,12 +116,6 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	}
 
 	public BigDecimal getTotal(){
-		if (this.amount == null){
-			return BigDecimal.ZERO;
-		}
-		if (this.vat == null){
-			return this.amount;
-		}
 		return this.total;
 	}
 	
