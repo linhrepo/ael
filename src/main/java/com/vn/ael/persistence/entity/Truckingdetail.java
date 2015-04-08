@@ -58,6 +58,13 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	private Date dateDev;
 	
 	private String deliveryPlace;
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal phuthu;
+	
+	private Integer noContractUp;
+	
+	private Integer noContractDown;
 
 	public Truckingdetail() {
 	}
@@ -140,6 +147,30 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setPhuthau2(Nhathau phuthau2) {
 		this.phuthau2 = phuthau2;
+	}
+
+	public BigDecimal getPhuthu() {
+		return phuthu;
+	}
+
+	public void setPhuthu(BigDecimal phuthu) {
+		this.phuthu = phuthu;
+	}
+
+	public Integer getNoContractUp() {
+		return noContractUp;
+	}
+
+	public void setNoContractUp(Integer noContractUp) {
+		this.noContractUp = noContractUp;
+	}
+
+	public Integer getNoContractDown() {
+		return noContractDown;
+	}
+
+	public void setNoContractDown(Integer noContractDown) {
+		this.noContractDown = noContractDown;
 	}
 	
 }

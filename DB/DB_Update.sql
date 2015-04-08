@@ -16,3 +16,9 @@ ALTER TABLE truckingdetail ADD FOREIGN KEY (phuthau2) REFERENCES nhathau(id);
 -----------PackageInfo
 ALTER TABLE packageinfo MODIFY COLUMN freeDemDate int;
 ALTER TABLE packageinfo MODIFY COLUMN freeDetDate int;
+
+-------------------Truckingdetail
+ALTER TABLE `ael`.`truckingdetail` 
+	ADD COLUMN `phuthu` decimal(20,2),
+	ADD COLUMN `noContractUp` int,
+	ADD COLUMN `noContractDown` int;

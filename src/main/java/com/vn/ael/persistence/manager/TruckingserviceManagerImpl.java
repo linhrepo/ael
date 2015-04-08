@@ -170,4 +170,19 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 		}
 		
 	}
+
+	@Override
+	public void saveTruckingdetail(List<Truckingdetail> truckingdetails) {	
+		if(truckingdetails != null && !truckingdetails.isEmpty()){
+			List<Truckingdetail> list = new ArrayList<>();
+			for (Truckingdetail truckingdetail : truckingdetails) {
+				Truckingdetail truckingdetail2 = truckingdetailRepository.findOne(truckingdetail.getId());
+				truckingdetail2.setPhuthu(truckingdetail.getPhuthu());
+				truckingdetail2.setNoContractUp(truckingdetail.getNoContractUp());
+				truckingdetail2.setNoContractDown(truckingdetail.getNoContractDown());
+				list.add(truckingdetail2);
+			}
+			truckingdetailRepository.save(list);
+		}		
+	}
 }

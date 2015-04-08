@@ -63,7 +63,7 @@ public class NhathauFormController extends BaseFormController {
         	saveMessage(request, getText("nhathau.error.wrongCustomer", locale));
         }
         mav.addObject("nhathau", nhathau);
-        mav.addObject("types",NhathauType.getLabelsMap());
+        mav.addObject("types",NhathauType.getLabelsMap());        
         return mav;
     }
  
