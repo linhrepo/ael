@@ -50,6 +50,7 @@
 			        <form:select 
 		         showElements="-2:refNo,inlandSizesContainer;-1:dateCutOff,dateExpired,contTypesListContainer,contsealListContainer,servicesTab,contTypesTab"
 		        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  autofocus="true" cssClass="form-control selectReadOnly" items="${docsSelection.selections['typeOfContainers']}"/>
+		        <form:hidden path="docsgeneral.typeOfContainer.id"/>
 			     </c:if>
 			     <c:if test="${!inland.docsgeneral.doDelivery}">
 			     <form:select 

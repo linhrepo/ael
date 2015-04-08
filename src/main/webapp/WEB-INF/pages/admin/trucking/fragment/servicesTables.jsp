@@ -23,7 +23,7 @@
 	<thead>
 		<tr>
 			<th><fmt:message key="table.no" /></th>
-			<c:if test="${not empty truckingservice.docsgeneral.contseals and truckingservice.docsgeneral.typeOfContainer.id == -1}">
+			<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1}">
 				<th><fmt:message key="truckingservice.contNo" /></th>
 				<th><fmt:message key="truckingservice.sealNo" /></th>
 			</c:if>
