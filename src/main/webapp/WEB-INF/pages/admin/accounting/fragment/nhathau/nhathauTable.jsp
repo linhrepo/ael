@@ -16,10 +16,7 @@
 			<th colspan="2" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th>			
 			<th rowspan="2"><fmt:message key="accountingnhathau.noidi" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.noiden" /></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.price" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.phuthu" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.tiennang" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.tienha" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.total" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.hdnang" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.hdha" /></th>
@@ -94,29 +91,15 @@
 				        ${truck.truckingservice.docsgeneral.truckingservice.arrival }
 				    </div>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.price"/>">
-					<div class="form-group">
-						<form:input path="truckingdetails[${idx.index}].truckingservice.docsgeneral.inland.accountingPrice"  maxlength="45" autofocus="true" cssClass="form-control money amount" />
-					</div>
-				</td>
 				<td data-title="<fmt:message key="accountingnhathau.phuthu"/>">
 					<div class="form-group">
 						<form:input path="truckingdetails[${idx.index}].phuthu"  maxlength="45" autofocus="true" cssClass="form-control money" />
 					</div>
 				</td>
-				<td data-title="<fmt:message key="accountingnhathau.tiennang" />">
-					<div class="form-group">
-						<input maxlength="45" autofocus="true" class="form-control" readonly="true"/>
-				    </div>
-				</td>
-				<td data-title="<fmt:message key="accountingnhathau.tienha" />">
-					<div class="form-group">
-						<input maxlength="45" autofocus="true" class="form-control" readonly="true"/>
-				    </div>
-				</td>
+				
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
 					<div class="form-group">
-						<input maxlength="45" autofocus="true" class="form-control total" readonly="true"/>
+						<form:input path="truckingdetails[${idx.index}].total" class="form-control total" readonly="true"/>
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.hdnang" />">

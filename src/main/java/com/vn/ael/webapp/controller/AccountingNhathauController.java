@@ -115,6 +115,7 @@ public class AccountingNhathauController extends BaseFormController{
         Locale locale = request.getLocale();
 //        startDate=04%2F08%2F2015&endDate=04%2F09%2F2015
         truckingserviceManager.saveTruckingdetail(accountingTrans.getTruckingdetails());
+        
         String key = "accountingnhathau.updated";
         saveMessage(request, getText(key, locale));
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
