@@ -22,6 +22,7 @@
 	width="100%">
 	<thead>
 		<tr>
+			<th style="max-width:10px;"><fmt:message key="trucking.tooglefeeTables" /></th>
 			<th><fmt:message key="table.no" /></th>
 			<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1}">
 				<th><fmt:message key="truckingservice.contNo" /></th>
@@ -51,7 +52,12 @@
 	<tbody class="parent">
 		<c:forEach items="${truckingservice.truckingdetails}"
 			var="detail" varStatus="idx">
-			<tr class="parent ${detail.isAdded == true ? 'hidden' :''} ">
+			<tr class="parent ${detail.isAdded == true ? 'hidden' :''} " >
+				<td>
+					<button class="btn-link toogle" type="button" data-toggle="collapse" data-target="#child${idx.index}" aria-expanded="false" aria-controls="collapseExample">
+						<i class="fa fa-money"></i>
+					</button>
+				</td>
 				<td colType="index" data-title="<fmt:message key="table.no"/>">${idx.index+1}</td>
 				<td colType="generalInfo" class="hidden">
 					<form:hidden path="truckingdetails[${idx.index}].id" /> 
@@ -61,7 +67,7 @@
 								path="truckingdetails[${idx.index}].isDeleted"
 								valueType="deleted" />
 				</td>
-					<c:if test="${not empty truckingservice.docsgeneral.contseals && truckingservice.docsgeneral.typeOfContainer.id == -1 }">
+					<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1 }">
 						<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.contNo"/>">
 						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						 <form:input path="truckingdetails[${idx.index}].consteal.noOfCont" id="contseal${idx.index}" autofocus="true" cssClass="form-control selectOwner" disabled="true"/> 
@@ -190,13 +196,9 @@
 							</td>
 						</c:if>
 			</tr>
-			<tr colType="detail" class="${detail.isAdded == true ? 'hidden' :''}">
-				<td>
-					<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#child${idx.index}" aria-expanded="false" aria-controls="collapseExample">
-					  <fmt:message key="trucking.tooglefeeTables" />
-					</button>
-				</td>
-				<td colspan="10">
+			<tr colType="detail" class="${detail.isAdded == true ? 'hidden' :''}" >
+				
+				<td colspan="12" style="border-top:none;">
 <!-- 				DETAIL -->
 <div class="in" id="child${idx.index}">		
 
@@ -401,6 +403,7 @@ $(document).ready(function(){
 	$("#detailsList").bind("afterAddRow",function(e,row){
 		addEventForContseal(row);
 	});
+	$("button.toogle").click();
 });
 </script>
 

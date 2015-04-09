@@ -124,7 +124,7 @@
 				  	<form:input path="docsgeneral.placeRev1" id="placeRev1" maxlength="45" autofocus="true" cssClass="form-control" disabled="true"/>
 				</div>
 		    </c:if>
-		    <div class="form-group col-md-6 has-warning">
+		    <div class="form-group col-md-12 has-warning">
 		        <appfuse:label styleClass="control-label" key="packageInfo.note"/>
 		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control" disabled="true"/>
 		        <form:errors path="docsgeneral.note" cssClass="help-block"/>
