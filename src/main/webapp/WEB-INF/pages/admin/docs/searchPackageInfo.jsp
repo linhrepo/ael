@@ -13,7 +13,7 @@
 					key="packageInfo.customerCode" />
 				<form:select path="customer" id="customercode"
 					cssClass="form-control select2">
-					<form:option value="">None</form:option>
+					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<c:forEach items="${docsSelection.customers}" var="cust">
 						<form:option value="${cust.id}">${cust.code}</form:option>
 					</c:forEach>
@@ -24,7 +24,7 @@
 					key="configuration.typeOfImport" />
 				<form:select path="typeOfImport" id="typeOfImport"
 					cssClass="form-control select2">
-					<form:option value="">None</form:option>
+					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<c:forEach var="entry" items="${docsSelection.selections['importTypes']}">
 						<form:option value="${entry.key}">${entry.value}</form:option>
 					</c:forEach>
@@ -35,7 +35,7 @@
 					key="packageInfo.typeOfContainer" />
 				<form:select path="typeOfContainer"
 					id="typeOfContainer" cssClass="form-control select2">
-					<form:option value="">None</form:option>
+					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<c:forEach var="entry" items="${docsSelection.selections['typeOfContainers']}">
 						<form:option value="${entry.key}">${entry.value}</form:option>
 					</c:forEach>
@@ -46,7 +46,7 @@
 					key="packageInfo.doRelease" />
 				<form:select path="doRelease" id="doRelease"
 					cssClass="form-control select2">
-					<form:option value="">None</form:option>
+					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<c:forEach var="entry" items="${enumStatus}">
 						<form:option value="${entry}">${entry}</form:option>
 					</c:forEach>
@@ -57,7 +57,7 @@
 					key="packageInfo.doMoveMethod" />
 				<form:select path="doDelivery" id="doMoveMethod"
 					cssClass="form-control select2">
-					<form:option value="">None</form:option>
+					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<c:forEach var="entry" items="${enumStatus}">
 						<form:option value="${entry}">${entry}</form:option>
 					</c:forEach>

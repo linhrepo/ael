@@ -157,7 +157,7 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_NHATHAU_LIST)
     public ModelAndView handleNhathauRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute("nhathauList", nhathauManager.findByType(NhathauType.NHATHAU));
+        model.addAttribute("nhathauList", nhathauManager.getAll());
         model.addAttribute("conditions",new AccountingTransCondition());
         return new ModelAndView(URLReference.ACCOUNTING_NHATHAU_LIST, model.asMap());
     }

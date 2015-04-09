@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.NumberFormat;
 
@@ -58,6 +59,16 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	private Date dateDev;
 	
 	private String deliveryPlace;
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal phuthu;
+	
+	private Integer noContractUp;
+	
+	private Integer noContractDown;
+	
+	@Transient
+	private BigDecimal total;	
 
 	public Truckingdetail() {
 	}
@@ -140,6 +151,49 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setPhuthau2(Nhathau phuthau2) {
 		this.phuthau2 = phuthau2;
+	}
+
+	public BigDecimal getPhuthu() {
+		return phuthu;
+	}
+
+	public void setPhuthu(BigDecimal phuthu) {
+		this.phuthu = phuthu;
+	}
+
+	public Integer getNoContractUp() {
+		return noContractUp;
+	}
+
+	public void setNoContractUp(Integer noContractUp) {
+		this.noContractUp = noContractUp;
+	}
+
+	public Integer getNoContractDown() {
+		return noContractDown;
+	}
+
+	public void setNoContractDown(Integer noContractDown) {
+		this.noContractDown = noContractDown;
+	}
+
+	public BigDecimal getTotal() {
+		this.total = BigDecimal.ZERO;
+		if(this.phuthu != null){
+			this.total = this.total.add(this.phuthu);
+		}		
+		if(this.exfeetables != null && !this.exfeetables.isEmpty()){
+			for (Exfeetable exfeetable : this.exfeetables) {
+				if(exfeetable.getTotal() != null){
+					this.total = this.total.add(exfeetable.getTotal());
+				}				
+			}
+		}
+		return this.total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 	
 }
