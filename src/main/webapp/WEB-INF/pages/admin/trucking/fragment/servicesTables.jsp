@@ -17,14 +17,14 @@
 			        <form:errors path="arrival" cssClass="help-block"/>
 			    </div> --%>
 	</div> 
-<table id="detailsList${truckingservice.docsgeneral.typeOfContainer.id}"
+<table id="detailsList"
 	class="display table table-condensed inFormTableDetail no-more-tables" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
 			<th style="max-width:10px;"><fmt:message key="trucking.tooglefeeTables" /></th>
 			<th><fmt:message key="table.no" /></th>
-			<c:if test="${not empty truckingservice.docsgeneral.contseals && truckingservice.docsgeneral.typeOfContainer.id == -1}">
+			<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1}">
 				<th><fmt:message key="truckingservice.contNo" /></th>
 				<th><fmt:message key="truckingservice.sealNo" /></th>
 			</c:if>			

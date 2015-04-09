@@ -66,4 +66,8 @@
 		        <appfuse:label styleClass="control-label" key="accountingcus.PTVT"/>
 		        <form:input path="docsgeneral.PTVT" id="PTVT" maxlength="45" autofocus="true" cssClass="form-control" disabled="true"/>
 		    </div>
+		    <div class="form-group col-md-9 has-warning">
+		        <appfuse:label styleClass="control-label" key="packageInfo.note"/>
+		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control" disabled="true"/>
+		    </div>
 	    </div>
