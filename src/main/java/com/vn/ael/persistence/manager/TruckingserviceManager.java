@@ -1,6 +1,9 @@
 package com.vn.ael.persistence.manager;
 
+import java.util.List;
+
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 
 public interface TruckingserviceManager extends GenericManager<Truckingservice> {
@@ -29,5 +32,7 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	 * @param truckingservice
 	 */
 	public void checkToDeleteChilds(Truckingservice truckingservice);
+	
+	public void saveTruckingdetail(List<Truckingdetail> truckingdetails);
 	
 }
