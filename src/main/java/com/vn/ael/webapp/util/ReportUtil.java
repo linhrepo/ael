@@ -195,10 +195,12 @@ public class ReportUtil {
 	
 	/**
 	 * Prepare data for ACCOUNTING TRANSPORT report
+	 * @param year 
+	 * @param month 
 	 * @param offerPrice
 	 * @return
 	 */
-	public static Map<String,Object> prepareDataForAccountingTransport(AccountingTrans accountingTrans){
+	public static Map<String,Object> prepareDataForAccountingTransport(AccountingTrans accountingTrans, String month, String year){
 		List<AccountingTransportExport> accountingTransExport	 = new ArrayList<>();
 		if (accountingTrans.getDocs()!=null) {
 			int i=0;
@@ -255,6 +257,8 @@ public class ReportUtil {
 		beans.put("custPhone", cust.getTel());
 		beans.put("custFax", cust.getFax());
 		beans.put("accountingTrans", accountingTransExport);
+		beans.put("month", month);
+		beans.put("year", year);
 		return beans;
 	}
 
