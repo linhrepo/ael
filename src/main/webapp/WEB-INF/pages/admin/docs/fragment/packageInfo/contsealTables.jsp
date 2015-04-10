@@ -41,7 +41,7 @@
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="10">
 						</spring:bind> <form:select
 							path="docsgeneral.contseals[${idx.index}].typeOfCont.id"
-							id="typeOfCont${idx.index}" 
+							id="typeOfCont${idx.index}" empty-on-add="false"
 							cssClass="form-control"
 							items="${docsSelection.selections['typeOfContainerConts']}" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].typeOfCont.id"

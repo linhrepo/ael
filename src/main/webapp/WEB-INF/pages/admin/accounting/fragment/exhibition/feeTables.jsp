@@ -48,7 +48,7 @@
 						path="exhibition.exfeetables[${idx.index}].masterFee.id">
 						<div addUrl="/admin/config/constant" type="25"
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					</spring:bind> <form:select
+					</spring:bind> <form:select empty-on-add="false"
 						path="exfeetables[${idx.index}].masterFee.id"
 						id="masterFee${idx.index}" autofocus="true"
 						cssClass="form-control masterFee"
@@ -60,8 +60,8 @@
 						path="exhibition.exfeetables[${idx.index}].name.id">
 						<div addUrl="/admin/config/constant" type="26"
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					</spring:bind> <form:select path="exfeetables[${idx.index}].name.id"
-						id="name${idx.index}" autofocus="true" cssClass="form-control"
+					</spring:bind> <form:select path="exfeetables[${idx.index}].name.id" 
+						id="name${idx.index}" autofocus="true" cssClass="form-control" empty-on-add="false"
 						items="${docsSelection.selections['exhFeeNamesReport']}" /> <form:errors
 						path="exfeetables[${idx.index}].name.id"
 						cssClass="help-block" />
@@ -89,7 +89,7 @@
 				<td>
 					<form:input path="exfeetables[${idx.index}].total"
 						id="total${idx.index}" maxlength="45" autofocus="true" 
-						cssClass="form-control total readonly" disabled="true" readonly="true"/>
+						cssClass="form-control total money" />
 				</td>
 				<td rowType="actions"><span class="iconButton removeRow"
 					title="<fmt:message key='table.buttonEditTitle'/>"> <i
