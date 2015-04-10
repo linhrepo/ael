@@ -206,7 +206,8 @@ public class ReportUtil {
 				AccountingTransportExport item = new AccountingTransportExport();
 				DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 				item.setJobNo(doc.getJobNo());
-				item.setDateDev(df.format(doc.getInland().getDateDevPack()));
+				//TODO: find correct dat
+//				item.setDateDev(df.format(doc.getInland().getDateDevPack()));
 				item.setPlaceRev1(doc.getPlaceRev1());
 				item.setPlaceDelivery1(doc.getPlaceDelivery1());
 				item.setNoOf20Cont(doc.getNoOf20Cont());
@@ -238,7 +239,7 @@ public class ReportUtil {
 				item.setPlacegetcont(doc.getPlaceEmptyUp());
 				item.setPlaceputcont(doc.getPlaceEmptyDown());
 				item.setChiho(doc.getChiho().toString());
-				item.setAccountingPrice(doc.getInland()!=null?doc.getInland().getAccountingPrice().toString():"");
+//				item.setAccountingPrice(doc.getInland()!=null?doc.getInland().getAccountingPrice().toString():"");
 				item.setOtherfee(doc.getInland()!=null?doc.getInland().getOtherFees().toString():"");
 				
 				accountingTransExport.add(item);

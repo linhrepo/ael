@@ -1,6 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 			<div class="row">
-			<form:hidden path="id"/>
+			<form:hidden path="docsgeneral.id"/>
 		    <div class="form-group col-md-3">
 		        <appfuse:label styleClass="control-label" key="accountingExh.companyName"/>
 		        <form:input path="docsgeneral.customer.name"  maxlength="45"  cssClass="form-control" disabled="true"/>
