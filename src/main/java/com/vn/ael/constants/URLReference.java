@@ -78,4 +78,6 @@ public interface URLReference {
 	String EXHIBITION_SEARCH = "/admin/docs/searchExhibition";
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
+	
+	String AJAX_REPORT_ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition/download";
 }

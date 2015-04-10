@@ -1,6 +1,9 @@
 package com.vn.ael.webapp.controller;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,18 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
+import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Exhibition;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExhibitionManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
-@RequestMapping(URLReference.ACCOUNTING_EXHIBITION)
+/*@RequestMapping(URLReference.ACCOUNTING_EXHIBITION)*/
 public class AccountingExhibitionController extends BaseFormController {
 
 	private NhathauManager nhathauManager;
@@ -53,7 +59,7 @@ public class AccountingExhibitionController extends BaseFormController {
         setSuccessView("redirect:"+URLReference.ACCOUNTING_EXHIBITION_LIST);
     }
  
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_EXHIBITION)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         String id = request.getParameter("id");
@@ -71,7 +77,7 @@ public class AccountingExhibitionController extends BaseFormController {
         return mav;
     }
  
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_EXHIBITION)
     public String onSubmit(Exhibition exhibition, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {
@@ -108,6 +114,15 @@ public class AccountingExhibitionController extends BaseFormController {
  
         return success;
     }
-
+    
+    @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_EXHIBITION)
+    public void doDownload(HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+    	String id = request.getParameter("id");
+        Exhibition exhibition = null;
+        exhibition = exhibitionManager.findReportObjects(id);
+        List<Configuration> masterFee = configurationManager.getAllByType(ConfigurationType.EXH_MASTER_FEE_REPORT, Boolean.TRUE);
+        ReportUtil.dispatchExhibitionReport(response, ReportTeamplates.ACCOUNTING_EXHIBITION_ITEMS, ReportTeamplates.ACCOUNTING_EXHIBITION_ITEMS_TEMPLATE, exhibition,masterFee);
+    }
 }
 
