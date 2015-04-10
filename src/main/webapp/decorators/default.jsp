@@ -24,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<c:url value='/'/>"><img alt="" src="<c:url value="/images/icons/main.png"/>"><fmt:message key="webapp.name"/></a>
+            <a class="navbar-brand" href="<c:url value='/'/>"><img alt="" src="<c:url value="/images/icons/main.png"/>" style="margin-right:3px;"><fmt:message key="webapp.name"/></a>
         </div>
 
         <%@ include file="/common/menu.jsp" %>
