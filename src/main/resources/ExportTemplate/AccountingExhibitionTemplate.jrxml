@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AccountingExhibitionTemplate" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d046657-c4e1-43b8-8350-5bbf9ddb6f49">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="27"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="e2acafd0-582d-4ae4-b923-12f755ae3d34">
 		<field name="fee" class="com.vn.ael.webapp.dto.AccountingExhibitionItemExport">
 			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
@@ -27,12 +27,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="555" height="52" uuid="0d0b32e9-9e25-4033-a162-8ce103e6c072"/>
-				<imageExpression><![CDATA["C:\\Users\\hiendn1992\\Pictures\\head.JPG"]]></imageExpression>
-			</image>
-		</band>
+		<band height="79" splitType="Stretch"/>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
@@ -51,8 +46,11 @@
 				<reportElement x="0" y="0" width="218" height="20" uuid="4b4468ef-2f87-4889-b0eb-e5bb714a19d0"/>
 				<textFieldExpression><![CDATA[$P{companyName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="20" width="100" height="20" uuid="4274726d-ed89-4c47-9a09-6bc13283aa40"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="20" width="218" height="20" uuid="4274726d-ed89-4c47-9a09-6bc13283aa40"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -154,10 +152,6 @@
 				<reportElement x="64" y="140" width="100" height="20" uuid="7b7965e4-9473-4cff-b574-8c6d0d4eccc1"/>
 				<textFieldExpression><![CDATA[$P{weight}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="38" y="2" width="100" height="20" uuid="bd27960d-3390-4768-81cd-723ca3012144"/>
-				<text><![CDATA[type]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -177,7 +171,7 @@
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<textFieldExpression>$F{fee}.getDescription()</textFieldExpression>
+							<textFieldExpression><![CDATA[$F{fee}.getDescription()]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement x="400" y="0" width="100" height="20" uuid="44b04ad1-ec40-4bf1-a5be-b7b374123eeb"/>
@@ -187,12 +181,19 @@
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<textFieldExpression>$F{fee}.getAmount()</textFieldExpression>
+							<textFieldExpression><![CDATA[$F{fee}.getAmount()]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
-			
+			<staticText>
+				<reportElement x="18" y="11" width="100" height="20" uuid="7c9e101a-b149-43c7-afa1-f60b4adc23b0"/>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="11" width="100" height="20" uuid="f09ad769-0a80-49e0-80f1-743bf3fda821"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
