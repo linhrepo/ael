@@ -31,7 +31,7 @@
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="0">
 					</spring:bind> <form:select
 						path="docsgeneral.docservices[${idx.index}].nameOfServices.id"
-						id="nameOfServices${idx.index}" autofocus="true"
+						id="nameOfServices${idx.index}"  empty-on-add="false"
 						cssClass="form-control"
 						items="${docsSelection.selections['services']}" /> <form:errors
 						path="docsgeneral.docservices[${idx.index}].nameOfServices.id"
@@ -43,7 +43,7 @@
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].regDate"
 						data-provide="datepicker" id="regDate${idx.index}"
-						autofocus="true" cssClass="form-control" /> <form:errors
+						 cssClass="form-control" /> <form:errors
 						path="docsgeneral.docservices[${idx.index}].regDate"
 						cssClass="help-block" />
 					</div></td>
@@ -52,7 +52,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].regNo"
-						id="regNo${idx.index}" autofocus="true" cssClass="form-control" />
+						id="regNo${idx.index}"  cssClass="form-control" />
 					<form:errors path="docsgeneral.docservices[${idx.index}].regNo"
 						cssClass="help-block" />
 					</div></td>
@@ -61,7 +61,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].typeCO"
-						id="typeCO${idx.index}" autofocus="true" cssClass="form-control" />
+						id="typeCO${idx.index}"  cssClass="form-control" />
 					<form:errors path="docsgeneral.docservices[${idx.index}].typeCO"
 						cssClass="help-block" />
 					</div></td>
@@ -71,7 +71,7 @@
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].getDate"
 						data-provide="datepicker" id="getDate${idx.index}"
-						autofocus="true" cssClass="form-control" /> <form:errors
+						 cssClass="form-control" /> <form:errors
 						path="docsgeneral.docservices[${idx.index}].getDate"
 						cssClass="help-block" />
 					</div></td>
@@ -81,7 +81,7 @@
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].revDate"
 						data-provide="datepicker" id="regDate${idx.index}"
-						autofocus="true" cssClass="form-control" /> <form:errors
+						 cssClass="form-control" /> <form:errors
 						path="docsgeneral.docservices[${idx.index}].revDate"
 						cssClass="help-block" />
 					</div></td>

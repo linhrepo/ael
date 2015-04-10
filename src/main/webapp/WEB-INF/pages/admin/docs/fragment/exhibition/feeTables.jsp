@@ -53,7 +53,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="21">
 					</spring:bind> <form:select
-						path="docsgeneral.exfeetables[${idx.index}].masterFee.id"
+						path="docsgeneral.exfeetables[${idx.index}].masterFee.id" empty-on-add="false"
 						id="masterFee${idx.index}" autofocus="true"
 						cssClass="form-control masterFee"
 						items="${docsSelection.selections['exhmasterFees']}" /> <form:errors
@@ -65,7 +65,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="19">
 					</spring:bind> <form:select path="docsgeneral.exfeetables[${idx.index}].name.id"
-						id="name${idx.index}" autofocus="true" cssClass="form-control"
+						id="name${idx.index}" autofocus="true" cssClass="form-control" empty-on-add="false"
 						items="${docsSelection.selections['exhFeeNames']}" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].name.id"
 						cssClass="help-block" />

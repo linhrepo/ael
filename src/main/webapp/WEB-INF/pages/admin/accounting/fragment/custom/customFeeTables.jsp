@@ -41,6 +41,7 @@
 							path="accountingcusdetails[${idx.index}].name.id"
 							id="description${idx.index}" 
 							items="${selections['debitfees']}"
+							empty-on-add="false"
 							cssClass="form-control"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].name.id"
@@ -54,6 +55,7 @@
 					<form:select
 							path="accountingcusdetails[${idx.index}].description.id"
 							id="description${idx.index}" 
+							empty-on-add="false"
 							items="${selections['debitfeesDes']}"
 							cssClass="form-control"/> 
 					<form:errors
