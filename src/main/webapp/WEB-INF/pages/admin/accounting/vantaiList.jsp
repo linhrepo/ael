@@ -5,7 +5,7 @@
     <meta name="menu" content="AccountingMenu"/>
 </head>
 
-<div class="col-sm-12">
+<div class="col-sm-10">
     <h2><fmt:message key="accountingTrans.heading"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form  method="get" action="vantai" id="accountingvantaiForm" class="well">

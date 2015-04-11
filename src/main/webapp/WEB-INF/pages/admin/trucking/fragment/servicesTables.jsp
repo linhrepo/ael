@@ -315,8 +315,7 @@
 <div class="row">
 	<div class="col-md-10"></div>
 	<div class="col-md-2">
-		<span class="btn btn-primary" target-table="childTable${idx.index}"> <i
-			class="icon-ok"></i> +</span>
+		<span class="btn btn-primary" target-table="childTable${idx.index}"> <i class="fa fa-plus"></i> </span>
 	</div>
 </div>
 
@@ -346,8 +345,7 @@
 <c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 <div class="row">
 	<div class="col-md-10">
-	<span class="btn btn-primary" target-table="detailsList"> <i
-			class="icon-ok"></i> <fmt:message key="button.add" /></span>
+	<span class="btn btn-primary" target-table="detailsList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
 	</div>
 	<div class="col-md-2">
 		

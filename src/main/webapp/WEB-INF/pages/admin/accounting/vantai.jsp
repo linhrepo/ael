@@ -2,6 +2,7 @@
 <head>
     <title><fmt:message key="accountingnhathau.title"/></title>
     <meta name="menu" content="AccountingMenu"/>
+    <meta name="child" content="true"/>
 </head>
  <c:set var="delObject" scope="request"><fmt:message key="accountingnhathau.title"/></c:set>
 <script type="text/javascript">var msgDelConfirm =
