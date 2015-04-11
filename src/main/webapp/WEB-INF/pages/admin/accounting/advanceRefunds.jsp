@@ -2,11 +2,10 @@
 
 <head>
     <title><fmt:message key="advanceList.title"/></title>
-    <meta name="menu" content=Home/>
+    <meta name="menu" content="AccountingMenu"/>
 </head>
 
-<div class="col-sm-12">
-    <h2></h2>
+<div class="col-sm-10">
     <!-- Nav tabs -->
 		  <ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><fmt:message key="advanceList.heading"/></a></li>
@@ -18,6 +17,5 @@
 		    <div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="fragment/advanceForms.jsp"></jsp:include></div>
 		    <div role="tabpanel" class="tab-pane" id="settings"><jsp:include page="fragment/refunds.jsp"></jsp:include></div>
 		  </div>
-		</div>
 </div>
 

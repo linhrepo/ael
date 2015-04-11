@@ -9,7 +9,7 @@
     <h2><fmt:message key="offerPriceList.heading"/></h2>
     <div id="actions" class="btn-group">
         <a class="btn btn-default" href="<c:url value='/home'/>">
-            <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+            <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>
     </div>
     <table id="offerPriceList" class="display nestedDatatable" cellspacing="0" width="100%"
     	childDetailURL="/admin/sales/offerItemList/list" 

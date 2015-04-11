@@ -76,13 +76,13 @@
     </table>
     <c:if test="${empty offerPrice.isValid or offerPrice.isValid==false}">
 	    <div class="row">
-		    	<div class="col-md-10"></div>
-		    	<div class="col-md-2">
+		    	<div class="col-md-8"></div>
+		    	<div class="col-md-4">
 		    		<span class="btn btn-primary" target-table="offerItemList">
-			            <i class="icon-ok"></i> <fmt:message key="button.add"/></span>
+			            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></span>
 			         <c:if test="${not empty offerPrice.id}">
 						<a class="btn btn-success" href="download?id=${offerPrice.id}">
-							<i class="icon-ok icon-white"></i>
+							<i class="fa fa-print"></i>
 							<fmt:message key="export.sales.offer" />
 						</a>
 					</c:if>

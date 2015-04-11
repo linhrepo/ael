@@ -22,3 +22,7 @@ ALTER TABLE `ael`.`truckingdetail`
 	ADD COLUMN `phuthu` decimal(20,2),
 	ADD COLUMN `noContractUp` int,
 	ADD COLUMN `noContractDown` int;
+
+-------------------Package info
+ALTER TABLE `ael`.`packageinfo` 
+ADD COLUMN `contNo` VARCHAR(100) NULL AFTER `bookingNo`;

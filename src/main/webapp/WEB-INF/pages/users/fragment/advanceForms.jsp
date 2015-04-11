@@ -3,9 +3,9 @@
 <div class="col-sm-12">
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='advanceForm'/>">
-            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+            <i class="fa fa-plus"></i><fmt:message key="button.add"/></a>
         <a class="btn btn-default" href="<c:url value='/home'/>">
-            <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+            <i class="fa fa-sign-out"></i><fmt:message key="button.done"/></a>
     </div>
     <table id="advanceformList" class="display datatable" cellspacing="0" width="100%" >
         <thead>

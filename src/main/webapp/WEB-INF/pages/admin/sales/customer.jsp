@@ -102,15 +102,15 @@
 	</div>
     <div class="form-group form-actions">
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
-            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+            <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
         </button>
         <c:if test="${not empty customer.id}">
           <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
-              <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
           </button>
         </c:if>
         <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
-            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+            <i class="fa fa-sign-out"></i> <fmt:message key="button.cancel"/>
         </button>
     </div>
     </form:form>
@@ -119,7 +119,7 @@
     	 <hr>
       	<div id="actions" class="btn-group">
 	        <a class="btn btn-primary" href="<c:url value='offerPrice?customerId=${customer.id}'/>">
-	            <i class="icon-ok"></i> <fmt:message key="button.addOffer"/></a>
+	            <i class="fa fa-plus"></i> <fmt:message key="button.addOffer"/></a>
     	</div>
     	<table id="offerPriceList" class="display nestedDatatable" cellspacing="0" width="100%"
     	childDetailURL="/admin/sales/offerItemList/list" 

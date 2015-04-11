@@ -52,23 +52,23 @@
     <div class="form-group form-actions">
     		<c:if test="${offerPrice.isValid != true}">
 		        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
-		            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+		            <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 		        </button>
 	        </c:if>
 	        <c:if test="${offerPrice.isValid == true}">
 	        	<security:authorize ifAnyGranted="ROLE_ADMIN"> 
 	        		<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
-		           	 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+		           	 <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 		        	</button>
 	        	</security:authorize>
 	        </c:if>
 	        <c:if test="${not empty offerPrice.id && offerPrice.isValid != true}">
 	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
-	              <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+	              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
 	          </button>
 	        </c:if>
         <a type="submit" class="btn btn-default" name="cancel" href="customer?id=${offerPrice.customer.id }">
-            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+            <i class="fa fa-sign-out"></i> <fmt:message key="button.cancel"/>
         </a>
     </div>
     </form:form>

@@ -5,7 +5,7 @@
     <meta name="menu" content="AccountingMenu"/>
 </head>
 
-<div class="col-sm-12">
+<div class="col-sm-10">
     <h2><fmt:message key="accounting.heading"/></h2>
     <table id="truckingList" class="display datatable" cellspacing="0" width="100%" >
         <thead>
