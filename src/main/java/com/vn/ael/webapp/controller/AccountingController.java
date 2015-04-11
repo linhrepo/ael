@@ -161,5 +161,14 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("conditions",new AccountingTransCondition());
         return new ModelAndView(URLReference.ACCOUNTING_NHATHAU_LIST, model.asMap());
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_VANTAI_LIST)
+    public ModelAndView handleVantaiRequest() throws Exception {
+        Model model = new ExtendedModelMap();
+        model.addAttribute("vantaiList", ServicesType.getUsageMapVT());
+        model.addAttribute("conditions",new AccountingTransCondition());
+        return new ModelAndView(URLReference.ACCOUNTING_VANTAI_LIST, model.asMap());
+    }
 }
+
 
