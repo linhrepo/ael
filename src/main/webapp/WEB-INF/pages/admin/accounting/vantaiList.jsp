@@ -5,7 +5,7 @@
     <meta name="menu" content="AccountingMenu"/>
 </head>
 
-<div class="col-sm-12">
+<div class="col-sm-10">
     <h2><fmt:message key="accountingTrans.heading"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form  method="get" action="vantai" id="accountingvantaiForm" class="well">
@@ -41,7 +41,10 @@
     </div>
      <hr>
     <div class="form-group form-actions">
-        <input type="submit" class="btn btn-primary" value="<fmt:message key="button.search"/>"/>
+        <button class="btn btn-primary">
+    	<i class="fa fa-search"></i> <fmt:message key="button.search"/>
+    	<input type="submit" style="display: none;"/>
+    	</button>
     </div>
     </form>
 </div>

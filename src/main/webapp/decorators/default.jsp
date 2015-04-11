@@ -16,6 +16,7 @@
 </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
     <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
+    <c:set var="isChild" scope="request"><decorator:getProperty property="meta.child"/></c:set>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
@@ -47,10 +48,34 @@
                 </menu:useMenuDisplayer>
                 </div>
             </c:if>
+            
+            <c:if test="${currentMenu == 'AccountingMenu' && isChild != 'true'}">
+                <div class="col-sm-2">
+                <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
+                    <menu:displayMenu name="AccountingMenu"/>
+                </menu:useMenuDisplayer>
+                </div>
+            </c:if>
+            
+            <c:if test="${currentMenu == 'DocsMenu' && isChild != 'true'}">
+                <div class="col-sm-2">
+                <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
+                    <menu:displayMenu name="DocsMenu"/>
+                </menu:useMenuDisplayer>
+                </div>
+            </c:if>
+            
+             <c:if test="${currentMenu == 'TrackingMenu' && isChild != 'true'}">
+                <div class="col-sm-2">
+                <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
+                    <menu:displayMenu name="TrackingMenu"/>
+                </menu:useMenuDisplayer>
+                </div>
+            </c:if>
         </div>
     </div>
 
-    <div id="footer" class="container navbar-fixed-bottom">
+    <div id="footer" class="navbar-fixed-bottom">
         <span class="col-sm-6 text-left"><fmt:message key="webapp.version"/>
             <c:if test="${pageContext.request.remoteUser != null}">
             | <fmt:message key="user.status"/> ${pageContext.request.remoteUser}

@@ -2,10 +2,10 @@
 
 <head>
     <title><fmt:message key="feeTablesacc.title"/></title>
-    <meta name="menu" content="feeTablesaccMenu"/>
+    <meta name="menu" content="AccountingMenu"/>
 </head>
 
-<div class="col-sm-12">
+<div class="col-sm-10">
     <h2><fmt:message key="feeTablesacc.heading"/></h2>
     <table id="truckingList" class="display nestedDatatable" cellspacing="0" width="100%" 
     	childDetailURL="/admin/accounting/feesDetail" 

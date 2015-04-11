@@ -4,14 +4,14 @@
     <meta name="menu" content="TrackingMenu"/>
 </head>
 
-<div class="col-sm-12">
+<div class="col-sm-10">
     <h2><fmt:message key="nhathau.heading"/></h2>
  	<div id="actions" class="btn-group">
         <a class="btn btn-primary" href="<c:url value='nhathauForm?method=Add&from=list'/>">
-            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>
 
         <a class="btn btn-default" href="<c:url value='/home'/>">
-            <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+            <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>
     </div>
     <table id="constants" class="display datatable" cellspacing="0" width="100%">
         <thead>

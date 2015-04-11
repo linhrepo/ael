@@ -71,7 +71,7 @@
 		    	<div class="col-md-10"></div>
 		    	<div class="col-md-2">
 		    		<span class="btn btn-primary" target-table="refundList">
-			            <i class="icon-ok"></i> <fmt:message key="button.add"/></span>
+			            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></span>
 		    	</div>
 	    </div>
     </c:if>

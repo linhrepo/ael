@@ -18,25 +18,25 @@
     	 <div class="form-group form-actions">
     		<c:if test="${advanceform.doApproval != true}">
 		        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
-		            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+		            <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 		        </button>
 	        </c:if>
 	        <c:if test="${advanceform.doApproval == true}">
 	        	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
 	        		<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
-		           	 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+		           	 <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 		        	</button>
 		        	<a class="btn btn-success">
-		           	 <i class="icon-ok icon-white"></i> <fmt:message key="advanceform.printPayment"/>
+		           	 <i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
 		        	</a>
 	        	</security:authorize>
 	        	<a class="btn btn-success">
-		           	 <i class="icon-ok icon-white"></i> <fmt:message key="advanceform.printAdvance"/>
+		           	 <i class="fa fa-print"></i> <fmt:message key="advanceform.printAdvance"/>
 		        	</a>
 	        </c:if>
 	        <c:if test="${not empty advanceform.id && advanceform.doApproval != true}">
 	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
-	              <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+	               <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
 	          </button>
 	        </c:if>
     	</div>

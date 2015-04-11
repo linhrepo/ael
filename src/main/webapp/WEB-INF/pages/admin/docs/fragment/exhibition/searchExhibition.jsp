@@ -6,9 +6,9 @@
 </head>
 <div class="col-sm-12">
 	<form:form commandName="search" method="post"
-		action="searchInland" id="packageInfoForm" cssClass="well">
+		action="searchExhibition" id="exhibitionForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.customerCode" />
 				<form:select path="customer" id="customercode"
@@ -19,9 +19,20 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="packageInfo.typeOfContainer" />
+					key="configuration.typeOfImport" />
+				<form:select path="typeOfImport" id="typeOfImport"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach var="entry" items="${docsSelection.selections['importTypes']}">
+						<form:option value="${entry.key}">${entry.value}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="exhibition.typeOfContainer" />
 				<form:select path="typeOfContainer"
 					id="typeOfContainer" cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
@@ -30,10 +41,9 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="inland.doDelivery" />
+					key="exhibition.doTruck" />
 				<form:select path="doDelivery" id="doMoveMethod"
 					cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
@@ -43,15 +53,9 @@
 				</form:select>
 			</div>
 			<div class="form-group col-md-2">
-				<button type="submit" class="btn btn-primary">Search</button>
+				<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
 
 		</div>
 	</form:form>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		/* $('select').prepend('<option val="0">None</option>'); */
-	});
-	
-</script>

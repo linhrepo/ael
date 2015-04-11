@@ -27,6 +27,8 @@ public class Packageinfo extends DocsEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String billOfLading;
+	
+	private String contNo;
 
 	@ManyToOne
 	@JoinColumn(name = "colourApplying")
@@ -399,6 +401,14 @@ public class Packageinfo extends DocsEntity implements Serializable {
 
 	public void setBookingNo(String bookingNo) {
 		this.bookingNo = bookingNo;
+	}
+
+	public String getContNo() {
+		return contNo;
+	}
+
+	public void setContNo(String contNo) {
+		this.contNo = contNo;
 	}
 
 }
