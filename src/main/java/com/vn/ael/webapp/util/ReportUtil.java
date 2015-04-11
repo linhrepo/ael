@@ -2,11 +2,15 @@ package com.vn.ael.webapp.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +18,17 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.type.WhenNoDataTypeEnum;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jxls.exception.ParsePropertyException;
 import net.sf.jxls.transformer.XLSTransformer;
 
@@ -24,16 +39,21 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
+import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.Exhibition;
 import com.vn.ael.persistence.entity.Extendfeeacc;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.entity.Packageinfo;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
+import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
 import com.vn.ael.webapp.formatter.FormatterUtil;
 
@@ -175,10 +195,12 @@ public class ReportUtil {
 	
 	/**
 	 * Prepare data for ACCOUNTING TRANSPORT report
+	 * @param year 
+	 * @param month 
 	 * @param offerPrice
 	 * @return
 	 */
-	public static Map<String,Object> prepareDataForAccountingTransport(AccountingTrans accountingTrans){
+	public static Map<String,Object> prepareDataForAccountingTransport(AccountingTrans accountingTrans, String month, String year){
 		List<AccountingTransportExport> accountingTransExport	 = new ArrayList<>();
 		if (accountingTrans.getDocs()!=null) {
 			int i=0;
@@ -186,7 +208,8 @@ public class ReportUtil {
 				AccountingTransportExport item = new AccountingTransportExport();
 				DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 				item.setJobNo(doc.getJobNo());
-				item.setDateDev(df.format(doc.getInland().getDateDevPack()));
+				//TODO: find correct dat
+//				item.setDateDev(df.format(doc.getInland().getDateDevPack()));
 				item.setPlaceRev1(doc.getPlaceRev1());
 				item.setPlaceDelivery1(doc.getPlaceDelivery1());
 				item.setNoOf20Cont(doc.getNoOf20Cont());
@@ -218,7 +241,7 @@ public class ReportUtil {
 				item.setPlacegetcont(doc.getPlaceEmptyUp());
 				item.setPlaceputcont(doc.getPlaceEmptyDown());
 				item.setChiho(doc.getChiho().toString());
-				item.setAccountingPrice(doc.getInland()!=null?doc.getInland().getAccountingPrice().toString():"");
+//				item.setAccountingPrice(doc.getInland()!=null?doc.getInland().getAccountingPrice().toString():"");
 				item.setOtherfee(doc.getInland()!=null?doc.getInland().getOtherFees().toString():"");
 				
 				accountingTransExport.add(item);
@@ -234,6 +257,92 @@ public class ReportUtil {
 		beans.put("custPhone", cust.getTel());
 		beans.put("custFax", cust.getFax());
 		beans.put("accountingTrans", accountingTransExport);
+		beans.put("month", month);
+		beans.put("year", year);
 		return beans;
+	}
+
+	public static void dispatchExhibitionReport(HttpServletResponse response,
+			String accountingExhibitionItems,
+			String accountingExhibitionItemsTemplate, Exhibition exhibition, List<Configuration> masterFee) {
+		response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename="+accountingExhibitionItems);
+        ServletOutputStream out =null;
+		try {
+			out = response.getOutputStream();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		JasperReport report = null;
+		FileInputStream template = null ;
+		try {
+			/*template = new FileInputStream("resources/reportTemplate.jrxml");*/
+			ClassLoader classLoader = ReportUtil.class.getClassLoader();
+			File file = new File(classLoader.getResource(accountingExhibitionItemsTemplate).getFile());
+			template = new FileInputStream(file);
+			} catch(FileNotFoundException e) {
+			System.out.println("File could not be found on filesystem");
+			} catch(IOException ioe) {
+			System.out.println("Exception while reading the file" + ioe);
+			}
+		JasperDesign design = null;
+		try {
+		design = JRXmlLoader.load(template);
+		} catch (JRException e) {
+		e.printStackTrace();
+		}
+		// compile the report from the stream
+		try {
+			report = JasperCompileManager.compileReport(design);
+			report.setWhenNoDataType(WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL);
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			log.error(e.getMessage());
+		}
+		try {
+			Customer cust= exhibition.getDocsgeneral().getCustomer();
+			parameterMap.put("companyName", cust!=null? cust.getName():AELConst.EMPTY_STRING);
+			parameterMap.put("address", cust!=null? cust.getAddress():AELConst.EMPTY_STRING);
+			parameterMap.put("fax", cust!=null? cust.getFax():AELConst.EMPTY_STRING);
+			parameterMap.put("tel", cust!=null? cust.getTel():AELConst.EMPTY_STRING);
+			parameterMap.put("attn",exhibition.getAttn() );
+			parameterMap.put("exhibitor",exhibition.getExhibitor() );
+			parameterMap.put("exName", exhibition.getExName());
+			parameterMap.put("from_to", exhibition.getExhPlace());
+			parameterMap.put("cmb", exhibition.getDocsgeneral()!=null?exhibition.getDocsgeneral().getCmbText():AELConst.EMPTY_STRING);
+			parameterMap.put("weight", exhibition.getDocsgeneral()!=null?exhibition.getDocsgeneral().getNoOfPkgs().toString()+"/"+exhibition.getDocsgeneral().getWeigthText().toString():AELConst.EMPTY_STRING);
+			parameterMap.put("invoiceNo", exhibition.getDocsgeneral()!=null?exhibition.getDocsgeneral().getJobNo():AELConst.EMPTY_STRING);
+			parameterMap.put("accountNo", exhibition.getAccountNo());
+			parameterMap.put("mode", AELConst.EMPTY_STRING);
+			
+			JasperPrint print = JasperFillManager.fillReport(report, parameterMap, getDataSource(exhibition.getExfeetables(),masterFee));
+			if (out!=null) {
+				JasperExportManager.exportReportToPdfStream(print,out);
+			}			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log.error(e.getMessage());
+		}			
+		if (!exhibition.getExfeetables().isEmpty()) {
+			
+		}		
+	}
+	//Get datasource for export accounting exhibition
+	private static JRDataSource getDataSource(List<Exfeetable> fees, List<Configuration> masterFee) {
+	    Collection<ExhibitionFeetable> coll = new ArrayList<ExhibitionFeetable>();
+	    for (Configuration master : masterFee) {
+	    	List<AccountingExhibitionItemExport> tmpEx = new ArrayList<AccountingExhibitionItemExport>();
+	    	for (Exfeetable fee : fees) {
+				if (fee.getMasterFee().getId().toString().equals(master.getId().toString())) {
+					AccountingExhibitionItemExport item = new AccountingExhibitionItemExport(fee.getName().getValue(), "", fee.getTotal()!=null?fee.getTotal().toString():"");
+					tmpEx.add(item);
+				}
+			}
+	    	ExhibitionFeetable bean = new ExhibitionFeetable(tmpEx, master.getValue());
+	    	coll.add(bean);
+		}
+	    return new JRBeanCollectionDataSource(coll);
 	}
 }

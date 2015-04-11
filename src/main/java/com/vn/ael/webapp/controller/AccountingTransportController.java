@@ -159,7 +159,7 @@ public class AccountingTransportController extends BaseFormController {
         accountingTrans.setCondition(accountingTransCondition);
         accountingTrans.setDocs(docs);
        if (accountingTrans!=null) {
-    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans));
+    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans,month,year));
 	}
     }
 }

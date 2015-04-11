@@ -36,3 +36,4 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	public void saveTruckingdetail(List<Truckingdetail> truckingdetails);
 	
 }
+

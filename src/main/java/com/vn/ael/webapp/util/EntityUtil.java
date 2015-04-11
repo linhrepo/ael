@@ -196,6 +196,12 @@ public class EntityUtil {
 			}
 			accountingcus.setAccountingcusdetails(items);
 		}
+		
+		if (accountingcus.getExtendfeeaccs() != null && !accountingcus.getExtendfeeaccs().isEmpty()){
+			for (Extendfeeacc extendfeeacc: accountingcus.getExtendfeeaccs()){
+					extendfeeacc.setAccountingcus(accountingcus);
+			}
+		}
 	}
 	
 

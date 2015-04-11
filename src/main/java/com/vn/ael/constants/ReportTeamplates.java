@@ -12,4 +12,7 @@ public interface ReportTeamplates {
 	
 	String ACCOUNTING_TRANSPORT_ITEMS = "BangKeCuocVanChuyen.xlsx";
 	String ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE = "ExportTemplate/BangKeCuocVanChuyenTemplate.xlsx";
+	
+	String ACCOUNTING_EXHIBITION_ITEMS = "AccountingExhibition.pdf";
+	String ACCOUNTING_EXHIBITION_ITEMS_TEMPLATE = "ExportTemplate/AccountingExhibitionTemplate.jrxml";
 }

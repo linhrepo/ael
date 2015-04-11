@@ -115,7 +115,7 @@ public class AccountingCustomController extends BaseFormController {
         Locale locale = request.getLocale();
  
         if (request.getParameter("delete") != null) {
-        	success = "redirect:"+URLReference.ACCOUNTING_CUSTOM;
+        	success = "redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST;
             accountingcusManager.remove(accountingcus.getId());
             saveMessage(request, getText("accountingcus.deleted", locale));
         } else {
