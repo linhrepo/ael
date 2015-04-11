@@ -37,6 +37,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.ReportTeamplates;
+import com.vn.ael.constants.URLReference;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Configuration;
@@ -170,11 +172,14 @@ public class ReportUtil {
 				
 			}
 		}
+		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 		Map<String,Object> beans = new LinkedHashMap<>();
 		beans.put("customFee", customFee);
 		beans.put("fee", fee);
+		beans.put("updateDate", accountingcus.getLastUpdateDate()!=null?df.format(accountingcus.getLastUpdateDate()):AELConst.EMPTY_STRING);		
 		Customer cust = accountingcus.getDocsgeneral().getCustomer();
 		Docsgeneral doc = accountingcus.getDocsgeneral();
+		beans.put("refNo", accountingcus.getRefNo());
 		beans.put("custName", cust.getName());
 		beans.put("custAddress", cust.getAddress());
 		beans.put("custTaxNo", cust.getTaxno());
@@ -277,10 +282,12 @@ public class ReportUtil {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		JasperReport report = null;
 		FileInputStream template = null ;
+		File logo = null;
 		try {
 			/*template = new FileInputStream("resources/reportTemplate.jrxml");*/
 			ClassLoader classLoader = ReportUtil.class.getClassLoader();
 			File file = new File(classLoader.getResource(accountingExhibitionItemsTemplate).getFile());
+			logo = new File(classLoader.getResource(ReportTeamplates.ACCOUNTING_EXHIBITION_ITEMS_AEL_LOGO).getFile());
 			template = new FileInputStream(file);
 			} catch(FileNotFoundException e) {
 			System.out.println("File could not be found on filesystem");
@@ -316,6 +323,16 @@ public class ReportUtil {
 			parameterMap.put("invoiceNo", exhibition.getDocsgeneral()!=null?exhibition.getDocsgeneral().getJobNo():AELConst.EMPTY_STRING);
 			parameterMap.put("accountNo", exhibition.getAccountNo());
 			parameterMap.put("mode", AELConst.EMPTY_STRING);
+			parameterMap.put("logo", logo!=null?logo.getAbsolutePath():AELConst.EMPTY_STRING);
+			
+			//Calculate total
+			double grandTotal = 0;
+			if (!exhibition.getExfeetables().isEmpty()) {
+				for (Exfeetable fee  : exhibition.getExfeetables()) {
+					grandTotal += fee.getTotal()!=null?fee.getTotal().doubleValue():0;
+				}
+			}
+			parameterMap.put("grandTotal",Double.toString(grandTotal));
 			
 			JasperPrint print = JasperFillManager.fillReport(report, parameterMap, getDataSource(exhibition.getExfeetables(),masterFee));
 			if (out!=null) {
@@ -336,12 +353,15 @@ public class ReportUtil {
 	    	List<AccountingExhibitionItemExport> tmpEx = new ArrayList<AccountingExhibitionItemExport>();
 	    	for (Exfeetable fee : fees) {
 				if (fee.getMasterFee().getId().toString().equals(master.getId().toString())) {
-					AccountingExhibitionItemExport item = new AccountingExhibitionItemExport(fee.getName().getValue(), "", fee.getTotal()!=null?fee.getTotal().toString():"");
+					AccountingExhibitionItemExport item = new AccountingExhibitionItemExport(fee.getName().getValue(), "", fee.getTotal()!=null?fee.getTotal().toString():"0");
 					tmpEx.add(item);
 				}
 			}
-	    	ExhibitionFeetable bean = new ExhibitionFeetable(tmpEx, master.getValue());
-	    	coll.add(bean);
+	    	if (!tmpEx.isEmpty()) {
+	    		ExhibitionFeetable bean = new ExhibitionFeetable(tmpEx, master.getValue());
+		    	coll.add(bean);
+			}
+	    	
 		}
 	    return new JRBeanCollectionDataSource(coll);
 	}

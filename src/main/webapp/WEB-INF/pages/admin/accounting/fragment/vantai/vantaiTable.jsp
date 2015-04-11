@@ -1,50 +1,46 @@
 <%@ include file="/common/taglibs.jsp"%>
+<hr>
 <table id="detailsList"
 	class="display table table-condensed no-more-tables feeTable" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
-			<th rowspan="2" style="max-width:10px;"><fmt:message key="trucking.tooglefeeTables" /></th>
 			<th rowspan="2"><fmt:message key="table.no" /></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.dateDev"/></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.jobNo" /></th>
-			<th rowspan="2"><fmt:message key="customer.title" /></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.contNo" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.hangnhapxuat"/></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.placegetcont" /></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.placeputcont" /></th>
-			<th colspan="2" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th>			
-			<th rowspan="2"><fmt:message key="accountingnhathau.noidi" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.noiden" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.phuthu" /></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.total" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.hdnang" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.hdha" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.customer" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.jobNo" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.ngaynhanlenh" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.closetime" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.ngaythuchien"/></th>
+			
+			<th rowspan="2"><fmt:message key="accountingvantai.noidi" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.noiden" /></th>
+			<th rowspan="2"><fmt:message key="accountingnhathau.lcl"/></th>
+			<th colspan="2" class="centerText"><fmt:message key="accountingvantai.typeOfContainer"/></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.tencont"/></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.nhathau" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.thanhtoannangha" /></th>
+			<th rowspan="2"><fmt:message key="accountingvantai.ghichu" /></th>
+
 		</tr>
 		<tr>
-			<th class="numberCol"><fmt:message key="accountingtrans.20"/></th>
-			<th class="numberCol"><fmt:message key="accountingtrans.40"/></th>
+			<th class="numberCol"><fmt:message key="accountingvantai.20"/></th>
+			<th class="numberCol"><fmt:message key="accountingvantai.40"/></th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${accountingNhathau.truckingdetails}" var="truck" varStatus="idx">
+		<c:forEach items="${accountingVantai.truckingdetails}" var="truck" varStatus="idx">
 			<tr>
-				<td>
-					<button class="btn-link toogle" type="button" data-toggle="collapse" data-target="#child${idx.index}" aria-expanded="false" aria-controls="collapseExample">
-						<i class="fa fa-money"></i>
-					</button>
-				</td>
 				<td colType="index" data-title="<fmt:message key="table.no" />">${idx.index+1}</td>
 				<td class="hidden">
 					<form:hidden path="truckingdetails[${idx.index}].id"/>
 					<form:hidden path="truckingdetails[${idx.index}].truckingservice.id"/>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.dateDev" />">
+				<td data-title="<fmt:message key="accountingvantai.dateDev" />">
 					<div class="form-group">
-					<fmt:formatDate value="${truck.dateDev}" pattern="dd/MM/yyyy"/>
+					<fmt:formatDate value="${truck.truckingservice.docsgeneral.docReceiveDate}" pattern="dd/MM/yyyy"/>
 				    </div>
 				</td>
-				 <td data-title="<fmt:message key="accountingtrans.jobNo" />">
+				 <td data-title="<fmt:message key="accountingvantai.jobNo" />">
 					<div class="form-group">
 				        ${truck.truckingservice.docsgeneral.jobNo}
 				    </div>
@@ -54,7 +50,7 @@
 				        ${truck.truckingservice.docsgeneral.customer.name }
 				    </div>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.contNo"/>">
+				<td data-title="<fmt:message key="accountingvantai.contNo"/>">
 					<div class="form-group">
 							${truck.consteal.noOfCont}
 					</div>
@@ -64,23 +60,23 @@
 				        ${truck.truckingservice.docsgeneral.typeOfImport.value }
 				    </div>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
+				<td data-title="<fmt:message key="accountingvantai.placegetcont"/>">
 					<div class="form-group">
 						${truck.truckingservice.docsgeneral.placeEmptyUp}
 					</div>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
+				<td data-title="<fmt:message key="accountingvantai.placeputcont"/>">
 					<div class="form-group">
-						 ${truck.truckingservice.docsgeneral.placeEmptyDown}
+						${truck.truckingservice.docsgeneral.placeEmptyDown}
 					</div>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
+				<td data-title="<fmt:message key="accountingvantai.typeOfContainer"/>:<fmt:message key="accountingvantai.20"/>">
 					<div class="form-group">
 						${truck.truckingservice.docsgeneral.noOf20Cont}
 					</div>
 					<form:hidden path="truckingdetails[${idx.index}].truckingservice.docsgeneral.noOf20Cont"/>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.40"/>">
+				<td data-title="<fmt:message key="accountingvantai.typeOfContainer"/>:<fmt:message key="accountingvantai.40"/>">
 					<div class="form-group">
 						${truck.truckingservice.docsgeneral.noOf40Cont}
 					</div>
@@ -88,13 +84,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noidi" />">
 					<div class="form-group">
-				        ${truck.truckingservice.departure }
+				        ${truck.truckingservice.docsgeneral.truckingservice.departure }
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noiden" />">
 					<div class="form-group">
-				        ${truck.truckingservice.arrival }
-
+				        ${truck.truckingservice.docsgeneral.truckingservice.arrival }
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.phuthu"/>">
@@ -103,7 +98,7 @@
 					</div>
 				</td>
 				
-				<td data-title="<fmt:message key="accountingtrans.total"/>">
+				<td data-title="<fmt:message key="accountingvantai.total"/>">
 					<div class="form-group">
 						<form:input path="truckingdetails[${idx.index}].total" class="form-control total" readonly="true"/>
 					</div>
@@ -120,7 +115,14 @@
 				</td>
 			</tr>
 			<tr colType="truck" class="${truck.isAdded == true ? 'hidden' :''}">
-				<td colspan="16" style="border-top:none;">
+				<td>
+					<button class="btn btn-default" type="button"
+						data-toggle="collapse" data-target="#child${idx.index}"
+						aria-expanded="false" aria-controls="collapseExample">
+						<fmt:message key="trucking.tooglefeeTables" />
+					</button>
+				</td>
+				<td colspan="15">
 					<!-- 				DETAIL -->
 					<div class="in" id="child${idx.index}">
 
@@ -138,7 +140,7 @@
 						</ul>
 
 						<!-- Tab panes -->
-						<div class="tab-content">
+						<%-- <div class="tab-content">
 							<div role="tabpanel" class="tab-pane active"
 								id="home${idx.index}">
 								<h3>
@@ -252,10 +254,8 @@
 									</tbody>
 								</table>
 							</div>
-						</div>
+						</div> --%>
 					</div>
-
-
 				</td>
 			</tr>
 		</c:forEach>
@@ -269,6 +269,5 @@
 			FEE_TABLE_CONTROL.init($(this).attr("id"));
 		});
 		$('select').attr("disabled", "disabled");
-		$("button.toogle").click();
 	});
 </script>
