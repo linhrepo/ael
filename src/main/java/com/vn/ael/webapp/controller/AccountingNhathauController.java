@@ -1,14 +1,14 @@
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.ehcache.config.PersistenceConfiguration.Strategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +23,7 @@ import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
+import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
@@ -36,6 +37,8 @@ public class AccountingNhathauController extends BaseFormController{
 	private TruckingserviceManager truckingserviceManager;
 	
 	private TruckingdetailRepository truckingdetailRepository;
+	
+	private ExfeetableRepository exfeetableRepository;
 
     public AccountingNhathauController() {
     	setCancelView("redirect:"+URLReference.ACCOUNTING_NHATHAU_LIST);
@@ -58,6 +61,11 @@ public class AccountingNhathauController extends BaseFormController{
 			TruckingserviceManager truckingserviceManager) {
 		this.truckingserviceManager = truckingserviceManager;
 	}
+        
+    @Autowired
+	public void setExfeetableRepository(ExfeetableRepository exfeetableRepository) {
+		this.exfeetableRepository = exfeetableRepository;
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
     protected ModelAndView showForm(HttpServletRequest request)
@@ -75,12 +83,34 @@ public class AccountingNhathauController extends BaseFormController{
         
         
         //Set up command
+        List<Truckingdetail> truckdetails = new ArrayList<>();
+        List<Exfeetable> exfeetables = new ArrayList<>();
         List<Truckingdetail> truckingdetails = this.truckingdetailRepository.findAllByConditionDateTime(new Date(startDate), new Date(endDate), new Long(nhathauId));
+        if(truckingdetails != null && !truckingdetails.isEmpty()){        	
+        	for (Truckingdetail truckingdetail : truckingdetails) {
+        		BigDecimal total = BigDecimal.ZERO;
+        		//set phuthu into fee
+        		if(truckingdetail.getPhuthu() != null){
+        			total = total.add(truckingdetail.getPhuthu());
+        		}
+        		exfeetables = exfeetableRepository.findByTruckingdetail(truckingdetail);
+        		if(exfeetables != null && !exfeetables.isEmpty()){
+        			for (Exfeetable exfeetable : exfeetables) {
+        				if(exfeetable.getTotal() != null){
+        					total = total.add(exfeetable.getTotal());
+        				}
+					}
+        		}
+        		truckingdetail.setTotal(total);
+        		truckingdetail.setExfeetables(exfeetables);
+        		truckdetails.add(truckingdetail);
+			}
+        }
         
         AccountingTrans accountingTrans = new AccountingTrans();
         accountingTrans.setNhathau(nhathauManager.find(nhathauId));
         accountingTrans.setCondition(accountingTransCondition);
-        accountingTrans.setTruckingdetails(truckingdetails);
+        accountingTrans.setTruckingdetails(truckdetails);
         
         mav.addObject("accountingNhathau", accountingTrans);
         for (Truckingdetail truckingdetail : truckingdetails) {

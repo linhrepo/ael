@@ -20,7 +20,11 @@
 	    <form:hidden path="condition.nhathauId"/>
 	    <form:hidden path="condition.startDate"/>
 	    <form:hidden path="condition.endDate"/>
-	    <jsp:include page="fragment/nhathau/nhathauTable.jsp"></jsp:include>
+	    
+	    <div class="container-fluid">
+    		<jsp:include page="fragment/nhathau/generalInput.jsp"></jsp:include>
+    		<jsp:include page="fragment/nhathau/nhathauTable.jsp"></jsp:include>
+    	</div>
 	    <div class="form-group form-actions">
 	        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 	            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>

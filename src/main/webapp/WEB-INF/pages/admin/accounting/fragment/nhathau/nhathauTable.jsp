@@ -36,7 +36,7 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.dateDev" />">
 					<div class="form-group">
-					<fmt:formatDate value="${truck.truckingservice.docsgeneral.docReceiveDate}" pattern="dd/MM/yyyy"/>
+					<fmt:formatDate value="${truck.dateDev}" pattern="dd/MM/yyyy"/>
 				    </div>
 				</td>
 				 <td data-title="<fmt:message key="accountingtrans.jobNo" />">
@@ -61,12 +61,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.placeEmptyUp}
+						${truck.truckingservice.docsgeneral.placeDelivery}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.placeEmptyDown}
+						${truck.truckingservice.docsgeneral.placeRev}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
@@ -83,12 +83,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noidi" />">
 					<div class="form-group">
-				        ${truck.truckingservice.docsgeneral.truckingservice.departure }
+				        ${truck.truckingservice.departure }
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noiden" />">
 					<div class="form-group">
-				        ${truck.truckingservice.docsgeneral.truckingservice.arrival }
+				        ${truck.truckingservice.arrival }
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.phuthu"/>">

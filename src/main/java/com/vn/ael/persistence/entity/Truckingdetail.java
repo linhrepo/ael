@@ -178,17 +178,17 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	}
 
 	public BigDecimal getTotal() {
-		this.total = BigDecimal.ZERO;
-		if(this.phuthu != null){
-			this.total = this.total.add(this.phuthu);
-		}		
-		if(this.exfeetables != null && !this.exfeetables.isEmpty()){
-			for (Exfeetable exfeetable : this.exfeetables) {
-				if(exfeetable.getTotal() != null){
-					this.total = this.total.add(exfeetable.getTotal());
-				}				
-			}
-		}
+//		this.total = BigDecimal.ZERO;
+//		if(this.phuthu != null){
+//			this.total = this.total.add(this.phuthu);
+//		}		
+//		if(this.exfeetables != null && !this.exfeetables.isEmpty()){
+//			for (Exfeetable exfeetable : this.exfeetables) {
+//				if(exfeetable.getTotal() != null){
+//					this.total = this.total.add(exfeetable.getTotal());
+//				}				
+//			}
+//		}
 		return this.total;
 	}
 

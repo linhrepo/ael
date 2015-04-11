@@ -73,6 +73,16 @@ public enum ServicesType {
 		}
 		return null;
 	}
+	
+	public static Map<Integer, String> getUsageMapVT(){
+		Map<Integer, String> map = new LinkedHashMap<>();
+		for (ServicesType servicesType : ServicesType.values()){
+			if (servicesType.getValue() == 0 || servicesType.getValue() == 2 || servicesType.getValue() == 4 || servicesType.getValue() == 5){
+				map.put(servicesType.getValue(), servicesType.getTextKey());
+			}
+		}
+		return map;
+	}
 
 	public String getDebit() {
 		return debit;
