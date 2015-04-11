@@ -30,7 +30,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].noOfCont"
-							id="noOfCont${idx.index}" maxlength="45" autofocus="true"
+							id="noOfCont${idx.index}" maxlength="45" 
 							cssClass="form-control cont" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].noOfCont"
 							cssClass="help-block" />
@@ -41,7 +41,7 @@
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="10">
 						</spring:bind> <form:select
 							path="docsgeneral.contseals[${idx.index}].typeOfCont.id"
-							id="typeOfCont${idx.index}" autofocus="true"
+							id="typeOfCont${idx.index}" empty-on-add="false"
 							cssClass="form-control"
 							items="${docsSelection.selections['typeOfContainerConts']}" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].typeOfCont.id"
@@ -52,7 +52,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].noSeal"
-							id="noSeal${idx.index}" maxlength="45" autofocus="true"
+							id="noSeal${idx.index}" maxlength="45" 
 							cssClass="form-control seal" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].noSeal"
 							cssClass="help-block" />
@@ -62,7 +62,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].noOfPKGS"
-							id="noOfPKGS${idx.index}" maxlength="45" autofocus="true"
+							id="noOfPKGS${idx.index}" maxlength="45" 
 							cssClass="form-control number" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].noOfPKGS"
 							cssClass="help-block" />
@@ -72,7 +72,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].weight"
-							id="weight${idx.index}" maxlength="45" autofocus="true"
+							id="weight${idx.index}" maxlength="45" 
 							cssClass="form-control money" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].weight"
 							cssClass="help-block" />

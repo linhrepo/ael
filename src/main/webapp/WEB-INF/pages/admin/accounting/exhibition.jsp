@@ -15,6 +15,10 @@
     	<jsp:include page="fragment/exhibition/feeTables.jsp"></jsp:include>
 	</div>
     <div class="form-group form-actions">
+    <a class="btn btn-success" href="exhibition/download?id=${exhibition.id}">
+							<i class="icon-ok icon-white"></i>
+							<fmt:message key="export.accounting.custom" />
+						</a>
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
             <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
         </button>

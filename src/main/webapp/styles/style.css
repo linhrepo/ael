@@ -443,3 +443,10 @@ td[colType="index"], td[colType="childControl"]{
 	text-align: center;
 }
 
+button.collapsed, button.collapsed:focus{
+	opacity:0.5;
+}
+
+.table .table{
+	background-color : transparent;
+}

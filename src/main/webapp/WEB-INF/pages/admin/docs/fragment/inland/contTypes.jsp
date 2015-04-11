@@ -28,7 +28,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="10">
 						</spring:bind> <form:select path="docsgeneral.contTypes[${idx.index}].type.id"
-							id="type${idx.index}" autofocus="true" cssClass="form-control"
+							id="type${idx.index}" autofocus="true" cssClass="form-control" empty-on-add="false"
 							items="${docsSelection.selections['typeOfContainerConts']}" /> <form:errors
 							path="docsgeneral.contTypes[${idx.index}].type.id"
 							cssClass="help-block" />

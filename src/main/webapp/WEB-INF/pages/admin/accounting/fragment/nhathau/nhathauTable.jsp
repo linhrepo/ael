@@ -1,10 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
-<hr>
 <table id="detailsList"
 	class="display table table-condensed no-more-tables feeTable" cellspacing="0"
 	width="100%">
 	<thead>
 		<tr>
+			<th rowspan="2" style="max-width:10px;"><fmt:message key="trucking.tooglefeeTables" /></th>
 			<th rowspan="2"><fmt:message key="table.no" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.dateDev"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.jobNo" /></th>
@@ -29,6 +29,11 @@
 	<tbody>
 		<c:forEach items="${accountingNhathau.truckingdetails}" var="truck" varStatus="idx">
 			<tr>
+				<td>
+					<button class="btn-link toogle" type="button" data-toggle="collapse" data-target="#child${idx.index}" aria-expanded="false" aria-controls="collapseExample">
+						<i class="fa fa-money"></i>
+					</button>
+				</td>
 				<td colType="index" data-title="<fmt:message key="table.no" />">${idx.index+1}</td>
 				<td class="hidden">
 					<form:hidden path="truckingdetails[${idx.index}].id"/>
@@ -61,12 +66,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.placeDelivery}
+						${truck.truckingservice.docsgeneral.truckingservice.departure }
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.placeRev}
+						 ${truck.truckingservice.docsgeneral.truckingservice.arrival}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
@@ -89,6 +94,7 @@
 				<td data-title="<fmt:message key="accountingnhathau.noiden" />">
 					<div class="form-group">
 				        ${truck.truckingservice.arrival }
+
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.phuthu"/>">
@@ -114,14 +120,7 @@
 				</td>
 			</tr>
 			<tr colType="truck" class="${truck.isAdded == true ? 'hidden' :''}">
-				<td>
-					<button class="btn btn-default" type="button"
-						data-toggle="collapse" data-target="#child${idx.index}"
-						aria-expanded="false" aria-controls="collapseExample">
-						<fmt:message key="trucking.tooglefeeTables" />
-					</button>
-				</td>
-				<td colspan="15">
+				<td colspan="16" style="border-top:none;">
 					<!-- 				DETAIL -->
 					<div class="in" id="child${idx.index}">
 
@@ -270,5 +269,6 @@
 			FEE_TABLE_CONTROL.init($(this).attr("id"));
 		});
 		$('select').attr("disabled", "disabled");
+		$("button.toogle").click();
 	});
 </script>

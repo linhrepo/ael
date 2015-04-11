@@ -76,7 +76,7 @@
     			//reload last tr component
     			lastDetail = $(table).find('tr[colType="detail"]').last();
     			//change toogle button target
-    			$(lastDetail).find("button[data-toggle='collapse']").attr("data-target","#child"+newIndex);
+    			$(lastDetail).prev().find("button[data-toggle='collapse']").attr("data-target","#child"+newIndex);
     			//change collapse index
     			$(lastDetail).find(".collapse").attr("id","child"+newIndex);
     			$(lastDetail).find(".in").attr("id","child"+newIndex);

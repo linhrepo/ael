@@ -54,8 +54,8 @@
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:select
 						path="docsgeneral.exfeetables[${idx.index}].masterFee.id"
-						id="masterFee${idx.index}" autofocus="true"
-						cssClass="form-control masterFee"
+						id="masterFee${idx.index}" 
+						cssClass="form-control masterFee" empty-on-add="false"
 						items="${docsSelection.selections['masterFees']}" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].masterFee.id"
 						cssClass="help-block" />
@@ -65,7 +65,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="19">
 					</spring:bind> <form:select path="docsgeneral.exfeetables[${idx.index}].name.id"
-						id="name${idx.index}" autofocus="true" cssClass="form-control"
+						id="name${idx.index}"  cssClass="form-control" empty-on-add="false"
 						items="${docsSelection.selections['exhFeeNames']}" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].name.id"
 						cssClass="help-block" />
@@ -75,7 +75,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].amount"
-						id="amount${idx.index}" maxlength="45" autofocus="true" 
+						id="amount${idx.index}" maxlength="45"  
 						cssClass="form-control money amount" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].amount"
 						cssClass="help-block" />
@@ -85,14 +85,14 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].vat"
-						id="vat${idx.index}" maxlength="45" autofocus="true" 
+						id="vat${idx.index}" maxlength="45"  
 						cssClass="form-control money vat" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].vat"
 						cssClass="help-block" />
 					</div></td>
 				<td>
 					<form:input path="docsgeneral.exfeetables[${idx.index}].total"
-						id="total${idx.index}" maxlength="45" autofocus="true" 
+						id="total${idx.index}" maxlength="45"  
 						cssClass="form-control money total"/>
 				</td>
 				<td><spring:bind
