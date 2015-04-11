@@ -35,6 +35,8 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice where t.nhathau.id=:nhathauId and t.dateDev between :startDate and :endDate group by (t.id)")
 	List<Truckingdetail> findAllByConditionDateTime(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, @Param(value="nhathauId")long nhathauId);
 	
-	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral where t.truckingservice.docsgeneral.typeOfDocs.id =:transId and MONTH(t.dateDev) = :month and YEAR(t.dateDev) = :year group by (t.id)")
-	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") Long transId, @Param(value="month") Integer month, @Param(value="year")Integer year);
+//	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs.id =:transId and MONTH(t.dateDev) = :month and YEAR(t.dateDev) = :year group by (t.id)")
+//	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") Long transId, @Param(value="month") Integer month, @Param(value="year")Integer year);
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where t.id =1")
+	List<Truckingdetail> findAllByConditionVantai();
 }
