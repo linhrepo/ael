@@ -8,7 +8,7 @@
 	<form:form commandName="search" method="post"
 		action="searchPackageInfo" id="packageInfoForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-2">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.customerCode" />
 				<form:select path="customer" id="customercode"
@@ -52,7 +52,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.doMoveMethod" />
 				<form:select path="doDelivery" id="doMoveMethod"

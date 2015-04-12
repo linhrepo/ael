@@ -50,7 +50,7 @@
           </button>
         </c:if>
          <c:if test="${not empty packageInfo.doRelease and packageInfo.doRelease == true}">
-         	<a class="btn btn-success" href="downloadBienbang?id=${packageInfo.id}">
+         	<a class="btn btn-success" href="downloadBienbang?id=${packageInfo.id}" hideBy="typeOfImport,-4">
 							<i class="fa fa-print"></i>
 							<fmt:message key="packageInfo.button.printBienbang" />
 			</a>

@@ -104,7 +104,7 @@
 		        <appfuse:label styleClass="control-label" key="packageInfo.typeOfContainer"/>
 		         <c:if test="${packageInfo.docsgeneral.doDelivery}">
 			        <form:select disabled="disabled"
-			        showElements="-1:consealContainer,contsstab" 
+			        showElements="-1:consealContainer,contsstab,dcontNo" 
 			        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  
 			        cssClass='form-control select2 selectReadOnly'
 			        items="${docsSelection.selections['typeOfContainers']}"/>
@@ -112,7 +112,7 @@
 			     </c:if>
 			     <c:if test="${!packageInfo.docsgeneral.doDelivery}">
 			      <form:select 
-			        showElements="-1:consealContainer,contsstab" 
+			        showElements="-1:consealContainer,contsstab,dcontNo" 
 			        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  
 			        cssClass='form-control select2'
 			        items="${docsSelection.selections['typeOfContainers']}"/>
@@ -193,8 +193,16 @@
 		        <form:errors path="bookingNo" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="packageInfo.contNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dcontNo">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="contseal.noOfCont"/>
+		        <form:input path="contNo" id="contNo" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="contNo" cssClass="help-block"/>
+		    </div>
+		    
 		    <spring:bind path="packageInfo.docsgeneral.cmb">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" hideBy="typeOfContainer,-1">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.cmb"/>
 		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45"  cssClass="form-control number"/>
@@ -266,7 +274,7 @@
 		    </div>
 		    
 		    <spring:bind path="packageInfo.wareHouseNo">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo" hideBy="typeOfContainer,-1;typeOfImport,-4">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.wareHouseNo"/>
 		        <form:input path="wareHouseNo" id="wareHouseNo" maxlength="45"  cssClass="form-control"/>

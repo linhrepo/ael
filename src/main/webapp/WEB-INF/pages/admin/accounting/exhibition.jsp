@@ -17,7 +17,7 @@
 	</div>
     <div class="form-group form-actions">
     <a class="btn btn-success" href="exhibition/download?id=${exhibition.id}">
-							<i class="fa fa-floppy-o"></i>
+							<i class="fa fa-print"></i>
 							<fmt:message key="export.accounting.custom" />
 						</a>
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
