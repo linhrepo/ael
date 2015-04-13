@@ -37,7 +37,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="offerPrice.dateOffer"/>
-		        <form:input data-provide="datepicker" path="dateOffer" id="dateOffer" maxlength="255" autofocus="true" cssClass="form-control"/>
+		        <form:input provide="datepicker" path="dateOffer" id="dateOffer" maxlength="255" autofocus="true" cssClass="form-control"/>
 		        <form:errors path="dateOffer" cssClass="help-block"/>
 		    </div>
 	    </div>

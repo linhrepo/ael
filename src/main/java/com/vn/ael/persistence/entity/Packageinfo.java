@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.exolab.castor.types.DateTime;
+
 
 /**
  * The persistent class for the packageinfo database table.
@@ -85,6 +87,9 @@ public class Packageinfo extends DocsEntity implements Serializable {
 	private Date dateCloseGood;
 	
 	private Date closingTime;
+	
+	@Transient
+	private DateTime closingTimeWrapper;
 	
 	private String closingPlace;
 	
@@ -385,6 +390,20 @@ public class Packageinfo extends DocsEntity implements Serializable {
 
 	public void setClosingTime(Date closingTime) {
 		this.closingTime = closingTime;
+		this.closingTimeWrapper = new DateTime(closingTime);
+	}
+	
+
+	public DateTime getClosingTimeWrapper() {
+		if (this.closingTimeWrapper == null && this.closingTime != null){
+			this.closingTimeWrapper = new DateTime(this.closingTime);
+		}
+		return closingTimeWrapper;
+	}
+
+	public void setClosingTimeWrapper(DateTime closingTimeWrapper) {
+		this.closingTimeWrapper = closingTimeWrapper;
+		this.closingTime = closingTimeWrapper.toDate();
 	}
 
 	public String getClosingPlace() {

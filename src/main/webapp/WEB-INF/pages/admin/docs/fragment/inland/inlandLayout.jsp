@@ -37,7 +37,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.docReceiveDate"/>
-		        <form:input path="docsgeneral.docReceiveDate" data-provide="datepicker" id="docReceiveDate" maxlength="45" autofocus="true" cssClass="form-control"/>
+		        <form:input path="docsgeneral.docReceiveDate" provide="datepicker" id="docReceiveDate" maxlength="45" autofocus="true" cssClass="form-control"/>
 		        <form:errors path="docsgeneral.docReceiveDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -108,7 +108,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.dateRecPack"/>
-			        <form:input path="dateRecPack" data-provide="datepicker" id="dateRecPack" autofocus="true" cssClass="form-control"/>
+			        <form:input path="dateRecPack" provide="datepicker" id="dateRecPack" autofocus="true" cssClass="form-control"/>
 			        <form:errors path="dateRecPack" cssClass="help-block"/>
 			    </div>
 			    
@@ -116,7 +116,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.dateDevPack"/>
-			        <form:input path="dateDevPack" data-provide="datepicker" id="dateDevPack" autofocus="true" cssClass="form-control"/>
+			        <form:input path="dateDevPack" provide="datepicker" id="dateDevPack" autofocus="true" cssClass="form-control"/>
 			        <form:errors path="dateDevPack" cssClass="help-block"/>
 			    </div> --%>
 			    
@@ -237,14 +237,14 @@
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dateCutOff">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.dateCutOff"/>
-					        <form:input path="dateCutOff" data-provide="datepicker" autofocus="true" cssClass="form-control"/>
+					        <form:input path="dateCutOff" provide="datepicker" autofocus="true" cssClass="form-control"/>
 					        <form:errors path="dateCutOff" cssClass="help-block"/>
 					    </div>
 					     <spring:bind path="inland.dateExpired">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dateExpired">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.dateExpired"/>
-					        <form:input path="dateExpired" data-provide="datepicker" autofocus="true" cssClass="form-control"/>
+					        <form:input path="dateExpired" provide="datepicker" autofocus="true" cssClass="form-control"/>
 					        <form:errors path="dateExpired" cssClass="help-block"/>
 					    </div>
 	    	</div>

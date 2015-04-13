@@ -1,6 +1,7 @@
 var INDEX = {
 	cont : 1,
-	seal : 0,
+	seal : 2,
+	contType: 3,
 	Sheet1: 'Sheet1'
 };
 
@@ -20,8 +21,11 @@ $(document).ready(function(){
 						$(lastTr).find(".cont").val(data[k]);
 					}else if (count == INDEX.seal){
 						$(lastTr).find(".seal").val(data[k]);
+					}else if (count == INDEX.contType){
+						var type = $(lastTr).find("select.contType > option:contains('"+data[k]+"')");
+						$(lastTr).find("select.contType").select2("val",($(type).attr("value")));
 					}
-					count = (count +1)%2;
+					count = (count +1)%4;
 				}
 			}
 		});

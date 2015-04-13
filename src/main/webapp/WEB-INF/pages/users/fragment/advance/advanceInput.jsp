@@ -28,7 +28,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="advanceform.date"/>
-		        <form:input data-provide="datepicker" path="date" id="date"  cssClass="form-control"/>
+		        <form:input provide="datepicker" path="date" id="date"  cssClass="form-control"/>
 		        <form:errors path="date" cssClass="help-block"/>
 		    </div>
 		    <div class="form-group col-md-3">
@@ -39,7 +39,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="advanceform.refundDate"/>
-		        <form:input data-provide="datepicker" path="timeRefund" id="timeRefund"  cssClass="form-control"/>
+		        <form:input provide="datepicker" path="timeRefund" id="timeRefund"  cssClass="form-control"/>
 		        <form:errors path="timeRefund" cssClass="help-block"/>
 	    </div>
 	</div>
