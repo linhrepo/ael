@@ -171,7 +171,3 @@ public class AccountingController extends BaseFormController {
         return new ModelAndView(URLReference.ACCOUNTING_VANTAI_LIST, model.asMap());
     }
 }
-
-
-
-
