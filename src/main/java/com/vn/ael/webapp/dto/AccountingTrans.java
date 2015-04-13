@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.dto;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
@@ -14,6 +15,7 @@ public class AccountingTrans {
 	private AccountingTransCondition condition;
 	private Nhathau nhathau;
 	private List<Truckingdetail> truckingdetails;
+	Map<Long, List<Truckingdetail>> map;
 	public List<Docsgeneral> getDocs() {
 		return docs;
 	}
@@ -45,5 +47,10 @@ public class AccountingTrans {
 		this.truckingdetails = truckingdetails;
 	}
 	
-	
+	public Map<Long, List<Truckingdetail>> getMap() {
+		return map;
+	}
+	public void setMap(Map<Long, List<Truckingdetail>> map) {
+		this.map = map;
+	}
 }

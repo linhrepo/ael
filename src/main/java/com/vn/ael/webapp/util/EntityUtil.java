@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Advancedetail;
@@ -325,5 +326,26 @@ public class EntityUtil {
 			refund.setRefunddetails(items);
 		}
 		
+	}
+	
+	public static void countCont(List<Contseal> contseals, Docsgeneral docsgeneral){
+		int count20 = 0;
+		int count40 = 0;
+		int countOt = 0;
+		if (contseals != null && !contseals.isEmpty()){
+			for (Contseal contseal :  contseals){
+				if (contseal.getTypeOfCont() != null)
+					if(contseal.getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){
+						count20+=1;
+					}else if(contseal.getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_40_START)){
+						count40+=1;
+					}else{
+						countOt+=1;
+					}
+				}	
+			}
+		docsgeneral.setNoOf20Cont(count20);
+		docsgeneral.setNoOf40Cont(count40);
+		docsgeneral.setOtCont(countOt);
 	}
 }

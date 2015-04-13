@@ -22,3 +22,10 @@ ALTER TABLE `ael`.`truckingdetail`
 	ADD COLUMN `phuthu` decimal(20,2),
 	ADD COLUMN `noContractUp` int,
 	ADD COLUMN `noContractDown` int;
+	
+------------COnfig
+INSERT INTO `ael`.`configuration`
+	VALUES(288,'Chi phí nâng',19,'chi phi nang',1,null);
+INSERT INTO `ael`.`configuration`
+	VALUES(289,'Chi phí h?',19,'chi phi ha',1,null);
+	

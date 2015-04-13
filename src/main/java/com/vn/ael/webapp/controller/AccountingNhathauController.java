@@ -19,14 +19,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.persistence.entity.Contseal;
+import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.persistence.entity.Truckingservice;
+import com.vn.ael.persistence.manager.ContsealManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
 @RequestMapping(URLReference.ACCOUNTING_NHATHAU+"*")
@@ -39,6 +44,8 @@ public class AccountingNhathauController extends BaseFormController{
 	private TruckingdetailRepository truckingdetailRepository;
 	
 	private ExfeetableRepository exfeetableRepository;
+	
+	private ContsealManager contsealManager;
 
     public AccountingNhathauController() {
     	setCancelView("redirect:"+URLReference.ACCOUNTING_NHATHAU_LIST);
@@ -65,6 +72,11 @@ public class AccountingNhathauController extends BaseFormController{
     @Autowired
 	public void setExfeetableRepository(ExfeetableRepository exfeetableRepository) {
 		this.exfeetableRepository = exfeetableRepository;
+	}
+
+    @Autowired
+	public void setContsealManager(ContsealManager contsealManager) {
+		this.contsealManager = contsealManager;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -103,6 +115,18 @@ public class AccountingNhathauController extends BaseFormController{
         		}
         		truckingdetail.setTotal(total);
         		truckingdetail.setExfeetables(exfeetables);
+        		//set no cont
+        		Truckingservice truckingservice = truckingdetail.getTruckingservice();
+				if(truckingservice != null){
+					Docsgeneral docsgeneral = truckingservice.getDocsgeneral();
+					if(docsgeneral != null){
+						List<Contseal> contseals = contsealManager.findByDocsgeneral(docsgeneral);
+						docsgeneral.setContseals(contseals);
+						EntityUtil.countCont(contseals, docsgeneral);
+						truckingservice.setDocsgeneral(docsgeneral);
+						truckingdetail.setTruckingservice(truckingservice);
+					}
+				}
         		truckdetails.add(truckingdetail);
 			}
         }

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 
@@ -35,8 +36,6 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice where t.nhathau.id=:nhathauId and t.dateDev between :startDate and :endDate group by (t.id)")
 	List<Truckingdetail> findAllByConditionDateTime(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, @Param(value="nhathauId")long nhathauId);
 	
-//	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs.id =:transId and MONTH(t.dateDev) = :month and YEAR(t.dateDev) = :year group by (t.id)")
-//	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") Long transId, @Param(value="month") Integer month, @Param(value="year")Integer year);
-	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where t.id =1")
-	List<Truckingdetail> findAllByConditionVantai();
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and MONTH(t.dateDev) = :month and YEAR(t.dateDev) = :year group by (t.id)")
+	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") ServicesType transId, @Param(value="month") Integer month, @Param(value="year")Integer year);
 }
