@@ -35,7 +35,6 @@ import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
-import com.vn.ael.webapp.dto.VantaiDTO;
 import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
@@ -80,7 +79,6 @@ public class AccountingVantaiController extends BaseFormController {
         String month = request.getParameter("month");
         String year = request.getParameter("year");
         Set<Customer> customers = new HashSet<>();
-        List<VantaiDTO> vantaiDTOs = new ArrayList<>();
         Map<Long, List<Truckingdetail>> mapVantai = new HashMap<>();
         accountingTransCondition.setTransId(new Long(transId));
         accountingTransCondition.setMonth(Integer.parseInt(month));
