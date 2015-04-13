@@ -42,7 +42,7 @@
 						</spring:bind> <form:select
 							path="docsgeneral.contseals[${idx.index}].typeOfCont.id"
 							id="typeOfCont${idx.index}" empty-on-add="false"
-							cssClass="form-control"
+							cssClass="form-control contType"
 							items="${docsSelection.selections['typeOfContainerConts']}" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].typeOfCont.id"
 							cssClass="help-block" />

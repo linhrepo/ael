@@ -77,7 +77,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="accountingExh.openDate"/>
-		        <form:input path="dateRe" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="dateRe" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="dateRe" cssClass="help-block"/>
 		    </div>
 		    

@@ -20,6 +20,7 @@
                 <th><fmt:message key="packageInfo.jobNo"/></th>
                 <th><fmt:message key="packageInfo.customerCode"/></th>
                 <th><fmt:message key="configuration.typeOfImport"/></th>
+                <th><fmt:message key="packageInfo.typeOfContainer"/></th>
                 <th><fmt:message key="packageInfo.doRelease"/></th>
                 <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
@@ -31,7 +32,8 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="packageInfo.jobNo"/></th>
                 <th><fmt:message key="packageInfo.customerCode"/></th>
-                <th><fmt:message key="packageInfo.imExMode"/></th>
+                <th><fmt:message key="configuration.typeOfImport"/></th>
+                <th><fmt:message key="packageInfo.typeOfContainer"/></th>
                 <th><fmt:message key="packageInfo.doRelease"/></th>
                 <th><fmt:message key="packageInfo.status"/></th>
                 <th><fmt:message key="table.action"/></th>
@@ -44,6 +46,7 @@
               	<td>${packageInfo.docsgeneral.jobNo}</td>
               	<td>${packageInfo.docsgeneral.customer.code}</td>
               	<td>${packageInfo.docsgeneral.typeOfImport.value}</td>
+              	<td>${packageInfo.docsgeneral.typeOfContainer.value}</td>
               	<td>
               		<c:if test="${packageInfo.doRelease}">
               			<a><i class="fa fa-check"></i></a>

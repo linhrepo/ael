@@ -42,7 +42,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].regDate"
-						data-provide="datepicker" id="regDate${idx.index}"
+						provide="datepicker" id="regDate${idx.index}"
 						 cssClass="form-control" /> <form:errors
 						path="docsgeneral.docservices[${idx.index}].regDate"
 						cssClass="help-block" />
@@ -70,7 +70,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].getDate"
-						data-provide="datepicker" id="getDate${idx.index}"
+						provide="datepicker" id="getDate${idx.index}"
 						 cssClass="form-control" /> <form:errors
 						path="docsgeneral.docservices[${idx.index}].getDate"
 						cssClass="help-block" />
@@ -80,7 +80,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].revDate"
-						data-provide="datepicker" id="regDate${idx.index}"
+						provide="datepicker" id="regDate${idx.index}"
 						 cssClass="form-control" /> <form:errors
 						path="docsgeneral.docservices[${idx.index}].revDate"
 						cssClass="help-block" />

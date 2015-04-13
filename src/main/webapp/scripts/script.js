@@ -229,5 +229,14 @@ $(document).ready(function(){
 	});
 
 	$('.fileStyle').bootstrapFileInput();
+	
+	$('[data-provide="datetimepicker"]').datetimepicker({
+		format: "DD/MM/YYYY hh:mm A",
+		sideBySide : true
+	});
+	
+	$('[provide="datepicker"]').datepicker({
+		format: "dd/mm/yyyy"
+	});
 });
 

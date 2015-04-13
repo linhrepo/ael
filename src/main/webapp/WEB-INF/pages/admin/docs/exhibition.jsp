@@ -99,7 +99,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.openDate"/>
-		        <form:input path="openDate" id="openDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="openDate" id="openDate" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="openDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -107,7 +107,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.endDate"/>
-		        <form:input path="endDate" id="joendDatebNo" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="endDate" id="joendDatebNo" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="endDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -115,7 +115,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.devDate"/>
-		        <form:input path="devDate" id="devDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="devDate" id="devDate" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="devDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -185,7 +185,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.etd"/>
-		        <form:input path="etd" id="etd" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="etd" id="etd" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="etd" cssClass="help-block"/>
 		    </div>
 		    
@@ -193,7 +193,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.eta"/>
-		        <form:input path="eta" id="eta" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="eta" id="eta" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="eta" cssClass="help-block"/>
 		    </div>
 		    
@@ -249,7 +249,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.tkhqDate"/>
-		        <form:input path="tkhqDate" id="tkhqDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="tkhqDate" id="tkhqDate" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="tkhqDate" cssClass="help-block"/>
 		    </div>
 		    

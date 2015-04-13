@@ -77,12 +77,12 @@
 				
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">		  
 				        <appfuse:label styleClass="control-label" key="packageInfo.freeDemDate"/>
-				        <form:input path="docsgeneral.packageinfo.freeDemDate" id="freeDemDate" data-provide="datepicker" maxlength="45"  cssClass="form-control" disabled="true"/>
+				        <form:input path="docsgeneral.packageinfo.freeDemDate" id="freeDemDate" provide="datepicker" maxlength="45"  cssClass="form-control" disabled="true"/>
 				    </div>
 		    
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 				        <appfuse:label styleClass="control-label" key="packageInfo.freeDetDate"/>
-				        <form:input path="docsgeneral.packageinfo.freeDetDate" id="freeDetDate" data-provide="datepicker" maxlength="45"  cssClass="form-control" disabled="true"/>
+				        <form:input path="docsgeneral.packageinfo.freeDetDate" id="freeDetDate" provide="datepicker" maxlength="45"  cssClass="form-control" disabled="true"/>
 				    </div>
 				</c:when>
 			</c:choose>
