@@ -85,8 +85,7 @@
 <div class="row">
 	<div class="col-md-8"></div>
 	<div class="col-md-4">
-		<span class="btn btn-primary" target-table="inlandsizes"> <i
-			class="icon-ok"></i> <fmt:message key="button.add" /></span>
+		<span class="btn btn-primary" target-table="inlandsizes"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
 	</div>
 </div>
 </div>

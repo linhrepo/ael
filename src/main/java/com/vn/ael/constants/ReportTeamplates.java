@@ -15,4 +15,5 @@ public interface ReportTeamplates {
 	
 	String ACCOUNTING_EXHIBITION_ITEMS = "AccountingExhibition.pdf";
 	String ACCOUNTING_EXHIBITION_ITEMS_TEMPLATE = "ExportTemplate/AccountingExhibitionTemplate.jrxml";
+	String ACCOUNTING_EXHIBITION_ITEMS_AEL_LOGO = "images/aelLogo.jpg";
 }

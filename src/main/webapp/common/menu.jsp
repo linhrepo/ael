@@ -14,7 +14,7 @@
     <menu:displayMenu name="TrackingMenu"/>
     <menu:displayMenu name="AccountingMenu"/>
     <menu:displayMenu name="AdminMenu"/>
-    <menu:displayMenu name="Logout"/>
+    
 </ul>
 </div>
 </menu:useMenuDisplayer>

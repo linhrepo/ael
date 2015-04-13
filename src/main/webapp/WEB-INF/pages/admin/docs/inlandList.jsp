@@ -5,16 +5,16 @@
     <meta name="menu" content="DocsMenu"/>
 </head>
 
-<div class="col-sm-12">
+<div class="col-sm-10">
     <h2><fmt:message key="inlandList.heading"/></h2>
-    <jsp:include page="searchInland.jsp"></jsp:include>    
+    <jsp:include page="fragment/inland/searchInland.jsp"></jsp:include>    
     <div id="actions" class="btn-group">
     	 <a class="btn btn-primary" href="<c:url value='inland?method=Add&from=list'/>">
-            <i class="icon-plus icon-white"></i> <fmt:message key="button.addInland"/></a>
+            <i class="fa fa-plus"></i> <fmt:message key="button.addInland"/></a>
          <a class="btn btn-primary" href="<c:url value='inland?method=Add&from=list&type=sealand'/>">
-            <i class="icon-plus icon-white"></i> <fmt:message key="button.addSealand"/></a>
+            <i class="fa fa-plus"></i> <fmt:message key="button.addSealand"/></a>
         <a class="btn btn-default" href="<c:url value='/home'/>">
-            <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+            <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>
     </div>
     <table id="inlandList" class="display datatable" cellspacing="0" width="100%" >
         <thead>

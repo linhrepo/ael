@@ -125,14 +125,45 @@ $(document).ready(function(){
 			urlForChild:contextPath+childUrl,
 			emptyMessage: showMessage(emptyMessage),
 			detailTableInfo: detailTableInfo,
-			openIcon: contextPath+"/images/SD7Dz.png",
-			closeIcon:contextPath+"/images/d4ICC.png",
+			//openIcon: contextPath+"/images/icons/sq_plus.png",
+			//closeIcon:contextPath+"/images/icons/sq_minus_icon.png",
+			openTag:"fa fa-plus-square",
+			closeTag:"fa fa-minus-square",
 			editDetail:editDetail!="" && editDetail.length >0 ? contextPath+editDetail : false,
 			detailTableMapping:detailTableMapping,
 			successLoadMessage:showMessage(successLoadMessage),
 			actionCheck:actionCheck,
 			actionIcon : actionIcon
 		});
+	});
+	
+	$("[hideBy]").each(function(){
+		var cons = $(this).attr("hideBy").split(";");
+		for (var i in cons){
+			var hidebys =cons[i].split(","),
+			that = this;
+			var checkComp = function(cons,obj){
+				var hide = false;
+				for (var i in cons){
+					var hidebys =cons[i].split(",");
+					if ($("#"+hidebys[0]).find(":selected").val() == hidebys[1]){
+						hide = true;
+						break;
+					}
+				}
+				if (hide){
+					$(obj).hide();
+				}else{
+					$(obj).show();
+				}
+			};
+			
+			checkComp(cons,that);
+			$("#"+hidebys[0]).on("change",function(){
+				checkComp(cons,that);
+			});
+		}
+		
 	});
 	
 	//select for displaying
@@ -143,7 +174,9 @@ $(document).ready(function(){
 			targets = comps[1].split(",");
 			if ($(comp).find(":selected").val() == comps[0]){
 				for (var j in targets){
-					$("#"+targets[j]).show();
+					if (targets[j][0] != "!"){
+						$("#"+targets[j]).show();
+					}
 				}
 			}
 			else{

@@ -4,8 +4,8 @@ public interface URLReference {
 	
 	String HOME_PAGE = "/home";
 	
-	String NHATHAU_FORM = "/admin/trucking/nhathauForm";
-	String NHATHAU_LIST = "/admin/trucking/nhathauList";
+	String NHATHAU_FORM = "/admin/config/nhathauForm";
+	String NHATHAU_LIST = "/admin/config/nhathauList";
 	
 	String CONSTANST_FORM = "/admin/config/constant";
 	String CONSTANST_LIST = "/admin/config/constantList";

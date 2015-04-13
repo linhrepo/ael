@@ -32,7 +32,8 @@
 	    	//Insert a 'details' column to the table
             var nCloneTh = document.createElement('th');
             var nCloneTd = document.createElement('td');
-            nCloneTd.innerHTML = '<img src="'+options.openIcon+'">';
+            	nCloneTd.innerHTML = "<i class='"+options.openTag+"'></i>";
+            
             nCloneTd.className = "center";
             nCloneTd.setAttribute("colType", "childControl");
 
@@ -54,7 +55,6 @@
 	     */
 	    plugin.initParentTable	= function(){
             this.oTable = $('#'+options.tableId).dataTable({
-                "bJQueryUI": true,
                 "sPaginationType": "full_numbers",
                 "aoColumnDefs": [
                 { "bSortable": false, "aTargets": [0] }
@@ -72,16 +72,18 @@
 	    		var that = this;
 	    		this.iTableCounter = 1;
 	            var oInnerTable;
-	            $('#'+options.tableId+' tbody td img').live('click', function () {
+	            $('#'+options.tableId+' tbody td i').live('click', function () {
 	                var nTr = $(this).parents('tr')[0];
 	                if (that.oTable.fnIsOpen(nTr)) {
 	                    /* This row is already open - close it */
-	                    this.src = options.openIcon;
+	                	$(this).removeClass(options.closeTag);
+	                    $(this).addClass(options.openTag);
 	                    that.oTable.fnClose(nTr);
 	                }
 	                else {
 	                    /* Open this row */
-	                    this.src = options.closeIcon;
+	                	$(this).removeClass(options.openTag);
+	                    $(this).addClass(options.closeTag);
 	                    var childDetail = that.loadChildDetail(nTr);
 	                    that.oTable.fnOpen(nTr, fnFormatDetails(that.iTableCounter, childDetail), 'details');
 	                    oInnerTable = $("#childTable_" + that.iTableCounter).dataTable({

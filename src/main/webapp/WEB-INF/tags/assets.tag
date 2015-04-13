@@ -24,15 +24,16 @@
 <%--         <link rel="stylesheet" type="text/css" href="${base}/assets/v/${applicationScope.assetsVersion}/${group}.css"/> --%>
 <%--         <script type="text/javascript" src="${base}/assets/v/${applicationScope.assetsVersion}/${group}.js"></script> --%>
 
-		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/united/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/slate/bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/font-awesome/4.2.0/css/font-awesome.min.css"/>
-		<link rel="stylesheet" type="text/css" href="${base}/webjars/datatables/1.10.4/css/jquery.dataTables.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${base}/webjars/datatables/1.10.4/css/jquery.dataTables.css"/>
 		 <link rel="stylesheet" type="text/css" href="${base}/webjars/datatables-bootstrap/2-20120201/DT_bootstrap.css"/>
 		  <link rel="stylesheet" type="text/css" href="${base}/webjars/bootstrap-datepicker/1.2.0/css/datepicker.css"/>
 		  <link rel="stylesheet" type="text/css" href="${base}/webjars/select2/3.5.2/select2.css"/>
 		   <link rel="stylesheet" type="text/css" href="${base}/webjars/select2-bootstrap-css/1.4.4/select2-bootstrap.css"/>
 		   <link rel="stylesheet" type="text/css" href="${base}/webjars/pnotify/2.0.1/pnotify.core.css"/>
         <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
+         <link rel="stylesheet" type="text/css" href="${base}/styles/slate.css"/>
        
         <script type="text/javascript" src="${base}/webjars/jquery/1.8.3/jquery.min.js"></script>
         <script type="text/javascript" src="${base}/webjars/bootstrap/3.0.2/js/bootstrap.min.js"></script>

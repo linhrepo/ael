@@ -87,10 +87,11 @@
 	</table>
 <div class="row">
 		<div class="col-md-8"></div>
-		<div class="col-md-2"><input type="file" name="xlfile" id="xlf" class="fileStyle btn btn-success"  data-filename-placement="inside" title="<fmt:message key='inland.uploadCont'/>"/></div>
 		<div class="col-md-2">
-			<span class="btn btn-primary" target-table="contsealList"> <i
-				class="icon-ok"></i> <fmt:message key="button.add" /></span>
+			<input type="file" name="xlfile" id="xlf" class="fileStyle btn btn-success fa fa-upload"  data-filename-placement="inside" title=" <fmt:message key='inland.uploadCont'/>"/>
+		</div>
+		<div class="col-md-2">
+			<span class="btn btn-primary" target-table="contsealList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
 		</div>
 	</div>
 </div>

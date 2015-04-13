@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AccountingExhibitionTemplate" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d046657-c4e1-43b8-8350-5bbf9ddb6f49">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1" uuid="e2acafd0-582d-4ae4-b923-12f755ae3d34">
@@ -21,16 +21,35 @@
 	<parameter name="tel" class="java.lang.String"/>
 	<parameter name="accountNo" class="java.lang.String"/>
 	<parameter name="mode" class="java.lang.String"/>
+	<parameter name="grandTotal" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
 	<field name="type" class="java.lang.String"/>
 	<field name="fees" class="java.util.Collection"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="325" y="0" width="230" height="20" uuid="2a571d0c-6441-43fe-9cda-5cbedf98eb21"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AEL TRADING & SERVICE CO.,LTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="20" width="230" height="42" uuid="8302fa61-c9be-4852-a83e-f2f147d7e7af"/>
+				<text><![CDATA[308/18 Binh Loi, Ward 13, Binh Thanh Dist., HCMC
+Tel: 84 - 62581123 Fax : 84 - 6251129]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="-10" width="180" height="62" uuid="93c2015b-7eb0-4ccf-9bca-99e1f112b53c"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<staticText>
 				<reportElement x="225" y="0" width="100" height="20" uuid="4fbcafce-1463-4365-9030-0f30718fa560"/>
 				<textElement>
@@ -38,16 +57,19 @@
 				</textElement>
 				<text><![CDATA[INVOICE]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="75a9d55b-b6f3-484e-983f-b012e374ffa2"/>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="160" splitType="Stretch">
+		<band height="182" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="218" height="20" uuid="4b4468ef-2f87-4889-b0eb-e5bb714a19d0"/>
+				<reportElement x="0" y="0" width="318" height="20" uuid="4b4468ef-2f87-4889-b0eb-e5bb714a19d0"/>
 				<textFieldExpression><![CDATA[$P{companyName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="20" width="218" height="20" uuid="4274726d-ed89-4c47-9a09-6bc13283aa40"/>
+				<reportElement x="0" y="20" width="318" height="20" uuid="4274726d-ed89-4c47-9a09-6bc13283aa40"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
@@ -58,15 +80,15 @@
 				<text><![CDATA[Tel:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="18" y="40" width="82" height="20" uuid="7b3bf6e1-aa72-42f9-af87-68b37c9b6f01"/>
+				<reportElement x="18" y="40" width="146" height="20" uuid="7b3bf6e1-aa72-42f9-af87-68b37c9b6f01"/>
 				<textFieldExpression><![CDATA[$P{tel}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="100" y="40" width="18" height="20" uuid="8e467c3f-cefa-438d-b02b-09c12d16d358"/>
+				<reportElement x="164" y="40" width="18" height="20" uuid="8e467c3f-cefa-438d-b02b-09c12d16d358"/>
 				<text><![CDATA[fax:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="118" y="40" width="100" height="20" uuid="846e20f8-94e5-4f46-a636-6164d52bab68"/>
+				<reportElement x="182" y="40" width="122" height="20" uuid="846e20f8-94e5-4f46-a636-6164d52bab68"/>
 				<textFieldExpression><![CDATA[$P{fax}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -77,7 +99,7 @@
 				<text><![CDATA[ATTN:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="45" y="60" width="100" height="20" uuid="81a12b2d-88a0-4178-ba9f-32d818ab38ca"/>
+				<reportElement x="45" y="60" width="119" height="20" uuid="81a12b2d-88a0-4178-ba9f-32d818ab38ca"/>
 				<textFieldExpression><![CDATA[$P{attn}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -133,38 +155,58 @@
 				<textFieldExpression><![CDATA[$P{from_to}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="0" width="100" height="20" uuid="243cce4f-fa23-462b-88c6-138f93b7be5f"/>
+				<reportElement x="437" y="0" width="118" height="20" uuid="243cce4f-fa23-462b-88c6-138f93b7be5f"/>
 				<textFieldExpression><![CDATA[$P{invoiceNo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="40" width="100" height="20" uuid="b7cf128e-75b5-4051-910e-86ca94454c9d"/>
+				<reportElement x="437" y="40" width="118" height="20" uuid="b7cf128e-75b5-4051-910e-86ca94454c9d"/>
 				<textFieldExpression><![CDATA[$P{accountNo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="80" width="100" height="20" uuid="61a4ee8a-3610-42f3-a30f-36050cf4ba31"/>
+				<reportElement x="437" y="80" width="118" height="20" uuid="61a4ee8a-3610-42f3-a30f-36050cf4ba31"/>
 				<textFieldExpression><![CDATA[$P{mode}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="437" y="100" width="100" height="20" uuid="b1dfe93d-548a-406e-a3c0-e79a859942dd"/>
+				<reportElement x="437" y="100" width="118" height="20" uuid="b1dfe93d-548a-406e-a3c0-e79a859942dd"/>
 				<textFieldExpression><![CDATA[$P{cmb}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="64" y="140" width="100" height="20" uuid="7b7965e4-9473-4cff-b574-8c6d0d4eccc1"/>
 				<textFieldExpression><![CDATA[$P{weight}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="159" width="555" height="1" uuid="41387567-ede2-46c3-9475-e21259bea864"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="180" width="555" height="1" uuid="f965c42e-7211-47fc-8fc5-473b12a45607"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="18" y="161" width="100" height="20" uuid="80a43ff0-6bcb-44b7-b3cc-40de0578fe41"/>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="160" width="100" height="20" uuid="a2aba5f7-2e0e-41a5-a185-7d7df1fa1eda"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="51" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<componentElement>
-				<reportElement x="18" y="31" width="500" height="20" uuid="68b4d090-3489-4955-9c87-b6afddf98305"/>
+				<reportElement x="0" y="0" width="555" height="20" uuid="68b4d090-3489-4955-9c87-b6afddf98305"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset1" uuid="4b8c51c9-aab8-41fe-bafd-833435530980">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{fees})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="20" width="500">
+					<jr:listContents height="20" width="555">
 						<textField>
-							<reportElement x="0" y="0" width="100" height="20" uuid="44b04ad1-ec40-4bf1-a5be-b7b374123eeb"/>
+							<reportElement x="18" y="0" width="100" height="20" uuid="44b04ad1-ec40-4bf1-a5be-b7b374123eeb"/>
 							<box leftPadding="10">
 								<topPen lineWidth="0.0"/>
 								<leftPen lineWidth="0.0"/>
@@ -174,7 +216,7 @@
 							<textFieldExpression><![CDATA[$F{fee}.getDescription()]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement x="400" y="0" width="100" height="20" uuid="44b04ad1-ec40-4bf1-a5be-b7b374123eeb"/>
+							<reportElement x="418" y="0" width="100" height="20" uuid="44b04ad1-ec40-4bf1-a5be-b7b374123eeb"/>
 							<box leftPadding="10">
 								<topPen lineWidth="0.0"/>
 								<leftPen lineWidth="0.0"/>
@@ -186,21 +228,65 @@
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
-			<staticText>
-				<reportElement x="18" y="11" width="100" height="20" uuid="7c9e101a-b149-43c7-afa1-f60b4adc23b0"/>
-				<text><![CDATA[Description]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="418" y="11" width="100" height="20" uuid="f09ad769-0a80-49e0-80f1-743bf3fda821"/>
-				<text><![CDATA[Amount]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="50">
+			<line>
+				<reportElement x="378" y="11" width="140" height="1" uuid="5dc9d527-3264-462f-aae8-eabcdd97be03"/>
+			</line>
+			<staticText>
+				<reportElement x="318" y="12" width="60" height="20" uuid="df4ad7b4-0149-479a-a79b-b3fdef395b8e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="378" y="12" width="140" height="20" uuid="dcd52738-4e71-49db-b5af-5c0f706169e2"/>
+				<textFieldExpression><![CDATA[$P{grandTotal}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="189" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="518" height="20" uuid="b742f256-f276-4155-98aa-7343c57902b3"/>
+				<text><![CDATA[PAYMENT MUST BE PAID BY T/T or BY CASH IN FAVOR OF AEL TRADING & SERVICE CO.,LTD (AEL)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="518" height="20" uuid="063aa939-1378-4dd2-b519-b78bf3b5fdf5"/>
+				<text><![CDATA[BEFORE RELEASE THE CARGOS AT HIECC ACCORDING TO BANKS DETAILS AS FOLLOWS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="518" height="40" uuid="2b235073-0d47-4db9-a856-3d8699e436a8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[THE VIETNAM TECHNOLOGICAL AND COMMERCIAL JOINT STOCKS BANK -TECHCOMBANK
+A/C No: 1 9 0 2 6 9 6 1 4 4 8 - 0 2 6
+SWIFT CODE: VTCB VN VX
+BENEFICIARY : AEL TRADING & SERVICE CO., LTD ( AEL)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="325" height="20" uuid="44f95c43-6ce0-4233-8352-4f715c72706f"/>
+				<text><![CDATA[Notes: Late payments must be paid the surcharges: 20% of total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="393" y="100" width="125" height="20" uuid="51d23ae3-4438-4958-8c6b-e505638c42c0"/>
+				<text><![CDATA[Authorized Signature]]></text>
+			</staticText>
+			<line>
+				<reportElement x="393" y="157" width="125" height="1" uuid="91c7708b-bd28-4854-8b42-9f007566da55"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="393" y="157" width="125" height="20" uuid="e6b04957-5a82-4fa6-81ac-5da722f5540c"/>
+				<text><![CDATA[HOANG THI HAI YEN]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
