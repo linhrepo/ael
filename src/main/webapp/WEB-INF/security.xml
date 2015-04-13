@@ -15,6 +15,7 @@
     	<intercept-url pattern="/app/admin/docs/**" access="ROLE_ADMIN,ROLE_DOCS"/>
     	<intercept-url pattern="/app/admin/trucking/**" access="ROLE_ADMIN,ROLE_TRUCK"/>
     	<intercept-url pattern="/app/admin/accounting/**" access="ROLE_ADMIN,ROLE_ACCOUNTING"/>
+    	<intercept-url pattern="/app/admin/config/**" access="ROLE_ADMIN,ROLE_CONFIG"/>
         <intercept-url pattern="/app/admin/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/app/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/app/requestRecoveryToken*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER" />

@@ -137,6 +137,35 @@ $(document).ready(function(){
 		});
 	});
 	
+	$("[hideBy]").each(function(){
+		var cons = $(this).attr("hideBy").split(";");
+		for (var i in cons){
+			var hidebys =cons[i].split(","),
+			that = this;
+			var checkComp = function(cons,obj){
+				var hide = false;
+				for (var i in cons){
+					var hidebys =cons[i].split(",");
+					if ($("#"+hidebys[0]).find(":selected").val() == hidebys[1]){
+						hide = true;
+						break;
+					}
+				}
+				if (hide){
+					$(obj).hide();
+				}else{
+					$(obj).show();
+				}
+			};
+			
+			checkComp(cons,that);
+			$("#"+hidebys[0]).on("change",function(){
+				checkComp(cons,that);
+			});
+		}
+		
+	});
+	
 	//select for displaying
 	var checkTypeOfContainer = function(comp){
 		var dests = $(comp).attr("showElements").split(";");
@@ -145,7 +174,9 @@ $(document).ready(function(){
 			targets = comps[1].split(",");
 			if ($(comp).find(":selected").val() == comps[0]){
 				for (var j in targets){
-					$("#"+targets[j]).show();
+					if (targets[j][0] != "!"){
+						$("#"+targets[j]).show();
+					}
 				}
 			}
 			else{
@@ -198,5 +229,13 @@ $(document).ready(function(){
 	});
 
 	$('.fileStyle').bootstrapFileInput();
+	
+	$('[data-provide="datetimepicker"]').datetimepicker({
+		format: "DD/MM/YYYY hh:mm A",
+		sideBySide : true
+	});
+	
+	$('[provide="datepicker"]').datepicker({
+		format: "dd/mm/yyyy"
+	});
 });
-

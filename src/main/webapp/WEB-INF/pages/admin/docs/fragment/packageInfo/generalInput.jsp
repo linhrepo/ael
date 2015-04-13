@@ -38,7 +38,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.docReceiveDate"/>
-		        <form:input path="docsgeneral.docReceiveDate" data-provide="datepicker" id="docReceiveDate" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="docsgeneral.docReceiveDate" provide="datepicker" id="docReceiveDate" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="docsgeneral.docReceiveDate" cssClass="help-block"/>
 		    </div>
 		    
@@ -104,7 +104,7 @@
 		        <appfuse:label styleClass="control-label" key="packageInfo.typeOfContainer"/>
 		         <c:if test="${packageInfo.docsgeneral.doDelivery}">
 			        <form:select disabled="disabled"
-			        showElements="-1:consealContainer,contsstab" 
+			        showElements="-1:consealContainer,contsstab,dcontNo" 
 			        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  
 			        cssClass='form-control select2 selectReadOnly'
 			        items="${docsSelection.selections['typeOfContainers']}"/>
@@ -112,7 +112,7 @@
 			     </c:if>
 			     <c:if test="${!packageInfo.docsgeneral.doDelivery}">
 			      <form:select 
-			        showElements="-1:consealContainer,contsstab" 
+			        showElements="-1:consealContainer,contsstab,dcontNo" 
 			        path="docsgeneral.typeOfContainer.id" id="typeOfContainer"  
 			        cssClass='form-control select2'
 			        items="${docsSelection.selections['typeOfContainers']}"/>
@@ -193,8 +193,16 @@
 		        <form:errors path="bookingNo" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="packageInfo.contNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dcontNo">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="contseal.noOfCont"/>
+		        <form:input path="contNo" id="contNo" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="contNo" cssClass="help-block"/>
+		    </div>
+		    
 		    <spring:bind path="packageInfo.docsgeneral.cmb">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" hideBy="typeOfContainer,-1">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.cmb"/>
 		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45"  cssClass="form-control number"/>
@@ -237,7 +245,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dDateSendGood">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.dateSendGood"/>
-		        <form:input path="dateSendGood" id="dateSendGood" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="dateSendGood" id="dateSendGood" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="dateSendGood" cssClass="help-block"/>
 		    </div>
 		    
@@ -245,7 +253,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dEta">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.eta"/>
-		        <form:input path="eta" id="eta" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="eta" id="eta" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="eta" cssClass="help-block"/>
 		    </div>
 		    
@@ -253,7 +261,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dDateCloseGood">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.dateCloseGood"/>
-		        <form:input path="dateCloseGood" id="dateCloseGood" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="dateCloseGood" id="dateCloseGood" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="dateCloseGood" cssClass="help-block"/>
 		    </div>
 		    
@@ -261,12 +269,12 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dEtd">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.etd"/>
-		        <form:input path="etd" id="etd" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="etd" id="etd" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="etd" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.wareHouseNo">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo" hideBy="typeOfContainer,-1;typeOfImport,-4">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.wareHouseNo"/>
 		        <form:input path="wareHouseNo" id="wareHouseNo" maxlength="45"  cssClass="form-control"/>
@@ -305,12 +313,12 @@
 		        <form:errors path="closingPlace" cssClass="help-block"/>
 		    </div>
 		    
-		    <spring:bind path="packageInfo.closingTime">
+		    <spring:bind path="packageInfo.closingTimeWrapper">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dClosingTime">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.closingTime"/>
-		        <form:input path="closingTime" id="closingTime" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
-		        <form:errors path="closingTime" cssClass="help-block"/>
+		        <form:input path="closingTimeWrapper" id="closingTime" data-provide="datetimepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="closingTimeWrapper" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.docsgeneral.shippingLine">
@@ -349,7 +357,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.customsDate"/>
-		        <form:input path="customsDate" id="customsDate" data-provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="customsDate" id="customsDate" provide="datepicker" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="customsDate" cssClass="help-block"/>
 		    </div>
 		    

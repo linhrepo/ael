@@ -23,7 +23,7 @@
     <div class="form-group form-actions">
      <c:if test="${not empty accountingcus.id}">
 						<a class="btn btn-success" href="custom/download?docId=${accountingcus.docsgeneral.id}">
-							<i class="fa fa-floppy-o"></i>
+							<i class="fa fa-print"></i>
 							<fmt:message key="export.accounting.custom" />
 						</a>
 					</c:if>

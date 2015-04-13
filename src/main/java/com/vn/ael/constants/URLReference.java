@@ -4,8 +4,8 @@ public interface URLReference {
 	
 	String HOME_PAGE = "/home";
 	
-	String NHATHAU_FORM = "/admin/trucking/nhathauForm";
-	String NHATHAU_LIST = "/admin/trucking/nhathauList";
+	String NHATHAU_FORM = "/admin/config/nhathauForm";
+	String NHATHAU_LIST = "/admin/config/nhathauList";
 	
 	String CONSTANST_FORM = "/admin/config/constant";
 	String CONSTANST_LIST = "/admin/config/constantList";
@@ -78,7 +78,7 @@ public interface URLReference {
 	String EXHIBITION_SEARCH = "/admin/docs/searchExhibition";
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
-	String ACCOUNTING_VANTAI_LIST = "admin/accounting/vantaiList";
+	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/vantaiList";
 	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
 	
 	String AJAX_REPORT_ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition/download";

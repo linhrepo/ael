@@ -21,6 +21,7 @@ import org.apache.poi.util.StringUtil;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
+import org.exolab.castor.types.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -41,6 +42,7 @@ import com.vn.ael.persistence.manager.ConfigurationManager;
 import com.vn.ael.persistence.manager.RealattachmentManager;
 import com.vn.ael.persistence.manager.UserManager;
 import com.vn.ael.persistence.service.EntityService;
+import com.vn.ael.webapp.formatter.CustomDateTimeFormat;
 import com.vn.ael.webapp.formatter.CustomNumberFormatter;
 
 /**
@@ -200,9 +202,14 @@ public class BaseFormController implements ServletContextAware {
                                     new ByteArrayMultipartFileEditor());
         SimpleDateFormat dateFormat = 
             new SimpleDateFormat(getText("date.format", request.getLocale()));
+        SimpleDateFormat dateTimeFormat = 
+                new SimpleDateFormat(getText("date.time.format", request.getLocale()));
         dateFormat.setLenient(false);
+        dateTimeFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, null, 
-                                    new CustomDateEditor(dateFormat, true));
+                                    new CustomDateTimeFormat(dateFormat,dateTimeFormat, true));
+        binder.registerCustomEditor(DateTime.class, null, 
+                new CustomDateTimeFormat(dateFormat,dateTimeFormat, true));
         binder.registerCustomEditor(ServicesType.class, null, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) {

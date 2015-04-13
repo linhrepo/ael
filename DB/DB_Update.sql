@@ -22,7 +22,18 @@ ALTER TABLE `ael`.`truckingdetail`
 	ADD COLUMN `phuthu` decimal(20,2),
 	ADD COLUMN `noContractUp` int,
 	ADD COLUMN `noContractDown` int;
+	
+------------COnfig
+INSERT INTO `ael`.`configuration`
+	VALUES(288,'Chi ph� n�ng',19,'chi phi nang',1,null);
+INSERT INTO `ael`.`configuration`
+	VALUES(289,'Chi ph� h?',19,'chi phi ha',1,null);
+	
 
 -------------------Package info
 ALTER TABLE `ael`.`packageinfo` 
 ADD COLUMN `contNo` VARCHAR(100) NULL AFTER `bookingNo`;
+
+INSERT INTO `ael`.`role` (`description`, `name`) VALUES ('Configuration', 'ROLE_CONFIG');
+INSERT INTO `ael`.`nhathau` (`id`, `type`) VALUES ('-1', '1');
+
