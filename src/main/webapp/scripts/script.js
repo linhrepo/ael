@@ -230,4 +230,3 @@ $(document).ready(function(){
 
 	$('.fileStyle').bootstrapFileInput();
 });
-

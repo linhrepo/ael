@@ -2,6 +2,7 @@
 <head>
     <title><fmt:message key="accountingvantai.title"/></title>
     <meta name="menu" content="AccountingMenu"/>
+    <meta name="child" content="true"/>
 </head>
  <c:set var="delObject" scope="request"><fmt:message key="accountingvantai.title"/></c:set>
 <script type="text/javascript">var msgDelConfirm =
@@ -19,8 +20,12 @@
     		<jsp:include page="fragment/vantai/vantaiTable.jsp"></jsp:include>
     	</div>
 	    <div class="form-group form-actions">	        
+	    <div class="form-group form-actions">
+	        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+	            <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
+	        </button>
 	        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
-	            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+	            <i class="fa fa-sign-out"></i> <fmt:message key="button.cancel"/>
 	        </button>
 	    </div>
     </form:form>

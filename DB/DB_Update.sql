@@ -25,7 +25,15 @@ ALTER TABLE `ael`.`truckingdetail`
 	
 ------------COnfig
 INSERT INTO `ael`.`configuration`
-	VALUES(288,'Chi phí nâng',19,'chi phi nang',1,null);
+	VALUES(288,'Chi phï¿½ nï¿½ng',19,'chi phi nang',1,null);
 INSERT INTO `ael`.`configuration`
-	VALUES(289,'Chi phí h?',19,'chi phi ha',1,null);
+	VALUES(289,'Chi phï¿½ h?',19,'chi phi ha',1,null);
 	
+
+-------------------Package info
+ALTER TABLE `ael`.`packageinfo` 
+ADD COLUMN `contNo` VARCHAR(100) NULL AFTER `bookingNo`;
+
+INSERT INTO `ael`.`role` (`description`, `name`) VALUES ('Configuration', 'ROLE_CONFIG');
+INSERT INTO `ael`.`nhathau` (`id`, `type`) VALUES ('-1', '1');
+
