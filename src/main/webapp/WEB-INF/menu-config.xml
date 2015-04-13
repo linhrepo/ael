@@ -31,6 +31,7 @@
         	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceRefunds"/>
         	<Item name="KeNhaThau" title="menu.acct.nhathau" page="/admin/accounting/nhathauList"/>
         	<Item name="KeVanTai" title="menu.acct.vantai" page="/admin/accounting/vantaiList"/>
+        </Menu>
          <Menu name="AccountingMenu" title="menu.accounting" description="Accounting Menu" roles="ROLE_ADMIN,ROLE_ACCOUNTING" image="/images/icons/accounting.png">
         	<Item name="DVTQ" title="menu.docs.dvtq" page="/admin/accounting/customList" image="/images/icons/custom.png"/>
         	<Item name="DVVT" title="menu.docs.dvvt" page="/admin/accounting/transportList" image="/images/icons/trans.png"/>
