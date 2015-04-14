@@ -76,6 +76,7 @@ public interface URLReference {
 	String PACKAGEINFO_SEARCH = "/admin/docs/searchPackageInfo";
 	String INLAND_SEARCH = "/admin/docs/searchInland";
 	String EXHIBITION_SEARCH = "/admin/docs/searchExhibition";
+	String TRUCKING_SEARCH = "/admin/trucking/searchTrucking";
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
 	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/vantaiList";

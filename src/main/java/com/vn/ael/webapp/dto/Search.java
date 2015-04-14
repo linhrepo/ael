@@ -8,6 +8,8 @@ public class Search {
 	private Boolean doDelivery;
 	private Boolean doRelease;
 	private Long typeOfEx;
+	private Long typeOfDocs;
+	private Boolean doAccounting;
 	
 	public Long getCustomer() {
 		return customer;
@@ -44,5 +46,18 @@ public class Search {
 	}
 	public void setTypeOfEx(Long typeOfEx) {
 		this.typeOfEx = typeOfEx;
+	}
+	public Long getTypeOfDocs() {
+		return typeOfDocs;
+	}
+	public void setTypeOfDocs(Long typeOfDocs) {
+		this.typeOfDocs = typeOfDocs;
+	}
+	public Boolean getDoAccounting() {
+		return doAccounting;
+	}
+	public void setDoAccounting(Boolean doAccounting) {
+		this.doAccounting = doAccounting;
 	}	
+	
 }
