@@ -121,16 +121,24 @@
 		       
 		    </div>
 		    
-		    <spring:bind path="packageInfo.nameVehicle">
+		    <spring:bind path="packageInfo.docsgeneral.nameVehicle">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.nameVehicle"/>
-		        <form:input path="nameVehicle" id="nameVehicle" maxlength="45"  cssClass="form-control"/>
-		        <form:errors path="nameVehicle" cssClass="help-block"/>
+		        <form:input path="docsgeneral.nameVehicle" id="nameVehicle" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="docsgeneral.nameVehicle" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="packageInfo.docsgeneral.sochuyen">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.sochuyen"/>
+		        <form:input path="docsgeneral.sochuyen" id="sochuyen" maxlength="45"  cssClass="form-control number"/>
+		        <form:errors path="docsgeneral.sochuyen" cssClass="help-block"/>
 		    </div>
 		    
 		    <spring:bind path="packageInfo.shipper">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.shipper"/>
 		        <form:input path="shipper" id="shipper" maxlength="45"  cssClass="form-control"/>
@@ -138,7 +146,7 @@
 		    </div>
 		    		    		    
 		    <spring:bind path="packageInfo.po">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.po"/>
 		        <form:input path="po" id="po" maxlength="45"  cssClass="form-control"/>

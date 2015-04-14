@@ -101,8 +101,6 @@ public class Packageinfo extends DocsEntity implements Serializable {
 
 	private String invoice;
 
-	private String nameVehicle;
-
 	private Integer noVehicle;
 
 	private String po;
@@ -294,14 +292,6 @@ public class Packageinfo extends DocsEntity implements Serializable {
 
 	public void setInvoice(String invoice) {
 		this.invoice = invoice;
-	}
-
-	public String getNameVehicle() {
-		return this.nameVehicle;
-	}
-
-	public void setNameVehicle(String nameVehicle) {
-		this.nameVehicle = nameVehicle;
 	}
 
 	public Integer getNoVehicle() {

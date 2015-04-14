@@ -54,8 +54,6 @@ public class Inland extends DocsEntity implements Serializable {
 	@JoinColumn(name = "route")
 	private Configuration route;
 
-	private String nameVehicle;
-	
 	private Date etd;
 	
 	private Date eta;
@@ -161,14 +159,6 @@ public class Inland extends DocsEntity implements Serializable {
 		this.route = route;
 	}
 
-	public String getNameVehicle() {
-		return nameVehicle;
-	}
-
-	public void setNameVehicle(String nameVehicle) {
-		this.nameVehicle = nameVehicle;
-	}
-
 	public Date getEtd() {
 		return etd;
 	}
@@ -224,4 +214,5 @@ public class Inland extends DocsEntity implements Serializable {
 	public void setOtherFees(BigDecimal otherFees) {
 		this.otherFees = otherFees;
 	}
+
 }

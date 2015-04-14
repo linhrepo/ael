@@ -22,6 +22,7 @@ import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.StringUtil;
 
 /**
  * @author liv1hc
@@ -67,10 +68,16 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 						Truckingdetail truckingdetail = new Truckingdetail();
 						truckingdetail.setConsteal(contseal);
 						truckingdetails.add(truckingdetail);
+						truckingdetail.setNoOfVehicle(docsgeneral.getSochuyen());
+						truckingdetail.setVehicleNo(docsgeneral.getNameVehicle());
 					}
 				}
 				else{
-					truckingdetails.add(new Truckingdetail());
+					Truckingdetail truckingdetail = new Truckingdetail();
+					truckingdetail.setNoOfVehicle(docsgeneral.getSochuyen());
+					truckingdetail.setVehicleNo(docsgeneral.getNameVehicle());
+					truckingdetail.setIsAdded(true);
+					truckingdetails.add(truckingdetail);
 				}
 				truckingservice.setDocsgeneral(docsgeneral);
 				truckingservice.setTruckingdetails(truckingdetails);
@@ -97,6 +104,8 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 			if (truckingservice.getTruckingdetails() == null || truckingservice.getTruckingdetails().isEmpty()){
 				List<Truckingdetail> truckingdetails = new ArrayList<>();
 				Truckingdetail truckingdetail = new Truckingdetail();
+				truckingdetail.setNoOfVehicle(truckingservice.getDocsgeneral().getSochuyen());
+				truckingdetail.setVehicleNo(truckingservice.getDocsgeneral().getNameVehicle());
 				truckingdetail.setIsAdded(true);
 				truckingdetails.add(truckingdetail);
 				truckingservice.setTruckingdetails(truckingdetails);
@@ -116,6 +125,8 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 						//this is new consteal
 						Truckingdetail truckingdetail = new Truckingdetail();
 						truckingdetail.setConsteal(contseal);
+						truckingdetail.setNoOfVehicle(truckingservice.getDocsgeneral().getSochuyen());
+						truckingdetail.setVehicleNo(truckingservice.getDocsgeneral().getNameVehicle());
 						truckingservice.getTruckingdetails().add(truckingdetail);
 					}
 				}
