@@ -95,7 +95,7 @@
     			var newTableId = "childTable"+newIndex;
     			$(lastDetail).find("table").attr("id",newTableId);
     			$(lastDetail).find("span[target-table]").attr("target-table",newTableId);
-    			$(lastDetail).find("table").inFormTable({
+    			$(lastDetail).find("table.inFormTable").inFormTable({
 					tableId:newTableId
 				});
     			
@@ -120,6 +120,10 @@
 			
 			$(lastTr).find("input.number").on("blur",function(){
 				$(this).val(accounting.formatMoney($(this).val(),UTIL.NUMBER_STYLE)); 
+			});
+			
+			$(lastTr).find('[provide="datepicker"]').datepicker({
+				format: "dd/mm/yyyy"
 			});
     	};
     	
@@ -289,7 +293,11 @@
     			$(row).removeClass("removed");
     			for (var i=0 ; i<newRowInputs.length;++i){
     				if (!$(newRowInputs[i]).hasClass("readonly")){
-    					$(newRowInputs[i]).attr("readonly",false);
+    					if ($(newRowInputs[i]).is("select")){
+    						$(newRowInputs[i]).select2("readonly",false);
+    					}else{
+    						$(newRowInputs[i]).attr("readonly",false);
+    					}
     				}
     				
     			}
@@ -299,7 +307,11 @@
     			
     			for (var i=0 ; i<newRowInputs.length;++i){
     				if ($(newRowInputs[i]).attr("valueType") != "deleted"){
-    					$(newRowInputs[i]).attr("readonly",true);
+    					if ($(newRowInputs[i]).is("select")){
+    						$(newRowInputs[i]).select2("readonly",true);
+    					}else{
+    						$(newRowInputs[i]).attr("readonly",true);
+    					}
     				}
     				
     			}

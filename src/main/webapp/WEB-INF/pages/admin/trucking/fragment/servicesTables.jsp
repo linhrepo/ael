@@ -292,7 +292,7 @@
 				<td data-title="<fmt:message key="inland.total"/>">
 					<form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].total"
 						id="total${idxx.index}" maxlength="45"  
-						cssClass="form-control total "/>
+						cssClass="form-control total money"/>
 				</td>
 				<td data-title="<fmt:message key="inland.feeInvoiceNo"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo">
