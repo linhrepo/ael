@@ -403,7 +403,7 @@ public class Packageinfo extends DocsEntity implements Serializable {
 
 	public void setClosingTimeWrapper(DateTime closingTimeWrapper) {
 		this.closingTimeWrapper = closingTimeWrapper;
-		this.closingTime = closingTimeWrapper.toDate();
+		this.closingTime = closingTimeWrapper == null ? null : closingTimeWrapper.toDate();
 	}
 
 	public String getClosingPlace() {

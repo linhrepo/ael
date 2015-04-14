@@ -31,6 +31,7 @@ public class Realattachment extends BaseEntity implements Serializable {
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] data;
 	
+	private String extension;
 
 	public Realattachment() {
 	}
@@ -49,6 +50,14 @@ public class Realattachment extends BaseEntity implements Serializable {
 
 	public void setData(byte[] data) {
 		this.data = data;
+	}
+
+	public String getExtension() {
+		return extension;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
 	}
 
 }

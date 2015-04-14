@@ -79,6 +79,10 @@
 			$(lastTr).find("input.number").on("blur",function(){
 				$(this).val(accounting.formatMoney($(this).val(),UTIL.NUMBER_STYLE)); 
 			});
+			
+			$(lastTr).find('[provide="datepicker"]').datepicker({
+				format: "dd/mm/yyyy"
+			});
     	};
     	
     	/**

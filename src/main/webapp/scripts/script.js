@@ -210,22 +210,22 @@ $(document).ready(function(){
 		$(this).html(accounting.formatMoney($(this).html(),UTIL.MONEY_STYLE)); 
 	});
 	
-	$("tr[readonly='readonly']").each(function(){
-		var newRowInputs = $(this).find("input");
-		newRowInputs = newRowInputs.add($(this).find("select"));
+	var disableContent = function(comp){
+		var newRowInputs = $(comp).find("input");
 		for (var i=0 ; i<newRowInputs.length;++i){
 			if ($(newRowInputs[i]).attr("valueType") != "deleted")
 			$(newRowInputs[i]).attr("readonly",true);
 		}
+		
+		$(comp).find("select").select2("readonly",true);
+	};
+	
+	$("tr[readonly='readonly']").each(function(){
+		disableContent($(this));
 	});
 	
 	$("form[readonly='readonly']").each(function(){
-		var newRowInputs = $(this).find("input");
-		newRowInputs = newRowInputs.add($(this).find("select"));
-		for (var i=0 ; i<newRowInputs.length;++i){
-			if ($(newRowInputs[i]).attr("valueType") != "deleted")
-			$(newRowInputs[i]).attr("readonly",true);
-		}
+		disableContent($(this));
 	});
 
 	$('.fileStyle').bootstrapFileInput();

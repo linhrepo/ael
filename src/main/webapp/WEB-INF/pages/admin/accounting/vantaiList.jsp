@@ -1,12 +1,12 @@
 <%@ include file="/common/taglibs.jsp" %>
 
 <head>
-    <title><fmt:message key="accountingTrans.title"/></title>
+    <title><fmt:message key="accountingvantai.title"/></title>
     <meta name="menu" content="AccountingMenu"/>
 </head>
 
 <div class="col-sm-10">
-    <h2><fmt:message key="accountingTrans.heading"/></h2>
+    <h2><fmt:message key="accountingvantai.title"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form  method="get" action="vantai" id="accountingvantaiForm" class="well">
      <div class="container-fluid">
