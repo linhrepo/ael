@@ -1,17 +1,11 @@
 package com.vn.ael.persistence.manager;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.data.repository.query.Param;
-
-import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
-import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
-import com.vn.ael.persistence.entity.Exhibition;
-import com.vn.ael.persistence.entity.Inland;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.dto.Search;
 
 public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
@@ -80,5 +74,7 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	void updateContTruck(Docsgeneral docsgeneral);
 	
 	List<Docsgeneral> findAllByConditionDateTime(AccountingTransCondition accountingTransCondition);
+	
+	List<Docsgeneral> searchTrucking(Search search);	
 
 }
