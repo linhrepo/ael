@@ -118,9 +118,9 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@OneToMany(mappedBy="docsgeneral", cascade = CascadeType.ALL)
 	private List<Exfeetable> exfeetables;
 	
-	private Boolean doAccounting;
+	private Boolean doAccounting = false;
 	
-	private Boolean doDelivery;
+	private Boolean doDelivery = false;
 	
 	private String productDescription;
 	

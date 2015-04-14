@@ -66,12 +66,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.placeEmptyUp}
+						${truck.truckingservice.docsgeneral.placeRev}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						 ${truck.truckingservice.docsgeneral.placeEmptyDown}
+						 ${truck.truckingservice.docsgeneral.placeDelivery}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
