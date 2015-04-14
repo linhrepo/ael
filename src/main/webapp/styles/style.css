@@ -451,3 +451,7 @@ button.collapsed, button.collapsed:focus{
 .table .table{
 	background-color : transparent;
 }
+
+.innerTableWrapper{
+	background-color : #535557;
+}

@@ -200,7 +200,7 @@
 			</tr>
 			<tr colType="detail" class="${detail.isAdded == true ? 'hidden' :''}" >
 				
-				<td colspan="12" style="border-top:none;">
+				<td colspan="12" style="border-top:none;" class="innerTableWrapper">
 <!-- 				DETAIL -->
 <div class="in" id="child${idx.index}">		
 

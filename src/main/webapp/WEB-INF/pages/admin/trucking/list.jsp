@@ -43,7 +43,7 @@
               		</c:if>
               	</td>
                 <td>
-                	<a href="service?docId=${trucking.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-file-text-o"></i></a>
+                	<a href="service?docId=${trucking.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
                 </td>
             </tr>
         </c:forEach>

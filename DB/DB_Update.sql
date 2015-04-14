@@ -37,3 +37,7 @@ ADD COLUMN `contNo` VARCHAR(100) NULL AFTER `bookingNo`;
 INSERT INTO `ael`.`role` (`description`, `name`) VALUES ('Configuration', 'ROLE_CONFIG');
 INSERT INTO `ael`.`nhathau` (`id`, `type`) VALUES ('-1', '1');
 
+------------------- Realattachment
+ALTER TABLE `ael`.`realattachment` 
+ADD COLUMN `extension` VARCHAR(5) NULL DEFAULT 'pdf' AFTER `attachment`;
+

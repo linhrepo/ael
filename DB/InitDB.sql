@@ -36,7 +36,7 @@ CREATE TABLE `accountingcus` (
   PRIMARY KEY (`id`),
   KEY `custodocgeneral_idx` (`docsgeneral`),
   CONSTRAINT `custodocgeneral` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `accountingcusdetail` (
   CONSTRAINT `acountingToDocs` FOREIGN KEY (`accountingcus`) REFERENCES `accountingcus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `nameDebit` FOREIGN KEY (`name`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toDescCon` FOREIGN KEY (`description`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +191,7 @@ CREATE TABLE `app_user` (
 
 LOCK TABLES `app_user` WRITE;
 /*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-INSERT INTO `app_user` VALUES (-3,'\0','\0','','Denver','US','80210','CO','\0','two_roles_user@appfuse.org','','Two Roles','User','$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO','Not a female kitty.','','two_roles_user',1,'http://raibledesigns.com'),(-2,'\0','\0','','Denver','US','80210','CO','\0','matt@raibledesigns.com','','Matt','Raible','$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO','Not a female kitty.','','admin',1,'http://raibledesigns.com'),(-1,'\0','\0','','Denver','US','80210','CO','\0','matt_raible@yahoo.com','','Tomcat','User','$2a$10$CnQVJ9bsWBjMpeSKrrdDEeuIptZxXrwtI6CZ/OgtNxhIgpKxXeT9y','A male kitty.','','user',1,'http://tomcat.apache.org'),(2,'\0','\0','','','','','','\0','tlinh211110@yahoo.com','','linh','vo','$2a$10$pGFCNkhsmBPopOflv128TuXzFmiNu/ZLbIlVTR78w7qB/tBIn2Ai6','liv1hc','09090909','liv1hc',6,'adsdsad'),(4,'\0','\0','','','','','','\0','tlinh21110@yahoo.com','','Linh','Vo','$2a$10$pGFCNkhsmBPopOflv128TuXzFmiNu/ZLbIlVTR78w7qB/tBIn2Ai6','from 1 to 9','0912344545','saleman',2,''),(5,'\0','\0','','','','','','\0','tlinh2110@yahoo.com','','linh ','vo','$2a$10$pGFCNkhsmBPopOflv128TuXzFmiNu/ZLbIlVTR78w7qB/tBIn2Ai6','liv1hc','','linh',1,'');
+INSERT INTO `app_user` VALUES (-3,'\0','\0','','Denver','US','80210','CO','\0','two_roles_user@appfuse.org','','Two Roles','User','$2a$10$0doijj4k4c.s2eJDUvCmFeFVyQv/GHeMDWv9OXoNPvdXAqlP53.W.','Not a female kitty.','','trucking',3,'http://raibledesigns.com'),(-2,'\0','\0','','Denver','US','80210','CO','\0','matt@raibledesigns.com','','Matt','Raible','$2a$10$bH/ssqW8OhkTlIso9/yakubYODUOmh.6m5HEJvcBq3t3VdBh7ebqO','Not a female kitty.','','admin',1,'http://raibledesigns.com'),(-1,'\0','\0','','Denver','US','80210','CO','\0','matt_raible@yahoo.com','','Tomcat','User','$2a$10$0doijj4k4c.s2eJDUvCmFeFVyQv/GHeMDWv9OXoNPvdXAqlP53.W.','A male kitty.','','accounting',2,'http://tomcat.apache.org'),(2,'\0','\0','','','','','','\0','tlinh2110@yahoo.com','','linh','vo','$2a$10$0doijj4k4c.s2eJDUvCmFeFVyQv/GHeMDWv9OXoNPvdXAqlP53.W.','liv1hc','09090909','liv1hc',7,'adsdsad'),(4,'\0','\0','','','','','','\0','tlinh21110@yahoo.com','','Linh','Vo','$2a$10$0doijj4k4c.s2eJDUvCmFeFVyQv/GHeMDWv9OXoNPvdXAqlP53.W.','from 1 to 9','0912344545','manifest',4,''),(5,'\0','\0','','','','','','\0','tlinh21q10@yahoo.com','','linh ','vo','$2a$10$0doijj4k4c.s2eJDUvCmFeFVyQv/GHeMDWv9OXoNPvdXAqlP53.W.','liv1hc','','sales',9,'');
 /*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +216,7 @@ CREATE TABLE `attachment` (
   CONSTRAINT `filetodoc` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `filetosale` FOREIGN KEY (`offerPrice`) REFERENCES `offerprice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `filetoTruck` FOREIGN KEY (`trucking`) REFERENCES `truckingservice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +243,7 @@ CREATE TABLE `configuration` (
   `enabled` int(1) DEFAULT '1',
   `implyActions` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=288 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=291 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,7 +252,7 @@ CREATE TABLE `configuration` (
 
 LOCK TABLES `configuration` WRITE;
 /*!40000 ALTER TABLE `configuration` DISABLE KEYS */;
-INSERT INTO `configuration` VALUES (-10,'Chi phí chi hộ',20,'Thông tin customs service',1,'{1}'),(-4,'Xuất',27,'',1,NULL),(-3,'Nhập',27,'',1,NULL),(-2,'LCL',7,NULL,1,NULL),(-1,'FCL',7,NULL,1,NULL),(60,'Công ty nước ngoài',4,'Thông tin customer',1,NULL),(61,'Công ty Việt Nam',4,'Thông tin customer',1,NULL),(62,'Công ty đầu tư nước ngoài',4,'Thông tin customer',1,NULL),(63,'Công ty liên doanh',4,'Thông tin customer',1,NULL),(64,'Doanh nghiệp chế xuất',4,'Thông tin customer',1,NULL),(65,'Văn phòng đại diện',4,'Thông tin customer',1,NULL),(66,'Vietnam',5,'Thông tin customer',1,NULL),(67,'Thailand',5,'Thông tin customer',1,NULL),(68,'Singapore',5,'Thông tin customer',1,NULL),(69,'Campodia',5,'Thông tin customer',1,NULL),(70,'Malaysia',5,'Thông tin customer',1,NULL),(71,'Indonesia',5,'Thông tin customer',1,NULL),(72,'Philippine',5,'Thông tin customer',1,NULL),(73,'Myanmar',5,'Thông tin customer',1,NULL),(74,'China',5,'Thông tin customer',1,NULL),(75,'Korea',5,'Thông tin customer',1,NULL),(76,'Japan',5,'Thông tin customer',1,NULL),(77,'Taiwan',5,'Thông tin customer',1,NULL),(78,'Hongkong',5,'Thông tin customer',1,NULL),(79,'Germany',5,'Thông tin customer',1,NULL),(80,'Denmark',5,'Thông tin customer',1,NULL),(81,'France',5,'Thông tin customer',1,NULL),(82,'England',5,'Thông tin customer',1,NULL),(83,'Nertherland',5,'Thông tin customer',1,NULL),(84,'Australia',5,'Thông tin customer',1,NULL),(85,'USA',5,'Thông tin customer',1,NULL),(86,'Dịch vụ hải quan',0,'Thông tin báo giá',1,NULL),(87,'Dịch vụ vận chuyển',0,'Thông tin báo giá',1,NULL),(88,'Dịch vụ hải quan và vận chuyển',0,'Thông tin báo giá',1,NULL),(89,'Dịch vụ triển lãm',0,'Thông tin báo giá',1,NULL),(90,'Dịch vụ đóng gói, lắp đặt',0,'Thông tin báo giá',1,NULL),(91,'VND',1,'Thông tin báo giá',1,NULL),(92,'USD',1,'Thông tin báo giá',1,NULL),(93,'SGD',1,'Thông tin báo giá',1,NULL),(94,'AUD',1,'Thông tin báo giá',1,NULL),(96,'Xuất kinh doanh',11,'Thông tin customs service',1,NULL),(97,'Xuất phi mậu dịch',11,'Thông tin customs service',1,NULL),(98,'Tạm xuất tái nhập',11,'Thông tin customs service',1,NULL),(99,'Nhập SXXK',11,'Thông tin customs service',1,NULL),(100,'Tái xuất',11,'Thông tin customs service',1,NULL),(101,'Xuất SXXK',11,'Thông tin customs service',1,NULL),(102,'Nhập kinh doanh',11,'Thông tin customs service',1,NULL),(103,'Nhập phi mậu dịch',11,'Thông tin customs service',1,NULL),(104,'Tạm nhập tái xuất',11,'Thông tin customs service',1,NULL),(105,'Đường không',6,'Thông tin customs service',1,NULL),(106,'Biển',6,'Thông tin customs service',1,NULL),(107,'NYK',12,'Thông tin customs service',1,NULL),(108,'APL',12,'Thông tin customs service',1,NULL),(109,'MOL',12,'Thông tin customs service',1,NULL),(110,'OOCL',12,'Thông tin customs service',1,NULL),(111,'COSCO',12,'Thông tin customs service',1,NULL),(112,'PIL',12,'Thông tin customs service',1,NULL),(113,'NAMSUNG',12,'Thông tin customs service',1,NULL),(114,'INTERASIA',12,'Thông tin customs service',1,NULL),(115,'TSLINE',12,'Thông tin customs service',1,NULL),(116,'MYANGMINH',12,'Thông tin customs service',1,NULL),(117,'SITC',12,'Thông tin customs service',1,NULL),(118,'RCL',12,'Thông tin customs service',1,NULL),(119,'KLINE',12,'Thông tin customs service',1,NULL),(120,'UASC',12,'Thông tin customs service',1,NULL),(121,'MAERSK',12,'Thông tin customs service',1,NULL),(122,'BIEN DONG',12,'Thông tin customs service',1,NULL),(123,'MARINA',12,'Thông tin customs service',1,NULL),(124,'VOSCO',12,'Thông tin customs service',1,NULL),(125,'SINOKOR',12,'Thông tin customs service',1,NULL),(126,'DHL',12,'Thông tin customs service',1,NULL),(127,'FEDEX',12,'Thông tin customs service',1,NULL),(128,'TNT',12,'Thông tin customs service',1,NULL),(129,'Quản lý hàng đầu tư HCM',13,'Thông tin customs service',1,NULL),(130,'Mỹ Phước 1',13,'Thông tin customs service',1,NULL),(131,'Cảng Bình Dương',13,'Thông tin customs service',1,NULL),(132,'VSIP',13,'Thông tin customs service',1,NULL),(133,'Biên Hoà',13,'Thông tin customs service',1,NULL),(134,'Long Bình Tân',13,'Thông tin customs service',1,NULL),(135,'Cảng Cát Lái',13,'Thông tin customs service',1,NULL),(136,'Khánh Hội',13,'Thông tin customs service',1,NULL),(155,'VICT',13,'Thông tin customs service',1,NULL),(156,'Bến Nghé',13,'Thông tin customs service',1,NULL),(157,'ICD TRANSIMEX',13,'Thông tin customs service',1,NULL),(158,'ICD Phước Long 1',13,'Thông tin customs service',1,NULL),(159,'ICD Phước Long 3',13,'Thông tin customs service',1,NULL),(160,'ICD TAMAMEXCO',13,'Thông tin customs service',1,NULL),(161,'ICD SOTRANS',13,'Thông tin customs service',1,NULL),(162,'Cảng Hải Phòng',13,'Thông tin customs service',1,NULL),(163,'Bắc Hà Nội',13,'Thông tin customs service',1,NULL),(164,'1',8,'GREEN',1,NULL),(165,'2',8,'YELLOW',1,NULL),(166,'3',8,'RED',1,NULL),(167,'20 DR',10,'Thông tin CONT',1,NULL),(168,'20 FR',10,'Thông tin CONT',1,NULL),(169,'20 OP',10,'Thông tin CONT',1,NULL),(170,'20 TK',10,'Thông tin CONT',1,NULL),(171,'40 DR',10,'Thông tin CONT',1,NULL),(172,'40 HQ',10,'Thông tin CONT',1,NULL),(173,'40 FR',10,'Thông tin CONT',1,NULL),(174,'40 OP',10,'Thông tin CONT',1,NULL),(175,'40 TK',10,'Thông tin CONT',1,NULL),(176,'45 HQ',10,'Thông tin CONT',1,NULL),(178,'Chi phí AEL',20,'Thông tin customs service',1,NULL),(180,'Khác',20,'Thông tin customs service',1,NULL),(181,'Cước vận chuyển nội địa',19,'Thông tin báo giá',1,NULL),(182,'Cước vận chuyển quốc tế',19,'Thông tin báo giá',1,NULL),(183,'Phí hạ',19,'Thông tin báo giá',1,NULL),(184,'Phí nâng',19,'Thông tin báo giá',1,NULL),(185,'Phí chứng từ',19,'Thông tin báo giá',1,NULL),(186,'Phí D/O',19,'Thông tin báo giá',1,NULL),(187,'Phí xếp dỡ',19,'Thông tin báo giá',1,NULL),(188,'Phí lưu bãi',19,'Thông tin báo giá',1,NULL),(189,'Phí lưu cont',19,'Thông tin báo giá',1,NULL),(190,'Phí lưu kho',19,'Thông tin báo giá',1,NULL),(191,'Phí vệ sinh',19,'Thông tin báo giá',1,NULL),(192,'Phí sữa chữa',19,'Thông tin báo giá',1,NULL),(193,'Phí kiểm dịch',19,'Thông tin báo giá',1,NULL),(194,'Chi phí hải quan',19,'Thông tin báo giá',1,NULL),(195,'Lệ phí hải quan',19,'Thông tin báo giá',1,NULL),(196,'Phí bốc hàng',19,'Thông tin báo giá',1,NULL),(197,'Phí ký chứng từ',19,'Thông tin báo giá',1,NULL),(198,'Phí thanh lý',19,'Thông tin báo giá',1,NULL),(199,'Hàng rời',7,'Thông tin Transportation Services',1,NULL),(200,'Xuất',14,'Thông tin Transportation Services',1,NULL),(201,'Nhập',14,'Thông tin Transportation Services',1,NULL),(202,'Chuyển kho',14,'Thông tin Transportation Services',1,NULL),(203,'Bắc - Nam',15,'Thông tin Transportation Services',1,NULL),(204,'Nam - Bắc',15,'Thông tin Transportation Services',1,NULL),(205,'Tạm xuất',17,'Thông tin exhibition',1,NULL),(206,'Tạm nhập',17,'Thông tin exhibition',1,NULL),(207,'Xuất KD',17,'Thông tin exhibition',1,NULL),(208,'Tái nhập',17,'Thông tin exhibition',1,NULL),(209,'Nhập sau',17,'Thông tin exhibition',1,NULL),(210,'Onsite',17,'Thông tin exhibition',1,NULL),(211,'Phí xin GP',21,'Thông tin exhibition',1,NULL),(212,'Local charge at depart',21,'Thông tin exhibition',1,NULL),(213,'Local charge at dest',21,'Thông tin exhibition',1,NULL),(214,'Phí onsite',21,'Thông tin exhibition',1,NULL),(215,'Phí XN - CN',21,'Thông tin exhibition',1,NULL),(216,'Phí giao nhận',21,'Thông tin exhibition',1,NULL),(217,'Phí OF',21,'Thông tin exhibition',1,NULL),(218,'Phí đại lý',21,'Thông tin exhibition',1,NULL),(219,'Tiền thuế XNK',21,'Thông tin exhibition',1,NULL),(220,'Phí khác',21,'Thông tin exhibition',1,NULL),(260,'Phí dịch vụ hải quan và vận chuyển',23,'',1,NULL),(261,'Customs clearance  & Transportation fee',24,'',1,NULL),(271,'Cái',3,NULL,1,NULL),(272,'Con',3,NULL,1,NULL),(274,'Lào',5,NULL,1,NULL),(279,'TEST_Ban tổ chức',22,NULL,1,NULL),(281,'TESTFE',26,NULL,1,NULL),(282,'TESTw',25,NULL,1,NULL),(283,'Inward handling',25,NULL,1,NULL),(284,'Outward',25,NULL,1,NULL),(285,'sfsd',26,NULL,1,NULL),(286,'Đường bộ',6,'',1,NULL),(287,'Loại khác',14,'',1,NULL);
+INSERT INTO `configuration` VALUES (-10,'Chi phí chi hộ',20,'Thông tin customs service',1,'{1}'),(-4,'Xuất',27,'',1,NULL),(-3,'Nhập',27,'',1,NULL),(-2,'LCL',7,NULL,1,NULL),(-1,'FCL',7,NULL,1,NULL),(60,'Công ty nước ngoài',4,'Thông tin customer',1,NULL),(61,'Công ty Việt Nam',4,'Thông tin customer',1,NULL),(62,'Công ty đầu tư nước ngoài',4,'Thông tin customer',1,NULL),(63,'Công ty liên doanh',4,'Thông tin customer',1,NULL),(64,'Doanh nghiệp chế xuất',4,'Thông tin customer',1,NULL),(65,'Văn phòng đại diện',4,'Thông tin customer',1,NULL),(66,'Vietnam',5,'Thông tin customer',1,NULL),(67,'Thailand',5,'Thông tin customer',1,NULL),(68,'Singapore',5,'Thông tin customer',1,NULL),(69,'Campodia',5,'Thông tin customer',1,NULL),(70,'Malaysia',5,'Thông tin customer',1,NULL),(71,'Indonesia',5,'Thông tin customer',1,NULL),(72,'Philippine',5,'Thông tin customer',1,NULL),(73,'Myanmar',5,'Thông tin customer',1,NULL),(74,'China',5,'Thông tin customer',1,NULL),(75,'Korea',5,'Thông tin customer',1,NULL),(76,'Japan',5,'Thông tin customer',1,NULL),(77,'Taiwan',5,'Thông tin customer',1,NULL),(78,'Hongkong',5,'Thông tin customer',1,NULL),(79,'Germany',5,'Thông tin customer',1,NULL),(80,'Denmark',5,'Thông tin customer',1,NULL),(81,'France',5,'Thông tin customer',1,NULL),(82,'England',5,'Thông tin customer',1,NULL),(83,'Nertherland',5,'Thông tin customer',1,NULL),(84,'Australia',5,'Thông tin customer',1,NULL),(85,'USA',5,'Thông tin customer',1,NULL),(86,'Dịch vụ hải quan',0,'Thông tin báo giá',1,NULL),(87,'Dịch vụ vận chuyển',0,'Thông tin báo giá',1,NULL),(88,'Dịch vụ hải quan và vận chuyển',0,'Thông tin báo giá',1,NULL),(89,'Dịch vụ triển lãm',0,'Thông tin báo giá',1,NULL),(90,'Dịch vụ đóng gói, lắp đặt',0,'Thông tin báo giá',1,NULL),(91,'VND',1,'Thông tin báo giá',1,NULL),(92,'USD',1,'Thông tin báo giá',1,NULL),(93,'SGD',1,'Thông tin báo giá',1,NULL),(94,'AUD',1,'Thông tin báo giá',1,NULL),(96,'Xuất kinh doanh',11,'Thông tin customs service',1,NULL),(97,'Xuất phi mậu dịch',11,'Thông tin customs service',1,NULL),(98,'Tạm xuất tái nhập',11,'Thông tin customs service',1,NULL),(99,'Nhập SXXK',11,'Thông tin customs service',1,NULL),(100,'Tái xuất',11,'Thông tin customs service',1,NULL),(101,'Xuất SXXK',11,'Thông tin customs service',1,NULL),(102,'Nhập kinh doanh',11,'Thông tin customs service',1,NULL),(103,'Nhập phi mậu dịch',11,'Thông tin customs service',1,NULL),(104,'Tạm nhập tái xuất',11,'Thông tin customs service',1,NULL),(105,'Đường không',6,'Thông tin customs service',1,NULL),(106,'Biển',6,'Thông tin customs service',1,NULL),(107,'NYK',12,'Thông tin customs service',1,NULL),(108,'APL',12,'Thông tin customs service',1,NULL),(109,'MOL',12,'Thông tin customs service',1,NULL),(110,'OOCL',12,'Thông tin customs service',1,NULL),(111,'COSCO',12,'Thông tin customs service',1,NULL),(112,'PIL',12,'Thông tin customs service',1,NULL),(113,'NAMSUNG',12,'Thông tin customs service',1,NULL),(114,'INTERASIA',12,'Thông tin customs service',1,NULL),(115,'TSLINE',12,'Thông tin customs service',1,NULL),(116,'MYANGMINH',12,'Thông tin customs service',1,NULL),(117,'SITC',12,'Thông tin customs service',1,NULL),(118,'RCL',12,'Thông tin customs service',1,NULL),(119,'KLINE',12,'Thông tin customs service',1,NULL),(120,'UASC',12,'Thông tin customs service',1,NULL),(121,'MAERSK',12,'Thông tin customs service',1,NULL),(122,'BIEN DONG',12,'Thông tin customs service',1,NULL),(123,'MARINA',12,'Thông tin customs service',1,NULL),(124,'VOSCO',12,'Thông tin customs service',1,NULL),(125,'SINOKOR',12,'Thông tin customs service',1,NULL),(126,'DHL',12,'Thông tin customs service',1,NULL),(127,'FEDEX',12,'Thông tin customs service',1,NULL),(128,'TNT',12,'Thông tin customs service',1,NULL),(129,'Quản lý hàng đầu tư HCM',13,'Thông tin customs service',1,NULL),(130,'Mỹ Phước 1',13,'Thông tin customs service',1,NULL),(131,'Cảng Bình Dương',13,'Thông tin customs service',1,NULL),(132,'VSIP',13,'Thông tin customs service',1,NULL),(133,'Biên Hoà',13,'Thông tin customs service',1,NULL),(134,'Long Bình Tân',13,'Thông tin customs service',1,NULL),(135,'Cảng Cát Lái',13,'Thông tin customs service',1,NULL),(136,'Khánh Hội',13,'Thông tin customs service',1,NULL),(155,'VICT',13,'Thông tin customs service',1,NULL),(156,'Bến Nghé',13,'Thông tin customs service',1,NULL),(157,'ICD TRANSIMEX',13,'Thông tin customs service',1,NULL),(158,'ICD Phước Long 1',13,'Thông tin customs service',1,NULL),(159,'ICD Phước Long 3',13,'Thông tin customs service',1,NULL),(160,'ICD TAMAMEXCO',13,'Thông tin customs service',1,NULL),(161,'ICD SOTRANS',13,'Thông tin customs service',1,NULL),(162,'Cảng Hải Phòng',13,'Thông tin customs service',1,NULL),(163,'Bắc Hà Nội',13,'Thông tin customs service',1,NULL),(164,'1',8,'GREEN',1,NULL),(165,'2',8,'YELLOW',1,NULL),(166,'3',8,'RED',1,NULL),(167,'20 DR',10,'Thông tin CONT',1,NULL),(168,'20 FR',10,'Thông tin CONT',1,NULL),(169,'20 OP',10,'Thông tin CONT',1,NULL),(170,'20 TK',10,'Thông tin CONT',1,NULL),(171,'40 DR',10,'Thông tin CONT',1,NULL),(172,'40 HQ',10,'Thông tin CONT',1,NULL),(173,'40 FR',10,'Thông tin CONT',1,NULL),(174,'40 OP',10,'Thông tin CONT',1,NULL),(175,'40 TK',10,'Thông tin CONT',1,NULL),(176,'45 HQ',10,'Thông tin CONT',1,NULL),(178,'Chi phí AEL',20,'Thông tin customs service',1,NULL),(180,'Khác',20,'Thông tin customs service',1,NULL),(181,'Cước vận chuyển nội địa',19,'Thông tin báo giá',1,NULL),(182,'Cước vận chuyển quốc tế',19,'Thông tin báo giá',1,NULL),(183,'Phí hạ',19,'Thông tin báo giá',1,NULL),(184,'Phí nâng',19,'Thông tin báo giá',1,NULL),(185,'Phí chứng từ',19,'Thông tin báo giá',1,NULL),(186,'Phí D/O',19,'Thông tin báo giá',1,NULL),(187,'Phí xếp dỡ',19,'Thông tin báo giá',1,NULL),(188,'Phí lưu bãi',19,'Thông tin báo giá',1,NULL),(189,'Phí lưu cont',19,'Thông tin báo giá',1,NULL),(190,'Phí lưu kho',19,'Thông tin báo giá',1,NULL),(191,'Phí vệ sinh',19,'Thông tin báo giá',1,NULL),(192,'Phí sữa chữa',19,'Thông tin báo giá',1,NULL),(193,'Phí kiểm dịch',19,'Thông tin báo giá',1,NULL),(194,'Chi phí hải quan',19,'Thông tin báo giá',1,NULL),(195,'Lệ phí hải quan',19,'Thông tin báo giá',1,NULL),(196,'Phí bốc hàng',19,'Thông tin báo giá',1,NULL),(197,'Phí ký chứng từ',19,'Thông tin báo giá',1,NULL),(198,'Phí thanh lý',19,'Thông tin báo giá',1,NULL),(199,'Hàng rời',7,'Thông tin Transportation Services',1,NULL),(200,'Xuất',14,'Thông tin Transportation Services',1,NULL),(201,'Nhập',14,'Thông tin Transportation Services',1,NULL),(202,'Chuyển kho',14,'Thông tin Transportation Services',1,NULL),(203,'Bắc - Nam',15,'Thông tin Transportation Services',1,NULL),(204,'Nam - Bắc',15,'Thông tin Transportation Services',1,NULL),(205,'Tạm xuất',17,'Thông tin exhibition',1,NULL),(206,'Tạm nhập',17,'Thông tin exhibition',1,NULL),(207,'Xuất KD',17,'Thông tin exhibition',1,NULL),(208,'Tái nhập',17,'Thông tin exhibition',1,NULL),(209,'Nhập sau',17,'Thông tin exhibition',1,NULL),(210,'Onsite',17,'Thông tin exhibition',1,NULL),(211,'Phí xin GP',21,'Thông tin exhibition',1,NULL),(212,'Local charge at depart',21,'Thông tin exhibition',1,NULL),(213,'Local charge at dest',21,'Thông tin exhibition',1,NULL),(214,'Phí onsite',21,'Thông tin exhibition',1,NULL),(215,'Phí XN - CN',21,'Thông tin exhibition',1,NULL),(216,'Phí giao nhận',21,'Thông tin exhibition',1,NULL),(217,'Phí OF',21,'Thông tin exhibition',1,NULL),(218,'Phí đại lý',21,'Thông tin exhibition',1,NULL),(219,'Tiền thuế XNK',21,'Thông tin exhibition',1,NULL),(220,'Phí khác',21,'Thông tin exhibition',1,NULL),(260,'Phí dịch vụ hải quan và vận chuyển',23,'',1,NULL),(261,'Customs clearance  & Transportation fee',24,'',1,NULL),(271,'Cái',3,NULL,1,NULL),(272,'Con',3,NULL,1,NULL),(274,'Lào',5,NULL,1,NULL),(279,'TEST_Ban tổ chức',22,NULL,1,NULL),(281,'TESTFE',26,NULL,1,NULL),(282,'TESTw',25,NULL,1,NULL),(283,'Inward handling',25,NULL,1,NULL),(284,'Outward',25,NULL,1,NULL),(285,'sfsd',26,NULL,1,NULL),(286,'Đường bộ',6,'',1,NULL),(287,'Loại khác',14,'',1,NULL),(288,'Loại khác',0,NULL,1,NULL),(289,'Đơn Giá',19,NULL,1,NULL),(290,'Phụ thu',19,NULL,1,NULL);
 /*!40000 ALTER TABLE `configuration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +277,7 @@ CREATE TABLE `contseal` (
   KEY `toContCOnt_idx` (`typeOfCont`),
   CONSTRAINT `toContCOnt` FOREIGN KEY (`typeOfCont`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toGenerals` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +352,7 @@ CREATE TABLE `docservices` (
   PRIMARY KEY (`id`),
   KEY `toPackageFromService_idx` (`docsgeneral`),
   CONSTRAINT `docsGeneralFromServices` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -411,7 +411,7 @@ CREATE TABLE `docsgeneral` (
   CONSTRAINT `docsStaff` FOREIGN KEY (`processingStaff`) REFERENCES `app_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `docsTypeOfContainer` FOREIGN KEY (`typeOfContainer`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `docsTypeOfService` FOREIGN KEY (`typeOfPackage`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -443,6 +443,7 @@ CREATE TABLE `exfeetable` (
   `dateChange` datetime DEFAULT NULL,
   `invoiceNo` varchar(45) DEFAULT NULL,
   `checkByAdmin` int(1) DEFAULT NULL,
+  `total` decimal(20,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `nameOfFee_idx` (`name`),
   KEY `feeToexhibition_idx` (`docsgeneral`),
@@ -455,7 +456,7 @@ CREATE TABLE `exfeetable` (
   CONSTRAINT `nameOfFee` FOREIGN KEY (`name`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toMasterFee` FOREIGN KEY (`masterFee`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `totruckingdetail` FOREIGN KEY (`truckingdetail`) REFERENCES `truckingdetail` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -520,7 +521,7 @@ CREATE TABLE `exhibition` (
   CONSTRAINT `operatorConf` FOREIGN KEY (`operator`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toCusDept` FOREIGN KEY (`cusDept`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `typeOfEx` FOREIGN KEY (`typeOfEx`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -556,7 +557,7 @@ CREATE TABLE `extendfeeacc` (
   CONSTRAINT `toCounting` FOREIGN KEY (`accountingcus`) REFERENCES `accountingcus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `toFee` FOREIGN KEY (`feeowner`) REFERENCES `exfeetable` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tofeedebit` FOREIGN KEY (`description`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -611,7 +612,7 @@ CREATE TABLE `inland` (
   CONSTRAINT `routeToConf` FOREIGN KEY (`route`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toCreator` FOREIGN KEY (`creator`) REFERENCES `app_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `typeOfInland` FOREIGN KEY (`typeOfInland`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -667,7 +668,7 @@ CREATE TABLE `multitypes` (
   PRIMARY KEY (`id`),
   KEY `multiToDocs_idx` (`docsgeneral`),
   CONSTRAINT `multiToDocs` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -693,6 +694,8 @@ CREATE TABLE `nhathau` (
   `phoneNumber` varchar(15) DEFAULT NULL,
   `taxNo` varchar(45) DEFAULT NULL,
   `type` int(2) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `code` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -703,7 +706,7 @@ CREATE TABLE `nhathau` (
 
 LOCK TABLES `nhathau` WRITE;
 /*!40000 ALTER TABLE `nhathau` DISABLE KEYS */;
-INSERT INTO `nhathau` VALUES (1,'anh Hùng','An Hòa','0915640077','',0),(2,'A Hòa','AN LONG TRƯỜNG - CTY CP AN LONG TRƯỜNG','0912.146839','3010271497',0),(3,'','NYK','','',1),(5,'','APL','',NULL,1),(6,'','MOL','',NULL,1),(7,'','OOCL','',NULL,1),(8,'','COSCO','',NULL,1),(9,'','PIL','',NULL,1),(10,'','NAMSUNG','',NULL,1),(11,'','INTERASIA','',NULL,1),(12,'','TSLINE','',NULL,1),(13,'','MYANGMINH','',NULL,1),(14,'','SITC','',NULL,1),(15,'','RCL','',NULL,1),(16,'','KLINE','',NULL,1),(17,'','UASC','',NULL,1),(18,'','MAERSK','',NULL,1),(19,'','BIEN DONG','',NULL,1),(20,'','MARINA','',NULL,1),(21,'','VOSCO','',NULL,1),(22,'','SINOKOR','',NULL,1),(23,'','DHL','',NULL,1),(24,'','FEDEX','',NULL,1),(25,'','TNT','',NULL,1),(26,'','EMS','',NULL,1),(27,'','UPS','',NULL,1),(28,'','INTER LOGISTICS','',NULL,1),(29,'','KONOIKE','',NULL,1),(30,'','SUPERSTAR','',NULL,1),(31,'','VINATRANS','',NULL,1),(32,'','DACHSER','',NULL,1),(33,'','ANC','',NULL,1),(34,'','LOGITEM','',NULL,1),(35,'','NNR','',NULL,1),(36,'','THAMI','',NULL,1),(37,'','EVERGREEN','',NULL,1),(38,'','EVERICH','',NULL,1),(39,'','P&O','',NULL,1),(40,'','PT SHIPPING','',NULL,1),(41,'','KHAI MINH','',NULL,1),(42,'','SCHENKER','',NULL,1),(43,'','AGILITY','',NULL,1),(45,'','ANH LINH','','',0),(46,'A Nam','ANH NAM','0919518468','',0),(47,'A Truong','ANH TRƯỜNG','0909295249','',0),(48,'A Vuong','ANH VƯƠNG','0917192206','',0),(49,'A THUONG',' CTY TNHH SX TM DV ĐÔNG NGÀN','0906.369.499','303417956',0),(50,'A DONG','CTY TNHH - VT ĐÔNG TÚ ','0909.919.667','307412162',0),(51,'C.THUY','CTY TNHH TM DV VẬN TẢI ĐỨC TRUYỀN','0938.29.57.67','311812124',0),(52,' A Hoang','HOÀNG KHANH','0918.369159','',0),(53,'A TOÁN','CTY TNHH TM DV VẬN TẢI HỒNG TOÁN','0908.21.21.36','305605264',0),(54,'A TOÀN','CTY CP GIAO NHẬN VÀ VẬN CHUYỂN IN DO TRẦN -ITL','0984.70.14.15','301909173',0),(55,'A Cuong','KIEN CUONG','0908200200','',0),(56,'A Vinh','CTY TNHH VẬN TẢI LÂM VINH ','0903728551','909988360',0),(57,'Mr. Lượng','LIÊN TRUNG','0983888289 ','',0),(58,'A NHẬT','CTY TNHH TM DV VẬN TẢI LONG PHÚ','0914.052.488','311947409',0),(59,'A Nghia','MINH NGHĨA','083807491','',0),(60,'A SON','CTY TNHH GIẢI PHÁP VẬN CHUYỂN NAM LONG','0914.722.246','311857799',0),(61,'Mr BÁU ','NGỌC BÁU','0903 704 837 ','',0),(62,'A THUAN','CTY TNHH VẬN TẢI NGỌC PHÚ','0919.17.17.13','308982214',0),(63,'A NHUT','DNTN VẬN TẢI NHỰT QUANG','01244.907.778','3601221915',0),(64,'A Thịnh','PHÚ MỸ','0913.856667','',0),(65,' A Phương','Phương Nhung','0909576486','',0),(66,'ANH ÂN','CTY TNHH MTV VẬN TẢI QUỐC NGHĨA','0906396289','3702070606',0),(67,'A Phuong ','SONG HÀ','0989847879 ','',0),(68,'A TÂN','CTY TNHH VẬN TẢI XUẤT KHẨU SONG LONG','0938.411.087','312864573',0),(69,'A TUNG','CTY TNHH GIAO NHẬN VẬN TẢI T.A.M','0916.699.634','310906475',0),(70,'Ms.VÂN','THUẬN HIẾU','0937.331.078 ','',0),(71,'A Hung','CTY CP GIAO NHẬN VẬN TẢI THUẬN PHONG','0982442522','312038383',0),(72,' A Bình','CONG TY TNHH GIAO NHAN VAN TAI TRAN BINH','0902731711','',0),(73,'','TRUNG VIỆT','','',0),(74,'','CTY TNHH TM VÀ DỊCH VỤ VẬN TẢI TRUNG NGHĨA','','200781872',0),(75,'A NGHIA','CTY TNHH DỊCH VỤ VẬN TẢI TRƯỞNG LỢI','0918.066..764','3039911960',0),(76,' A CHUNG','Việt Hoa = NAM VÂN','0983 799 072','',0),(77,'ANH HẢI','VINATRA','0906368177 ','',0),(78,'','CTY CP VẬN TẢI THƯƠNG MẠI PHƯƠNG LÂM','','200744976',0),(79,'','CTY CP VẬT TƯ CÔNG NGHIỆP BÌNH MINH','','200763993',0),(80,'','V & T','','',0),(81,'','DOANH NGHIỆP TƯ NHÂN CẨM HẠNH','','3900313219',0);
+INSERT INTO `nhathau` VALUES (-1,NULL,NULL,NULL,NULL,1,NULL,NULL),(1,'anh Hùng','An Hòa','0915640077','',0,'','1'),(2,'A Hòa','AN LONG TRƯỜNG - CTY CP AN LONG TRƯỜNG','0912.146839','3010271497',0,NULL,'2'),(3,'','NYK','','',1,NULL,'3'),(5,'','APL','',NULL,1,NULL,'5'),(6,'','MOL','',NULL,1,NULL,'6'),(7,'','OOCL','',NULL,1,NULL,'7'),(8,'','COSCO','',NULL,1,NULL,'8'),(9,'','PIL','',NULL,1,NULL,'9'),(10,'','NAMSUNG','',NULL,1,NULL,'10'),(11,'','INTERASIA','',NULL,1,NULL,'11'),(12,'','TSLINE','',NULL,1,NULL,'12'),(13,'','MYANGMINH','',NULL,1,NULL,'13'),(14,'','SITC','',NULL,1,NULL,'14'),(15,'','RCL','',NULL,1,NULL,'15'),(16,'','KLINE','',NULL,1,NULL,'16'),(17,'','UASC','',NULL,1,NULL,'17'),(18,'','MAERSK','',NULL,1,NULL,'18'),(19,'','BIEN DONG','',NULL,1,NULL,'19'),(20,'','MARINA','',NULL,1,NULL,'20'),(21,'','VOSCO','',NULL,1,NULL,'21'),(22,'','SINOKOR','',NULL,1,NULL,'22'),(23,'','DHL','',NULL,1,NULL,'23'),(24,'','FEDEX','',NULL,1,NULL,'24'),(25,'','TNT','',NULL,1,NULL,'25'),(26,'','EMS','',NULL,1,NULL,'26'),(27,'','UPS','',NULL,1,NULL,'27'),(28,'','INTER LOGISTICS','',NULL,1,NULL,'28'),(29,'','KONOIKE','',NULL,1,NULL,'29'),(30,'','SUPERSTAR','',NULL,1,NULL,'30'),(31,'','VINATRANS','',NULL,1,NULL,'31'),(32,'','DACHSER','',NULL,1,NULL,'32'),(33,'','ANC','',NULL,1,NULL,'33'),(34,'','LOGITEM','',NULL,1,NULL,'34'),(35,'','NNR','',NULL,1,NULL,'35'),(36,'','THAMI','',NULL,1,NULL,'36'),(37,'','EVERGREEN','',NULL,1,NULL,'37'),(38,'','EVERICH','',NULL,1,NULL,'38'),(39,'','P&O','',NULL,1,NULL,'39'),(40,'','PT SHIPPING','',NULL,1,NULL,'40'),(41,'','KHAI MINH','',NULL,1,NULL,'41'),(42,'','SCHENKER','',NULL,1,NULL,'42'),(43,'','AGILITY','',NULL,1,NULL,'43'),(45,'','ANH LINH','','',0,NULL,'45'),(46,'A Nam','ANH NAM','0919518468','',0,NULL,'46'),(47,'A Truong','ANH TRƯỜNG','0909295249','',0,NULL,'47'),(48,'A Vuong','ANH VƯƠNG','0917192206','',0,NULL,'48'),(49,'A THUONG',' CTY TNHH SX TM DV ĐÔNG NGÀN','0906.369.499','303417956',0,NULL,'49'),(50,'A DONG','CTY TNHH - VT ĐÔNG TÚ ','0909.919.667','307412162',0,NULL,'50'),(51,'C.THUY','CTY TNHH TM DV VẬN TẢI ĐỨC TRUYỀN','0938.29.57.67','311812124',0,NULL,'51'),(52,' A Hoang','HOÀNG KHANH','0918.369159','',0,NULL,'52'),(53,'A TOÁN','CTY TNHH TM DV VẬN TẢI HỒNG TOÁN','0908.21.21.36','305605264',0,NULL,'53'),(54,'A TOÀN','CTY CP GIAO NHẬN VÀ VẬN CHUYỂN IN DO TRẦN -ITL','0984.70.14.15','301909173',0,NULL,'54'),(55,'A Cuong','KIEN CUONG','0908200200','',0,NULL,'55'),(56,'A Vinh','CTY TNHH VẬN TẢI LÂM VINH ','0903728551','909988360',0,NULL,'56'),(57,'Mr. Lượng','LIÊN TRUNG','0983888289 ','',0,NULL,'57'),(58,'A NHẬT','CTY TNHH TM DV VẬN TẢI LONG PHÚ','0914.052.488','311947409',0,NULL,'58'),(59,'A Nghia','MINH NGHĨA','083807491','',0,NULL,'59'),(60,'A SON','CTY TNHH GIẢI PHÁP VẬN CHUYỂN NAM LONG','0914.722.246','311857799',0,NULL,'60'),(61,'Mr BÁU ','NGỌC BÁU','0903 704 837 ','',0,NULL,'61'),(62,'A THUAN','CTY TNHH VẬN TẢI NGỌC PHÚ','0919.17.17.13','308982214',0,NULL,'62'),(63,'A NHUT','DNTN VẬN TẢI NHỰT QUANG','01244.907.778','3601221915',0,NULL,'63'),(64,'A Thịnh','PHÚ MỸ','0913.856667','',0,NULL,'64'),(65,' A Phương','Phương Nhung','0909576486','',0,NULL,'65'),(66,'ANH ÂN','CTY TNHH MTV VẬN TẢI QUỐC NGHĨA','0906396289','3702070606',0,NULL,'66'),(67,'A Phuong ','SONG HÀ','0989847879 ','',0,NULL,'67'),(68,'A TÂN','CTY TNHH VẬN TẢI XUẤT KHẨU SONG LONG','0938.411.087','312864573',0,NULL,'68'),(69,'A TUNG','CTY TNHH GIAO NHẬN VẬN TẢI T.A.M','0916.699.634','310906475',0,NULL,'69'),(70,'Ms.VÂN','THUẬN HIẾU','0937.331.078 ','',0,NULL,'70'),(71,'A Hung','CTY CP GIAO NHẬN VẬN TẢI THUẬN PHONG','0982442522','312038383',0,NULL,'71'),(72,' A Bình','CONG TY TNHH GIAO NHAN VAN TAI TRAN BINH','0902731711','',0,NULL,'72'),(73,'','TRUNG VIỆT','','',0,NULL,'73'),(74,'','CTY TNHH TM VÀ DỊCH VỤ VẬN TẢI TRUNG NGHĨA','','200781872',0,NULL,'74'),(75,'A NGHIA','CTY TNHH DỊCH VỤ VẬN TẢI TRƯỞNG LỢI','0918.066..764','3039911960',0,NULL,'75'),(76,' A CHUNG','Việt Hoa = NAM VÂN','0983 799 072','',0,NULL,'76'),(77,'ANH HẢI','VINATRA','0906368177 ','',0,NULL,'77'),(78,'','CTY CP VẬN TẢI THƯƠNG MẠI PHƯƠNG LÂM','','200744976',0,NULL,'78'),(79,'','CTY CP VẬT TƯ CÔNG NGHIỆP BÌNH MINH','','200763993',0,NULL,'79'),(80,'','V & T','','',0,NULL,'80'),(81,'','DOANH NGHIỆP TƯ NHÂN CẨM HẠNH','','3900313219',0,NULL,'81');
 /*!40000 ALTER TABLE `nhathau` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -739,7 +742,7 @@ CREATE TABLE `offeritem` (
   CONSTRAINT `configFeeUnit` FOREIGN KEY (`feeUnit`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `configNameServices` FOREIGN KEY (`nameOfService`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `offerPriceLink` FOREIGN KEY (`offerPrice`) REFERENCES `offerprice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -773,7 +776,7 @@ CREATE TABLE `offerprice` (
   KEY `owner_idx` (`customer`),
   KEY `FK7FA09C6DECE1D869` (`customer`),
   CONSTRAINT `owner` FOREIGN KEY (`customer`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -806,8 +809,8 @@ CREATE TABLE `packageinfo` (
   `eta` datetime DEFAULT NULL,
   `portOfLoading` varchar(255) DEFAULT NULL,
   `portOfArrival` varchar(255) DEFAULT NULL,
-  `freeDemDate` datetime DEFAULT NULL,
-  `freeDetDate` datetime DEFAULT NULL,
+  `freeDemDate` int(11) DEFAULT NULL,
+  `freeDetDate` int(11) DEFAULT NULL,
   `wareHouseNo` varchar(255) DEFAULT NULL,
   `cusDecOnNo` varchar(255) DEFAULT NULL,
   `customsDate` datetime DEFAULT NULL,
@@ -835,6 +838,7 @@ CREATE TABLE `packageinfo` (
   `closingTime` datetime DEFAULT NULL,
   `closingPlace` varchar(500) DEFAULT NULL,
   `bookingNo` varchar(500) DEFAULT NULL,
+  `contNo` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `docsGeneral1_idx` (`docsGeneral`),
   KEY `toColorApplying_idx` (`colourApplying`),
@@ -846,7 +850,7 @@ CREATE TABLE `packageinfo` (
   CONSTRAINT `toCustDept` FOREIGN KEY (`customsDept`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `toDocsGeneral` FOREIGN KEY (`docsGeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `toTypeOfTransp` FOREIGN KEY (`typeOfTransport`) REFERENCES `configuration` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -945,7 +949,7 @@ CREATE TABLE `realattachment` (
   PRIMARY KEY (`id`),
   KEY `toAtt_idx` (`attachment`),
   CONSTRAINT `toAtt` FOREIGN KEY (`attachment`) REFERENCES `attachment` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1033,7 +1037,7 @@ CREATE TABLE `role` (
   `description` varchar(64) DEFAULT NULL,
   `name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1042,7 +1046,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (-2,'Default role for all Users','ROLE_USER'),(-1,'Administrator role (can edit Users)','ROLE_ADMIN'),(1,'Sales','ROLE_SALES'),(2,'Docs','ROLE_DOCS'),(3,'Trucking','ROLE_TRUCK'),(4,'Accounting','ROLE_ACCOUNTING');
+INSERT INTO `role` VALUES (-2,'Default role for all Users','ROLE_USER'),(-1,'Administrator role (can edit Users)','ROLE_ADMIN'),(1,'Sales','ROLE_SALES'),(2,'Docs','ROLE_DOCS'),(3,'Trucking','ROLE_TRUCK'),(4,'Accounting','ROLE_ACCOUNTING'),(5,'Configuration','ROLE_CONFIG');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1062,14 +1066,23 @@ CREATE TABLE `truckingdetail` (
   `nhathau` bigint(20) DEFAULT NULL,
   `dateDev` datetime DEFAULT NULL,
   `deliveryPlace` varchar(500) DEFAULT NULL,
+  `phuthau1` bigint(20) DEFAULT NULL,
+  `phuthau2` bigint(20) DEFAULT NULL,
+  `phuthu` decimal(20,2) DEFAULT NULL,
+  `noContractUp` int(11) DEFAULT NULL,
+  `noContractDown` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `toContealtrucking_idx` (`consteal`),
   KEY `toTruckingFD_idx` (`trucking`),
   KEY `toNhathauDe_idx` (`nhathau`),
+  KEY `phuthau1` (`phuthau1`),
+  KEY `phuthau2` (`phuthau2`),
   CONSTRAINT `toContealtrucking` FOREIGN KEY (`consteal`) REFERENCES `contseal` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `toNhathauDe` FOREIGN KEY (`nhathau`) REFERENCES `nhathau` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `toTruckingFD` FOREIGN KEY (`trucking`) REFERENCES `truckingservice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `toTruckingFD` FOREIGN KEY (`trucking`) REFERENCES `truckingservice` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `truckingdetail_ibfk_1` FOREIGN KEY (`phuthau1`) REFERENCES `nhathau` (`id`),
+  CONSTRAINT `truckingdetail_ibfk_2` FOREIGN KEY (`phuthau2`) REFERENCES `nhathau` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1105,10 +1118,12 @@ CREATE TABLE `truckingservice` (
   `doDonePack` int(1) DEFAULT NULL,
   `doCollectInfo` int(1) DEFAULT NULL,
   `doAccounting` int(1) DEFAULT NULL,
+  `contactDelivery` varchar(255) DEFAULT NULL,
+  `infoInvoice` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `truckingdocs_idx` (`docsgeneral`),
   CONSTRAINT `truckingdocs` FOREIGN KEY (`docsgeneral`) REFERENCES `docsgeneral` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1144,7 +1159,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (-3,-2),(-1,-2),(2,-2),(5,-2),(-3,-1),(-2,-1),(2,1),(2,2),(2,3),(2,4);
+INSERT INTO `user_role` VALUES (-3,-2),(-1,-2),(2,-2),(4,-2),(5,-2),(-2,-1),(2,1),(5,1),(2,2),(4,2),(-3,3),(2,3),(-1,4),(2,4),(-3,5),(5,5);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1157,4 +1172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-04 11:50:05
+-- Dump completed on 2015-04-14  0:18:27
