@@ -26,7 +26,7 @@
 	              			<spring:bind path="attachments[${idx.index}].fileName">
 						    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						    </spring:bind>
-						        <form:input path="attachments[${idx.index}].fileName" id="fileName${idx.index}" maxlength="45"  cssClass="form-control"/>
+						        <form:input path="attachments[${idx.index}].fileName" id="fileName${idx.index}" maxlength="45"  cssClass="form-control fileName"/>
 						        <form:errors path="attachments[${idx.index}].fileName" cssClass="help-block"/>
 						    </div>
 					</td>
@@ -48,7 +48,7 @@
 						    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						    </spring:bind>
 						        <input name="attachments[${idx.index}].data.data" id="data${idx.index}" class="form-control" type="file"/>
-						        <form:input path="attachments[${idx.index}].data.extension"/>
+						        <form:input path="attachments[${idx.index}].data.extension" class="hidden"/>
 						        <form:errors path="attachments[${idx.index}].data.data" cssClass="help-block"/>
 						    </div>
 				</td>
@@ -73,11 +73,5 @@
 	    </div>
     </c:if>
     <hr>
-    <script type="text/javascript">
-    	$(document).ready(function(){
-    		$('input[type="file"]').on("change",function(){
-    			var extension = $(this).val().split(".")[1];
-    			$(this).next().val(extension);
-    		});
-    	});
-	</script>
+    <script type="text/javascript" src="<c:url value='/scripts/custom/attachments.js'></c:url>"></script>
+    	

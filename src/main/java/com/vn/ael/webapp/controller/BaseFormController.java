@@ -307,7 +307,7 @@ public class BaseFormController implements ServletContextAware {
     	String id = request.getParameter("id");
     	try{
 	    	Realattachment uploadedFile = this.realattachmentManager.findByAttachment(Long.valueOf(id));
-	        response.setHeader("Content-Disposition","inline; filename=\"" + uploadedFile.getAttachment().getFileName() + "\"");
+	        response.setHeader("Content-Disposition","inline; filename=\"" + uploadedFile.getAttachment().getFileName() +"."+uploadedFile.getExtension()+ "\"");
 
 	    	// Send the file.
 	    	ServletOutputStream  out = response.getOutputStream();
