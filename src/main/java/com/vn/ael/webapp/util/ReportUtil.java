@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -148,6 +149,12 @@ public class ReportUtil {
 	 * @return
 	 */
 	public static Map<String,Object> prepareDataForCust(Accountingcus accountingcus){
+		BigDecimal cusFeeTotal = BigDecimal.ZERO;
+		BigDecimal cusFeeVat = BigDecimal.ZERO;
+		
+		BigDecimal chihoTotal = BigDecimal.ZERO;
+		BigDecimal chihoVat = BigDecimal.ZERO;
+		
 		List<CustomFeeExportModel> customFee = new ArrayList<>();
 		if (accountingcus.getAccountingcusdetails()!=null) {
 			for (Accountingcusdetail accountingCusDetailItem : accountingcus.getAccountingcusdetails()) {
@@ -159,9 +166,13 @@ public class ReportUtil {
 							ConvertUtil.getNotNullValue(accountingCusDetailItem.getTotal()), ConvertUtil.getNotNullValue(accountingCusDetailItem.getGeneralVat()),
 							accountingCusDetailItem.getNote(), accountingCusDetailItem.getInvoice());
 					customFee.add(item);
+					cusFeeTotal.add(accountingCusDetailItem.getTotal());
+					cusFeeVat.add(accountingCusDetailItem.getFeevat());
 				}
 			}
 		}
+		BigDecimal cusFinalVal  = cusFeeTotal.add(cusFeeVat);
+		
 		List<CustomFeeExportModel> fee = new ArrayList<>();
 		if (accountingcus.getExtendfeeaccs()!=null) {
 			for (Extendfeeacc extendFeeAcc : accountingcus.getExtendfeeaccs()) {
@@ -170,10 +181,24 @@ public class ReportUtil {
 						ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getAmount()), ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getVat()),
 						extendFeeAcc.getNote(), extendFeeAcc.getInvoice());
 				fee.add(item);
-				
+				chihoTotal.add(extendFeeAcc.getFeeowner().getAmount());
+				chihoVat.add(extendFeeAcc.getFeeowner().getVatFee());
 			}
 		}
+		BigDecimal chihoFinalVal = chihoTotal.add(chihoVat);
+		
+		
 		Map<String,Object> beans = new LinkedHashMap<>();
+		beans.put("chihoFinalVal", chihoFinalVal);
+		beans.put("chihoTotal", chihoTotal);
+		beans.put("chihoVat", chihoVat);
+		
+		beans.put("cusFinalVal", cusFinalVal);
+		beans.put("cusFeeTotal", cusFeeTotal);
+		beans.put("cusFeeVat", cusFeeVat);
+		
+		beans.put("total", chihoFinalVal.add(cusFeeTotal));
+		
 		beans.put("customFee", customFee);
 		beans.put("fee", fee);
 		beans.put("updateDate",FormatterUtil.formatDate(accountingcus.getLastUpdateDate()));		
