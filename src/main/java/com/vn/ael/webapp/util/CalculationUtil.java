@@ -12,7 +12,7 @@ public class CalculationUtil {
 	}
 	
 	public static final BigDecimal getTotalWithVat(BigDecimal vat, BigDecimal total){
-		return getVatFee(vat, total).add(total);
+		return getVatFee(vat, total).add(ConvertUtil.getNotNullValue(total));
 	}
 
 }
