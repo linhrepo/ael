@@ -5,34 +5,25 @@ package com.vn.ael.persistence.manager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.constants.TypeOfFee;
-import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Attachment;
-import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docservice;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
-import com.vn.ael.persistence.entity.Exhibition;
-import com.vn.ael.persistence.entity.Extendfeeacc;
-import com.vn.ael.persistence.entity.Inland;
 import com.vn.ael.persistence.entity.Inlandsize;
 import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.repository.AttachmentRepository;
-import com.vn.ael.persistence.repository.ConfigurationRepository;
 import com.vn.ael.persistence.repository.ContsealRepository;
 import com.vn.ael.persistence.repository.DocserviceRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
@@ -42,7 +33,7 @@ import com.vn.ael.persistence.repository.MultitypeRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
-import com.vn.ael.webapp.util.ConvertUtil;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -315,4 +306,12 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		return docsgenerals;
 	}
 
+	@Override
+	public List<Docsgeneral> searchTrucking(Search search) {
+		ServicesType servicesType = null;
+		if(search.getTypeOfDocs() == null){
+			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), servicesType, true);
+		}
+		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), ServicesType.fromValue(search.getTypeOfDocs().intValue()), true);
+	}
 }

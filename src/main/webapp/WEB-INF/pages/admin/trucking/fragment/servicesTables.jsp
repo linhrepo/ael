@@ -6,14 +6,14 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="truckingservice.departure"/>
-			        <form:input path="departure" id="departure" autofocus="true" cssClass="form-control"/>
+			        <form:input path="departure" id="departure"  cssClass="form-control"/>
 			        <form:errors path="departure" cssClass="help-block"/>
 			    </div>
 	 <spring:bind path="truckingservice.arrival">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="truckingservice.arrival"/>
-			        <form:input path="arrival" id="arrival" autofocus="true" cssClass="form-control"/>
+			        <form:input path="arrival" id="arrival"  cssClass="form-control"/>
 			        <form:errors path="arrival" cssClass="help-block"/>
 			    </div> --%>
 	</div> 
@@ -72,7 +72,7 @@
 					<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1 }">
 						<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.contNo"/>">
 						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						 <form:input path="truckingdetails[${idx.index}].consteal.noOfCont" id="contseal${idx.index}" autofocus="true" cssClass="form-control selectOwner" disabled="true"/> 
+						 <form:input path="truckingdetails[${idx.index}].consteal.noOfCont" id="contseal${idx.index}"  cssClass="form-control selectOwner" disabled="true"/> 
 						 <form:hidden path="truckingdetails[${idx.index}].consteal.id"/>
 					</div></td>
 					
@@ -94,7 +94,7 @@
 									<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 								</spring:bind> 
 									<form:select path="truckingdetails[${idx.index}].phuthau1.id" style="min-width:120px;"
-										id="phuthau1${idx.index}" autofocus="true" cssClass="form-control"
+										id="phuthau1${idx.index}"  cssClass="form-control"
 										items="${nhathaus}" /> 
 									<form:errors path="truckingdetails[${idx.index}].phuthau1.id"
 										cssClass="help-block" />
@@ -105,7 +105,7 @@
 								<div
 									class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 								</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
-									id="shippingline${idx.index}" autofocus="true" cssClass="form-control"
+									id="shippingline${idx.index}"  cssClass="form-control"
 									items="${hangtaus}" /> <form:errors
 									path="truckingdetails[${idx.index}].nhathau.id"
 									cssClass="help-block" />
@@ -116,7 +116,7 @@
 								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							</spring:bind> 
 								<form:select path="truckingdetails[${idx.index}].phuthau2.id"
-									id="phuthau2${idx.index}" autofocus="true" cssClass="form-control"
+									id="phuthau2${idx.index}"  cssClass="form-control"
 									items="${nhathaus}" /> <form:errors
 									path="truckingdetails[${idx.index}].phuthau2.id"
 									cssClass="help-block" />
@@ -130,7 +130,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
-						id="nhathau${idx.index}" autofocus="true" cssClass="form-control"
+						id="nhathau${idx.index}"  cssClass="form-control"
 						items="${nhathaus}" /> <form:errors
 						path="truckingdetails[${idx.index}].nhathau.id"
 						cssClass="help-block" />
@@ -143,7 +143,7 @@
 								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							</spring:bind> 
 							<form:input path="truckingdetails[${idx.index}].vehicleNo"
-								id="amount${idx.index}" maxlength="45" autofocus="true"
+								id="amount${idx.index}" maxlength="45"  empty-on-add="false"
 								cssClass="form-control" /> 
 							<form:errors
 								path="truckingdetails[${idx.index}].vehicleNo"
@@ -157,7 +157,7 @@
 								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							</spring:bind> 
 							<form:input path="truckingdetails[${idx.index}].noOfVehicle"
-								id="amount${idx.index}" maxlength="45" autofocus="true"
+								id="amount${idx.index}" maxlength="45"  empty-on-add="false"
 								cssClass="form-control number" /> 
 							<form:errors
 								path="truckingdetails[${idx.index}].noOfVehicle"
@@ -183,7 +183,7 @@
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> 
 					<form:input path="truckingdetails[${idx.index}].deliveryPlace"
-								id="deliveryPlace${idx.index}" maxlength="45" autofocus="true"
+								id="deliveryPlace${idx.index}" maxlength="45" 
 								cssClass="form-control" /> 
 					<form:errors
 								path="truckingdetails[${idx.index}].deliveryPlace"
@@ -253,7 +253,7 @@
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:select
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].masterFee.id"
-						id="masterFee${idx.index}" autofocus="true"
+						id="masterFee${idx.index}" 
 						cssClass="form-control masterFee"
 						items="${selections['masterFees']}" /> <form:errors
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].masterFee.id"
@@ -264,7 +264,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="19">
 					</spring:bind> <form:select path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id"
-						id="name${idxx.index}" autofocus="true" cssClass="form-control"
+						id="name${idxx.index}"  cssClass="form-control"
 						items="${selections['exhFeeNames']}" /> <form:errors
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id"
 						cssClass="help-block" />
@@ -274,7 +274,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].amount"
-						id="amount${idxx.index}" maxlength="45" autofocus="true" 
+						id="amount${idxx.index}" maxlength="45"  
 						cssClass="form-control amount money" /> <form:errors
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].amount"
 						cssClass="help-block" />
@@ -284,22 +284,22 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].vat"
-						id="vat${idxx.index}" maxlength="45" autofocus="true" 
+						id="vat${idxx.index}" maxlength="45"  
 						cssClass="form-control vat money" /> <form:errors
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].vat"
 						cssClass="help-block" />
 					</div></td>
 				<td data-title="<fmt:message key="inland.total"/>">
 					<form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].total"
-						id="total${idxx.index}" maxlength="45" autofocus="true" 
-						cssClass="form-control total "/>
+						id="total${idxx.index}" maxlength="45"  
+						cssClass="form-control total money"/>
 				</td>
 				<td data-title="<fmt:message key="inland.feeInvoiceNo"/>"><spring:bind
 						path="truckingservice.truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo"
-						id="vat${idxx.index}" maxlength="45" autofocus="true" 
+						id="vat${idxx.index}" maxlength="45"  
 						cssClass="form-control" /> <form:errors
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo"
 						cssClass="help-block" />

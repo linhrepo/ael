@@ -39,6 +39,7 @@
 				  <appfuse:label styleClass="control-label" key="truckingservice.infoInvoice"/>
 				  <form:input path="infoInvoice" id="infoInvoice"  autofocus="true" cssClass="form-control"/>
 			</div>
+			
 			<%-- <c:choose>
 				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value != 0}"> --%>
 					<%-- <div class="form-group col-md-3">
@@ -93,7 +94,21 @@
 					 <form:input path="docsgeneral.portPutCont" id="portPutCont"  autofocus="true" cssClass="form-control" disabled="true"/>
 				</div>
 			</c:if>
-			
+			<c:if test="${not empty truckingservice.docsgeneral.packageinfo}">
+				<c:if test="${truckingservice.docsgeneral.typeOfImport.id == -3}">
+					<div class="form-group col-md-3">
+				        <appfuse:label styleClass="control-label" key="packageInfo.eta"/>
+				        <form:input path="docsgeneral.packageinfo.eta" id="eta" provide="datepicker" maxlength="45"  cssClass="form-control"  disabled="true"/>
+				    </div>
+				</c:if>
+		    
+		    	<c:if test="${truckingservice.docsgeneral.typeOfImport.id == -4}">
+			    <div class="form-group col-md-3">
+			        <appfuse:label styleClass="control-label" key="packageInfo.etd"/>
+			        <form:input path="docsgeneral.packageinfo.etd" id="etd" provide="datepicker" maxlength="45"  cssClass="form-control"  disabled="true"/>
+			    </div>
+			    </c:if>
+		    </c:if>
 			<c:if test="${truckingservice.docsgeneral.placeGetCont != null}">
 				<div class="form-group col-md-3">
 					  <appfuse:label styleClass="control-label" key="truckingservice.placeGetCont"/>

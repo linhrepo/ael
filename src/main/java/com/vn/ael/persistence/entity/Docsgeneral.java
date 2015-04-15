@@ -35,6 +35,10 @@ import com.vn.ael.webapp.formatter.FormatterUtil;
 public class Docsgeneral extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private String nameVehicle;
+	
+	private Integer sochuyen;
+	
 	private Date docReceiveDate;
 
 	@ManyToOne
@@ -118,9 +122,9 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@OneToMany(mappedBy="docsgeneral", cascade = CascadeType.ALL)
 	private List<Exfeetable> exfeetables;
 	
-	private Boolean doAccounting;
+	private Boolean doAccounting = false;
 	
-	private Boolean doDelivery;
+	private Boolean doDelivery = false;
 	
 	private String productDescription;
 	
@@ -514,6 +518,22 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 
 	public void setContactReceive(String contactReceive) {
 		this.contactReceive = contactReceive;
+	}
+
+	public String getNameVehicle() {
+		return nameVehicle;
+	}
+
+	public void setNameVehicle(String nameVehicle) {
+		this.nameVehicle = nameVehicle;
+	}
+
+	public Integer getSochuyen() {
+		return sochuyen;
+	}
+
+	public void setSochuyen(Integer sochuyen) {
+		this.sochuyen = sochuyen;
 	}
 	
 }

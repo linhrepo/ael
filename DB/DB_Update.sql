@@ -41,3 +41,15 @@ INSERT INTO `ael`.`nhathau` (`id`, `type`) VALUES ('-1', '1');
 ALTER TABLE `ael`.`realattachment` 
 ADD COLUMN `extension` VARCHAR(5) NULL DEFAULT 'pdf' AFTER `attachment`;
 
+ALTER TABLE `ael`.`docsgeneral` 
+ADD COLUMN `docsgeneralcol` VARCHAR(45) NULL AFTER `contactReceive`,
+ADD COLUMN `sochuyen` INT(10) NULL AFTER `docsgeneralcol`,
+ADD COLUMN `nameVehicle` VARCHAR(255) NULL AFTER `sochuyen`;
+
+ALTER TABLE `ael`.`inland` 
+DROP COLUMN `nameVehicle`;
+
+ALTER TABLE `ael`.`packageinfo` 
+DROP COLUMN `nameVehicle`;
+
+

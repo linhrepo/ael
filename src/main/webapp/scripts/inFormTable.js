@@ -207,17 +207,26 @@
     			$(row).removeClass("removed");
     			for (var i=0 ; i<newRowInputs.length;++i){
     				if (!$(newRowInputs[i]).hasClass("readonly")){
-    					$(newRowInputs[i]).attr("readonly",false);
+    					if ($(newRowInputs[i]).is("select")){
+    						$(newRowInputs[i]).select2("readonly",false);
+    					}else{
+    						$(newRowInputs[i]).attr("readonly",false);
+    					}
     				}
-    				
     			}
     		}else{
     			$(table).trigger('beforeRemoveRow',[row,table]);
     			$(row).find("input[valueType='deleted']").val("true");
     			
     			for (var i=0 ; i<newRowInputs.length;++i){
-    				if ($(newRowInputs[i]).attr("valueType") != "deleted")
-    				$(newRowInputs[i]).attr("readonly",true);
+    				if ($(newRowInputs[i]).attr("valueType") != "deleted"){
+    					if ($(newRowInputs[i]).is("select")){
+    						$(newRowInputs[i]).select2("readonly",true);
+    					}else{
+    						$(newRowInputs[i]).attr("readonly",true);
+    					}
+    				}
+    				
     			}
     			$(row).addClass("removed");
     			$(table).trigger('afterRemoveRow',[row,table]);

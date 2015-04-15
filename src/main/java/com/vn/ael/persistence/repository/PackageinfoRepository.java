@@ -21,7 +21,7 @@ public interface PackageinfoRepository extends GenericRepository<Packageinfo> {
 	@Query("SELECT e FROM Packageinfo e WHERE (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
 			+ "(e.docsgeneral.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
-			+ "(e.docsgeneral.doDelivery =:doDelivery or :doDelivery is null) and"
+			+ "(e.docsgeneral.doDelivery =:doDelivery or :doDelivery is null) and "
 			+ "(e.doRelease =:doRelease or :doRelease is null)")
 	List<Packageinfo> searchPackageInfo(@Param("customerId") Long customerId,
 			@Param("typeOfImport") Long typeOfImport,
