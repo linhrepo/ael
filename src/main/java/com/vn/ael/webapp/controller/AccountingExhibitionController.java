@@ -20,12 +20,16 @@ import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
+import com.vn.ael.enums.ServicesType;
+import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Configuration;
+import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exhibition;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExhibitionManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -124,5 +128,27 @@ public class AccountingExhibitionController extends BaseFormController {
         List<Configuration> masterFee = configurationManager.getAllByType(ConfigurationType.EXH_MASTER_FEE_REPORT, Boolean.TRUE);
         ReportUtil.dispatchExhibitionReport(response, ReportTeamplates.ACCOUNTING_EXHIBITION_ITEMS, ReportTeamplates.ACCOUNTING_EXHIBITION_ITEMS_TEMPLATE, exhibition,masterFee);
     }
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCEXHIBITION_SEARCH)
+	public ModelAndView searchAccPackageInfo(Search searchAccPackageInfo)
+			throws Exception {
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_EXHIBITION_LIST);
+		searchAccPackageInfo.setServicesType(ServicesType.EXHS);
+		List<Docsgeneral> docsgenerals = docsgeneralManager.searchAccounting(searchAccPackageInfo);
+		mav.addObject(docsgenerals);
+		
+		//selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT,
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        		);
+        mav.addObject("docsSelection", docsSelection);
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+		return mav;
+	}
 }
 

@@ -1,5 +1,7 @@
 package com.vn.ael.webapp.dto;
 
+import com.vn.ael.enums.ServicesType;
+
 public class Search {
 
 	private Long customer;
@@ -10,6 +12,7 @@ public class Search {
 	private Long typeOfEx;
 	private Long typeOfDocs;
 	private Boolean doAccounting;
+	private ServicesType servicesType;
 	
 	public Long getCustomer() {
 		return customer;
@@ -58,6 +61,12 @@ public class Search {
 	}
 	public void setDoAccounting(Boolean doAccounting) {
 		this.doAccounting = doAccounting;
+	}
+	public ServicesType getServicesType() {
+		return servicesType;
+	}
+	public void setServicesType(ServicesType servicesType) {
+		this.servicesType = servicesType;
 	}	
 	
 }

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.manager.CustomerManager;
+import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.dto.Search;
 
 @Controller
 @RequestMapping(URLReference.CUSTOMER_LIST+"*")
@@ -41,9 +45,8 @@ public class CustomerListController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(customerManager.getAll());
+        model.addAttribute(customerManager.getAll());        
         return new ModelAndView(URLReference.CUSTOMER_LIST, model.asMap());
     }
-
 }
 
