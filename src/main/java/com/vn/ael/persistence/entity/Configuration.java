@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.google.gson.annotations.Expose;
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.enums.ConfigurationType;
 
 
@@ -65,6 +66,11 @@ public class Configuration extends BaseEntity implements Serializable {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	@Transient
+	public String getFullInfo(){
+		return this.value + AELConst.SEPARATOR + this.description; 
 	}
 
 }

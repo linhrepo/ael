@@ -17,6 +17,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
+import com.vn.ael.webapp.util.CalculationUtil;
 
 /**
  * The persistent class for the exfeetable database table.
@@ -125,13 +126,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	@Transient
 	public BigDecimal getVatFee(){
-		if (this.vat == null){
-			return BigDecimal.ZERO;
-		}
-		if (this.amount == null){
-			return BigDecimal.ZERO;
-		}
-		return this.vat.multiply(this.amount);
+		return CalculationUtil.getVatFee(this.vat, this.amount);
 	}
 
 	public Extendfeeacc getExtendfeeacc() {

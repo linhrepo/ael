@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
+import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Realattachment;
@@ -201,9 +202,9 @@ public class BaseFormController implements ServletContextAware {
         binder.registerCustomEditor(byte[].class,
                                     new ByteArrayMultipartFileEditor());
         SimpleDateFormat dateFormat = 
-            new SimpleDateFormat(getText("date.format", request.getLocale()));
+            new SimpleDateFormat(FormatterPattern.DATE_FOMART, request.getLocale());
         SimpleDateFormat dateTimeFormat = 
-                new SimpleDateFormat(getText("date.time.format", request.getLocale()));
+                new SimpleDateFormat(FormatterPattern.DATE_TIME_FORMAT, request.getLocale());
         dateFormat.setLenient(false);
         dateTimeFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, null, 
