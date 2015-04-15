@@ -40,9 +40,10 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.constants.ReportTeamplates;
-import com.vn.ael.constants.URLReference;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
+import com.vn.ael.persistence.entity.Advancedetail;
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
@@ -56,6 +57,7 @@ import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
+import com.vn.ael.webapp.dto.AdvanceRequestItem;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
@@ -390,5 +392,31 @@ public class ReportUtil {
 	    	
 		}
 	    return new JRBeanCollectionDataSource(coll);
+	}
+	
+	public static Map<String,Object> prepareDataForAdvanceRequest(Advanceform advanceForm){
+		Map<String,Object> beans = new LinkedHashMap<>();
+		double total = 0;
+		List<AdvanceRequestItem> listAdvance = new ArrayList<AdvanceRequestItem>();
+		List<Advancedetail> listAdvanceDetail= new ArrayList<Advancedetail>();
+		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
+		if (!listAdvanceDetail.isEmpty()) {
+			for (Advancedetail advancedetail : listAdvanceDetail) {
+				AdvanceRequestItem item = new AdvanceRequestItem();
+				item.setJobNo(advancedetail.getDocs()!=null? advancedetail.getDocs().getJobNo():AELConst.EMPTY_STRING);
+				item.setPackageDetail(advancedetail.getGoodDes());
+				item.setAdvanceReason(advancedetail.getDescription());
+				item.setAdvanceReason(advancedetail.getAmount().toString());
+				total+=advancedetail.getAmount().doubleValue();
+				listAdvance.add(item);
+			}
+		}
+		beans.put("advanceDetails", listAdvance);
+		beans.put("total", total);
+		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+		beans.put("advanceDate", df.format(advanceForm.getDate()));
+		beans.put("employee", advanceForm.getEmployee());
+		beans.put("refundDate",df.format(advanceForm.getTimeRefund()));		
+		return beans;
 	}
 }
