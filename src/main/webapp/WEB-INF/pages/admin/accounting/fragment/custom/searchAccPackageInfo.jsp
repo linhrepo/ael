@@ -6,9 +6,9 @@
 </head>
 <div class="col-sm-12">
 	<form:form commandName="search" method="post"
-		action="searchPackageInfo" id="packageInfoForm" cssClass="well">
+		action="searchAccPackageInfo" id="AccPackageInfoForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.customerCode" />
 				<form:select path="customer" id="customercode"
@@ -19,7 +19,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="configuration.typeOfImport" />
 				<form:select path="typeOfImport" id="typeOfImport"
@@ -30,7 +30,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.typeOfContainer" />
 				<form:select path="typeOfContainer"
@@ -41,28 +41,6 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-3">
-				<appfuse:label styleClass="control-label"
-					key="packageInfo.doRelease" />
-				<form:select path="doRelease" id="doRelease"
-					cssClass="form-control select2">
-					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<c:forEach var="entry" items="${enumStatus}">
-						<form:option value="${entry}">${entry}</form:option>
-					</c:forEach>
-				</form:select>
-			</div>
-			<div class="form-group col-md-3">
-				<appfuse:label styleClass="control-label"
-					key="packageInfo.doMoveMethod" />
-				<form:select path="doDelivery" id="doMoveMethod"
-					cssClass="form-control select2">
-					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<c:forEach var="entry" items="${enumStatus}">
-						<form:option value="${entry}">${entry}</form:option>
-					</c:forEach>
-				</form:select>
-			</div>
 			<div class="form-group col-md-2">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
@@ -70,3 +48,9 @@
 		</div> 
 	</form:form>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		/* $('#customercode').prepend('<option val="0">None</option>'); */
+	});
+	
+</script>

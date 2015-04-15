@@ -314,4 +314,18 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		}
 		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), ServicesType.fromValue(search.getTypeOfDocs().intValue()), true);
 	}
+
+	@Override
+	public List<Docsgeneral> searchAccounting(Search search) {
+		return docsgeneralRepository.searchAccounting(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, search.getServicesType());
+	}
+
+	@Override
+	public List<Docsgeneral> searchFeeTables(Search search) {
+		ServicesType servicesType = null;
+		if(search.getTypeOfDocs() == null){
+			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, servicesType, null);
+		}
+		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), null);
+	}
 }
