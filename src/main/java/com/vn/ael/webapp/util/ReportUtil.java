@@ -168,8 +168,8 @@ public class ReportUtil {
 							ConvertUtil.getNotNullValue(accountingCusDetailItem.getTotal()), ConvertUtil.getNotNullValue(accountingCusDetailItem.getGeneralVat()),
 							accountingCusDetailItem.getNote(), accountingCusDetailItem.getInvoice());
 					customFee.add(item);
-					cusFeeTotal.add(accountingCusDetailItem.getTotal());
-					cusFeeVat.add(accountingCusDetailItem.getFeevat());
+					cusFeeTotal = cusFeeTotal.add(accountingCusDetailItem.getTotal());
+					cusFeeVat = cusFeeVat.add(accountingCusDetailItem.getFeevat());
 				}
 			}
 		}
@@ -183,8 +183,8 @@ public class ReportUtil {
 						ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getAmount()), ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getVat()),
 						extendFeeAcc.getNote(), extendFeeAcc.getInvoice());
 				fee.add(item);
-				chihoTotal.add(extendFeeAcc.getFeeowner().getAmount());
-				chihoVat.add(extendFeeAcc.getFeeowner().getVatFee());
+				chihoTotal = chihoTotal.add(extendFeeAcc.getFeeowner().getAmount());
+				chihoVat = chihoVat.add(extendFeeAcc.getFeeowner().getVatFee());
 			}
 		}
 		BigDecimal chihoFinalVal = chihoTotal.add(chihoVat);
