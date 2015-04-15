@@ -49,9 +49,10 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 			List<Exfeetable> exfeetables = new ArrayList<>();
 			for (Extendfeeacc extendfeeacc: exs){
 				if(extendfeeacc.getFeeowner() != null && extendfeeacc.getFeeowner().getId()!= null){
-					Exfeetable exfeetable2 = exfeetableRepository.getOne(extendfeeacc.getFeeowner().getId());
+					Exfeetable exfeetable2 = exfeetableRepository.findOne(extendfeeacc.getFeeowner().getId());
 					if (exfeetable2!=null && exfeetable2.getId() != null){
 						exfeetable2.setVat(extendfeeacc.getFeeowner().getVat());
+						exfeetable2.setTotal(extendfeeacc.getFeeowner().getTotal());
 						exfeetables.add(exfeetable2);
 					}
 				}
