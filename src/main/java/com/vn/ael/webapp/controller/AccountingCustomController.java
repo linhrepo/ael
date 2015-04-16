@@ -27,8 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
-import com.vn.ael.enums.ServicesType;
-import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
@@ -39,8 +37,6 @@ import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
-import com.vn.ael.webapp.dto.DocsSelection;
-import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -170,30 +166,8 @@ public class AccountingCustomController extends BaseFormController {
         	this.docsgeneralManager.updateContTruck(accountingcus.getDocsgeneral());
         }
         if (accountingcus!=null) {
-        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForOffers(accountingcus));
+        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForCust(accountingcus),"fee","custom");
 		}
     }
-    
-    @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCPACKAGEINFO_SEARCH)
-	public ModelAndView searchAccPackageInfo(Search searchAccPackageInfo)
-			throws Exception {
-		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_CUSTOM_LIST);
-		searchAccPackageInfo.setServicesType(ServicesType.DVTQ);
-		List<Docsgeneral> docsgenerals = docsgeneralManager.searchAccounting(searchAccPackageInfo);
-		mav.addObject(docsgenerals);
-		
-		//selection
-        DocsSelection docsSelection = 
-        		configurationManager.loadSelectionForDocsPage
-        		(
-        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-        				ConfigurationType.TYPE_OF_IMPORT,
-        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
-        		);
-        mav.addObject("docsSelection", docsSelection);
-        mav.addObject("enumStatus", StatusType.values());
-        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-		return mav;
-	}
 }
 

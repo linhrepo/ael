@@ -136,7 +136,7 @@
     							input.attr("value","");
     						}
     					if ($(input).parent().attr("defaultValue") != undefined){
-    						input.attr("value",$(input).parent().attr("defaultValue"));
+    						input.val($(input).parent().attr("defaultValue"));
     					}
     				}
     		}

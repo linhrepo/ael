@@ -6,7 +6,10 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
+import com.vn.ael.webapp.util.CalculationUtil;
+import com.vn.ael.webapp.util.ConvertUtil;
 
 import java.math.BigDecimal;
 
@@ -140,6 +143,16 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 
 	public void setQuantityOt(Integer quantityOt) {
 		this.quantityOt = quantityOt;
+	}
+	
+	@Transient
+	public BigDecimal getFeevat(){
+		return CalculationUtil.getVatFee(this.generalVat, this.total);
+	}
+	
+	@Transient
+	public BigDecimal getFeewithvat(){
+		return CalculationUtil.getTotalWithVat(this.generalVat, this.total);
 	}
 	
 }

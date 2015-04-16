@@ -22,6 +22,7 @@ public class CustomFeeExportModel {
 	private BigDecimal feewithvat;
 	private String note;
 	private String invoice;
+	private Integer index;
 	/**
 	 * @return the feeName
 	 */
@@ -226,6 +227,12 @@ public class CustomFeeExportModel {
 		this.feewithvat = BigDecimal.valueOf(total.doubleValue()+((total.doubleValue()*vat.doubleValue())/100));
 		this.note = note;
 		this.invoice = invoice;
+	}
+	public Integer getIndex() {
+		return index;
+	}
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 	
 }

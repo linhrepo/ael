@@ -116,7 +116,7 @@
 			    </td>
 			     <td data-title="<fmt:message key="accountingcus.feewithvat"/>">
 					<div class="form-group">
-				        <input value="${extendfeeacc.feeowner.total}"  maxlength="45" autofocus="true" class="form-control money total" disabled="true"/>
+				        <form:input path="extendfeeaccs[${idx.index}].feeowner.total"  maxlength="45" autofocus="true" class="form-control money total" readonly="true"/>
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.note"/>">

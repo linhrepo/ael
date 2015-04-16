@@ -143,12 +143,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingcus.feevat"/>">
 					<div class="form-group">
-				        <input value=""  maxlength="45"  class="form-control money vatAmount readonly" readonly="readonly"/>
+				        <form:input path="accountingcusdetails[${idx.index}].feevat" cssClass="form-control money vatAmount readonly" readonly="readonly"/>
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.feewithvat"/>">
 					<div class="form-group">
-				        <input value=""  maxlength="45"  class="form-control money total readonly" readonly="readonly"/>
+				        <form:input path="accountingcusdetails[${idx.index}].feewithvat" cssClass="form-control money total readonly" readonly="readonly"/>
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.note"/>">

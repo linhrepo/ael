@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,10 +38,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.constants.ReportTeamplates;
-import com.vn.ael.constants.URLReference;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
+import com.vn.ael.persistence.entity.Advancedetail;
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
@@ -54,6 +57,7 @@ import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
+//import com.vn.ael.webapp.dto.AdvanceRequestItem;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
@@ -85,7 +89,7 @@ public class ReportUtil {
 		beans.put("customerName", cust.getName());
 		beans.put("offerType", offerPrice.getTypeOfService()!= null ? offerPrice.getTypeOfService().getValue(): AELConst.EMPTY_STRING);
 		beans.put("offerDate", StringUtil.getDateString(offerPrice.getDateOffer()));
-		beans.put("offerItems", offerPriceExport);
+		beans.put("offerItem", offerPriceExport);
 		return beans;
 	}
 	
@@ -99,7 +103,7 @@ public class ReportUtil {
 	 * @throws InvalidFormatException 
 	 * @throws ParsePropertyException 
 	 */
-	public static void dispatchReport(HttpServletResponse response, String reportName, String reportTemplates, Map<String,Object> data){
+	public static void dispatchReport(HttpServletResponse response, String reportName, String reportTemplates, Map<String,Object> data,String... fixedSizesCollection){
 		try{
 			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 	        response.setHeader("Content-Disposition", "attachment; filename="+reportName);
@@ -146,8 +150,15 @@ public class ReportUtil {
 	 * @param accountingcus
 	 * @return
 	 */
-	public static Map<String,Object> prepareDataForOffers(Accountingcus accountingcus){
+	public static Map<String,Object> prepareDataForCust(Accountingcus accountingcus){
+		BigDecimal cusFeeTotal = BigDecimal.ZERO;
+		BigDecimal cusFeeVat = BigDecimal.ZERO;
+		
+		BigDecimal chihoTotal = BigDecimal.ZERO;
+		BigDecimal chihoVat = BigDecimal.ZERO;
+		
 		List<CustomFeeExportModel> customFee = new ArrayList<>();
+		int index = 0;
 		if (accountingcus.getAccountingcusdetails()!=null) {
 			for (Accountingcusdetail accountingCusDetailItem : accountingcus.getAccountingcusdetails()) {
 				if (accountingCusDetailItem.getIsAdded() != null && accountingCusDetailItem.getIsAdded() == false){
@@ -157,26 +168,48 @@ public class ReportUtil {
 							accountingCusDetailItem.getQuantity40(), accountingCusDetailItem.getQuantityOt(), accountingCusDetailItem.getQuantityLCL(), 
 							ConvertUtil.getNotNullValue(accountingCusDetailItem.getTotal()), ConvertUtil.getNotNullValue(accountingCusDetailItem.getGeneralVat()),
 							accountingCusDetailItem.getNote(), accountingCusDetailItem.getInvoice());
+					index++;
+					item.setIndex(index);
 					customFee.add(item);
+					cusFeeTotal = cusFeeTotal.add(accountingCusDetailItem.getTotal());
+					cusFeeVat = cusFeeVat.add(accountingCusDetailItem.getFeevat());
 				}
 			}
 		}
+		BigDecimal cusFinalVal  = cusFeeTotal.add(cusFeeVat);
+		
 		List<CustomFeeExportModel> fee = new ArrayList<>();
 		if (accountingcus.getExtendfeeaccs()!=null) {
+			index = 0;
 			for (Extendfeeacc extendFeeAcc : accountingcus.getExtendfeeaccs()) {
 				CustomFeeExportModel item = new CustomFeeExportModel(extendFeeAcc.getFeeowner().getName().getValue(), extendFeeAcc.getDescription().getValue(), extendFeeAcc.getQuantity20(), 
 						extendFeeAcc.getQuantity40(), extendFeeAcc.getQuantityLCL(), 
 						ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getAmount()), ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner().getVat()),
 						extendFeeAcc.getNote(), extendFeeAcc.getInvoice());
+				index++;
+				item.setIndex(index);
 				fee.add(item);
-				
+				chihoTotal = chihoTotal.add(extendFeeAcc.getFeeowner().getAmount());
+				chihoVat = chihoVat.add(extendFeeAcc.getFeeowner().getVatFee());
 			}
 		}
-		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+		BigDecimal chihoFinalVal = chihoTotal.add(chihoVat);
+		
+		
 		Map<String,Object> beans = new LinkedHashMap<>();
-		beans.put("customFee", customFee);
-		beans.put("fee", fee);
-		beans.put("updateDate", accountingcus.getLastUpdateDate()!=null?df.format(accountingcus.getLastUpdateDate()):AELConst.EMPTY_STRING);		
+		beans.put("chihoFinalVal", chihoFinalVal);
+		beans.put("chihoTotal", chihoTotal);
+		beans.put("chihoVat", chihoVat);
+		
+		beans.put("cusFinalVal", cusFinalVal);
+		beans.put("cusFeeTotal", cusFeeTotal);
+		beans.put("cusFeeVat", cusFeeVat);
+		
+		beans.put("total", chihoFinalVal.add(cusFeeTotal));
+		
+		beans.put("customFees", customFee);
+		beans.put("fees", fee);
+		beans.put("updateDate",FormatterUtil.formatDate(accountingcus.getLastUpdateDate()));		
 		Customer cust = accountingcus.getDocsgeneral().getCustomer();
 		Docsgeneral doc = accountingcus.getDocsgeneral();
 		beans.put("refNo", accountingcus.getRefNo());
@@ -185,16 +218,18 @@ public class ReportUtil {
 		beans.put("custTaxNo", cust.getTaxno());
 		beans.put("custTel", cust.getTel());
 		beans.put("custFax", cust.getFax());
-		beans.put("infoInvoice", doc.getInfoInvoice());
+		beans.put("bill", doc.getPackageinfo().getBillOfLading());
 		beans.put("cusDecOnNo", doc.getPackageinfo().getCusDecOnNo());
 		beans.put("placeDelivery", doc.getPlaceDelivery());
+		beans.put("tentau", doc.getNameVehicle());
 		beans.put("cmb", doc.getCmbText());
 		beans.put("aelcmb", doc.getCmbText());
 		beans.put("noOfPkgs", doc.getNoOfPkgsText());
 		beans.put("kg", doc.getWeigthText());
-		beans.put("colourApplying", doc.getPackageinfo() != null ? doc.getPackageinfo().getColourApplying().getValue() : AELConst.EMPTY_STRING);
-		beans.put("po", doc.getPackageinfo() != null ? doc.getPackageinfo().getPo() : AELConst.EMPTY_STRING);
+		beans.put("colourApplying", doc.getPackageinfo().getColourApplying() != null ? doc.getPackageinfo().getColourApplying().getFullInfo(): AELConst.EMPTY_STRING);
+		beans.put("po",doc.getPackageinfo().getPo());
 		beans.put("PTVT", doc.getPTVT());
+		beans.put("vol", doc.getCmbText());
 		return beans;		
 	}
 	
@@ -211,7 +246,6 @@ public class ReportUtil {
 			int i=0;
 			for (Docsgeneral doc : accountingTrans.getDocs()) {
 				AccountingTransportExport item = new AccountingTransportExport();
-				DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 				item.setJobNo(doc.getJobNo());
 				//TODO: find correct dat
 //				item.setDateDev(df.format(doc.getInland().getDateDevPack()));
@@ -247,7 +281,7 @@ public class ReportUtil {
 				item.setPlaceputcont(doc.getPlaceEmptyDown());
 				item.setChiho(doc.getChiho().toString());
 //				item.setAccountingPrice(doc.getInland()!=null?doc.getInland().getAccountingPrice().toString():"");
-				item.setOtherfee(doc.getInland()!=null?doc.getInland().getOtherFees().toString():"");
+				item.setOtherfee(doc.getInland().getOtherFees()!=null?doc.getInland().getOtherFees().toString():AELConst.EMPTY_STRING);
 				
 				accountingTransExport.add(item);
 				}
@@ -364,5 +398,31 @@ public class ReportUtil {
 	    	
 		}
 	    return new JRBeanCollectionDataSource(coll);
+	}
+	
+	public static Map<String,Object> prepareDataForAdvanceRequest(Advanceform advanceForm){
+		Map<String,Object> beans = new LinkedHashMap<>();
+//		double total = 0;
+//		List<AdvanceRequestItem> listAdvance = new ArrayList<AdvanceRequestItem>();
+//		List<Advancedetail> listAdvanceDetail= new ArrayList<Advancedetail>();
+//		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
+//		if (!listAdvanceDetail.isEmpty()) {
+//			for (Advancedetail advancedetail : listAdvanceDetail) {
+//				AdvanceRequestItem item = new AdvanceRequestItem();
+//				item.setJobNo(advancedetail.getDocs()!=null? advancedetail.getDocs().getJobNo():AELConst.EMPTY_STRING);
+//				item.setPackageDetail(advancedetail.getGoodDes());
+//				item.setAdvanceReason(advancedetail.getDescription());
+//				item.setAdvanceReason(advancedetail.getAmount().toString());
+//				total+=advancedetail.getAmount().doubleValue();
+//				listAdvance.add(item);
+//			}
+//		}
+//		beans.put("advanceDetails", listAdvance);
+//		beans.put("total", total);
+//		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+//		beans.put("advanceDate", df.format(advanceForm.getDate()));
+//		beans.put("employee", advanceForm.getEmployee());
+//		beans.put("refundDate",df.format(advanceForm.getTimeRefund()));		
+		return beans;
 	}
 }
