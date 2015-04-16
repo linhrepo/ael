@@ -16,6 +16,7 @@ import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.repository.AdvanceFormRepository;
 import com.vn.ael.persistence.repository.AdvancedetailRepository;
 import com.vn.ael.persistence.repository.UserRepository;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -85,5 +86,13 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 	@Override
 	public List<Advanceform> findByEmpoyee(User employee) {
 		return this.advanceFormRepository.findByEmployee(employee);
+	}
+
+	@Override
+	public List<Advanceform> searchAdvanceForm(Search search) {
+		return advanceFormRepository.searchAdvanceForm(search.getEmployee(),
+				search.getStartDate(), search.getEndDate(),
+				search.getStartTimeRefund(), search.getEndTimeRefund(),
+				search.getDoApproval());
 	}
 }

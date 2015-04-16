@@ -1,5 +1,7 @@
 package com.vn.ael.webapp.dto;
 
+import java.util.Date;
+
 import com.vn.ael.enums.ServicesType;
 
 public class Search {
@@ -13,6 +15,12 @@ public class Search {
 	private Long typeOfDocs;
 	private Boolean doAccounting;
 	private ServicesType servicesType;
+	private Long employee;
+	private Date startDate;
+	private Date endDate;
+	private Date startTimeRefund;
+	private Date endTimeRefund;
+	private Boolean doApproval;
 	
 	public Long getCustomer() {
 		return customer;
@@ -67,6 +75,42 @@ public class Search {
 	}
 	public void setServicesType(ServicesType servicesType) {
 		this.servicesType = servicesType;
+	}
+	public Long getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Long employee) {
+		this.employee = employee;
+	}
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	public Date getStartTimeRefund() {
+		return startTimeRefund;
+	}
+	public void setStartTimeRefund(Date startTimeRefund) {
+		this.startTimeRefund = startTimeRefund;
+	}
+	public Date getEndTimeRefund() {
+		return endTimeRefund;
+	}
+	public void setEndTimeRefund(Date endTimeRefund) {
+		this.endTimeRefund = endTimeRefund;
+	}
+	public Boolean getDoApproval() {
+		return doApproval;
+	}
+	public void setDoApproval(Boolean doApproval) {
+		this.doApproval = doApproval;
 	}	
 	
 }

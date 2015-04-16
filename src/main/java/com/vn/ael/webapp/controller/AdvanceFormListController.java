@@ -1,5 +1,7 @@
 package com.vn.ael.webapp.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.ServicesType;
+import com.vn.ael.enums.StatusType;
+import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.manager.RefundManager;
-import com.vn.ael.persistence.manager.UserManager;
+import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.dto.Search;
 
 @Controller
 public class AdvanceFormListController extends BaseFormController {
@@ -53,6 +61,12 @@ public class AdvanceFormListController extends BaseFormController {
     	Model model = new ExtendedModelMap();
     	model.addAttribute(advanceFormManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
     	model.addAttribute(refundManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
+    	Search searchRefund = new Search();
+        model.addAttribute("search", searchRefund);
+    	DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage(true);
+    	model.addAttribute("docsSelection", docsSelection);
+    	model.addAttribute("enumStatus", StatusType.values());
         return new ModelAndView(URLReference.ADVANCE_REFUNDS,model.asMap());
     }
     
@@ -63,6 +77,21 @@ public class AdvanceFormListController extends BaseFormController {
     	model.addAttribute(refundManager.getAll());
         return new ModelAndView(URLReference.ADVANCE_FORM_ACC,model.asMap());
     }
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.ADVANCE_SEARCH)
+	public ModelAndView searchAdvanceForm(Search searchAdvanceForm)
+			throws Exception {
+		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_REFUNDS);
+		List<Advanceform> advanceforms = advanceFormManager.searchAdvanceForm(searchAdvanceForm);
+		mav.addObject(advanceforms);
+		
+		//selection
+		DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage(true);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("enumStatus", StatusType.values());
+		return mav;
+	}
     
 }
 
