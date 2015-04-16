@@ -166,7 +166,7 @@ public class AccountingCustomController extends BaseFormController {
         	this.docsgeneralManager.updateContTruck(accountingcus.getDocsgeneral());
         }
         if (accountingcus!=null) {
-        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForCust(accountingcus));
+        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForCust(accountingcus),"fee","custom");
 		}
     }
 }

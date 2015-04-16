@@ -309,7 +309,7 @@
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
             <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
         </button>
-        <c:if test="${not empty exhibition.id}">
+        <c:if test="${not empty exhibition.id and exhibition.docsgeneral.doDelivery != true}">
           <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
               <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
           </button>

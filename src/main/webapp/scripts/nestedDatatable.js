@@ -72,7 +72,7 @@
 	    		var that = this;
 	    		this.iTableCounter = 1;
 	            var oInnerTable;
-	            $('#'+options.tableId+' tbody td i').live('click', function () {
+	            $('#'+options.tableId+' tbody td i').on('click', function () {
 	                var nTr = $(this).parents('tr')[0];
 	                if (that.oTable.fnIsOpen(nTr)) {
 	                    /* This row is already open - close it */
