@@ -19,7 +19,7 @@ public class BasicAdvance extends BasedEntityTracking{
 
 	private String refNo;
 
-	private Boolean doApproval;
+	private Boolean doApproval = false;
 	
 	private String payReason;
 

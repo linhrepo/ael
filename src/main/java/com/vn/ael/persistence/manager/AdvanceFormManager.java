@@ -5,6 +5,7 @@ import java.util.List;
 import org.appfuse.model.User;
 
 import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.webapp.dto.Search;
 
 public interface AdvanceFormManager extends GenericManager<Advanceform> {
 
@@ -14,4 +15,5 @@ public interface AdvanceFormManager extends GenericManager<Advanceform> {
 	
 	List<Advanceform> findByEmpoyee(User employee);
 
+	List<Advanceform> searchAdvanceForm(Search search);
 }
