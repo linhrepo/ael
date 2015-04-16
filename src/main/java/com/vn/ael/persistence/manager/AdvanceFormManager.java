@@ -1,5 +1,6 @@
 package com.vn.ael.persistence.manager;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.appfuse.model.User;
@@ -16,4 +17,6 @@ public interface AdvanceFormManager extends GenericManager<Advanceform> {
 	List<Advanceform> findByEmpoyee(User employee);
 
 	List<Advanceform> searchAdvanceForm(Search search);
+	
+	BigDecimal calculateRemainAdvance(Long jobId);
 }

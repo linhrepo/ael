@@ -22,4 +22,6 @@ public interface AdvancedetailRepository extends GenericRepository<Advancedetail
 
 	List<Advancedetail> findByAdvanceform(Advanceform advanceform);
 	
+	@Query("SELECT adv FROM Advancedetail adv WHERE adv.docs.id = :jobId")
+	List<Advancedetail> findByJobId(@Param("jobId") long jobId);
 }

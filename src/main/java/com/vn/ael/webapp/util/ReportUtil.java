@@ -57,7 +57,7 @@ import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
-//import com.vn.ael.webapp.dto.AdvanceRequestItem;
+import com.vn.ael.webapp.dto.AdvanceRequestItem;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
@@ -400,29 +400,33 @@ public class ReportUtil {
 	    return new JRBeanCollectionDataSource(coll);
 	}
 	
-	public static Map<String,Object> prepareDataForAdvanceRequest(Advanceform advanceForm){
+	public static Map<String,Object> prepareDataForAdvanceRequest(Advanceform advanceForm, Map<Integer, BigDecimal> listRemainAdvancebyJob){
 		Map<String,Object> beans = new LinkedHashMap<>();
-//		double total = 0;
-//		List<AdvanceRequestItem> listAdvance = new ArrayList<AdvanceRequestItem>();
-//		List<Advancedetail> listAdvanceDetail= new ArrayList<Advancedetail>();
-//		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
-//		if (!listAdvanceDetail.isEmpty()) {
-//			for (Advancedetail advancedetail : listAdvanceDetail) {
-//				AdvanceRequestItem item = new AdvanceRequestItem();
-//				item.setJobNo(advancedetail.getDocs()!=null? advancedetail.getDocs().getJobNo():AELConst.EMPTY_STRING);
-//				item.setPackageDetail(advancedetail.getGoodDes());
-//				item.setAdvanceReason(advancedetail.getDescription());
-//				item.setAdvanceReason(advancedetail.getAmount().toString());
-//				total+=advancedetail.getAmount().doubleValue();
-//				listAdvance.add(item);
-//			}
-//		}
-//		beans.put("advanceDetails", listAdvance);
-//		beans.put("total", total);
-//		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-//		beans.put("advanceDate", df.format(advanceForm.getDate()));
-//		beans.put("employee", advanceForm.getEmployee());
-//		beans.put("refundDate",df.format(advanceForm.getTimeRefund()));		
+		double total = 0;
+		int index = 0;
+		List<AdvanceRequestItem> listAdvance = new ArrayList<AdvanceRequestItem>();
+		List<Advancedetail> listAdvanceDetail= new ArrayList<Advancedetail>();
+		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
+		if (!listAdvanceDetail.isEmpty()) {
+			for (Advancedetail advancedetail : listAdvanceDetail) {
+				AdvanceRequestItem item = new AdvanceRequestItem();
+				index++;
+				item.setJobNo(advancedetail.getDocs()!=null? advancedetail.getDocs().getJobNo():AELConst.EMPTY_STRING);
+				item.setPackageDetail(advancedetail.getGoodDes());
+				item.setAdvanceReason(advancedetail.getDescription());
+				item.setAmount(advancedetail.getAmount().toString());
+				item.setRemainAdvance(listRemainAdvancebyJob.get(advancedetail.getDocs().getId().intValue()).toString());
+				item.setIndex(index);
+				total+=advancedetail.getAmount().doubleValue();
+				listAdvance.add(item);
+			}
+		}
+		beans.put("advanceDetails", listAdvance);
+		beans.put("total", total);
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		beans.put("advanceDate", df.format(advanceForm.getDate()));
+		beans.put("employee", advanceForm.getEmployee());
+		beans.put("refundDate",df.format(advanceForm.getTimeRefund()));		
 		return beans;
 	}
 }
