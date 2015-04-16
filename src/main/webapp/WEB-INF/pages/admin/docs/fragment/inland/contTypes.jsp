@@ -38,7 +38,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contTypes[${idx.index}].amount"
-							id="noOfCont${idx.index}" maxlength="45" autofocus="true"
+							id="noOfCont${idx.index}" maxlength="10" autofocus="true"
 							cssClass="form-control number" /> <form:errors
 							path="docsgeneral.contTypes[${idx.index}].amount"
 							cssClass="help-block" />

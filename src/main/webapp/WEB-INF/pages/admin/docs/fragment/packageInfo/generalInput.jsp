@@ -78,7 +78,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 ">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.productDescription"/>
-		        <form:textarea path="docsgeneral.productDescription" id="productDescription"  cssClass="form-control "/>
+		        <form:textarea path="docsgeneral.productDescription" id="productDescription"  cssClass="form-control " maxlength="2000"/>
 		        <form:errors path="docsgeneral.processingStaff" cssClass="help-block"/>
 		    </div>
 		    
@@ -86,7 +86,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 has-warning">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.note"/>
-		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control "/>
+		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control " maxlength="2000"/>
 		        <form:errors path="docsgeneral.note" cssClass="help-block"/>
 		    </div>
 		    
@@ -133,7 +133,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.sochuyen"/>
-		        <form:input path="docsgeneral.sochuyen" id="sochuyen" maxlength="45"  cssClass="form-control number"/>
+		        <form:input path="docsgeneral.sochuyen" id="sochuyen" maxlength="45"  cssClass="form-control"/>
 		        <form:errors path="docsgeneral.sochuyen" cssClass="help-block"/>
 		    </div>
 		    
@@ -141,7 +141,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.shipper"/>
-		        <form:input path="shipper" id="shipper" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="shipper" id="shipper" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="shipper" cssClass="help-block"/>
 		    </div>
 		    		    		    
@@ -149,7 +149,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.po"/>
-		        <form:input path="po" id="po" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="po" id="po" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="po" cssClass="help-block"/>
 		    </div>
 		    
@@ -157,7 +157,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.invoice"/>
-		        <form:input path="invoice" id="invoice" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="invoice" id="invoice" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="invoice" cssClass="help-block"/>
 		    </div>
 		    
@@ -165,7 +165,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.consignee"/>
-		        <form:input path="consignee" id="consignee" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="consignee" id="consignee" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="consignee" cssClass="help-block"/>
 		    </div>
 		    
@@ -173,7 +173,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dBillOfLading">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.billOfLading"/>
-		        <form:input path="billOfLading" id="billOfLading" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="billOfLading" id="billOfLading" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="billOfLading" cssClass="help-block"/>
 		    </div>
 		    
@@ -181,7 +181,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dPlaceDelivery">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.placeDelivery"/>
-		        <form:input path="docsgeneral.placeDelivery" id="placeDelivery" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="docsgeneral.placeDelivery" id="placeDelivery" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="docsgeneral.placeDelivery" cssClass="help-block"/>
 		    </div>
 		    
@@ -189,7 +189,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dPlaceRev">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.placeRev"/>
-		        <form:input path="docsgeneral.placeRev" id="placeRev" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="docsgeneral.placeRev" id="placeRev" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="docsgeneral.placeRev" cssClass="help-block"/>
 		    </div>
 		    
@@ -197,7 +197,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dBookingNo">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.bookingNo"/>
-		        <form:input path="bookingNo" id="bookingNo" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="bookingNo" id="bookingNo" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="bookingNo" cssClass="help-block"/>
 		    </div>
 		    
@@ -205,7 +205,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dcontNo">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="contseal.noOfCont"/>
-		        <form:input path="contNo" id="contNo" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="contNo" id="contNo" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="contNo" cssClass="help-block"/>
 		    </div>
 		    
@@ -213,7 +213,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" hideBy="typeOfContainer,-1">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.cmb"/>
-		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45"  cssClass="form-control number"/>
+		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="10"  cssClass="form-control number"/>
 		        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
 		    </div>
 		    
@@ -221,7 +221,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.noOfPkgs"/>
-		        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="45"  cssClass="form-control number"/>
+		        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="10"  cssClass="form-control number"/>
 		        <form:errors path="docsgeneral.noOfPkgs" cssClass="help-block"/>
 		    </div>
 		    
@@ -229,7 +229,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.weigth"/>
-		        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45"  cssClass="form-control money"/>
+		        <form:input path="docsgeneral.weigth" id="weigth" maxlength="12"  cssClass="form-control money"/>
 		        <form:errors path="docsgeneral.weigth" cssClass="help-block"/>
 		    </div>
 		    
@@ -237,7 +237,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.portOfLoading"/>
-		        <form:input path="portOfLoading" id="portOfLoading" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="portOfLoading" id="portOfLoading" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="portOfLoading" cssClass="help-block"/>
 		    </div>
 		    
@@ -245,7 +245,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.portOfArrival"/>
-		        <form:input path="portOfArrival" id="portOfArrival" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="portOfArrival" id="portOfArrival" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="portOfArrival" cssClass="help-block"/>
 		    </div>
 		    
@@ -285,7 +285,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo" hideBy="typeOfContainer,-1;typeOfImport,-4">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.wareHouseNo"/>
-		        <form:input path="wareHouseNo" id="wareHouseNo" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="wareHouseNo" id="wareHouseNo" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="wareHouseNo" cssClass="help-block"/>
 		    </div>
 		   
@@ -317,7 +317,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dClosingPlace">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.closingPlace"/>
-		        <form:input path="closingPlace" id="closingPlace" maxlength="500"  cssClass="form-control"/>
+		        <form:input path="closingPlace" id="closingPlace" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="closingPlace" cssClass="help-block"/>
 		    </div>
 		    
@@ -373,7 +373,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.cusDecOnNo"/>
-		        <form:input path="cusDecOnNo" id="cusDecOnNo" maxlength="45"  cssClass="form-control"/>
+		        <form:input path="cusDecOnNo" id="cusDecOnNo" maxlength="255"  cssClass="form-control"/>
 		        <form:errors path="cusDecOnNo" cssClass="help-block"/>
 		    </div>
 		    

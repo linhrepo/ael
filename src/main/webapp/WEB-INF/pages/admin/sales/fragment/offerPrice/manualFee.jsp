@@ -27,7 +27,7 @@
               			<spring:bind path="offerItems[${idx.index}].nameOfService.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:select path="offerItems[${idx.index}].nameOfService.id" id="nameOfService${idx.index}" autofocus="true" cssClass="form-control" items="${selections['services']}" empty-on-add="false"/>
+					        <form:select path="offerItems[${idx.index}].nameOfService.id" id="nameOfService${idx.index}"  cssClass="form-control" items="${selections['services']}" empty-on-add="false"/>
 					        <form:errors path="offerItems[${idx.index}].nameOfService.id" cssClass="help-block"/>
 					    </div>
 				</td>
@@ -35,7 +35,7 @@
               			<spring:bind path="offerItems[${idx.index}].feeWithVAT">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="offerItems[${idx.index}].feeWithVAT" id="feeWithVAT${idx.index}" maxlength="45" autofocus="true" cssClass="form-control money"/>
+					        <form:input path="offerItems[${idx.index}].feeWithVAT" id="feeWithVAT${idx.index}" maxlength="16"  cssClass="form-control money" />
 					        <form:errors path="offerItems[${idx.index}].feeWithVAT" cssClass="help-block"/>
 					    </div>
 				</td>
@@ -43,7 +43,7 @@
               			<spring:bind path="offerItems[${idx.index}].feeNoVAT">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="offerItems[${idx.index}].feeNoVAT" id="feeNoVAT${idx.index}" maxlength="45" autofocus="true" cssClass="form-control money"/>
+					        <form:input path="offerItems[${idx.index}].feeNoVAT" id="feeNoVAT${idx.index}" maxlength="16"  cssClass="form-control money"/>
 					        <form:errors path="offerItems[${idx.index}].feeNoVAT" cssClass="help-block"/>
 					    </div>
 				</td>
@@ -51,7 +51,7 @@
               			<spring:bind path="offerItems[${idx.index}].currency.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="1">
 					    </spring:bind>
-					        <form:select path="offerItems[${idx.index}].currency.id" id="currency${idx.index}" autofocus="true" cssClass="form-control" items="${selections['currencies']}" empty-on-add="false"/>
+					        <form:select path="offerItems[${idx.index}].currency.id" id="currency${idx.index}"  cssClass="form-control" items="${selections['currencies']}" empty-on-add="false"/>
 					        <form:errors path="offerItems[${idx.index}].currency.id" cssClass="help-block"/>
 					    </div>
 				</td>
@@ -59,7 +59,7 @@
               			<spring:bind path="offerItems[${idx.index}].feeUnit.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="3">
 					    </spring:bind>
-					        <form:select path="offerItems[${idx.index}].feeUnit.id" id="feeUnit${idx.index}" autofocus="true" cssClass="form-control" items="${selections['units']}" empty-on-add="false"/>
+					        <form:select path="offerItems[${idx.index}].feeUnit.id" id="feeUnit${idx.index}"  cssClass="form-control" items="${selections['units']}" empty-on-add="false"/>
 					        <form:errors path="offerItems[${idx.index}].feeUnit.id" cssClass="help-block"/>
 					    </div>
 				</td>

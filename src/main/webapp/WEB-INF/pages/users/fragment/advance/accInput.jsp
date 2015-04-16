@@ -24,7 +24,7 @@
 						        	<form:input path="payReason" cssClass="form-control" readonly="true"/>
 						        </security:authorize>
 						        <security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING">
-						        	<form:input path="payReason" cssClass="form-control"/>
+						        	<form:input path="payReason" cssClass="form-control" maxlength="500"/>
 						        </security:authorize>
 						        <form:errors path="employee.id" cssClass="help-block"/>
 						    </div>
