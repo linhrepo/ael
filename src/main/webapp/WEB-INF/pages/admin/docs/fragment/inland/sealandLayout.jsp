@@ -85,7 +85,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 ">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.productDescription"/>
-		        <form:textarea path="docsgeneral.productDescription" id="productDescription"  cssClass="form-control" />
+		        <form:textarea path="docsgeneral.productDescription" id="productDescription" maxlength="2000" cssClass="form-control" />
 		        <form:errors path="docsgeneral.processingStaff" cssClass="help-block"/>
 		    </div>
 		    
@@ -93,7 +93,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6 has-warning">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="inland.note"/>
-		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control "/>
+		        <form:textarea path="docsgeneral.note" id="note" maxlength="2000" cssClass="form-control "/>
 		        <form:errors path="docsgeneral.note" cssClass="help-block"/>
 		    </div>
 		    
@@ -132,7 +132,7 @@
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.attachServices"/>
-					        <form:input path="attachServices" id="attachServices"   cssClass="form-control"/>
+					        <form:input path="attachServices" id="attachServices" maxlength="255"  cssClass="form-control"/>
 					        <form:errors path="attachServices" cssClass="help-block"/>
 					    </div>
 					    
@@ -140,7 +140,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.nameVehicle"/>
-			        <form:input path="docsgeneral.nameVehicle" id="nameVehicle"   cssClass="form-control"/>
+			        <form:input path="docsgeneral.nameVehicle" id="nameVehicle" maxlength="255"  cssClass="form-control"/>
 			        <form:errors path="docsgeneral.nameVehicle" cssClass="help-block"/>
 			    </div>
 			    
@@ -148,7 +148,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.sochuyen"/>
-			        <form:input path="docsgeneral.sochuyen" id="sochuyen"   cssClass="form-control number"/>
+			        <form:input path="docsgeneral.sochuyen" id="sochuyen" maxlength="45"  cssClass="form-control number"/>
 			        <form:errors path="docsgeneral.sochuyen" cssClass="help-block"/>
 			    </div>
 		    	
@@ -156,7 +156,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.gettingPlace"/>
-			        <form:input path="docsgeneral.placeRev" id="placeRev"   cssClass="form-control"/>
+			        <form:input path="docsgeneral.placeRev" id="placeRev" maxlength="255"  cssClass="form-control"/>
 			        <form:errors path="docsgeneral.placeRev" cssClass="help-block"/>
 			    </div>
 			    
@@ -164,7 +164,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.deliveryPlace"/>
-			        <form:input path="docsgeneral.placeDelivery" id="deliveryPlace"   cssClass="form-control"/>
+			        <form:input path="docsgeneral.placeDelivery" id="deliveryPlace" maxlength="255"  cssClass="form-control"/>
 			        <form:errors path="docsgeneral.placeDelivery" cssClass="help-block"/>
 			    </div>
 			    
@@ -187,7 +187,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.noOfPkgs"/>
-				        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="45"  cssClass="form-control number"/>
+				        <form:input path="docsgeneral.noOfPkgs" id="noOfPkgs" maxlength="10"  cssClass="form-control number"/>
 				        <form:errors path="docsgeneral.noOfPkgs" cssClass="help-block"/>
 				    </div>
 				    
@@ -195,7 +195,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.weigth"/>
-				        <form:input path="docsgeneral.weigth" id="weigth" maxlength="45"  cssClass="form-control money"/>
+				        <form:input path="docsgeneral.weigth" id="weigth" maxlength="12"  cssClass="form-control money"/>
 				        <form:errors path="docsgeneral.weigth" cssClass="help-block"/>
 				    </div>
 				    
@@ -203,7 +203,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.cmb"/>
-				        <form:input path="docsgeneral.cmb" id="cmb" maxlength="45"  cssClass="form-control number"/>
+				        <form:input path="docsgeneral.cmb" id="cmb" maxlength="10"  cssClass="form-control number"/>
 				        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
 				    </div>
 				    
@@ -235,7 +235,7 @@
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.placePutCont"/>
-					        <form:input path="docsgeneral.portPutCont" id="portPutCont"  cssClass="form-control"/>
+					        <form:input path="docsgeneral.portPutCont" id="portPutCont" maxlength="255" cssClass="form-control"/>
 					        <form:errors path="docsgeneral.portPutCont" cssClass="help-block"/>
 					    </div>
 				    
@@ -243,7 +243,7 @@
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 					    </spring:bind>
 					        <appfuse:label styleClass="control-label" key="inland.placeGetCont"/>
-					        <form:input path="docsgeneral.placeGetCont" id="placeEmptyDown"   cssClass="form-control"/>
+					        <form:input path="docsgeneral.placeGetCont" id="placeEmptyDown" maxlength="255"  cssClass="form-control"/>
 					        <form:errors path="docsgeneral.placeGetCont" cssClass="help-block"/>
 					    </div>					    					
 					    
@@ -251,7 +251,7 @@
 				    	<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-6">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.otherInfo"/>
-				        <form:input path="otherInfo" id="otherInfo"   cssClass="form-control"/>
+				        <form:input path="otherInfo" id="otherInfo" maxlength="45"  cssClass="form-control"/>
 				        <form:errors path="otherInfo" cssClass="help-block"/>
 				    </div>
 				    
@@ -259,7 +259,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.freeTimeInHCM"/>
-				        <form:input path="freeTimeInHCM" id="freeTimeInHCM"   cssClass="form-control"/>
+				        <form:input path="freeTimeInHCM" id="freeTimeInHCM" maxlength="10"  cssClass="form-control number"/>
 				        <form:errors path="freeTimeInHCM" cssClass="help-block"/>
 				    </div>
 				    
@@ -267,7 +267,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.freeTimeInHP"/>
-				        <form:input path="freeTimeInHP" id="freeTimeInHP"   cssClass="form-control"/>
+				        <form:input path="freeTimeInHP" id="freeTimeInHP" maxlength="10"  cssClass="form-control number"/>
 				        <form:errors path="freeTimeInHP" cssClass="help-block"/>
 				    </div>
 	    	</div>

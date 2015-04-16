@@ -11,15 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vn.ael.persistence.entity.Advancedetail;
-import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
-import com.vn.ael.persistence.repository.AdvanceFormRepository;
-import com.vn.ael.persistence.repository.AdvancedetailRepository;
 import com.vn.ael.persistence.repository.RefundRepository;
 import com.vn.ael.persistence.repository.RefunddetailRepository;
 import com.vn.ael.persistence.repository.UserRepository;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -88,6 +85,14 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 
 	@Override
 	public List<Refund> findByEmpoyee(User employee) {
+		if(EntityUtil.isAdminOrAccountRole(employee)){
+			return this.refundRepository.findAll();
+		}
 		return this.refundRepository.findByEmployee(employee);
+	}
+
+	@Override
+	public List<Refund> searchRefund(Search search) {
+		return this.refundRepository.searchRefund(search.getEmployee(), search.getStartDate(), search.getEndDate(), search.getDoApproval());
 	}
 }

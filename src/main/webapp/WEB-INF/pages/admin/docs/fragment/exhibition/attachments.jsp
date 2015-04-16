@@ -24,7 +24,7 @@
               			<spring:bind path="docsgeneral.attachments[${idx.index}].fileName">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="docsgeneral.attachments[${idx.index}].fileName" id="fileName${idx.index}" maxlength="45"  cssClass="form-control fileName"/>
+					        <form:input path="docsgeneral.attachments[${idx.index}].fileName" id="fileName${idx.index}" maxlength="250"  cssClass="form-control fileName"/>
 					        <form:errors path="docsgeneral.attachments[${idx.index}].fileName" cssClass="help-block"/>
 					    </div>
 				</td>
@@ -32,7 +32,7 @@
               			<spring:bind path="docsgeneral.attachments[${idx.index}].description">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="docsgeneral.attachments[${idx.index}].description" id="description${idx.index}" cssClass="form-control"/>
+					        <form:input path="docsgeneral.attachments[${idx.index}].description" id="description${idx.index}" maxlength="250" cssClass="form-control"/>
 					        <form:errors path="docsgeneral.attachments[${idx.index}].description" cssClass="help-block"/>
 					    </div>
 				</td>

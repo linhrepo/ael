@@ -36,7 +36,7 @@
 	            		<spring:bind path="advancedetails[${idx.index}].goodDes">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="advancedetails[${idx.index}].goodDes" id="goodDes${idx.index}" cssClass="form-control"/>
+					        <form:input path="advancedetails[${idx.index}].goodDes" id="goodDes${idx.index}" cssClass="form-control" maxlength="255"/>
 					        <form:errors path="advancedetails[${idx.index}].goodDes" cssClass="help-block"/>
 					    </div>
 	            </td>
@@ -44,7 +44,7 @@
 	            		<spring:bind path="advancedetails[${idx.index}].description">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="advancedetails[${idx.index}].description" id="description${idx.index}" cssClass="form-control"/>
+					        <form:input path="advancedetails[${idx.index}].description" id="description${idx.index}" cssClass="form-control" maxlength="1000"/>
 					        <form:errors path="advancedetails[${idx.index}].description" cssClass="help-block"/>
 					    </div>
 	            </td>
@@ -52,7 +52,7 @@
 	            		<spring:bind path="advancedetails[${idx.index}].amount">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="advancedetails[${idx.index}].amount" id="amount${idx.index}" cssClass="form-control money advanceAmount"/>
+					        <form:input path="advancedetails[${idx.index}].amount" id="amount${idx.index}" cssClass="form-control money advanceAmount" maxlength="16"/>
 					        <form:errors path="advancedetails[${idx.index}].amount" cssClass="help-block"/>
 					    </div>
 	            </td>

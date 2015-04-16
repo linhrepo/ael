@@ -52,7 +52,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].regNo"
-						id="regNo${idx.index}"  cssClass="form-control" />
+						id="regNo${idx.index}"  cssClass="form-control" maxlength="45"/>
 					<form:errors path="docsgeneral.docservices[${idx.index}].regNo"
 						cssClass="help-block" />
 					</div></td>
@@ -61,7 +61,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.docservices[${idx.index}].typeCO"
-						id="typeCO${idx.index}"  cssClass="form-control" />
+						id="typeCO${idx.index}"  cssClass="form-control" maxlength="45"/>
 					<form:errors path="docsgeneral.docservices[${idx.index}].typeCO"
 						cssClass="help-block" />
 					</div></td>

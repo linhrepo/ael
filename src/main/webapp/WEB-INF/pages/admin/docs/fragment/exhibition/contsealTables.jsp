@@ -49,7 +49,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].noOfPKGS"
-							id="noOfPKGS${idx.index}" maxlength="45" autofocus="true"
+							id="noOfPKGS${idx.index}" maxlength="10" autofocus="true"
 							cssClass="form-control number" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].noOfPKGS"
 							cssClass="help-block" />
@@ -59,7 +59,7 @@
 							<div
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].weight"
-							id="weight${idx.index}" maxlength="45" autofocus="true"
+							id="weight${idx.index}" maxlength="12" autofocus="true"
 							cssClass="form-control money" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].weight"
 							cssClass="help-block" />
