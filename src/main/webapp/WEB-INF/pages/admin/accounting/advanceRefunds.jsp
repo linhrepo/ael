@@ -14,8 +14,10 @@
 		
 		  <!-- Tab panes -->
 		  <div class="tab-content">
+		  	<input type="hidden" id="flag" value="${flag }">
 		    <div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="fragment/advanceForms.jsp"></jsp:include></div>
 		    <div role="tabpanel" class="tab-pane" id="settings"><jsp:include page="fragment/refunds.jsp"></jsp:include></div>
 		  </div>
 </div>
 
+<script type="text/javascript" src="<c:url value='/scripts/advanceRefund.js'/>"></script>
