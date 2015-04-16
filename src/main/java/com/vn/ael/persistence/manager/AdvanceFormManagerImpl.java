@@ -85,6 +85,9 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 
 	@Override
 	public List<Advanceform> findByEmpoyee(User employee) {
+		if(EntityUtil.isAdminOrAccountRole(employee)){
+			return this.advanceFormRepository.findAll();
+		}
 		return this.advanceFormRepository.findByEmployee(employee);
 	}
 

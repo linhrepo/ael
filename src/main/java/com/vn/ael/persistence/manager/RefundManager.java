@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.appfuse.model.User;
 
-import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.webapp.dto.Search;
 
 public interface RefundManager extends GenericManager<Refund> {
 
@@ -14,5 +14,7 @@ public interface RefundManager extends GenericManager<Refund> {
 	Refund saveWholePackage(Refund refund);
 	
 	List<Refund> findByEmpoyee(User employee);
+	
+	List<Refund> searchRefund(Search search);
 
 }
