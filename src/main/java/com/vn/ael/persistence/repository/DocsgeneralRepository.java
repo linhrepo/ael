@@ -51,11 +51,20 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	 * @param doAccounting
 	 * @return
 	 */
-	@Query("from Docsgeneral d where d.customer.id=:customerId and d.doAccounting = :doAccounting and (d.typeOfDocs = :inland or d.typeOfDocs = :seaType) "
-			+"and MONTH(d.inland.createdDate) = :month "
-			+"and YEAR(d.inland.createdDate) = :year "
-			)
-	//TODO: Find correct date for comparing
+//	@Query("from Docsgeneral d where d.customer.id=:customerId and d.doAccounting = :doAccounting and (d.typeOfDocs = :inland or d.typeOfDocs = :seaType) "
+//			+"and MONTH(d.inland.createdDate) = :month "
+//			+"and YEAR(d.inland.createdDate) = :year "
+//			)
+//	//TODO: Find correct date for comparing
+//	List<Docsgeneral> getDoAccountingInlandSealandAndTime(@Param(value = "doAccounting")Boolean doAccounting,@Param(value = "inland")ServicesType inland,@Param(value = "seaType")ServicesType seaType
+//			,@Param(value="month") int month, @Param(value="year") int year, @Param(value="customerId")long customerId);
+	
+	@Query("select d from Docsgeneral d left join fetch d.truckingservice ser left join fetch ser.truckingdetails detail "
+	+ "where d.customer.id=:customerId and d.doAccounting = :doAccounting and (d.typeOfDocs = :inland or d.typeOfDocs = :seaType) "
+	+"and MONTH(detail.dateDev) = :month "
+	+"and YEAR(detail.dateDev) = :year "
+	+ "group by d"
+	)
 	List<Docsgeneral> getDoAccountingInlandSealandAndTime(@Param(value = "doAccounting")Boolean doAccounting,@Param(value = "inland")ServicesType inland,@Param(value = "seaType")ServicesType seaType
 			,@Param(value="month") int month, @Param(value="year") int year, @Param(value="customerId")long customerId);
 	

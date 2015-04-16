@@ -5,6 +5,7 @@ package com.vn.ael.persistence.manager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -240,9 +242,17 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> findAllByCondition(
 			AccountingTransCondition accountingTransCondition) {
-		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getMonth(), accountingTransCondition.getYear(),accountingTransCondition.getCustomerId());		
+		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getMonth(), accountingTransCondition.getYear(),accountingTransCondition.getCustomerId());
+		//remove detail which is not in this month
+//		this.removeNotInMonthDetail(accountingTransCondition.getMonth(), accountingTransCondition.getYear(), docsgenerals);
+		
 		if (docsgenerals != null && !docsgenerals.isEmpty()){
 			for (Docsgeneral docsgeneral : docsgenerals){
+				//fect trucking details
+				List<Truckingdetail> truckingdetails = truckingdetailRepository.findWithTruckingserviceAndMonthYear(docsgeneral.getTruckingservice().getId(),accountingTransCondition.getMonth(),accountingTransCondition.getYear());
+				docsgeneral.getTruckingservice().setTruckingdetails(truckingdetails);
+				
+				//calculate other information
 				List<Exfeetable> exfeetables = exfeetableRepository.findByDocsgeneral(docsgeneral);
 				if (exfeetables != null && !exfeetables.isEmpty()){
 					if (docsgeneral.getChiho() == null){
@@ -260,6 +270,28 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		}
 		return docsgenerals;
 	}
+	
+	/**
+	 * Update Trucking service, with just trucking detail in suitable month
+	 * @param month
+	 * @param year
+	 */
+//	private void removeNotInMonthDetail(int month, int year, List<Docsgeneral> docsgenerals){
+//		if (docsgenerals != null && !docsgenerals.isEmpty()){
+//			for (Docsgeneral docsgeneral : docsgenerals){
+//				if (docsgeneral.getTruckingservice() != null && docsgeneral.getTruckingservice().getTruckingdetails() != null && !docsgeneral.getTruckingservice().getTruckingdetails().isEmpty()){
+//					List<Truckingdetail> truckingdetails = new ArrayList<>();
+//					for (Truckingdetail truckingdetail : docsgeneral.getTruckingservice().getTruckingdetails()){
+//						Date devDate = truckingdetail.getDateDev();
+//						if (devDate != null && CommonUtil.getMonth(devDate) == month && CommonUtil.getYear(devDate) == year){
+//							truckingdetails.add(truckingdetail);
+//						}
+//					}
+//					docsgeneral.getTruckingservice().setTruckingdetails(truckingdetails);
+//				}
+//			}
+//		}
+//	}
 
 	@Override
 	public void updateContTruck(Docsgeneral docsgeneral) {
@@ -292,10 +324,10 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				}
 			}
 		//load trucking service
-		Truckingservice truckingservice = this.truckingserviceRepository.findByDocsgeneral(docsgeneral);
-		List<Truckingdetail> truckingdetails = this.truckingdetailRepository.findByTruckingservice(truckingservice);
-		docsgeneral.setTruckingservice(truckingservice);
-		truckingservice.setTruckingdetails(truckingdetails);
+//		Truckingservice truckingservice = this.truckingserviceRepository.findByDocsgeneral(docsgeneral);
+//		List<Truckingdetail> truckingdetails = this.truckingdetailRepository.findByTruckingservice(truckingservice);
+//		docsgeneral.setTruckingservice(truckingservice);
+//		truckingservice.setTruckingdetails(truckingdetails);
 	}
 
 	@Override

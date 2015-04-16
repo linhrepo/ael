@@ -35,7 +35,7 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
-import com.vn.ael.webapp.util.StringUtil;
+import com.vn.ael.webapp.util.CommonUtil;
 
 /**
  * @author liv1hc
@@ -133,7 +133,7 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 					counting = AELConst.START_COUNT_JOB_ID;
 				}
 				accountingcus.setCounting(counting+1);
-			String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+StringUtil.addZero(accountingcus.getCounting().toString(), StringUtil.LENGTH_OF_COUNTER);
+			String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+CommonUtil.addZero(accountingcus.getCounting().toString(), CommonUtil.LENGTH_OF_COUNTER);
 			accountingcus.setRefNo(jobNo);
 		}
 		
