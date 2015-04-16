@@ -179,8 +179,8 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 					}
 				}
 			}
-			accountingcus.setExtendfeeaccs(chiho);
 		}
+		accountingcus.setExtendfeeaccs(chiho);
 	}
 	
 }

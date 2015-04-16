@@ -133,17 +133,17 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.price"/>">
 					<div class="form-group">
-						<form:input path="docs[${idx.index}].inland.accountingPrice"  maxlength="45" autofocus="true" cssClass="form-control money amount" />
+						<form:input path="docs[${idx.index}].inland.accountingPrice" cssClass="form-control money amount" />
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.otherfee"/>">
 					<div class="form-group">
-						<form:input path="docs[${idx.index}].inland.otherFees"  maxlength="45" autofocus="true" cssClass="form-control money amount" />
+						<form:input path="docs[${idx.index}].inland.otherFees" cssClass="form-control money amount" />
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
 					<div class="form-group">
-						<input maxlength="45" autofocus="true" class="form-control total" readonly="true"/>
+						<input  class="form-control total" readonly="true"/>
 					</div>
 				</td>
 			</tr>
