@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.manager;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.repository.AdvanceFormRepository;
 import com.vn.ael.persistence.repository.AdvancedetailRepository;
+import com.vn.ael.persistence.repository.RefunddetailRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
@@ -34,6 +37,9 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private RefunddetailRepository refundDetailRepository;
     
     @Autowired
     public AdvanceFormManagerImpl(final AdvanceFormRepository advanceFormRepository) {
@@ -97,5 +103,44 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 				search.getStartDate(), search.getEndDate(),
 				search.getStartTimeRefund(), search.getEndTimeRefund(),
 				search.getDoApproval());
+	}
+
+	@Override
+	public BigDecimal calculateRemainAdvance(Long jobId) {
+		// TODO Auto-generated method stub
+		BigDecimal result = BigDecimal.ZERO;
+		List<Advancedetail> listAdvanceByJobNo = new ArrayList<Advancedetail>();
+		List<Refunddetail> listRefundByJobNo = new ArrayList<Refunddetail>();
+		try {
+			listAdvanceByJobNo.addAll(this.advancedetailRepository.findByJobId(jobId));
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("FAILED TO GET ADVANCE DETAIL BY JOB NO");
+		}
+		try {
+			listRefundByJobNo.addAll(this.refundDetailRepository.findByJobId(jobId));
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("FAILED TO GET REFUND DETAIL BY JOB NO");
+		}
+		if (!listAdvanceByJobNo.isEmpty()) {
+			for (Advancedetail advancedetail : listAdvanceByJobNo) {
+				if (advancedetail.getAdvanceform()!=null) {
+					if (advancedetail.getAdvanceform().getDoApproval()) {
+						result=result.add(advancedetail.getAmount());
+					}
+				}
+			}
+		}
+		if (!listRefundByJobNo.isEmpty()) {
+			for (Refunddetail refundDetail : listRefundByJobNo){
+				if (refundDetail.getRefund()!=null) {
+					if (refundDetail.getRefund().getDoApproval()) {
+						result=result.subtract(refundDetail.getAmount());
+					}
+				}
+			}
+		}
+		return result;
 	}
 }

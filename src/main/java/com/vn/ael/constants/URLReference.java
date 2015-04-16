@@ -90,4 +90,6 @@ public interface URLReference {
 	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
 	
 	String AJAX_REPORT_ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition/download";
+	
+	String ADVANCE_FORM_DOWNLOAD = "/users/advanceForm/download";
 }

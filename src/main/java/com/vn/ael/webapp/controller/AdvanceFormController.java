@@ -1,6 +1,9 @@
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
 public class AdvanceFormController extends BaseFormController {
@@ -123,6 +129,26 @@ public class AdvanceFormController extends BaseFormController {
  
         return success;
     }
-    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_FORM_DOWNLOAD)
+    public void doDownload(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	        Advanceform advanceform = this.loadAdvancesByRequest(request);
+    	        Map<Integer, BigDecimal> listRemainAdvancebyJob = new HashMap<Integer, BigDecimal>();
+    	        if (advanceform != null){
+    	        	if (!advanceform.getAdvancedetails().isEmpty()) {
+						for (Advancedetail adv : advanceform.getAdvancedetails()) {
+							BigDecimal val = BigDecimal.ZERO;
+							try {
+								val = this.advanceFormManager.calculateRemainAdvance(adv.getDocs().getId());
+								listRemainAdvancebyJob.put(adv.getDocs().getId().intValue(), val);
+							} catch (Exception e) {
+								// TODO: handle exception
+								log.error("ERROR: FAILED TO GET REMAIN ADVANCE");
+							}						
+						}
+					}
+    	        	ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REQUEST_ITEMS, ReportTeamplates.ADVANCE_REQUEST_ITEMS_TEMPLATE, ReportUtil.prepareDataForAdvanceRequest(advanceform, listRemainAdvancebyJob));
+    	        }
+    	    }
 }
 

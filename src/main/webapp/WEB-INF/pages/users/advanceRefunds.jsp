@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="advanceList.title"/></title>
-    <meta name="menu" content=Home/>
+    <meta name="menu" content="Home"/>
 </head>
 
 <div class="col-sm-12">	

@@ -32,7 +32,7 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	@JoinColumn(name = "consteal")
 	private Contseal consteal;
 
-	private Integer noOfVehicle;
+	private String noOfVehicle;
 
 	private String vehicleNo;
 	
@@ -81,11 +81,11 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 		this.consteal = consteal;
 	}
 
-	public Integer getNoOfVehicle() {
+	public String getNoOfVehicle() {
 		return this.noOfVehicle;
 	}
 
-	public void setNoOfVehicle(Integer noOfVehicle) {
+	public void setNoOfVehicle(String noOfVehicle) {
 		this.noOfVehicle = noOfVehicle;
 	}
 

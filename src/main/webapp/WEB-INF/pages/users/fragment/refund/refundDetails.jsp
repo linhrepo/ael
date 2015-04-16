@@ -35,7 +35,7 @@
 	            		<spring:bind path="refunddetails[${idx.index}].description">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="refunddetails[${idx.index}].description" id="description${idx.index}" cssClass="form-control"/>
+					        <form:input path="refunddetails[${idx.index}].description" id="description${idx.index}" cssClass="form-control" maxlength="1000"/>
 					        <form:errors path="refunddetails[${idx.index}].description" cssClass="help-block"/>
 					    </div>
 	            </td>
@@ -43,7 +43,7 @@
 	            		<spring:bind path="refunddetails[${idx.index}].amount">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="refunddetails[${idx.index}].amount" id="amount${idx.index}" cssClass="form-control money"/>
+					        <form:input path="refunddetails[${idx.index}].amount" id="amount${idx.index}" cssClass="form-control money" maxlength="16"/>
 					        <form:errors path="refunddetails[${idx.index}].amount" cssClass="help-block"/>
 					    </div>
 	            </td>
@@ -51,7 +51,7 @@
 	            		<spring:bind path="refunddetails[${idx.index}].oAmount">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
-					        <form:input path="refunddetails[${idx.index}].oAmount" id="oamount${idx.index}" cssClass="form-control money"/>
+					        <form:input path="refunddetails[${idx.index}].oAmount" id="oamount${idx.index}" cssClass="form-control money" maxlength="16"/>
 					        <form:errors path="refunddetails[${idx.index}].oAmount" cssClass="help-block"/>
 					    </div>
 	            </td>

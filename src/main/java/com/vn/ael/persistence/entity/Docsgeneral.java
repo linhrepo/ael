@@ -37,7 +37,7 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	private String nameVehicle;
 	
-	private Integer sochuyen;
+	private String sochuyen;
 	
 	private Date docReceiveDate;
 
@@ -528,11 +528,11 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.nameVehicle = nameVehicle;
 	}
 
-	public Integer getSochuyen() {
+	public String getSochuyen() {
 		return sochuyen;
 	}
 
-	public void setSochuyen(Integer sochuyen) {
+	public void setSochuyen(String sochuyen) {
 		this.sochuyen = sochuyen;
 	}
 	

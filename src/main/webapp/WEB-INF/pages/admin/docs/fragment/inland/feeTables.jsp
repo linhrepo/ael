@@ -75,7 +75,7 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].amount"
-						id="amount${idx.index}" maxlength="45" 
+						id="amount${idx.index}" maxlength="16" 
 						cssClass="form-control amount money" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].amount"
 						cssClass="help-block" />
@@ -85,14 +85,14 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="docsgeneral.exfeetables[${idx.index}].vat"
-						id="vat${idx.index}" maxlength="45"  
+						id="vat${idx.index}" maxlength="6"  
 						cssClass="form-control vat money" /> <form:errors
 						path="docsgeneral.exfeetables[${idx.index}].vat"
 						cssClass="help-block" />
 					</div></td>
 				<td>
 					<form:input path="docsgeneral.exfeetables[${idx.index}].total"
-						id="total${idx.index}" maxlength="45" 
+						id="total${idx.index}" maxlength="17" 
 						cssClass="form-control total money"/> 
 				</td>
 				<td><spring:bind

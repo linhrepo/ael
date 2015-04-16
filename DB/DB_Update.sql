@@ -51,5 +51,10 @@ DROP COLUMN `nameVehicle`;
 
 ALTER TABLE `ael`.`packageinfo` 
 DROP COLUMN `nameVehicle`;
+----------------------------
 
+ALTER TABLE `ael`.`docsgeneral` 
+CHANGE COLUMN `sochuyen` `sochuyen` VARCHAR(45) NULL DEFAULT NULL ;
 
+ALTER TABLE `ael`.`truckingdetail` 
+CHANGE COLUMN `noOfVehicle` `noOfVehicle` VARCHAR(45) NULL DEFAULT NULL ;

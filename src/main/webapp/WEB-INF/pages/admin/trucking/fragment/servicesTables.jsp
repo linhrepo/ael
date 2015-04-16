@@ -158,7 +158,7 @@
 							</spring:bind> 
 							<form:input path="truckingdetails[${idx.index}].noOfVehicle"
 								id="amount${idx.index}" maxlength="45"  empty-on-add="false"
-								cssClass="form-control number" /> 
+								cssClass="form-control" /> 
 							<form:errors
 								path="truckingdetails[${idx.index}].noOfVehicle"
 								cssClass="help-block" />

@@ -35,7 +35,7 @@
 						class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					
 				</spring:bind> <form:input path="docsgeneral.inlandsizes[${idx.index}].deep"
-					id="deep${idx.index}" maxlength="45" autofocus="true"
+					id="deep${idx.index}" maxlength="10" autofocus="true"
 					cssClass="form-control number" /> <form:errors
 					path="docsgeneral.inlandsizes[${idx.index}].deep"
 					cssClass="help-block" />
@@ -46,7 +46,7 @@
 						class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					
 				</spring:bind> <form:input path="docsgeneral.inlandsizes[${idx.index}].width"
-					id="width${idx.index}" maxlength="45" autofocus="true"
+					id="width${idx.index}" maxlength="10" autofocus="true"
 					cssClass="form-control number" /> <form:errors
 					path="docsgeneral.inlandsizes[${idx.index}].width"
 					cssClass="help-block" />
@@ -57,7 +57,7 @@
 						class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					
 				</spring:bind> <form:input path="docsgeneral.inlandsizes[${idx.index}].height"
-					id="height${idx.index}" maxlength="45" autofocus="true"
+					id="height${idx.index}" maxlength="10" autofocus="true"
 					cssClass="form-control number" /> <form:errors
 					path="docsgeneral.inlandsizes[${idx.index}].height"
 					cssClass="help-block" />
@@ -68,7 +68,7 @@
 						class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					
 				</spring:bind> <form:input path="docsgeneral.inlandsizes[${idx.index}].kg"
-					id="kg${idx.index}" maxlength="45" autofocus="true"
+					id="kg${idx.index}" maxlength="10" autofocus="true"
 					cssClass="form-control money" /> <form:errors
 					path="docsgeneral.inlandsizes[${idx.index}].kg"
 					cssClass="help-block" />
