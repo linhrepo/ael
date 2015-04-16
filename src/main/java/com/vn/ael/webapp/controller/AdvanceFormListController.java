@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
@@ -15,15 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
-import com.vn.ael.enums.ConfigurationType;
-import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Advanceform;
-import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
 public class AdvanceFormListController extends BaseFormController {
@@ -79,19 +79,45 @@ public class AdvanceFormListController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.ADVANCE_SEARCH)
-	public ModelAndView searchAdvanceForm(Search searchAdvanceForm)
+	public ModelAndView searchAdvanceForm(Search searchAdvanceForm, HttpServletRequest request)
 			throws Exception {
 		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_REFUNDS);
+		//check role
+		User user = getUserManager().getLoggedUser(request);
+		if(!EntityUtil.isAdminOrAccountRole(user)){
+			searchAdvanceForm.setEmployee(user.getId());
+		}
 		List<Advanceform> advanceforms = advanceFormManager.searchAdvanceForm(searchAdvanceForm);
-		mav.addObject(advanceforms);
-		
+		mav.addObject(advanceforms);		
+		mav.addObject(refundManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
 		//selection
 		DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage(true);
 		mav.addObject("docsSelection", docsSelection);
 		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("flag", 1);
 		return mav;
 	}
     
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.REFUND_SEARCH)
+	public ModelAndView searchRefund(Search searchRefund, HttpServletRequest request)
+			throws Exception {
+		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_REFUNDS);
+		//check role
+		User user = getUserManager().getLoggedUser(request);
+		if(!EntityUtil.isAdminOrAccountRole(user)){
+			searchRefund.setEmployee(user.getId());
+		}
+		List<Refund> refunds = refundManager.searchRefund(searchRefund);
+		mav.addObject(refunds);
+		mav.addObject(advanceFormManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
+		//selection
+		DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage(true);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("flag", 2);
+		return mav;
+	}
 }
 

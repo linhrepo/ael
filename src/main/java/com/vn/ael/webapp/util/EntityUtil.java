@@ -4,18 +4,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
+import org.appfuse.model.Role;
+import org.appfuse.model.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.RoleMapping;
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
@@ -32,7 +37,6 @@ import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Nhathau;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
-import com.vn.ael.persistence.entity.Realattachment;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
@@ -347,5 +351,19 @@ public class EntityUtil {
 		docsgeneral.setNoOf20Cont(count20);
 		docsgeneral.setNoOf40Cont(count40);
 		docsgeneral.setOtCont(countOt);
+	}
+	
+	public static boolean isAdminOrAccountRole(User user){
+		Set<String> roleNames = new HashSet<>();
+		Set<Role> roles = user.getRoles();
+		if(roles != null && !roles.isEmpty()){
+			for (Role role : roles) {
+				roleNames.add(role.getName());
+			}
+			if(roleNames.contains(RoleMapping.ACCOUNTING) || roleNames.contains(RoleMapping.ADMIN)){
+				return true;
+			}
+		}
+		return false;
 	}
 }
