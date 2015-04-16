@@ -44,14 +44,18 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.dateDev" />">
 					<div class="form-group">
-					<fmt:formatDate value="${doc.inland.dateDevPack}" pattern="dd/MM/yyyy"/>
+					<c:forEach items="${doc.truckingservice.truckingdetails}" var="trucking">
+							<fmt:formatDate value="${trucking.dateDev}" pattern="dd/MM/yyyy"/>
+							<hr>
+						</c:forEach>
+					
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.khonhan" />">
 					<div class="form-group">
 				        ${doc.placeRev}
 				        <hr>
-				        <c:if test="${not empty doc.placeRev1}">
+				        <c:if test="${not empty doc.placeRev}">
 				        	${doc.placeRev1}
 				        </c:if>
 				    </div>
@@ -60,7 +64,7 @@
 					<div class="form-group">
 				        ${doc.placeDelivery}
 				        <hr>
-				        <c:if test="${not empty doc.placeDelivery1}">
+				        <c:if test="${not empty doc.placeDelivery}">
 				        	${doc.placeDelivery1}
 				        </c:if>
 				    </div>
@@ -117,12 +121,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						${doc.placeEmptyUp}
+						${doc.truckingservice.arrival}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						${doc.placeEmptyDown}
+						${doc.truckingservice.departure}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.chiho"/>">

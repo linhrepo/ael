@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.vn.ael.constants.AELConst;
 
-public class StringUtil {
+public class CommonUtil {
 	private static String ZERO = "0";
 	private static int LENGTH_OF_MONTH_STRING = 2;
 	public static int LENGTH_OF_COUNTER = 4;
@@ -16,7 +16,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static String getCurrentYear(){
-		return String.valueOf(Calendar.getInstance().getTime().getYear() + YEAR_OFFSET);
+		return getMonthString(Calendar.getInstance().getTime());
 	}
 	
 	/**
@@ -24,8 +24,42 @@ public class StringUtil {
 	 * @return
 	 */
 	public static String getCurrentMonth(){
-		String month = String.valueOf(Calendar.getInstance().getTime().getMonth()+1);
+		return getYearString(Calendar.getInstance().getTime());
+	}
+	
+	/**
+	 * Get current year in String
+	 * @return
+	 */
+	public static String getYearString(Date date){
+		return String.valueOf(getYear(date) + YEAR_OFFSET);
+	}
+	
+	/**
+	 * Get 2 chars of current month
+	 * @return
+	 */
+	public static String getMonthString(Date date){
+		String month = String.valueOf(getMonth(date));
 		return addZero(month, LENGTH_OF_MONTH_STRING);
+	}
+	
+	/**
+	 * Get current year in String
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public static int getYear(Date date){
+		return date.getYear() + YEAR_OFFSET;
+	}
+	
+	/**
+	 * Get 2 chars of current month
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public static int getMonth(Date date){
+		return date.getMonth()+1;
 	}
 	
 	/**

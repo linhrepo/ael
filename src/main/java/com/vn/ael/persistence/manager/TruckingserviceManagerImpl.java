@@ -22,7 +22,7 @@ import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.util.EntityUtil;
-import com.vn.ael.webapp.util.StringUtil;
+import com.vn.ael.webapp.util.CommonUtil;
 
 /**
  * @author liv1hc

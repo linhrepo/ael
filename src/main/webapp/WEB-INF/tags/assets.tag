@@ -23,7 +23,8 @@
     <c:otherwise>
 <%--         <link rel="stylesheet" type="text/css" href="${base}/assets/v/${applicationScope.assetsVersion}/${group}.css"/> --%>
 <%--         <script type="text/javascript" src="${base}/assets/v/${applicationScope.assetsVersion}/${group}.js"></script> --%>
-		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch-slate/3.3.1+2/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/united/bootstrap.min.css"/>
+<%-- 		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch-slate/3.3.1+2/css/bootstrap.css"/> --%>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/font-awesome/4.2.0/css/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/datatables/1.10.4/css/jquery.dataTables.css"/>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/datatables-bootstrap/2-20120201/DT_bootstrap.css"/>
@@ -33,8 +34,9 @@
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/select2-bootstrap-css/1.4.4/select2-bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/pnotify/2.0.1/pnotify.core.css"/>
         <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
-        <link rel="stylesheet" type="text/css" href="${base}/styles/slate.css"/>
-       
+<%--         <link rel="stylesheet" type="text/css" href="${base}/styles/slate.css"/> --%>
+        <link rel="stylesheet" type="text/css" href="${base}/styles/united.css"/>
+        
         <script type="text/javascript" src="${base}/webjars/jquery/1.11.2/jquery.min.js"></script>
         <script type="text/javascript" src="${base}/webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${base}/webjars/jquery-cookie/1.3.1/jquery.cookie.js"></script>

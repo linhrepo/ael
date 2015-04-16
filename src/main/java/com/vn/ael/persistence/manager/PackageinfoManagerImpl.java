@@ -22,7 +22,7 @@ import com.vn.ael.persistence.repository.PackageinfoRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
-import com.vn.ael.webapp.util.StringUtil;
+import com.vn.ael.webapp.util.CommonUtil;
 
 /**
  * @author liv1hc
@@ -85,7 +85,7 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
 				}
 				packageinfo.setCounting(counting+1);
 			}
-			String jobNo = packageinfo.getDocsgeneral().getCustomer().getCode()+ServicesType.DVTQ.getLabel()+StringUtil.addZero(packageinfo.getCounting(), StringUtil.LENGTH_OF_COUNTER);
+			String jobNo = packageinfo.getDocsgeneral().getCustomer().getCode()+ServicesType.DVTQ.getLabel()+CommonUtil.addZero(packageinfo.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
 			packageinfo.getDocsgeneral().setJobNo(jobNo);
 		}
 		

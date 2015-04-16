@@ -38,4 +38,10 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and MONTH(t.dateDev) = :month and YEAR(t.dateDev) = :year group by (t.id)")
 	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") ServicesType transId, @Param(value="month") Integer month, @Param(value="year")Integer year);
+
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.truckingservice ser where ser.id =:id "
+			+"and MONTH(t.dateDev) = :month "
+			+"and YEAR(t.dateDev) = :year ")
+	List<Truckingdetail> findWithTruckingserviceAndMonthYear(@Param("id")Long serviceId,
+			@Param("month")Integer month, @Param("year")Integer year);
 }
