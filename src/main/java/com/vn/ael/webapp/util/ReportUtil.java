@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -55,6 +53,8 @@ import com.vn.ael.persistence.entity.Extendfeeacc;
 import com.vn.ael.persistence.entity.OfferItem;
 import com.vn.ael.persistence.entity.OfferPrice;
 import com.vn.ael.persistence.entity.Packageinfo;
+import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
@@ -63,6 +63,7 @@ import com.vn.ael.webapp.dto.AdvanceRequestItem;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
+import com.vn.ael.webapp.dto.RefundRequestItem;
 import com.vn.ael.webapp.formatter.FormatterUtil;
 
 public class ReportUtil {
@@ -486,5 +487,42 @@ public class ReportUtil {
 		beans.put("employee", advanceForm.getEmployee());
 		beans.put("refundDate",CommonUtil.getDateString(advanceForm.getTimeRefund()));		
 		return beans;
+	}
+
+	public static Map<String,Object> prepareDataForRefundRequest(Refund refund){
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		List<Refunddetail> refundDetails = new ArrayList<Refunddetail>();
+		if (refund.getRefunddetails()!=null) {
+			refundDetails.addAll(refund.getRefunddetails());
+		}
+		List<RefundRequestItem> listItem = new ArrayList<RefundRequestItem>();
+		BigDecimal totalAmount = BigDecimal.ZERO;
+		BigDecimal totalOAmount = BigDecimal.ZERO;
+		BigDecimal grandTotal = BigDecimal.ZERO;
+		int index= 0;
+		if (!refund.getRefunddetails().isEmpty()) {
+			for (Refunddetail refunddetail : refundDetails) {
+				RefundRequestItem item = new RefundRequestItem();
+				index++;
+				item.setIndex(index);
+				item.setFileCus(refunddetail.getDocs()!=null?refunddetail.getDocs().getJobNo():AELConst.EMPTY_STRING);
+				item.setDescription(refunddetail.getDescription());
+				item.setAmount(refunddetail.getAmount().toString());
+				item.setoAmount(refunddetail.getOAmount().toString());
+				totalAmount=totalAmount.add(refunddetail.getAmount());
+				totalOAmount=totalOAmount.add(refunddetail.getOAmount());
+				listItem.add(item);
+			}
+			grandTotal=grandTotal.add(totalAmount);
+			grandTotal=grandTotal.add(totalOAmount);
+			parameterMap.put("refundDetails", listItem);
+			parameterMap.put("totalAmount", totalAmount.toString());
+			parameterMap.put("totalOAmount", totalOAmount.toString());
+			parameterMap.put("employee", refund.getEmployee());
+			parameterMap.put("grandTotal", grandTotal.toString());
+			parameterMap.put("refundDate", CommonUtil.getDateString(refund.getDate()));
+			parameterMap.put("refNo", refund.getRefNo());
+		}
+		return parameterMap;
 	}
 }
