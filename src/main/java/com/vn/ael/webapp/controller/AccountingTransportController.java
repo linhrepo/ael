@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.ReportMergeInfo;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.manager.CustomerManager;
@@ -27,6 +28,7 @@ import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.service.AccountingTransService;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
@@ -117,7 +119,7 @@ public class AccountingTransportController extends BaseFormController {
             HttpServletResponse response) throws IOException {
     	AccountingTrans accountingTrans = this.setupAccountingTrans(request);
        if (accountingTrans!=null) {
-    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans));
+    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans), ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()));
        }
     }
      

@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,4 +60,22 @@ public class ConvertUtil {
 		return map;
 	}
 
+	/**
+	 * 
+	 * @param docsgenerals
+	 * @return
+	 */
+	public static List<Integer> generateMergeIndexForTrans(List<Docsgeneral> docsgenerals){
+		List<Integer> integers = new ArrayList<>();
+		if (docsgenerals != null){
+			for (Docsgeneral docsgeneral : docsgenerals){
+				if (docsgeneral.getTruckingservice() != null && docsgeneral.getTruckingservice().getTruckingdetails() != null){
+					integers.add(docsgeneral.getTruckingservice().getTruckingdetails().size());
+				}else{
+					integers.add(0);
+				}
+			}
+		}
+		return integers;
+	}
 }
