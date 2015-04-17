@@ -73,6 +73,12 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	 */
 	void updateContTruck(Docsgeneral docsgeneral);
 	
+	/**
+	 * Count consteal
+	 * @param docsgeneral
+	 */
+	void updateContTruckDetail(Docsgeneral docsgeneral);
+	
 	List<Docsgeneral> findAllByConditionDateTime(AccountingTransCondition accountingTransCondition);
 	
 	List<Docsgeneral> searchTrucking(Search search);	

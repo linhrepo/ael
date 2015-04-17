@@ -282,7 +282,7 @@
 		    </div>
 		    
 		    <spring:bind path="packageInfo.wareHouseNo">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo" hideBy="typeOfContainer,-1;typeOfImport,-4">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" id="dWareHouseNo" hideBy="typeOfContainer,-1&typeOfTransport,-5;typeOfImport,-4">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.wareHouseNo"/>
 		        <form:input path="wareHouseNo" id="wareHouseNo" maxlength="255"  cssClass="form-control"/>

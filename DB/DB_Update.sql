@@ -58,3 +58,13 @@ CHANGE COLUMN `sochuyen` `sochuyen` VARCHAR(45) NULL DEFAULT NULL ;
 
 ALTER TABLE `ael`.`truckingdetail` 
 CHANGE COLUMN `noOfVehicle` `noOfVehicle` VARCHAR(45) NULL DEFAULT NULL ;
+ALTER TABLE `ael`.`truckingdetail` 
+ADD COLUMN `accountingPrice` DECIMAL(20,2) NULL AFTER `noContractDown`,
+ADD COLUMN `otherFees` DECIMAL(20,2) NULL AFTER `accountingPrice`;
+
+ALTER TABLE `ael`.`inland` 
+DROP COLUMN `otherFees`,
+DROP COLUMN `accountingPrice`,
+DROP INDEX `priceItemAcc_idx` ;
+
+

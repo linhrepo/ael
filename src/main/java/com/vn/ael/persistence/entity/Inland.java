@@ -47,9 +47,6 @@ public class Inland extends DocsEntity implements Serializable {
 	
 	private Boolean isInland;
 	
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
-	private BigDecimal accountingPrice;
-	
 	@ManyToOne
 	@JoinColumn(name = "route")
 	private Configuration route;
@@ -63,9 +60,6 @@ public class Inland extends DocsEntity implements Serializable {
 	private Integer freeTimeInHP;
 	
 	private String attachServices;
-	
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
-	private BigDecimal otherFees;
 	
 	public Inland() {
 		this.docsgeneral= new Docsgeneral();
@@ -197,22 +191,6 @@ public class Inland extends DocsEntity implements Serializable {
 
 	public void setAttachServices(String attachServices) {
 		this.attachServices = attachServices;
-	}
-
-	public BigDecimal getAccountingPrice() {
-		return accountingPrice;
-	}
-
-	public void setAccountingPrice(BigDecimal accountingPrice) {
-		this.accountingPrice = accountingPrice;
-	}
-
-	public BigDecimal getOtherFees() {
-		return otherFees;
-	}
-
-	public void setOtherFees(BigDecimal otherFees) {
-		this.otherFees = otherFees;
 	}
 
 }

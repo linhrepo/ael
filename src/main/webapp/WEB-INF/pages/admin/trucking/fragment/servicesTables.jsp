@@ -68,6 +68,8 @@
 					<form:hidden path="truckingdetails[${idx.index}].phuthu"/>
 					<form:hidden path="truckingdetails[${idx.index}].noContractUp"/>
 					<form:hidden path="truckingdetails[${idx.index}].noContractDown"/>
+					<form:hidden path="truckingdetails[${idx.index}].otherFees"/>
+					<form:hidden path="truckingdetails[${idx.index}].accountingPrice"/>
 				</td>
 					<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1 }">
 						<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.contNo"/>">

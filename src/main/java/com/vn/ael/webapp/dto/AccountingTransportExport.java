@@ -1,5 +1,7 @@
 package com.vn.ael.webapp.dto;
 
+import java.math.BigDecimal;
+
 public class AccountingTransportExport {
 	private String jobNo;
 	private String dateDev;
@@ -15,10 +17,11 @@ public class AccountingTransportExport {
 	private String kg;
 	private String placegetcont;
 	private String placeputcont;
-	private String chiho;
-	private String accountingPrice;
-	private String otherfee;
+	private BigDecimal chiho;
+	private BigDecimal accountingPrice;
+	private BigDecimal otherfee;
 	private Double total;
+	private Integer index;
 	/**
 	 * @return the noOfOthCont
 	 */
@@ -64,19 +67,19 @@ public class AccountingTransportExport {
 	/**
 	 * @param string the chiho to set
 	 */
-	public void setChiho(String string) {
+	public void setChiho(BigDecimal string) {
 		this.chiho = string;
 	}
 	/**
 	 * @param accountingPrice the accountingPrice to set
 	 */
-	public void setAccountingPrice(String accountingPrice) {
+	public void setAccountingPrice(BigDecimal accountingPrice) {
 		this.accountingPrice = accountingPrice;
 	}
 	/**
 	 * @param otherfee the otherfee to set
 	 */
-	public void setOtherfee(String otherfee) {
+	public void setOtherfee(BigDecimal otherfee) {
 		this.otherfee = otherfee;
 	}
 	/**
@@ -217,21 +220,21 @@ public class AccountingTransportExport {
 	/**
 	 * @return the chiho
 	 */
-	public String getChiho() {
+	public BigDecimal getChiho() {
 		return chiho;
 	}
 	
 	/**
 	 * @return the accountingPrice
 	 */
-	public String getAccountingPrice() {
+	public BigDecimal getAccountingPrice() {
 		return accountingPrice;
 	}
 	
 	/**
 	 * @return the otherfee
 	 */
-	public String getOtherfee() {
+	public BigDecimal getOtherfee() {
 		return otherfee;
 	}
 	
@@ -265,7 +268,7 @@ public class AccountingTransportExport {
 			String placeRev1, String placeDelivery1, Integer noOf20Cont,
 			Integer noOf40Cont, String isLCL, String vehicleNo, String noOfCont,
 			String volumn, String kg, String placegetcont, String placeputcont,
-			String chiho, String accountingPrice, String otherfee, Double total) {
+			BigDecimal chiho, BigDecimal accountingPrice, BigDecimal otherfee, Double total) {
 		super();
 		this.jobNo = jobNo;
 		this.dateDev = dateDev;
@@ -287,6 +290,12 @@ public class AccountingTransportExport {
 	}
 	public AccountingTransportExport() {
 		// TODO Auto-generated constructor stub
+	}
+	public Integer getIndex() {
+		return index;
+	}
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 	
 }

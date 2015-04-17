@@ -60,6 +60,10 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	
 	private String deliveryPlace;
 	
+	@Transient
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal chiho;
+	
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal phuthu;
 	
@@ -69,6 +73,12 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	
 	@Transient
 	private BigDecimal total;	
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal otherFees;
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal accountingPrice;
 
 	public Truckingdetail() {
 	}
@@ -196,4 +206,28 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 		this.total = total;
 	}
 	
+	public BigDecimal getAccountingPrice() {
+		return accountingPrice;
+	}
+
+	public void setAccountingPrice(BigDecimal accountingPrice) {
+		this.accountingPrice = accountingPrice;
+	}
+
+	public BigDecimal getOtherFees() {
+		return otherFees;
+	}
+
+	public void setOtherFees(BigDecimal otherFees) {
+		this.otherFees = otherFees;
+	}
+
+	public BigDecimal getChiho() {
+		return chiho;
+	}
+
+	public void setChiho(BigDecimal chiho) {
+		this.chiho = chiho;
+	}
+
 }

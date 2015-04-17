@@ -455,3 +455,12 @@ button.collapsed, button.collapsed:focus{
 .innerTableWrapper{
 	background-color : #eee;
 }
+
+.table.fullBorder tbody>tr>td{
+	  border-left-style: ridge;
+	  vertical-align: middle;
+	  text-align: center;
+	  padding: 1px;
+	  border-bottom-style: ridge;
+  	  border-right-style: ridge;
+}

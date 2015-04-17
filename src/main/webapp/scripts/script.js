@@ -142,6 +142,7 @@ $(document).ready(function(){
 		for (var i in cons){
 			var hidebys =cons[i].split(","),
 			that = this;
+			
 			var checkComp = function(cons,obj){
 				var hide = false;
 				for (var i in cons){

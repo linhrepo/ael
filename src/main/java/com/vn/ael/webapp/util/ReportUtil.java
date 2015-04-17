@@ -245,45 +245,31 @@ public class ReportUtil {
 		if (accountingTrans.getDocs()!=null) {
 			int i=0;
 			for (Docsgeneral doc : accountingTrans.getDocs()) {
-				AccountingTransportExport item = new AccountingTransportExport();
-				item.setJobNo(doc.getJobNo());
-				//TODO: find correct dat
-//				item.setDateDev(df.format(doc.getInland().getDateDevPack()));
-				item.setPlaceRev1(doc.getPlaceRev1());
-				item.setPlaceDelivery1(doc.getPlaceDelivery1());
-				item.setNoOf20Cont(doc.getNoOf20Cont());
-				item.setNoOf40Cont(doc.getNoOf40Cont());
-				item.setNoOfOthCont(doc.getOtCont());
-				item.setIsLCL(doc.getIsLCL()? "x":"");
-				String vehicle = "";
-				try {
-					for (Truckingdetail truckDetail : doc.getTruckingservice().getTruckingdetails()) {
-						vehicle+=" "+truckDetail.getVehicleNo();
+				++i;
+				if (doc.getTruckingservice() != null && doc.getTruckingservice().getTruckingdetails() != null){
+					for (Truckingdetail truckingdetail : doc.getTruckingservice().getTruckingdetails()){
+						AccountingTransportExport item = new AccountingTransportExport();
+						item.setJobNo(doc.getJobNo());
+						item.setDateDev(FormatterUtil.formatDate(truckingdetail.getDateDev()));
+						item.setPlaceRev1(doc.getPlaceRev());
+						item.setPlaceDelivery1(doc.getPlaceDelivery());
+						item.setNoOf20Cont(doc.getNoOf20Cont());
+						item.setNoOf40Cont(doc.getNoOf40Cont());
+						item.setNoOfOthCont(doc.getOtCont());
+						item.setIsLCL(doc.getIsLCL()? "x":"");
+						item.setVehicleNo(truckingdetail.getVehicleNo());
+						item.setNoOfCont(truckingdetail.getConsteal() != null ? truckingdetail.getConsteal().getNoOfCont() : AELConst.EMPTY_STRING);
+						item.setVolumn(doc.getCmbText());
+						item.setKg(doc.getWeigthText());
+						item.setPlacegetcont(doc.getTruckingservice().getArrival());
+						item.setPlaceputcont(doc.getTruckingservice().getDeparture());
+						item.setChiho(truckingdetail.getChiho());
+						item.setAccountingPrice(truckingdetail.getAccountingPrice());
+						item.setOtherfee(truckingdetail.getOtherFees());
+						item.setIndex(i);
+						accountingTransExport.add(item);
 					}
-				} catch (Exception e) {
-					// TODO: handle exception
-					log.error("ERROR: WHEN LOAD VEHICLE NO: "+e.getMessage());
 				}
-				item.setVehicleNo(vehicle);
-				String noOfCont = "";
-				try {
-					for (Truckingdetail truckDetail : doc.getTruckingservice().getTruckingdetails()) {
-						noOfCont+=" "+truckDetail.getConsteal().getNoOfCont();
-					}
-				} catch (Exception e) {
-					// TODO: handle exception
-					log.error("ERROR: WHEN LOAD NO OF CONT: "+e.getMessage());
-				}
-				item.setNoOfCont(noOfCont);
-				item.setVolumn(doc.getCmbText());
-				item.setKg(doc.getWeigthText());
-				item.setPlacegetcont(doc.getPlaceEmptyUp());
-				item.setPlaceputcont(doc.getPlaceEmptyDown());
-				item.setChiho(doc.getChiho().toString());
-//				item.setAccountingPrice(doc.getInland()!=null?doc.getInland().getAccountingPrice().toString():"");
-				item.setOtherfee(doc.getInland().getOtherFees()!=null?doc.getInland().getOtherFees().toString():AELConst.EMPTY_STRING);
-				
-				accountingTransExport.add(item);
 				}
 		}
 		
@@ -295,7 +281,7 @@ public class ReportUtil {
 		beans.put("custTaxNo", cust.getTaxno());
 		beans.put("custPhone", cust.getTel());
 		beans.put("custFax", cust.getFax());
-		beans.put("accountingTrans", accountingTransExport);
+		beans.put("trans", accountingTransExport);
 		beans.put("month", month);
 		beans.put("year", year);
 		return beans;

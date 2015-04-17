@@ -90,7 +90,7 @@ public class AccountingTransportController extends BaseFormController {
         List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
         if (docs !=null && !docs.isEmpty()){
         	for (Docsgeneral docsgeneral : docs){
-        		this.docsgeneralManager.updateContTruck(docsgeneral);
+        		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
         	}
         }
         AccountingTrans accountingTrans = new AccountingTrans();
@@ -151,7 +151,7 @@ public class AccountingTransportController extends BaseFormController {
         List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
         if (docs !=null && !docs.isEmpty()){
         	for (Docsgeneral docsgeneral : docs){
-        		this.docsgeneralManager.updateContTruck(docsgeneral);
+        		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
         	}
         }
         AccountingTrans accountingTrans = new AccountingTrans();
