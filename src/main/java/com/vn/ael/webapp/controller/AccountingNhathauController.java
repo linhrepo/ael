@@ -1,9 +1,7 @@
 package com.vn.ael.webapp.controller;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,6 +29,7 @@ import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.formatter.FormatterUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
 @Controller
@@ -80,24 +79,14 @@ public class AccountingNhathauController extends BaseFormController{
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-    protected ModelAndView showForm(HttpServletRequest request)
+    protected ModelAndView showForm(HttpServletRequest request, AccountingTransCondition accountingTransCondition)
     throws Exception {
-        ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_NHATHAU);
-        AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
-        
-        //load condition
-        String nhathauId = request.getParameter("nhathauId");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        accountingTransCondition.setNhathauId(new Long(nhathauId));
-        accountingTransCondition.setStartDate(new Date(startDate));
-        accountingTransCondition.setEndDate(new Date(endDate));
-        
+        ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_NHATHAU);        
         
         //Set up command
         List<Truckingdetail> truckdetails = new ArrayList<>();
         List<Exfeetable> exfeetables = new ArrayList<>();
-        List<Truckingdetail> truckingdetails = this.truckingdetailRepository.findAllByConditionDateTime(new Date(startDate), new Date(endDate), new Long(nhathauId));
+        List<Truckingdetail> truckingdetails = this.truckingdetailRepository.findAllByConditionDateTime(accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId());
         if(truckingdetails != null && !truckingdetails.isEmpty()){        	
         	for (Truckingdetail truckingdetail : truckingdetails) {
         		BigDecimal total = BigDecimal.ZERO;
@@ -132,7 +121,7 @@ public class AccountingNhathauController extends BaseFormController{
         }
         
         AccountingTrans accountingTrans = new AccountingTrans();
-        accountingTrans.setNhathau(nhathauManager.find(nhathauId));
+        accountingTrans.setNhathau(nhathauManager.get(accountingTransCondition.getNhathauId()));
         accountingTrans.setCondition(accountingTransCondition);
         accountingTrans.setTruckingdetails(truckdetails);
         
@@ -143,7 +132,6 @@ public class AccountingNhathauController extends BaseFormController{
 			}
 		}
         mav.addObject("selections", configurationManager.createSelections(ConfigurationType.DOCS_SHIPPING_LINE, ConfigurationType.MASTER_FEE,ConfigurationType.FEE_NAMES));
-//        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
         return mav;
     }
 	
@@ -167,20 +155,18 @@ public class AccountingNhathauController extends BaseFormController{
  
         String success = getSuccessView();
         Locale locale = request.getLocale();
-//        startDate=04%2F08%2F2015&endDate=04%2F09%2F2015
         truckingserviceManager.saveTruckingdetail(accountingTrans.getTruckingdetails());
         
         String key = "accountingnhathau.updated";
         saveMessage(request, getText(key, locale));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        String startDate = dateFormat.format(accountingTrans.getCondition().getStartDate());        
-        String endDate = dateFormat.format(accountingTrans.getCondition().getEndDate());
+        
+        String startDate = FormatterUtil.formatDate(accountingTrans.getCondition().getStartDate());        
+        String endDate = FormatterUtil.formatDate(accountingTrans.getCondition().getEndDate());
         startDate = startDate.replace("/", "%2F");
         endDate = endDate.replace("/", "%2F");
         success = "redirect:"+URLReference.ACCOUNTING_NHATHAU+"?nhathauId=" + accountingTrans.getCondition().getNhathauId()+
         		"&startDate="+ startDate+
         		"&endDate="+endDate;
- 
         return success;
     }
 }
