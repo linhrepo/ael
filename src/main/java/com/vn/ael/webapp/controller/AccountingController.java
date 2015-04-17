@@ -156,7 +156,8 @@ public class AccountingController extends BaseFormController {
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_LIST_DETAIL)
     public @ResponseBody List<Exfeetable> handleFeeDetailRequest(@RequestParam(value="docId") Long id) throws Exception {
-    	return this.exfeetableManager.findByDocsgeneral(id);
+    	List<Exfeetable> exfeetables = this.exfeetableManager.findByDocsgeneral(id);
+    	return exfeetables;
     }
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL)

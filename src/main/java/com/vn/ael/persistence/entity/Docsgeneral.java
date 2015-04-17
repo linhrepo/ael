@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.appfuse.model.User;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.vn.ael.constants.AELConst;

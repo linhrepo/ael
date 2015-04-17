@@ -48,11 +48,11 @@
 
 <script type="text/javascript">
  $(document).ready(function(){
-	 $(".nestedDatatable tbody td img").each(function(){
+	 $(".nestedDatatable tbody td i").each(function(){
 		 var nTr = $(this).parents('tr')[0];
 		 var reloadChild = function(tr){
-			 $(tr).find("td img").click();
-			 $(tr).find("td img").click();
+			 $(tr).find("td i").click();
+			 $(tr).find("td i").click();
 		 };
 		 
 		 $(nTr).bind("afterOpenChild",function(ev,oInnerTable){

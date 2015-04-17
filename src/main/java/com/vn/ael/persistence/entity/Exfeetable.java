@@ -12,9 +12,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.NumberFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.webapp.util.CalculationUtil;
@@ -42,12 +42,11 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	private BigDecimal total;
 	
 	//bi-directional many-to-one association to Exhibition
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name="docsgeneral")
 	private Docsgeneral docsgeneral;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="truckingdetail")
 	private Truckingdetail truckingdetail;
@@ -56,7 +55,6 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	@JoinColumn(name="masterFee")
 	private Configuration masterFee;
 	
-	@JsonIgnore
 	@OneToOne(mappedBy = "feeowner")
 	private Extendfeeacc extendfeeacc;
 	
@@ -64,7 +62,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	
 	private Boolean checkByAdmin;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name= "exhibition")
 	private Exhibition exhibition;
@@ -100,6 +98,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		this.vat = vat;
 	}
 
+	@JsonIgnore
 	public Docsgeneral getDocsgeneral() {
 		return docsgeneral;
 	}
@@ -129,6 +128,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		return CalculationUtil.getVatFee(this.vat, this.amount);
 	}
 
+	@JsonIgnore
 	public Extendfeeacc getExtendfeeacc() {
 		return extendfeeacc;
 	}
@@ -137,6 +137,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		this.extendfeeacc = extendfeeacc;
 	}
 
+	@JsonIgnore
 	public Truckingdetail getTruckingdetail() {
 		return truckingdetail;
 	}
@@ -145,6 +146,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		this.truckingdetail = truckingdetail;
 	}
 
+	@JsonIgnore
 	public Exhibition getExhibition() {
 		return exhibition;
 	}
