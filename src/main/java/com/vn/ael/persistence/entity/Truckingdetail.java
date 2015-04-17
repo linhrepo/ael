@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.vn.ael.constants.FormatterPattern;
+import com.vn.ael.webapp.util.ConvertUtil;
 
 
 /**
@@ -228,6 +229,12 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setChiho(BigDecimal chiho) {
 		this.chiho = chiho;
+	}
+	
+	@Transient
+	public BigDecimal getTotalTransReport(){
+		return ConvertUtil.getNotNullValue(this.chiho).add(ConvertUtil.getNotNullValue(this.accountingPrice))
+				.add(ConvertUtil.getNotNullValue(otherFees));
 	}
 
 }

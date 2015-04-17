@@ -16,6 +16,9 @@ public class AccountingTrans {
 	private Nhathau nhathau;
 	private List<Truckingdetail> truckingdetails;
 	Map<Long, List<Truckingdetail>> map;
+	private String refNo;
+	private Integer month;
+	private Integer year;
 	public List<Docsgeneral> getDocs() {
 		return docs;
 	}
@@ -53,4 +56,24 @@ public class AccountingTrans {
 	public void setMap(Map<Long, List<Truckingdetail>> map) {
 		this.map = map;
 	}
+	
+	public String getRefNo() {
+		return refNo;
+	}
+	public void setRefNo(String refNo) {
+		this.refNo = refNo;
+	}
+	public Integer getMonth() {
+		return month;
+	}
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+	
 }

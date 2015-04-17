@@ -6,11 +6,11 @@ import java.util.Map;
 public enum ServicesType {
 	
 	DVTQ(0,"CUS","serviceType.cus","DBHQ"),
-	DVVT(1,"VTT","serviceType.vtt",null),
+	DVVT(1,"VTT","serviceType.vtt","BKVC"),
 	EXHS(2,"EXH","serviceType.exh",null),
 	OTHERS(3,"OTHERS","serviceType.others",null),
-	DVVT_INLAND(4,"INLAND","serviceType.vttnd",null),
-	DVVT_SEALAND(5,"SEALAND","serviceType.vttb",null);
+	DVVT_INLAND(4,"INLAND","serviceType.vttnd","BKVC"),
+	DVVT_SEALAND(5,"SEALAND","serviceType.vttb","BKVC");
 	
 	private int value;
 	private String label;

@@ -240,8 +240,12 @@ public class ReportUtil {
 	 * @param offerPrice
 	 * @return
 	 */
-	public static Map<String,Object> prepareDataForAccountingTransport(AccountingTrans accountingTrans, String month, String year){
+	public static Map<String,Object> prepareDataForAccountingTransport(AccountingTrans accountingTrans){
 		List<AccountingTransportExport> accountingTransExport	 = new ArrayList<>();
+		BigDecimal chihoTotal = BigDecimal.ZERO;
+		BigDecimal giacaTotal = BigDecimal.ZERO;
+		BigDecimal otherTotal = BigDecimal.ZERO;
+		
 		if (accountingTrans.getDocs()!=null) {
 			int i=0;
 			for (Docsgeneral doc : accountingTrans.getDocs()) {
@@ -264,9 +268,13 @@ public class ReportUtil {
 						item.setPlacegetcont(doc.getTruckingservice().getArrival());
 						item.setPlaceputcont(doc.getTruckingservice().getDeparture());
 						item.setChiho(truckingdetail.getChiho());
+						chihoTotal = chihoTotal.add(ConvertUtil.getNotNullValue(truckingdetail.getChiho()));
 						item.setAccountingPrice(truckingdetail.getAccountingPrice());
+						giacaTotal = giacaTotal.add(ConvertUtil.getNotNullValue(truckingdetail.getAccountingPrice()));
 						item.setOtherfee(truckingdetail.getOtherFees());
+						otherTotal = otherTotal.add(ConvertUtil.getNotNullValue(truckingdetail.getOtherFees()));
 						item.setIndex(i);
+						item.setTotal(truckingdetail.getTotalTransReport());
 						accountingTransExport.add(item);
 					}
 				}
@@ -282,8 +290,13 @@ public class ReportUtil {
 		beans.put("custPhone", cust.getTel());
 		beans.put("custFax", cust.getFax());
 		beans.put("trans", accountingTransExport);
-		beans.put("month", month);
-		beans.put("year", year);
+		beans.put("month", accountingTrans.getYear());
+		beans.put("year", accountingTrans.getMonth());
+		beans.put("refNo", accountingTrans.getRefNo());
+		beans.put("chihoTotal", chihoTotal);
+		beans.put("giacaTotal", giacaTotal);
+		beans.put("otherTotal", otherTotal);
+		beans.put("total", chihoTotal.add(giacaTotal).add(otherTotal));
 		return beans;
 	}
 

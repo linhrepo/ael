@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ServicesType;
@@ -75,29 +76,7 @@ public class AccountingTransportController extends BaseFormController {
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_TRANSPORT);
-        AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
-        
-        //load condition
-        String customerId = request.getParameter("customerId");
-        String month = request.getParameter("month");
-        String year = request.getParameter("year");
-        accountingTransCondition.setCustomerId(new Long(customerId));
-        accountingTransCondition.setMonth(Integer.parseInt(month));
-        accountingTransCondition.setYear(Integer.parseInt(year));
-        
-        
-        //Set up command
-        List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
-        if (docs !=null && !docs.isEmpty()){
-        	for (Docsgeneral docsgeneral : docs){
-        		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
-        	}
-        }
-        AccountingTrans accountingTrans = new AccountingTrans();
-        accountingTrans.setCustomer(customerManager.find(customerId));
-        accountingTrans.setCondition(accountingTransCondition);
-        accountingTrans.setDocs(docs);
-        
+        AccountingTrans accountingTrans = this.setupAccountingTrans(request);
         mav.addObject("accountingTrans", accountingTrans);
         mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
         return mav;
@@ -136,31 +115,46 @@ public class AccountingTransportController extends BaseFormController {
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_TRANSPORT)
     public void doDownload(HttpServletRequest request,
             HttpServletResponse response) throws IOException {
-    	AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
-        
-        //load condition
-        String customerId = request.getParameter("customerId");
-        String month = request.getParameter("month");
-        String year = request.getParameter("year");
-        accountingTransCondition.setCustomerId(new Long(customerId));
-        accountingTransCondition.setMonth(Integer.parseInt(month));
-        accountingTransCondition.setYear(Integer.parseInt(year));
-        
-        
-        //Set up command
-        List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
-        if (docs !=null && !docs.isEmpty()){
-        	for (Docsgeneral docsgeneral : docs){
-        		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
-        	}
-        }
-        AccountingTrans accountingTrans = new AccountingTrans();
-        accountingTrans.setCustomer(customerManager.find(customerId));
-        accountingTrans.setCondition(accountingTransCondition);
-        accountingTrans.setDocs(docs);
+    	AccountingTrans accountingTrans = this.setupAccountingTrans(request);
        if (accountingTrans!=null) {
-    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans,month,year));
-	}
+    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans));
+       }
+    }
+     
+    /**
+     * Init accounting trans for report
+     * 
+     * @param request
+     * @return
+     */
+    private AccountingTrans setupAccountingTrans(HttpServletRequest request){
+    	   AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
+           
+           //load condition
+           String customerId = request.getParameter("customerId");
+           String month = request.getParameter("month");
+           String year = request.getParameter("year");
+           accountingTransCondition.setCustomerId(new Long(customerId));
+           accountingTransCondition.setMonth(Integer.parseInt(month));
+           accountingTransCondition.setYear(Integer.parseInt(year));
+           
+           
+           //Set up command
+           List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
+           if (docs !=null && !docs.isEmpty()){
+           	for (Docsgeneral docsgeneral : docs){
+           		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
+           	}
+           }
+           AccountingTrans accountingTrans = new AccountingTrans();
+           accountingTrans.setCustomer(customerManager.find(customerId));
+           accountingTrans.setCondition(accountingTransCondition);
+           accountingTrans.setDocs(docs);
+           accountingTrans.setMonth(accountingTransCondition.getMonth());
+           accountingTrans.setYear(accountingTransCondition.getYear());
+           accountingTrans.setRefNo(ServicesType.DVVT.getDebit()+AELConst.SPLASH+accountingTrans.getCustomer().getCode()+AELConst.SPLASH
+        		   +accountingTrans.getYear()+accountingTrans.getMonth());
+           return accountingTrans;
     }
 }
 

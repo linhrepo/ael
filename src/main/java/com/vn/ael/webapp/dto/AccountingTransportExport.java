@@ -20,7 +20,7 @@ public class AccountingTransportExport {
 	private BigDecimal chiho;
 	private BigDecimal accountingPrice;
 	private BigDecimal otherfee;
-	private Double total;
+	private BigDecimal total;
 	private Integer index;
 	/**
 	 * @return the noOfOthCont
@@ -85,7 +85,7 @@ public class AccountingTransportExport {
 	/**
 	 * @param total the total to set
 	 */
-	public void setTotal(Double total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 	/**
@@ -241,7 +241,7 @@ public class AccountingTransportExport {
 	/**
 	 * @return the total
 	 */
-	public Double getTotal() {
+	public BigDecimal getTotal() {
 		return total;
 	}
 	
@@ -268,7 +268,7 @@ public class AccountingTransportExport {
 			String placeRev1, String placeDelivery1, Integer noOf20Cont,
 			Integer noOf40Cont, String isLCL, String vehicleNo, String noOfCont,
 			String volumn, String kg, String placegetcont, String placeputcont,
-			BigDecimal chiho, BigDecimal accountingPrice, BigDecimal otherfee, Double total) {
+			BigDecimal chiho, BigDecimal accountingPrice, BigDecimal otherfee, BigDecimal total) {
 		super();
 		this.jobNo = jobNo;
 		this.dateDev = dateDev;

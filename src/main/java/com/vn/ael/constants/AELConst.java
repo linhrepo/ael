@@ -33,4 +33,6 @@ public interface AELConst {
 	
 	String SELECTION_DOCSGENERAL = "docs";
 	
+	String SPLASH = "/";
+	
 }
