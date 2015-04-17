@@ -150,5 +150,6 @@ public class AccountingExhibitionController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
 		return mav;
 	}
+    
 }
 

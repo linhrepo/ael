@@ -31,6 +31,8 @@
 		           	 <i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
 		        	</a>
 	        	</security:authorize>
+	        </c:if>
+	        <c:if test="${not empty advanceform.id}">
 	        	<a class="btn btn-success" href="advanceForm/download?id=${advanceform.id}">
 							<i class="fa fa-print"></i>
 							<fmt:message key="advanceform.printAdvance" />

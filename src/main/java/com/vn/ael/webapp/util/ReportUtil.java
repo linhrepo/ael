@@ -415,6 +415,8 @@ public class ReportUtil {
 			parameterMap.put("accountNo", exhibition.getAccountNo());
 			parameterMap.put("mode", AELConst.EMPTY_STRING);
 			parameterMap.put("logo", logo!=null?logo.getAbsolutePath():AELConst.EMPTY_STRING);
+			parameterMap.put("date", CommonUtil.getDateString(exhibition.getDateRe()));
+			parameterMap.put("albw", exhibition.getAlbwNo());
 			
 			//Calculate total
 			double grandTotal = 0;
@@ -480,10 +482,9 @@ public class ReportUtil {
 		}
 		beans.put("advanceDetails", listAdvance);
 		beans.put("total", total);
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		beans.put("advanceDate", df.format(advanceForm.getDate()));
+		beans.put("advanceDate", CommonUtil.getDateString(advanceForm.getDate()));
 		beans.put("employee", advanceForm.getEmployee());
-		beans.put("refundDate",df.format(advanceForm.getTimeRefund()));		
+		beans.put("refundDate",CommonUtil.getDateString(advanceForm.getTimeRefund()));		
 		return beans;
 	}
 }
