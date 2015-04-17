@@ -146,7 +146,7 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
 					<div class="form-group">
-						<input  class="form-control total" readonly="true"/>
+						<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].totalTransReport"  class="form-control total money" readonly="true"/>
 					</div>
 				</td>
 		  	</tr>
