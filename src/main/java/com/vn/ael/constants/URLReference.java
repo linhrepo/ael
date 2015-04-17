@@ -82,10 +82,14 @@ public interface URLReference {
 	String FEETABLES_SEARCH = "/admin/accounting/searchFeeTables";
 	String ADVANCE_SEARCH = "/users/searchAdvance";
 	String REFUND_SEARCH = "/users/searchRefund";
+	String ACC_ADVANCE_SEARCH = "/admin/accounting/searchAdvance";
+	String ACC_REFUND_SEARCH = "/admin/accounting/searchRefund";
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
 	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/vantaiList";
 	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
 	
 	String AJAX_REPORT_ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition/download";
+	
+	String ADVANCE_FORM_DOWNLOAD = "/users/advanceForm/download";
 }

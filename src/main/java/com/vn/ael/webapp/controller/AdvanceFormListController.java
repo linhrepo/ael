@@ -75,6 +75,12 @@ public class AdvanceFormListController extends BaseFormController {
     	Model model = new ExtendedModelMap();
     	model.addAttribute(advanceFormManager.getAll());
     	model.addAttribute(refundManager.getAll());
+    	Search searchRefund = new Search();
+        model.addAttribute("search", searchRefund);
+    	DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage(true);
+    	model.addAttribute("docsSelection", docsSelection);
+    	model.addAttribute("enumStatus", StatusType.values());
         return new ModelAndView(URLReference.ADVANCE_FORM_ACC,model.asMap());
     }
     
@@ -111,6 +117,39 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Refund> refunds = refundManager.searchRefund(searchRefund);
 		mav.addObject(refunds);
 		mav.addObject(advanceFormManager.findByEmpoyee(getUserManager().getLoggedUser(request)));
+		//selection
+		DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage(true);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("flag", 2);
+		return mav;
+	}
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.ACC_ADVANCE_SEARCH)
+	public ModelAndView searchAccAdvanceForm(Search searchAdvanceForm, HttpServletRequest request)
+			throws Exception {
+		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_FORM_ACC);
+		List<Advanceform> advanceforms = advanceFormManager.searchAdvanceForm(searchAdvanceForm);
+		mav.addObject(advanceforms);		
+		mav.addObject(refundManager.getAll());
+		//selection
+		DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage(true);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("flag", 1);
+		return mav;
+	}
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.ACC_REFUND_SEARCH)
+	public ModelAndView searchAccRefund(Search searchRefund, HttpServletRequest request)
+			throws Exception {
+		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_FORM_ACC);
+		
+		List<Refund> refunds = refundManager.searchRefund(searchRefund);
+		mav.addObject(refunds);
+		mav.addObject(advanceFormManager.getAll());
 		//selection
 		DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage(true);

@@ -1,6 +1,7 @@
 <%@ include file="/common/taglibs.jsp" %>
 <br>
 <div class="col-sm-12">
+	<jsp:include page="searchRefund.jsp"></jsp:include>
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='refund'/>">
             <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>

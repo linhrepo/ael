@@ -5,7 +5,9 @@ package com.vn.ael.persistence.repository;
 
 import java.util.List;
 
-import com.vn.ael.persistence.entity.Advancedetail;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 
@@ -16,4 +18,6 @@ public interface RefunddetailRepository extends GenericRepository<Refunddetail> 
 
 	List<Refunddetail> findByRefund(Refund advanceform);
 	
+	@Query("SELECT ref FROM Refunddetail ref WHERE ref.docs.id = :jobId")
+	List<Refunddetail> findByJobId(@Param("jobId") long jobId);
 }
