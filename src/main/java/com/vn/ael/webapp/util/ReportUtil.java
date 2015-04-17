@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -36,10 +35,13 @@ import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 import com.vn.ael.constants.AELConst;
-import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.constants.ReportTeamplates;
+import com.vn.ael.enums.ReportMergeInfo;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Advancedetail;
@@ -103,24 +105,80 @@ public class ReportUtil {
 	 * @throws InvalidFormatException 
 	 * @throws ParsePropertyException 
 	 */
-	public static void dispatchReport(HttpServletResponse response, String reportName, String reportTemplates, Map<String,Object> data,String... fixedSizesCollection){
+	public static void dispatchReport(HttpServletResponse response, String reportName, String reportTemplates, Map<String,Object> data,ReportMergeInfo mergeInfo, List<Integer> mergeIndexs){
 		try{
-			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-	        response.setHeader("Content-Disposition", "attachment; filename="+reportName);
-	        ServletOutputStream out = response.getOutputStream();
+	 		Workbook workbook = generateWorkbook(reportTemplates, data);
+	 		Sheet sheet = workbook.getSheetAt(0);
+	 		if (workbook !=null){
+	 			if (mergeIndexs != null){
+	 				for (Integer height : mergeIndexs){
+	 					for (int index : mergeInfo.getCols()){
+	 						if (height > 0){
+	 							sheet.addMergedRegion(new CellRangeAddress(mergeInfo.getStartingRow(), mergeInfo.getStartingRow()+height-1, index, index));
+	 						}
+	 					}
+	 				}
+	 			}
+	 			generateOutputInfo(response,reportName,workbook);
+	 		}
+	 		
+		}
+		catch (Exception e){
+			log.error("Could not write report to response", e);
+		}
+	}
+	
+	/**
+	 * Compose report data
+	 * @param response
+	 * @param reportName
+	 * @param reportTemplates
+	 * @param data
+	 * @throws IOException
+	 * @throws InvalidFormatException 
+	 * @throws ParsePropertyException 
+	 */
+	public static void dispatchReport(HttpServletResponse response, String reportName, String reportTemplates, Map<String,Object> data){
+		generateOutputInfo(response,reportName,generateWorkbook(reportTemplates, data));
+	}
+	
+	/**
+	 * Generate workbook from data and template
+	 * @return
+	 */
+	public static Workbook generateWorkbook(String reportTemplates, Map<String,Object> data){
+		try{
 	 		XLSTransformer transformer = new XLSTransformer();
 	 		//Get file from resources folder
 	 		ClassLoader classLoader = ReportUtil.class.getClassLoader();
 	 		File file = new File(classLoader.getResource(reportTemplates).getFile());
 	 		InputStream targetStream = new FileInputStream(file);
-	 		transformer.transformXLS(targetStream, data).write(out);
-	 		out.flush();
-	 	    out.close();
+	 		return transformer.transformXLS(targetStream, data);
 		}
 		catch (Exception e){
+			log.error("Could not generate XLS data", e);
+		}
+		return null;
+	}
+	
+	/**
+	 * Write a workbook to response stream
+	 * @param response
+	 * @return
+	 */
+	public static void generateOutputInfo(HttpServletResponse response, String reportName,Workbook workbook){
+        try {
+        	response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename="+reportName);
+        	ServletOutputStream out = response.getOutputStream();
+        	if (workbook != null){
+        		workbook.write(out);
+            	out.flush();
+        	}
+        	out.close();
+		} catch (IOException e) {
 			log.error("Could not write report to response", e);
 		}
-		
 	}
 
 	/**

@@ -130,30 +130,6 @@ public class AccountingCustomController extends BaseFormController {
         return success;
     }
     
-//    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_CUSTOM_EXCEL)
-//    public void getReport(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//    	 try {
-//             response.setHeader("Content-disposition", "attachment; filename=test.xls");
-//             HSSFWorkbook hssfWorkbook = exportEventsToCSV();
-//             hssfWorkbook.write(response.getOutputStream());
-//         } catch (Exception e) {
-//             // TODO Auto-generated catch block
-//             e.printStackTrace();
-//         }
-//    }
-//    
-//    public HSSFWorkbook exportEventsToCSV() {
-//        try {
-//
-//            HSSFWorkbook workbook = new HSSFWorkbook();
-//            HSSFSheet worksheet = workbook.createSheet("POI Worksheet");
-//            HSSFCellStyle cellStyle = workbook.createCellStyle();
-//            return workbook;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_DEBIT_NOTE)
     public void doDownload(HttpServletRequest request,
             HttpServletResponse response) throws IOException {
@@ -166,7 +142,7 @@ public class AccountingCustomController extends BaseFormController {
         	this.docsgeneralManager.updateContTruck(accountingcus.getDocsgeneral());
         }
         if (accountingcus!=null) {
-        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForCust(accountingcus),"fee","custom");
+        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForCust(accountingcus));
 		}
     }
 }
