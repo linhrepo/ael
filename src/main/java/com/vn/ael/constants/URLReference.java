@@ -96,4 +96,6 @@ public interface URLReference {
 	String ADVANCE_FORM_DOWNLOAD = "/users/advanceForm/download";
 	
 	String REFUND_FORM_DOWNLOAD = "/users/refund/download";
+	
+	String PHIEU_CHI_DOWNLOAD = "/users/advanceForm/phieuchi/download";
 }

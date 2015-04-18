@@ -150,5 +150,14 @@ public class AdvanceFormController extends BaseFormController {
     	        	ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REQUEST_ITEMS, ReportTeamplates.ADVANCE_REQUEST_ITEMS_TEMPLATE, ReportUtil.prepareDataForAdvanceRequest(advanceform, listRemainAdvancebyJob));
     	        }
     	    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD)
+    public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	        Advanceform advanceform = this.loadAdvancesByRequest(request);
+    	        if (advanceform != null){
+    	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuChi(advanceform));
+    	        }
+    	    }
 }
 

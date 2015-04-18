@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -523,6 +524,29 @@ public class ReportUtil {
 			parameterMap.put("refundDate", CommonUtil.getDateString(refund.getDate()));
 			parameterMap.put("refNo", refund.getRefNo());
 		}
+		return parameterMap;
+	}
+	
+	public static Map<String, Object> prepareDataForPhieuChi(Advanceform advanceForm){
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		List<Advancedetail> listAdvanceDetail= new ArrayList<Advancedetail>();
+		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
+		BigDecimal total = BigDecimal.ZERO;
+		if (!listAdvanceDetail.isEmpty()) {
+			for (Advancedetail advancedetail : listAdvanceDetail) {
+				total= total.add(advancedetail.getAmount());
+			}
+		}
+		 Calendar cal = Calendar.getInstance();
+		    cal.setTime(advanceForm.getDate());
+
+		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
+		parameterMap.put("month", cal.get(Calendar.MONTH)+1);
+		parameterMap.put("year", cal.get(Calendar.YEAR));
+		parameterMap.put("refNo", advanceForm.getRefNo());
+		parameterMap.put("employee", advanceForm.getEmployee());
+		parameterMap.put("reason", advanceForm.getPayReason());
+		parameterMap.put("amount", total);
 		return parameterMap;
 	}
 }
