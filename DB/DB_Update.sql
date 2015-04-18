@@ -91,4 +91,7 @@ DROP COLUMN `phuthau2`,
 DROP COLUMN `phuthau1`,
 DROP INDEX `phuthau2` ,
 DROP INDEX `phuthau1` ;
+ALTER TABLE `ael`.`truckingdetail` 
+DROP COLUMN `noContractDown`,
+DROP COLUMN `noContractUp`;
 

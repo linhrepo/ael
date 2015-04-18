@@ -59,10 +59,6 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal phuthu;
 	
-	private String noContractUp;
-	
-	private String noContractDown;
-	
 	@Transient
 	private BigDecimal total;	
 	
@@ -145,22 +141,6 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setPhuthu(BigDecimal phuthu) {
 		this.phuthu = phuthu;
-	}
-
-	public String getNoContractUp() {
-		return noContractUp;
-	}
-
-	public void setNoContractUp(String noContractUp) {
-		this.noContractUp = noContractUp;
-	}
-
-	public String getNoContractDown() {
-		return noContractDown;
-	}
-
-	public void setNoContractDown(String noContractDown) {
-		this.noContractDown = noContractDown;
 	}
 
 	public BigDecimal getTotal() {

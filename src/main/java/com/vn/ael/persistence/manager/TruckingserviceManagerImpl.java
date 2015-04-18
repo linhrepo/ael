@@ -189,8 +189,6 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 			for (Truckingdetail truckingdetail : truckingdetails) {
 				Truckingdetail truckingdetail2 = truckingdetailRepository.findOne(truckingdetail.getId());
 				truckingdetail2.setPhuthu(truckingdetail.getPhuthu());
-				truckingdetail2.setNoContractUp(truckingdetail.getNoContractUp());
-				truckingdetail2.setNoContractDown(truckingdetail.getNoContractDown());
 				list.add(truckingdetail2);
 			}
 			truckingdetailRepository.save(list);

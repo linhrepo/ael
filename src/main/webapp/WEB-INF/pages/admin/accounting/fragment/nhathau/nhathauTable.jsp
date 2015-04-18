@@ -13,14 +13,15 @@
 			<th rowspan="2"><fmt:message key="accountingnhathau.hangnhapxuat"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.placegetcont" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.placeputcont" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.20"/></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.40"/></th>		
+			<th colspan="2" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th>			
 			<th rowspan="2"><fmt:message key="accountingnhathau.noidi" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.noiden" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.phuthu" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.total" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.hdnang" /></th>
-			<th rowspan="2"><fmt:message key="accountingnhathau.hdha" /></th>
+		</tr>
+		<tr>
+			<th class="numberCol"><fmt:message key="accountingtrans.20"/></th>
+			<th class="numberCol"><fmt:message key="accountingtrans.40"/></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -63,19 +64,16 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.departure }
+						${truck.truckingservice.docsgeneral.placeRev}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						 ${truck.truckingservice.arrival }
+						 ${truck.truckingservice.docsgeneral.placeDelivery}
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
 					<div class="form-group">
-<<<<<<< HEAD
-						<c:if test="${truck.truckingservice.docsgeneral.noOf20Cont gt 0}">X</c:if>
-=======
 					<c:choose>
 						<c:when test="${fn:containsIgnoreCase(truck.consteal.typeOfCont.value, '20')}">
 								1
@@ -85,15 +83,10 @@
 						</c:otherwise>
 					</c:choose>
 						
->>>>>>> refs/remotes/origin/21032015
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.40"/>">
 					<div class="form-group">
-<<<<<<< HEAD
-						<c:if test="${truck.truckingservice.docsgeneral.noOf40Cont gt 0}">X</c:if>
-						
-=======
 						<c:choose>
 						<c:when test="${fn:containsIgnoreCase(truck.consteal.typeOfCont.value, '40')}">
 								1
@@ -102,17 +95,16 @@
 						 0
 						</c:otherwise>
 					</c:choose>
->>>>>>> refs/remotes/origin/21032015
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noidi" />">
-					<div class="form-group">				        
-				        ${truck.truckingservice.docsgeneral.placeRev}
+					<div class="form-group">
+				        ${truck.truckingservice.departure }
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noiden" />">
-					<div class="form-group">				        
-				        ${truck.deliveryPlace}
+					<div class="form-group">
+				        ${truck.truckingservice.arrival }
 
 				    </div>
 				</td>
@@ -126,24 +118,6 @@
 					<div class="form-group">
 						<form:input path="truckingdetails[${idx.index}].total" class="form-control total money" disabled="true"/>
 					</div>
-				</td>
-				<td data-title="<fmt:message key="accountingnhathau.hdnang" />">
-					<div class="form-group">
-<<<<<<< HEAD
-						<form:input path="truckingdetails[${idx.index}].noContractUp"  maxlength="45" autofocus="true" cssClass="form-control" />
-=======
-						<form:input path="truckingdetails[${idx.index}].noContractUp"  maxlength="45"  cssClass="form-control" />
->>>>>>> refs/remotes/origin/21032015
-				    </div>
-				</td>
-				<td data-title="<fmt:message key="accountingnhathau.hdha" />">
-					<div class="form-group">
-<<<<<<< HEAD
-						<form:input path="truckingdetails[${idx.index}].noContractDown"  maxlength="45" autofocus="true" cssClass="form-control" />
-=======
-						<form:input path="truckingdetails[${idx.index}].noContractDown"  maxlength="45"  cssClass="form-control" />
->>>>>>> refs/remotes/origin/21032015
-				    </div>
 				</td>
 			</tr>
 			<tr colType="truck" class="${truck.isAdded == true ? 'hidden' :''}">
@@ -281,8 +255,6 @@
 							</div>
 						</div>
 					</div>
-
-
 				</td>
 			</tr>
 		</c:forEach>
