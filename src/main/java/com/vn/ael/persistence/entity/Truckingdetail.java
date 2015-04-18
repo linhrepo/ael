@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -45,14 +44,6 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="nhathau")
 	private Nhathau nhathau;
-	
-	@ManyToOne
-	@JoinColumn(name="phuthau1")
-	private Nhathau phuthau1;
-	
-	@ManyToOne
-	@JoinColumn(name="phuthau2")
-	private Nhathau phuthau2;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "truckingdetail")
 	private List<Exfeetable> exfeetables;
@@ -146,22 +137,6 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setDeliveryPlace(String deliveryPlace) {
 		this.deliveryPlace = deliveryPlace;
-	}
-
-	public Nhathau getPhuthau1() {
-		return phuthau1;
-	}
-
-	public void setPhuthau1(Nhathau phuthau1) {
-		this.phuthau1 = phuthau1;
-	}
-
-	public Nhathau getPhuthau2() {
-		return phuthau2;
-	}
-
-	public void setPhuthau2(Nhathau phuthau2) {
-		this.phuthau2 = phuthau2;
 	}
 
 	public BigDecimal getPhuthu() {

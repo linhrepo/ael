@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -122,20 +123,27 @@ public class ReportUtil {
 	 */
 	public static void dispatchReport(HttpServletResponse response,
 			String reportName, String reportTemplates,
-			Map<String, Object> data, ReportMergeInfo mergeInfo,
-			List<Integer> mergeIndexs) {
+			Map<String, Object> data, 
+			Map<ReportMergeInfo,List<Integer>> dataMegres) {
 		try {
 			Workbook workbook = generateWorkbook(reportTemplates, data);
 			Sheet sheet = workbook.getSheetAt(0);
 			if (workbook != null) {
-				if (mergeIndexs != null) {
-					for (Integer height : mergeIndexs) {
-						for (int index : mergeInfo.getCols()) {
-							if (height > 0) {
-								sheet.addMergedRegion(new CellRangeAddress(
-										mergeInfo.getStartingRow(), mergeInfo
-												.getStartingRow() + height - 1,
-										index, index));
+				if (dataMegres != null){
+					for (Entry<ReportMergeInfo, List<Integer>> merge : dataMegres.entrySet()){
+						List<Integer> mergeIndexs = merge.getValue();
+						ReportMergeInfo mergeInfo = merge.getKey(); 
+						if (mergeIndexs != null) {
+							int startRow = mergeInfo.getStartingRow();
+							for (Integer height : mergeIndexs) {
+								for (int index : mergeInfo.getCols()) {
+									if (height > 0) {
+										sheet.addMergedRegion(new CellRangeAddress(
+												startRow,startRow + height - 1,
+												index, index));
+									}
+								}
+								startRow = startRow + height;
 							}
 						}
 					}
@@ -664,6 +672,7 @@ public class ReportUtil {
 		parameterMap.put("employee", advanceForm.getEmployee());
 		parameterMap.put("reason", advanceForm.getPayReason());
 		parameterMap.put("amount", total);
+		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
 	}
 
@@ -690,6 +699,7 @@ public class ReportUtil {
 		parameterMap.put("employee", refund.getEmployee());
 		parameterMap.put("reason", refund.getPayReason());
 		parameterMap.put("amount", total);
+		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
 	}
 }

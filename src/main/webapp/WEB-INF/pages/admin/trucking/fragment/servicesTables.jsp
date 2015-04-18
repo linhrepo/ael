@@ -30,9 +30,9 @@
 			</c:if>			
 			<c:choose>
 				<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
-					<th><fmt:message key="truckingservice.shippingLine1" /></th>
+<%-- 					<th><fmt:message key="truckingservice.shippingLine1" /></th> --%>
 					<th><fmt:message key="truckingservice.shippingLineSea" /></th>
-					<th><fmt:message key="truckingservice.shippingLine2" /></th>
+<%-- 					<th><fmt:message key="truckingservice.shippingLine2" /></th> --%>
 					<th><fmt:message key="truckingservice.shipName" /></th>
 					<th><fmt:message key="truckingservice.transCount" /></th>
 				</c:when>
@@ -43,9 +43,7 @@
 			</c:choose>
 			<th><fmt:message key="truckingservice.dateDev" /></th>
 			<th><fmt:message key="truckingservice.deliveryPlace" /></th>
-			<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 				<th><fmt:message key="table.action" /></th>
-			</c:if>
 		</tr>
 	</thead>
 	<tbody class="parent">
@@ -74,8 +72,7 @@
 					<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1 }">
 						<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.contNo"/>">
 						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						 <form:input path="truckingdetails[${idx.index}].consteal.noOfCont" id="contseal${idx.index}"  cssClass="form-control selectOwner" disabled="true"/> 
-						 <form:hidden path="truckingdetails[${idx.index}].consteal.id"/>
+						 <form:select path="truckingdetails[${idx.index}].consteal.id" id="contseal${idx.index}"  cssClass="form-control selectOwner" items="${contsealsSelection.conts}"/> 
 					</div></td>
 					
 					<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.sealNo"/>"> 
@@ -91,39 +88,39 @@
 					</c:if>
 					<c:choose>
 						<c:when test="${truckingservice.docsgeneral.typeOfDocs.value == 5}">
-							<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine1"/>">
-								<spring:bind path="truckingservice.truckingdetails[${idx.index}].phuthau1.id">
-									<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-								</spring:bind> 
-									<form:select path="truckingdetails[${idx.index}].phuthau1.id" style="min-width:120px;"
-										id="phuthau1${idx.index}"  cssClass="form-control"
-										items="${nhathaus}" /> 
-									<form:errors path="truckingdetails[${idx.index}].phuthau1.id"
-										cssClass="help-block" />
-								</div>
-							</td>
+<%-- 							<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine1"/>"> --%>
+<%-- 								<spring:bind path="truckingservice.truckingdetails[${idx.index}].phuthau1.id"> --%>
+<%-- 									<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}"> --%>
+<%-- 								</spring:bind>  --%>
+<%-- 									<form:select path="truckingdetails[${idx.index}].phuthau1.id" style="min-width:120px;" --%>
+<%-- 										id="phuthau1${idx.index}"  cssClass="form-control" --%>
+<%-- 										items="${nhathaus}" />  --%>
+<%-- 									<form:errors path="truckingdetails[${idx.index}].phuthau1.id" --%>
+<%-- 										cssClass="help-block" /> --%>
+<!-- 								</div> -->
+<!-- 							</td> -->
 							<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLineSea"/>"><spring:bind
 								path="truckingservice.truckingdetails[${idx.index}].nhathau.id">
 								<div
 									class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 								</spring:bind> <form:select path="truckingdetails[${idx.index}].nhathau.id"
 									id="shippingline${idx.index}"  cssClass="form-control"
-									items="${hangtaus}" /> <form:errors
+									items="${nhathaus}" /> <form:errors
 									path="truckingdetails[${idx.index}].nhathau.id"
 									cssClass="help-block" />
 								</div>
 							</td>
-						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine2"/>">
-							<spring:bind path="truckingservice.truckingdetails[${idx.index}].phuthau2.id">
-								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-							</spring:bind> 
-								<form:select path="truckingdetails[${idx.index}].phuthau2.id"
-									id="phuthau2${idx.index}"  cssClass="form-control"
-									items="${nhathaus}" /> <form:errors
-									path="truckingdetails[${idx.index}].phuthau2.id"
-									cssClass="help-block" />
-								</div>
-						</td>
+<%-- 						<td class="feeSelect" data-title="<fmt:message key="truckingservice.shippingLine2"/>"> --%>
+<%-- 							<spring:bind path="truckingservice.truckingdetails[${idx.index}].phuthau2.id"> --%>
+<%-- 								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}"> --%>
+<%-- 							</spring:bind>  --%>
+<%-- 								<form:select path="truckingdetails[${idx.index}].phuthau2.id" --%>
+<%-- 									id="phuthau2${idx.index}"  cssClass="form-control" --%>
+<%-- 									items="${nhathaus}" /> <form:errors --%>
+<%-- 									path="truckingdetails[${idx.index}].phuthau2.id" --%>
+<%-- 									cssClass="help-block" /> --%>
+<!-- 								</div> -->
+<!-- 						</td> -->
 						<td style="min-width:100px;" data-title="<fmt:message key="truckingservice.shipName"/>" >
 						</c:when>
 					<c:otherwise>
@@ -192,13 +189,11 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-						<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">		
 							<td rowType="actions">
 								<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>"> 
 									<i class="fa fa-trash"></i>
 								</span>
 							</td>
-						</c:if>
 			</tr>
 			<tr colType="detail" class="${detail.isAdded == true ? 'hidden' :''}" >
 				
@@ -344,7 +339,6 @@
 		</c:forEach>
 	</tbody>
 </table>
-<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 <div class="row">
 	<div class="col-md-10">
 	<span class="btn btn-primary" target-table="detailsList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
@@ -353,49 +347,18 @@
 		
 	</div>
 </div>
-</c:if>
-
-<div id="productTypeModal" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><fmt:message key="productInfo.addNew"/></h4>
-      </div>
-      <div class="modal-body">
-       <form id="addNewProductForm">
-		  <div class="form-group">
-		    <label for="typeModal"><fmt:message key="saleInfo.typeOfProduct"/></label>
-		    <input type="text" name="unit.value" class="form-control" id="typeModal" placeholder="<fmt:message key="saleInfo.typeOfProduct"/>" readonly="true">
-		    <input type="text" name="unit.id" class="form-control" style="display:none;">
-		  </div>
-		  <div class="form-group">
-		    <label for="codeModal"><fmt:message key="saleInfo.productCode"/></label>
-		    <input type="text" name="code" class="form-control" id="codeModal" placeholder="<fmt:message key="saleInfo.productCode"/>">
-		  </div>
-		  <div class="form-group">
-		    <label for="nameModal"><fmt:message key="saleInfo.productName"/></label>
-		    <input type="text" name="name" class="form-control" id="nameModal" placeholder="<fmt:message key="saleInfo.productName"/>">
-		  </div>
-		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="addNewProduct">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
 $(document).ready(function(){
 	var addEventForContseal = function(row){
-		var selectOwner = $(row).find(".selectOwner").first(),
-		selectClient = $(row).find(".selectClient").first();
-		$(selectClient).val($(selectOwner).val());
-		$(selectOwner).on("change",function(){
-			$(selectClient).val($(this).val());
-		});
+		var selectOwner = $(row).find("select.selectOwner").first(),
+		selectClient = $(row).find("select.selectClient").first();
+		if (selectOwner.length>0){
+			$(selectClient).select2("val",$(selectOwner).select2("val"));
+			$(selectOwner).on("change",function(e){
+				$(selectClient).select2("val",$(this).val());
+			});
+		}
 	};
 	
 	$("tr").each(function(){

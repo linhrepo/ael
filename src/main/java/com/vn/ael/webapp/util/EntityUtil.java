@@ -49,6 +49,8 @@ public class EntityUtil {
 	
 	public static Sort CONFIGURATION_DEFAULT_SORTING = new Sort(Sort.Direction.ASC, "type", "value", "id");
 	
+	public static Sort TRUCKING_DETAIL_CONTSEAL_SORTING = new Sort(Sort.Direction.ASC, "consteal", "nhathau", "id");
+	
 	/**
 	 * Wired all childs of Docsgeneral
 	 * @param docsgeneral
@@ -257,7 +259,12 @@ public class EntityUtil {
 		
 		if (nhathaus != null && !nhathaus.isEmpty()){
 			for (Nhathau nhathau : nhathaus){
-				nhathauMap.put(nhathau.getId(), nhathau.getCode());
+				if (nhathau.getCode() != null && nhathau.getName() != null){
+					String nhathauName = nhathau.getCode() + AELConst.SEPARATOR + nhathau.getName();
+					nhathauMap.put(nhathau.getId(), nhathauName);
+				}else{
+					nhathauMap.put(nhathau.getId(),AELConst.EMPTY_STRING);
+				}
 			}
 		}
 		return nhathauMap;

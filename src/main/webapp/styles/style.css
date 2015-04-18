@@ -424,7 +424,7 @@ td .select2-container .select2-choice{
 
 td.feeSelect .select2-container .select2-choice{
 	height: 38px;
-	max-width: none;
+	max-width: 200px;
 }
 
 td[colType="index"], td[colType="childControl"]{

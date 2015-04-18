@@ -61,9 +61,9 @@
     			this._addRemoveButtonHandler($(lastTr));
     			plugin.settings.afterAddRow(lastTr);
     			formmatRow(lastTr);
-    			$(table).trigger("afterAddRow",lastTr);
     			this.addRowDetail(lastDetail,newRolNum,numOfRow);
     		}
+    		$(table).trigger("afterAddRow",lastTr);
     		return lastTr;
     	};
     	

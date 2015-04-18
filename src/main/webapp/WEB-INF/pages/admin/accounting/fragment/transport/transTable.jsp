@@ -100,7 +100,7 @@
 							${detail.vehicleNo}
 					</div>
 				</td>
-				<td data-title="<fmt:message key="accountingtrans.contNo"/>">
+				<td data-title="<fmt:message key="accountingtrans.contNo"/>" noOfCont="${detail.consteal.noOfCont}" count="${indx.index}">
 					<div class="form-group">
 							${detail.consteal.noOfCont}
 					</div>
@@ -154,4 +154,23 @@
 		</c:forEach>
 	</tbody>
 </table>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("[count]").each(function(){
+		var noOfCont = $(this).attr("noOfCont");
+		var listOrther = $("[noOfCont='"+noOfCont+"']");
+		if ($(this).attr("remove") == undefined){
+			$(this).attr("rowspan",listOrther.length);
+		}
+		if (listOrther.length >1){
+			for (var i=0; i< listOrther.length;++i){
+				if ( !$(this).is(listOrther[i]) && $(listOrther[i]).attr("rowspan")== undefined){
+					$(listOrther[i]).attr("remove",true);
+				}	
+			}
+		}
+	});
+	$("[remove]").remove();
+});
+</script>
 <script type="text/javascript" src="<c:url value='/scripts/custom/feeTables.js'></c:url>"></script>

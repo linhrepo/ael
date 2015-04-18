@@ -33,15 +33,23 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	@Query("SELECT h FROM Truckingdetail h LEFT JOIN FETCH h.exfeetables WHERE h.truckingservice.id = :serviceId ")
 	List<Truckingdetail> findWithFullTruckingservice(@Param("serviceId")Long id);
 	
-	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice where t.nhathau.id=:nhathauId and t.dateDev between :startDate and :endDate group by (t.id)")
-	List<Truckingdetail> findAllByConditionDateTime(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, @Param(value="nhathauId")long nhathauId);
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice where (t.nhathau.id =:nhathauId or :nhathauId is null) and "
+			+ "t.dateDev between :startDate and :endDate and "
+			+ "t.truckingservice.docsgeneral.doAccounting = :doAccounting and "
+			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') and "
+			+ "(t.truckingservice.docsgeneral.customer.id = :customer or :customer is null) "
+			+ "group by (t.id)")
+	List<Truckingdetail> searchNhathau(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
+			@Param(value="nhathauId")Long nhathauId, @Param(value="jobNo")String jobNo, 
+			@Param(value="customer")Long customer, @Param(value="doAccounting")Boolean doAccounting);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and MONTH(t.dateDev) = :month and YEAR(t.dateDev) = :year group by (t.id)")
 	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") ServicesType transId, @Param(value="month") Integer month, @Param(value="year")Integer year);
 
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.truckingservice ser where ser.id =:id "
 			+"and MONTH(t.dateDev) = :month "
-			+"and YEAR(t.dateDev) = :year ")
+			+"and YEAR(t.dateDev) = :year "
+			+ "order by t.consteal, t.nhathau, t.id")
 	List<Truckingdetail> findWithTruckingserviceAndMonthYear(@Param("id")Long serviceId,
 			@Param("month")Integer month, @Param("year")Integer year);
 }

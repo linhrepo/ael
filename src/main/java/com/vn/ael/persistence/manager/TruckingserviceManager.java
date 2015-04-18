@@ -5,6 +5,7 @@ import java.util.List;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
+import com.vn.ael.webapp.dto.AccountingTransCondition;
 
 public interface TruckingserviceManager extends GenericManager<Truckingservice> {
 	
@@ -34,6 +35,8 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	public void checkToDeleteChilds(Truckingservice truckingservice);
 	
 	public void saveTruckingdetail(List<Truckingdetail> truckingdetails);
+	
+	public List<Truckingdetail> searchNhathau(AccountingTransCondition accountingTransCondition);
 	
 }
 

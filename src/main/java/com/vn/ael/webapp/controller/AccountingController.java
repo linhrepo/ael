@@ -29,7 +29,6 @@ import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
-import com.vn.ael.persistence.manager.OfferItemManager;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
@@ -38,8 +37,6 @@ import com.vn.ael.webapp.dto.Search;
 public class AccountingController extends BaseFormController {
 
 	private CustomerManager customerManager;
-	
-	private OfferItemManager offerItemManager;
 	
 	private ExfeetableManager exfeetableManager;
 	
@@ -53,11 +50,6 @@ public class AccountingController extends BaseFormController {
 	@Autowired
 	public void setCustomerManager(CustomerManager customerManager){
 		this.customerManager = customerManager;
-	}
-	
-	@Autowired
-	public void setOfferItemManager(OfferItemManager offerItemManager){
-		this.offerItemManager = offerItemManager;
 	}
 	
     private DocsgeneralManager docsgeneralManager;
@@ -199,6 +191,14 @@ public class AccountingController extends BaseFormController {
         Model model = new ExtendedModelMap();
         model.addAttribute("nhathauList", nhathauManager.getAll());
         model.addAttribute("conditions",new AccountingTransCondition());
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+      //selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        		);
+        model.addAttribute("docsSelection", docsSelection);
         return new ModelAndView(URLReference.ACCOUNTING_NHATHAU_LIST, model.asMap());
     }
     

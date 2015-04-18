@@ -1,11 +1,6 @@
 package com.vn.ael.webapp.dto;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import com.vn.ael.persistence.entity.Customer;
-import com.vn.ael.persistence.entity.Truckingdetail;
 
 public class AccountingTransCondition {
 	
@@ -16,6 +11,7 @@ public class AccountingTransCondition {
 	Date endDate;
 	Long nhathauId;
 	Long transId;
+	String job = null;
 	
 	
 	public Long getCustomerId() {
@@ -59,6 +55,12 @@ public class AccountingTransCondition {
 	}
 	public void setTransId(Long transId) {
 		this.transId = transId;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
 	}
 
 

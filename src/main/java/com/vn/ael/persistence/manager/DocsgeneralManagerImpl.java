@@ -5,8 +5,9 @@ package com.vn.ael.persistence.manager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Inlandsize;
 import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Truckingdetail;
-import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.repository.AttachmentRepository;
 import com.vn.ael.persistence.repository.ContsealRepository;
 import com.vn.ael.persistence.repository.DocserviceRepository;
@@ -35,7 +35,6 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.Search;
-import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -380,14 +379,18 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				int count40 = 0;
 				int countOt = 0;
 				if (truckingdetails != null && !truckingdetails.isEmpty()){
+					Map<Long, Boolean> checked = new HashMap<>();
 					for (Truckingdetail truckingdetail :  truckingdetails){
-						if (truckingdetail.getConsteal().getTypeOfCont() != null)
-							if(truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){
-								count20+=1;
-							}else if(truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_40_START)){
-								count40+=1;
-							}else{
-								countOt+=1;
+						if (truckingdetail.getConsteal()!= null && truckingdetail.getConsteal().getTypeOfCont() != null)
+							if (!checked.containsKey(truckingdetail.getConsteal().getId())){
+								if(truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){
+									count20+=1;
+								}else if(truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_40_START)){
+									count40+=1;
+								}else{
+									countOt+=1;
+								}
+								checked.put(truckingdetail.getConsteal().getId(), true);
 							}
 						}	
 					}
@@ -396,5 +399,10 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				docsgeneral.setOtCont(countOt);
 				}
 			}
+	}
+
+	@Override
+	public List<String> getAllJob() {
+		return docsgeneralRepository.getAllJob();
 	}
 }
