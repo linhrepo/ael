@@ -35,4 +35,6 @@ public interface AELConst {
 	
 	String SPLASH = "/";
 	
+	String HAVE_ONE = "x";
+	
 }
