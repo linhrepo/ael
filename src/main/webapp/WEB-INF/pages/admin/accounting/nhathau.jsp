@@ -27,6 +27,10 @@
     		<jsp:include page="fragment/nhathau/nhathauTable.jsp"></jsp:include>
     	</div>
 	    <div class="form-group form-actions">
+	    	<a class="btn btn-success" href="nhathau/download?nhathauId=${accountingNhathau.condition.nhathauId}&startDate=${startDate}&endDate=${endDate}">
+							<i class="fa fa-print"></i>
+							<fmt:message key="accounting.transport.download" />
+						</a>
 	        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 	            <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 	        </button>

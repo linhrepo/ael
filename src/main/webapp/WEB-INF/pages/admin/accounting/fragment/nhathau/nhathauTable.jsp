@@ -76,15 +76,28 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.noOf20Cont}
+					<c:choose>
+						<c:when test="${fn:containsIgnoreCase(truck.consteal.typeOfCont.value, '20')}">
+								1
+						</c:when>
+						<c:otherwise>
+						 0
+						</c:otherwise>
+					</c:choose>
+						
 					</div>
-					<form:hidden path="truckingdetails[${idx.index}].truckingservice.docsgeneral.noOf20Cont"/>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.40"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.noOf40Cont}
+						<c:choose>
+						<c:when test="${fn:containsIgnoreCase(truck.consteal.typeOfCont.value, '40')}">
+								1
+						</c:when>
+						<c:otherwise>
+						 0
+						</c:otherwise>
+					</c:choose>
 					</div>
-					<form:hidden path="truckingdetails[${idx.index}].truckingservice.docsgeneral.noOf40Cont"/>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noidi" />">
 					<div class="form-group">
@@ -99,23 +112,23 @@
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.phuthu"/>">
 					<div class="form-group">
-						<form:input path="truckingdetails[${idx.index}].phuthu"  maxlength="45" autofocus="true" cssClass="form-control money" />
+						<form:input path="truckingdetails[${idx.index}].phuthu"  maxlength="16"  cssClass="form-control money" />
 					</div>
 				</td>
 				
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
 					<div class="form-group">
-						<form:input path="truckingdetails[${idx.index}].total" class="form-control total" readonly="true"/>
+						<form:input path="truckingdetails[${idx.index}].total" class="form-control total money" disabled="true"/>
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.hdnang" />">
 					<div class="form-group">
-						<form:input path="truckingdetails[${idx.index}].noContractUp"  maxlength="45" autofocus="true" cssClass="form-control number" />
+						<form:input path="truckingdetails[${idx.index}].noContractUp"  maxlength="45"  cssClass="form-control" />
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.hdha" />">
 					<div class="form-group">
-						<form:input path="truckingdetails[${idx.index}].noContractDown"  maxlength="45" autofocus="true" cssClass="form-control number" />
+						<form:input path="truckingdetails[${idx.index}].noContractDown"  maxlength="45"  cssClass="form-control" />
 				    </div>
 				</td>
 			</tr>
@@ -177,7 +190,7 @@
 															class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 													</spring:bind> <form:select
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].masterFee.id"
-														id="masterFee${idx.index}" autofocus="true"
+														id="masterFee${idx.index}" 
 														cssClass="form-control masterFee"
 														items="${selections['masterFees']}" disabled="disabled"/> <form:errors
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].masterFee.id"
@@ -190,7 +203,7 @@
 															addUrl="/admin/config/constant" type="19">
 													</spring:bind> <form:select
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id"
-														id="name${idxx.index}" autofocus="true"
+														id="name${idxx.index}" 
 														cssClass="form-control"
 														items="${selections['exhFeeNames']}" disabled="disabled"/> <form:errors
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].name.id"
@@ -202,7 +215,7 @@
 															class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 													</spring:bind> <form:input
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].amount"
-														id="amount${idxx.index}" maxlength="45" autofocus="true"
+														id="amount${idxx.index}" maxlength="45" 
 														cssClass="form-control amount money" readonly="true"/> <form:errors
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].amount"
 														cssClass="help-block" />
@@ -213,22 +226,22 @@
 															class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 													</spring:bind> <form:input
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].vat"
-														id="vat${idxx.index}" maxlength="45" autofocus="true"
+														id="vat${idxx.index}" maxlength="45" 
 														cssClass="form-control vat money" readonly="true"/> <form:errors
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].vat"
 														cssClass="help-block" />
 													</div></td>
 												<td data-title="<fmt:message key="inland.total"/>"><form:input
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].total"
-														id="total${idxx.index}" maxlength="45" autofocus="true"
-														cssClass="form-control total " readonly="true"/></td>
+														id="total${idxx.index}" maxlength="45" 
+														cssClass="form-control total money" readonly="true"/></td>
 												<td data-title="<fmt:message key="inland.feeInvoiceNo"/>"><spring:bind
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo">
 														<div
 															class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 													</spring:bind> <form:input
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo"
-														id="vat${idxx.index}" maxlength="45" autofocus="true"
+														id="vat${idxx.index}" maxlength="45" 
 														cssClass="form-control" readonly="true"/> <form:errors
 														path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo"
 														cssClass="help-block" />

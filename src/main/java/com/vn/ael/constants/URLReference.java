@@ -86,6 +86,7 @@ public interface URLReference {
 	String ACC_REFUND_SEARCH = "/admin/accounting/searchRefund";
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
+	String AJAX_REPORT_ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/download";
 	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/vantaiList";
 	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
 	

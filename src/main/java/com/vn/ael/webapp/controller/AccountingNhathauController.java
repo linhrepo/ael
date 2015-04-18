@@ -1,5 +1,6 @@
 package com.vn.ael.webapp.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.ReportMergeInfo;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
@@ -31,10 +34,11 @@ import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
-@RequestMapping(URLReference.ACCOUNTING_NHATHAU+"*")
 public class AccountingNhathauController extends BaseFormController{
 	
 	private NhathauManager nhathauManager = null;
@@ -79,11 +83,77 @@ public class AccountingNhathauController extends BaseFormController{
 		this.contsealManager = contsealManager;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_NHATHAU)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_NHATHAU);
-        AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
+        AccountingTrans accountingTrans = this.setupAccountingNhathau(request);
+        
+        mav.addObject("accountingNhathau", accountingTrans);
+//        for (Truckingdetail truckingdetail : truckingdetails) {
+//			for (Exfeetable ewew : truckingdetail.getExfeetables()) {
+//				System.out.println(ewew.getMasterFee().getId());
+//			}
+//		}
+        mav.addObject("selections", configurationManager.createSelections(ConfigurationType.DOCS_SHIPPING_LINE, ConfigurationType.MASTER_FEE,ConfigurationType.FEE_NAMES));
+//        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
+        return mav;
+    }
+	
+	@RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_NHATHAU)
+    public String onSubmit(AccountingTrans accountingTrans, BindingResult errors, HttpServletRequest request,
+                           HttpServletResponse response)
+    throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+ 
+        if (validator != null) { // validator is null during testing
+            validator.validate(accountingTrans, errors);
+ 
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return URLReference.ACCOUNTING_NHATHAU;
+            }
+        }
+ 
+        log.debug("entering 'onSubmit' method...");
+ 
+        String success = getSuccessView();
+        Locale locale = request.getLocale();
+//        startDate=04%2F08%2F2015&endDate=04%2F09%2F2015
+        truckingserviceManager.saveTruckingdetail(accountingTrans.getTruckingdetails());
+        
+        String key = "accountingnhathau.updated";
+        saveMessage(request, getText(key, locale));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String startDate = dateFormat.format(accountingTrans.getCondition().getStartDate());        
+        String endDate = dateFormat.format(accountingTrans.getCondition().getEndDate());
+        startDate = startDate.replace("/", "%2F");
+        endDate = endDate.replace("/", "%2F");
+        success = "redirect:"+URLReference.ACCOUNTING_NHATHAU+"?nhathauId=" + accountingTrans.getCondition().getNhathauId()+
+        		"&startDate="+ startDate+
+        		"&endDate="+endDate;
+ 
+        return success;
+    }
+	
+	 @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_NHATHAU)
+	    public void doDownload(HttpServletRequest request,
+	            HttpServletResponse response) throws IOException {
+	    	AccountingTrans accountingTrans = this.setupAccountingNhathau(request);
+	       if (accountingTrans!=null) {
+	    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans), ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()));
+	       }
+	    }
+
+	 /**
+	  * Build nha thau report from request
+	  * @param request
+	  * @return
+	  */
+	private AccountingTrans setupAccountingNhathau(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
         
         //load condition
         String nhathauId = request.getParameter("nhathauId");
@@ -135,52 +205,6 @@ public class AccountingNhathauController extends BaseFormController{
         accountingTrans.setNhathau(nhathauManager.find(nhathauId));
         accountingTrans.setCondition(accountingTransCondition);
         accountingTrans.setTruckingdetails(truckdetails);
-        
-        mav.addObject("accountingNhathau", accountingTrans);
-        for (Truckingdetail truckingdetail : truckingdetails) {
-			for (Exfeetable ewew : truckingdetail.getExfeetables()) {
-				System.out.println(ewew.getMasterFee().getId());
-			}
-		}
-        mav.addObject("selections", configurationManager.createSelections(ConfigurationType.DOCS_SHIPPING_LINE, ConfigurationType.MASTER_FEE,ConfigurationType.FEE_NAMES));
-//        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
-        return mav;
-    }
-	
-	@RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(AccountingTrans accountingTrans, BindingResult errors, HttpServletRequest request,
-                           HttpServletResponse response)
-    throws Exception {
-        if (request.getParameter("cancel") != null) {
-            return getCancelView();
-        }
- 
-        if (validator != null) { // validator is null during testing
-            validator.validate(accountingTrans, errors);
- 
-            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return URLReference.ACCOUNTING_NHATHAU;
-            }
-        }
- 
-        log.debug("entering 'onSubmit' method...");
- 
-        String success = getSuccessView();
-        Locale locale = request.getLocale();
-//        startDate=04%2F08%2F2015&endDate=04%2F09%2F2015
-        truckingserviceManager.saveTruckingdetail(accountingTrans.getTruckingdetails());
-        
-        String key = "accountingnhathau.updated";
-        saveMessage(request, getText(key, locale));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        String startDate = dateFormat.format(accountingTrans.getCondition().getStartDate());        
-        String endDate = dateFormat.format(accountingTrans.getCondition().getEndDate());
-        startDate = startDate.replace("/", "%2F");
-        endDate = endDate.replace("/", "%2F");
-        success = "redirect:"+URLReference.ACCOUNTING_NHATHAU+"?nhathauId=" + accountingTrans.getCondition().getNhathauId()+
-        		"&startDate="+ startDate+
-        		"&endDate="+endDate;
- 
-        return success;
-    }
+        return accountingTrans;
+	}
 }
