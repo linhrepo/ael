@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
 public class RefundFormController extends BaseFormController {
@@ -124,6 +126,13 @@ public class RefundFormController extends BaseFormController {
  
         return success;
     }
-    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.REFUND_FORM_DOWNLOAD)
+    public void doDownload(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	Refund refund = this.loadRefundByRequest(request);
+        if (refund != null){
+        	ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REFUND_ITEMS, ReportTeamplates.ADVANCE_REFUND_ITEMS_TEMPLATE, ReportUtil.prepareDataForRefundRequest(refund));
+        }
+    }
 }
 
