@@ -22,4 +22,10 @@ public interface ReportTeamplates {
 	
 	String ADVANCE_REFUND_ITEMS="PhieuDeNghiThanhToan.xlsx";
 	String ADVANCE_REFUND_ITEMS_TEMPLATE="ExportTemplate/PhieuDeNghiThanhToanTemplate.xlsx";
+	
+	String PHIEU_CHI_ITEMS="PhieuChi.xlsx";
+	String PHIEU_CHI_ITEMS_TEMPLATE="ExportTemplate/PhieuChiTemplate.xlsx";
+	
+	String PHIEU_THU_ITEMS="PhieuThu.xlsx";
+	String PHIEU_THU_ITEMS_TEMPLATE="ExportTemplate/PhieuThuTemplate.xlsx";
 }

@@ -67,4 +67,20 @@ DROP COLUMN `otherFees`,
 DROP COLUMN `accountingPrice`,
 DROP INDEX `priceItemAcc_idx` ;
 
+ALTER TABLE `ael`.`truckingdetail` 
+ADD COLUMN `payForNhaThau` BIGINT(20) NULL AFTER `otherFees`;
+
+ALTER TABLE `ael`.`truckingdetail` 
+ADD INDEX `payforNhathau_idx` (`payForNhaThau` ASC);
+ALTER TABLE `ael`.`truckingdetail` 
+ADD CONSTRAINT `payforNhathau`
+  FOREIGN KEY (`payForNhaThau`)
+  REFERENCES `ael`.`nhathau` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `ael`.`truckingdetail` 
+CHANGE COLUMN `noContractUp` `noContractUp` VARCHAR(45) NULL DEFAULT NULL ,
+CHANGE COLUMN `noContractDown` `noContractDown` VARCHAR(45) NULL DEFAULT NULL ;
+
 

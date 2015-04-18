@@ -134,5 +134,14 @@ public class RefundFormController extends BaseFormController {
         	ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REFUND_ITEMS, ReportTeamplates.ADVANCE_REFUND_ITEMS_TEMPLATE, ReportUtil.prepareDataForRefundRequest(refund));
         }
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_THU_DOWNLOAD)
+    public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	        Refund refundForm = this.loadRefundByRequest(request);
+    	        if (refundForm != null){
+    	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_THU_ITEMS,ReportTeamplates.PHIEU_THU_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
+    	        }
+    	    }
 }
 

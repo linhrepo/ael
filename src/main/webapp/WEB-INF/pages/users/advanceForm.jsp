@@ -27,7 +27,7 @@
 	        		<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 		           	 <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 		        	</button>
-		        	<a class="btn btn-success">
+		        	<a class="btn btn-success" href="advanceForm/phieuchi/download?id=${advanceform.id}">
 		           	 <i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
 		        	</a>
 	        	</security:authorize>
