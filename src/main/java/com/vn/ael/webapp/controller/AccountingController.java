@@ -231,4 +231,22 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
 		return mav;
 	}
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_SHIPMENT)
+    public ModelAndView handleShipmentRequest() throws Exception {
+        Model model = new ExtendedModelMap();
+        Search searchAccExhibition = new Search();
+        model.addAttribute("search", searchAccExhibition);
+      //selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT,
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        		);
+        model.addAttribute("docsSelection", docsSelection);
+        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        return new ModelAndView(URLReference.ACCOUNTING_SHIPMENT, model.asMap());
+    }
 }
