@@ -64,8 +64,6 @@
 								path="truckingdetails[${idx.index}].isDeleted"
 								valueType="deleted" />
 					<form:hidden path="truckingdetails[${idx.index}].phuthu"/>
-					<form:hidden path="truckingdetails[${idx.index}].noContractUp"/>
-					<form:hidden path="truckingdetails[${idx.index}].noContractDown"/>
 					<form:hidden path="truckingdetails[${idx.index}].otherFees"/>
 					<form:hidden path="truckingdetails[${idx.index}].accountingPrice"/>
 				</td>

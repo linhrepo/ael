@@ -217,6 +217,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		if (docsgeneral != null && docsgeneral.getId() != null){
 			Docsgeneral docsgeneralDB = docsgeneralRepository.getOne(docsgeneral.getId());
 			docsgeneralDB.setDoAccounting(docsgeneral.getDoAccounting());
+			docsgeneralDB.setNote(docsgeneral.getNote());
 			docsgeneralRepository.save(docsgeneralDB);
 		}
 	}
