@@ -664,6 +664,7 @@ public class ReportUtil {
 		parameterMap.put("employee", advanceForm.getEmployee());
 		parameterMap.put("reason", advanceForm.getPayReason());
 		parameterMap.put("amount", total);
+		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
 	}
 
@@ -690,6 +691,7 @@ public class ReportUtil {
 		parameterMap.put("employee", refund.getEmployee());
 		parameterMap.put("reason", refund.getPayReason());
 		parameterMap.put("amount", total);
+		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
 	}
 }
