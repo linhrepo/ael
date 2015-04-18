@@ -19,4 +19,10 @@ public interface ReportTeamplates {
 	
 	String ADVANCE_REQUEST_ITEMS="Phieudenghitamung.xlsx";
 	String ADVANCE_REQUEST_ITEMS_TEMPLATE="ExportTemplate/PhieuDeNghiTamUngTemplate.xlsx";
+	
+	String ADVANCE_REFUND_ITEMS="PhieuDeNghiThanhToan.xlsx";
+	String ADVANCE_REFUND_ITEMS_TEMPLATE="ExportTemplate/PhieuDeNghiThanhToanTemplate.xlsx";
+	
+	String PHIEU_CHI_ITEMS="PhieuChi.xlsx";
+	String PHIEU_CHI_ITEMS_TEMPLATE="ExportTemplate/PhieuChiTemplate.xlsx";
 }

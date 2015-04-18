@@ -137,6 +137,7 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 				if (refundDetail.getRefund()!=null) {
 					if (refundDetail.getRefund().getDoApproval()) {
 						result=result.subtract(refundDetail.getAmount());
+						result=result.subtract(refundDetail.getOAmount());
 					}
 				}
 			}
