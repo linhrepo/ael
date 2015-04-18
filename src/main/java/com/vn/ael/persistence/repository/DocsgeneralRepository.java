@@ -95,4 +95,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param("typeOfContainer") Long typeOfContainer,
 			@Param("doAccounting") Boolean doAccounting,
 			@Param(value="typeOfDocs") ServicesType typeOfDocs);
+	
+	@Query("SELECT DISTINCT e.jobNo FROM Docsgeneral e")
+	List<String> getAllJob();
 }

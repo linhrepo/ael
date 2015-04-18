@@ -13,17 +13,14 @@
 			<th rowspan="2"><fmt:message key="accountingnhathau.hangnhapxuat"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.placegetcont" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.placeputcont" /></th>
-			<th colspan="2" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th>			
+			<th rowspan="2"><fmt:message key="accountingnhathau.20"/></th>
+			<th rowspan="2"><fmt:message key="accountingnhathau.40"/></th>		
 			<th rowspan="2"><fmt:message key="accountingnhathau.noidi" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.noiden" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.phuthu" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.total" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.hdnang" /></th>
 			<th rowspan="2"><fmt:message key="accountingnhathau.hdha" /></th>
-		</tr>
-		<tr>
-			<th class="numberCol"><fmt:message key="accountingtrans.20"/></th>
-			<th class="numberCol"><fmt:message key="accountingtrans.40"/></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -66,34 +63,35 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.placeRev}
+						${truck.truckingservice.departure }
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						 ${truck.truckingservice.docsgeneral.placeDelivery}
+						 ${truck.truckingservice.arrival }
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.noOf20Cont}
+						<c:if test="${truck.truckingservice.docsgeneral.noOf20Cont gt 0}">X</c:if>
 					</div>
 					<form:hidden path="truckingdetails[${idx.index}].truckingservice.docsgeneral.noOf20Cont"/>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.40"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.noOf40Cont}
+						<c:if test="${truck.truckingservice.docsgeneral.noOf40Cont gt 0}">X</c:if>
+						
 					</div>
 					<form:hidden path="truckingdetails[${idx.index}].truckingservice.docsgeneral.noOf40Cont"/>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noidi" />">
-					<div class="form-group">
-				        ${truck.truckingservice.departure }
+					<div class="form-group">				        
+				        ${truck.truckingservice.docsgeneral.placeRev}
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noiden" />">
-					<div class="form-group">
-				        ${truck.truckingservice.arrival }
+					<div class="form-group">				        
+				        ${truck.deliveryPlace}
 
 				    </div>
 				</td>
@@ -110,12 +108,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.hdnang" />">
 					<div class="form-group">
-						<form:input path="truckingdetails[${idx.index}].noContractUp"  maxlength="45" autofocus="true" cssClass="form-control number" />
+						<form:input path="truckingdetails[${idx.index}].noContractUp"  maxlength="45" autofocus="true" cssClass="form-control" />
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.hdha" />">
 					<div class="form-group">
-						<form:input path="truckingdetails[${idx.index}].noContractDown"  maxlength="45" autofocus="true" cssClass="form-control number" />
+						<form:input path="truckingdetails[${idx.index}].noContractDown"  maxlength="45" autofocus="true" cssClass="form-control" />
 				    </div>
 				</td>
 			</tr>

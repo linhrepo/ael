@@ -21,8 +21,8 @@ import com.vn.ael.persistence.repository.DocserviceRepository;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
+import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.util.EntityUtil;
-import com.vn.ael.webapp.util.CommonUtil;
 
 /**
  * @author liv1hc
@@ -195,5 +195,11 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 			}
 			truckingdetailRepository.save(list);
 		}		
+	}
+
+	@Override
+	public List<Truckingdetail> searchNhathau(
+			AccountingTransCondition accountingTransCondition) {
+		return truckingdetailRepository.searchNhathau(accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId(), accountingTransCondition.getJob(), accountingTransCondition.getCustomerId(), true);
 	}
 }

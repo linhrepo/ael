@@ -12,7 +12,7 @@
 		action="nhathau" id="accountingNhathauForm" cssClass="well">
 	     <div class="container-fluid">
 	    	<div class="row">
-			    <div class="form-group col-md-8">
+			    <div class="form-group col-md-3">
 				    <appfuse:label styleClass="control-label" key="nhathau.name"/>
 				    <form:select path="nhathauId" id="nhathauId" class="form-control">
 		    			<c:forEach items="${nhathauList}" var="nhathau">
@@ -21,6 +21,28 @@
 			    	</form:select>
 			    </div>
 			    
+			    <div class="form-group col-md-2">
+					<appfuse:label styleClass="control-label"
+						key="customer.title" />
+					<form:select path="customerId" id="customercode"
+						cssClass="form-control select2">
+						<form:option value=""><fmt:message key="searchall" /></form:option>
+						<c:forEach items="${docsSelection.customers}" var="cust">
+							<form:option value="${cust.id}">${cust.code}</form:option>
+						</c:forEach>
+					</form:select>
+				</div>
+				
+				<div class="form-group col-md-2">
+					<appfuse:label styleClass="control-label"
+						key="accountingnhathau.jobNo" />
+					<form:select path="job" id="customercode" 
+						cssClass="form-control select2">
+						<form:option value=""><fmt:message key="searchall" /></form:option>
+						<form:options items="${jobList }"/>
+					</form:select>
+				</div>
+				
 			    <div class="form-group col-md-2">
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
 				    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>

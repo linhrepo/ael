@@ -26,7 +26,6 @@ import com.vn.ael.persistence.manager.ContsealManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
-import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.formatter.FormatterUtil;
@@ -40,8 +39,6 @@ public class AccountingNhathauController extends BaseFormController{
 	
 	private TruckingserviceManager truckingserviceManager;
 	
-	private TruckingdetailRepository truckingdetailRepository;
-	
 	private ExfeetableRepository exfeetableRepository;
 	
 	private ContsealManager contsealManager;
@@ -54,13 +51,7 @@ public class AccountingNhathauController extends BaseFormController{
     @Autowired
 	public void setNhathauManager(NhathauManager nhathauManager) {
 		this.nhathauManager = nhathauManager;
-	}
-        
-    @Autowired
-	public void setTruckingdetailRepository(
-			TruckingdetailRepository truckingdetailRepository) {
-		this.truckingdetailRepository = truckingdetailRepository;
-	}
+	}    
         
     @Autowired
 	public void setTruckingserviceManager(
@@ -82,11 +73,11 @@ public class AccountingNhathauController extends BaseFormController{
     protected ModelAndView showForm(HttpServletRequest request, AccountingTransCondition accountingTransCondition)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_NHATHAU);        
-        
         //Set up command
         List<Truckingdetail> truckdetails = new ArrayList<>();
         List<Exfeetable> exfeetables = new ArrayList<>();
-        List<Truckingdetail> truckingdetails = this.truckingdetailRepository.findAllByConditionDateTime(accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId());
+        
+        List<Truckingdetail> truckingdetails = this.truckingserviceManager.searchNhathau(accountingTransCondition);
         if(truckingdetails != null && !truckingdetails.isEmpty()){        	
         	for (Truckingdetail truckingdetail : truckingdetails) {
         		BigDecimal total = BigDecimal.ZERO;
@@ -126,15 +117,10 @@ public class AccountingNhathauController extends BaseFormController{
         accountingTrans.setTruckingdetails(truckdetails);
         
         mav.addObject("accountingNhathau", accountingTrans);
-        for (Truckingdetail truckingdetail : truckingdetails) {
-			for (Exfeetable ewew : truckingdetail.getExfeetables()) {
-				System.out.println(ewew.getMasterFee().getId());
-			}
-		}
         mav.addObject("selections", configurationManager.createSelections(ConfigurationType.DOCS_SHIPPING_LINE, ConfigurationType.MASTER_FEE,ConfigurationType.FEE_NAMES));
         return mav;
-    }
-	
+    }		
+
 	@RequestMapping(method = RequestMethod.POST)
     public String onSubmit(AccountingTrans accountingTrans, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
@@ -164,9 +150,13 @@ public class AccountingNhathauController extends BaseFormController{
         String endDate = FormatterUtil.formatDate(accountingTrans.getCondition().getEndDate());
         startDate = startDate.replace("/", "%2F");
         endDate = endDate.replace("/", "%2F");
-        success = "redirect:"+URLReference.ACCOUNTING_NHATHAU+"?nhathauId=" + accountingTrans.getCondition().getNhathauId()+
-        		"&startDate="+ startDate+
-        		"&endDate="+endDate;
+        success = "redirect:"+URLReference.ACCOUNTING_NHATHAU+"?nhathauId=" + accountingTrans.getCondition().getNhathauId() + 
+        		"&customerId=" + accountingTrans.getCondition().getCustomerId() +
+        		"&job=" + accountingTrans.getCondition().getJob() + 
+        		"&startDate=" + startDate +
+        		"&endDate=" + endDate;
+//        nhathauId=46&customerId=&job=&startDate=01%2F04%2F2015&endDate=18%2F04%2F2015
+        success = success.replace("null", "");
         return success;
     }
 }

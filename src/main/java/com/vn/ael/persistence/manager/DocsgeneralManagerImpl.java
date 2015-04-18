@@ -5,7 +5,6 @@ package com.vn.ael.persistence.manager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Inlandsize;
 import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Truckingdetail;
-import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.repository.AttachmentRepository;
 import com.vn.ael.persistence.repository.ContsealRepository;
 import com.vn.ael.persistence.repository.DocserviceRepository;
@@ -35,7 +33,6 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.Search;
-import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -396,5 +393,10 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				docsgeneral.setOtCont(countOt);
 				}
 			}
+	}
+
+	@Override
+	public List<String> getAllJob() {
+		return docsgeneralRepository.getAllJob();
 	}
 }
