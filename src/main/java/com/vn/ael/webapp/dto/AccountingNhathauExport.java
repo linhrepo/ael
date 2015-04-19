@@ -19,7 +19,8 @@ public class AccountingNhathauExport {
 	private String arrival;
 	private BigDecimal phuthu;
 	private Integer index;
-	private List<BigDecimal> convertedFee;
+	private List<FeeExportItem> convertedFee;
+	private BigDecimal total;
 	
 	public String getJobNo() {
 		return jobNo;
@@ -105,10 +106,17 @@ public class AccountingNhathauExport {
 	public void setIndex(Integer index) {
 		this.index = index;
 	}
-	public List<BigDecimal> getConvertedFee() {
+	public List<FeeExportItem> getConvertedFee() {
 		return convertedFee;
 	}
-	public void setConvertedFee(List<BigDecimal> convertedFee) {
+	public void setConvertedFee(List<FeeExportItem> convertedFee) {
 		this.convertedFee = convertedFee;
 	}
+	public BigDecimal getTotal() {
+		return total;
+	}
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+	
 }

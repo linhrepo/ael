@@ -17,6 +17,7 @@ import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.webapp.dto.FeeExportItem;
 import com.vn.ael.webapp.dto.FeeNameExport;
 
 public class ConvertUtil {
@@ -296,7 +297,7 @@ public class ConvertUtil {
 	public static FeeNameExport fromFeeListToFeeExport(
 			List<List<Exfeetable>> feesList) {
 		//calculate fee values for each name
-		Map<String,List<BigDecimal>> feeMap = new LinkedHashMap<>();
+		Map<String,List<FeeExportItem>> feeMap = new LinkedHashMap<>();
 		if (feesList != null && !feesList.isEmpty()){
 			for (int i=0; i<feesList.size(); ++i){
 				List<Exfeetable> exfeetables = feesList.get(i);
@@ -304,11 +305,14 @@ public class ConvertUtil {
 					for (Exfeetable exfeetable: exfeetables){
 						if (exfeetable!= null){
 							if (!feeMap.containsKey(exfeetable.getName().getValue())){
-								feeMap.put(exfeetable.getName().getValue(), createBySize(feesList.size()));
+								feeMap.put(exfeetable.getName().getValue(), FeeExportItem.createListBySize(feesList.size()));
 							}
-							List<BigDecimal> crrFeeList = feeMap.get(exfeetable.getName().getValue());
-							BigDecimal crrFeeVal = crrFeeList.get(i);
-							crrFeeList.set(i, ConvertUtil.getNotNullValue(crrFeeVal).add(exfeetable.getTotal()));
+							//cal fee value
+							List<FeeExportItem> crrFeeList = feeMap.get(exfeetable.getName().getValue());
+							BigDecimal crrFeeVal = crrFeeList.get(i).getFeeVal();
+							crrFeeList.get(i).setFeeVal(ConvertUtil.getNotNullValue(crrFeeVal).add(exfeetable.getTotal()));
+							//cal so HD
+							crrFeeList.get(i).setSoHD(crrFeeList.get(i).getSoHD()+exfeetable.getInvoiceNo()+AELConst.NEW_LINE_REPORT);
 						}
 					}
 				}
@@ -317,19 +321,18 @@ public class ConvertUtil {
 		FeeNameExport feeNameExport = new FeeNameExport(feeMap.size(),feesList.size());
 		//convert to vertical
 		int i=0;
-		for (Entry<String,List<BigDecimal>> feeM : feeMap.entrySet()){
+		for (Entry<String,List<FeeExportItem>> feeM : feeMap.entrySet()){
 			feeNameExport.getName().add(feeM.getKey());
-			List<BigDecimal> colFee = feeM.getValue();
+			List<FeeExportItem> colFee = feeM.getValue();
 			for (int j=0; j<feeNameExport.getValues().size(); ++j){
-				List<BigDecimal> rowFee = feeNameExport.getValues().get(j);
-				BigDecimal curVal = ConvertUtil.getNotNullValue(rowFee.get(i));
-				rowFee.set(i, curVal.add(colFee.get(j)));
+				List<FeeExportItem> rowFee = feeNameExport.getValues().get(j);
+				rowFee.set(i, colFee.get(j));
 			}
 			++i;
 		}
 		
 		return feeNameExport;
-	}	
+	}
 	
 	/**
 	 * Create list BidDecimal by size

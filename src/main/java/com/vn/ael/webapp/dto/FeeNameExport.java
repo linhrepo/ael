@@ -8,7 +8,7 @@ import com.vn.ael.webapp.util.ConvertUtil;
 
 public class FeeNameExport {
 	private List<String> name;
-	private List<List<BigDecimal>> values;
+	private List<List<FeeExportItem>> values;
 	
 	public FeeNameExport(){
 		name = new ArrayList<>();
@@ -19,7 +19,7 @@ public class FeeNameExport {
 		name = new ArrayList<>();
 		values = new ArrayList<>();
 		for (int i=0; i<size; ++i){
-			values.add(ConvertUtil.createBySize(sizeC));
+			values.add(FeeExportItem.createListBySize(sizeC));
 		}
 	}
 
@@ -29,10 +29,14 @@ public class FeeNameExport {
 	public void setName(List<String> name) {
 		this.name = name;
 	}
-	public List<List<BigDecimal>> getValues() {
+
+	public List<List<FeeExportItem>> getValues() {
 		return values;
 	}
-	public void setValues(List<List<BigDecimal>> values) {
+
+	public void setValues(List<List<FeeExportItem>> values) {
 		this.values = values;
 	}
+	
+	
 }

@@ -67,6 +67,7 @@ import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.AdvanceRequestItem;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
+import com.vn.ael.webapp.dto.FeeExportItem;
 import com.vn.ael.webapp.dto.FeeNameExport;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
 import com.vn.ael.webapp.dto.RefundRequestItem;
@@ -501,6 +502,14 @@ public class ReportUtil {
 		if (!accountingNhathauExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
 			for (int i=0; i<accountingNhathauExports.size(); ++i){
 				accountingNhathauExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
+				//calculate total
+				BigDecimal total = ConvertUtil.getNotNullValue(accountingNhathauExports.get(i).getPhuthu());
+				if (feeNameExport.getValues() != null && !feeNameExport.getValues().isEmpty()){
+					for (FeeExportItem exportItem : feeNameExport.getValues().get(i)){
+						total = total.add(exportItem.getFeeVal());
+					}
+					accountingNhathauExports.get(i).setTotal(total);
+				}
 			}
 		}
 		beans.put("details", accountingNhathauExports);

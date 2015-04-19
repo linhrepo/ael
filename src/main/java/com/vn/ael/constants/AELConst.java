@@ -37,4 +37,6 @@ public interface AELConst {
 	
 	String HAVE_ONE = "x";
 	
+	String NEW_LINE_REPORT = "\n";
+	
 }
