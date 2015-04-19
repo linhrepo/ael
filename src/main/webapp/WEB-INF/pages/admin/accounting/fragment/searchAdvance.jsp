@@ -22,25 +22,25 @@
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.startdate" />
-					<form:input path="startDate" provide="datepicker" id="startDate" autofocus="true" cssClass="form-control"/>
+					<form:input path="startDate" provide="datepicker" id="startDate"  cssClass="form-control"/>
 			        <form:errors path="startDate" cssClass="help-block"/>
 			</div>
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.enddate" />
-					<form:input path="endDate" provide="datepicker" id="endDate" autofocus="true" cssClass="form-control"/>
+					<form:input path="endDate" provide="datepicker" id="endDate"  cssClass="form-control"/>
 			        <form:errors path="endDate" cssClass="help-block"/>
 			</div>
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.startrefundDate" />
-					<form:input path="startTimeRefund" provide="datepicker" id="startTimeRefund" autofocus="true" cssClass="form-control"/>
+					<form:input path="startTimeRefund" provide="datepicker" id="startTimeRefund"  cssClass="form-control"/>
 			        <form:errors path="startTimeRefund" cssClass="help-block"/>				
 			</div>
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.endrefundDate" />
-					<form:input path="endTimeRefund" provide="datepicker" id="endTimeRefund" autofocus="true" cssClass="form-control"/>
+					<form:input path="endTimeRefund" provide="datepicker" id="endTimeRefund"  cssClass="form-control"/>
 			        <form:errors path="endTimeRefund" cssClass="help-block"/>				
 			</div>			
 			<div class="form-group col-md-4">

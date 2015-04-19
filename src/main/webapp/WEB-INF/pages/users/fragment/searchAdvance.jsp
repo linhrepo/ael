@@ -42,7 +42,7 @@
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.endrefundDate" />
-					<form:input path="endTimeRefund" provide="datepicker" id="endTimeRefund" autofocus="true" cssClass="form-control"/>
+					<form:input path="endTimeRefund" provide="datepicker" id="endTimeRefund"  cssClass="form-control"/>
 			        <form:errors path="endTimeRefund" cssClass="help-block"/>				
 			</div>			
 			<div class="form-group col-md-4">
