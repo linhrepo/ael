@@ -191,5 +191,5 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 		return ConvertUtil.getNotNullValue(this.chiho).add(ConvertUtil.getNotNullValue(this.accountingPrice))
 				.add(ConvertUtil.getNotNullValue(otherFees));
 	}
-
+	
 }

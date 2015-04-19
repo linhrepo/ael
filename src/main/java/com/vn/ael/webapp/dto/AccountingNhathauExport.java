@@ -2,6 +2,7 @@ package com.vn.ael.webapp.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class AccountingNhathauExport {
 	private String jobNo;
@@ -18,6 +19,8 @@ public class AccountingNhathauExport {
 	private String arrival;
 	private BigDecimal phuthu;
 	private Integer index;
+	private List<BigDecimal> convertedFee;
+	
 	public String getJobNo() {
 		return jobNo;
 	}
@@ -102,5 +105,10 @@ public class AccountingNhathauExport {
 	public void setIndex(Integer index) {
 		this.index = index;
 	}
-	
+	public List<BigDecimal> getConvertedFee() {
+		return convertedFee;
+	}
+	public void setConvertedFee(List<BigDecimal> convertedFee) {
+		this.convertedFee = convertedFee;
+	}
 }

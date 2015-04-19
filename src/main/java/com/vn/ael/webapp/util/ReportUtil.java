@@ -459,11 +459,13 @@ public class ReportUtil {
 		beans.put("name", accountingTrans.getNhathau().getName());
 		beans.put("start",accountingTrans.getCondition().getStartDate());
 		beans.put("end",accountingTrans.getCondition().getEndDate());
+		List<List<Exfeetable>> feesList = new ArrayList<>();
 		
 		List<AccountingNhathauExport> accountingNhathauExports = new ArrayList<>();
 		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
 			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
 				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
+				feesList.add(truckingdetail.getExfeetables());
 				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
 				AccountingNhathauExport accountingNhathauExport = new AccountingNhathauExport();
 				accountingNhathauExport.setIndex(i+1);
@@ -494,8 +496,14 @@ public class ReportUtil {
 				accountingNhathauExports.add(accountingNhathauExport);
 			}
 		}
-		beans.put("detail", accountingNhathauExports);
-//		beans.put("feeNames", null);
+		FeeNameExport  feeNameExport = ConvertUtil.fromFeeListToFeeExport(feesList);
+		beans.put("feeNames", feeNameExport.getName());
+		if (!accountingNhathauExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
+			for (int i=0; i<accountingNhathauExports.size(); ++i){
+				accountingNhathauExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
+			}
+		}
+		beans.put("details", accountingNhathauExports);
 		return beans;
 	}
 
