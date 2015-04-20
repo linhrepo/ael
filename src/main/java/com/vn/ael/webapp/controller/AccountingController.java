@@ -269,4 +269,21 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("consignees", packageinfoRepository.findConsignee());
         return new ModelAndView(URLReference.ACCOUNTING_SHIPMENT, model.asMap());
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_PROFIT_LOSS)
+    public ModelAndView handleProfitLossRequest() throws Exception {
+    	Model model = new ExtendedModelMap();
+        model.addAttribute("conditions",new AccountingTransCondition());
+      //selection
+        DocsSelection docsSelection = 
+    		configurationManager.loadSelectionForDocsPage
+    		(
+    				ConfigurationType.TYPE_OF_IMPORT,
+    				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+    		);
+        model.addAttribute("docsSelection", docsSelection);
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        return new ModelAndView(URLReference.ACCOUNTING_PROFIT_LOSS, model.asMap());
+    }
 }

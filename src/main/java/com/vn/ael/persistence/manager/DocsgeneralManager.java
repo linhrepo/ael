@@ -90,4 +90,6 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	List<String> getAllJob();
 	
 	List<Docsgeneral> searchShipment(AccountingTransCondition accountingTransCondition);
+	
+	List<Docsgeneral> viewProfitLoss(AccountingTransCondition accountingTransCondition);
 }

@@ -1,14 +1,14 @@
 <%@ include file="/common/taglibs.jsp" %>
 
 <head>
-    <title><fmt:message key="menu.acct.shipment"/></title>
+    <title><fmt:message key="menu.acct.profitloss"/></title>
     <meta name="menu" content="AccountingMenu"/>
 </head>
 
 <div class="col-sm-10">
-    <h2><fmt:message key="menu.acct.shipment"/></h2>
+    <h2><fmt:message key="menu.acct.profitloss"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="conditions"  method="get" action="shipment/download" id="shipmentForm" cssClass="well" showLoading="false">
+    <form:form commandName="conditions"  method="get" action="profitloss/download" id="profitlossForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
     		<div class="row">		    
 		    	<div class="form-group col-md-3">
@@ -32,8 +32,17 @@
 						<form:options items="${jobList }"/>
 					</form:select>
 				</div>
-				
 				<div class="form-group col-md-3">
+					<appfuse:label styleClass="control-label"
+						key="trucking.typeOfDocs" />
+					<form:select path="typeOfDocs" id="typeOfDocs"
+						cssClass="form-control select2">
+						<c:forEach var="entry" items="${typeOfDocs}">
+							<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
+						</c:forEach>
+					</form:select>
+				</div>
+				<%-- <div class="form-group col-md-4">
 					<appfuse:label styleClass="control-label"
 						key="configuration.typeOfImport" />
 					<form:select path="typeOfImport" id="typeOfImport"
@@ -63,9 +72,9 @@
 						<form:option value=""><fmt:message key="searchall" /></form:option>
 						<form:options items="${consignees }"/>
 					</form:select>
-				</div>
+				</div> --%>
 			    
-			    <div class="form-group col-md-3">
+			    <%-- <div class="form-group col-md-3">
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
 				    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDateVT1"/>
 			    </div>
@@ -73,7 +82,7 @@
 			    <div class="form-group col-md-3">
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
 				    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDateVT1"/>
-			    </div>
+			    </div> --%>
     		</div>
     	</div>
 	     <hr>

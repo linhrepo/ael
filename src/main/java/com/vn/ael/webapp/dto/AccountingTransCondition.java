@@ -15,6 +15,7 @@ public class AccountingTransCondition {
 	Long typeOfImport;
 	String consignee;
 	String shipper;
+	Long typeOfDocs;
 	
 	
 	public Long getCustomerId() {
@@ -82,6 +83,12 @@ public class AccountingTransCondition {
 	}
 	public void setShipper(String shipper) {
 		this.shipper = shipper;
+	}
+	public Long getTypeOfDocs() {
+		return typeOfDocs;
+	}
+	public void setTypeOfDocs(Long typeOfDocs) {
+		this.typeOfDocs = typeOfDocs;
 	}
 
 }
