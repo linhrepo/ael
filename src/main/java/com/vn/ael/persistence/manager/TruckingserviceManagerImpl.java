@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.TypeOfContainer;
+import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
@@ -201,5 +202,11 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 	public List<Truckingdetail> searchNhathau(
 			AccountingTransCondition accountingTransCondition) {
 		return truckingdetailRepository.searchNhathau(accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId(), accountingTransCondition.getJob(), accountingTransCondition.getCustomerId(), true);
+	}
+
+	@Override
+	public List<Truckingdetail> searchVantai(
+			AccountingTransCondition accountingTransCondition) {
+		return truckingdetailRepository.findAllByConditionVantai(ServicesType.fromValue(accountingTransCondition.getTransId().intValue()), accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getNhathauId(), true);
 	}
 }

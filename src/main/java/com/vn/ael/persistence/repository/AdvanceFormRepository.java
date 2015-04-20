@@ -20,8 +20,8 @@ public interface AdvanceFormRepository extends GenericRepository<Advanceform> {
 	List<Advanceform> findByEmployee(User employee);
 	
 	@Query("SELECT e FROM Advanceform e WHERE (e.employee.id = :employeeId or :employeeId is null) and "
-			+ "(e.date between :startDate and :endDate) and "
-			+ "(e.timeRefund between :startTimeRefund and :endTimeRefund) and "
+			+ "(e.date >= :startDate or :startDate is null) and (e.date <= :endDate or :endDate is null) and "
+			+ "(e.timeRefund >= :startTimeRefund or :startTimeRefund is null) and (e.timeRefund <= :endTimeRefund or :endTimeRefund is null) and "
 			+ "(e.doApproval =:doApproval or :doApproval is null)")
 	List<Advanceform> searchAdvanceForm(@Param("employeeId") Long employeeId,
 			@Param("startDate") Date startDate,

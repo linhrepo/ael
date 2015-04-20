@@ -89,7 +89,7 @@ public interface URLReference {
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
 	String AJAX_REPORT_ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/download";
-	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/vantaiList";
+	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/inlandPackageinfo";
 	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
 	
 	String AJAX_REPORT_ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition/download";

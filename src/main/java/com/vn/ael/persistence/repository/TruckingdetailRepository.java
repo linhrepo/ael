@@ -43,8 +43,14 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param(value="nhathauId")Long nhathauId, @Param(value="jobNo")String jobNo, 
 			@Param(value="customer")Long customer, @Param(value="doAccounting")Boolean doAccounting);
 	
-	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and MONTH(t.dateDev) = :month and YEAR(t.dateDev) = :year group by (t.id)")
-	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") ServicesType transId, @Param(value="month") Integer month, @Param(value="year")Integer year);
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and "
+			+ "(t.dateDev between :startDate and :endDate) and "
+			+ "(d.customer.id = :customerId or :customerId is null) and "
+			+ "(t.nhathau.id = :nhathauId or :nhathauId is null) and "
+			+ "t.truckingservice.docsgeneral.doAccounting = :doAccounting "
+			+ "group by t.id")
+	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") ServicesType transId, @Param(value="startDate") Date startDate, 
+			@Param(value="endDate")Date endDate, @Param(value="customerId")Long customerId, @Param(value="nhathauId")Long nhathauId, @Param(value="doAccounting")Boolean doAccounting);
 
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.truckingservice ser where ser.id =:id "
 			+"and MONTH(t.dateDev) = :month "
