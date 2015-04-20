@@ -105,4 +105,5 @@ public interface URLReference {
 	String PHIEU_THU_DOWNLOAD = "/users/refund/phieuthu/download";
 	
 	String ACC_ADVANCE_SUMARY_SEARCH = "/admin/accounting/searchAdvanceSumary";
+	String ADVANCE_SUMARY_SEARCH = "/users/searchAdvanceSumary";
 }
