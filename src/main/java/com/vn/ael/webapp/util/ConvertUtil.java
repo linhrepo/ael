@@ -319,48 +319,13 @@ public class ConvertUtil {
 	public static Map<ReportMergeInfo, List<Integer>> generateMergeIndexForKHVTNoidia(
 			List<Truckingdetail> truckingdetails) {
 		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
-		List<Integer> jobsOrder = new ArrayList<>();
-		//merge level 2 - by cont
-		List<Integer> contOrder = new ArrayList<>();
-		if (truckingdetails !=null && !truckingdetails.isEmpty()){
-			Long contNo=null;
-			int countCont = 1;
-			Long docsNo = null;
-			int countDocs = 1;
-			for (Truckingdetail truckingdetail : truckingdetails){
-				if (truckingdetail.getConsteal() == null){
-					contNo=null;
-					contOrder.add(countCont);
-					countCont = 1;
-				}else{
-					if (contNo == null || (truckingdetail.getConsteal() != null && contNo !=truckingdetail.getConsteal().getId())){
-						if (contNo != null){
-							contOrder.add(countCont);
-							countCont = 1;
-						}
-							contNo = truckingdetail.getConsteal().getId();
-					}else{
-						++countCont;
-					}
-				}
-				
-				if (docsNo == null || (docsNo !=truckingdetail.getTruckingservice().getDocsgeneral().getId())){
-					if (contNo != null){
-						jobsOrder.add(countDocs);
-						countDocs = 1;
-					}
-					docsNo = truckingdetail.getTruckingservice().getDocsgeneral().getId();
-				}else{
-					++countDocs;
-				}
-			}
-		}
-		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_NOI_DIA, jobsOrder);
-		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_NOI_DIA_L2, contOrder);
+		List<List<Integer>> lists = generateMergIndexByJobAndContFromDetails(truckingdetails);
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_NOI_DIA, lists.get(0));
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_NOI_DIA_L2, lists.get(1));
 		return map;
 	}
 	
-	public static List<List<Integer>> generateMergIndexByJobAndCont(List<Docsgeneral> docsgenerals){
+	private static List<List<Integer>> generateMergIndexByJobAndCont(List<Docsgeneral> docsgenerals){
 		//merge level 1 - by job
 				List<Integer> jobsOrder = new ArrayList<>();
 				//merge level 2 - by cont
@@ -397,5 +362,59 @@ public class ConvertUtil {
 		lists.add(jobsOrder);
 		lists.add(contOrder);
 		return lists;
+	}
+	
+	private static List<List<Integer>> generateMergIndexByJobAndContFromDetails(List<Truckingdetail> truckingdetails){
+		List<Integer> jobsOrder = new ArrayList<>();
+		//merge level 2 - by cont
+		List<Integer> contOrder = new ArrayList<>();
+		if (truckingdetails !=null && !truckingdetails.isEmpty()){
+			Long contNo=null;
+			int countCont = 1;
+			Long docsNo = null;
+			int countDocs = 1;
+			for (Truckingdetail truckingdetail : truckingdetails){
+				if (truckingdetail.getConsteal() == null){
+					contNo=null;
+					contOrder.add(countCont);
+					countCont = 1;
+				}else{
+					if (contNo == null || (truckingdetail.getConsteal() != null && contNo !=truckingdetail.getConsteal().getId())){
+						if (contNo != null){
+							contOrder.add(countCont);
+							countCont = 1;
+						}
+							contNo = truckingdetail.getConsteal().getId();
+					}else{
+						++countCont;
+					}
+				}
+				
+				if (docsNo == null || (docsNo !=truckingdetail.getTruckingservice().getDocsgeneral().getId())){
+					if (docsNo != null){
+						jobsOrder.add(countDocs);
+						countDocs = 1;
+					}
+					docsNo = truckingdetail.getTruckingservice().getDocsgeneral().getId();
+				}else{
+					++countDocs;
+				}
+			}
+			contOrder.add(countCont);
+			jobsOrder.add(countDocs);
+		}
+		List<List<Integer>> lists = new ArrayList<>();
+		lists.add(jobsOrder);
+		lists.add(contOrder);
+		return lists;
+	}
+
+	public static Map<ReportMergeInfo, List<Integer>> generateMergeIndexForKHVT(
+			List<Truckingdetail> truckingdetails) {
+		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
+		List<List<Integer>> lists = generateMergIndexByJobAndContFromDetails(truckingdetails);
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI, lists.get(0));
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_L2, lists.get(1));
+		return map;
 	}
 }

@@ -156,21 +156,21 @@
 </table>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("[count]").each(function(){
-		var noOfCont = $(this).attr("noOfCont");
-		var listOrther = $("[noOfCont='"+noOfCont+"']");
-		if ($(this).attr("remove") == undefined){
-			$(this).attr("rowspan",listOrther.length);
-		}
-		if (listOrther.length >1){
-			for (var i=0; i< listOrther.length;++i){
-				if ( !$(this).is(listOrther[i]) && $(listOrther[i]).attr("rowspan")== undefined){
-					$(listOrther[i]).attr("remove",true);
-				}	
-			}
-		}
-	});
-	$("[remove]").remove();
+// 	$("[count]").each(function(){
+// 		var noOfCont = $(this).attr("noOfCont");
+// 		var listOrther = $("[noOfCont='"+noOfCont+"']");
+// 		if ($(this).attr("remove") == undefined){
+// 			$(this).attr("rowspan",listOrther.length);
+// 		}
+// 		if (listOrther.length >1){
+// 			for (var i=0; i< listOrther.length;++i){
+// 				if ( !$(this).is(listOrther[i]) && $(listOrther[i]).attr("rowspan")== undefined){
+// 					$(listOrther[i]).attr("remove",true);
+// 				}	
+// 			}
+// 		}
+// 	});
+// 	$("[remove]").remove();
 });
 </script>
 <script type="text/javascript" src="<c:url value='/scripts/custom/feeTables.js'></c:url>"></script>

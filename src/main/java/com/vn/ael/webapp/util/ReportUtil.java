@@ -803,13 +803,14 @@ public class ReportUtil {
 						keHoachVanTaiExport.setContO(AELConst.HAVE_ONE);
 					}
 				}else{
-					keHoachVanTaiExport.setContO(AELConst.HAVE_ONE);
+					keHoachVanTaiExport.setContL(AELConst.HAVE_ONE);
 				}
 				keHoachVanTaiExport.setDeparture(truckingdetail.getTruckingservice().getDeparture());
 				keHoachVanTaiExport.setArrival(truckingdetail.getTruckingservice().getArrival());
 				keHoachVanTaiExport.setShipName(truckingdetail.getVehicleNo()+AELConst.SPLASH+truckingdetail.getNoOfVehicle());
 				keHoachVanTaiExport.setEta(truckingdetail.getTruckingservice().getDocsgeneral().getInland().getEta());
 				keHoachVanTaiExport.setEtd(truckingdetail.getTruckingservice().getDocsgeneral().getInland().getEtd());
+				keHoachVanTaiExport.setDocReceiveDate(truckingdetail.getTruckingservice().getDocsgeneral().getDocReceiveDate());
 				hoachVanTaiExports.add(keHoachVanTaiExport);
 			}
 		}

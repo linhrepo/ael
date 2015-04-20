@@ -19,6 +19,10 @@ public class KeHoachVanTaiExport {
 	private String shipName;
 	private Date etd;
 	private Date eta;
+	private String contL;
+	private Date docReceiveDate;
+	
+	
 	
 	public String getJobNo() {
 		return jobNo;
@@ -103,6 +107,18 @@ public class KeHoachVanTaiExport {
 	}
 	public void setEta(Date eta) {
 		this.eta = eta;
+	}
+	public String getContL() {
+		return contL;
+	}
+	public void setContL(String contL) {
+		this.contL = contL;
+	}
+	public Date getDocReceiveDate() {
+		return docReceiveDate;
+	}
+	public void setDocReceiveDate(Date docReceiveDate) {
+		this.docReceiveDate = docReceiveDate;
 	}
 	
 }

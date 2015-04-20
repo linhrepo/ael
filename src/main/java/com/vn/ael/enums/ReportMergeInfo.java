@@ -6,7 +6,10 @@ public enum ReportMergeInfo {
 	BANG_KE_CUOC_VAN_CHUYEN_L2(16,9),
 	
 	KE_HOACH_VAN_TAI_NOI_DIA(5,0,1,3,4,15,16),
-	KE_HOACH_VAN_TAI_NOI_DIA_L2(5,5,6,7,8);
+	KE_HOACH_VAN_TAI_NOI_DIA_L2(5,5,6,7,8),
+	
+	KE_HOACH_VAN_TAI(5,0,1,2,4,5,6),
+	KE_HOACH_VAN_TAI_L2(5,7,8,9,10,11);
 	
 	
 	private int startingRow;
