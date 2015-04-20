@@ -17,4 +17,5 @@ public interface RefundManager extends GenericManager<Refund> {
 	
 	List<Refund> searchRefund(Search search);
 
+	List<Refund> findByEmpoyeeForAccounting(User employee);
 }

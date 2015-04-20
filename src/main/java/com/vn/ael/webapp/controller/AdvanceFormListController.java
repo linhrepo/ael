@@ -1,5 +1,8 @@
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.StatusType;
+import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.manager.RefundManager;
+import com.vn.ael.persistence.manager.UserManager;
+import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.EntityUtil;
@@ -158,5 +165,138 @@ public class AdvanceFormListController extends BaseFormController {
 		mav.addObject("flag", 2);
 		return mav;
 	}
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.ACC_ADVANCE_SUMARY_SEARCH)
+	public ModelAndView searchAccAdvanceSumary(Search searchAdvanceSumary, HttpServletRequest request)
+			throws Exception {
+		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_FORM_ACC);
+		
+		
+		Date startDate = searchAdvanceSumary.getStartDate();
+		Date endDate = searchAdvanceSumary.getEndDate();
+		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
+		User employee = new User();
+		try {
+			employee = advanceFormManager.getUserById(searchAdvanceSumary.getEmployee());
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("CAN'T GET USER: "+e.getMessage());
+		}
+		if (employee.getId()!=null) {
+			listSumary.add(this.getAdvanceSumaryForEmployee(employee, startDate, endDate));
+		}
+		else{
+			List<User> employees = new ArrayList<User>();
+			employees.addAll(getUserManager().getAllUser());
+			if (!employees.isEmpty()) {
+				for (User user : employees) {
+					listSumary.add(this.getAdvanceSumaryForEmployee(user, startDate, endDate));
+				}
+			}
+		}
+		mav.addObject(listSumary);
+		//selection
+		DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage(true);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("flag", 3);
+		return mav;
+	}
+    
+    private BigDecimal calculateTotalAdvance(List<Advanceform> listAdvanceForm){
+    	BigDecimal result = BigDecimal.ZERO;
+    	try {
+    		
+			if (!listAdvanceForm.isEmpty()) {
+				for (Advanceform advanceform : listAdvanceForm) {
+					List<Advancedetail> listDetails = new ArrayList<Advancedetail>();
+					listDetails.addAll(advanceform.getAdvancedetails());
+					if (!listDetails.isEmpty()) {
+						for (Advancedetail advancedetail : listDetails) {
+							result = result.add(advancedetail.getAmount());
+						}						
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("FAILED TO CALCULATE total advance before: "+e.getMessage());
+		}
+    	return result;
+    }
+    
+    private BigDecimal calculateTotalRefund(List<Refund> listRefund){
+    	BigDecimal result = BigDecimal.ZERO;
+    	try {
+    		
+			if (!listRefund.isEmpty()) {
+				for (Refund refund : listRefund) {
+					List<Refunddetail> listDetails = new ArrayList<Refunddetail>();
+					listDetails.addAll(refund.getRefunddetails());
+					if (!listDetails.isEmpty()) {
+						for (Refunddetail refundDetail : listDetails) {
+							result = result.add(refundDetail.getAmount());
+							result = result.add(refundDetail.getOAmount());
+						}						
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("FAILED TO CALCULATE total advance before: "+e.getMessage());
+		}
+    	return result;
+    }
+    
+    private AdvanceSumary getAdvanceSumaryForEmployee(User employee, Date startDate, Date endDate){
+    	BigDecimal totalAdvanceBefore = BigDecimal.ZERO;
+		BigDecimal totalRefundBefore = BigDecimal.ZERO;
+		BigDecimal totalAdvanceBetween = BigDecimal.ZERO;
+		BigDecimal totalRefundBetween = BigDecimal.ZERO;
+		BigDecimal totalAdvanceAfter = BigDecimal.ZERO;
+		BigDecimal totalRefundAfter = BigDecimal.ZERO;
+		List<Advanceform> listAdvance = new ArrayList<Advanceform>();
+		listAdvance.addAll(advanceFormManager.findByEmpoyeeForAccounting(employee));
+		List<Advanceform> listBefore = new ArrayList<Advanceform>();
+		List<Advanceform> listBetween = new ArrayList<Advanceform>();
+		if (!listAdvance.isEmpty()) {
+			for (Advanceform advanceform : listAdvance) {
+				if (advanceform.getDate()!=null) {
+					if (advanceform.getDate().before(startDate)) {
+						listBefore.add(advanceform);
+					}
+					else if (advanceform.getDate().after(startDate)&&advanceform.getDate().before(endDate)) {
+						listBetween.add(advanceform);
+					}
+				}				
+			}
+		}
+		totalAdvanceBefore = this.calculateTotalAdvance(listBefore);
+		totalAdvanceBetween = this.calculateTotalAdvance(listBetween);
+		totalAdvanceAfter = totalAdvanceBefore.add(totalAdvanceBetween);
+		
+		List<Refund> listRefund = new ArrayList<Refund>();
+		listRefund.addAll(refundManager.findByEmpoyeeForAccounting(employee));
+		List<Refund> listRefundBefore = new ArrayList<Refund>();
+		List<Refund> listRefundBetween = new ArrayList<Refund>();
+		if (!listRefund.isEmpty()) {
+			for (Refund refund : listRefund) {
+				if (refund.getDate()!=null) {
+					if (refund.getDate().before(startDate)) {
+						listRefundBefore.add(refund);
+					}
+					else if (refund.getDate().after(startDate)&&refund.getDate().before(endDate)) {
+						listRefundBetween.add(refund);
+					}
+				}
+			}
+			totalRefundBefore = this.calculateTotalRefund(listRefundBefore);
+			totalRefundBetween = this.calculateTotalRefund(listRefundBetween);
+			totalRefundAfter= totalRefundBefore.add(totalRefundBetween);
+		}
+		return new AdvanceSumary(employee.getFullName(), totalAdvanceBefore, totalRefundBefore, totalAdvanceBetween, totalRefundBetween, totalAdvanceAfter, totalRefundAfter);
+	
+    }
 }
 

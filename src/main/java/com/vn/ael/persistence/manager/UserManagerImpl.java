@@ -291,4 +291,10 @@ public class UserManagerImpl extends GenericManagerImpl<User> implements UserMan
 	public User findById(String id) {
 		return this.findById(Long.valueOf(id));
 	}
+
+	@Override
+	public List<User> getAllUser() {
+		// TODO Auto-generated method stub
+		return this.repository.findAll();
+	}
 }
