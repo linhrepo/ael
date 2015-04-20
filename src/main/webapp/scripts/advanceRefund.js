@@ -16,5 +16,8 @@ $(document).ready(function(){
 	else if($('#flag').val() == "2"){
 		$('.nav-tabs a[href="#settings"]').tab('show');
 	}
+	else if($('#flag').val() == "3"){
+		$('.nav-tabs a[href="#sumary"]').tab('show');
+	}
 });
 	
