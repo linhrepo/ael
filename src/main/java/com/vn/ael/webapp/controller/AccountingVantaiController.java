@@ -110,7 +110,7 @@ public class AccountingVantaiController extends BaseFormController {
         List<Truckingdetail> truckingdetails = this.truckingserviceManager.searchPackageInfo(accountingTransCondition);
         List<Exfeetable> exfeetables = new ArrayList<>();
         
-        if(truckingdetails != null && !truckingdetails.isEmpty()){        	
+        if(truckingdetails != null && !truckingdetails.isEmpty()){	
         	for (Truckingdetail truckingdetail : truckingdetails) {
         		//load fee
         		BigDecimal total = BigDecimal.ZERO;

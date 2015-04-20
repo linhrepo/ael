@@ -254,19 +254,19 @@ public class AccountingController extends BaseFormController {
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_SHIPMENT)
     public ModelAndView handleShipmentRequest() throws Exception {
-        Model model = new ExtendedModelMap();
-        Search searchAccExhibition = new Search();
-        model.addAttribute("search", searchAccExhibition);
+    	Model model = new ExtendedModelMap();
+        model.addAttribute("conditions",new AccountingTransCondition());
       //selection
         DocsSelection docsSelection = 
-        		configurationManager.loadSelectionForDocsPage
-        		(
-        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-        				ConfigurationType.TYPE_OF_IMPORT,
-        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
-        		);
+    		configurationManager.loadSelectionForDocsPage
+    		(
+    				ConfigurationType.TYPE_OF_IMPORT,
+    				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+    		);
         model.addAttribute("docsSelection", docsSelection);
-        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("shippers", packageinfoRepository.findShipper());
+        model.addAttribute("consignees", packageinfoRepository.findConsignee());
         return new ModelAndView(URLReference.ACCOUNTING_SHIPMENT, model.asMap());
     }
 }

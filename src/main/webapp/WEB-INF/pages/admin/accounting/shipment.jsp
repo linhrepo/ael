@@ -1,9 +1,14 @@
 <%@ include file="/common/taglibs.jsp" %>
 
+<head>
+    <title><fmt:message key="menu.acct.shipment"/></title>
+    <meta name="menu" content="AccountingMenu"/>
+</head>
+
 <div class="col-sm-12">
-    <h2><fmt:message key="accountingvantai.packageinfo"/></h2>
+    <h2><fmt:message key="menu.acct.shipment"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="conditions"  method="get" action="thongquan/download" id="accountingthongquanForm" cssClass="well" showLoading="false">
+    <form:form commandName="conditions"  method="get" action="shipment/download" id="shipmentForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
     		<div class="row">		    
 		    	<div class="form-group col-md-4">
@@ -80,4 +85,4 @@
 	    </div>
     </form:form>
 </div>
-
+<script type="text/javascript" src="<c:url value='/scripts/advanceRefund.js'/>"></script>

@@ -88,4 +88,6 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	List<Docsgeneral> searchFeeTables(Search search);
 	
 	List<String> getAllJob();
+	
+	List<Docsgeneral> searchShipment(AccountingTransCondition accountingTransCondition);
 }

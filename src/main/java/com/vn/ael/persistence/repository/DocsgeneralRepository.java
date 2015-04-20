@@ -98,4 +98,20 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	
 	@Query("SELECT DISTINCT e.jobNo FROM Docsgeneral e")
 	List<String> getAllJob();
+	
+	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
+			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
+			+ "e.typeOfDocs =:typeOfDocs and "
+			+ "(e.packageinfo.customsDate between :startDate and :endDate) and "
+			+ "(e.packageinfo.consignee = :consignee or :consignee = '') and "
+			+ "(e.packageinfo.shipper = :shipper or :shipper = '') and "
+			+ "e.doAccounting =:doAccounting")
+	List<Docsgeneral> searchShipment(@Param("customerId") Long customerId,
+			@Param("typeOfImport") Long typeOfImport,
+			@Param("doAccounting") Boolean doAccounting,
+			@Param(value="typeOfDocs") ServicesType typeOfDocs,
+			@Param(value="startDate") Date startDate,
+			@Param(value="endDate") Date endDate,
+			@Param(value="consignee") String consignee,
+			@Param(value="shipper") String shipper);
 }

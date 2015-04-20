@@ -91,6 +91,7 @@ public interface URLReference {
 	String AJAX_REPORT_ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/download";
 	String AJAX_REPORT_ACCOUNTING_KHVT = "/admin/accounting/vantai/download";
 	String AJAX_REPORT_ACCOUNTING_KHTQ = "/admin/accounting/thongquan/download";
+	String AJAX_REPORT_ACCOUNTING_SHIPMENT = "/admin/accounting/shipment/download";
 	
 	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/inlandPackageinfo";
 	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
