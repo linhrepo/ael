@@ -21,7 +21,7 @@ public class KeHoachVanTaiExport {
 	private Date eta;
 	private String contL;
 	private Date docReceiveDate;
-	
+	private List<FeeExportItem> convertedFee;
 	
 	
 	public String getJobNo() {
@@ -119,6 +119,12 @@ public class KeHoachVanTaiExport {
 	}
 	public void setDocReceiveDate(Date docReceiveDate) {
 		this.docReceiveDate = docReceiveDate;
+	}
+	public List<FeeExportItem> getConvertedFee() {
+		return convertedFee;
+	}
+	public void setConvertedFee(List<FeeExportItem> convertedFee) {
+		this.convertedFee = convertedFee;
 	}
 	
 }

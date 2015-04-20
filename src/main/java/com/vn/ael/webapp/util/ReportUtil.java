@@ -43,6 +43,7 @@ import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.enums.ReportMergeInfo;
+import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Advancedetail;
@@ -783,9 +784,11 @@ public class ReportUtil {
 		parameterMap.put("startDate", accountingTrans.getCondition().getStartDate());
 		parameterMap.put("endDate", accountingTrans.getCondition().getEndDate());
 		List<KeHoachVanTaiExport> hoachVanTaiExports = new ArrayList<>();
+		List<List<Exfeetable>> feesList = new ArrayList<>();
 		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
 			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
 				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
+				feesList.add(truckingdetail.getExfeetables());
 				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
 				KeHoachVanTaiExport keHoachVanTaiExport = new KeHoachVanTaiExport();
 				keHoachVanTaiExport.setDateDev(truckingdetail.getDateDev());
@@ -814,7 +817,26 @@ public class ReportUtil {
 				hoachVanTaiExports.add(keHoachVanTaiExport);
 			}
 		}
-		parameterMap.put("detail", hoachVanTaiExports);
+		 if (accountingTrans.getCondition().getTransId().intValue() == ServicesType.DVVT_SEALAND.getValue()){
+			 parameterMap.put("detail", hoachVanTaiExports);
+		 }else{
+			    FeeNameExport  feeNameExport = ConvertUtil.fromFeeListToFeeExport(feesList);
+			    parameterMap.put("feeNames", feeNameExport.getName());
+				if (!hoachVanTaiExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
+					for (int i=0; i<hoachVanTaiExports.size(); ++i){
+						hoachVanTaiExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
+						//calculate total
+						BigDecimal total = BigDecimal.ZERO;
+						if (feeNameExport.getValues() != null && !feeNameExport.getValues().isEmpty()){
+							for (FeeExportItem exportItem : feeNameExport.getValues().get(i)){
+								total = total.add(exportItem.getFeeVal());
+							}
+							hoachVanTaiExports.get(i).setTotal(total);
+						}
+					}
+				}
+			 parameterMap.put("details", hoachVanTaiExports);
+		 }
 		return parameterMap;
 	}
 }
