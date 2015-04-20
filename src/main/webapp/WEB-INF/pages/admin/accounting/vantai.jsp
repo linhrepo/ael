@@ -19,14 +19,14 @@
     		<%-- <jsp:include page="fragment/nhathau/generalInput.jsp"></jsp:include> --%>
     		<jsp:include page="fragment/vantai/vantaiTable.jsp"></jsp:include>
     	</div>
-	    <div class="form-group form-actions">	        
-	    <div class="form-group form-actions">
+        
+	    <%-- <div class="form-group form-actions">
 	        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 	            <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 	        </button>
 	        <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
 	            <i class="fa fa-sign-out"></i> <fmt:message key="button.cancel"/>
 	        </button>
-	    </div>
+	    </div> --%>
     </form:form>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>

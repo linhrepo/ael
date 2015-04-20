@@ -144,4 +144,21 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 		}
 		return result;
 	}
+
+	@Override
+	public List<Advanceform> searchAdvanceFormBefore(Search search) {
+				
+		return null;
+	}
+
+	@Override
+	public User getUserById(long Id) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUserid(Id);
+	}
+
+	@Override
+	public List<Advanceform> findByEmpoyeeForAccounting(User employee) {
+		return this.advanceFormRepository.findByEmployee(employee);
+	}
 }

@@ -29,6 +29,7 @@ import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
+import com.vn.ael.persistence.repository.PackageinfoRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
@@ -41,6 +42,8 @@ public class AccountingController extends BaseFormController {
 	private ExfeetableManager exfeetableManager;
 	
 	private NhathauManager nhathauManager;
+	
+	private PackageinfoRepository packageinfoRepository;
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -58,8 +61,13 @@ public class AccountingController extends BaseFormController {
     public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
         this.docsgeneralManager = docsgeneralManager;
     }
+    
+    @Autowired
+    public void setPackageinfoRepository(PackageinfoRepository packageinfoRepository) {
+		this.packageinfoRepository = packageinfoRepository;
+	}
 
-    public AccountingController() {
+	public AccountingController() {
         setCancelView("redirect:"+URLReference.HOME_PAGE);
         setSuccessView("redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST);
     }
@@ -207,6 +215,18 @@ public class AccountingController extends BaseFormController {
         Model model = new ExtendedModelMap();
         model.addAttribute("vantaiList", ServicesType.getUsageMapVT());
         model.addAttribute("conditions",new AccountingTransCondition());
+        model.addAttribute("nhathauList", nhathauManager.getAll());
+      //selection
+        DocsSelection docsSelection = 
+    		configurationManager.loadSelectionForDocsPage
+    		(
+    				ConfigurationType.TYPE_OF_IMPORT,
+    				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+    		);
+        model.addAttribute("docsSelection", docsSelection);
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("shippers", packageinfoRepository.findShipper());
+        model.addAttribute("consignees", packageinfoRepository.findConsignee());
         return new ModelAndView(URLReference.ACCOUNTING_VANTAI_LIST, model.asMap());
     }
     

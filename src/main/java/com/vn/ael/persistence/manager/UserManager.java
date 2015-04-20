@@ -145,4 +145,6 @@ public interface UserManager {
 
 
 	User findById(String id);
+	
+	List<User> getAllUser();
 }

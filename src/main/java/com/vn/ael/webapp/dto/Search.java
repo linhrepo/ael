@@ -21,6 +21,8 @@ public class Search {
 	private Date startTimeRefund;
 	private Date endTimeRefund;
 	private Boolean doApproval;
+	private Date startPayDate;
+	private Date endPayDate;
 	
 	public Long getCustomer() {
 		return customer;
@@ -111,6 +113,18 @@ public class Search {
 	}
 	public void setDoApproval(Boolean doApproval) {
 		this.doApproval = doApproval;
+	}
+	public Date getStartPayDate() {
+		return startPayDate;
+	}
+	public void setStartPayDate(Date startPayDate) {
+		this.startPayDate = startPayDate;
+	}
+	public Date getEndPayDate() {
+		return endPayDate;
+	}
+	public void setEndPayDate(Date endPayDate) {
+		this.endPayDate = endPayDate;
 	}	
 	
 }

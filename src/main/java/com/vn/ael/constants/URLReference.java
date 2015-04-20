@@ -89,7 +89,7 @@ public interface URLReference {
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
 	String AJAX_REPORT_ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/download";
-	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/vantaiList";
+	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/inlandPackageinfo";
 	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
 	
 	String AJAX_REPORT_ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition/download";
@@ -100,4 +100,6 @@ public interface URLReference {
 	
 	String PHIEU_CHI_DOWNLOAD = "/users/advanceForm/phieuchi/download";
 	String PHIEU_THU_DOWNLOAD = "/users/refund/phieuthu/download";
+	
+	String ACC_ADVANCE_SUMARY_SEARCH = "/admin/accounting/searchAdvanceSumary";
 }

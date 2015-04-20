@@ -38,5 +38,7 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	
 	public List<Truckingdetail> searchNhathau(AccountingTransCondition accountingTransCondition);
 	
+	public List<Truckingdetail> searchVantai(AccountingTransCondition accountingTransCondition);
+	
 }
 
