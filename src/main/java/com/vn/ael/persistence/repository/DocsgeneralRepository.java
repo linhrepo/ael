@@ -105,6 +105,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			+ "(e.packageinfo.customsDate between :startDate and :endDate) and "
 			+ "(e.packageinfo.consignee = :consignee or :consignee = '') and "
 			+ "(e.packageinfo.shipper = :shipper or :shipper = '') and "
+			+ "(e.jobNo = :jobNo or :jobNo = '') and "
 			+ "e.doAccounting =:doAccounting")
 	List<Docsgeneral> searchShipment(@Param("customerId") Long customerId,
 			@Param("typeOfImport") Long typeOfImport,
@@ -113,5 +114,6 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="startDate") Date startDate,
 			@Param(value="endDate") Date endDate,
 			@Param(value="consignee") String consignee,
-			@Param(value="shipper") String shipper);
+			@Param(value="shipper") String shipper,
+			@Param(value="jobNo") String jobNo);
 }
