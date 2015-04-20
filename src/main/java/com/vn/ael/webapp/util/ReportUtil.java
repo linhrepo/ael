@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
+import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.enums.ReportMergeInfo;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
@@ -57,12 +59,16 @@ import com.vn.ael.persistence.entity.Packageinfo;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
+import com.vn.ael.webapp.dto.AccountingNhathauExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.AdvanceRequestItem;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
+import com.vn.ael.webapp.dto.FeeExportItem;
+import com.vn.ael.webapp.dto.FeeNameExport;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
 import com.vn.ael.webapp.dto.RefundRequestItem;
 import com.vn.ael.webapp.formatter.FormatterUtil;
@@ -122,20 +128,27 @@ public class ReportUtil {
 	 */
 	public static void dispatchReport(HttpServletResponse response,
 			String reportName, String reportTemplates,
-			Map<String, Object> data, ReportMergeInfo mergeInfo,
-			List<Integer> mergeIndexs) {
+			Map<String, Object> data, 
+			Map<ReportMergeInfo,List<Integer>> dataMegres) {
 		try {
 			Workbook workbook = generateWorkbook(reportTemplates, data);
 			Sheet sheet = workbook.getSheetAt(0);
 			if (workbook != null) {
-				if (mergeIndexs != null) {
-					for (Integer height : mergeIndexs) {
-						for (int index : mergeInfo.getCols()) {
-							if (height > 0) {
-								sheet.addMergedRegion(new CellRangeAddress(
-										mergeInfo.getStartingRow(), mergeInfo
-												.getStartingRow() + height - 1,
-										index, index));
+				if (dataMegres != null){
+					for (Entry<ReportMergeInfo, List<Integer>> merge : dataMegres.entrySet()){
+						List<Integer> mergeIndexs = merge.getValue();
+						ReportMergeInfo mergeInfo = merge.getKey(); 
+						if (mergeIndexs != null) {
+							int startRow = mergeInfo.getStartingRow();
+							for (Integer height : mergeIndexs) {
+								for (int index : mergeInfo.getCols()) {
+									if (height > 0) {
+										sheet.addMergedRegion(new CellRangeAddress(
+												startRow,startRow + height - 1,
+												index, index));
+									}
+								}
+								startRow = startRow + height;
 							}
 						}
 					}
@@ -433,6 +446,73 @@ public class ReportUtil {
 		beans.put("giacaTotal", giacaTotal);
 		beans.put("otherTotal", otherTotal);
 		beans.put("total", chihoTotal.add(giacaTotal).add(otherTotal));
+		return beans;
+	}
+	
+	/**
+	 * Prepare data for Bang Ke Nha Thau
+	 * @param accountingTrans
+	 * @return
+	 */
+	public static Map<String, Object> prepareDataForBangKeNhaThau(AccountingTrans accountingTrans){
+		Map<String, Object> beans = new LinkedHashMap<>();
+		//general info
+		beans.put("name", accountingTrans.getNhathau().getName());
+		beans.put("start",accountingTrans.getCondition().getStartDate());
+		beans.put("end",accountingTrans.getCondition().getEndDate());
+		List<List<Exfeetable>> feesList = new ArrayList<>();
+		
+		List<AccountingNhathauExport> accountingNhathauExports = new ArrayList<>();
+		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
+			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
+				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
+				feesList.add(truckingdetail.getExfeetables());
+				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
+				AccountingNhathauExport accountingNhathauExport = new AccountingNhathauExport();
+				accountingNhathauExport.setIndex(i+1);
+				accountingNhathauExport.setDateDev(truckingdetail.getDateDev());
+				accountingNhathauExport.setJobNo(docsgeneral.getJobNo());
+				accountingNhathauExport.setCusName(docsgeneral.getCustomer().getName());
+				
+				accountingNhathauExport.setImportType(docsgeneral.getTypeOfImport()!= null ? docsgeneral.getTypeOfImport().getValue() : AELConst.EMPTY_STRING);
+				accountingNhathauExport.setPlaceGetCont(docsgeneral.getPlaceRev());
+				accountingNhathauExport.setPlacePutCont(docsgeneral.getPlaceDelivery());
+				if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getTypeOfCont()!= null){
+					accountingNhathauExport.setContNo(truckingdetail.getConsteal().getNoOfCont());
+					if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){
+						accountingNhathauExport.setCont20(AELConst.HAVE_ONE);
+					}else if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_40_START)){
+						accountingNhathauExport.setCont40(AELConst.HAVE_ONE);
+					} else{
+						accountingNhathauExport.setContO(AELConst.HAVE_ONE);
+					}
+				}else{
+					accountingNhathauExport.setContO(AELConst.HAVE_ONE);
+				}
+				
+				accountingNhathauExport.setDeparture(truckingdetail.getTruckingservice().getDeparture());
+				accountingNhathauExport.setArrival(truckingdetail.getTruckingservice().getArrival());
+				accountingNhathauExport.setPhuthu(truckingdetail.getPhuthu());
+				
+				accountingNhathauExports.add(accountingNhathauExport);
+			}
+		}
+		FeeNameExport  feeNameExport = ConvertUtil.fromFeeListToFeeExport(feesList);
+		beans.put("feeNames", feeNameExport.getName());
+		if (!accountingNhathauExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
+			for (int i=0; i<accountingNhathauExports.size(); ++i){
+				accountingNhathauExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
+				//calculate total
+				BigDecimal total = ConvertUtil.getNotNullValue(accountingNhathauExports.get(i).getPhuthu());
+				if (feeNameExport.getValues() != null && !feeNameExport.getValues().isEmpty()){
+					for (FeeExportItem exportItem : feeNameExport.getValues().get(i)){
+						total = total.add(exportItem.getFeeVal());
+					}
+					accountingNhathauExports.get(i).setTotal(total);
+				}
+			}
+		}
+		beans.put("details", accountingNhathauExports);
 		return beans;
 	}
 

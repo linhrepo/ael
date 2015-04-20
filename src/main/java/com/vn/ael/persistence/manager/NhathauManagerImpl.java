@@ -31,7 +31,10 @@ public class NhathauManagerImpl extends GenericManagerImpl<Nhathau> implements N
 
 	@Override
 	public List<Nhathau> findByType(NhathauType type) {
-		return this.nhathauRepository.findByType(type.getValue());
+		if (type != null){
+			return this.nhathauRepository.findByType(type.getValue());
+		}
+		return this.nhathauRepository.findAll();
 	}
 
 }

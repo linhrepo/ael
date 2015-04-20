@@ -38,7 +38,8 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			+ "t.truckingservice.docsgeneral.doAccounting = :doAccounting and "
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') and "
 			+ "(t.truckingservice.docsgeneral.customer.id = :customer or :customer is null) "
-			+ "group by (t.id)")
+			+ "group by (t.id)"
+			+ "order by t.truckingservice.docsgeneral.jobNo, t.truckingservice.docsgeneral.customer, t.consteal, t.id")
 	List<Truckingdetail> searchNhathau(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
 			@Param(value="nhathauId")Long nhathauId, @Param(value="jobNo")String jobNo, 
 			@Param(value="customer")Long customer, @Param(value="doAccounting")Boolean doAccounting);
@@ -54,7 +55,8 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.truckingservice ser where ser.id =:id "
 			+"and MONTH(t.dateDev) = :month "
-			+"and YEAR(t.dateDev) = :year ")
+			+"and YEAR(t.dateDev) = :year "
+			+ "order by t.consteal, t.nhathau, t.id")
 	List<Truckingdetail> findWithTruckingserviceAndMonthYear(@Param("id")Long serviceId,
 			@Param("month")Integer month, @Param("year")Integer year);
 }

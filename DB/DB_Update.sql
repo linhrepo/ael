@@ -83,4 +83,15 @@ ALTER TABLE `ael`.`truckingdetail`
 CHANGE COLUMN `noContractUp` `noContractUp` VARCHAR(45) NULL DEFAULT NULL ,
 CHANGE COLUMN `noContractDown` `noContractDown` VARCHAR(45) NULL DEFAULT NULL ;
 
+ALTER TABLE `ael`.`truckingdetail` 
+DROP FOREIGN KEY `truckingdetail_ibfk_2`,
+DROP FOREIGN KEY `truckingdetail_ibfk_1`;
+ALTER TABLE `ael`.`truckingdetail` 
+DROP COLUMN `phuthau2`,
+DROP COLUMN `phuthau1`,
+DROP INDEX `phuthau2` ,
+DROP INDEX `phuthau1` ;
+ALTER TABLE `ael`.`truckingdetail` 
+DROP COLUMN `noContractDown`,
+DROP COLUMN `noContractUp`;
 

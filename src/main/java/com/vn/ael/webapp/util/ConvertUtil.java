@@ -5,14 +5,20 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.jfree.util.Log;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.TypeOfContainer;
+import com.vn.ael.enums.ReportMergeInfo;
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.webapp.dto.FeeExportItem;
+import com.vn.ael.webapp.dto.FeeNameExport;
 
 public class ConvertUtil {
 	
@@ -68,18 +74,43 @@ public class ConvertUtil {
 	 * @param docsgenerals
 	 * @return
 	 */
-	public static List<Integer> generateMergeIndexForTrans(List<Docsgeneral> docsgenerals){
-		List<Integer> integers = new ArrayList<>();
+	public static Map<ReportMergeInfo,List<Integer>> generateMergeIndexForTrans(List<Docsgeneral> docsgenerals){
+		//merge level 1 - by job
+		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
+		List<Integer> jobsOrder = new ArrayList<>();
+		//merge level 2 - by cont
+		List<Integer> contOrder = new ArrayList<>();
 		if (docsgenerals != null){
 			for (Docsgeneral docsgeneral : docsgenerals){
 				if (docsgeneral.getTruckingservice() != null && docsgeneral.getTruckingservice().getTruckingdetails() != null){
-					integers.add(docsgeneral.getTruckingservice().getTruckingdetails().size());
+					jobsOrder.add(docsgeneral.getTruckingservice().getTruckingdetails().size());
+					String contNo=null;
+					int countCont = 1;
+					if (docsgeneral.getTypeOfContainer().getId() != TypeOfContainer.LCL){
+						for (Truckingdetail truckingdetail : docsgeneral.getTruckingservice().getTruckingdetails()){
+							if (contNo == null || (truckingdetail.getConsteal() != null && !contNo.contentEquals(truckingdetail.getConsteal().getNoOfCont()))){
+								if (contNo != null){
+									contOrder.add(countCont);
+									countCont = 1;
+								}
+									contNo = truckingdetail.getConsteal().getNoOfCont();
+							}else{
+								++countCont;
+							}
+						}
+					}
+					else{
+						countCont = docsgeneral.getTruckingservice().getTruckingdetails().size();
+					}
+					contOrder.add(countCont);
 				}else{
-					integers.add(0);
+					jobsOrder.add(0);
 				}
 			}
 		}
-		return integers;
+		map.put(ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN, jobsOrder);
+		map.put(ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN_L2, contOrder);
+		return map;
 	}
 	
 	public static String convertToVND(BigDecimal value){
@@ -257,4 +288,62 @@ public class ConvertUtil {
     }
     return sb.toString();
   }
+
+  /**
+   * Convert for exporting fee
+   * @param feesList
+   * @return
+   */
+	public static FeeNameExport fromFeeListToFeeExport(
+			List<List<Exfeetable>> feesList) {
+		//calculate fee values for each name
+		Map<String,List<FeeExportItem>> feeMap = new LinkedHashMap<>();
+		if (feesList != null && !feesList.isEmpty()){
+			for (int i=0; i<feesList.size(); ++i){
+				List<Exfeetable> exfeetables = feesList.get(i);
+				if (exfeetables!= null && !exfeetables.isEmpty()){
+					for (Exfeetable exfeetable: exfeetables){
+						if (exfeetable!= null){
+							if (!feeMap.containsKey(exfeetable.getName().getValue())){
+								feeMap.put(exfeetable.getName().getValue(), FeeExportItem.createListBySize(feesList.size()));
+							}
+							//cal fee value
+							List<FeeExportItem> crrFeeList = feeMap.get(exfeetable.getName().getValue());
+							BigDecimal crrFeeVal = crrFeeList.get(i).getFeeVal();
+							crrFeeList.get(i).setFeeVal(ConvertUtil.getNotNullValue(crrFeeVal).add(exfeetable.getTotal()));
+							//cal so HD
+							crrFeeList.get(i).setSoHD(crrFeeList.get(i).getSoHD()+exfeetable.getInvoiceNo()+AELConst.NEW_LINE_REPORT);
+						}
+					}
+				}
+			}
+		}
+		FeeNameExport feeNameExport = new FeeNameExport(feeMap.size(),feesList.size());
+		//convert to vertical
+		int i=0;
+		for (Entry<String,List<FeeExportItem>> feeM : feeMap.entrySet()){
+			feeNameExport.getName().add(feeM.getKey());
+			List<FeeExportItem> colFee = feeM.getValue();
+			for (int j=0; j<feeNameExport.getValues().size(); ++j){
+				List<FeeExportItem> rowFee = feeNameExport.getValues().get(j);
+				rowFee.set(i, colFee.get(j));
+			}
+			++i;
+		}
+		
+		return feeNameExport;
+	}
+	
+	/**
+	 * Create list BidDecimal by size
+	 * @param size
+	 * @return
+	 */
+	public static List<BigDecimal> createBySize(int size){
+		List<BigDecimal> bigDecimals = new ArrayList<>();
+		for (int i=0; i< size; ++i){
+			bigDecimals.add(BigDecimal.ZERO);
+		}
+		return bigDecimals;
+	}
 }

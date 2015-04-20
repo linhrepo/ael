@@ -141,7 +141,7 @@
 		    </c:if>
 		    <div class="form-group col-md-9 has-warning">
 		        <appfuse:label styleClass="control-label" key="packageInfo.note"/>
-		        <form:textarea path="docsgeneral.note" id="note"  cssClass="form-control" disabled="true"/>
+		        <form:textarea path="docsgeneral.note" id="note" maxlength="2000" cssClass="form-control"/>
 		        <form:errors path="docsgeneral.note" cssClass="help-block"/>
 		    </div>
 	    </div>
