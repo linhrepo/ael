@@ -3,7 +3,7 @@
 <div class="col-sm-12">
     <h2><fmt:message key="accountingvantai.packageinfo"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="conditions"  method="get" action="vantai/download" id="accountingvantaiForm" cssClass="well" showLoading="false">
+    <form:form commandName="conditions"  method="get" action="thongquan/download" id="accountingvantaiForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
     		<div class="row">		    
 		    	<div class="form-group col-md-4">
@@ -43,7 +43,7 @@
 				<div class="form-group col-md-3">
 					<appfuse:label styleClass="control-label"
 						key="packageInfo.shipper" />
-					<form:select path="job" id="customercode" 
+					<form:select path="shipper" id="customercode" 
 						cssClass="form-control select2">
 						<form:option value=""><fmt:message key="searchall" /></form:option>
 						<form:options items="${shippers }"/>
@@ -53,7 +53,7 @@
 				<div class="form-group col-md-3">
 					<appfuse:label styleClass="control-label"
 						key="packageInfo.consignee" />
-					<form:select path="job" id="customercode" 
+					<form:select path="consignee" id="customercode" 
 						cssClass="form-control select2">
 						<form:option value=""><fmt:message key="searchall" /></form:option>
 						<form:options items="${consignees }"/>

@@ -205,6 +205,12 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 	@Override
 	public List<Truckingdetail> searchVantai(
 			AccountingTransCondition accountingTransCondition) {
-		return truckingdetailRepository.findAllByConditionVantai(ServicesType.fromValue(accountingTransCondition.getTransId().intValue()), accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getNhathauId(), true);
+		return truckingdetailRepository.findAllByConditionVantai(ServicesType.fromValue(accountingTransCondition.getTransId().intValue()), accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getNhathauId(), true, accountingTransCondition.getJob());
+	}
+
+	@Override
+	public List<Truckingdetail> searchPackageInfo(
+			AccountingTransCondition accountingTransCondition) {
+		return truckingdetailRepository.findAllByConditionPackageInfo(ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getJob(), true, accountingTransCondition.getConsignee(), accountingTransCondition.getShipper());
 	}
 }

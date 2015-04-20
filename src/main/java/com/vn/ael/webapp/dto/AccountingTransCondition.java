@@ -13,6 +13,8 @@ public class AccountingTransCondition {
 	Long transId;
 	String job = null;
 	Long typeOfImport;
+	String consignee;
+	String shipper;
 	
 	
 	public Long getCustomerId() {
@@ -68,6 +70,18 @@ public class AccountingTransCondition {
 	}
 	public void setTypeOfImport(Long typeOfImport) {
 		this.typeOfImport = typeOfImport;
+	}
+	public String getConsignee() {
+		return consignee;
+	}
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
+	}
+	public String getShipper() {
+		return shipper;
+	}
+	public void setShipper(String shipper) {
+		this.shipper = shipper;
 	}
 
 }
