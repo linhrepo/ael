@@ -30,7 +30,7 @@
         	<Item name="Fees" title="menu.docs.fees" page="/admin/accounting/feeTables" image="/images/icons/feeAcc.png"/>
         	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceRefunds" image="/images/icons/advance.png"/>
         	<Item name="KeNhaThau" title="menu.acct.nhathau" page="/admin/accounting/nhathauList" image="/images/icons/shipping.png"/>
-        	<Item name="KeVanTai" title="menu.acct.vantai" page="/admin/accounting/vantaiList" image="/images/icons/trans.png"/>
+        	<Item name="KeVanTai" title="menu.acct.vantai" page="/admin/accounting/inlandPackageinfo" image="/images/icons/trans.png"/>
         	<Item name="Shipment" title="menu.acct.shipment" page="/admin/accounting/shipment" image="/images/icons/trans.png"/>
         </Menu>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN,ROLE_CONFIG,ROLE_DOCS,ROLE_TRUCK" page="/admin/users" image="/images/icons/admin.png">

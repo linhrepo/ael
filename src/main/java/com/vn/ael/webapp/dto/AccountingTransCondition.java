@@ -12,6 +12,7 @@ public class AccountingTransCondition {
 	Long nhathauId;
 	Long transId;
 	String job = null;
+	Long typeOfImport;
 	
 	
 	public Long getCustomerId() {
@@ -62,6 +63,11 @@ public class AccountingTransCondition {
 	public void setJob(String job) {
 		this.job = job;
 	}
-
+	public Long getTypeOfImport() {
+		return typeOfImport;
+	}
+	public void setTypeOfImport(Long typeOfImport) {
+		this.typeOfImport = typeOfImport;
+	}
 
 }

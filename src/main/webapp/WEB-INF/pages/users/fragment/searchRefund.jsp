@@ -24,14 +24,14 @@
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="refund.startdate" />
-					<form:input path="startDate" provide="datepicker" id="startDate1"  cssClass="form-control"/>
-			        <form:errors path="startDate" cssClass="help-block"/>
+					<form:input path="startPayDate" provide="datepicker" id="startDate1" autofocus="true" cssClass="form-control"/>
+			        <form:errors path="startPayDate" cssClass="help-block"/>
 			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="refund.startdate" />
-					<form:input path="endDate" provide="datepicker" id="endDate1"  cssClass="form-control"/>
-			        <form:errors path="endDate" cssClass="help-block"/>
+					key="refund.enddate" />
+					<form:input path="endPayDate" provide="datepicker" id="endDate1" autofocus="true" cssClass="form-control"/>
+			        <form:errors path="endPayDate" cssClass="help-block"/>
 			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"

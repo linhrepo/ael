@@ -20,7 +20,7 @@ public interface RefundRepository extends GenericRepository<Refund> {
 	List<Refund> findByEmployee(User employee);
 	
 	@Query("SELECT e FROM Refund e WHERE (e.employee.id = :employeeId or :employeeId is null) and "
-			+ "(e.date between :startDate and :endDate) and "
+			+ "(e.date >= :startDate or :startDate is null) and (e.date <= :endDate or :endDate is null) and "
 			+ "(e.doApproval =:doApproval or :doApproval is null)")
 	List<Refund> searchRefund(@Param("employeeId") Long employeeId,
 			@Param("startDate") Date startDate,

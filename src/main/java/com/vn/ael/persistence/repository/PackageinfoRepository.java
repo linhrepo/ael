@@ -29,5 +29,11 @@ public interface PackageinfoRepository extends GenericRepository<Packageinfo> {
 			@Param("doDelivery") Boolean doDelivery,
 			@Param("doRelease") Boolean doRelease);
 	
+	@Query("SELECT DISTINCT e.shipper FROM Packageinfo e WHERE e.shipper != '' and e.shipper is not null")
+	List<String> findShipper();
+	
+	@Query("SELECT DISTINCT e.consignee FROM Packageinfo e")
+	List<String> findConsignee();
+	
 }
  
