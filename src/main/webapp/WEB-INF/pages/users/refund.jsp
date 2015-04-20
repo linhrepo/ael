@@ -30,10 +30,12 @@
 		           	 <i class="fa fa-print"></i> <fmt:message key="refund.printPayment"/>
 		        	</a>
 	        	</security:authorize>
-	        	<a class="btn btn-success" href="refund/download?id=${refund.id}">
-		           	 <i class="fa fa-print" ></i> <fmt:message key="refund.printRefund"/>
-		        	</a>
 	        </c:if>
+	         <c:if test="${not empty refund.id}">
+		        <a class="btn btn-success" href="refund/download?id=${refund.id}">
+			           	 <i class="fa fa-print" ></i> <fmt:message key="refund.printRefund"/>
+			        	</a>
+		     </c:if>
 	        <c:if test="${not empty refund.id && refund.doApproval != true}">
 	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
 	              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>

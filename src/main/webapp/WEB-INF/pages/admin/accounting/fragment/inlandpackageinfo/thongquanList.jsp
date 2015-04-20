@@ -1,10 +1,5 @@
 <%@ include file="/common/taglibs.jsp" %>
 
-<head>
-    <title><fmt:message key="accountingvantai.title"/></title>
-    <meta name="menu" content="AccountingMenu"/>
-</head>
-
 <div class="col-sm-12">
     <h2><fmt:message key="accountingvantai.packageinfo"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>

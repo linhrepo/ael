@@ -73,7 +73,7 @@ $(document).ready(function(){
 		UTIL.hideLoadingMask();
 	});
 	
-	$("form").submit(function(){
+	$("form[showLoading!='false']").submit(function(){
 		UTIL.showLoadingMask();
 		return true;
 	});

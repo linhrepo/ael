@@ -16,6 +16,9 @@ public interface ReportTeamplates {
 	String ACCOUNTING_NHATHAU_ITEMS = "BangKeNhaThau.xlsx";
 	String ACCOUNTING_NHATHAU_ITEMS_TEMPLATE = "ExportTemplate/BangKeNhaThau.xlsx";
 	
+	String ACCOUNTING_KHVT_NOIDIA_ITEMS = "KeHoachVanTaiNoiDia.xlsx";
+	String ACCOUNTING_KHVT_NOIDIA_ITEMS_TEMPLATE = "ExportTemplate/KeHoachVanTaiNoiDiaTemplate.xlsx";
+	
 	String ACCOUNTING_EXHIBITION_ITEMS = "AccountingExhibition.pdf";
 	String ACCOUNTING_EXHIBITION_ITEMS_TEMPLATE = "ExportTemplate/AccountingExhibitionTemplate.jrxml";
 	String ACCOUNTING_EXHIBITION_ITEMS_AEL_LOGO = "images/aelLogo.jpg";

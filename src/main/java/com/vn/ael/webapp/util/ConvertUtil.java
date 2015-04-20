@@ -75,41 +75,10 @@ public class ConvertUtil {
 	 * @return
 	 */
 	public static Map<ReportMergeInfo,List<Integer>> generateMergeIndexForTrans(List<Docsgeneral> docsgenerals){
-		//merge level 1 - by job
 		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
-		List<Integer> jobsOrder = new ArrayList<>();
-		//merge level 2 - by cont
-		List<Integer> contOrder = new ArrayList<>();
-		if (docsgenerals != null){
-			for (Docsgeneral docsgeneral : docsgenerals){
-				if (docsgeneral.getTruckingservice() != null && docsgeneral.getTruckingservice().getTruckingdetails() != null){
-					jobsOrder.add(docsgeneral.getTruckingservice().getTruckingdetails().size());
-					String contNo=null;
-					int countCont = 1;
-					if (docsgeneral.getTypeOfContainer().getId() != TypeOfContainer.LCL){
-						for (Truckingdetail truckingdetail : docsgeneral.getTruckingservice().getTruckingdetails()){
-							if (contNo == null || (truckingdetail.getConsteal() != null && !contNo.contentEquals(truckingdetail.getConsteal().getNoOfCont()))){
-								if (contNo != null){
-									contOrder.add(countCont);
-									countCont = 1;
-								}
-									contNo = truckingdetail.getConsteal().getNoOfCont();
-							}else{
-								++countCont;
-							}
-						}
-					}
-					else{
-						countCont = docsgeneral.getTruckingservice().getTruckingdetails().size();
-					}
-					contOrder.add(countCont);
-				}else{
-					jobsOrder.add(0);
-				}
-			}
-		}
-		map.put(ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN, jobsOrder);
-		map.put(ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN_L2, contOrder);
+		List<List<Integer>> orders = generateMergIndexByJobAndCont(docsgenerals);
+		map.put(ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN, orders.get(0));
+		map.put(ReportMergeInfo.BANG_KE_CUOC_VAN_CHUYEN_L2, orders.get(1));
 		return map;
 	}
 	
@@ -345,5 +314,88 @@ public class ConvertUtil {
 			bigDecimals.add(BigDecimal.ZERO);
 		}
 		return bigDecimals;
+	}
+
+	public static Map<ReportMergeInfo, List<Integer>> generateMergeIndexForKHVTNoidia(
+			List<Truckingdetail> truckingdetails) {
+		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
+		List<Integer> jobsOrder = new ArrayList<>();
+		//merge level 2 - by cont
+		List<Integer> contOrder = new ArrayList<>();
+		if (truckingdetails !=null && !truckingdetails.isEmpty()){
+			Long contNo=null;
+			int countCont = 1;
+			Long docsNo = null;
+			int countDocs = 1;
+			for (Truckingdetail truckingdetail : truckingdetails){
+				if (truckingdetail.getConsteal() == null){
+					contNo=null;
+					contOrder.add(countCont);
+					countCont = 1;
+				}else{
+					if (contNo == null || (truckingdetail.getConsteal() != null && contNo !=truckingdetail.getConsteal().getId())){
+						if (contNo != null){
+							contOrder.add(countCont);
+							countCont = 1;
+						}
+							contNo = truckingdetail.getConsteal().getId();
+					}else{
+						++countCont;
+					}
+				}
+				
+				if (docsNo == null || (docsNo !=truckingdetail.getTruckingservice().getDocsgeneral().getId())){
+					if (contNo != null){
+						jobsOrder.add(countDocs);
+						countDocs = 1;
+					}
+					docsNo = truckingdetail.getTruckingservice().getDocsgeneral().getId();
+				}else{
+					++countDocs;
+				}
+			}
+		}
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_NOI_DIA, jobsOrder);
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_NOI_DIA_L2, contOrder);
+		return map;
+	}
+	
+	public static List<List<Integer>> generateMergIndexByJobAndCont(List<Docsgeneral> docsgenerals){
+		//merge level 1 - by job
+				List<Integer> jobsOrder = new ArrayList<>();
+				//merge level 2 - by cont
+				List<Integer> contOrder = new ArrayList<>();
+				if (docsgenerals != null){
+					for (Docsgeneral docsgeneral : docsgenerals){
+						if (docsgeneral.getTruckingservice() != null && docsgeneral.getTruckingservice().getTruckingdetails() != null){
+							jobsOrder.add(docsgeneral.getTruckingservice().getTruckingdetails().size());
+							Long contNo=null;
+							int countCont = 1;
+							if (docsgeneral.getTypeOfContainer().getId() != TypeOfContainer.LCL){
+								for (Truckingdetail truckingdetail : docsgeneral.getTruckingservice().getTruckingdetails()){
+									if (contNo == null || (truckingdetail.getConsteal() != null && contNo !=truckingdetail.getConsteal().getId())){
+										if (contNo != null){
+											contOrder.add(countCont);
+											countCont = 1;
+										}
+											contNo = truckingdetail.getConsteal().getId();
+									}else{
+										++countCont;
+									}
+								}
+							}
+							else{
+								countCont = docsgeneral.getTruckingservice().getTruckingdetails().size();
+							}
+							contOrder.add(countCont);
+						}else{
+							jobsOrder.add(0);
+						}
+					}
+				}
+		List<List<Integer>> lists = new ArrayList<>();
+		lists.add(jobsOrder);
+		lists.add(contOrder);
+		return lists;
 	}
 }

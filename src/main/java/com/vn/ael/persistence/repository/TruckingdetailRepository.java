@@ -49,7 +49,8 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			+ "(d.customer.id = :customerId or :customerId is null) and "
 			+ "(t.nhathau.id = :nhathauId or :nhathauId is null) and "
 			+ "t.truckingservice.docsgeneral.doAccounting = :doAccounting "
-			+ "group by t.id")
+			+ "group by t.id "
+			+ "order by d.customer.id, d.jobNo, t.consteal, t.id ")
 	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") ServicesType transId, @Param(value="startDate") Date startDate, 
 			@Param(value="endDate")Date endDate, @Param(value="customerId")Long customerId, @Param(value="nhathauId")Long nhathauId, @Param(value="doAccounting")Boolean doAccounting);
 

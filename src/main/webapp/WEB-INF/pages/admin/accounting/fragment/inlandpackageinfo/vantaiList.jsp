@@ -1,14 +1,9 @@
 <%@ include file="/common/taglibs.jsp" %>
 
-<head>
-    <title><fmt:message key="accountingvantai.title"/></title>
-    <meta name="menu" content="AccountingMenu"/>
-</head>
-
 <div class="col-sm-12">
     <h2><fmt:message key="accountingvantai.title"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="conditions"  method="post" action="vantai" id="accountingvantaiForm" cssClass="well">
+    <form:form commandName="conditions"  method="get" action="vantai/download" id="accountingvantaiForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
     		<div class="row">
 			    <div class="form-group col-md-4">
@@ -65,8 +60,8 @@
     	</div>
 	     <hr>
 	    <div class="form-group form-actions">
-	        <button class="btn btn-primary">
-	    	<i class="fa fa-search"></i> <fmt:message key="button.search"/>
+	        <button class="btn btn-success">
+	    	<i class="fa fa-print"></i> <fmt:message key="accounting.transport.download"/>
 	    	<input type="submit" style="display: none;"/>
 	    	</button>
 	    </div>
