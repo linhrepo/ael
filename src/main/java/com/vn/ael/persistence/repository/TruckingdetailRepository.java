@@ -75,4 +75,17 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	List<Truckingdetail> findAllByConditionPackageInfo(@Param(value="transId") ServicesType transId, @Param(value="startDate") Date startDate, 
 			@Param(value="endDate")Date endDate, @Param(value="customerId")Long customerId, @Param(value="jobNo")String jobNo,
 			@Param(value="doAccounting")Boolean doAccounting, @Param(value="consignee")String consignee, @Param(value="shipper")String shipper);
+	
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d WHERE "
+			+ "(t.dateDev between :startDate and :endDate) and "
+			+ "(d.customer.id = :customerId or :customerId is null) and "
+			+ "d.typeOfDocs =:typeOfDocs and "
+			+ "(d.jobNo = :jobNo or :jobNo = '') and "
+			+ "d.doAccounting =:doAccounting")
+	List<Truckingdetail> searchProfitLoss(@Param("customerId") Long customerId,
+			@Param("doAccounting") Boolean doAccounting,
+			@Param(value="startDate") Date startDate, 
+			@Param(value="endDate")Date endDate,
+			@Param(value="typeOfDocs") ServicesType typeOfDocs,
+			@Param(value="jobNo") String jobNo);
 }

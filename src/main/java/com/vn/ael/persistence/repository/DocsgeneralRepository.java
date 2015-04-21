@@ -117,12 +117,5 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="shipper") String shipper,
 			@Param(value="jobNo") String jobNo);
 	
-	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
-			+ "e.typeOfDocs =:typeOfDocs and "
-			+ "(e.jobNo = :jobNo or :jobNo = '') and "
-			+ "e.doAccounting =:doAccounting")
-	List<Docsgeneral> searchProfitLoss(@Param("customerId") Long customerId,
-			@Param("doAccounting") Boolean doAccounting,
-			@Param(value="typeOfDocs") ServicesType typeOfDocs,
-			@Param(value="jobNo") String jobNo);
+	
 }

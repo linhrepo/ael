@@ -11,7 +11,7 @@
     <form:form commandName="conditions"  method="get" action="profitloss/download" id="profitlossForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
     		<div class="row">		    
-		    	<div class="form-group col-md-3">
+		    	<div class="form-group col-md-4">
 					<appfuse:label styleClass="control-label"
 						key="customer.title" />
 					<form:select path="customerId" id="customercode"
@@ -23,7 +23,7 @@
 					</form:select>
 				</div>
 				
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-4">
 					<appfuse:label styleClass="control-label"
 						key="accountingnhathau.jobNo" />
 					<form:select path="job" id="customercode" 
@@ -32,7 +32,7 @@
 						<form:options items="${jobList }"/>
 					</form:select>
 				</div>
-				<div class="form-group col-md-3">
+				<div class="form-group col-md-4">
 					<appfuse:label styleClass="control-label"
 						key="trucking.typeOfDocs" />
 					<form:select path="typeOfDocs" id="typeOfDocs"
@@ -42,47 +42,16 @@
 						</c:forEach>
 					</form:select>
 				</div>
-				<%-- <div class="form-group col-md-4">
-					<appfuse:label styleClass="control-label"
-						key="configuration.typeOfImport" />
-					<form:select path="typeOfImport" id="typeOfImport"
-						cssClass="form-control select2">
-						<form:option value=""><fmt:message key="searchall" /></form:option>
-						<c:forEach var="entry" items="${docsSelection.selections['importTypes']}">
-							<form:option value="${entry.key}">${entry.value}</form:option>
-						</c:forEach>
-					</form:select>
-				</div>
-				
-				<div class="form-group col-md-3">
-					<appfuse:label styleClass="control-label"
-						key="packageInfo.shipper" />
-					<form:select path="shipper" id="customercode" 
-						cssClass="form-control select2">
-						<form:option value=""><fmt:message key="searchall" /></form:option>
-						<form:options items="${shippers }"/>
-					</form:select>
-				</div>
-				
-				<div class="form-group col-md-3">
-					<appfuse:label styleClass="control-label"
-						key="packageInfo.consignee" />
-					<form:select path="consignee" id="customercode" 
-						cssClass="form-control select2">
-						<form:option value=""><fmt:message key="searchall" /></form:option>
-						<form:options items="${consignees }"/>
-					</form:select>
-				</div> --%>
 			    
-			    <%-- <div class="form-group col-md-3">
+			    <div class="form-group col-md-4">
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
 				    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDateVT1"/>
 			    </div>
 			    
-			    <div class="form-group col-md-3">
+			    <div class="form-group col-md-4">
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
 				    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDateVT1"/>
-			    </div> --%>
+			    </div>
     		</div>
     	</div>
 	     <hr>

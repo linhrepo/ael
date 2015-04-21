@@ -213,4 +213,10 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 			AccountingTransCondition accountingTransCondition) {
 		return truckingdetailRepository.findAllByConditionPackageInfo(ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getJob(), true, accountingTransCondition.getConsignee(), accountingTransCondition.getShipper());
 	}
+
+	@Override
+	public List<Truckingdetail> searchProfitLoss(
+			AccountingTransCondition accountingTransCondition) {
+		return truckingdetailRepository.searchProfitLoss(accountingTransCondition.getCustomerId(), true, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), ServicesType.fromValue(accountingTransCondition.getTypeOfDocs().intValue()), accountingTransCondition.getJob());
+	}
 }
