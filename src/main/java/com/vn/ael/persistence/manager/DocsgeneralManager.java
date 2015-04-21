@@ -91,5 +91,4 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
 	List<Docsgeneral> searchShipment(AccountingTransCondition accountingTransCondition);
 	
-	List<Docsgeneral> viewProfitLoss(AccountingTransCondition accountingTransCondition);
 }

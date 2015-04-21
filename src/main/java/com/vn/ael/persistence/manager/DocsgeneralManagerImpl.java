@@ -412,10 +412,4 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			AccountingTransCondition accountingTransCondition) {
 		return docsgeneralRepository.searchShipment(accountingTransCondition.getCustomerId(), accountingTransCondition.getTypeOfImport(), true, ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getConsignee(), accountingTransCondition.getShipper(), accountingTransCondition.getJob());
 	}
-
-	@Override
-	public List<Docsgeneral> viewProfitLoss(
-			AccountingTransCondition accountingTransCondition) {
-		return docsgeneralRepository.searchProfitLoss(accountingTransCondition.getCustomerId(), true, ServicesType.fromValue(accountingTransCondition.getTypeOfDocs().intValue()), accountingTransCondition.getJob());
-	}
 }

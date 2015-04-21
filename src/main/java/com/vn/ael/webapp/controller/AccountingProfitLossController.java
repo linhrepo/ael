@@ -13,39 +13,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.vn.ael.constants.URLReference;
-import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
-import com.vn.ael.persistence.entity.Truckingservice;
-import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
-import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.util.ConvertUtil;
 
 @Controller
 public class AccountingProfitLossController {
-private DocsgeneralManager docsgeneralManager;
-	
-	private ExfeetableRepository exfeetableRepository;
-	
-	private TruckingdetailRepository truckingdetailRepository;
 
-	@Autowired
-	public void setDocsgeneralManager(DocsgeneralManager docsgeneralManager) {
-		this.docsgeneralManager = docsgeneralManager;
-	}
-		
+	private TruckingserviceManager truckingserviceManager;
+	
+	private ExfeetableRepository exfeetableRepository;	
+
 	@Autowired
 	public void setExfeetableRepository(ExfeetableRepository exfeetableRepository) {
 		this.exfeetableRepository = exfeetableRepository;
 	}
 
 	@Autowired
-	public void setTruckingdetailRepository(
-			TruckingdetailRepository truckingdetailRepository) {
-		this.truckingdetailRepository = truckingdetailRepository;
+	public void setTruckingserviceManager(
+			TruckingserviceManager truckingserviceManager) {
+		this.truckingserviceManager = truckingserviceManager;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value=URLReference.AJAX_REPORT_ACCOUNTING_PROFIT_LOSS)
@@ -65,35 +56,25 @@ private DocsgeneralManager docsgeneralManager;
 private AccountingTrans setUpDataProfitLoss(HttpServletRequest request, AccountingTransCondition accountingTransCondition){
         
         //Set up command
-        List<Docsgeneral> docsgenerals = this.docsgeneralManager.viewProfitLoss(accountingTransCondition);
+        List<Truckingdetail> truckingdetails = this.truckingserviceManager.searchProfitLoss(accountingTransCondition);
         List<Exfeetable> exfeetables = new ArrayList<>();
         
-        if(docsgenerals != null && !docsgenerals.isEmpty()){
-        	for (Docsgeneral docsgeneral : docsgenerals) {
-        		Truckingservice truckingservice = docsgeneral.getTruckingservice();
-        		if(truckingservice != null){
-        			List<Truckingdetail> truckingdetails = truckingdetailRepository.findWithFullTruckingservice(truckingservice.getId());
-        			if(truckingdetails != null && !truckingdetails.isEmpty()){
-        				for (Truckingdetail truckingdetail : truckingdetails) {
-        					//load fee
-        	        		BigDecimal total = BigDecimal.ZERO;
-        	        		exfeetables = exfeetableRepository.findByTruckingdetail(truckingdetail);
-        	        		if(exfeetables != null && !exfeetables.isEmpty()){
-        	        			for (Exfeetable exfeetable : exfeetables) {
-        	        					total = total.add(ConvertUtil.getNotNullValue(exfeetable.getTotal()));
-        						}
-        	        		}
-        	        		truckingdetail.setTotal(total);
-        	        		truckingdetail.setExfeetables(exfeetables);
-						}        				
-        			}
-        			truckingservice.setTruckingdetails(truckingdetails);
+        if(truckingdetails != null && !truckingdetails.isEmpty()){
+			for (Truckingdetail truckingdetail : truckingdetails) {
+				//load fee
+        		BigDecimal total = BigDecimal.ZERO;
+        		exfeetables = exfeetableRepository.findByTruckingdetail(truckingdetail);
+        		if(exfeetables != null && !exfeetables.isEmpty()){
+        			for (Exfeetable exfeetable : exfeetables) {
+        					total = total.add(ConvertUtil.getNotNullValue(exfeetable.getTotal()));
+					}
         		}
-        		docsgeneral.setTruckingservice(truckingservice);
+        		truckingdetail.setTotal(total);
+        		truckingdetail.setExfeetables(exfeetables);
 			}
-        }
+		}
         AccountingTrans accountingTrans = new AccountingTrans();
-        accountingTrans.setDocs(docsgenerals);
+        accountingTrans.setTruckingdetails(truckingdetails);
         accountingTrans.setCondition(accountingTransCondition);
         return accountingTrans;
    }

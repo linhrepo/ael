@@ -5,16 +5,16 @@ import java.util.Map;
 
 public enum StatusType {
 
-	NO(0,"no"),
-	YES(1,"yes");
+	NO("false","no"),
+	YES("true","yes");
 	
-	private int value;
+	private String value;
 	private String label;
 	
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(int value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	public String getLabel() {
@@ -24,7 +24,7 @@ public enum StatusType {
 		this.label = label;
 	}
 	
-	private StatusType(int value, String label) {
+	private StatusType(String value, String label) {
 		this.value = value;
 		this.label = label;
 	}
@@ -33,17 +33,17 @@ public enum StatusType {
 		 return String.valueOf(this.value);
 	}
 	 
-	 public static Map<Integer, String> getLabelsMap(){
-			Map<Integer, String> map = new LinkedHashMap<>();
+	 public static Map<String, String> getLabelsMap(){
+			Map<String, String> map = new LinkedHashMap<>();
 			for (StatusType servicesType : StatusType.values()){
 					map.put(servicesType.getValue(), servicesType.getLabel());
 			}
 			return map;
 		}
 		
-		public static StatusType fromValue(int value){
+		public static StatusType fromValue(String value){
 			for (StatusType servicesType : StatusType.values()){
-				if (servicesType.getValue() == value){
+				if (servicesType.getValue().equals(value)){
 					return servicesType;
 				}
 			}
