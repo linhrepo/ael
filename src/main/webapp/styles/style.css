@@ -464,3 +464,7 @@ button.collapsed, button.collapsed:focus{
 	  border-bottom-style: ridge;
   	  border-right-style: ridge;
 }
+
+.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-bottom{
+	z-index: 1040 !important;	
+}

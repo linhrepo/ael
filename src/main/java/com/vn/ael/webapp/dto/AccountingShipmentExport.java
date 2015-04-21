@@ -3,6 +3,8 @@ package com.vn.ael.webapp.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.vn.ael.constants.AELConst;
+
 public class AccountingShipmentExport {
 	private Integer index;
 	private String jobNo;
@@ -22,6 +24,11 @@ public class AccountingShipmentExport {
 	private Date decDate;
 	private String soToKhai;
 	private String colour;
+	private String empty;
+	
+	public AccountingShipmentExport(){
+		this.empty = AELConst.EMPTY_STRING;
+	}
 	public Integer getIndex() {
 		return index;
 	}
@@ -129,6 +136,12 @@ public class AccountingShipmentExport {
 	}
 	public void setShipper(String shipper) {
 		this.shipper = shipper;
+	}
+	public String getEmpty(){
+		return this.empty;
+	}
+	public void setEmpty(String empty) {
+		this.empty = empty;
 	}
 	
 }

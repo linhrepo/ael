@@ -62,6 +62,7 @@ import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingNhathauExport;
+import com.vn.ael.webapp.dto.AccountingProfitLossExport;
 import com.vn.ael.webapp.dto.AccountingShipmentExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
@@ -135,8 +136,8 @@ public class ReportUtil {
 			Map<ReportMergeInfo,List<Integer>> dataMegres) {
 		try {
 			Workbook workbook = generateWorkbook(reportTemplates, data);
-			Sheet sheet = workbook.getSheetAt(0);
 			if (workbook != null) {
+				Sheet sheet = workbook.getSheetAt(0);
 				if (dataMegres != null){
 					for (Entry<ReportMergeInfo, List<Integer>> merge : dataMegres.entrySet()){
 						List<Integer> mergeIndexs = merge.getValue();
@@ -928,6 +929,45 @@ public class ReportUtil {
 		
 	    parameterMap.put("detail", hoachVanTaiExports);
 		
+		return parameterMap;
+	}
+
+	public static Map<String, Object> prepareDataForProfitLoss(
+			AccountingTrans accountingTrans) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startDate", accountingTrans.getCondition().getStartDate());
+		parameterMap.put("endDate", accountingTrans.getCondition().getEndDate());
+		List<AccountingProfitLossExport> profitLossExports = new ArrayList<>();
+		List<List<Exfeetable>> feesList = new ArrayList<>();
+		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
+			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
+				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
+				feesList.add(truckingdetail.getExfeetables());
+				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
+				AccountingProfitLossExport profitLossExport = new AccountingProfitLossExport();
+				profitLossExport.setJobNo(docsgeneral.getJobNo());
+				profitLossExport.setCusName(docsgeneral.getCustomer().getName());
+				profitLossExport.setContNo(truckingdetail.getConsteal() != null ? truckingdetail.getConsteal().getNoOfCont() : AELConst.EMPTY_STRING);
+				profitLossExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				profitLossExports.add(profitLossExport);
+			}
+		}
+//			    FeeNameExport  feeNameExport = ConvertUtil.fromFeeListToFeeExport(feesList);
+//			    parameterMap.put("feeNames", feeNameExport.getName());
+//				if (!profitLossExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
+//					for (int i=0; i<profitLossExports.size(); ++i){
+//						profitLossExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
+//						//calculate total
+//						BigDecimal total = BigDecimal.ZERO;
+//						if (feeNameExport.getValues() != null && !feeNameExport.getValues().isEmpty()){
+//							for (FeeExportItem exportItem : feeNameExport.getValues().get(i)){
+//								total = total.add(exportItem.getFeeVal());
+//							}
+//							profitLossExports.get(i).setTotal(total);
+//						}
+//					}
+//				}
+			 parameterMap.put("details", profitLossExports);
 		return parameterMap;
 	}
 }

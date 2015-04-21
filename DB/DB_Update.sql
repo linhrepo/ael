@@ -95,3 +95,7 @@ ALTER TABLE `ael`.`truckingdetail`
 DROP COLUMN `noContractDown`,
 DROP COLUMN `noContractUp`;
 
+ALTER TABLE `ael`.`nhathau` 
+CHANGE COLUMN `taxNo` `taxNo` VARCHAR(45) NULL DEFAULT NULL ,
+ADD COLUMN `info` VARCHAR(1000) NULL AFTER `code`;
+

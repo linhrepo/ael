@@ -467,4 +467,10 @@ public class ConvertUtil {
 		return map;
 	}
 
+	public static Map<ReportMergeInfo, List<Integer>> generateMergeIndexForProfitLoss(
+			List<Truckingdetail> truckingdetails) {
+		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
+		return map;
+	}
+
 }
