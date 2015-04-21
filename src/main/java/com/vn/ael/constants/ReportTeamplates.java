@@ -37,4 +37,7 @@ public interface ReportTeamplates {
 	
 	String PHIEU_THU_ITEMS="PhieuThu.xlsx";
 	String PHIEU_THU_ITEMS_TEMPLATE="ExportTemplate/PhieuThuTemplate.xlsx";
+	
+	String ADVANCE_SUMARY_ITEMS="AdvanceSumary.xlsx";
+	String ADVANCE_SUMARY_ITEMS_TEMPLATE="ExportTemplate/AdvanceSumaryTemplate.xlsx";
 }
