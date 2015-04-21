@@ -60,8 +60,6 @@ import com.vn.ael.persistence.entity.Packageinfo;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
-import com.vn.ael.persistence.entity.Truckingservice;
-import com.vn.ael.webapp.controller.AccountingVantaiController;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingNhathauExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
@@ -72,6 +70,7 @@ import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.FeeExportItem;
 import com.vn.ael.webapp.dto.FeeNameExport;
 import com.vn.ael.webapp.dto.KeHoachVanTaiExport;
+import com.vn.ael.webapp.dto.KeHoachVanTaiThongQuanExport;
 import com.vn.ael.webapp.dto.OfferItemExportModel;
 import com.vn.ael.webapp.dto.RefundRequestItem;
 import com.vn.ael.webapp.formatter.FormatterUtil;
@@ -402,7 +401,7 @@ public class ReportUtil {
 						item.setNoOf20Cont(doc.getNoOf20Cont());
 						item.setNoOf40Cont(doc.getNoOf40Cont());
 						item.setNoOfOthCont(doc.getOtCont());
-						item.setIsLCL(doc.getIsLCL() ? "x" : "");
+						item.setIsLCL(doc.getIsLCL() ? AELConst.HAVE_ONE : AELConst.EMPTY_STRING);
 						item.setVehicleNo(truckingdetail.getVehicleNo());
 						item.setNoOfCont(truckingdetail.getConsteal() != null ? truckingdetail
 								.getConsteal().getNoOfCont()
@@ -837,6 +836,53 @@ public class ReportUtil {
 				}
 			 parameterMap.put("details", hoachVanTaiExports);
 		 }
+		return parameterMap;
+	}
+
+	public static Map<String, Object> prepareDataForKHVTThongquan(
+			AccountingTrans accountingTrans) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startDate", accountingTrans.getCondition().getStartDate());
+		parameterMap.put("endDate", accountingTrans.getCondition().getEndDate());
+		
+		List<KeHoachVanTaiThongQuanExport> hoachVanTaiExports = new ArrayList<>();
+		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
+			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
+				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
+				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
+				KeHoachVanTaiThongQuanExport keHoachVanTaiExport = new KeHoachVanTaiThongQuanExport();
+				keHoachVanTaiExport.setDateDev(truckingdetail.getDateDev());
+				keHoachVanTaiExport.setJobNo(docsgeneral.getJobNo());
+				keHoachVanTaiExport.setCusName(docsgeneral.getCustomer().getName());
+				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getTypeOfCont()!= null){
+					keHoachVanTaiExport.setContNo(truckingdetail.getConsteal().getNoOfCont());
+					if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){
+						keHoachVanTaiExport.setCont20(AELConst.HAVE_ONE);
+					}else if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_40_START)){
+						keHoachVanTaiExport.setCont40(AELConst.HAVE_ONE);
+					} else{
+						keHoachVanTaiExport.setContO(AELConst.HAVE_ONE);
+					}
+				}else{
+					keHoachVanTaiExport.setPks(truckingdetail.getTruckingservice().getDocsgeneral().getNoOfPkgsText());
+					keHoachVanTaiExport.setWeight(truckingdetail.getTruckingservice().getDocsgeneral().getWeigthText());
+				}
+				keHoachVanTaiExport.setDeparture(truckingdetail.getTruckingservice().getDeparture());
+				keHoachVanTaiExport.setArrival(truckingdetail.getTruckingservice().getArrival());
+				keHoachVanTaiExport.setEta(docsgeneral.getPackageinfo().getEta());
+				keHoachVanTaiExport.setBill(docsgeneral.getPackageinfo().getBillOfLading());
+				keHoachVanTaiExport.setImportType(docsgeneral.getTypeOfImport().getValue());
+				keHoachVanTaiExport.setFreeTime(ConvertUtil.getNotNullValue(docsgeneral.getPackageinfo().getFreeDemDate())+AELConst.SPLASH
+						+ConvertUtil.getNotNullValue(docsgeneral.getPackageinfo().getFreeDetDate()));
+				keHoachVanTaiExport.setCusDate(docsgeneral.getPackageinfo().getCustomsDate());
+				keHoachVanTaiExport.setSotkhq(docsgeneral.getPackageinfo().getCusDecOnNo());
+				keHoachVanTaiExport.setShipper(docsgeneral.getPackageinfo().getShipper());
+				hoachVanTaiExports.add(keHoachVanTaiExport);
+			}
+			 parameterMap.put("detail", hoachVanTaiExports);
+		}
+		
 		return parameterMap;
 	}
 }

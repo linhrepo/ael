@@ -2,9 +2,7 @@ package com.vn.ael.webapp.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,7 +29,6 @@ import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
-import com.vn.ael.webapp.dto.ListDocId;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
