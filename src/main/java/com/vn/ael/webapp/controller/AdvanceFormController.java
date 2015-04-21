@@ -2,9 +2,7 @@ package com.vn.ael.webapp.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,7 +29,6 @@ import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
-import com.vn.ael.webapp.dto.ListDocId;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
@@ -167,7 +164,7 @@ public class AdvanceFormController extends BaseFormController {
     	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuChi(advanceform));
     	        }
     	    }
-    @RequestMapping( method = RequestMethod.POST, value = "/users/advanceForm/getRemainAdvance")
+   /* @RequestMapping( method = RequestMethod.GET, value = "/users/advanceForm/getRemainAdvance")
     public @ResponseBody String getList(@RequestParam(value="docIdList") String[] docIdList) {
     	Map<Long, BigDecimal> map = new HashMap<Long, BigDecimal>();
     	ObjectMapper mapper = new ObjectMapper();
@@ -191,6 +188,33 @@ public class AdvanceFormController extends BaseFormController {
 			e.printStackTrace();
 		}
          return json;
-    }
+    }*/
+    
+    @RequestMapping(value = "/users/advanceForm/getRemainAdvance", method = RequestMethod.GET)
+    public @ResponseBody String processAJAXRequest(
+    			@RequestParam("docIdList") String[] docIdList) {
+    	Map<Long, BigDecimal> map = new HashMap<Long, BigDecimal>();
+    	ObjectMapper mapper = new ObjectMapper();
+    	for (String docId : docIdList) {
+			try {
+				Long id = Long.parseLong(docId);
+				BigDecimal result = this.advanceFormManager.calculateRemainAdvance(id);
+				map.put(id, result)	;		
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return json;
+    	}
 }
 
