@@ -46,6 +46,7 @@
 <script>
 var exportButton = $("button[name='export']");
 exportButton.click(function() {
+	alert("click");
 	 document.forms["advanceSumaryForm"].attr("showLoading","false");
 	 document.forms["advanceSumaryForm"].submit();
 	 document.forms["advanceSumaryForm"].attr("showLoading","");
