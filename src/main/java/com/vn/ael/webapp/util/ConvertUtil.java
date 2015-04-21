@@ -53,6 +53,30 @@ public class ConvertUtil {
 		}
 		return bigDecimal;
 	}
+	
+	/**
+	 * Change bigDecimal to 0 if it's null
+	 * @param bigDecimal
+	 * @return
+	 */
+	public static String getNotNullValue(Integer bigDecimal){
+		if (bigDecimal == null){
+			return AELConst.EMPTY_STRING;
+		}
+		return bigDecimal.toString();
+	}
+	
+	/**
+	 * Change bigDecimal to 0 if it's null
+	 * @param bigDecimal
+	 * @return
+	 */
+	public static String getNotNullValue(String bigDecimal){
+		if (bigDecimal == null){
+			return AELConst.EMPTY_STRING;
+		}
+		return bigDecimal;
+	}
 
 	/**
 	 * From docslist 2 map
@@ -368,11 +392,14 @@ public class ConvertUtil {
 		List<Integer> jobsOrder = new ArrayList<>();
 		//merge level 2 - by cont
 		List<Integer> contOrder = new ArrayList<>();
+		List<Integer> customers = new ArrayList<>();
 		if (truckingdetails !=null && !truckingdetails.isEmpty()){
 			Long contNo=null;
 			int countCont = 1;
 			Long docsNo = null;
 			int countDocs = 1;
+			Long customer = null;
+			int countCustomer = 1;
 			for (Truckingdetail truckingdetail : truckingdetails){
 				if (truckingdetail.getConsteal() == null){
 					contNo=null;
@@ -399,13 +426,25 @@ public class ConvertUtil {
 				}else{
 					++countDocs;
 				}
+				
+				if (customer == null || (customer !=truckingdetail.getTruckingservice().getDocsgeneral().getCustomer().getId())){
+					if (customer != null){
+						customers.add(countCustomer);
+						countCustomer = 1;
+					}
+					customer = truckingdetail.getTruckingservice().getDocsgeneral().getCustomer().getId();
+				}else{
+					++countCustomer;
+				}
 			}
 			contOrder.add(countCont);
 			jobsOrder.add(countDocs);
+			customers.add(countCustomer);
 		}
 		List<List<Integer>> lists = new ArrayList<>();
 		lists.add(jobsOrder);
 		lists.add(contOrder);
+		lists.add(customers);
 		return lists;
 	}
 
@@ -415,6 +454,16 @@ public class ConvertUtil {
 		List<List<Integer>> lists = generateMergIndexByJobAndContFromDetails(truckingdetails);
 		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI, lists.get(0));
 		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_L2, lists.get(1));
+		return map;
+	}
+
+	public static Map<ReportMergeInfo, List<Integer>> generateMergeIndexForKHVTThongquan(
+			List<Truckingdetail> truckingdetails) {
+		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
+		List<List<Integer>> lists = generateMergIndexByJobAndContFromDetails(truckingdetails);
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_THONGQUAN_L2, lists.get(0));
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_THONGQUAN_L3, lists.get(1));
+		map.put(ReportMergeInfo.KE_HOACH_VAN_TAI_THONGQUAN, lists.get(2));
 		return map;
 	}
 }

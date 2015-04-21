@@ -1,7 +1,6 @@
 <%@ include file="/common/taglibs.jsp" %>
 
 <div class="col-sm-12">
-    <h2><fmt:message key="accountingvantai.packageinfo"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="conditions"  method="get" action="thongquan/download" id="accountingthongquanForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
