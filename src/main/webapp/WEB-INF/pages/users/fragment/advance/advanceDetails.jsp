@@ -58,7 +58,7 @@
 	            </td>
 	            <td>
 					    <div class="form-group">
-					    <input class="form-control money" readonly="readonly"/>
+					    <input class="form-control money remainAdvance" readonly="readonly"/>
 					    </div>
 	            </td>
 				<c:if test="${empty advanceform.doApproval or advanceform.doApproval==false}">
@@ -86,6 +86,7 @@
     <script>
     //Calculate total amount
     $("#advanceformList").change(function(){ 
+    	getRemainingAdvance();
     	var sum = 0;
     	$('#advanceformList  .advanceAmount').each(function()
     			{
