@@ -62,6 +62,7 @@ import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingNhathauExport;
+import com.vn.ael.webapp.dto.AccountingShipmentExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.AdvanceRequestItem;
@@ -882,6 +883,50 @@ public class ReportUtil {
 			}
 			 parameterMap.put("detail", hoachVanTaiExports);
 		}
+		
+		return parameterMap;
+	}
+
+	public static Map<String, Object> prepareDataForShipmentControl(
+			AccountingTrans accountingTrans) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startDate", accountingTrans.getCondition().getStartDate());
+		parameterMap.put("endDate", accountingTrans.getCondition().getEndDate());
+		List<AccountingShipmentExport> hoachVanTaiExports = new ArrayList<>();
+		if (accountingTrans.getDocs() != null) {
+			int i = 0;
+			for (Docsgeneral doc : accountingTrans.getDocs()) {
+				++i;
+				AccountingShipmentExport accountingShipmentExport = new AccountingShipmentExport();
+				accountingShipmentExport.setIndex(i);
+				accountingShipmentExport.setJobNo(doc.getJobNo());
+				accountingShipmentExport.setShipper(doc.getPackageinfo().getShipper());
+				accountingShipmentExport.setPoNo(doc.getPackageinfo().getPo());
+				accountingShipmentExport.setInvNo(doc.getPackageinfo().getInvoice());
+				accountingShipmentExport.setBillNo(doc.getPackageinfo().getBillOfLading());
+				if (doc.getTypeOfContainer().getId() == TypeOfContainer.FCL){
+					accountingShipmentExport.setContL(TypeOfContainer.FCL_CHAR);
+					accountingShipmentExport.setCont20(doc.getNoOf20Cont());
+					accountingShipmentExport.setCont40(doc.getNoOf40Cont());
+					
+				}else{
+					accountingShipmentExport.setContL(TypeOfContainer.LCL_CHAR);
+				}
+				
+				accountingShipmentExport.setPks(doc.getNoOfPkgs());
+				accountingShipmentExport.setWeight(doc.getWeigth());
+				accountingShipmentExport.setShippingLine(doc.getShippingLine().getName());
+				accountingShipmentExport.setEta(doc.getPackageinfo().getEta());
+				accountingShipmentExport.setArrival(doc.getPackageinfo().getPortOfArrival());
+				accountingShipmentExport.setDocOriginalDate(doc.getDocReceiveDate());
+				accountingShipmentExport.setDecDate(doc.getPackageinfo().getCustomsDate());
+				accountingShipmentExport.setSoToKhai(doc.getPackageinfo().getCusDecOnNo());
+				accountingShipmentExport.setColour(doc.getPackageinfo().getColourApplying().getDescription());
+				hoachVanTaiExports.add(accountingShipmentExport);
+			}
+		}
+		
+	    parameterMap.put("detail", hoachVanTaiExports);
 		
 		return parameterMap;
 	}
