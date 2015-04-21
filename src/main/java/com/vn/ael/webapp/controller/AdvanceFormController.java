@@ -31,7 +31,7 @@ import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
-import com.vn.ael.webapp.dto.ListDocId;
+
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
