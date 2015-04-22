@@ -112,7 +112,7 @@ public class ReportUtil {
 		beans.put("customerName", cust.getName());
 		beans.put("offerType",
 				offerPrice.getTypeOfService() != null ? offerPrice
-						.getTypeOfService().getValue() : AELConst.EMPTY_STRING);
+						.getTypeOfService().getLabel() : AELConst.EMPTY_STRING);
 		beans.put("offerDate",
 				CommonUtil.getDateString(offerPrice.getDateOffer()));
 		beans.put("offerItem", offerPriceExport);
@@ -667,6 +667,16 @@ public class ReportUtil {
 		List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
 		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
 		if (!listAdvanceDetail.isEmpty()) {
+			for (Advancedetail advancedetail : listAdvanceDetail) {
+				try {
+					if (listRemainAdvancebyJob.containsKey(advancedetail.getDocs().getId().intValue())) {
+						BigDecimal tmp = listRemainAdvancebyJob.get(advancedetail.getDocs().getId().intValue()).subtract(advancedetail.getAmount());
+						listRemainAdvancebyJob.put(advancedetail.getDocs().getId().intValue(), tmp);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
 			for (Advancedetail advancedetail : listAdvanceDetail) {
 				AdvanceRequestItem item = new AdvanceRequestItem();
 				index++;
