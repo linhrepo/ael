@@ -74,12 +74,14 @@
         </c:forEach>
         </tbody>
     </table>
-    <c:if test="${empty offerPrice.isValid or offerPrice.isValid==false}">
+    
 	    <div class="row">
 		    	<div class="col-md-8"></div>
 		    	<div class="col-md-4">
+		    	<c:if test="${empty offerPrice.isValid or offerPrice.isValid==false}">
 		    		<span class="btn btn-primary" target-table="offerItemList">
 			            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></span>
+			            </c:if>
 			         <c:if test="${not empty offerPrice.id}">
 						<a class="btn btn-success" href="download?id=${offerPrice.id}">
 							<i class="fa fa-print"></i>
@@ -88,5 +90,4 @@
 					</c:if>
 		    	</div>
 	    </div>
-    </c:if>
     <hr>

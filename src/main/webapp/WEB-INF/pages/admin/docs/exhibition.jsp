@@ -152,7 +152,7 @@
 		    </div>
 		    
 	    	<spring:bind path="exhibition.exhibitor">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" addUrl="/admin/config/constant" type="22">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.exhibitor"/>
 		        <form:input path="exhibitor" id="exhibitor" maxlength="255"  cssClass="form-control"/>

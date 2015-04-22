@@ -46,7 +46,7 @@ var SELECT_CONTROL = {
 				        "Content-Type": "application/json"
 				    },
 				  type: "POST",
-				  url: contextPath+"/admin/accounting/addOptions",
+				  url: contextPath+$(select).parent().attr("addUrl"),
 				  data: JSON.stringify(postData),
 				  success: function(data){
 					  if (data.id != undefined){
