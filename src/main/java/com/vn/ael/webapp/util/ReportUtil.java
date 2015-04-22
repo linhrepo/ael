@@ -668,6 +668,16 @@ public class ReportUtil {
 		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
 		if (!listAdvanceDetail.isEmpty()) {
 			for (Advancedetail advancedetail : listAdvanceDetail) {
+				try {
+					if (listRemainAdvancebyJob.containsKey(advancedetail.getDocs().getId().intValue())) {
+						BigDecimal tmp = listRemainAdvancebyJob.get(advancedetail.getDocs().getId().intValue()).subtract(advancedetail.getAmount());
+						listRemainAdvancebyJob.put(advancedetail.getDocs().getId().intValue(), tmp);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+			for (Advancedetail advancedetail : listAdvanceDetail) {
 				AdvanceRequestItem item = new AdvanceRequestItem();
 				index++;
 				item.setJobNo(advancedetail.getDocs() != null ? advancedetail
