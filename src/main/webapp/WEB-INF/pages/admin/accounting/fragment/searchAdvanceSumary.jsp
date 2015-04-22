@@ -33,8 +33,10 @@
 			</div>			
 		</div> 
 		<div class="row">
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-1">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
+			</div>
+			<div class="form-group col-md-1">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="export"><i class="fa fa-print"></i> <fmt:message key="accounting.transport.download"></fmt:message></button>
 			</div>
 		</div>

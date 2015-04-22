@@ -12,6 +12,7 @@ public class KeHoachVanTaiThongQuanExport extends KeHoachVanTaiExport{
 	private String freeTime;
 	private Date cusDate;
 	private String sotkhq;
+	private Integer index;
 	public String getShipper() {
 		return shipper;
 	}
@@ -60,5 +61,10 @@ public class KeHoachVanTaiThongQuanExport extends KeHoachVanTaiExport{
 	public void setSotkhq(String sotkhq) {
 		this.sotkhq = sotkhq;
 	}
-	
+	public Integer getIndex() {
+		return index;
+	}
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
 }

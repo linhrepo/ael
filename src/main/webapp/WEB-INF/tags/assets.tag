@@ -23,8 +23,8 @@
     <c:otherwise>
 <%--         <link rel="stylesheet" type="text/css" href="${base}/assets/v/${applicationScope.assetsVersion}/${group}.css"/> --%>
 <%--         <script type="text/javascript" src="${base}/assets/v/${applicationScope.assetsVersion}/${group}.js"></script> --%>
-		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/united/bootstrap.min.css"/>
-<%-- 		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch-slate/3.3.1+2/css/bootstrap.css"/> --%>
+<%-- 		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch/3.0.0/united/bootstrap.min.css"/> --%>
+		<link rel="stylesheet" type="text/css" href="${base}/webjars/bootswatch-united/3.3.1+2/css/bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/font-awesome/4.2.0/css/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/datatables/1.10.4/css/jquery.dataTables.css"/>
 		<link rel="stylesheet" type="text/css" href="${base}/webjars/datatables-bootstrap/2-20120201/DT_bootstrap.css"/>

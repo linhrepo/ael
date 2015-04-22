@@ -54,9 +54,9 @@ public class AccountingVantaiController extends BaseFormController {
 		AccountingTrans accountingTrans = this.setUpDataKHVT(request, accountingTransCondition);
 	       if (accountingTrans!=null) {
 	    	   if (accountingTrans.getCondition().getTransId().intValue() == ServicesType.DVVT_SEALAND.getValue()){
-	    		   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_KHVT_NOIDIA_ITEMS, ReportTeamplates.ACCOUNTING_KHVT_NOIDIA_ITEMS_TEMPLATE, ReportUtil.prepareDataForKHVTNoidia(accountingTrans),ConvertUtil.generateMergeIndexForKHVTNoidia(accountingTrans.getTruckingdetails())); 
+	    		   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_KHVT_NOIDIA_ITEMS, ReportTeamplates.ACCOUNTING_KHVT_NOIDIA_ITEMS_TEMPLATE, ReportUtil.prepareDataForKHVTNoidia(accountingTrans),ConvertUtil.generateMergeIndexForKHVTNoidia(accountingTrans.getTruckingdetails()),null); 
 	    	   }else{
-	    		   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_KHVT_ITEMS, ReportTeamplates.ACCOUNTING_KHVT_ITEMS_TEMPLATE, ReportUtil.prepareDataForKHVTNoidia(accountingTrans),ConvertUtil.generateMergeIndexForKHVT(accountingTrans.getTruckingdetails()));
+	    		   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_KHVT_ITEMS, ReportTeamplates.ACCOUNTING_KHVT_ITEMS_TEMPLATE, ReportUtil.prepareDataForKHVTNoidia(accountingTrans),ConvertUtil.generateMergeIndexForKHVT(accountingTrans.getTruckingdetails()),null);
 	    	   }
 	    	   
 	       }      
@@ -67,7 +67,7 @@ public class AccountingVantaiController extends BaseFormController {
     throws Exception {
 		AccountingTrans accountingTrans = this.setUpDataKHTQ(request, accountingTransCondition);
 	       if (accountingTrans!=null) {
-	    		   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_KHVT_THONGQUAN_ITEMS, ReportTeamplates.ACCOUNTING_KHVT_THONGQUAN_ITEMS_TEMPLATE, ReportUtil.prepareDataForKHVTThongquan(accountingTrans),ConvertUtil.generateMergeIndexForKHVTThongquan(accountingTrans.getTruckingdetails())); 
+	    		   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_KHVT_THONGQUAN_ITEMS, ReportTeamplates.ACCOUNTING_KHVT_THONGQUAN_ITEMS_TEMPLATE, ReportUtil.prepareDataForKHVTThongquan(accountingTrans),ConvertUtil.generateMergeIndexForKHVTThongquan(accountingTrans.getTruckingdetails()),null); 
 	       }      
     }
 	

@@ -27,6 +27,8 @@ public class Nhathau extends com.vn.ael.persistence.entity.BaseEntity implements
 	
 	private String code;
 
+	private String info;
+	
 	public Nhathau() {
 	}
 
@@ -91,4 +93,12 @@ public class Nhathau extends com.vn.ael.persistence.entity.BaseEntity implements
 		this.code = code;
 	}
 
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	
 }

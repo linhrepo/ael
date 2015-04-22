@@ -91,4 +91,8 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
 	List<Docsgeneral> searchShipment(AccountingTransCondition accountingTransCondition);
 	
+	void updateTongChiPhi(Docsgeneral docsgeneral);
+	
+	void updateTongChiPhi(List<Docsgeneral> docsgenerals);
+	
 }

@@ -22,6 +22,12 @@ public interface ReportTeamplates {
 	String ACCOUNTING_KHVT_NOIDIA_ITEMS = "KeHoachVanTaiNoiDia.xlsx";
 	String ACCOUNTING_KHVT_NOIDIA_ITEMS_TEMPLATE = "ExportTemplate/KeHoachVanTaiNoiDiaTemplate.xlsx";
 	
+	String ACCOUNTING_PROFITLOSS_ITEMS = "ProfitLoss.xlsx";
+	String ACCOUNTING_PROFITLOSS_ITEMS_TEMPLATE = "ExportTemplate/ProfitLossTemplate.xlsx";
+	
+	String ACCOUNTING_KHVT_SHIPMENT_ITEMS = "ShipmentControl.xlsx";
+	String ACCOUNTING_KHVT_SHIPMENT_ITEMS_TEMPLATE = "ExportTemplate/ShipmentControlTemplate.xlsx";
+	
 	String ACCOUNTING_KHVT_ITEMS = "KeHoachVanTai.xlsx";
 	String ACCOUNTING_KHVT_ITEMS_TEMPLATE = "ExportTemplate/KeHoachVanTaiTemplate.xlsx";
 	
