@@ -662,6 +662,7 @@ public class ReportUtil {
 			Map<Integer, BigDecimal> listRemainAdvancebyJob) {
 		Map<String, Object> beans = new LinkedHashMap<>();
 		double total = 0;
+		BigDecimal totalRemainAdv = BigDecimal.ZERO;
 		int index = 0;
 		List<AdvanceRequestItem> listAdvance = new ArrayList<AdvanceRequestItem>();
 		List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
@@ -671,7 +672,9 @@ public class ReportUtil {
 				try {
 					if (listRemainAdvancebyJob.containsKey(advancedetail.getDocs().getId().intValue())) {
 						BigDecimal tmp = listRemainAdvancebyJob.get(advancedetail.getDocs().getId().intValue()).subtract(advancedetail.getAmount());
-						listRemainAdvancebyJob.put(advancedetail.getDocs().getId().intValue(), tmp);
+						if (tmp.doubleValue()>=0) {
+							listRemainAdvancebyJob.put(advancedetail.getDocs().getId().intValue(), tmp);
+						}						
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -687,6 +690,8 @@ public class ReportUtil {
 				item.setAmount(advancedetail.getAmount().toString());
 				item.setRemainAdvance(listRemainAdvancebyJob.get(
 						advancedetail.getDocs().getId().intValue()).toString());
+				totalRemainAdv = totalRemainAdv.add(listRemainAdvancebyJob.get(
+						advancedetail.getDocs().getId().intValue()));
 				item.setIndex(index);
 				total += advancedetail.getAmount().doubleValue();
 				listAdvance.add(item);
@@ -699,6 +704,7 @@ public class ReportUtil {
 		beans.put("employee", advanceForm.getEmployee());
 		beans.put("refundDate",
 				CommonUtil.getDateString(advanceForm.getTimeRefund()));
+		beans.put("totalRemainAdv", totalRemainAdv.toString());
 		return beans;
 	}
 
