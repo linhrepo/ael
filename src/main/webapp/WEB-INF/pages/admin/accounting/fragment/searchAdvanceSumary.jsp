@@ -6,7 +6,7 @@
 </head>
 <div class="col-sm-12">
 	<form:form commandName="search" method="post"
-		action="searchAdvanceSumary" id="advanceSumaryForm" cssClass="well">
+		action="searchAdvanceSumary" id="advanceSumaryForm" cssClass="well" showLoading="false">
 		<div class="row">
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
