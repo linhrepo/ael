@@ -112,7 +112,7 @@ public class ReportUtil {
 		beans.put("customerName", cust.getName());
 		beans.put("offerType",
 				offerPrice.getTypeOfService() != null ? offerPrice
-						.getTypeOfService().getValue() : AELConst.EMPTY_STRING);
+						.getTypeOfService().getLabel() : AELConst.EMPTY_STRING);
 		beans.put("offerDate",
 				CommonUtil.getDateString(offerPrice.getDateOffer()));
 		beans.put("offerItem", offerPriceExport);
