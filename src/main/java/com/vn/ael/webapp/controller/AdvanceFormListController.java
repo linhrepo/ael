@@ -75,9 +75,9 @@ public class AdvanceFormListController extends BaseFormController {
 			throws Exception {
 		Model model = new ExtendedModelMap();
 		model.addAttribute(advanceFormManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		model.addAttribute(refundManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		Search searchRefund = new Search();
 		model.addAttribute("search", searchRefund);
 		DocsSelection docsSelection = configurationManager
@@ -115,7 +115,7 @@ public class AdvanceFormListController extends BaseFormController {
 				.searchAdvanceForm(searchAdvanceForm);
 		mav.addObject(advanceforms);
 		mav.addObject(refundManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
@@ -137,7 +137,7 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Refund> refunds = refundManager.searchRefund(searchRefund);
 		mav.addObject(refunds);
 		mav.addObject(advanceFormManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);

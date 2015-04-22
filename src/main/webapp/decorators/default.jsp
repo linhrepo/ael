@@ -89,7 +89,7 @@
         </span>
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
-<security:authorize ifAnyGranted="ROLE_ADMIN"> 
+<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
     		<script type="text/javascript">
     			$(document).ready(function(){
     				$("form").find('[verify="true"]').find('input[type="checkbox"]').removeAttr("disabled");
