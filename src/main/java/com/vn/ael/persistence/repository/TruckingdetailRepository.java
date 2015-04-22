@@ -81,7 +81,9 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			+ "(d.customer.id = :customerId or :customerId is null) and "
 			+ "d.typeOfDocs =:typeOfDocs and "
 			+ "(d.jobNo = :jobNo or :jobNo = '') and "
-			+ "d.doAccounting =:doAccounting")
+			+ "d.doAccounting =:doAccounting "
+			+ "group by t.id "
+			+ "order by d.customer.id, d.jobNo, t.consteal, t.id ")
 	List<Truckingdetail> searchProfitLoss(@Param("customerId") Long customerId,
 			@Param("doAccounting") Boolean doAccounting,
 			@Param(value="startDate") Date startDate, 

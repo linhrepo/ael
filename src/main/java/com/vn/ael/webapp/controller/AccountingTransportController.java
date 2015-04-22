@@ -119,7 +119,7 @@ public class AccountingTransportController extends BaseFormController {
             HttpServletResponse response) throws IOException {
     	AccountingTrans accountingTrans = this.setupAccountingTrans(request);
        if (accountingTrans!=null) {
-    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans),ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()));
+    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans),ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
        }
     }
      

@@ -133,7 +133,7 @@ public class ReportUtil {
 	public static void dispatchReport(HttpServletResponse response,
 			String reportName, String reportTemplates,
 			Map<String, Object> data, 
-			Map<ReportMergeInfo,List<Integer>> dataMegres) {
+			Map<ReportMergeInfo,List<Integer>> dataMegres,Map<ReportMergeInfo,List<Integer>> dynamicMergeInfos) {
 		try {
 			Workbook workbook = generateWorkbook(reportTemplates, data);
 			if (workbook != null) {
@@ -145,7 +145,11 @@ public class ReportUtil {
 						if (mergeIndexs != null) {
 							int startRow = mergeInfo.getStartingRow();
 							for (Integer height : mergeIndexs) {
-								for (int index : mergeInfo.getCols()) {
+								List<Integer> cols = ConvertUtil.createListFromArray(mergeInfo.getCols());
+								if (dynamicMergeInfos != null && dynamicMergeInfos.containsKey(mergeInfo)){
+									cols.addAll(dynamicMergeInfos.get(mergeInfo));
+								}
+								for (Integer index : cols) {
 									if (height > 0) {
 										sheet.addMergedRegion(new CellRangeAddress(
 												startRow,startRow + height - 1,
@@ -939,34 +943,49 @@ public class ReportUtil {
 		parameterMap.put("endDate", accountingTrans.getCondition().getEndDate());
 		List<AccountingProfitLossExport> profitLossExports = new ArrayList<>();
 		List<List<Exfeetable>> feesList = new ArrayList<>();
+		List<List<Exfeetable>> feesListThu = new ArrayList<>();
 		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
 			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
 				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
-				feesList.add(truckingdetail.getExfeetables());
 				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
+				feesList.add(docsgeneral.getExfeetables());
+				feesListThu.add(truckingdetail.getExfeetables());
 				AccountingProfitLossExport profitLossExport = new AccountingProfitLossExport();
 				profitLossExport.setJobNo(docsgeneral.getJobNo());
 				profitLossExport.setCusName(docsgeneral.getCustomer().getName());
 				profitLossExport.setContNo(truckingdetail.getConsteal() != null ? truckingdetail.getConsteal().getNoOfCont() : AELConst.EMPTY_STRING);
 				profitLossExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				profitLossExport.setDateDev(truckingdetail.getDateDev());
+				profitLossExport.setTongChi(ConvertUtil.getNotNullValue(docsgeneral.getTongChiPhi()));
+				profitLossExport.setTongThu(ConvertUtil.getNotNullValue(docsgeneral.getTongThu()));
+				profitLossExport.setProfitLoss(profitLossExport.getTongThu().subtract(profitLossExport.getTongChi()));
 				profitLossExports.add(profitLossExport);
 			}
 		}
-//			    FeeNameExport  feeNameExport = ConvertUtil.fromFeeListToFeeExport(feesList);
-//			    parameterMap.put("feeNames", feeNameExport.getName());
-//				if (!profitLossExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
-//					for (int i=0; i<profitLossExports.size(); ++i){
-//						profitLossExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
-//						//calculate total
-//						BigDecimal total = BigDecimal.ZERO;
-//						if (feeNameExport.getValues() != null && !feeNameExport.getValues().isEmpty()){
-//							for (FeeExportItem exportItem : feeNameExport.getValues().get(i)){
-//								total = total.add(exportItem.getFeeVal());
-//							}
-//							profitLossExports.get(i).setTotal(total);
-//						}
-//					}
-//				}
+		//chi phí chi
+			    FeeNameExport  feeNameExport = ConvertUtil.fromFeeListToFeeExportFeeType(feesList);
+			    parameterMap.put("feeNames", feeNameExport.getName());
+				if (!profitLossExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
+					for (int i=0; i<profitLossExports.size(); ++i){
+						profitLossExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
+					}
+				}
+				//chi phí thu
+				 FeeNameExport  feeNameExportThu = ConvertUtil.fromFeeListToFeeExport(feesListThu);
+				    parameterMap.put("feeNamesThu", feeNameExportThu.getName());
+					if (!profitLossExports.isEmpty() && !feeNameExportThu.getValues().isEmpty()){
+						for (int i=0; i<profitLossExports.size(); ++i){
+							profitLossExports.get(i).setConvertedFeeThu(feeNameExportThu.getValues().get(i));
+							//calculate total
+							BigDecimal total = BigDecimal.ZERO;
+							if (feeNameExportThu.getValues() != null && !feeNameExportThu.getValues().isEmpty()){
+								for (FeeExportItem exportItem : feeNameExportThu.getValues().get(i)){
+									total = total.add(exportItem.getFeeVal());
+								}
+								profitLossExports.get(i).setTotal(total);
+							}
+						}
+					}
 			 parameterMap.put("details", profitLossExports);
 		return parameterMap;
 	}

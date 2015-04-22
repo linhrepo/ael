@@ -1,5 +1,7 @@
 package com.vn.ael.webapp.dto;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class AccountingProfitLossExport {
@@ -9,6 +11,12 @@ public class AccountingProfitLossExport {
 	private String contNo;
 	private String nhathau;
 	private List<FeeExportItem> convertedFee;
+	private List<FeeExportItem> convertedFeeThu;
+	private BigDecimal tongThu;
+	private BigDecimal tongChi;
+	private BigDecimal profitLoss;
+	private BigDecimal total;
+	private Date dateDev;
 	public String getCusName() {
 		return cusName;
 	}
@@ -39,5 +47,40 @@ public class AccountingProfitLossExport {
 	public void setConvertedFee(List<FeeExportItem> convertedFee) {
 		this.convertedFee = convertedFee;
 	}
-
+	public BigDecimal getTongChi() {
+		return tongChi;
+	}
+	public void setTongChi(BigDecimal tongChi) {
+		this.tongChi = tongChi;
+	}
+	public BigDecimal getProfitLoss() {
+		return profitLoss;
+	}
+	public void setProfitLoss(BigDecimal profitLoss) {
+		this.profitLoss = profitLoss;
+	}
+	public Date getDateDev() {
+		return dateDev;
+	}
+	public void setDateDev(Date dateDev) {
+		this.dateDev = dateDev;
+	}
+	public BigDecimal getTongThu() {
+		return tongThu;
+	}
+	public void setTongThu(BigDecimal tongThu) {
+		this.tongThu = tongThu;
+	}
+	public List<FeeExportItem> getConvertedFeeThu() {
+		return convertedFeeThu;
+	}
+	public void setConvertedFeeThu(List<FeeExportItem> convertedFeeThu) {
+		this.convertedFeeThu = convertedFeeThu;
+	}
+	public BigDecimal getTotal() {
+		return total;
+	}
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
 }

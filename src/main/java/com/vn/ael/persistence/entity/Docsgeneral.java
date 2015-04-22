@@ -536,4 +536,26 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.sochuyen = sochuyen;
 	}
 	
+	@Transient
+	private BigDecimal tongChiPhi;
+	
+	@Transient
+	private BigDecimal tongThu;
+
+	public BigDecimal getTongChiPhi() {
+		return tongChiPhi;
+	}
+
+	public void setTongChiPhi(BigDecimal tongChiPhi) {
+		this.tongChiPhi = tongChiPhi;
+	}
+
+	public BigDecimal getTongThu() {
+		return tongThu;
+	}
+
+	public void setTongThu(BigDecimal tongThu) {
+		this.tongThu = tongThu;
+	}
+	
 }

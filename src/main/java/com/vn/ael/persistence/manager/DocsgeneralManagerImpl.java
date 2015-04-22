@@ -412,4 +412,27 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			AccountingTransCondition accountingTransCondition) {
 		return docsgeneralRepository.searchShipment(accountingTransCondition.getCustomerId(), accountingTransCondition.getTypeOfImport(), true, ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getConsignee(), accountingTransCondition.getShipper(), accountingTransCondition.getJob());
 	}
+
+	@Override
+	public void updateTongChiPhi(Docsgeneral docsgeneral) {
+		BigDecimal total = BigDecimal.ZERO;
+		List<Exfeetable> exfeetables = exfeetableRepository.findByDocsgeneral(docsgeneral);
+		docsgeneral.setExfeetables(exfeetables);
+		if (docsgeneral != null && docsgeneral.getExfeetables() != null && !docsgeneral.getExfeetables().isEmpty()){
+			for (Exfeetable exfeetable : docsgeneral.getExfeetables()){
+				//add to accounting cus
+				total = total.add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat()));
+			}
+		}
+		docsgeneral.setTongChiPhi(total);
+	}
+
+	@Override
+	public void updateTongChiPhi(List<Docsgeneral> docsgenerals) {
+		if (docsgenerals != null && !docsgenerals.isEmpty()){
+			for (Docsgeneral docsgeneral : docsgenerals){
+				updateTongChiPhi(docsgeneral);
+			}
+		}
+	}
 }

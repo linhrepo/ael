@@ -311,7 +311,37 @@ public class ConvertUtil {
 				}
 			}
 		}
-		FeeNameExport feeNameExport = new FeeNameExport(feeMap.size(),feesList.size());
+		return transvertFeeList(feeMap, feesList.size());
+	}
+	
+	public static FeeNameExport fromFeeListToFeeExportFeeType(
+			List<List<Exfeetable>> feesList) {
+		//calculate fee values for each name
+		Map<String,List<FeeExportItem>> feeMap = new LinkedHashMap<>();
+		if (feesList != null && !feesList.isEmpty()){
+			for (int i=0; i<feesList.size(); ++i){
+				List<Exfeetable> exfeetables = feesList.get(i);
+				if (exfeetables!= null && !exfeetables.isEmpty()){
+					for (Exfeetable exfeetable: exfeetables){
+						if (exfeetable!= null){
+							if (!feeMap.containsKey(exfeetable.getMasterFee().getValue())){
+								feeMap.put(exfeetable.getMasterFee().getValue(), FeeExportItem.createListBySize(feesList.size()));
+							}
+							//cal fee value
+							List<FeeExportItem> crrFeeList = feeMap.get(exfeetable.getMasterFee().getValue());
+							BigDecimal crrFeeVal = crrFeeList.get(i).getFeeVal();
+							crrFeeList.get(i).setFeeVal(ConvertUtil.getNotNullValue(crrFeeVal).add(exfeetable.getTotal()));
+						}
+					}
+				}
+			}
+		}
+		
+		return transvertFeeList(feeMap,feesList.size());
+	}
+	
+	private static FeeNameExport transvertFeeList(Map<String,List<FeeExportItem>> feeMap, int size){
+		FeeNameExport feeNameExport = new FeeNameExport(feeMap.size(),size);
 		//convert to vertical
 		int i=0;
 		for (Entry<String,List<FeeExportItem>> feeM : feeMap.entrySet()){
@@ -323,7 +353,6 @@ public class ConvertUtil {
 			}
 			++i;
 		}
-		
 		return feeNameExport;
 	}
 	
@@ -470,7 +499,40 @@ public class ConvertUtil {
 	public static Map<ReportMergeInfo, List<Integer>> generateMergeIndexForProfitLoss(
 			List<Truckingdetail> truckingdetails) {
 		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
+		List<List<Integer>> lists = generateMergIndexByJobAndContFromDetails(truckingdetails);
+		map.put(ReportMergeInfo.PROFIT_LOSS, lists.get(0));
+		map.put(ReportMergeInfo.PROFIT_LOSS_L2, lists.get(1));
 		return map;
+	}
+	
+	private static int START_L1_COL = 5;
+	private static int OFFSET_TO_L2_COL = 1;
+//	private static int TOTAL_L1_COL_LAST = 3;
+	public static Map<ReportMergeInfo, List<Integer>> generateDynamicsMergeIndexForProfitLoss(
+			Map<String,Object> parameter) {
+		Map<ReportMergeInfo,List<Integer>> map = new LinkedHashMap<>();
+		List<Integer> feeNames = (List<Integer>)parameter.get("feeNames");
+		List<Integer> feeNamesThu = (List<Integer>)parameter.get("feeNamesThu");
+		if (feeNames != null && !feeNames.isEmpty()){
+			List<Integer> firstLevelMerging = new ArrayList<>();
+			for (int i=0; i<feeNames.size();++i){
+				firstLevelMerging.add(i+START_L1_COL);
+			}
+			int nextCol = START_L1_COL+feeNames.size();
+			firstLevelMerging.add(nextCol);
+			firstLevelMerging.add(nextCol+OFFSET_TO_L2_COL+feeNamesThu.size()+1);
+			firstLevelMerging.add(nextCol+OFFSET_TO_L2_COL+feeNamesThu.size()+2);
+			map.put(ReportMergeInfo.PROFIT_LOSS, firstLevelMerging);
+		}
+		return map;
+	}
+	
+	public static List<Integer> createListFromArray(int[] cols){
+		List<Integer> integers = new ArrayList<>();
+		for (int i: cols){
+			integers.add(i);
+		}
+		return integers;
 	}
 
 }
