@@ -76,7 +76,7 @@
 	    <div class="row">
 		    	<div class="col-md-10"></div>
 		    	<div class="col-md-2">
-		    		<span class="btn btn-primary" target-table="advanceformList">
+		    		<span class="btn btn-primary" target-table="advanceformList" id="addDetail">
 			            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></span>
 		    	</div>
 	    </div>
@@ -94,5 +94,10 @@
     			});
     	$('#totalAdvance').val(accounting.formatMoney(sum,UTIL.MONEY_STYLE));
     });
-
+    $( document ).ready(function() {
+    	getRemainingAdvance();
+    });
+    $('#empId').change(function(){
+    	getRemainingAdvance();
+    });
     </script>

@@ -18,7 +18,7 @@ public interface AdvanceFormManager extends GenericManager<Advanceform> {
 
 	List<Advanceform> searchAdvanceForm(Search search);
 	
-	BigDecimal calculateRemainAdvance(Long jobId);
+	BigDecimal calculateRemainAdvance(Long jobId, Long userId);
 	
 	List<Advanceform> searchAdvanceFormBefore(Search search);
 	

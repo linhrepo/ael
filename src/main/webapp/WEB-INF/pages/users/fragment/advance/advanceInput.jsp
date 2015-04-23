@@ -9,7 +9,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="advanceform.employee"/>
-			        <form:select path="employee.id" cssClass="form-control select2">
+			        <form:select path="employee.id" cssClass="form-control select2" id="empId">
 			        	<c:forEach items="${docsSelection.staff}" var="st">
 			        		<form:option value="${st.id}">${st.firstName}&nbsp;${st.lastName} </form:option>
 			        	</c:forEach>
