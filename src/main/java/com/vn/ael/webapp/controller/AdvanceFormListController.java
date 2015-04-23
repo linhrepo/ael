@@ -35,6 +35,8 @@ import com.vn.ael.persistence.manager.UserManager;
 import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.CommonUtil;
+import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -340,6 +342,8 @@ public class AdvanceFormListController extends BaseFormController {
 		beans.put("totalRefBetween", totalRefBetween);
 		beans.put("totalRefAfter", totalRefAfter);
 		beans.put("advanceSumary", listSumary);
+		beans.put("startDate", CommonUtil.getDateString(startDate));
+		beans.put("endDate", CommonUtil.getDateString(endDate));
 		ReportUtil.dispatchReport(response,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS_TEMPLATE, beans);
@@ -409,6 +413,8 @@ public class AdvanceFormListController extends BaseFormController {
 		beans.put("totalRefBetween", totalRefBetween);
 		beans.put("totalRefAfter", totalRefAfter);
 		beans.put("advanceSumary", listSumary);
+		beans.put("startDate", CommonUtil.getDateString(startDate));
+		beans.put("endDate", CommonUtil.getDateString(endDate));
 		ReportUtil.dispatchReport(response,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS_TEMPLATE, beans);
