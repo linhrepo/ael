@@ -86,7 +86,6 @@
     <script>
     //Calculate total amount
     $("#advanceformList").change(function(){ 
-    	getRemainingAdvance();
     	var sum = 0;
     	$('#advanceformList  .advanceAmount').each(function()
     			{
@@ -96,6 +95,9 @@
     });
     $( document ).ready(function() {
     	getRemainingAdvance();
+    	$('#advanceformList select').change(function() {
+    		getRemainingAdvance();
+    	});
     });
     $('#empId').change(function(){
     	getRemainingAdvance();

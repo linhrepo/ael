@@ -483,10 +483,10 @@ public class AdvanceFormListController extends BaseFormController {
 		if (!listAdvance.isEmpty()) {
 			for (Advanceform advanceform : listAdvance) {
 				if (advanceform.getDate() != null) {
-					if (advanceform.getDate().before(startDate)) {
+					if (advanceform.getDate().before(startDate) && advanceform.getDoApproval()) {
 						listBefore.add(advanceform);
 					} else if (advanceform.getDate().after(startDate)
-							&& advanceform.getDate().before(endDate)) {
+							&& advanceform.getDate().before(endDate) && advanceform.getDoApproval()) {
 						listBetween.add(advanceform);
 					}
 				}
@@ -503,10 +503,10 @@ public class AdvanceFormListController extends BaseFormController {
 		if (!listRefund.isEmpty()) {
 			for (Refund refund : listRefund) {
 				if (refund.getDate() != null) {
-					if (refund.getDate().before(startDate)) {
+					if (refund.getDate().before(startDate) && refund.getDoApproval()) {
 						listRefundBefore.add(refund);
 					} else if (refund.getDate().after(startDate)
-							&& refund.getDate().before(endDate)) {
+							&& refund.getDate().before(endDate) && refund.getDoApproval()) {
 						listRefundBetween.add(refund);
 					}
 				}

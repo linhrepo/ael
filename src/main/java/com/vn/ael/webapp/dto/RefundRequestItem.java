@@ -13,6 +13,7 @@ public class RefundRequestItem {
 	private String description;
 	private String amount;
 	private String oAmount;
+	private String cont;
 	/**
 	 * @param index
 	 * @param fileCus
@@ -91,5 +92,17 @@ public class RefundRequestItem {
 	 */
 	public void setoAmount(String oAmount) {
 		this.oAmount = oAmount;
+	}
+	/**
+	 * @return the cont
+	 */
+	public String getCont() {
+		return cont;
+	}
+	/**
+	 * @param cont the cont to set
+	 */
+	public void setCont(String cont) {
+		this.cont = cont;
 	}
 }

@@ -2,9 +2,6 @@
  * 
  */
 
-$('#advanceformList tr').each(function(){
-	
-});
 
 $("#advanceformList").change(function(){ 
 	getRemainingAdvance();
@@ -14,6 +11,9 @@ function getRemainingAdvance() {
 	var map = new Object();
 	var docIdList = [];
 	var emp = $('#empId').val();
+	if (emp==null) {
+		emp = $('#employee\\.id').val();
+	}
 	 $('#advanceformList > tbody > tr').each(function(){
 		 if (!$(this).hasClass('hidden')) {
 			 var jobNo = $(this).find('select').val();
