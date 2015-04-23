@@ -144,7 +144,7 @@ public class AdvanceFormController extends BaseFormController {
 						for (Advancedetail adv : advanceform.getAdvancedetails()) {
 							BigDecimal val = BigDecimal.ZERO;
 							try {
-								val = this.advanceFormManager.calculateRemainAdvance(adv.getDocs().getId());
+								val = this.advanceFormManager.calculateRemainAdvance(adv.getDocs().getId(),adv.getAdvanceform().getEmployee().getId());
 								listRemainAdvancebyJob.put(adv.getDocs().getId().intValue(), val);
 							} catch (Exception e) {
 								// TODO: handle exception
@@ -192,18 +192,21 @@ public class AdvanceFormController extends BaseFormController {
     
     @RequestMapping(value = "/users/advanceForm/getRemainAdvance", method = RequestMethod.GET)
     public @ResponseBody String processAJAXRequest(
-    			@RequestParam("docIdList") String[] docIdList) {
+    			@RequestParam("docIdList") String[] docIdList, @RequestParam("userId") String userId) {
     	Map<Long, BigDecimal> map = new HashMap<Long, BigDecimal>();
     	ObjectMapper mapper = new ObjectMapper();
-    	for (String docId : docIdList) {
-			try {
-				Long id = Long.parseLong(docId);
-				BigDecimal result = this.advanceFormManager.calculateRemainAdvance(id);
-				map.put(id, result)	;		
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
+    	if (docIdList.length>0) {
+    		for (String docId : docIdList) {
+    			try {
+    				Long uId = Long.parseLong(userId);
+    				Long id = Long.parseLong(docId);
+    				BigDecimal result = this.advanceFormManager.calculateRemainAdvance(id, uId);
+    				map.put(id, result)	;		
+    			} catch (Exception e) {
+    				// TODO: handle exception
+    			}
+    		}
+		}    	
         String json = "";
         try {
             json = mapper.writeValueAsString(map);

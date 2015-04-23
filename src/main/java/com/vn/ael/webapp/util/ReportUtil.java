@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -105,14 +106,35 @@ public class ReportUtil {
 				}
 			}
 		}
-
+		Properties prop = new Properties();
+		String typeOfService = "";
+		// Get file from resources folder
+					ClassLoader classLoader = ReportUtil.class.getClassLoader();
+					File file = new File(classLoader.getResource(AELConst.APP_PROPERTIES)
+							.getFile());
+					try {
+						InputStream targetStream = new FileInputStream(file);
+						if (targetStream!=null) {
+							prop.load(targetStream);
+							if (prop.containsKey(offerPrice
+						.getTypeOfService().getTextKey())) {
+								typeOfService=prop.getProperty(offerPrice
+						.getTypeOfService().getTextKey());
+							}
+						}
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						log.error(e.getMessage());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						log.error(e.getMessage());
+					}
+		
 		Map<String, Object> beans = new LinkedHashMap<>();
 		Customer cust = offerPrice.getCustomer();
 		beans.put("customerCode", cust.getCode());
 		beans.put("customerName", cust.getName());
-		beans.put("offerType",
-				offerPrice.getTypeOfService() != null ? offerPrice
-						.getTypeOfService().getValue() : AELConst.EMPTY_STRING);
+		beans.put("offerType", typeOfService);
 		beans.put("offerDate",
 				CommonUtil.getDateString(offerPrice.getDateOffer()));
 		beans.put("offerItem", offerPriceExport);
@@ -662,11 +684,25 @@ public class ReportUtil {
 			Map<Integer, BigDecimal> listRemainAdvancebyJob) {
 		Map<String, Object> beans = new LinkedHashMap<>();
 		double total = 0;
+		BigDecimal totalRemainAdv = BigDecimal.ZERO;
 		int index = 0;
 		List<AdvanceRequestItem> listAdvance = new ArrayList<AdvanceRequestItem>();
 		List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
 		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
 		if (!listAdvanceDetail.isEmpty()) {
+			for (Advancedetail advancedetail : listAdvanceDetail) {
+				try {
+					if (listRemainAdvancebyJob.containsKey(advancedetail.getDocs().getId().intValue())) {
+						BigDecimal tmp = listRemainAdvancebyJob.get(advancedetail.getDocs().getId().intValue()).subtract(advancedetail.getAmount());
+						if (tmp.doubleValue()>=0) {
+							listRemainAdvancebyJob.put(advancedetail.getDocs().getId().intValue(), tmp);
+						}						
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+			Map<Integer, BigDecimal> usedRemain = new HashMap<Integer, BigDecimal>();
 			for (Advancedetail advancedetail : listAdvanceDetail) {
 				AdvanceRequestItem item = new AdvanceRequestItem();
 				index++;
@@ -677,6 +713,12 @@ public class ReportUtil {
 				item.setAmount(advancedetail.getAmount().toString());
 				item.setRemainAdvance(listRemainAdvancebyJob.get(
 						advancedetail.getDocs().getId().intValue()).toString());
+				if (!usedRemain.containsKey(advancedetail.getDocs().getId().intValue())) {
+					totalRemainAdv = totalRemainAdv.add(listRemainAdvancebyJob.get(
+							advancedetail.getDocs().getId().intValue()));
+					usedRemain.put(advancedetail.getDocs().getId().intValue(), totalRemainAdv);
+				}
+				
 				item.setIndex(index);
 				total += advancedetail.getAmount().doubleValue();
 				listAdvance.add(item);
@@ -689,6 +731,7 @@ public class ReportUtil {
 		beans.put("employee", advanceForm.getEmployee());
 		beans.put("refundDate",
 				CommonUtil.getDateString(advanceForm.getTimeRefund()));
+		beans.put("totalRemainAdv", totalRemainAdv.toString());
 		return beans;
 	}
 

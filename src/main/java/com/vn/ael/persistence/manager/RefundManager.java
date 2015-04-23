@@ -13,7 +13,7 @@ public interface RefundManager extends GenericManager<Refund> {
 
 	Refund saveWholePackage(Refund refund);
 	
-	List<Refund> findByEmpoyee(User employee);
+	List<Refund> findByEmpoyee(User employee, boolean getAllAbility);
 	
 	List<Refund> searchRefund(Search search);
 

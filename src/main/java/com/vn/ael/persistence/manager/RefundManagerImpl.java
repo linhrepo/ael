@@ -84,8 +84,8 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	}
 
 	@Override
-	public List<Refund> findByEmpoyee(User employee) {
-		if(EntityUtil.isAdminOrAccountRole(employee)){
+	public List<Refund> findByEmpoyee(User employee, boolean getAllAbility) {
+		if(EntityUtil.isAdminOrAccountRole(employee) && getAllAbility){
 			return this.refundRepository.findAll();
 		}
 		return this.refundRepository.findByEmployee(employee);

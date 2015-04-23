@@ -14,11 +14,11 @@ public interface AdvanceFormManager extends GenericManager<Advanceform> {
 
 	Advanceform saveWholePackage(Advanceform advanceform);
 	
-	List<Advanceform> findByEmpoyee(User employee);
+	List<Advanceform> findByEmpoyee(User employee, boolean getAllAbility);
 
 	List<Advanceform> searchAdvanceForm(Search search);
 	
-	BigDecimal calculateRemainAdvance(Long jobId);
+	BigDecimal calculateRemainAdvance(Long jobId, Long userId);
 	
 	List<Advanceform> searchAdvanceFormBefore(Search search);
 	

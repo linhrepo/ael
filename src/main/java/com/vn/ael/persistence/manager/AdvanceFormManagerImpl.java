@@ -90,8 +90,8 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 	}
 
 	@Override
-	public List<Advanceform> findByEmpoyee(User employee) {
-		if(EntityUtil.isAdminOrAccountRole(employee)){
+	public List<Advanceform> findByEmpoyee(User employee, boolean getAllAbility) {
+		if(EntityUtil.isAdminOrAccountRole(employee) && getAllAbility){
 			return this.advanceFormRepository.findAll();
 		}
 		return this.advanceFormRepository.findByEmployee(employee);
@@ -106,7 +106,7 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 	}
 
 	@Override
-	public BigDecimal calculateRemainAdvance(Long jobId) {
+	public BigDecimal calculateRemainAdvance(Long jobId, Long userId) {
 		// TODO Auto-generated method stub
 		BigDecimal result = BigDecimal.ZERO;
 		List<Advancedetail> listAdvanceByJobNo = new ArrayList<Advancedetail>();
@@ -126,7 +126,7 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 		if (!listAdvanceByJobNo.isEmpty()) {
 			for (Advancedetail advancedetail : listAdvanceByJobNo) {
 				if (advancedetail.getAdvanceform()!=null) {
-					if (advancedetail.getAdvanceform().getDoApproval()) {
+					if (advancedetail.getAdvanceform().getDoApproval() && advancedetail.getAdvanceform().getEmployee().getId().equals(userId)) {
 						result=result.add(advancedetail.getAmount());
 					}
 				}
@@ -135,7 +135,7 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 		if (!listRefundByJobNo.isEmpty()) {
 			for (Refunddetail refundDetail : listRefundByJobNo){
 				if (refundDetail.getRefund()!=null) {
-					if (refundDetail.getRefund().getDoApproval()) {
+					if (refundDetail.getRefund().getDoApproval() && refundDetail.getRefund().getEmployee().getId().equals(userId)) {
 						result=result.subtract(refundDetail.getAmount());
 						result=result.subtract(refundDetail.getOAmount());
 					}

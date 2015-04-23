@@ -8,19 +8,19 @@
 	<form:form commandName="search" method="post"
 		action="searchRefund" id="refundForm" cssClass="well">
 		<div class="row">
-			<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
-				<div class="form-group col-md-3">
-					<appfuse:label styleClass="control-label"
-						key="advanceform.employee" />
-					<form:select path="employee" id="employeecode1"
-						cssClass="form-control select2">
-						<form:option value=""><fmt:message key="searchall" /></form:option>
-						<c:forEach items="${docsSelection.staff}" var="st">
-			        		<form:option value="${st.id}">${st.firstName}&nbsp;${st.lastName} </form:option>
-			        	</c:forEach>
-					</form:select>
-				</div>
-			</security:authorize>
+<%-- 			<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING">  --%>
+<!-- 				<div class="form-group col-md-3"> -->
+<%-- 					<appfuse:label styleClass="control-label" --%>
+<%-- 						key="advanceform.employee" /> --%>
+<%-- 					<form:select path="employee" id="employeecode1" --%>
+<%-- 						cssClass="form-control select2"> --%>
+<%-- 						<form:option value=""><fmt:message key="searchall" /></form:option> --%>
+<%-- 						<c:forEach items="${docsSelection.staff}" var="st"> --%>
+<%-- 			        		<form:option value="${st.id}">${st.firstName}&nbsp;${st.lastName} </form:option> --%>
+<%-- 			        	</c:forEach> --%>
+<%-- 					</form:select> --%>
+<!-- 				</div> -->
+<%-- 			</security:authorize> --%>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="refund.startdate" />

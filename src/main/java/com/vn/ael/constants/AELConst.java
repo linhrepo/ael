@@ -39,4 +39,6 @@ public interface AELConst {
 	
 	String NEW_LINE_REPORT = "\n";
 	
+	String APP_PROPERTIES = "ApplicationResources.properties";
+	
 }

@@ -51,7 +51,7 @@
                 </span>
             </c:if>
         </div>
-
+        
         <spring:bind path="user.passwordHint">
         <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
         </spring:bind>

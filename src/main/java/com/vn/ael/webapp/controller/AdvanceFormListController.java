@@ -35,6 +35,8 @@ import com.vn.ael.persistence.manager.UserManager;
 import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.CommonUtil;
+import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -75,9 +77,9 @@ public class AdvanceFormListController extends BaseFormController {
 			throws Exception {
 		Model model = new ExtendedModelMap();
 		model.addAttribute(advanceFormManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		model.addAttribute(refundManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		Search searchRefund = new Search();
 		model.addAttribute("search", searchRefund);
 		DocsSelection docsSelection = configurationManager
@@ -115,7 +117,7 @@ public class AdvanceFormListController extends BaseFormController {
 				.searchAdvanceForm(searchAdvanceForm);
 		mav.addObject(advanceforms);
 		mav.addObject(refundManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
@@ -137,7 +139,7 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Refund> refunds = refundManager.searchRefund(searchRefund);
 		mav.addObject(refunds);
 		mav.addObject(advanceFormManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request)));
+				.getLoggedUser(request),false));
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
@@ -340,6 +342,8 @@ public class AdvanceFormListController extends BaseFormController {
 		beans.put("totalRefBetween", totalRefBetween);
 		beans.put("totalRefAfter", totalRefAfter);
 		beans.put("advanceSumary", listSumary);
+		beans.put("startDate", CommonUtil.getDateString(startDate));
+		beans.put("endDate", CommonUtil.getDateString(endDate));
 		ReportUtil.dispatchReport(response,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS_TEMPLATE, beans);
@@ -409,6 +413,8 @@ public class AdvanceFormListController extends BaseFormController {
 		beans.put("totalRefBetween", totalRefBetween);
 		beans.put("totalRefAfter", totalRefAfter);
 		beans.put("advanceSumary", listSumary);
+		beans.put("startDate", CommonUtil.getDateString(startDate));
+		beans.put("endDate", CommonUtil.getDateString(endDate));
 		ReportUtil.dispatchReport(response,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS,
 				ReportTeamplates.ADVANCE_SUMARY_ITEMS_TEMPLATE, beans);

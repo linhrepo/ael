@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <head>
     <title><fmt:message key="refund.title"/></title>
-    <meta name="menu" content="UserMenu"/>
+    <meta name="menu" content="Home"/>
 </head>
  <c:set var="delObject" scope="request"><fmt:message key="refund.title"/></c:set>
 <script type="text/javascript">var msgDelConfirm =

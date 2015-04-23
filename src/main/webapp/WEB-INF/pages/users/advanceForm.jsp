@@ -1,6 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <script src="<c:url value="/scripts/custom/advanceForm.js" />"></script>
 <script>var ctx = "<%=request.getContextPath()%>"</script>
+<script>var isApproved = ${advanceform.doApproval}</script>
 <head>
     <title><fmt:message key="advanceform.title"/></title>
     <meta name="menu" content="Home"/>
