@@ -702,6 +702,7 @@ public class ReportUtil {
 					// TODO: handle exception
 				}
 			}
+			Map<Integer, BigDecimal> usedRemain = new HashMap<Integer, BigDecimal>();
 			for (Advancedetail advancedetail : listAdvanceDetail) {
 				AdvanceRequestItem item = new AdvanceRequestItem();
 				index++;
@@ -712,8 +713,12 @@ public class ReportUtil {
 				item.setAmount(advancedetail.getAmount().toString());
 				item.setRemainAdvance(listRemainAdvancebyJob.get(
 						advancedetail.getDocs().getId().intValue()).toString());
-				totalRemainAdv = totalRemainAdv.add(listRemainAdvancebyJob.get(
-						advancedetail.getDocs().getId().intValue()));
+				if (!usedRemain.containsKey(advancedetail.getDocs().getId().intValue())) {
+					totalRemainAdv = totalRemainAdv.add(listRemainAdvancebyJob.get(
+							advancedetail.getDocs().getId().intValue()));
+					usedRemain.put(advancedetail.getDocs().getId().intValue(), totalRemainAdv);
+				}
+				
 				item.setIndex(index);
 				total += advancedetail.getAmount().doubleValue();
 				listAdvance.add(item);
