@@ -69,6 +69,8 @@ import com.vn.ael.webapp.dto.AccountingShipmentExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.AdvanceRequestItem;
+import com.vn.ael.webapp.dto.AdvanceSumary;
+import com.vn.ael.webapp.dto.AdvanceSumaryExportDTO;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.FeeExportItem;
@@ -1044,5 +1046,22 @@ public class ReportUtil {
 					}
 			 parameterMap.put("details", profitLossExports);
 		return parameterMap;
+	}
+	public static List<AdvanceSumaryExportDTO> convertAdvSumaryForExport(List<AdvanceSumary> advSumary){
+		List<AdvanceSumaryExportDTO> result = new ArrayList<AdvanceSumaryExportDTO>();
+		if (!advSumary.isEmpty()) {
+		for (AdvanceSumary advS : advSumary) {
+			AdvanceSumaryExportDTO item = new AdvanceSumaryExportDTO();
+			item.setEmployeeName(advS.getEmployeeName());
+			item.setTotalAdvanceBefore(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceBefore()).replace("$", ""));
+			item.setTotalAdvanceBetween(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceBetween()).replace("$", ""));
+			item.setTotalAdvanceAfter(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceAfter()).replace("$", ""));
+			item.setTotalRefundBefore(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundBefore()).replace("$", ""));
+			item.setTotalRefundBetween(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundBefore()).replace("$", ""));
+			item.setTotalRefundAfter(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundAfter()).replace("$", ""));
+			result.add(item);
+		}
+		}
+		return result;
 	}
 }
