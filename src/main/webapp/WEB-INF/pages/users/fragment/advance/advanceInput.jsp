@@ -43,3 +43,19 @@
 		        <form:errors path="timeRefund" cssClass="help-block"/>
 	    </div>
 	</div>
+	
+	<script>
+	$( document ).ready(function() {
+		var dateEle = $("#date");
+		var refundDateEle = $("#timeRefund");
+		var currentDate = new Date();
+		currentDate.setMonth(currentDate.getMonth() + 1);
+		if (dateEle.val()==null || dateEle.val()=="") {
+			dateEle.datepicker("setDate",new Date());
+		}
+		if (refundDateEle.val()==null || refundDateEle.val()=="") {
+			refundDateEle.datepicker("setDate",currentDate);
+		}
+
+	});
+	</script>

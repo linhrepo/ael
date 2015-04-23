@@ -22,13 +22,13 @@
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.startdate" />
-					<form:input path="startDate" provide="datepicker" id="startDate"  cssClass="form-control"/>
+					<form:input path="startDate" provide="datepicker" id="startDateSumary"  cssClass="form-control"/>
 			        <form:errors path="startDate" cssClass="help-block"/>
 			</div>
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.enddate" />
-					<form:input path="endDate" provide="datepicker" id="endDate"  cssClass="form-control"/>
+					<form:input path="endDate" provide="datepicker" id="endDateSumary"  cssClass="form-control"/>
 			        <form:errors path="endDate" cssClass="help-block"/>
 			</div>			
 		</div> 
@@ -49,5 +49,17 @@ exportButton.click(function() {
 	alert($("#advanceSumaryForm").attr("showLoading"));
 	 $("#advanceSumaryForm").submit();
 	 $("#advanceSumaryForm").attr("showLoading","");
+});
+
+$( document ).ready(function() {
+	var startDateEle = $("#startDateSumary");
+	var endDateEle = $("#endDateSumary");
+	if (startDateEle.val()==null || startDateEle.val()=="") {
+		startDateEle.datepicker("setDate",new Date());
+	}
+	if (endDateEle.val()==null || endDateEle.val()=="") {
+		endDateEle.datepicker("setDate",new Date());
+	}
+
 });
 </script>
