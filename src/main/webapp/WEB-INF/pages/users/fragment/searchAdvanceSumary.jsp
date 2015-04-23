@@ -8,7 +8,7 @@
 	<form:form commandName="search" method="post"
 		action="searchAdvanceSumary" id="advanceSumaryForm" cssClass="well" showLoading="false">
 		<div class="row">
-		<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
+		<%-- <security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.employee" />
@@ -20,7 +20,12 @@
 		        	</c:forEach>
 				</form:select>
 			</div>
-			</security:authorize>
+			</security:authorize> --%>
+			<%-- <form:hidden path="employee.id"/>
+		    	<div class="form-group col-md-3">
+		    		<appfuse:label styleClass="control-label" key="advanceform.employee"/>
+		    		<input class="form-control" value="${employee.firstName}&nbsp;${employee.lastName}" readonly="readonly"/>
+		    	</div> --%>
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.startdate" />

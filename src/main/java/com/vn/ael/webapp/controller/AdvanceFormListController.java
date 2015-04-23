@@ -242,16 +242,8 @@ public class AdvanceFormListController extends BaseFormController {
 		Date endDate = searchAdvanceSumary.getEndDate() != null ? searchAdvanceSumary
 				.getEndDate() : cal.getTime();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
-		User employee = new User();
-		try {
-			employee = advanceFormManager.getUserById(searchAdvanceSumary
-					.getEmployee());
-		} catch (Exception e) {
-			// TODO: handle exception
-			log.error("CAN'T GET USER: " + e.getMessage());
-		}
-		if (employee.getId() != null) {
-			listSumary.add(this.getAdvanceSumaryForEmployee(employee,
+		if (loggedInUser.getId() != null) {
+			listSumary.add(this.getAdvanceSumaryForEmployee(loggedInUser,
 					startDate, endDate));
 		} else {
 			List<User> employees = new ArrayList<User>();
@@ -297,16 +289,8 @@ public class AdvanceFormListController extends BaseFormController {
 		Date endDate = searchAdvanceSumary.getEndDate() != null ? searchAdvanceSumary
 				.getEndDate() : cal.getTime();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
-		User employee = new User();
-		try {
-			employee = advanceFormManager.getUserById(searchAdvanceSumary
-					.getEmployee());
-		} catch (Exception e) {
-			// TODO: handle exception
-			log.error("CAN'T GET USER: " + e.getMessage());
-		}
-		if (employee.getId() != null) {
-			listSumary.add(this.getAdvanceSumaryForEmployee(employee,
+		if (loggedInUser.getId() != null) {
+			listSumary.add(this.getAdvanceSumaryForEmployee(loggedInUser,
 					startDate, endDate));
 		} else {
 			List<User> employees = new ArrayList<User>();
