@@ -113,7 +113,7 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 				EntityUtil.updateExfeetableForNewTruckingdetail(truckingdetails);
 			}
 			//check conteal again
-			if (contseals != null || !contseals.isEmpty()){
+			if (contseals != null && !contseals.isEmpty()){
 				for (Contseal contseal: contseals){
 					boolean isSet = false;
 					for (Truckingdetail truckingdetail : truckingservice.getTruckingdetails()){
@@ -218,5 +218,11 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 	public List<Truckingdetail> searchProfitLoss(
 			AccountingTransCondition accountingTransCondition) {
 		return truckingdetailRepository.searchProfitLoss(accountingTransCondition.getCustomerId(), true, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), ServicesType.fromValue(accountingTransCondition.getTypeOfDocs().intValue()), accountingTransCondition.getJob());
+	}
+
+	@Override
+	public List<Truckingdetail> findWithFullTruckingservice(
+			Long truckingServiceId) {
+		return truckingdetailRepository.findWithFullTruckingservice(truckingServiceId);
 	}
 }

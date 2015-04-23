@@ -103,4 +103,14 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
 				search.getDoDelivery(), search.getDoRelease());
 	}
 
+	@Override
+	public List<String> findAllShipper() {
+		return packageinfoRepository.findShipper();
+	}
+
+	@Override
+	public List<String> findAllConsignee() {
+		return packageinfoRepository.findConsignee();
+	}
+
 }

@@ -67,10 +67,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	)
 	List<Docsgeneral> getDoAccountingInlandSealandAndTime(@Param(value = "doAccounting")Boolean doAccounting,@Param(value = "inland")ServicesType inland,@Param(value = "seaType")ServicesType seaType
 			,@Param(value="month") int month, @Param(value="year") int year, @Param(value="customerId")long customerId);
-	
-	@Query("from Docsgeneral d where d.shippingLine.id=:nhathauId and d.doAccounting = :doAccounting and d.docReceiveDate between :startDate and :endDate")
-	List<Docsgeneral> findAllByConditionDateTime(@Param(value = "doAccounting")Boolean doAccounting,
-			@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, @Param(value="nhathauId")long nhathauId);
+
 	
 	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
@@ -102,7 +99,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "e.typeOfDocs =:typeOfDocs and "
-			+ "(e.packageinfo.customsDate between :startDate and :endDate) and "
+			+ "(e.packageinfo.customsDate >= :startDate or :startDate is null) and (e.packageinfo.customsDate <= :endDate or :endDate is null) and "			
 			+ "(e.packageinfo.consignee = :consignee or :consignee = '') and "
 			+ "(e.packageinfo.shipper = :shipper or :shipper = '') and "
 			+ "(e.jobNo = :jobNo or :jobNo = '') and "

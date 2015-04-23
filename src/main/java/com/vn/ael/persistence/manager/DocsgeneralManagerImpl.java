@@ -336,14 +336,6 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	}
 
 	@Override
-	public List<Docsgeneral> findAllByConditionDateTime(
-			AccountingTransCondition accountingTransCondition) {
-		List<Docsgeneral> docsgenerals = null;
-		docsgenerals = this.docsgeneralRepository.findAllByConditionDateTime(true,accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId());
-		return docsgenerals;
-	}
-
-	@Override
 	public List<Docsgeneral> searchTrucking(Search search) {
 		ServicesType servicesType = null;
 		if(search.getTypeOfDocs() == null){

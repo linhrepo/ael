@@ -27,5 +27,7 @@ public interface ExfeetableManager extends GenericManager<Exfeetable> {
 	 * @return
 	 */
 	List<Exfeetable> findByDocsgeneral(Long id);
+	
+	List<Exfeetable> findByTruckingdetail(Long id);
 
 }

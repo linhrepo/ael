@@ -29,7 +29,7 @@ import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
-import com.vn.ael.persistence.repository.PackageinfoRepository;
+import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
@@ -43,7 +43,7 @@ public class AccountingController extends BaseFormController {
 	
 	private NhathauManager nhathauManager;
 	
-	private PackageinfoRepository packageinfoRepository;
+	private PackageinfoManager packageinfoManager;
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -61,10 +61,10 @@ public class AccountingController extends BaseFormController {
     public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
         this.docsgeneralManager = docsgeneralManager;
     }
-    
+       
     @Autowired
-    public void setPackageinfoRepository(PackageinfoRepository packageinfoRepository) {
-		this.packageinfoRepository = packageinfoRepository;
+	public void setPackageinfoManager(PackageinfoManager packageinfoManager) {
+		this.packageinfoManager = packageinfoManager;
 	}
 
 	public AccountingController() {
@@ -225,8 +225,8 @@ public class AccountingController extends BaseFormController {
     		);
         model.addAttribute("docsSelection", docsSelection);
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
-        model.addAttribute("shippers", packageinfoRepository.findShipper());
-        model.addAttribute("consignees", packageinfoRepository.findConsignee());
+        model.addAttribute("shippers", packageinfoManager.findAllShipper());
+        model.addAttribute("consignees", packageinfoManager.findAllConsignee());
         return new ModelAndView(URLReference.ACCOUNTING_VANTAI_LIST, model.asMap());
     }
     
@@ -265,8 +265,8 @@ public class AccountingController extends BaseFormController {
     		);
         model.addAttribute("docsSelection", docsSelection);
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
-        model.addAttribute("shippers", packageinfoRepository.findShipper());
-        model.addAttribute("consignees", packageinfoRepository.findConsignee());
+        model.addAttribute("shippers", packageinfoManager.findAllShipper());
+        model.addAttribute("consignees", packageinfoManager.findAllConsignee());
         return new ModelAndView(URLReference.ACCOUNTING_SHIPMENT, model.asMap());
     }
     

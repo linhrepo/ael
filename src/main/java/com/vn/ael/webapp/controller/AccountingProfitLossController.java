@@ -19,8 +19,8 @@ import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
-import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.util.ConvertUtil;
@@ -30,17 +30,15 @@ import com.vn.ael.webapp.util.ReportUtil;
 public class AccountingProfitLossController {
 
 	private TruckingserviceManager truckingserviceManager;
-	
-	private ExfeetableRepository exfeetableRepository;
 
 	private DocsgeneralManager docsgeneralManager;
 	
-	@Autowired
-	public void setExfeetableRepository(
-			ExfeetableRepository exfeetableRepository) {
-		this.exfeetableRepository = exfeetableRepository;
-	}
+	private ExfeetableManager exfeetableManager;
 	
+	@Autowired
+	public void setExfeetableManager(ExfeetableManager exfeetableManager) {
+		this.exfeetableManager = exfeetableManager;
+	}
 
 	@Autowired
 	public void setDocsgeneralManager(
@@ -84,8 +82,8 @@ public class AccountingProfitLossController {
 			for (Truckingdetail truckingdetail : truckingdetails) {
 				// load fee
 				BigDecimal total = BigDecimal.ZERO;
-				exfeetables = exfeetableRepository
-						.findByTruckingdetail(truckingdetail);
+				exfeetables = exfeetableManager
+						.findByTruckingdetail(truckingdetail.getId());
 				if (exfeetables != null && !exfeetables.isEmpty()) {
 					for (Exfeetable exfeetable : exfeetables) {
 						total = total.add(ConvertUtil

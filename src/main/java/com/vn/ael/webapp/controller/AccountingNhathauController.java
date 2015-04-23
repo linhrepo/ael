@@ -25,13 +25,12 @@ import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.manager.ContsealManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
-import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.formatter.FormatterUtil;
-import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -42,7 +41,12 @@ public class AccountingNhathauController extends BaseFormController{
 	
 	private TruckingserviceManager truckingserviceManager;
 	
-	private ExfeetableRepository exfeetableRepository;
+	private ExfeetableManager exfeetableManager;
+		
+	@Autowired
+	public void setExfeetableManager(ExfeetableManager exfeetableManager) {
+		this.exfeetableManager = exfeetableManager;
+	}
 	
 	private ContsealManager contsealManager;
 
@@ -60,11 +64,6 @@ public class AccountingNhathauController extends BaseFormController{
 	public void setTruckingserviceManager(
 			TruckingserviceManager truckingserviceManager) {
 		this.truckingserviceManager = truckingserviceManager;
-	}
-        
-    @Autowired
-	public void setExfeetableRepository(ExfeetableRepository exfeetableRepository) {
-		this.exfeetableRepository = exfeetableRepository;
 	}
 
     @Autowired
@@ -139,7 +138,7 @@ public class AccountingNhathauController extends BaseFormController{
         		if(truckingdetail.getPhuthu() != null){
         			total = total.add(truckingdetail.getPhuthu());
         		}
-        		exfeetables = exfeetableRepository.findByTruckingdetail(truckingdetail);
+        		exfeetables = exfeetableManager.findByTruckingdetail(truckingdetail.getId());
         		if(exfeetables != null && !exfeetables.isEmpty()){
         			for (Exfeetable exfeetable : exfeetables) {
         				if(exfeetable.getTotal() != null){

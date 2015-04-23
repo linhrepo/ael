@@ -19,8 +19,8 @@ import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
-import com.vn.ael.persistence.repository.ExfeetableRepository;
-import com.vn.ael.persistence.repository.TruckingdetailRepository;
+import com.vn.ael.persistence.manager.ExfeetableManager;
+import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.util.ConvertUtil;
@@ -31,24 +31,24 @@ public class AccountingShipmentController {
 
 	private DocsgeneralManager docsgeneralManager;
 	
-	private ExfeetableRepository exfeetableRepository;
+	private ExfeetableManager exfeetableManager;
 	
-	private TruckingdetailRepository truckingdetailRepository;
+	private TruckingserviceManager truckingserviceManager;
+	
+	@Autowired
+	public void setExfeetableManager(ExfeetableManager exfeetableManager) {
+		this.exfeetableManager = exfeetableManager;
+	}
 
 	@Autowired
 	public void setDocsgeneralManager(DocsgeneralManager docsgeneralManager) {
 		this.docsgeneralManager = docsgeneralManager;
 	}
-		
-	@Autowired
-	public void setExfeetableRepository(ExfeetableRepository exfeetableRepository) {
-		this.exfeetableRepository = exfeetableRepository;
-	}
 
 	@Autowired
-	public void setTruckingdetailRepository(
-			TruckingdetailRepository truckingdetailRepository) {
-		this.truckingdetailRepository = truckingdetailRepository;
+	public void setTruckingserviceManager(
+			TruckingserviceManager truckingserviceManager) {
+		this.truckingserviceManager = truckingserviceManager;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value=URLReference.AJAX_REPORT_ACCOUNTING_SHIPMENT)
@@ -70,12 +70,12 @@ private AccountingTrans setUpDataShipment(HttpServletRequest request, Accounting
         	for (Docsgeneral docsgeneral : docsgenerals) {
         		Truckingservice truckingservice = docsgeneral.getTruckingservice();
         		if(truckingservice != null){
-        			List<Truckingdetail> truckingdetails = truckingdetailRepository.findWithFullTruckingservice(truckingservice.getId());
+        			List<Truckingdetail> truckingdetails = truckingserviceManager.findWithFullTruckingservice(truckingservice.getId());
         			if(truckingdetails != null && !truckingdetails.isEmpty()){
         				for (Truckingdetail truckingdetail : truckingdetails) {
         					//load fee
         	        		BigDecimal total = BigDecimal.ZERO;
-        	        		exfeetables = exfeetableRepository.findByTruckingdetail(truckingdetail);
+        	        		exfeetables = exfeetableManager.findByTruckingdetail(truckingdetail.getId());
         	        		if(exfeetables != null && !exfeetables.isEmpty()){
         	        			for (Exfeetable exfeetable : exfeetables) {
         	        					total = total.add(ConvertUtil.getNotNullValue(exfeetable.getTotal()));

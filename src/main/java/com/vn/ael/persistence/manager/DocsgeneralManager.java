@@ -79,8 +79,6 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	 */
 	void updateContTruckDetail(Docsgeneral docsgeneral);
 	
-	List<Docsgeneral> findAllByConditionDateTime(AccountingTransCondition accountingTransCondition);
-	
 	List<Docsgeneral> searchTrucking(Search search);	
 	
 	List<Docsgeneral> searchAccounting(Search search);

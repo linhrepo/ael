@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.persistence.entity.Configuration;
-import com.vn.ael.persistence.entity.Customer;
-import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.repository.ConfigurationRepository;
 import com.vn.ael.persistence.repository.CustomerRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;

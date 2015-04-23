@@ -2,9 +2,7 @@ package com.vn.ael.webapp.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +17,8 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
-import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.util.ConvertUtil;
@@ -31,17 +29,19 @@ public class AccountingVantaiController extends BaseFormController {
 	
 	private TruckingserviceManager truckingserviceManager;
 	
-	private ExfeetableRepository exfeetableRepository;
+	private ExfeetableManager exfeetableManager;
 	
 	@Autowired
 	public void setTruckingserviceManager(TruckingserviceManager truckingserviceManager) {
 		this.truckingserviceManager = truckingserviceManager;
 	}
-
+	
 	@Autowired
-	public void setExfeetableRepository(ExfeetableRepository exfeetableRepository) {
-		this.exfeetableRepository = exfeetableRepository;
+	public void setExfeetableManager(ExfeetableManager exfeetableManager) {
+		this.exfeetableManager = exfeetableManager;
 	}
+
+
 
 	public AccountingVantaiController() {
     	setCancelView("redirect:"+URLReference.ACCOUNTING_VANTAI_LIST);
@@ -71,19 +71,16 @@ public class AccountingVantaiController extends BaseFormController {
 	       }      
     }
 	
-    private AccountingTrans setUpDataKHVT(HttpServletRequest request, AccountingTransCondition accountingTransCondition){
-    	 Map<Long, List<Truckingdetail>> mapVantai = new HashMap<>();
-         
+    private AccountingTrans setUpDataKHVT(HttpServletRequest request, AccountingTransCondition accountingTransCondition){         
          //Set up command
          List<Truckingdetail> truckingdetails = this.truckingserviceManager.searchVantai(accountingTransCondition);
          List<Exfeetable> exfeetables = new ArrayList<>();
          
          if(truckingdetails != null && !truckingdetails.isEmpty()){        	
          	for (Truckingdetail truckingdetail : truckingdetails) {
-         		List<Truckingdetail> truckdetails = new ArrayList<>();
          		//load fee
          		BigDecimal total = BigDecimal.ZERO;
-         		exfeetables = exfeetableRepository.findByTruckingdetail(truckingdetail);
+         		exfeetables = exfeetableManager.findByTruckingdetail(truckingdetail.getId());
          		if(exfeetables != null && !exfeetables.isEmpty()){
          			for (Exfeetable exfeetable : exfeetables) {
          					total = total.add(ConvertUtil.getNotNullValue(exfeetable.getTotal()));
@@ -109,7 +106,7 @@ public class AccountingVantaiController extends BaseFormController {
         	for (Truckingdetail truckingdetail : truckingdetails) {
         		//load fee
         		BigDecimal total = BigDecimal.ZERO;
-        		exfeetables = exfeetableRepository.findByTruckingdetail(truckingdetail);
+        		exfeetables = exfeetableManager.findByTruckingdetail(truckingdetail.getId());
         		if(exfeetables != null && !exfeetables.isEmpty()){
         			for (Exfeetable exfeetable : exfeetables) {
         					total = total.add(ConvertUtil.getNotNullValue(exfeetable.getTotal()));

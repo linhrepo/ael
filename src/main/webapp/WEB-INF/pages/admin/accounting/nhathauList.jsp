@@ -63,11 +63,3 @@
 	    </div>
     </form:form>
 </div>
-<script>
-	$(document).ready(function(){
-		$("#startDate").datepicker("setDate",new Date());
-		$("#endDate").datepicker("setDate",new Date());
-		/* $("#startDate").datepicker({defaultDate: new Date()}); */
-	});
-	
-</script>
