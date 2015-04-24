@@ -58,9 +58,9 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	@OneToOne(mappedBy = "feeowner")
 	private Extendfeeacc extendfeeacc;
 	
-	private Boolean approved;
+	private Boolean approved = false;
 	
-	private Boolean checkByAdmin;
+	private Boolean checkByAdmin = false;
 	
 	
 	@ManyToOne

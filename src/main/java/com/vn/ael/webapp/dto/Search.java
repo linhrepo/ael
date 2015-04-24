@@ -23,6 +23,8 @@ public class Search {
 	private Boolean doApproval;
 	private Date startPayDate;
 	private Date endPayDate;
+	private Boolean checkByAdmin;
+	private Boolean approved;
 	
 	public Long getCustomer() {
 		return customer;
@@ -125,6 +127,18 @@ public class Search {
 	}
 	public void setEndPayDate(Date endPayDate) {
 		this.endPayDate = endPayDate;
+	}
+	public Boolean getCheckByAdmin() {
+		return checkByAdmin;
+	}
+	public void setCheckByAdmin(Boolean checkByAdmin) {
+		this.checkByAdmin = checkByAdmin;
+	}
+	public Boolean getApproved() {
+		return approved;
+	}
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
 	}	
 	
 }

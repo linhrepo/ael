@@ -144,6 +144,7 @@ public class AccountingController extends BaseFormController {
         		);
         model.addAttribute("docsSelection", docsSelection);
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        model.addAttribute("enumStatus", StatusType.values());
         return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST, model.asMap());
     }
     

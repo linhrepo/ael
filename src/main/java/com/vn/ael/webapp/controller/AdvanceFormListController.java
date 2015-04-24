@@ -1,6 +1,8 @@
 package com.vn.ael.webapp.controller;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.StatusType;
@@ -31,12 +34,10 @@ import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.manager.RefundManager;
-import com.vn.ael.persistence.manager.UserManager;
 import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.CommonUtil;
-import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -110,9 +111,7 @@ public class AdvanceFormListController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_REFUNDS);
 		// check role
 		User user = getUserManager().getLoggedUser(request);
-		if (!EntityUtil.isAdminOrAccountRole(user)) {
-			searchAdvanceForm.setEmployee(user.getId());
-		}
+		searchAdvanceForm.setEmployee(user.getId());
 		List<Advanceform> advanceforms = advanceFormManager
 				.searchAdvanceForm(searchAdvanceForm);
 		mav.addObject(advanceforms);
@@ -133,9 +132,7 @@ public class AdvanceFormListController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_REFUNDS);
 		// check role
 		User user = getUserManager().getLoggedUser(request);
-		if (!EntityUtil.isAdminOrAccountRole(user)) {
-			searchRefund.setEmployee(user.getId());
-		}
+		searchRefund.setEmployee(user.getId());
 		List<Refund> refunds = refundManager.searchRefund(searchRefund);
 		mav.addObject(refunds);
 		mav.addObject(advanceFormManager.findByEmpoyee(getUserManager()
@@ -468,7 +465,7 @@ public class AdvanceFormListController extends BaseFormController {
 	}
 
 	private AdvanceSumary getAdvanceSumaryForEmployee(User employee,
-			Date startDate, Date endDate) {
+			Date startDate, Date endDate) throws ParseException {
 		BigDecimal totalAdvanceBefore = BigDecimal.ZERO;
 		BigDecimal totalRefundBefore = BigDecimal.ZERO;
 		BigDecimal totalAdvanceBetween = BigDecimal.ZERO;
@@ -480,13 +477,21 @@ public class AdvanceFormListController extends BaseFormController {
 				.findByEmpoyeeForAccounting(employee));
 		List<Advanceform> listBefore = new ArrayList<Advanceform>();
 		List<Advanceform> listBetween = new ArrayList<Advanceform>();
+		SimpleDateFormat dateFormat = 
+	            new SimpleDateFormat(FormatterPattern.DATE_FOMART);
+		String strD2 = dateFormat.format(startDate);
+		Date dateStart = dateFormat.parse(strD2);
+		String strD3 = dateFormat.format(endDate);
+		Date dateEnd = dateFormat.parse(strD3);
 		if (!listAdvance.isEmpty()) {
 			for (Advanceform advanceform : listAdvance) {
-				if (advanceform.getDate() != null) {
-					if (advanceform.getDate().before(startDate)) {
+				if (advanceform.getDate() != null) {					 
+					 String strD1 = dateFormat.format(advanceform.getDate());
+					 Date dateAdvance = dateFormat.parse(strD1);					 
+					if (dateAdvance.before(dateStart) || dateAdvance.equals(dateStart)) {
 						listBefore.add(advanceform);
-					} else if (advanceform.getDate().after(startDate)
-							&& advanceform.getDate().before(endDate)) {
+					} else if (dateAdvance.after(dateStart)
+							&& (dateAdvance.before(dateEnd) || dateAdvance.equals(dateEnd))) {
 						listBetween.add(advanceform);
 					}
 				}
@@ -502,11 +507,13 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Refund> listRefundBetween = new ArrayList<Refund>();
 		if (!listRefund.isEmpty()) {
 			for (Refund refund : listRefund) {
-				if (refund.getDate() != null) {
-					if (refund.getDate().before(startDate)) {
+				String rDate = dateFormat.format(refund.getDate());
+				Date refundDate = dateFormat.parse(rDate);
+				if (refundDate != null) {
+					if (refundDate.before(dateStart) || refundDate.equals(dateStart)) {
 						listRefundBefore.add(refund);
-					} else if (refund.getDate().after(startDate)
-							&& refund.getDate().before(endDate)) {
+					} else if (refundDate.after(dateStart)
+							&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
 						listRefundBetween.add(refund);
 					}
 				}

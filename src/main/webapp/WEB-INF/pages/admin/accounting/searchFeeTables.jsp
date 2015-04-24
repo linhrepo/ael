@@ -41,6 +41,8 @@
 					</c:forEach>
 				</form:select>
 			</div>
+		</div>
+		<div class="row">
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="configuration.typeOfImport" />
@@ -52,7 +54,30 @@
 					</c:forEach>
 				</form:select>
 			</div>
-		
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="accounting.approval" />
+				<form:select path="approved" id="doRelease"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach var="entry" items="${enumStatus}">
+						<form:option value="${entry}">${entry}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="accounting.feeAdminApproval" />
+				<form:select path="checkByAdmin" id="doRelease"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach var="entry" items="${enumStatus}">
+						<form:option value="${entry}">${entry}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
+		</div>
+		<div class="row">
 			<div class="form-group col-md-2">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>

@@ -353,9 +353,9 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	public List<Docsgeneral> searchFeeTables(Search search) {
 		ServicesType servicesType = null;
 		if(search.getTypeOfDocs() == null){
-			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, servicesType, null);
+			return docsgeneralRepository.searchFeeTables(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, servicesType, null, search.getCheckByAdmin(), search.getApproved());
 		}
-		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), null);
+		return docsgeneralRepository.searchFeeTables(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), null, search.getCheckByAdmin(), search.getApproved());
 	}
 
 	@Override

@@ -114,5 +114,22 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="shipper") String shipper,
 			@Param(value="jobNo") String jobNo);
 	
-	
+	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE (e.customer.id = :customerId or :customerId is null) and "
+			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
+			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
+			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
+			+ "e.doAccounting =:doAccounting and "
+			+ "(e.doDelivery =:doDelivery or :doDelivery is null) and "
+			+ "(f.checkByAdmin =:checkByAdmin or :checkByAdmin is null) and "
+			+ "(f.approved =:approved or :approved is null) "
+			+ "group by e")
+	List<Docsgeneral> searchFeeTables(@Param("customerId") Long customerId,
+			@Param("typeOfImport") Long typeOfImport,
+			@Param("typeOfContainer") Long typeOfContainer,
+			@Param("doAccounting") Boolean doAccounting,
+			@Param(value="typeOfDocs") ServicesType typeOfDocs,
+			@Param(value="doDelivery") Boolean doDelivery,
+			@Param(value="checkByAdmin") Boolean checkByAdmin,
+			@Param(value="approved") Boolean approved);
 }
+

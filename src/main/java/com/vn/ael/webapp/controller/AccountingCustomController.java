@@ -1,8 +1,6 @@
 package com.vn.ael.webapp.controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,16 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,17 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.enums.ServicesType;
+import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Accountingcus;
-import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
-import com.vn.ael.persistence.entity.OfferPrice;
-import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.manager.AccountingcusManager;
-import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
-import com.vn.ael.persistence.manager.OfferPriceManager;
-import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
@@ -145,5 +134,27 @@ public class AccountingCustomController extends BaseFormController {
         	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForCust(accountingcus));
 		}
     }
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCPACKAGEINFO_SEARCH)
+       	public ModelAndView searchAccPackageInfo(Search searchAccPackageInfo)
+       			throws Exception {
+       		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_CUSTOM_LIST);
+       		searchAccPackageInfo.setServicesType(ServicesType.DVTQ);
+       		List<Docsgeneral> docsgenerals = docsgeneralManager.searchAccounting(searchAccPackageInfo);
+       		mav.addObject(docsgenerals);
+       		
+       		//selection
+               DocsSelection docsSelection = 
+               		configurationManager.loadSelectionForDocsPage
+               		(
+               				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+               				ConfigurationType.TYPE_OF_IMPORT,
+               				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+               		);
+               mav.addObject("docsSelection", docsSelection);
+               mav.addObject("enumStatus", StatusType.values());
+               mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+       		return mav;
+       	}
 }
 
