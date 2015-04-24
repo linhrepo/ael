@@ -86,7 +86,6 @@
     <script>
     //Calculate total amount
     $("#advanceformList").change(function(){ 
-    	getRemainingAdvance();
     	var sum = 0;
     	$('#advanceformList  .advanceAmount').each(function()
     			{
@@ -95,7 +94,12 @@
     	$('#totalAdvance').val(accounting.formatMoney(sum,UTIL.MONEY_STYLE));
     });
     $( document ).ready(function() {
-    	getRemainingAdvance();
+    	getRemainingAdvance(); 
+    	/* ADVANCE_TABLE_CONTROL.init( $("#advanceformList").attr("id")); */
+    	$("#advanceformList").bind("afterAddRow",function(e,row){
+    		addEventForAdvance(row);
+    		getRemainingAdvance();
+    	 });
     });
     $('#empId').change(function(){
     	getRemainingAdvance();

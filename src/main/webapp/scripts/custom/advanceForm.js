@@ -1,11 +1,34 @@
 /**
  * 
  */
+/*var ADVANCE_TABLE_CONTROL ={
+		init	: function(tableId){
+			$("#"+tableId).find("tr").each(function(){
+				ADVANCE_TABLE_CONTROL.addRowEvents($(this));
+			});
+		},
+		addRowEvents : function(tr){
+			var tableId= $(tr).closest("table").attr("id");
+			$(tr).find("select").on("change",function(){
+				getRemainingAdvance();
+			});
+		},
+};
+*/
+ var addEventForAdvance = function(row){
+	 var selectCol = $(row).find('select').first();
+   $(selectCol).on("change",function(e){
+	   getRemainingAdvance();
+   });
+ };
+ 
+ $("tr").each(function(){
+	 addEventForAdvance($(this));
+ });
 
-$('#advanceformList tr').each(function(){
-	
-});
-
+$("#advanceformList").bind("afterAddRow",function(e,row){
+	addEventForAdvance(row);	
+ });
 $("#advanceformList").change(function(){ 
 	getRemainingAdvance();
 });
@@ -14,6 +37,9 @@ function getRemainingAdvance() {
 	var map = new Object();
 	var docIdList = [];
 	var emp = $('#empId').val();
+	if (emp==null) {
+		emp = $('#employee\\.id').val();
+	}
 	 $('#advanceformList > tbody > tr').each(function(){
 		 if (!$(this).hasClass('hidden')) {
 			 var jobNo = $(this).find('select').val();
@@ -64,7 +90,10 @@ function getRemainingAdvance() {
 											 if (key == docId) {
 												 var remain = 0;
 												 if (p[key]!=0) {
-													 remain = p[key] -  map[key];
+													 remain = map[key] - p[key] ;
+													 if (remain<0) {
+														remain = p[key] - map[key];
+													}
 												}
 													$(this).find(".remainAdvance").val(accounting.formatMoney(remain,UTIL.MONEY_STYLE));
 												}

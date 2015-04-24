@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -68,6 +69,8 @@ import com.vn.ael.webapp.dto.AccountingShipmentExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.AdvanceRequestItem;
+import com.vn.ael.webapp.dto.AdvanceSumary;
+import com.vn.ael.webapp.dto.AdvanceSumaryExportDTO;
 import com.vn.ael.webapp.dto.CustomFeeExportModel;
 import com.vn.ael.webapp.dto.ExhibitionFeetable;
 import com.vn.ael.webapp.dto.FeeExportItem;
@@ -754,19 +757,31 @@ public class ReportUtil {
 				item.setFileCus(refunddetail.getDocs() != null ? refunddetail
 						.getDocs().getJobNo() : AELConst.EMPTY_STRING);
 				item.setDescription(refunddetail.getDescription());
-				item.setAmount(refunddetail.getAmount().toString());
-				item.setoAmount(refunddetail.getOAmount().toString());
+				item.setAmount(NumberFormat.getCurrencyInstance().format(refunddetail.getAmount()).replace("$", ""));
+				item.setoAmount(NumberFormat.getCurrencyInstance().format(refunddetail.getOAmount()).replace("$", ""));
 				totalAmount = totalAmount.add(refunddetail.getAmount());
 				totalOAmount = totalOAmount.add(refunddetail.getOAmount());
+				try {
+					if (refunddetail.getDocs().getIsLCL()) {
+						item.setCont("LCL");
+					}
+					else {
+						String cont = "FCL/"+refunddetail.getDocs().getNoOf20Cont()+"/"+refunddetail.getDocs().getNoOf40Cont()+"/"+refunddetail.getDocs().getOtCont();
+						item.setCont(cont);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 				listItem.add(item);
 			}
 			grandTotal = grandTotal.add(totalAmount);
 			grandTotal = grandTotal.add(totalOAmount);
 			parameterMap.put("refundDetails", listItem);
-			parameterMap.put("totalAmount", totalAmount.toString());
-			parameterMap.put("totalOAmount", totalOAmount.toString());
+			parameterMap.put("totalAmount", NumberFormat.getCurrencyInstance().format(totalAmount).replace("$", ""));
+			parameterMap.put("totalOAmount", NumberFormat.getCurrencyInstance().format(totalOAmount).replace("$", ""));
 			parameterMap.put("employee", refund.getEmployee());
-			parameterMap.put("grandTotal", grandTotal.toString());
+			parameterMap.put("grandTotal", NumberFormat.getCurrencyInstance().format(grandTotal).replace("$", ""));
 			parameterMap.put("refundDate",
 					CommonUtil.getDateString(refund.getDate()));
 			parameterMap.put("refNo", refund.getRefNo());
@@ -1031,5 +1046,22 @@ public class ReportUtil {
 					}
 			 parameterMap.put("details", profitLossExports);
 		return parameterMap;
+	}
+	public static List<AdvanceSumaryExportDTO> convertAdvSumaryForExport(List<AdvanceSumary> advSumary){
+		List<AdvanceSumaryExportDTO> result = new ArrayList<AdvanceSumaryExportDTO>();
+		if (!advSumary.isEmpty()) {
+		for (AdvanceSumary advS : advSumary) {
+			AdvanceSumaryExportDTO item = new AdvanceSumaryExportDTO();
+			item.setEmployeeName(advS.getEmployeeName());
+			item.setTotalAdvanceBefore(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceBefore()).replace("$", ""));
+			item.setTotalAdvanceBetween(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceBetween()).replace("$", ""));
+			item.setTotalAdvanceAfter(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceAfter()).replace("$", ""));
+			item.setTotalRefundBefore(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundBefore()).replace("$", ""));
+			item.setTotalRefundBetween(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundBefore()).replace("$", ""));
+			item.setTotalRefundAfter(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundAfter()).replace("$", ""));
+			result.add(item);
+		}
+		}
+		return result;
 	}
 }

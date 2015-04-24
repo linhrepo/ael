@@ -3,6 +3,7 @@ package com.vn.ael.webapp.controller;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -403,13 +404,13 @@ public class AdvanceFormListController extends BaseFormController {
 			}
 
 		}
-		beans.put("totalAdBefore", totalAdBefore);
-		beans.put("totalAdBetween", totalAdBetween);
-		beans.put("totalAdAfter", totalAdAfter);
-		beans.put("totalRefBefore", totalRefBefore);
-		beans.put("totalRefBetween", totalRefBetween);
-		beans.put("totalRefAfter", totalRefAfter);
-		beans.put("advanceSumary", listSumary);
+		beans.put("totalAdBefore", NumberFormat.getCurrencyInstance().format(totalAdBefore).replace("$", ""));
+		beans.put("totalAdBetween", NumberFormat.getCurrencyInstance().format(totalAdBetween).replace("$", ""));
+		beans.put("totalAdAfter", NumberFormat.getCurrencyInstance().format(totalAdAfter).replace("$", ""));
+		beans.put("totalRefBefore", NumberFormat.getCurrencyInstance().format(totalRefBefore).replace("$", ""));
+		beans.put("totalRefBetween", NumberFormat.getCurrencyInstance().format(totalRefBetween).replace("$", ""));
+		beans.put("totalRefAfter", NumberFormat.getCurrencyInstance().format(totalRefAfter).replace("$", ""));
+		beans.put("advanceSumary", ReportUtil.convertAdvSumaryForExport(listSumary));
 		beans.put("startDate", CommonUtil.getDateString(startDate));
 		beans.put("endDate", CommonUtil.getDateString(endDate));
 		ReportUtil.dispatchReport(response,
@@ -485,10 +486,10 @@ public class AdvanceFormListController extends BaseFormController {
 		Date dateEnd = dateFormat.parse(strD3);
 		if (!listAdvance.isEmpty()) {
 			for (Advanceform advanceform : listAdvance) {
-				if (advanceform.getDate() != null) {					 
+				if (advanceform.getDate() != null) {
 					 String strD1 = dateFormat.format(advanceform.getDate());
 					 Date dateAdvance = dateFormat.parse(strD1);					 
-					if (dateAdvance.before(dateStart) || dateAdvance.equals(dateStart)) {
+					if (dateAdvance.before(dateStart) || dateAdvance.equals(dateStart)) {						
 						listBefore.add(advanceform);
 					} else if (dateAdvance.after(dateStart)
 							&& (dateAdvance.before(dateEnd) || dateAdvance.equals(dateEnd))) {

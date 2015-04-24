@@ -46,7 +46,6 @@
 var exportButton = $("button[name='export']");
 exportButton.click(function() {
 	$("#advanceSumaryForm").attr("showLoading","false");
-	alert($("#advanceSumaryForm").attr("showLoading"));
 	 $("#advanceSumaryForm").submit();
 	 $("#advanceSumaryForm").attr("showLoading","");
 });
