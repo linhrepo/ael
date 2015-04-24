@@ -1,9 +1,9 @@
 package com.vn.ael.webapp.controller;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +39,6 @@ import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.CommonUtil;
-import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
@@ -188,17 +187,16 @@ public class AdvanceFormListController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_FORM_ACC);
 
 		Calendar cal = Calendar.getInstance();
-		Date startDate = searchAdvanceSumary.getStartDate() != null ? searchAdvanceSumary
-				.getStartDate() : cal.getTime();
-		Date endDate = searchAdvanceSumary.getEndDate() != null ? searchAdvanceSumary
-				.getEndDate() : cal.getTime();
+		Date startDate = searchAdvanceSumary.getStartSumDate() != null ? searchAdvanceSumary
+				.getStartSumDate() : cal.getTime();
+		Date endDate = searchAdvanceSumary.getEndSumDate() != null ? searchAdvanceSumary
+				.getEndSumDate() : cal.getTime();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
 		User employee = new User();
 		try {
 			employee = advanceFormManager.getUserById(searchAdvanceSumary
 					.getEmployee());
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.error("CAN'T GET USER: " + e.getMessage());
 		}
 		if (employee.getId() != null) {
@@ -220,6 +218,8 @@ public class AdvanceFormListController extends BaseFormController {
 				.loadSelectionForDocsPage(true);
 		mav.addObject("docsSelection", docsSelection);
 		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject(advanceFormManager.getAll());
+		mav.addObject(refundManager.getAll());
 		mav.addObject("flag", 3);
 		return mav;
 	}
@@ -231,37 +231,37 @@ public class AdvanceFormListController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_REFUNDS);
 		// check role
 		User loggedInUser = getUserManager().getLoggedUser(request);
-		if (!EntityUtil.isAdminOrAccountRole(loggedInUser)) {
-			searchAdvanceSumary.setEmployee(loggedInUser.getId());
-		}
+		searchAdvanceSumary.setEmployee(loggedInUser.getId());
 		Calendar cal = Calendar.getInstance();
-		Date startDate = searchAdvanceSumary.getStartDate() != null ? searchAdvanceSumary
-				.getStartDate() : cal.getTime();
-		Date endDate = searchAdvanceSumary.getEndDate() != null ? searchAdvanceSumary
-				.getEndDate() : cal.getTime();
+		Date startDate = searchAdvanceSumary.getStartSumDate() != null ? searchAdvanceSumary
+				.getStartSumDate() : cal.getTime();
+		Date endDate = searchAdvanceSumary.getEndSumDate() != null ? searchAdvanceSumary
+				.getEndSumDate() : cal.getTime();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
-		User employee = new User();
-		try {
-			employee = advanceFormManager.getUserById(searchAdvanceSumary
-					.getEmployee());
-		} catch (Exception e) {
-			// TODO: handle exception
-			log.error("CAN'T GET USER: " + e.getMessage());
-		}
-		if (employee.getId() != null) {
-			listSumary.add(this.getAdvanceSumaryForEmployee(employee,
+//		User employee = new User();
+//		try {
+//			employee = advanceFormManager.getUserById(searchAdvanceSumary
+//					.getEmployee());
+//		} catch (Exception e) {
+//			log.error("CAN'T GET USER: " + e.getMessage());
+//		}
+		if (loggedInUser.getId() != null) {
+			listSumary.add(this.getAdvanceSumaryForEmployee(loggedInUser,
 					startDate, endDate));
-		} else {
-			List<User> employees = new ArrayList<User>();
-			employees.addAll(getUserManager().getAllUser());
-			if (!employees.isEmpty()) {
-				for (User user : employees) {
-					listSumary.add(this.getAdvanceSumaryForEmployee(user,
-							startDate, endDate));
-				}
-			}
-		}
+		} 
+//		else {
+//			List<User> employees = new ArrayList<User>();
+//			employees.addAll(getUserManager().getAllUser());
+//			if (!employees.isEmpty()) {
+//				for (User user : employees) {
+//					listSumary.add(this.getAdvanceSumaryForEmployee(user,
+//							startDate, endDate));
+//				}
+//			}
+//		}
 		mav.addObject(listSumary);
+		mav.addObject(advanceFormManager.findByEmpoyee(loggedInUser,false));
+		mav.addObject(refundManager.findByEmpoyee(loggedInUser,false));
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
@@ -276,7 +276,6 @@ public class AdvanceFormListController extends BaseFormController {
 	public void downloadAdvanceSumary(Search searchAdvanceSumary,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_REFUNDS);
 		BigDecimal totalAdBefore = BigDecimal.ZERO;
 		BigDecimal totalAdBetween = BigDecimal.ZERO;
 		BigDecimal totalAdAfter = BigDecimal.ZERO;
@@ -286,36 +285,34 @@ public class AdvanceFormListController extends BaseFormController {
 		Map<String, Object> beans = new LinkedHashMap<>();
 		// check role
 		User loggedInUser = getUserManager().getLoggedUser(request);
-		if (!EntityUtil.isAdminOrAccountRole(loggedInUser)) {
-			searchAdvanceSumary.setEmployee(loggedInUser.getId());
-		}
+		searchAdvanceSumary.setEmployee(loggedInUser.getId());
 		Calendar cal = Calendar.getInstance();
-		Date startDate = searchAdvanceSumary.getStartDate() != null ? searchAdvanceSumary
-				.getStartDate() : cal.getTime();
-		Date endDate = searchAdvanceSumary.getEndDate() != null ? searchAdvanceSumary
-				.getEndDate() : cal.getTime();
+		Date startDate = searchAdvanceSumary.getStartSumDate() != null ? searchAdvanceSumary
+				.getStartSumDate() : cal.getTime();
+		Date endDate = searchAdvanceSumary.getEndSumDate() != null ? searchAdvanceSumary
+				.getEndSumDate() : cal.getTime();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
-		User employee = new User();
-		try {
-			employee = advanceFormManager.getUserById(searchAdvanceSumary
-					.getEmployee());
-		} catch (Exception e) {
-			// TODO: handle exception
-			log.error("CAN'T GET USER: " + e.getMessage());
-		}
-		if (employee.getId() != null) {
-			listSumary.add(this.getAdvanceSumaryForEmployee(employee,
+//		User employee = new User();
+//		try {
+//			employee = advanceFormManager.getUserById(searchAdvanceSumary
+//					.getEmployee());
+//		} catch (Exception e) {
+//			log.error("CAN'T GET USER: " + e.getMessage());
+//		}
+		if (loggedInUser.getId() != null) {
+			listSumary.add(this.getAdvanceSumaryForEmployee(loggedInUser,
 					startDate, endDate));
-		} else {
-			List<User> employees = new ArrayList<User>();
-			employees.addAll(getUserManager().getAllUser());
-			if (!employees.isEmpty()) {
-				for (User user : employees) {
-					listSumary.add(this.getAdvanceSumaryForEmployee(user,
-							startDate, endDate));
-				}
-			}
-		}
+		} 
+//		else {
+//			List<User> employees = new ArrayList<User>();
+//			employees.addAll(getUserManager().getAllUser());
+//			if (!employees.isEmpty()) {
+//				for (User user : employees) {
+//					listSumary.add(this.getAdvanceSumaryForEmployee(user,
+//							startDate, endDate));
+//				}
+//			}
+//		}
 		if (!listSumary.isEmpty()) {
 			for (AdvanceSumary advanceSumary : listSumary) {
 				totalAdBefore = totalAdBefore.add(advanceSumary
@@ -352,7 +349,6 @@ public class AdvanceFormListController extends BaseFormController {
 	public void downloadAccAdvanceSumary(Search searchAdvanceSumary,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		ModelAndView mav = new ModelAndView(URLReference.ADVANCE_FORM_ACC);
 		BigDecimal totalAdBefore = BigDecimal.ZERO;
 		BigDecimal totalAdBetween = BigDecimal.ZERO;
 		BigDecimal totalAdAfter = BigDecimal.ZERO;
@@ -360,10 +356,10 @@ public class AdvanceFormListController extends BaseFormController {
 		BigDecimal totalRefBetween = BigDecimal.ZERO;
 		BigDecimal totalRefAfter = BigDecimal.ZERO;
 		Calendar cal = Calendar.getInstance();
-		Date startDate = searchAdvanceSumary.getStartDate() != null ? searchAdvanceSumary
-				.getStartDate() : cal.getTime();
-		Date endDate = searchAdvanceSumary.getEndDate() != null ? searchAdvanceSumary
-				.getEndDate() : cal.getTime();
+		Date startDate = searchAdvanceSumary.getStartSumDate() != null ? searchAdvanceSumary
+				.getStartSumDate() : cal.getTime();
+		Date endDate = searchAdvanceSumary.getEndSumDate() != null ? searchAdvanceSumary
+				.getEndSumDate() : cal.getTime();
 		Map<String, Object> beans = new LinkedHashMap<>();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
 		User employee = new User();
@@ -371,7 +367,6 @@ public class AdvanceFormListController extends BaseFormController {
 			employee = advanceFormManager.getUserById(searchAdvanceSumary
 					.getEmployee());
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.error("CAN'T GET USER: " + e.getMessage());
 		}
 		if (employee.getId() != null) {
@@ -434,7 +429,6 @@ public class AdvanceFormListController extends BaseFormController {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.error("FAILED TO CALCULATE total advance before: "
 					+ e.getMessage());
 		}
@@ -458,7 +452,6 @@ public class AdvanceFormListController extends BaseFormController {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.error("FAILED TO CALCULATE total advance before: "
 					+ e.getMessage());
 		}
@@ -474,8 +467,7 @@ public class AdvanceFormListController extends BaseFormController {
 		BigDecimal totalAdvanceAfter = BigDecimal.ZERO;
 		BigDecimal totalRefundAfter = BigDecimal.ZERO;
 		List<Advanceform> listAdvance = new ArrayList<Advanceform>();
-		listAdvance.addAll(advanceFormManager
-				.findByEmpoyeeForAccounting(employee));
+		listAdvance.addAll(advanceFormManager.findByEmpoyeeForAccounting(employee.getId(), true));
 		List<Advanceform> listBefore = new ArrayList<Advanceform>();
 		List<Advanceform> listBetween = new ArrayList<Advanceform>();
 		SimpleDateFormat dateFormat = 
@@ -503,21 +495,21 @@ public class AdvanceFormListController extends BaseFormController {
 		totalAdvanceAfter = totalAdvanceBefore.add(totalAdvanceBetween);
 
 		List<Refund> listRefund = new ArrayList<Refund>();
-		listRefund.addAll(refundManager.findByEmpoyeeForAccounting(employee));
+		listRefund.addAll(refundManager.findByEmpoyeeForAccounting(employee.getId(), true));
 		List<Refund> listRefundBefore = new ArrayList<Refund>();
 		List<Refund> listRefundBetween = new ArrayList<Refund>();
 		if (!listRefund.isEmpty()) {
 			for (Refund refund : listRefund) {
-				String rDate = dateFormat.format(refund.getDate());
-				Date refundDate = dateFormat.parse(rDate);
-				if (refundDate != null) {
+				if(refund.getDate() != null){
+					String rDate = dateFormat.format(refund.getDate());
+					Date refundDate = dateFormat.parse(rDate);
 					if (refundDate.before(dateStart) || refundDate.equals(dateStart)) {
 						listRefundBefore.add(refund);
 					} else if (refundDate.after(dateStart)
 							&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
 						listRefundBetween.add(refund);
 					}
-				}
+				}				
 			}
 			totalRefundBefore = this.calculateTotalRefund(listRefundBefore);
 			totalRefundBetween = this.calculateTotalRefund(listRefundBetween);
