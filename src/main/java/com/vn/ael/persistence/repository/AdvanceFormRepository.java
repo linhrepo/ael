@@ -40,4 +40,9 @@ public interface AdvanceFormRepository extends GenericRepository<Advanceform> {
 			@Param("startTimeRefund") Date startTimeRefund,
 			@Param("endTimeRefund") Date endTimeRefund,
 			@Param("doApproval") Boolean doApproval);
+	
+	@Query("SELECT e FROM Advanceform e WHERE (e.employee.id = :employeeId or :employeeId is null) and "			
+			+ "e.doApproval =:doApproval")
+	List<Advanceform> findByEmployeeAndDoApproval(@Param("employeeId") Long employeeId, 
+			@Param("doApproval") Boolean doApproval);
 }

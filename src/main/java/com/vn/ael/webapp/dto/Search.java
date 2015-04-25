@@ -25,6 +25,8 @@ public class Search {
 	private Date endPayDate;
 	private Boolean checkByAdmin;
 	private Boolean approved;
+	private Date startSumDate;
+	private Date endSumDate;
 	
 	public Long getCustomer() {
 		return customer;
@@ -139,6 +141,18 @@ public class Search {
 	}
 	public void setApproved(Boolean approved) {
 		this.approved = approved;
+	}
+	public Date getStartSumDate() {
+		return startSumDate;
+	}
+	public void setStartSumDate(Date startSumDate) {
+		this.startSumDate = startSumDate;
+	}
+	public Date getEndSumDate() {
+		return endSumDate;
+	}
+	public void setEndSumDate(Date endSumDate) {
+		this.endSumDate = endSumDate;
 	}	
 	
 }

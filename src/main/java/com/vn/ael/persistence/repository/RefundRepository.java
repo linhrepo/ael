@@ -26,5 +26,9 @@ public interface RefundRepository extends GenericRepository<Refund> {
 			@Param("startDate") Date startDate,
 			@Param("endDate") Date endDate,
 			@Param("doApproval") Boolean doApproval);
-	
+
+	@Query("SELECT e FROM Refund e WHERE (e.employee.id = :employeeId or :employeeId is null) and "			
+			+ "e.doApproval =:doApproval")
+	List<Refund> findByEmployeeAndDoApproval(@Param("employeeId") Long employeeId,
+			@Param("doApproval") Boolean doApproval);
 }

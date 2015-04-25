@@ -29,14 +29,14 @@
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.startdate" />
-					<form:input path="startDate" provide="datepicker" id="startDateSumary"  cssClass="form-control"/>
-			        <form:errors path="startDate" cssClass="help-block"/>
+					<form:input path="startSumDate" provide="datepicker" id="startDateSumary"  cssClass="form-control"/>
+			        <form:errors path="startSumDate" cssClass="help-block"/>
 			</div>
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.enddate" />
-					<form:input path="endDate" provide="datepicker" id="endDateSumary"  cssClass="form-control"/>
-			        <form:errors path="endDate" cssClass="help-block"/>
+					<form:input path="endSumDate" provide="datepicker" id="endDateSumary"  cssClass="form-control"/>
+			        <form:errors path="endSumDate" cssClass="help-block"/>
 			</div>			
 		</div> 
 		<div class="row">

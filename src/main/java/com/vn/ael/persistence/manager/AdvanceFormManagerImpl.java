@@ -158,7 +158,7 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 	}
 
 	@Override
-	public List<Advanceform> findByEmpoyeeForAccounting(User employee) {
-		return this.advanceFormRepository.findByEmployee(employee);
+	public List<Advanceform> findByEmpoyeeForAccounting(Long employeeId, Boolean doApproval) {
+		return this.advanceFormRepository.findByEmployeeAndDoApproval(employeeId, doApproval);
 	}
 }

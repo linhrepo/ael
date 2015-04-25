@@ -97,8 +97,8 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	}
 
 	@Override
-	public List<Refund> findByEmpoyeeForAccounting(User employee) {
-		return this.refundRepository.findByEmployee(employee);
+	public List<Refund> findByEmpoyeeForAccounting(Long employeeId, Boolean doApproval) {
+		return this.refundRepository.findByEmployeeAndDoApproval(employeeId, doApproval);
 
 	}
 }
