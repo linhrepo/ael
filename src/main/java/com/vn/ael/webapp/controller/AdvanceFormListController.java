@@ -508,14 +508,16 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Refund> listRefundBetween = new ArrayList<Refund>();
 		if (!listRefund.isEmpty()) {
 			for (Refund refund : listRefund) {
-				String rDate = dateFormat.format(refund.getDate());
-				Date refundDate = dateFormat.parse(rDate);
-				if (refundDate != null) {
-					if (refundDate.before(dateStart) || refundDate.equals(dateStart)) {
-						listRefundBefore.add(refund);
-					} else if (refundDate.after(dateStart)
-							&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
-						listRefundBetween.add(refund);
+				if (refund.getDate() != null){
+					String rDate = dateFormat.format(refund.getDate());
+					Date refundDate = dateFormat.parse(rDate);
+					if (refundDate != null) {
+						if (refundDate.before(dateStart) || refundDate.equals(dateStart)) {
+							listRefundBefore.add(refund);
+						} else if (refundDate.after(dateStart)
+								&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
+							listRefundBetween.add(refund);
+						}
 					}
 				}
 			}
