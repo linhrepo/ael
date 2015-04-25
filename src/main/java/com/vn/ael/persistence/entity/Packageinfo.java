@@ -1,18 +1,13 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -65,6 +60,16 @@ public class Packageinfo extends DocsEntity implements Serializable {
 	private Boolean doRelease;
 
 	private Boolean doSendDecDraft;
+	
+	private Date dateRevOrgDoc;
+	
+	private Date dateRevOrgTax;
+	
+	private Date dateFinCustom;
+	
+	private Date dateSend;	
+	
+	private Date dateActualDev;
 	
 	@ManyToOne
 	@JoinColumn(name = "imExMode")
@@ -418,6 +423,46 @@ public class Packageinfo extends DocsEntity implements Serializable {
 
 	public void setContNo(String contNo) {
 		this.contNo = contNo;
+	}
+
+	public Date getDateRevOrgDoc() {
+		return dateRevOrgDoc;
+	}
+
+	public void setDateRevOrgDoc(Date dateRevOrgDoc) {
+		this.dateRevOrgDoc = dateRevOrgDoc;
+	}
+
+	public Date getDateRevOrgTax() {
+		return dateRevOrgTax;
+	}
+
+	public void setDateRevOrgTax(Date dateRevOrgTax) {
+		this.dateRevOrgTax = dateRevOrgTax;
+	}
+
+	public Date getDateFinCustom() {
+		return dateFinCustom;
+	}
+
+	public void setDateFinCustom(Date dateFinCustom) {
+		this.dateFinCustom = dateFinCustom;
+	}
+
+	public Date getDateSend() {
+		return dateSend;
+	}
+
+	public void setDateSend(Date dateSend) {
+		this.dateSend = dateSend;
+	}
+
+	public Date getDateActualDev() {
+		return dateActualDev;
+	}
+
+	public void setDateActualDev(Date dateActualDev) {
+		this.dateActualDev = dateActualDev;
 	}
 
 }

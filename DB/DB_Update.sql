@@ -98,4 +98,10 @@ DROP COLUMN `noContractUp`;
 ALTER TABLE `ael`.`nhathau` 
 CHANGE COLUMN `taxNo` `taxNo` VARCHAR(45) NULL DEFAULT NULL ,
 ADD COLUMN `info` VARCHAR(1000) NULL AFTER `code`;
-
+-----PackageInfo
+ALTER TABLE `ael`.`packageinfo`
+	ADD COLUMN `dateRevOrgDoc` datetime ,
+	ADD COLUMN `dateRevOrgTax` datetime ,
+	ADD COLUMN `dateFinCustom` datetime ,
+	ADD COLUMN `dateSend` datetime,
+	ADD COLUMN `dateActualDev` datetime;

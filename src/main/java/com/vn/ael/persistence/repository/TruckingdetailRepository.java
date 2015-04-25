@@ -34,27 +34,25 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	List<Truckingdetail> findWithFullTruckingservice(@Param("serviceId")Long id);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice where (t.nhathau.id =:nhathauId or :nhathauId is null) and "
-			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "			 
-			+ "t.truckingservice.docsgeneral.doAccounting = :doAccounting and "
+			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') and "
 			+ "(t.truckingservice.docsgeneral.customer.id = :customer or :customer is null) "
 			+ "group by (t.id) "
 			+ "order by t.truckingservice.docsgeneral.jobNo, t.truckingservice.docsgeneral.customer, t.consteal, t.id")
 	List<Truckingdetail> searchNhathau(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
 			@Param(value="nhathauId")Long nhathauId, @Param(value="jobNo")String jobNo, 
-			@Param(value="customer")Long customer, @Param(value="doAccounting")Boolean doAccounting);
+			@Param(value="customer")Long customer);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and "
 			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
 			+ "(d.customer.id = :customerId or :customerId is null) and "
 			+ "(t.nhathau.id = :nhathauId or :nhathauId is null) and "
-			+ "t.truckingservice.docsgeneral.doAccounting = :doAccounting and"
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') "
 			+ "group by t.id "
 			+ "order by d.customer.id, d.jobNo, t.consteal, t.id ")
 	List<Truckingdetail> findAllByConditionVantai(@Param(value="transId") ServicesType transId, @Param(value="startDate") Date startDate, 
 			@Param(value="endDate")Date endDate, @Param(value="customerId")Long customerId, @Param(value="nhathauId")Long nhathauId, 
-			@Param(value="doAccounting")Boolean doAccounting, @Param(value="jobNo")String jobNo);
+			@Param(value="jobNo")String jobNo);
 
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.truckingservice ser where ser.id =:id "
 			+"and MONTH(t.dateDev) = :month "
@@ -67,14 +65,13 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
 			+ "(d.customer.id = :customerId or :customerId is null) and "
 			+ "(d.jobNo = :jobNo or :jobNo = '') and "
-			+ "d.doAccounting = :doAccounting and "
 			+ "(d.packageinfo.consignee = :consignee or :consignee = '') and "
 			+ "(d.packageinfo.shipper = :shipper or :shipper = '') "
 			+ "group by t.id "
 			+ "order by d.customer.id, d.jobNo, t.consteal, t.id ")
 	List<Truckingdetail> findAllByConditionPackageInfo(@Param(value="transId") ServicesType transId, @Param(value="startDate") Date startDate, 
 			@Param(value="endDate")Date endDate, @Param(value="customerId")Long customerId, @Param(value="jobNo")String jobNo,
-			@Param(value="doAccounting")Boolean doAccounting, @Param(value="consignee")String consignee, @Param(value="shipper")String shipper);
+			@Param(value="consignee")String consignee, @Param(value="shipper")String shipper);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d WHERE "
 			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "

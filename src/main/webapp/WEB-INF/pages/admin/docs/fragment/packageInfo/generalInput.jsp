@@ -377,6 +377,46 @@
 		        <form:errors path="cusDecOnNo" cssClass="help-block"/>
 		    </div>
 		    
+		    <spring:bind path="packageInfo.dateRevOrgDoc">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.dateRevOrgDoc"/>
+		        <form:input path="dateRevOrgDoc" id="dateRevOrgDoc" provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="dateRevOrgDoc" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="packageInfo.dateRevOrgTax">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.dateRevOrgTax"/>
+		        <form:input path="dateRevOrgTax" id="dateRevOrgTax" provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="dateRevOrgTax" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="packageInfo.dateFinCustom">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.dateFinCustom"/>
+		        <form:input path="dateFinCustom" id="dateFinCustom" provide="datepicker" maxlength="45" cssClass="form-control"/>
+		        <form:errors path="dateFinCustom" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="packageInfo.dateSend">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.dateSend"/>
+		        <form:input path="dateSend" id="dateSend" provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="dateSend" cssClass="help-block"/>
+		    </div>
+		    
+		    <spring:bind path="packageInfo.dateActualDev">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    </spring:bind>
+		        <appfuse:label styleClass="control-label" key="packageInfo.dateActualDev"/>
+		        <form:input path="dateActualDev" id="dateActualDev" provide="datepicker" maxlength="45"  cssClass="form-control"/>
+		        <form:errors path="dateActualDev" cssClass="help-block"/>
+		    </div>
+		    
 		   <%--  <spring:bind path="packageInfo.docsgeneral.contactDelivery">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3" id="dContactDelivery">
 			    </spring:bind>
