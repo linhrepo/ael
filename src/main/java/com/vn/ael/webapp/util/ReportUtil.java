@@ -663,14 +663,17 @@ public class ReportUtil {
 		for (Configuration master : masterFee) {
 			List<AccountingExhibitionItemExport> tmpEx = new ArrayList<AccountingExhibitionItemExport>();
 			for (Exfeetable fee : fees) {
-				if (fee.getMasterFee().getId().toString()
-						.equals(master.getId().toString())) {
-					AccountingExhibitionItemExport item = new AccountingExhibitionItemExport(
-							fee.getName().getValue(), "",
-							fee.getTotal() != null ? fee.getTotal().toString()
-									: "0");
-					tmpEx.add(item);
+				if (fee.getMasterFee()!=null) {
+					if (fee.getMasterFee().getId().toString()
+							.equals(master.getId().toString())) {
+						AccountingExhibitionItemExport item = new AccountingExhibitionItemExport(
+								fee.getName().getValue(), "",
+								fee.getTotal() != null ? fee.getTotal().toString()
+										: "0");
+						tmpEx.add(item);
+					}
 				}
+				
 			}
 			if (!tmpEx.isEmpty()) {
 				ExhibitionFeetable bean = new ExhibitionFeetable(tmpEx,
