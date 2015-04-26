@@ -402,7 +402,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> searchShipment(
 			AccountingTransCondition accountingTransCondition) {
-		return docsgeneralRepository.searchShipment(accountingTransCondition.getCustomerId(), accountingTransCondition.getTypeOfImport(), true, ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getConsignee(), accountingTransCondition.getShipper(), accountingTransCondition.getJob());
+		return docsgeneralRepository.searchShipment(accountingTransCondition.getCustomerId(), accountingTransCondition.getTypeOfImport(), ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getConsignee(), accountingTransCondition.getShipper(), accountingTransCondition.getJob());
 	}
 
 	@Override

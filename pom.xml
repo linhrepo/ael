@@ -265,6 +265,16 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>jasper</id>
+            <url>http://archiva.fdvs.com.ar/repository/public1</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -510,6 +520,11 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>5.0.1</version>
+		</dependency>
+		<dependency>
+		  <groupId>ar.com.fdvs</groupId>
+		  <artifactId>DynamicJasper-core-fonts</artifactId>
+		  <version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lowagie</groupId>

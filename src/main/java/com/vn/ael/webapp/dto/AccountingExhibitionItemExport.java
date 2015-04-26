@@ -3,6 +3,8 @@
  */
 package com.vn.ael.webapp.dto;
 
+import java.math.BigDecimal;
+
 /**
  * @author hiendn1992
  *
@@ -10,7 +12,7 @@ package com.vn.ael.webapp.dto;
 public class AccountingExhibitionItemExport {
 	private String description;
 	private String rate;
-	private String amount;
+	private BigDecimal amount;
 	/**
 	 * @return the description
 	 */
@@ -38,13 +40,13 @@ public class AccountingExhibitionItemExport {
 	/**
 	 * @return the amount
 	 */
-	public String getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(String amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 	/**
@@ -54,7 +56,7 @@ public class AccountingExhibitionItemExport {
 	 * @param amount
 	 */
 	public AccountingExhibitionItemExport(String description,
-			String rate, String amount) {
+			String rate, BigDecimal amount) {
 		super();
 		this.description = description;
 		this.rate = rate;

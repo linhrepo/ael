@@ -70,7 +70,8 @@
 					<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -1 }">
 						<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.contNo"/>">
 						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-						 <form:select path="truckingdetails[${idx.index}].consteal.id" id="contseal${idx.index}"  cssClass="form-control selectOwner" items="${contsealsSelection.conts}"/> 
+						 <form:select path="truckingdetails[${idx.index}].consteal.id" id="contseal${idx.index}"  cssClass="form-control selectOwner" items="${contsealsSelection.conts}" disabled="true"/>
+						 <form:hidden path="truckingdetails[${idx.index}].consteal.id"/> 
 					</div></td>
 					
 					<td style="min-width:120px;" data-title="<fmt:message key="truckingservice.sealNo"/>"> 
@@ -187,11 +188,13 @@
 								cssClass="help-block" />
 					</div>
 				</td>
+				<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 							<td rowType="actions">
 								<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>"> 
 									<i class="fa fa-trash"></i>
 								</span>
 							</td>
+							</c:if>
 			</tr>
 			<tr colType="detail" class="${detail.isAdded == true ? 'hidden' :''}" >
 				
@@ -229,7 +232,9 @@
 			<th><fmt:message key="inland.feevavat" /></th>
 			<th><fmt:message key="inland.total" /></th>
 			<th><fmt:message key="inland.feeInvoiceNo" /></th>
+			<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 			<th><fmt:message key="table.action" /></th>
+			</c:if>
 		</tr>
 	</thead>
 	<tbody>
@@ -299,6 +304,7 @@
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].invoiceNo"
 						cssClass="help-block" />
 					</div></td>
+					
 				<td rowType="actions"><span class="iconButton removeRow" data-title="<fmt:message key="table.action"/>"
 					title="<fmt:message key='table.buttonEditTitle'/>"> <i
 						class="fa fa-trash"></i>
@@ -337,6 +343,7 @@
 		</c:forEach>
 	</tbody>
 </table>
+<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 <div class="row">
 	<div class="col-md-10">
 	<span class="btn btn-primary" target-table="detailsList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
@@ -345,6 +352,7 @@
 		
 	</div>
 </div>
+</c:if>
 
 <script>
 $(document).ready(function(){

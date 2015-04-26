@@ -148,7 +148,7 @@
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="inland.sochuyen"/>
-			        <form:input path="docsgeneral.sochuyen" id="sochuyen" maxlength="45"  cssClass="form-control number"/>
+			        <form:input path="docsgeneral.sochuyen" id="sochuyen" maxlength="45"  cssClass="form-control"/>
 			        <form:errors path="docsgeneral.sochuyen" cssClass="help-block"/>
 			    </div>
 		    	

@@ -69,6 +69,10 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 						Truckingdetail truckingdetail = new Truckingdetail();
 						truckingdetail.setConsteal(contseal);
 						truckingdetails.add(truckingdetail);
+						if (docsgeneral.getTypeOfDocs() == ServicesType.DVVT_SEALAND){
+							truckingdetails.add(truckingdetail);
+							truckingdetails.add(truckingdetail);
+						}
 						truckingdetail.setNoOfVehicle(docsgeneral.getSochuyen());
 						truckingdetail.setVehicleNo(docsgeneral.getNameVehicle());
 					}
@@ -199,19 +203,19 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 	@Override
 	public List<Truckingdetail> searchNhathau(
 			AccountingTransCondition accountingTransCondition) {
-		return truckingdetailRepository.searchNhathau(accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId(), accountingTransCondition.getJob(), accountingTransCondition.getCustomerId(), true);
+		return truckingdetailRepository.searchNhathau(accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId(), accountingTransCondition.getJob(), accountingTransCondition.getCustomerId());
 	}
 
 	@Override
 	public List<Truckingdetail> searchVantai(
 			AccountingTransCondition accountingTransCondition) {
-		return truckingdetailRepository.findAllByConditionVantai(ServicesType.fromValue(accountingTransCondition.getTransId().intValue()), accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getNhathauId(), true, accountingTransCondition.getJob());
+		return truckingdetailRepository.findAllByConditionVantai(ServicesType.fromValue(accountingTransCondition.getTransId().intValue()), accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getNhathauId(), accountingTransCondition.getJob());
 	}
 
 	@Override
 	public List<Truckingdetail> searchPackageInfo(
 			AccountingTransCondition accountingTransCondition) {
-		return truckingdetailRepository.findAllByConditionPackageInfo(ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getJob(), true, accountingTransCondition.getConsignee(), accountingTransCondition.getShipper());
+		return truckingdetailRepository.findAllByConditionPackageInfo(ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getJob(), accountingTransCondition.getConsignee(), accountingTransCondition.getShipper());
 	}
 
 	@Override

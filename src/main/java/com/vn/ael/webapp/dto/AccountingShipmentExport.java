@@ -25,6 +25,13 @@ public class AccountingShipmentExport {
 	private String soToKhai;
 	private String colour;
 	private String empty;
+	private Date dateRevOrgDoc;
+	private Date dateRevOrgTax;
+	private Date dateFinCustom;
+	private Date dateSend;	
+	private Date dateActualDev;
+	private Date dateStartECus;
+	
 	
 	public AccountingShipmentExport(){
 		this.empty = AELConst.EMPTY_STRING;
@@ -143,5 +150,43 @@ public class AccountingShipmentExport {
 	public void setEmpty(String empty) {
 		this.empty = empty;
 	}
+	public Date getDateRevOrgDoc() {
+		return dateRevOrgDoc;
+	}
+	public void setDateRevOrgDoc(Date dateRevOrgDoc) {
+		this.dateRevOrgDoc = dateRevOrgDoc;
+	}
+	public Date getDateRevOrgTax() {
+		return dateRevOrgTax;
+	}
+	public void setDateRevOrgTax(Date dateRevOrgTax) {
+		this.dateRevOrgTax = dateRevOrgTax;
+	}
+	public Date getDateFinCustom() {
+		return dateFinCustom;
+	}
+	public void setDateFinCustom(Date dateFinCustom) {
+		this.dateFinCustom = dateFinCustom;
+	}
+	public Date getDateSend() {
+		return dateSend;
+	}
+	public void setDateSend(Date dateSend) {
+		this.dateSend = dateSend;
+	}
+	public Date getDateActualDev() {
+		return dateActualDev;
+	}
+	public void setDateActualDev(Date dateActualDev) {
+		this.dateActualDev = dateActualDev;
+	}
+	public Date getDateStartECus() {
+		return dateStartECus;
+	}
+	public void setDateStartECus(Date dateStartECus) {
+		this.dateStartECus = dateStartECus;
+	}
+	
+	
 	
 }

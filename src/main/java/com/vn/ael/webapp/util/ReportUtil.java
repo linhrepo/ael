@@ -639,7 +639,7 @@ public class ReportUtil {
 							.doubleValue() : 0;
 				}
 			}
-			parameterMap.put("grandTotal", Double.toString(grandTotal));
+			parameterMap.put("grandTotal", grandTotal);
 
 			JasperPrint print = JasperFillManager.fillReport(report,
 					parameterMap,
@@ -668,8 +668,7 @@ public class ReportUtil {
 							.equals(master.getId().toString())) {
 						AccountingExhibitionItemExport item = new AccountingExhibitionItemExport(
 								fee.getName().getValue(), "",
-								fee.getTotal() != null ? fee.getTotal().toString()
-										: "0");
+								ConvertUtil.getNotNullValue(fee.getTotal()));
 						tmpEx.add(item);
 					}
 				}
@@ -988,6 +987,13 @@ public class ReportUtil {
 				accountingShipmentExport.setDecDate(doc.getPackageinfo().getCustomsDate());
 				accountingShipmentExport.setSoToKhai(doc.getPackageinfo().getCusDecOnNo());
 				accountingShipmentExport.setColour(doc.getPackageinfo().getColourApplying().getDescription());
+				
+				accountingShipmentExport.setDateActualDev(doc.getPackageinfo().getDateActualDev());
+				accountingShipmentExport.setDateFinCustom(doc.getPackageinfo().getDateFinCustom());
+				accountingShipmentExport.setDateRevOrgDoc(doc.getPackageinfo().getDateRevOrgDoc());
+				accountingShipmentExport.setDateRevOrgTax(doc.getPackageinfo().getDateRevOrgTax());
+				accountingShipmentExport.setDateSend(doc.getPackageinfo().getDateSend());
+				accountingShipmentExport.setDateStartECus(doc.getPackageinfo().getDateStartECus());
 				hoachVanTaiExports.add(accountingShipmentExport);
 			}
 		}

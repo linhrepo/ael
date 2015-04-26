@@ -52,7 +52,7 @@ public class AccountingShipmentController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value=URLReference.AJAX_REPORT_ACCOUNTING_SHIPMENT)
-    protected void doDownloadThongquan(AccountingTransCondition accountingTransCondition, HttpServletRequest request,HttpServletResponse response)
+    protected void doDownloadShipment(AccountingTransCondition accountingTransCondition, HttpServletRequest request,HttpServletResponse response)
     throws Exception {
 		AccountingTrans accountingTrans = this.setUpDataShipment(request, accountingTransCondition);
 	       if (accountingTrans!=null) {
