@@ -27,7 +27,7 @@ import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
-public class AccountingShipmentController {
+public class AccountingShipmentController extends BaseFormController{
 
 	private DocsgeneralManager docsgeneralManager;
 	

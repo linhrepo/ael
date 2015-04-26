@@ -32,6 +32,14 @@
                 </div>
     </security:authorize>
     
+    <security:authorize ifAnyGranted="ROLE_NHATHAU,ROLE_ADMIN"> 
+    	 		<div class="col-sm-2">
+                <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
+                    <menu:displayMenu name="NhathauMenu"/>
+                </menu:useMenuDisplayer>
+                </div>
+    </security:authorize>
+    
      <security:authorize ifAnyGranted="ROLE_ACCOUNTING,ROLE_ADMIN"> 
     	 		<div class="col-sm-2">
                 <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">

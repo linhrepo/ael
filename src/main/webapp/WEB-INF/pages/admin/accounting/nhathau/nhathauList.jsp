@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="accountingnhathau.title"/></title>
-    <meta name="menu" content="AccountingMenu"/>
+    <meta name="menu" content="NhathauMenu"/>
 </head>
 
 <div class="col-sm-10">

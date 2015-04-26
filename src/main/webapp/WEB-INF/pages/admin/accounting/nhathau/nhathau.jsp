@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <head>
     <title><fmt:message key="accountingnhathau.title"/></title>
-    <meta name="menu" content="AccountingMenu"/>
+    <meta name="menu" content="NhathauMenu"/>
     <meta name="child" content="true"/>
 </head>
  <c:set var="delObject" scope="request"><fmt:message key="accountingnhathau.title"/></c:set>
@@ -23,8 +23,8 @@
 	    <form:hidden path="condition.endDate"/>
 	    
 	    <div class="container-fluid">
-    		<jsp:include page="fragment/nhathau/generalInput.jsp"></jsp:include>
-    		<jsp:include page="fragment/nhathau/nhathauTable.jsp"></jsp:include>
+    		<jsp:include page="../fragment/nhathau/generalInput.jsp"></jsp:include>
+    		<jsp:include page="../fragment/nhathau/nhathauTable.jsp"></jsp:include>
     	</div>
 	    <div class="form-group form-actions">
 	    	<a class="btn btn-success" href="nhathau/download?nhathauId=${accountingNhathau.condition.nhathauId}&startDate=${startDate}&endDate=${endDate}&customerId=${accountingNhathau.condition.customerId}&job=${accountingNhathau.condition.job}">

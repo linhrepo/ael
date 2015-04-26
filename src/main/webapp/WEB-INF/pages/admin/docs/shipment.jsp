@@ -67,12 +67,12 @@
 			    
 			    <div class="form-group col-md-3">
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
-				    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDateVT1"/>
+				    <input name="startDate" provide="datepicker" maxlength="45"  class="form-control" required id="startDateVT1"/>
 			    </div>
 			    
 			    <div class="form-group col-md-3">
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
-				    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDateVT1"/>
+				    <input name="endDate" provide="datepicker" maxlength="45" class="form-control"  required id="endDateVT1"/>
 			    </div>
     		</div>
     	</div>

@@ -70,10 +70,10 @@ public interface URLReference {
 
 	String AJAX_REPORT_DEBIT_NOTE = "/admin/accounting/custom/download";
 	
-	String ACCOUNTING_NHATHAU_LIST = "/admin/accounting/nhathauList";
-	String ACCOUNTING_NHATHAU = "/admin/accounting/nhathau";
+	String ACCOUNTING_NHATHAU_LIST = "/admin/accounting/nhathau/nhathauList";
+	String ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/nhathau";
 	
-	String ACCOUNTING_SHIPMENT = "/admin/accounting/shipment";
+	String ACCOUNTING_SHIPMENT = "/admin/docs/shipment";
 	String ACCOUNTING_PROFIT_LOSS = "/admin/accounting/profitloss";
 	
 	String PACKAGEINFO_SEARCH = "/admin/docs/searchPackageInfo";
@@ -89,14 +89,14 @@ public interface URLReference {
 	String ACC_REFUND_SEARCH = "/admin/accounting/searchRefund";	
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
-	String AJAX_REPORT_ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/download";
+	String AJAX_REPORT_ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/nhathau/download";
 	String AJAX_REPORT_ACCOUNTING_KHVT = "/admin/accounting/vantai/download";
 	String AJAX_REPORT_ACCOUNTING_KHTQ = "/admin/accounting/thongquan/download";
-	String AJAX_REPORT_ACCOUNTING_SHIPMENT = "/admin/accounting/shipment/download";
+	String AJAX_REPORT_ACCOUNTING_SHIPMENT = "/admin/docs/shipment/download";
 	String AJAX_REPORT_ACCOUNTING_PROFIT_LOSS = "/admin/accounting/profitloss/download";
 	
-	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/inlandPackageinfo";
-	String ACCOUNTING_VANTAI = "/admin/accounting/vantai";
+	String ACCOUNTING_VANTAI_LIST = "/admin/accounting/nhathau/inlandPackageinfo";
+	String ACCOUNTING_VANTAI = "/admin/accounting/nhathau/vantai";
 	
 	String AJAX_REPORT_ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition/download";
 	

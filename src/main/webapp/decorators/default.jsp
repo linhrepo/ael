@@ -75,6 +75,14 @@
                 </menu:useMenuDisplayer>
                 </div>
             </c:if>
+            
+             <c:if test="${currentMenu == 'NhathauMenu' && isChild != 'true'}">
+                <div class="col-sm-2">
+                <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
+                    <menu:displayMenu name="NhathauMenu"/>
+                </menu:useMenuDisplayer>
+                </div>
+            </c:if>
         </div>
     </div>
 

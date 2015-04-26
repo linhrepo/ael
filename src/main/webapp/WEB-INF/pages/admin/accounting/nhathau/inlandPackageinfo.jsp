@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="menu.acct.vantai"/></title>
-    <meta name="menu" content="AccountingMenu"/>
+    <meta name="menu" content="NhathauMenu"/>
 </head>
 
 <div class="col-sm-10">	
@@ -16,8 +16,8 @@
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		  	<input type="hidden" id="flag" value="${flag }">
-		    <div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="fragment/inlandpackageinfo/vantaiList.jsp"></jsp:include></div>
-		    <div role="tabpanel" class="tab-pane" id="settings"><jsp:include page="fragment/inlandpackageinfo/thongquanList.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="../fragment/inlandpackageinfo/vantaiList.jsp"></jsp:include></div>
+		    <div role="tabpanel" class="tab-pane" id="settings"><jsp:include page="../fragment/inlandpackageinfo/thongquanList.jsp"></jsp:include></div>
 		  </div>
 </div>
 <script type="text/javascript" src="<c:url value='/scripts/advanceRefund.js'/>"></script>

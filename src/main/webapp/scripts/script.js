@@ -236,7 +236,12 @@ $(document).ready(function(){
 		sideBySide : true
 	});
 	
-	$('[provide="datepicker"]').datepicker({
-		format: "dd/mm/yyyy"
+//	$('[provide="datepicker"]').datepicker({
+//		format: "dd/mm/yyyy",
+//		orientation: 'bottom'
+//	});
+	
+	$('[provide="datepicker"]').datetimepicker({
+		format: "DD/MM/YYYY"
 	});
 });

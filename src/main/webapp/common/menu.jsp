@@ -12,6 +12,7 @@
     <menu:displayMenu name="SalesMenu"/>
     <menu:displayMenu name="DocsMenu"/>
     <menu:displayMenu name="TrackingMenu"/>
+    <menu:displayMenu name="NhathauMenu"/>
     <menu:displayMenu name="AccountingMenu"/>
     <menu:displayMenu name="AdminMenu"/>
     

@@ -27,7 +27,7 @@ import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
-public class AccountingProfitLossController {
+public class AccountingProfitLossController extends BaseFormController{
 
 	private TruckingserviceManager truckingserviceManager;
 

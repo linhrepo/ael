@@ -109,3 +109,5 @@ ALTER TABLE `ael`.`packageinfo`
 ALTER TABLE `ael`.`packageinfo`
 	ADD COLUMN `dateStartECus` datetime;
 
+INSERT INTO `ael`.`role` (`description`, `name`) VALUES ('Report Nhathau', 'ROLE_NHATHAU');
+
