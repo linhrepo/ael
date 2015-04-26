@@ -108,3 +108,4 @@ ALTER TABLE `ael`.`packageinfo`
 
 ALTER TABLE `ael`.`packageinfo`
 	ADD COLUMN `dateStartECus` datetime;
+

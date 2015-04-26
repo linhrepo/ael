@@ -475,6 +475,4 @@ public class Packageinfo extends DocsEntity implements Serializable {
 		this.dateStartECus = dateStartECus;
 	}
 	
-	
-
 }
