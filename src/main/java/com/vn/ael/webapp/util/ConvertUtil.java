@@ -303,7 +303,7 @@ public class ConvertUtil {
 							//cal fee value
 							List<FeeExportItem> crrFeeList = feeMap.get(exfeetable.getName().getValue());
 							BigDecimal crrFeeVal = crrFeeList.get(i).getFeeVal();
-							crrFeeList.get(i).setFeeVal(ConvertUtil.getNotNullValue(crrFeeVal).add(exfeetable.getTotal()));
+							crrFeeList.get(i).setFeeVal(ConvertUtil.getNotNullValue(crrFeeVal).add(ConvertUtil.getNotNullValue(exfeetable.getTotal())));
 							//cal so HD
 							crrFeeList.get(i).setSoHD(crrFeeList.get(i).getSoHD()+exfeetable.getInvoiceNo()+AELConst.NEW_LINE_REPORT);
 						}
@@ -330,7 +330,7 @@ public class ConvertUtil {
 							//cal fee value
 							List<FeeExportItem> crrFeeList = feeMap.get(exfeetable.getMasterFee().getValue());
 							BigDecimal crrFeeVal = crrFeeList.get(i).getFeeVal();
-							crrFeeList.get(i).setFeeVal(ConvertUtil.getNotNullValue(crrFeeVal).add(exfeetable.getTotal()));
+							crrFeeList.get(i).setFeeVal(ConvertUtil.getNotNullValue(crrFeeVal).add(ConvertUtil.getNotNullValue(exfeetable.getTotal())));
 						}
 					}
 				}

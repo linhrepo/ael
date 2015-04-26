@@ -169,7 +169,7 @@
 								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 							</spring:bind> 
 							<form:input path="truckingdetails[${idx.index}].dateDev"
-								id="dateDev${idx.index}" maxlength="45" provide="datepicker" 
+								id="dateDev${idx.index}" maxlength="45" provide="ddatepicker" 
 								cssClass="form-control" /> 
 							<form:errors
 								path="truckingdetails[${idx.index}].dateDev"
