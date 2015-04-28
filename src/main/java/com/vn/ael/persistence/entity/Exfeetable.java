@@ -70,6 +70,10 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	private Date dateChange;
 	
 	private String invoiceNo;
+	
+	@ManyToOne
+	@JoinColumn(name="refund")
+	private Refund refund;
 
 	public Exfeetable() {
 	}
@@ -201,6 +205,14 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	public void setCheckByAdmin(Boolean checkByAdmin) {
 		this.checkByAdmin = checkByAdmin;
+	}
+
+	public Refund getRefund() {
+		return refund;
+	}
+
+	public void setRefund(Refund refund) {
+		this.refund = refund;
 	}
 	
 }

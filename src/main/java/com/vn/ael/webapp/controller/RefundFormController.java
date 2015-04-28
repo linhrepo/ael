@@ -14,19 +14,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
-import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
 public class RefundFormController extends BaseFormController {
 
 	private PermissionCheckingService permissionCheckingService;
+	
+	private DocsgeneralManager docsgeneralManager;
 	
 	@Autowired
 	public void setPermissionChecking(PermissionCheckingService permissionCheckingService){
@@ -41,8 +46,15 @@ public class RefundFormController extends BaseFormController {
 		this.refundManager = refundManager;
 		
 	}
-	
-    public RefundFormController() {
+		
+	@Autowired
+    public void setDocsgeneralManager(DocsgeneralManager docsgeneralManager) {
+		this.docsgeneralManager = docsgeneralManager;
+	}
+
+
+
+	public RefundFormController() {
         setCancelView("redirect:"+URLReference.ADVANCE_REFUNDS);
         setSuccessView("redirect:"+URLReference.ADVANCE_REFUNDS);
     }
@@ -143,5 +155,28 @@ public class RefundFormController extends BaseFormController {
     	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_THU_ITEMS,ReportTeamplates.PHIEU_THU_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
     	        }
     	    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.REFUND_JOB_FORM)
+    public ModelAndView showFormRefundJob(HttpServletRequest request)
+    throws Exception {
+        ModelAndView mav = new ModelAndView(URLReference.REFUND_JOB_FORM);
+        Refund refund = this.loadRefundByRequest(request);
+        if (refund == null){
+        	Locale locale = request.getLocale();
+        	saveMessage(request, getText("offerPrice.error.wrongCustomer", locale));
+        }
+        mav.addObject("refund", refund);
+      //selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.MASTER_FEE,
+        				ConfigurationType.FEE_NAMES
+        		);
+        docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL, ConvertUtil.fromDocsList2MapCus(docsgeneralManager.getAll()));
+        mav.addObject("shippings", docsSelection);
+        mav.addObject("docsSelection", docsSelection);
+        return mav;
+    }
 }
 

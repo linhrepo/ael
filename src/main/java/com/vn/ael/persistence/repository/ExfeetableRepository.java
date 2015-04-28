@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
+import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Truckingdetail;
 
 /**
@@ -44,5 +45,7 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 	 * @return
 	 */
 	List<Exfeetable> findByExhibition(Exhibition exhibition);
+	
+	List<Exfeetable> findByRefund(Refund refund);
 	
 }

@@ -111,3 +111,14 @@ ALTER TABLE `ael`.`packageinfo`
 
 INSERT INTO `ael`.`role` (`description`, `name`) VALUES ('Report Nhathau', 'ROLE_NHATHAU');
 
+ALTER TABLE `ael`.`exfeetable`
+	ADD COLUMN `refund` bigint(20);
+	
+ALTER TABLE `ael`.`exfeetable`
+	ADD CONSTRAINT `toRefund`
+	  FOREIGN KEY (`refund`)
+	  REFERENCES `ael`.`refund` (`id`)
+	  ON DELETE NO ACTION
+	  ON UPDATE NO ACTION;
+
+

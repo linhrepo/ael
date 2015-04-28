@@ -1,15 +1,17 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.vn.ael.webapp.util.ConvertUtil;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -22,8 +24,11 @@ public class Refund extends BasicAdvance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	//bi-directional many-to-one association to Refunddetail
-	@OneToMany(mappedBy="refund", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "refund", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Refunddetail> refunddetails;
+	
+	@OneToMany(mappedBy = "refund", cascade = CascadeType.ALL)
+	private List<Exfeetable> exfeetables;
 
 	public Refund() {
 	}
@@ -34,6 +39,14 @@ public class Refund extends BasicAdvance implements Serializable {
 
 	public void setRefunddetails(List<Refunddetail> refunddetails) {
 		this.refunddetails = refunddetails;
+	}	
+
+	public List<Exfeetable> getExfeetables() {
+		return exfeetables;
+	}
+
+	public void setExfeetables(List<Exfeetable> exfeetables) {
+		this.exfeetables = exfeetables;
 	}
 
 	public Refunddetail addRefunddetail(Refunddetail refunddetail) {

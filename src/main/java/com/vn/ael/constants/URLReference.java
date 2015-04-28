@@ -65,6 +65,7 @@ public interface URLReference {
 	String ADVANCE_REFUNDS = "/users/advanceRefunds";
 	String ADVANCE_FORM = "/users/advanceForm";
 	String REFUND_FORM = "/users/refund";
+	String REFUND_JOB_FORM ="/users/refundJob";
 	
 	String ADVANCE_FORM_ACC = "/admin/accounting/advanceRefunds";
 

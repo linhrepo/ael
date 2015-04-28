@@ -5,6 +5,8 @@
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='refund'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.add"/></a>
+       	<a class="btn btn-primary" href="<c:url value='refundJob'/>">
+            <i class="fa fa-plus"></i><fmt:message key="button.addRefundJob"/></a>
         <a class="btn btn-default" href="<c:url value='/home'/>">
             <i class="fa fa-sign-out"></i><fmt:message key="button.done"/></a>
     </div>

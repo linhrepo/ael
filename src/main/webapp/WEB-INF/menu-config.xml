@@ -6,7 +6,7 @@
     <Menus>
         <Menu name="Home" title="menu.nhanvien" roles="ROLE_ADMIN,ROLE_USER" image="/images/icons/employee.png">
         	<Item name="UserMenu" title="menu.user" page="/userform" image="/images/icons/profile.png"/>
-<!--         	<Item name="AdvanceMenu" title="menu.advanceList" page="/users/advanceRefunds" image="/images/icons/advance.png"/> -->
+			<Item name="AdvanceMenu" title="menu.advanceList" page="/users/advanceRefunds" image="/images/icons/advance.png"/>
         	<Item name="LogoutMenu" title="user.logout" page="/logout" image="/images/icons/exit.png"/>
         </Menu>
         <Menu name="SalesMenu" title="menu.sales" description="Sales Menu" roles="ROLE_ADMIN,ROLE_SALES" image="/images/icons/sales.png">

@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
+import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.RefundRepository;
 import com.vn.ael.persistence.repository.RefunddetailRepository;
 import com.vn.ael.persistence.repository.UserRepository;
@@ -36,6 +39,9 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
     private UserRepository userRepository;
     
     @Autowired
+    private ExfeetableRepository exfeetableRepository;
+    
+    @Autowired
     public RefundManagerImpl(final RefundRepository refundRepository) {
         this.refundRepository = refundRepository;
         this.repository = refundRepository;
@@ -45,6 +51,7 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	public void updateChilds(Refund refund) {
 		if (refund != null && refund.getId() != null) {
 			refund.setRefunddetails(refunddetailRepository.findByRefund(refund));
+			refund.setExfeetables(exfeetableRepository.findByRefund(refund));
 		}
 
 		if (refund.getRefunddetails() == null
@@ -55,6 +62,16 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 			items.add(refunddetail);
 			refund.setRefunddetails(items);
 		}	
+		
+		if (refund.getExfeetables() == null || refund.getExfeetables().isEmpty()){
+			List<Exfeetable> exfeetables = new ArrayList<>();
+			Exfeetable exfeetable = new Exfeetable();
+			Docsgeneral docsgeneral = new Docsgeneral();
+			exfeetable.setDocsgeneral(docsgeneral);
+			exfeetable.setIsAdded(true);
+			exfeetables.add(exfeetable);
+			refund.setExfeetables(exfeetables);
+		}
 	}
 
 	@Override
