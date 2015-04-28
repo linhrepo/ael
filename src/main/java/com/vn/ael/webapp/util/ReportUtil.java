@@ -826,9 +826,11 @@ public class ReportUtil {
 		listRefundDetail.addAll(refund.getRefunddetails());
 		if (!listRefundDetail.isEmpty()) {
 			for (Refunddetail refunddetail : listRefundDetail) {
-				total = total.add(refunddetail.getAmount());
-				total = total.add(refunddetail.getOAmount());
-
+				try {
+					total = total.add(refunddetail.getAmount());
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			}
 		}
 

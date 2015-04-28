@@ -121,4 +121,6 @@ ALTER TABLE `ael`.`exfeetable`
 	  ON DELETE NO ACTION
 	  ON UPDATE NO ACTION;
 
+ALTER TABLE `ael`.`refund` 
+ADD COLUMN `isPhieuThu` INT(1) NULL DEFAULT NULL AFTER `refNo`;
 

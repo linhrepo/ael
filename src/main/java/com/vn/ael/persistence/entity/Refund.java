@@ -29,6 +29,8 @@ public class Refund extends BasicAdvance implements Serializable {
 	
 	@OneToMany(mappedBy = "refund", cascade = CascadeType.ALL)
 	private List<Exfeetable> exfeetables;
+	
+	private Boolean isPhieuThu;
 
 	public Refund() {
 	}
@@ -97,6 +99,20 @@ public class Refund extends BasicAdvance implements Serializable {
 			return this.getTotalAmount().add(this.getTotalOAmount());
 		}
 		return total;
+	}
+
+	/**
+	 * @return the isPhieuThu
+	 */
+	public Boolean getIsPhieuThu() {
+		return isPhieuThu;
+	}
+
+	/**
+	 * @param isPhieuThu the isPhieuThu to set
+	 */
+	public void setIsPhieuThu(Boolean isPhieuThu) {
+		this.isPhieuThu = isPhieuThu;
 	}
 	
 }

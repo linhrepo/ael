@@ -18,4 +18,8 @@ public interface RefundManager extends GenericManager<Refund> {
 	List<Refund> searchRefund(Search search);
 
 	List<Refund> findByEmpoyeeForAccounting(Long employeeId, Boolean doApproval);
+	
+	List<Refund> findAllPhieuThu();
+
+	List<Refund> searchPhieuThu(Search search);
 }

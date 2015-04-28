@@ -118,4 +118,15 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 		return this.refundRepository.findByEmployeeAndDoApproval(employeeId, doApproval);
 
 	}
+
+	@Override
+	public List<Refund> findAllPhieuThu() {
+		// TODO Auto-generated method stub
+		return this.refundRepository.findAllPhieuThu();
+	}
+	
+	@Override
+	public List<Refund> searchPhieuThu(Search search) {
+		return this.refundRepository.searchPhieuThu(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(), search.getDoApproval());
+	}
 }
