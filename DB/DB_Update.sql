@@ -111,3 +111,6 @@ ALTER TABLE `ael`.`packageinfo`
 
 INSERT INTO `ael`.`role` (`description`, `name`) VALUES ('Report Nhathau', 'ROLE_NHATHAU');
 
+ALTER TABLE `ael`.`refund` 
+ADD COLUMN `isPhieuThu` INT(1) NULL DEFAULT NULL AFTER `refNo`;
+

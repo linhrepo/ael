@@ -109,4 +109,9 @@ public interface URLReference {
 	
 	String ACC_ADVANCE_SUMARY_SEARCH = "/admin/accounting/searchAdvanceSumary";
 	String ADVANCE_SUMARY_SEARCH = "/users/searchAdvanceSumary";
+	
+	String ACCOUNTING_PHIEUTHU_LIST = "/admin/accounting/phieuthuList";
+	String ACCOUNTING_PHIEUTHU = "/admin/accounting/phieuthu";
+	String ACCOUNTING_PHIEUTHU_DOWNLOAD = "/admin/accounting/phieuthu/download";
+	String ACCOUNTING_PHIEUTHU_SEARCH = "/admin/accounting/searchPhieuThu";
 }
