@@ -1,4 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
+<script src="<c:url value="/scripts/custom/phieuthu.js" />"></script>
 <head>
     <title><fmt:message key="menu.acct.phieuthu"/></title>
     <meta name="menu" content="Home"/>

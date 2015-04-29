@@ -77,7 +77,7 @@
     </c:if>
     <hr>
     <script>
-    $("#refundList").change(function(){ 
+  /*   $("#refundList").change(function(){ 
     	var sum = 0;
     	$('#refundList  .phieuthuAmount').each(function()
     			{
@@ -86,5 +86,14 @@
 			}
     			});
     	$('#totalVal').val(accounting.formatMoney(sum,UTIL.MONEY_STYLE));
+    }); */
+    $("#refundList").change(function(){ 
+    	calculateTotal();
+    });
+    $( document ).ready(function() {
+    	/* ADVANCE_TABLE_CONTROL.init( $("#advanceformList").attr("id")); */
+    	$("#refundList").bind("afterRemoveRow",function(e,row){
+    		calculateTotal();
+    	 });
     });
     </script>
