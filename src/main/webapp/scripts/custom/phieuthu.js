@@ -20,3 +20,8 @@ $("#refundList").change(function(){
 $("#refundList").bind("afterRemoveRow",function(e,row){
 	calculateTotal();
  });
+
+$("#refundList").bind("unRemoveRow",function(e,row){
+	alert("yah");
+	calculateTotal();
+ });

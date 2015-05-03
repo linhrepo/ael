@@ -57,8 +57,8 @@
 	            </td> --%>
 				<c:if test="${empty refund.doApproval or refund.doApproval==false}">
 	                <td>
-	                	<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">
-		                			<i class="fa fa-trash"></i>
+	                	<span onclick="calculateTotal();" onmouseup="calculateTotal()" class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">
+		                			<i class="fa fa-trash" onclick="calculateTotal();"></i>
 		                	</span>
 	                </td>
                 </c:if>
@@ -93,6 +93,9 @@
     $( document ).ready(function() {
     	/* ADVANCE_TABLE_CONTROL.init( $("#advanceformList").attr("id")); */
     	$("#refundList").bind("afterRemoveRow",function(e,row){
+    		calculateTotal();
+    	 });
+    	$("#refundList").bind("unRemoveRow",function(e,row){
     		calculateTotal();
     	 });
     });

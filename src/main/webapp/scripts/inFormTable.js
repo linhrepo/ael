@@ -11,8 +11,8 @@
             afterRemoveRow: function() {},
             beforeRemoveRow: function(){},
             beforeAddRow: function(){},
-            afterAddRow: function(){}
-            
+            afterAddRow: function(){},
+            unRemoveRow: function(){}            
         };
 
         var plugin = this;
@@ -214,6 +214,7 @@
     					}
     				}
     			}
+    			$(table).trigger('unRemoveRow',[row,table]);
     		}else{
     			$(table).trigger('beforeRemoveRow',[row,table]);
     			$(row).find("input[valueType='deleted']").val("true");
