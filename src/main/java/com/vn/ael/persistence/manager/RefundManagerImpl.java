@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
@@ -66,8 +65,6 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 		if (refund.getExfeetables() == null || refund.getExfeetables().isEmpty()){
 			List<Exfeetable> exfeetables = new ArrayList<>();
 			Exfeetable exfeetable = new Exfeetable();
-			Docsgeneral docsgeneral = new Docsgeneral();
-			exfeetable.setDocsgeneral(docsgeneral);
 			exfeetable.setIsAdded(true);
 			exfeetables.add(exfeetable);
 			refund.setExfeetables(exfeetables);

@@ -99,7 +99,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "e.typeOfDocs =:typeOfDocs and "
-			+ "(e.packageinfo.customsDate >= :startDate or :startDate is null) and (e.packageinfo.customsDate <= :endDate or :endDate is null) and "			
+			+ "(e.packageinfo.customsDate >= :startDate or :startDate is null) and (e.packageinfo.customsDate < :endDate or :endDate is null) and "			
 			+ "(e.packageinfo.consignee = :consignee or :consignee = '') and "
 			+ "(e.packageinfo.shipper = :shipper or :shipper = '') and "
 			+ "(e.jobNo = :jobNo or :jobNo = '')")

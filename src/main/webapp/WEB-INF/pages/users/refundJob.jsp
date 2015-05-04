@@ -11,7 +11,7 @@
  
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="refund" method="post" action="refund" id="refundForm" cssClass="well" readonly="${refund.doApproval == 'true' ? 'readonly' :''}" >
+    <form:form commandName="refund" method="post" action="refundJob" id="refundForm" cssClass="well" readonly="${refund.doApproval == 'true' ? 'readonly' :''}" >
     	<jsp:include page="fragment/refund/refundInput.jsp"></jsp:include>
     	<jsp:include page="fragment/refund/feeTables.jsp"></jsp:include>
     	<jsp:include page="fragment/refund/accInput.jsp"></jsp:include>

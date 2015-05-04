@@ -34,7 +34,7 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	List<Truckingdetail> findWithFullTruckingservice(@Param("serviceId")Long id);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice where (t.nhathau.id =:nhathauId or :nhathauId is null) and "
-			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev < :endDate or :endDate is null) and "
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') and "
 			+ "(t.truckingservice.docsgeneral.customer.id = :customer or :customer is null) "
 			+ "group by (t.id) "
@@ -44,7 +44,7 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param(value="customer")Long customer);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and "
-			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev < :endDate or :endDate is null) and "
 			+ "(d.customer.id = :customerId or :customerId is null) and "
 			+ "(t.nhathau.id = :nhathauId or :nhathauId is null) and "
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') "
@@ -62,7 +62,7 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param("month")Integer month, @Param("year")Integer year);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and "
-			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev < :endDate or :endDate is null) and "
 			+ "(d.customer.id = :customerId or :customerId is null) and "
 			+ "(d.jobNo = :jobNo or :jobNo = '') and "
 			+ "(d.packageinfo.consignee = :consignee or :consignee = '') and "
@@ -74,7 +74,7 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param(value="consignee")String consignee, @Param(value="shipper")String shipper);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d WHERE "
-			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev < :endDate or :endDate is null) and "
 			+ "(d.customer.id = :customerId or :customerId is null) and "
 			+ "d.typeOfDocs =:typeOfDocs and "
 			+ "(d.jobNo = :jobNo or :jobNo = '') and "

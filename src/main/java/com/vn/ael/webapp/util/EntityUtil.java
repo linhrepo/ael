@@ -327,6 +327,7 @@ public class EntityUtil {
 
 	public static void wireChildOfRefund(Refund refund) {
 		List<Refunddetail> items = new ArrayList<>();
+		List<Exfeetable> exfeetables = new ArrayList<>();
 		if (refund.getRefunddetails() != null && !refund.getRefunddetails().isEmpty()){
 			for (Refunddetail refunddetail: refund.getRefunddetails()){
 				if (refunddetail.getIsAdded() == null || !refunddetail.getIsAdded()){
@@ -335,6 +336,15 @@ public class EntityUtil {
 				}
 			}
 			refund.setRefunddetails(items);
+		}
+		if(refund.getExfeetables() != null && !refund.getExfeetables().isEmpty()){
+			for(Exfeetable exfeetable : refund.getExfeetables()){
+				if(exfeetable.getIsAdded() == null || !exfeetable.getIsAdded()){
+					exfeetable.setRefund(refund);
+					exfeetables.add(exfeetable);
+				}
+			}
+			refund.setExfeetables(exfeetables);
 		}
 		
 	}
