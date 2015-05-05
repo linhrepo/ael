@@ -51,6 +51,7 @@ public interface URLReference {
 	
 	String ACCOUNTING_FEE_LIST = "/admin/accounting/feeTables";
 	String ACCOUNTING_FEE_LIST_DETAIL = "/admin/accounting/feesDetail";
+	String ACCOUNTING_FEE_NHATHAU_LIST_DETAIL = "/admin/accounting/feeNhathauDetail";
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL = "/admin/accounting/changeApproval";
 	
@@ -84,6 +85,7 @@ public interface URLReference {
 	String ACCPACKAGEINFO_SEARCH = "/admin/accounting/searchAccPackageInfo";
 	String ACCEXHIBITION_SEARCH = "/admin/accounting/searchAccExhibition";	
 	String FEETABLES_SEARCH = "/admin/accounting/searchFeeTables";
+	String FEENHATHAUTABLES_SEARCH = "/admin/accounting/searchFeeNhathauTables";
 	String ADVANCE_SEARCH = "/users/searchAdvance";
 	String REFUND_SEARCH = "/users/searchRefund";
 	String ACC_ADVANCE_SEARCH = "/admin/accounting/searchAdvance";

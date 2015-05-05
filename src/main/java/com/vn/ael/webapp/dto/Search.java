@@ -27,6 +27,7 @@ public class Search {
 	private Boolean approved;
 	private Date startSumDate;
 	private Date endSumDate;
+	private String job = null;
 	
 	public Long getCustomer() {
 		return customer;
@@ -153,6 +154,12 @@ public class Search {
 	}
 	public void setEndSumDate(Date endSumDate) {
 		this.endSumDate = endSumDate;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
 	}	
 	
 }

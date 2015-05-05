@@ -6,6 +6,7 @@ import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.dto.Search;
 
 public interface TruckingserviceManager extends GenericManager<Truckingservice> {
 	
@@ -45,5 +46,7 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	public List<Truckingdetail> searchProfitLoss(AccountingTransCondition accountingTransCondition);
 	
 	public List<Truckingdetail> findWithFullTruckingservice(Long truckingServiceId);
+	
+	public List<Truckingdetail> searchFeeNhathau(Search search);
 }
 

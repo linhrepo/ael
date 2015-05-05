@@ -25,11 +25,13 @@ import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
+import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
@@ -44,6 +46,8 @@ public class AccountingController extends BaseFormController {
 	private NhathauManager nhathauManager;
 	
 	private PackageinfoManager packageinfoManager;
+	
+	private TruckingserviceManager truckingserviceManager;
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -65,6 +69,12 @@ public class AccountingController extends BaseFormController {
     @Autowired
 	public void setPackageinfoManager(PackageinfoManager packageinfoManager) {
 		this.packageinfoManager = packageinfoManager;
+	}
+
+    @Autowired
+	public void setTruckingserviceManager(
+			TruckingserviceManager truckingserviceManager) {
+		this.truckingserviceManager = truckingserviceManager;
 	}
 
 	public AccountingController() {
@@ -145,6 +155,7 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("docsSelection", docsSelection);
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         model.addAttribute("enumStatus", StatusType.values());
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
         return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST, model.asMap());
     }
     
@@ -248,8 +259,9 @@ public class AccountingController extends BaseFormController {
         				ConfigurationType.TYPE_OF_IMPORT
         		);
         mav.addObject("docsSelection", docsSelection);
-        mav.addObject("enumStatus", StatusType.values());
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
 		return mav;
 	}
     
@@ -286,5 +298,35 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         return new ModelAndView(URLReference.ACCOUNTING_PROFIT_LOSS, model.asMap());
+    }
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEENHATHAUTABLES_SEARCH)
+	public ModelAndView searchFeeNhathau(Search searchFeeTables)
+			throws Exception {
+		// Model model = new ExtendedModelMap();
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST);
+		
+		List<Truckingdetail> truckingdetails = truckingserviceManager.searchFeeNhathau(searchFeeTables);
+		mav.addObject("truckingdetailList", truckingdetails);
+		
+		//selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT
+        		);
+        mav.addObject("docsSelection", docsSelection);
+        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("flag", 1);
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject(docsgeneralManager.findByDoAccounting(true));
+		return mav;
+	}
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_NHATHAU_LIST_DETAIL)
+    public @ResponseBody List<Exfeetable> handleFeeNhathauDetailRequest(@RequestParam(value="truckId") Long id) throws Exception {
+    	List<Exfeetable> exfeetables = this.exfeetableManager.findByTruckingdetail(id);
+    	return exfeetables;
     }
 }
