@@ -828,7 +828,7 @@ public class ReportUtil {
 			for (Refunddetail refunddetail : listRefundDetail) {
 				try {
 					total = total.add(refunddetail.getAmount());
-					payReason.concat(refunddetail.getDescription()+" ("+refunddetail.getDocs().getJobNo()+"), ");
+					payReason.concat(refunddetail.getDescription()+" ("+refunddetail.getDocs()==null?refunddetail.getDocs().getJobNo():AELConst.EMPTY_STRING+"), ");
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
