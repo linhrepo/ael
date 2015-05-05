@@ -821,13 +821,14 @@ public class ReportUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(refund.getDate());
 		BigDecimal total = BigDecimal.ZERO;
-
+		String payReason = "";
 		List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
 		listRefundDetail.addAll(refund.getRefunddetails());
 		if (!listRefundDetail.isEmpty()) {
 			for (Refunddetail refunddetail : listRefundDetail) {
 				try {
 					total = total.add(refunddetail.getAmount());
+					payReason.concat(refunddetail.getDescription()+" ("+refunddetail.getDocs().getJobNo()+"), ");
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -839,7 +840,7 @@ public class ReportUtil {
 		parameterMap.put("year", cal.get(Calendar.YEAR));
 		parameterMap.put("refNo", refund.getRefNo());
 		parameterMap.put("employee", refund.getEmployee());
-		parameterMap.put("reason", refund.getPayReason());
+		parameterMap.put("reason", payReason);
 		parameterMap.put("amount", total);
 		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
