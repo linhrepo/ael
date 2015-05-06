@@ -85,7 +85,9 @@ public interface URLReference {
 	String ACCPACKAGEINFO_SEARCH = "/admin/accounting/searchAccPackageInfo";
 	String ACCEXHIBITION_SEARCH = "/admin/accounting/searchAccExhibition";	
 	String FEETABLES_SEARCH = "/admin/accounting/searchFeeTables";
+	String FEETABLES_ADMIN_SEARCH = "/admin/searchFeeTables";
 	String FEENHATHAUTABLES_SEARCH = "/admin/accounting/searchFeeNhathauTables";
+	String FEE_NHATHAU_TABLES_ADMIN_SEARCH = "/admin/searchFeeNhathauTables";
 	String ADVANCE_SEARCH = "/users/searchAdvance";
 	String REFUND_SEARCH = "/users/searchRefund";
 	String ACC_ADVANCE_SEARCH = "/admin/accounting/searchAdvance";

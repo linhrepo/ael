@@ -124,3 +124,7 @@ ALTER TABLE `ael`.`exfeetable`
 ALTER TABLE `ael`.`refund` 
 ADD COLUMN `isPhieuThu` INT(1) NULL DEFAULT NULL AFTER `refNo`;
 
+ALTER TABLE `ael`.`refund` 
+ADD COLUMN `isAdmin` INT(1) NULL AFTER `isPhieuThu`;
+
+

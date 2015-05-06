@@ -142,8 +142,8 @@ public class AccountingController extends BaseFormController {
     public ModelAndView handleFeeRequest() throws Exception {
         Model model = new ExtendedModelMap();
         model.addAttribute(docsgeneralManager.findByDoAccounting(true));
-        Search searchAccExhibition = new Search();
-        model.addAttribute("search", searchAccExhibition);
+        Search searchAccFee = new Search();
+        model.addAttribute("search", searchAccFee);
       //selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage
@@ -162,7 +162,21 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_FEE_LIST_ADMIN)
     public ModelAndView handleFeeAdminRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccounting(true));        
+        model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+        Search searchAccFee = new Search();
+        model.addAttribute("search", searchAccFee);
+      //selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT,
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        		);
+        model.addAttribute("docsSelection", docsSelection);
+        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        model.addAttribute("enumStatus", StatusType.values());
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
         return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN, model.asMap());
     }
     
@@ -329,4 +343,52 @@ public class AccountingController extends BaseFormController {
     	List<Exfeetable> exfeetables = this.exfeetableManager.findByTruckingdetail(id);
     	return exfeetables;
     }
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEETABLES_ADMIN_SEARCH)
+	public ModelAndView searchFeeTableAdmin(Search searchFeeTables)
+			throws Exception {
+		// Model model = new ExtendedModelMap();
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN);
+		
+		List<Docsgeneral> docsgenerals = docsgeneralManager.searchFeeTables(searchFeeTables);
+		mav.addObject(docsgenerals);
+		
+		//selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT
+        		);
+        mav.addObject("docsSelection", docsSelection);
+        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+		return mav;
+	}
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEE_NHATHAU_TABLES_ADMIN_SEARCH)
+	public ModelAndView searchFeeNhathauAdmin(Search searchFeeTables)
+			throws Exception {
+		// Model model = new ExtendedModelMap();
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN);
+		
+		List<Truckingdetail> truckingdetails = truckingserviceManager.searchFeeNhathau(searchFeeTables);
+		mav.addObject("truckingdetailList", truckingdetails);
+		
+		//selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT
+        		);
+        mav.addObject("docsSelection", docsSelection);
+        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("flag", 1);
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject(docsgeneralManager.findByDoAccounting(true));
+		return mav;
+	}
 }

@@ -21,6 +21,7 @@
 	<thead>
 		<tr>
 			<th><fmt:message key="table.no" /></th>
+			<th><fmt:message key="refund.fileCus"/></th>
 			<th><fmt:message key="packageInfo.masterFee" /></th>
 			<th><fmt:message key="packageInfo.feeName" /></th>
 			<th><fmt:message key="packageInfo.feevalue" /></th>
@@ -48,6 +49,14 @@
 						path="exfeetables[${idx.index}].dateChange"
 						/>
 				</td>
+				 <td>
+	            		<spring:bind path="refund.exfeetables[${idx.index}].docsgeneral.id">
+					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					    </spring:bind>
+					        <form:select path="exfeetables[${idx.index}].docsgeneral.id" id="docs${idx.index}" cssClass="form-control" items="${docsSelection.selections['docs']}" empty-on-add="false"/>
+					        <form:errors path="exfeetables[${idx.index}].docsgeneral.id" cssClass="help-block"/>
+					    </div>
+	            </td>
 				<td><spring:bind
 						path="refund.exfeetables[${idx.index}].masterFee.id">
 						<div

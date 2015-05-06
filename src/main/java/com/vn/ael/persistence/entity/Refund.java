@@ -31,6 +31,8 @@ public class Refund extends BasicAdvance implements Serializable {
 	private List<Exfeetable> exfeetables;
 	
 	private Boolean isPhieuThu;
+	
+	private Boolean isAdmin;
 
 	public Refund() {
 	}
@@ -114,5 +116,15 @@ public class Refund extends BasicAdvance implements Serializable {
 	public void setIsPhieuThu(Boolean isPhieuThu) {
 		this.isPhieuThu = isPhieuThu;
 	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
+	
 	
 }
