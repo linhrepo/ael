@@ -48,5 +48,7 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	public List<Truckingdetail> findWithFullTruckingservice(Long truckingServiceId);
 	
 	public List<Truckingdetail> searchFeeNhathau(Search search);
+	
+	public List<Truckingdetail> findByDoAccounting(Boolean doAccounting);
 }
 

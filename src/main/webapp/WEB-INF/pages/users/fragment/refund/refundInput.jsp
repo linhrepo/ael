@@ -2,6 +2,7 @@
 	<form:hidden path="id"/>
     <form:hidden path="creator.id"/>
     <form:hidden path="createdDate"/>
+    <form:hidden path="isAdmin" />
     <div class="container-fluid">
 	    <div class="row">
 	    	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 

@@ -233,6 +233,11 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 
 	@Override
 	public List<Truckingdetail> searchFeeNhathau(Search search) {
-		return truckingdetailRepository.searchFeeNhathau(search.getStartDate(), search.getEndDate(), search.getJob(), search.getCustomer(), search.getCheckByAdmin(), search.getApproved());
+		return truckingdetailRepository.searchFeeNhathau(search.getStartDate(), search.getEndDate(), search.getJob(), search.getCustomer(), true, search.getCheckByAdmin(), search.getApproved());
+	}
+
+	@Override
+	public List<Truckingdetail> findByDoAccounting(Boolean doAccounting) {
+		return truckingdetailRepository.findByDoAccounting(doAccounting);
 	}
 }

@@ -94,11 +94,26 @@ public class RefundFormController extends BaseFormController {
         	Locale locale = request.getLocale();
         	saveMessage(request, getText("offerPrice.error.wrongCustomer", locale));
         }
+        
+        if(refund.getIsAdmin() != null && refund.getIsAdmin()){
+        	mav = new ModelAndView(URLReference.REFUND_JOB_FORM);
+        	 //selection
+            DocsSelection docsSelection = 
+            		configurationManager.loadSelectionForDocsPage
+            		(
+            				ConfigurationType.MASTER_FEE,
+            				ConfigurationType.FEE_NAMES
+            		);
+            docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL, ConvertUtil.fromDocsList2MapCus(docsgeneralManager.getAll()));
+            mav.addObject("docsSelection", docsSelection);
+        }
+        else{
+        	//create selection
+            DocsSelection docsSelection = 
+            		configurationManager.loadSelectionForDocsPage(true);
+            mav.addObject("docsSelection", docsSelection);
+        }
         mav.addObject("refund", refund);
-        //create selection
-        DocsSelection docsSelection = 
-        		configurationManager.loadSelectionForDocsPage(true);
-        mav.addObject("docsSelection", docsSelection);
         return mav;
     }
  
@@ -123,6 +138,7 @@ public class RefundFormController extends BaseFormController {
         boolean isNew = (refund.getId() == null);
         String success = getSuccessView();
         Locale locale = request.getLocale();
+        refund.setIsAdmin(false);
  
         if (request.getParameter("delete") != null) {
         	success = getSuccessView();
@@ -166,7 +182,7 @@ public class RefundFormController extends BaseFormController {
         	saveMessage(request, getText("offerPrice.error.wrongCustomer", locale));
         }
         mav.addObject("refund", refund);
-      //selection
+        //selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage
         		(
@@ -174,9 +190,46 @@ public class RefundFormController extends BaseFormController {
         				ConfigurationType.FEE_NAMES
         		);
         docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL, ConvertUtil.fromDocsList2MapCus(docsgeneralManager.getAll()));
-        mav.addObject("shippings", docsSelection);
         mav.addObject("docsSelection", docsSelection);
         return mav;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.REFUND_JOB_FORM)
+    public String onSubmitJob(Refund refund, BindingResult errors, HttpServletRequest request,
+                           HttpServletResponse response)
+    throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+ 
+        if (validator != null) { // validator is null during testing
+            validator.validate(refund, errors);
+ 
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return URLReference.ADVANCE_FORM;
+            }
+        }
+ 
+        log.debug("entering 'onSubmit' method...");
+ 
+        boolean isNew = (refund.getId() == null);
+        String success = getSuccessView();
+        Locale locale = request.getLocale();
+        refund.setIsAdmin(true);
+ 
+        if (request.getParameter("delete") != null) {
+        	success = getSuccessView();
+            refundManager.remove(refund.getId());
+            saveMessage(request, getText("refund.deleted", locale));
+        } else {
+        	getEntityService().checkUpdateInfo(refund, isNew, request);
+        	refund = refundManager.saveWholePackage(refund);
+            String key = (isNew) ? "refund.added" : "refund.updated";
+            saveMessage(request, getText(key, locale));
+            success = "redirect:"+URLReference.REFUND_JOB_FORM+"?id=" + refund.getId();
+        }
+ 
+        return success;
     }
 }
 

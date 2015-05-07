@@ -88,15 +88,22 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
 			@Param(value="jobNo") String jobNo);
 	
-	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables f LEFT JOIN FETCH t.truckingservice where "
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables f LEFT JOIN FETCH t.truckingservice LEFT JOIN FETCH t.truckingservice.docsgeneral d where "
 			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev < :endDate or :endDate is null) and "
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') and "
 			+ "(t.truckingservice.docsgeneral.customer.id = :customer or :customer is null) and "
 			+ "(f.checkByAdmin =:checkByAdmin or :checkByAdmin is null) and "
-			+ "(f.approved =:approved or :approved is null) "
+			+ "(f.approved =:approved or :approved is null) and "
+			+ "d.doAccounting =:doAccounting "
 			+ "group by (t.id) "
 			+ "order by t.truckingservice.docsgeneral.jobNo, t.truckingservice.docsgeneral.customer, t.consteal, t.id")
 	List<Truckingdetail> searchFeeNhathau(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
-			@Param(value="jobNo")String jobNo, @Param(value="customer")Long customer,
+			@Param(value="jobNo")String jobNo, @Param(value="customer")Long customer, @Param("doAccounting") Boolean doAccounting,
 			@Param(value="checkByAdmin") Boolean checkByAdmin, @Param(value="approved") Boolean approved);
+	
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables f LEFT JOIN FETCH t.truckingservice LEFT JOIN FETCH t.truckingservice.docsgeneral d where "
+			+ "d.doAccounting =:doAccounting "
+			+ "group by (t.id) "
+			+ "order by t.consteal, t.id")
+	List<Truckingdetail> findByDoAccounting(@Param("doAccounting") Boolean doAccounting);
 }

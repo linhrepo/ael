@@ -142,6 +142,7 @@ public class AccountingController extends BaseFormController {
     public ModelAndView handleFeeRequest() throws Exception {
         Model model = new ExtendedModelMap();
         model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+        model.addAttribute(truckingserviceManager.findByDoAccounting(true));
         Search searchAccFee = new Search();
         model.addAttribute("search", searchAccFee);
       //selection
@@ -163,6 +164,7 @@ public class AccountingController extends BaseFormController {
     public ModelAndView handleFeeAdminRequest() throws Exception {
         Model model = new ExtendedModelMap();
         model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+        model.addAttribute(truckingserviceManager.findByDoAccounting(true));
         Search searchAccFee = new Search();
         model.addAttribute("search", searchAccFee);
       //selection
