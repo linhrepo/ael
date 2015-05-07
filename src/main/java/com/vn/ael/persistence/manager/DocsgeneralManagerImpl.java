@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Accountingcus;
+import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docservice;
@@ -35,6 +37,8 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.CalculationUtil;
+import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
 /**
@@ -70,6 +74,10 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
     
     @Autowired
     private AttachmentRepository attachmentRepository;
+    
+    @Autowired
+    //this is not good practice, but acceptable ;))
+    private AccountingcusManager accountingcusManager;
     
     @Autowired
     public DocsgeneralManagerImpl(final DocsgeneralRepository docsgeneralRepository) {
@@ -253,27 +261,44 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				docsgeneral.getTruckingservice().setTruckingdetails(truckingdetails);
 				
 				//calculate other information
-				if (truckingdetails != null){
-					for (Truckingdetail truckingdetail : truckingdetails){
-						List<Exfeetable> exfeetables = truckingdetail.getExfeetables();
-						if (exfeetables != null && !exfeetables.isEmpty()){
-							if (docsgeneral.getChiho() == null){
-								truckingdetail.setChiho(BigDecimal.ZERO);
-							}
-							
-							for (Exfeetable exfeetable : exfeetables){
-								if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
-									//add to accounting cus
-									truckingdetail.setChiho(truckingdetail.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
-								}
-							}
-						}
-					}
-				}
-				
+//				if (truckingdetails != null){
+//					for (Truckingdetail truckingdetail : truckingdetails){
+//						List<Exfeetable> exfeetables = truckingdetail.getExfeetables();
+//						if (exfeetables != null && !exfeetables.isEmpty()){
+//							if (docsgeneral.getChiho() == null){
+//								truckingdetail.setChiho(BigDecimal.ZERO);
+//							}
+//							
+//							for (Exfeetable exfeetable : exfeetables){
+//								if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
+//									//add to accounting cus
+//									truckingdetail.setChiho(truckingdetail.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
+//								}
+//							}
+//						}
+//					}
+//				}
+				this.updateChiHo(docsgeneral);
 			}
 		}
 		return docsgenerals;
+	}
+	
+	/**
+	 * 
+	 * @param docsgeneral
+	 */
+	public void updateChiHo(Docsgeneral docsgeneral){
+		List<Exfeetable> exfeetables = exfeetableRepository.findByDocsgeneral(docsgeneral);
+		docsgeneral.setChiho(BigDecimal.ZERO);
+		if (exfeetables != null && !exfeetables.isEmpty()){
+			for (Exfeetable exfeetable : exfeetables){
+				if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
+					//add to accounting cus
+					docsgeneral.setChiho(docsgeneral.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
+				}
+			}
+		}
 	}
 	
 	/**
@@ -426,5 +451,36 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				updateTongChiPhi(docsgeneral);
 			}
 		}
+	}
+
+	@Override
+	public void updateDebit(Docsgeneral docsgeneral) {
+		BigDecimal debit = BigDecimal.ZERO;
+		if (docsgeneral != null){
+			if (docsgeneral.getDebit() == null){
+				if (docsgeneral.getTypeOfDocs() == ServicesType.DVTQ){
+					//thong quan
+					Accountingcus accountingcus = accountingcusManager.createFromDocsgeneral(docsgeneral);
+					if (accountingcus != null){
+						List<Accountingcusdetail> accountingcusdetails = accountingcus.getAccountingcusdetails();
+						if (accountingcusdetails != null && !accountingcusdetails.isEmpty()){
+							for (Accountingcusdetail accountingcusdetail: accountingcusdetails){
+								debit = debit.add(ConvertUtil.getNotNullValue(accountingcusdetail.getTotal()));
+							}
+						}
+					}
+				}else if (docsgeneral.getTypeOfDocs() == ServicesType.EXHS){
+					//trien lam
+					List<Exfeetable> exfeetables = exfeetableRepository.findByExhibition(docsgeneral.getExhibition());
+					if (exfeetables != null && !exfeetables.isEmpty()){
+						for (Exfeetable exfeetable : exfeetables){
+							debit = debit.add(CalculationUtil.getTotalWithVat(exfeetable.getVat(), exfeetable.getAmount()));
+						}
+					}
+				}
+				docsgeneral.setDebit(debit);
+			}
+		}
+		
 	}
 }

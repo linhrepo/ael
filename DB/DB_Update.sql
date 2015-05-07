@@ -127,4 +127,7 @@ ADD COLUMN `isPhieuThu` INT(1) NULL DEFAULT NULL AFTER `refNo`;
 ALTER TABLE `ael`.`refund` 
 ADD COLUMN `isAdmin` INT(1) NULL AFTER `isPhieuThu`;
 
+ALTER TABLE `ael`.`docsgeneral` 
+CHANGE COLUMN `cmb` `cmb` DECIMAL(15,3) NULL DEFAULT NULL ;
+
 

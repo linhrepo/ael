@@ -68,6 +68,18 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	List<Docsgeneral> findAllByCondition(AccountingTransCondition accountingTransCondition);
 	
 	/**
+	 * Update chi ho
+	 * @param docsgeneral
+	 */
+	void updateChiHo(Docsgeneral docsgeneral);
+	
+	/**
+	 * Update chi ho
+	 * @param docsgeneral
+	 */
+	void updateDebit(Docsgeneral docsgeneral);
+	
+	/**
 	 * Count consteal
 	 * @param docsgeneral
 	 */

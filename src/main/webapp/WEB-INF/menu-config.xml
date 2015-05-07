@@ -33,8 +33,8 @@
         	<Item name="DVVT" title="menu.docs.dvvt" page="/admin/accounting/transportList" image="/images/icons/trans.png"/>
         	<Item name="DVTL" title="menu.docs.dvtl" page="/admin/accounting/exhibitionList" image="/images/icons/exhibition.png"/>
         	<Item name="Fees" title="menu.docs.fees" page="/admin/accounting/feeTables" image="/images/icons/feeAcc.png"/>
-<!--         	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceRefunds" image="/images/icons/advance.png"/> -->
-<!--         	<Item name="ProfitLoss" title="menu.acct.profitloss" page="/admin/accounting/profitloss" image="/images/icons/trans.png"/> -->
+        	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceRefunds" image="/images/icons/advance.png"/>
+        	<Item name="ProfitLoss" title="menu.acct.profitloss" page="/admin/accounting/profitloss" image="/images/icons/trans.png"/>
 			<Item name="Fees" title="phieuthu.title" page="/admin/accounting/phieuthuList" image="/images/icons/feeAcc.png"/>
         </Menu>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN,ROLE_CONFIG,ROLE_DOCS,ROLE_TRUCK" page="/admin/users" image="/images/icons/admin.png">
