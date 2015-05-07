@@ -421,6 +421,9 @@ public class ReportUtil {
 				++i;
 				if (doc.getTruckingservice() != null
 						&& doc.getTruckingservice().getTruckingdetails() != null) {
+					chihoTotal = chihoTotal.add(ConvertUtil
+							.getNotNullValue(doc.getChiho()));
+					
 					for (Truckingdetail truckingdetail : doc
 							.getTruckingservice().getTruckingdetails()) {
 						AccountingTransportExport item = new AccountingTransportExport();
@@ -443,9 +446,8 @@ public class ReportUtil {
 								.getArrival());
 						item.setPlaceputcont(doc.getTruckingservice()
 								.getDeparture());
-						item.setChiho(truckingdetail.getChiho());
-						chihoTotal = chihoTotal.add(ConvertUtil
-								.getNotNullValue(truckingdetail.getChiho()));
+						item.setChiho(doc.getChiho());
+						
 						item.setAccountingPrice(truckingdetail
 								.getAccountingPrice());
 						giacaTotal = giacaTotal.add(ConvertUtil
@@ -1026,13 +1028,21 @@ public class ReportUtil {
 				profitLossExport.setContNo(truckingdetail.getConsteal() != null ? truckingdetail.getConsteal().getNoOfCont() : AELConst.EMPTY_STRING);
 				profitLossExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
 				profitLossExport.setDateDev(truckingdetail.getDateDev());
+				//chi phi manifest
 				profitLossExport.setTongChi(ConvertUtil.getNotNullValue(docsgeneral.getTongChiPhi()));
+				//chi phi nha thau
 				profitLossExport.setTongThu(ConvertUtil.getNotNullValue(docsgeneral.getTongThu()));
-				profitLossExport.setProfitLoss(profitLossExport.getTongThu().subtract(profitLossExport.getTongChi()));
+				//thu ho
+				profitLossExport.setThuHo(truckingdetail.getTruckingservice().getDocsgeneral().getChiho());
+				//debit
+				profitLossExport.setDebit(truckingdetail.getTruckingservice().getDocsgeneral().getDebit());
+				
+				profitLossExport.setProfitLoss(profitLossExport.getThuHo().add(profitLossExport.getDebit()).subtract(profitLossExport.getTongThu().add(profitLossExport.getTongChi())));
+				
 				profitLossExports.add(profitLossExport);
 			}
 		}
-		//chi phí chi
+		//chi phí manifest
 			    FeeNameExport  feeNameExport = ConvertUtil.fromFeeListToFeeExportFeeType(feesList);
 			    parameterMap.put("feeNames", feeNameExport.getName());
 				if (!profitLossExports.isEmpty() && !feeNameExport.getValues().isEmpty()){
@@ -1040,20 +1050,20 @@ public class ReportUtil {
 						profitLossExports.get(i).setConvertedFee(feeNameExport.getValues().get(i));
 					}
 				}
-				//chi phí thu
+				//chi phí nha thau
 				 FeeNameExport  feeNameExportThu = ConvertUtil.fromFeeListToFeeExport(feesListThu);
 				    parameterMap.put("feeNamesThu", feeNameExportThu.getName());
 					if (!profitLossExports.isEmpty() && !feeNameExportThu.getValues().isEmpty()){
 						for (int i=0; i<profitLossExports.size(); ++i){
 							profitLossExports.get(i).setConvertedFeeThu(feeNameExportThu.getValues().get(i));
 							//calculate total
-							BigDecimal total = BigDecimal.ZERO;
-							if (feeNameExportThu.getValues() != null && !feeNameExportThu.getValues().isEmpty()){
-								for (FeeExportItem exportItem : feeNameExportThu.getValues().get(i)){
-									total = total.add(exportItem.getFeeVal());
-								}
-								profitLossExports.get(i).setTotal(total);
-							}
+//							BigDecimal total = BigDecimal.ZERO;
+//							if (feeNameExportThu.getValues() != null && !feeNameExportThu.getValues().isEmpty()){
+//								for (FeeExportItem exportItem : feeNameExportThu.getValues().get(i)){
+//									total = total.add(exportItem.getFeeVal());
+//								}
+//								profitLossExports.get(i).setTotal(total);
+//							}
 						}
 					}
 			 parameterMap.put("details", profitLossExports);

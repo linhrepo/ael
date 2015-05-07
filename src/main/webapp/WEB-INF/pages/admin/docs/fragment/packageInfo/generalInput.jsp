@@ -213,7 +213,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2" hideBy="typeOfContainer,-1">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="packageInfo.cmb"/>
-		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="10"  cssClass="form-control number"/>
+		        <form:input path="docsgeneral.cmb" id="cmb" maxlength="13"  cssClass="form-control money3" />
 		        <form:errors path="docsgeneral.cmb" cssClass="help-block"/>
 		    </div>
 		    

@@ -77,6 +77,15 @@ UTIL.MONEY_STYLE = {
 		precision : 2,
 		format: "%s%v"
 };
+
+UTIL.MONEY_STYLE_3_GIGIT = {
+		symbol : "",
+		decimal : ".",
+		thousand: ",",
+		precision : 3,
+		format: "%s%v"
+};
+
 UTIL.NUMBER_STYLE={
 		symbol : "",
 		decimal : ".",

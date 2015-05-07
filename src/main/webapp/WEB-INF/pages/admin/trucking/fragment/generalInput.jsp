@@ -27,7 +27,7 @@
 			
 			<div class="form-group col-md-2">
 				  <appfuse:label styleClass="control-label" key="truckingservice.cmb"/>
-				  <form:input path="docsgeneral.cmb" id="cmb"   cssClass="form-control number" disabled="true"/>
+				  <form:input path="docsgeneral.cmb" id="cmb"   cssClass="form-control money3" disabled="true"/>
 			</div>
 			
 			<div class="form-group col-md-3">

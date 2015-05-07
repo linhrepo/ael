@@ -86,7 +86,8 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	private Integer noOfPkgs;
 	
-	private Integer cmb;
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION_3DIGIT)
+	private BigDecimal cmb;
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal weigth;
@@ -119,7 +120,7 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@OneToOne(mappedBy = "docsgeneral", cascade = CascadeType.ALL)
 	private Packageinfo packageinfo;
 	
-	@OneToMany(mappedBy="docsgeneral")
+	@OneToMany(mappedBy="docsgeneral", cascade = CascadeType.ALL)
 	private List<Exfeetable> exfeetables;
 	
 	private Boolean doAccounting = false;
@@ -134,16 +135,16 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@JoinColumn(name = "typeOfImport")
 	private Configuration typeOfImport;
 	
-	public Integer getCmb() {
+	public BigDecimal getCmb() {
 		return this.cmb;
 	}
 	
 	@Transient
 	public String getCmbText(){
-		return FormatterUtil.formatInteger(this.cmb)+AELConst.SUFFIX_CMB;
+		return FormatterUtil.formatBigDecimal(this.cmb,true)+AELConst.SUFFIX_CMB;
 	}
 
-	public void setCmb(Integer cmb) {
+	public void setCmb(BigDecimal cmb) {
 		this.cmb = cmb;
 	}
 	
@@ -557,5 +558,17 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	public void setTongThu(BigDecimal tongThu) {
 		this.tongThu = tongThu;
 	}
+	
+	@Transient
+	private BigDecimal debit;
+
+	public BigDecimal getDebit() {
+		return debit;
+	}
+
+	public void setDebit(BigDecimal debit) {
+		this.debit = debit;
+	}
+	
 	
 }

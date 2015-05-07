@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
@@ -94,6 +95,15 @@ public class AccountingProfitLossController extends BaseFormController{
 				truckingdetail.setExfeetables(exfeetables);
 				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral();
 				docsgeneralManager.updateTongChiPhi(docsgeneral);
+				this.docsgeneralManager.updateChiHo(docsgeneral);
+				if (docsgeneral.getTypeOfDocs() != ServicesType.DVVT_INLAND && docsgeneral.getTypeOfDocs()!= ServicesType.DVVT_SEALAND){
+					this.docsgeneralManager.updateDebit(docsgeneral);
+				}else{
+					if (docsgeneral.getDebit() == null){
+						docsgeneral.setDebit(BigDecimal.ZERO);
+					}
+						docsgeneral.setDebit(docsgeneral.getDebit().add(truckingdetail.getAccountingPrice()).add(truckingdetail.getOtherFees()));
+				}
 				docsgeneral.setTongThu(ConvertUtil.getNotNullValue(docsgeneral.getTongThu()).add(truckingdetail.getTotal()));
 			}
 		}

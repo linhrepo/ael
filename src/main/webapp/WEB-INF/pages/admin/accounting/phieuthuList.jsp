@@ -1,7 +1,8 @@
 <%@ include file="/common/taglibs.jsp" %>
 <br>
-<div class="col-sm-12">
+<div class="col-sm-10">
 	<jsp:include page="searchPhieuThu.jsp"></jsp:include>
+	<br/>
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='phieuthu'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.add"/></a>

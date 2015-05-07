@@ -16,6 +16,7 @@ import com.vn.ael.persistence.service.PasswordTokenManagerImpl;
 public class FormatterUtil {
 	private static final Log log = LogFactory.getLog(FormatterUtil.class);
 	private static final DecimalFormat numberHasExtension = new DecimalFormat(FormatterPattern.NUMBER_HAS_EXTENSION);
+	private static final DecimalFormat numberHasExtension3Digit = new DecimalFormat(FormatterPattern.NUMBER_HAS_EXTENSION_3DIGIT);
 	private static final DecimalFormat number = new DecimalFormat(FormatterPattern.NUMBER);
 	private static final DateFormat dateFormat = new SimpleDateFormat(FormatterPattern.DATE_FOMART);
 	private static final DateFormat dateTimeFormat = new SimpleDateFormat(FormatterPattern.DATE_FOMART);
@@ -27,6 +28,18 @@ public class FormatterUtil {
 	 */
 	public static String formatBigDecimal(BigDecimal bigDecimal){
 		return numberHasExtension.format(bigDecimal);
+	}
+	
+	/**
+	 * Return a String which represents the BigDecimal
+	 * @param bigDecimal
+	 * @return
+	 */
+	public static String formatBigDecimal(BigDecimal bigDecimal,boolean is3Dgit){
+		if (is3Dgit){
+			return numberHasExtension3Digit.format(bigDecimal);
+		}
+		return formatBigDecimal(bigDecimal);
 	}
 	
 	/**

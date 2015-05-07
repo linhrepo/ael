@@ -127,13 +127,14 @@
 							${doc.truckingservice.departure}
 						</div>
 					</td>
+					<td data-title="<fmt:message key="accountingtrans.chiho"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
+					<div class="form-group money">
+						${doc.chiho}
+					</div>
+					</td>
 				</c:if>
 				
-				<td data-title="<fmt:message key="accountingtrans.chiho"/>">
-					<div class="form-group money">
-						${detail.chiho}
-					</div>
-				</td>
+				
 				<td data-title="<fmt:message key="accountingtrans.price"/>">
 					<div class="form-group">
 						<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].accountingPrice" cssClass="form-control money amount" />

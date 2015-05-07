@@ -201,6 +201,12 @@ $(document).ready(function(){
 		$(this).val(accounting.formatMoney($(this).val(),UTIL.MONEY_STYLE)); 
 	});
 	
+	$("input.money3").each(function(){
+		$(this).val(accounting.formatMoney($(this).val(),UTIL.MONEY_STYLE_3_GIGIT)); 
+	}).on("blur",function(){
+		$(this).val(accounting.formatMoney($(this).val(),UTIL.MONEY_STYLE_3_GIGIT)); 
+	});
+	
 	$("input.number").each(function(){
 		$(this).val(accounting.formatMoney($(this).val(),UTIL.NUMBER_STYLE)); 
 	}).on("blur",function(){

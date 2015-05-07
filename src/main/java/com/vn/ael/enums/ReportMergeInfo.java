@@ -15,8 +15,8 @@ public enum ReportMergeInfo {
 	KE_HOACH_VAN_TAI_THONGQUAN_L2(6,1,2,3,4,5,6,7,8,13,14,15),
 	KE_HOACH_VAN_TAI_THONGQUAN_L3(6,9,10,11,12),
 	
-	PROFIT_LOSS(4,0,1),
-	PROFIT_LOSS_L2(4,2);
+	PROFIT_LOSS(3,0,1),
+	PROFIT_LOSS_L2(3,2);
 	
 	
 	private int startingRow;

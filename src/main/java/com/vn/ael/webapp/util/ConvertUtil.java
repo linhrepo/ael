@@ -506,7 +506,7 @@ public class ConvertUtil {
 	}
 	
 	private static int START_L1_COL = 5;
-	private static int OFFSET_TO_L2_COL = 1;
+	private static int OFFSET_TO_L2_COL = 0;
 //	private static int TOTAL_L1_COL_LAST = 3;
 	public static Map<ReportMergeInfo, List<Integer>> generateDynamicsMergeIndexForProfitLoss(
 			Map<String,Object> parameter) {
@@ -522,6 +522,8 @@ public class ConvertUtil {
 			firstLevelMerging.add(nextCol);
 			firstLevelMerging.add(nextCol+OFFSET_TO_L2_COL+feeNamesThu.size()+1);
 			firstLevelMerging.add(nextCol+OFFSET_TO_L2_COL+feeNamesThu.size()+2);
+			firstLevelMerging.add(nextCol+OFFSET_TO_L2_COL+feeNamesThu.size()+3);
+			firstLevelMerging.add(nextCol+OFFSET_TO_L2_COL+feeNamesThu.size()+4);
 			map.put(ReportMergeInfo.PROFIT_LOSS, firstLevelMerging);
 		}
 		return map;
