@@ -138,7 +138,7 @@ public class RefundFormController extends BaseFormController {
         boolean isNew = (refund.getId() == null);
         String success = getSuccessView();
         Locale locale = request.getLocale();
-        refund.setIsAdmin(false);
+        refund.setIsAdmin(true);
  
         if (request.getParameter("delete") != null) {
         	success = getSuccessView();
@@ -215,7 +215,7 @@ public class RefundFormController extends BaseFormController {
         boolean isNew = (refund.getId() == null);
         String success = getSuccessView();
         Locale locale = request.getLocale();
-        refund.setIsAdmin(true);
+        refund.setIsAdmin(false);
  
         if (request.getParameter("delete") != null) {
         	success = getSuccessView();

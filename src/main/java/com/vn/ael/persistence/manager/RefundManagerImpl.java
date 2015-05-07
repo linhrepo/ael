@@ -95,14 +95,26 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 			}
 			refund.setRefunddetails(items);
 		}
+		
+		if (refund.getExfeetables() != null){
+			List<Exfeetable> items = new ArrayList<>();
+			for (Exfeetable exfeetable: refund.getExfeetables()){
+				if (exfeetable.getIsDeleted() != null && exfeetable.getIsDeleted() == true){
+					exfeetableRepository.delete(exfeetable);
+				}else{
+					items.add(exfeetable);
+				}
+			}
+			refund.setExfeetables(items);
+		}
 	}
 
 	@Override
 	public List<Refund> findByEmpoyee(User employee, boolean getAllAbility) {
 		if(EntityUtil.isAdminOrAccountRole(employee) && getAllAbility){
-			return this.refundRepository.findAll();
+			return this.refundRepository.findAllThanhToan();
 		}
-		return this.refundRepository.findByEmployee(employee);
+		return this.refundRepository.findAllThanhToanEmployee(employee.getId());
 	}
 
 	@Override

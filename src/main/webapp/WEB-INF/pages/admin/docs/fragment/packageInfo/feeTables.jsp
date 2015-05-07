@@ -27,13 +27,16 @@
 			<th><fmt:message key="packageInfo.feevavat" /></th>
 			<th><fmt:message key="packageIngo.total" /></th>
 			<th><fmt:message key="inland.feeInvoiceNo" /></th>
-			<th><fmt:message key="table.action" /></th>
+<%-- 			<th><fmt:message key="table.action" /></th> --%>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach items="${packageInfo.docsgeneral.exfeetables}"
 			var="exfeetable" varStatus="idx">
-			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}" readonly="${empty exfeetable.approved or exfeetable.approved == false ? '':'readonly'}">
+			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}" 
+<%-- 			readonly="${empty exfeetable.approved or exfeetable.approved == false ? '':'readonly'}" --%>
+			readonly="readonly"
+			>
 				<td colType="index">${idx.index+1}</td>
 				<td colType="generalInfo" class="hidden"><form:hidden
 						path="docsgeneral.exfeetables[${idx.index}].id" /> <form:hidden
@@ -105,25 +108,25 @@
 						path="docsgeneral.exfeetables[${idx.index}].invoiceNo"
 						cssClass="help-block" />
 					</div></td>
-					<td rowType="actions">
-					<c:if test="${ empty exfeetable.approved or exfeetable.approved == false }">
-						<span class="iconButton removeRow"
-							title="<fmt:message key='table.buttonEditTitle'/>"> <i
-								class="fa fa-trash"></i>
-						</span>
-					</c:if>
-					</td>
+<!-- 					<td rowType="actions"> -->
+<%-- 					<c:if test="${ empty exfeetable.approved or exfeetable.approved == false }"> --%>
+<!-- 						<span class="iconButton removeRow" -->
+<%-- 							title="<fmt:message key='table.buttonEditTitle'/>"> <i --%>
+<!-- 								class="fa fa-trash"></i> -->
+<!-- 						</span> -->
+<%-- 					</c:if> --%>
+<!-- 					</td> -->
 				
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-<div class="row">
-	<div class="col-md-10"></div>
-	<div class="col-md-2">
-		<span class="btn btn-primary" target-table="exfeetableList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
-	</div>
-</div>
+<!-- <div class="row"> -->
+<!-- 	<div class="col-md-10"></div> -->
+<!-- 	<div class="col-md-2"> -->
+<%-- 		<span class="btn btn-primary" target-table="exfeetableList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span> --%>
+<!-- 	</div> -->
+<!-- </div> -->
 	</div>
     <div role="tabpanel" class="tab-pane" id="profile">
     	<table id="exfeetableListSummary" class="display table table-striped">

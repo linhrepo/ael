@@ -12,7 +12,7 @@
 <div class="col-sm-12">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="refund" method="post" action="refundJob" id="refundForm" cssClass="well" readonly="${refund.doApproval == 'true' ? 'readonly' :''}" >
-    	<jsp:include page="fragment/refund/refundInput.jsp"></jsp:include>
+    	<jsp:include page="fragment/refund/refundjobInput.jsp"></jsp:include>
     	<jsp:include page="fragment/refund/feeTables.jsp"></jsp:include>
     	<jsp:include page="fragment/refund/accInput.jsp"></jsp:include>
     	 <div class="form-group form-actions">
@@ -26,9 +26,9 @@
 	        		<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
 		           	 <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 		        	</button>
-		        	<a class="btn btn-success" href="refund/phieuthu/download?id=${refund.id}">
-		           	 <i class="fa fa-print"></i> <fmt:message key="refund.printPayment"/>
-		        	</a>
+<%-- 		        	<a class="btn btn-success" href="refund/phieuthu/download?id=${refund.id}"> --%>
+<%-- 		           	 <i class="fa fa-print"></i> <fmt:message key="refund.printPayment"/> --%>
+<!-- 		        	</a> -->
 	        	</security:authorize>
 	        </c:if>
 	         <c:if test="${not empty refund.id}">

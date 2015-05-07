@@ -239,7 +239,9 @@
 	</thead>
 	<tbody>
 		<c:forEach items="${detail.exfeetables}" var="exfeetable" varStatus="idxx"> 
-			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}">
+			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}"
+				readonly="${empty exfeetable.approved or exfeetable.approved == false ? '':'readonly'}"
+			>
 				<td colType="index" data-title="<fmt:message key="table.no"/>">${idxx.index+1}</td>
 				<td colType="generalInfo" class="hidden"><form:hidden
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].id" /> <form:hidden
@@ -305,10 +307,10 @@
 						cssClass="help-block" />
 					</div></td>
 					
-				<td rowType="actions"><span class="iconButton removeRow" data-title="<fmt:message key="table.action"/>"
+				<td rowType="actions"><c:if test="${ empty exfeetable.approved or exfeetable.approved == false }"><span class="iconButton removeRow" data-title="<fmt:message key="table.action"/>"
 					title="<fmt:message key='table.buttonEditTitle'/>"> <i
 						class="fa fa-trash"></i>
-				</span></td>
+				</span></c:if></td>
 			</tr>
 		</c:forEach>
 	</tbody>

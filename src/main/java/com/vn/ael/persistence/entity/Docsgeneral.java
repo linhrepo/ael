@@ -120,7 +120,7 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@OneToOne(mappedBy = "docsgeneral", cascade = CascadeType.ALL)
 	private Packageinfo packageinfo;
 	
-	@OneToMany(mappedBy="docsgeneral", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="docsgeneral")
 	private List<Exfeetable> exfeetables;
 	
 	private Boolean doAccounting = false;
