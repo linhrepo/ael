@@ -95,7 +95,7 @@ public class AdvanceFormListController extends BaseFormController {
 			throws Exception {
 		Model model = new ExtendedModelMap();
 		model.addAttribute(advanceFormManager.getAll());
-		model.addAttribute(refundManager.getAll());
+		model.addAttribute(refundManager.findAllThanhtoan());
 		Search searchRefund = new Search();
 		model.addAttribute("search", searchRefund);
 		DocsSelection docsSelection = configurationManager

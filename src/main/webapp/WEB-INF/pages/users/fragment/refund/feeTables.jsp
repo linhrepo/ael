@@ -7,7 +7,7 @@
     		<fmt:message key="exhibition.feeTablesDetail" />
 		</a>
 	</li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+    <li role="presentation" class="hidden"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
     	<fmt:message key="exhibition.feeTablesSummary" />
     </a></li>
   </ul>
@@ -135,7 +135,7 @@
 </div>
 	</div>
     <div role="tabpanel" class="tab-pane" id="profile">
-    	<table id="exfeetableListSummary" class="display table table-striped">
+    	<table id="refundExfeetableListSummary" class="display table table-striped">
 			<thead>
 				<tr>
 					<th><fmt:message key="table.no" /></th>

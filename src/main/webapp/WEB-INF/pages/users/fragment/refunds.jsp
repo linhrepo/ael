@@ -16,6 +16,7 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
+                <th><fmt:message key="refund.type"/></th>
                 <th><fmt:message key="refund.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
@@ -26,6 +27,7 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
+                <th><fmt:message key="refund.type"/></th>
                 <th><fmt:message key="refund.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
@@ -40,13 +42,27 @@
                  <td class="money">
                  	${adv.total}
                 </td>
+                <td>
+              		<c:if test="${adv.isAdmin}">
+              			<fmt:message key="refund.adminFee"/>
+              		</c:if>
+              		<c:if test="${!adv.isAdmin}">
+              			<fmt:message key="refund.manifestFee"/>
+              		</c:if>
+              	</td>
               	<td>
               		<c:if test="${adv.doApproval}">
               			<a><i class="fa fa-check"></i></a>
               		</c:if>
               	</td>
                 <td>
-                	<a href="refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	<c:if test="${adv.isAdmin}">
+                		<a href="refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	</c:if>
+                	<c:if test="${!adv.isAdmin}">
+                		<a href="refundJob?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	</c:if>
+                	
                 </td>
             </tr>
         </c:forEach>

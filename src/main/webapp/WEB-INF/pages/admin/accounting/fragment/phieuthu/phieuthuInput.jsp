@@ -28,7 +28,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="phieuthu.date"/>
-		        <form:input provide="datepicker" path="date" id="date"  cssClass="form-control"/>
+		        <form:input  path="date" id="date"  cssClass="form-control"/>
 		        <form:errors path="date" cssClass="help-block"/>
 		    </div>
 		    <div class="form-group col-md-2">

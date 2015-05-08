@@ -11,6 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.vn.ael.webapp.util.CalculationUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 
 
@@ -71,11 +72,21 @@ public class Refund extends BasicAdvance implements Serializable {
 	
 	public BigDecimal getTotalAmount(){
 		this.totalAmount = BigDecimal.ZERO;
-		if (this.refunddetails != null && !this.refunddetails.isEmpty()){
-			for (Refunddetail refunddetail : this.refunddetails){
-				this.totalAmount = this.totalAmount.add(ConvertUtil.getNotNullValue(refunddetail.getAmount()));
+		if (this.getId() != null){
+			if (((this.isPhieuThu != null && this.isPhieuThu ) ||(this.isAdmin !=null && this.isAdmin)) && this.refunddetails != null && !this.refunddetails.isEmpty()){
+				for (Refunddetail refunddetail : this.refunddetails){
+					this.totalAmount = this.totalAmount.add(ConvertUtil.getNotNullValue(refunddetail.getAmount()));
+				}
+			}else
+			if ((this.isAdmin != null && !this.isAdmin)){
+				if (this.exfeetables != null && !this.exfeetables.isEmpty()){
+					for (Exfeetable exfeetable : this.exfeetables){
+						this.totalAmount = this.totalAmount.add(CalculationUtil.getTotalWithVat(exfeetable.getVat(),exfeetable.getAmount()));
+					}
+				}
 			}
 		}
+		
 		return this.totalAmount;
 	}
 	
@@ -84,7 +95,7 @@ public class Refund extends BasicAdvance implements Serializable {
 	
 	public BigDecimal getTotalOAmount(){
 		this.totalOAmount = BigDecimal.ZERO;
-		if (this.refunddetails != null && !this.refunddetails.isEmpty()){
+		if (((this.isPhieuThu != null && this.isPhieuThu ) ||(this.isAdmin !=null && this.isAdmin)) && this.refunddetails != null && !this.refunddetails.isEmpty()){
 			for (Refunddetail refunddetail : this.refunddetails){
 				this.totalOAmount = this.totalOAmount.add(ConvertUtil.getNotNullValue(refunddetail.getOAmount()));
 			}
@@ -97,9 +108,14 @@ public class Refund extends BasicAdvance implements Serializable {
 	
 	public BigDecimal getTotal(){
 		this.total = BigDecimal.ZERO;
-		if (this.refunddetails != null && !this.refunddetails.isEmpty()){
-			return this.getTotalAmount().add(this.getTotalOAmount());
+		if (this.getId() != null){
+			if (((this.isPhieuThu != null && this.isPhieuThu ) ||(this.isAdmin !=null && this.isAdmin)) && this.refunddetails != null && !this.refunddetails.isEmpty()){
+				return this.getTotalAmount().add(this.getTotalOAmount());
+			}else if (((this.isPhieuThu == null || !this.isPhieuThu ) &&(this.isAdmin ==null || !this.isAdmin))){
+				return ConvertUtil.getNotNullValue(this.getTotalAmount());
+			}
 		}
+		
 		return total;
 	}
 

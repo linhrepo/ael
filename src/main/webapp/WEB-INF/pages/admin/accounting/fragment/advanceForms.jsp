@@ -3,7 +3,7 @@
 <div class="col-sm-12">
 	<jsp:include page="searchAdvance.jsp"></jsp:include>
     <div id="actions" class="btn-group">
-    	<a class="btn btn-primary" href="<c:url value='advanceForm'/>">
+    	<a class="btn btn-primary" href="<c:url value='/users/advanceForm'/>">
             <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>
         <a class="btn btn-default" href="<c:url value='/home'/>">
             <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>

@@ -124,7 +124,7 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 
 	@Override
 	public List<Refund> findByEmpoyeeForAccounting(Long employeeId, Boolean doApproval) {
-		return this.refundRepository.findByEmployeeAndDoApproval(employeeId, doApproval);
+		return this.refundRepository.findPhieuThuByEmployeeAndDoApproval(employeeId);
 
 	}
 
@@ -137,5 +137,10 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	@Override
 	public List<Refund> searchPhieuThu(Search search) {
 		return this.refundRepository.searchPhieuThu(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(), search.getDoApproval());
+	}
+
+	@Override
+	public List<Refund> findAllThanhtoan() {
+		return this.refundRepository.findAllThanhToan();
 	}
 }

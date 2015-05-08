@@ -96,7 +96,7 @@ public class RefundFormController extends BaseFormController {
         }
         
         if(refund.getIsAdmin() != null && refund.getIsAdmin()){
-        	mav = new ModelAndView(URLReference.REFUND_JOB_FORM);
+        	mav = new ModelAndView(URLReference.REFUND_FORM);
         	 //selection
             DocsSelection docsSelection = 
             		configurationManager.loadSelectionForDocsPage
@@ -129,7 +129,7 @@ public class RefundFormController extends BaseFormController {
             validator.validate(refund, errors);
  
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return URLReference.ADVANCE_FORM;
+                return URLReference.REFUND_FORM;
             }
         }
  
@@ -206,7 +206,7 @@ public class RefundFormController extends BaseFormController {
             validator.validate(refund, errors);
  
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return URLReference.ADVANCE_FORM;
+                return URLReference.REFUND_JOB_FORM;
             }
         }
  

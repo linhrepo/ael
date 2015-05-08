@@ -34,12 +34,12 @@
 		    </div>
 		    <div class="form-group col-md-2">
 		    		<appfuse:label styleClass="control-label" key="refund.total"/>
-		    		<input class="form-control money" value="${refund.total}" readonly="readonly"/>
+		    		<input class="form-control money" id="finalValue" value="${refund.total}" readonly="readonly"/>
 		    	</div>
 	    </div>
 	</div>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#date").datepicker("setDate",new Date());
+		$("#date").datetimepicker("setDate",new Date());
 	});
 </script>

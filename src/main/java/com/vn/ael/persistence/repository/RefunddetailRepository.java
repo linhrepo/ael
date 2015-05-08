@@ -20,4 +20,7 @@ public interface RefunddetailRepository extends GenericRepository<Refunddetail> 
 	
 	@Query("SELECT ref FROM Refunddetail ref WHERE ref.docs.id = :jobId")
 	List<Refunddetail> findByJobId(@Param("jobId") long jobId);
+	
+	@Query("SELECT ref FROM Refunddetail ref WHERE ref.docs.id = :jobId and (ref.refund.isPhieuThu = true)")
+	List<Refunddetail> findPhieuThuByJobId(@Param("jobId") long jobId);
 }

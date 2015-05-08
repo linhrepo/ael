@@ -81,6 +81,7 @@ var FEE_TABLE_CONTROL ={
 		//empty content
 		$(tableTotal).find("tbody").html("");
 		//calculate values for rendering
+		var finalTotal = 0;
 		$("#"+tableId).find(".masterFee").each(function(){
 			var currSelected = $(this).find(":selected").val();
 			if (currSelected != undefined){
@@ -94,6 +95,7 @@ var FEE_TABLE_CONTROL ={
 				//add to value
 				var value = parseFloat(accounting.unformat($(this).closest("tr").find(".total").val()));
 				masterList[currSelected].value = parseFloat(masterList[currSelected].value)+value;
+				finalTotal +=masterList[currSelected].value;
 			}
 		});
 		//render table
@@ -108,6 +110,7 @@ var FEE_TABLE_CONTROL ={
 			
 		}
 		$(tableTotal).find("tbody").html(html);
+		$("#finalValue").val(accounting.formatMoney(finalTotal,UTIL.MONEY_STYLE));
 	}
 };
 
