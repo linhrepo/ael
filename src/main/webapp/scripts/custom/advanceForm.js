@@ -37,6 +37,9 @@ function getRemainingAdvance() {
 	var map = new Object();
 	var docIdList = [];
 	var emp = $('#empId').val();
+	var date =$('#date').datepicker( "getDate" );
+	var month = date.getMonth() + 1;
+	var advanceDate = date.getDate()+"/"+month+"/"+date.getFullYear();
 	if (emp==null) {
 		emp = $('#employee\\.id').val();
 	}
@@ -62,7 +65,7 @@ function getRemainingAdvance() {
 			 $.ajax({
 					type : "GET",
 					url : ctx + "/users/advanceForm/getRemainAdvance",
-					data : "docIdList="+docIdList+"&userId="+ emp,
+					data : "docIdList="+docIdList+"&userId="+ emp +"&date="+ advanceDate ,
 					dataType : "text",
 					success : function(response) {
 						var p = jQuery.parseJSON(response);
