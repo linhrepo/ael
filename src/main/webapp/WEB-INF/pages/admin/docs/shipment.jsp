@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="menu.acct.shipment"/></title>
-    <meta name="menu" content="AccountingMenu"/>
+    <meta name="menu" content="DocsMenu"/>
 </head>
 
 <div class="col-sm-10">

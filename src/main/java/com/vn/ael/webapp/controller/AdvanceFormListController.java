@@ -39,6 +39,7 @@ import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.CommonUtil;
+import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
@@ -445,8 +446,8 @@ public class AdvanceFormListController extends BaseFormController {
 					listDetails.addAll(refund.getRefunddetails());
 					if (!listDetails.isEmpty()) {
 						for (Refunddetail refundDetail : listDetails) {
-							result = result.add(refundDetail.getAmount());
-							result = result.add(refundDetail.getOAmount());
+							result = result.add(ConvertUtil.getNotNullValue(refundDetail.getAmount()));
+							result = result.add(ConvertUtil.getNotNullValue(refundDetail.getOAmount()));
 						}
 					}
 				}

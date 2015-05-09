@@ -77,7 +77,8 @@ public class ExhibitionFormController extends BaseFormController {
         		ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
         		ConfigurationType.DOCS_TYPE_OF_CONTAINER_CONT,
         		ConfigurationType.EXH_MASTER_FEE,
-        		ConfigurationType.FEE_NAMES
+        		ConfigurationType.FEE_NAMES,
+        		ConfigurationType.EXH_NAME
         		);
         mav.addObject("nhathaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.NHATHAU)));
         mav.addObject("docsSelection", docsSelection);

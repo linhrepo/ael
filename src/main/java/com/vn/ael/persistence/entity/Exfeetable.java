@@ -71,6 +71,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	
 	private String invoiceNo;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="refund")
 	private Refund refund;

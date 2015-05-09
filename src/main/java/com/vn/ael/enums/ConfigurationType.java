@@ -31,7 +31,8 @@ public enum ConfigurationType {
 	EXH_MASTER_FEE_REPORT(25,"configuration.exhmasterFeeReport","exhmasterFeesReport"),
 	EXH_FEE_NAMES_REPORT(26,"configuration.exhFeeNameReport","exhFeeNamesReport"),
 	TYPE_OF_IMPORT(27,"configuration.typeOfImport","importTypes"),
-	TYPE_OF_IMPORT_SEA(28,"configuration.typeOfImportSea","importTypeSeas")
+	TYPE_OF_IMPORT_SEA(28,"configuration.typeOfImportSea","importTypeSeas"),
+	EXH_NAME(29,"configuration.exhibitionName","exhibitionNames")
 	;
 	
 	private int value;

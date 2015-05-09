@@ -1086,4 +1086,60 @@ public class ReportUtil {
 		}
 		return result;
 	}
+
+	/**
+	 * Prepare data for Thanh toan Job
+	 * @param refund
+	 * @return
+	 */
+	public static Map<String, Object> prepareDataForJobRefundRequest(
+			Refund refund) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		List<Exfeetable> exfeetables = new ArrayList<Exfeetable>();
+		if (refund.getExfeetables() != null) {
+			exfeetables.addAll(refund.getExfeetables());
+		}
+		List<RefundRequestItem> listItem = new ArrayList<RefundRequestItem>();
+		BigDecimal totalAmount = BigDecimal.ZERO;
+		BigDecimal totalOAmount = BigDecimal.ZERO;
+		BigDecimal grandTotal = BigDecimal.ZERO;
+		int index = 0;
+		if (!refund.getRefunddetails().isEmpty()) {
+			for (Exfeetable exfeetable : exfeetables) {
+				RefundRequestItem item = new RefundRequestItem();
+				index++;
+				item.setIndex(index);
+				item.setFileCus(exfeetable.getDocsgeneral() != null ? exfeetable
+						.getDocsgeneral().getJobNo() : AELConst.EMPTY_STRING);
+				item.setDescription(exfeetable.getName().getValue());
+				BigDecimal total = CalculationUtil.getTotalWithVat(exfeetable.getVat(), exfeetable.getAmount());
+				item.setAmount(NumberFormat.getCurrencyInstance().format(total).replace("$", ""));
+				totalAmount = totalAmount.add(total);
+				try {
+					if (exfeetable.getDocsgeneral().getIsLCL()) {
+						item.setCont("LCL");
+					}
+					else {
+						String cont = "FCL/"+exfeetable.getDocsgeneral().getNoOf20Cont()+"/"+exfeetable.getDocsgeneral().getNoOf40Cont()+"/"+exfeetable.getDocsgeneral().getOtCont();
+						item.setCont(cont);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				listItem.add(item);
+			}
+			grandTotal = grandTotal.add(totalAmount);
+			grandTotal = grandTotal.add(totalOAmount);
+			parameterMap.put("refundDetails", listItem);
+			parameterMap.put("totalAmount", NumberFormat.getCurrencyInstance().format(totalAmount).replace("$", ""));
+			parameterMap.put("totalOAmount", NumberFormat.getCurrencyInstance().format(totalOAmount).replace("$", ""));
+			parameterMap.put("employee", refund.getEmployee());
+			parameterMap.put("grandTotal", NumberFormat.getCurrencyInstance().format(grandTotal).replace("$", ""));
+			parameterMap.put("refundDate",
+					CommonUtil.getDateString(refund.getDate()));
+			parameterMap.put("refNo", refund.getRefNo());
+		}
+		return parameterMap;
+	}
 }

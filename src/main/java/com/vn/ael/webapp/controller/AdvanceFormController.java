@@ -2,6 +2,9 @@ package com.vn.ael.webapp.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -144,7 +147,7 @@ public class AdvanceFormController extends BaseFormController {
 						for (Advancedetail adv : advanceform.getAdvancedetails()) {
 							BigDecimal val = BigDecimal.ZERO;
 							try {
-								val = this.advanceFormManager.calculateRemainAdvance(adv.getDocs().getId(),adv.getAdvanceform().getEmployee().getId());
+								val = this.advanceFormManager.calculateRemainAdvance(adv.getDocs().getId(),adv.getAdvanceform().getEmployee().getId(), advanceform.getDate());
 								listRemainAdvancebyJob.put(adv.getDocs().getId().intValue(), val);
 							} catch (Exception e) {
 								// TODO: handle exception
@@ -192,7 +195,16 @@ public class AdvanceFormController extends BaseFormController {
     
     @RequestMapping(value = "/users/advanceForm/getRemainAdvance", method = RequestMethod.GET)
     public @ResponseBody String processAJAXRequest(
-    			@RequestParam("docIdList") String[] docIdList, @RequestParam("userId") String userId) {
+    			@RequestParam("docIdList") String[] docIdList, @RequestParam("userId") String userId, @RequestParam("date") String date) {
+    	Date advanceDate = new Date();
+    	DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    	try {
+    		advanceDate = (Date)format.parse(date);  
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+    	
     	Map<Long, BigDecimal> map = new HashMap<Long, BigDecimal>();
     	ObjectMapper mapper = new ObjectMapper();
     	if (docIdList.length>0) {
@@ -200,7 +212,7 @@ public class AdvanceFormController extends BaseFormController {
     			try {
     				Long uId = Long.parseLong(userId);
     				Long id = Long.parseLong(docId);
-    				BigDecimal result = this.advanceFormManager.calculateRemainAdvance(id, uId);
+    				BigDecimal result = this.advanceFormManager.calculateRemainAdvance(id, uId, advanceDate);
     				map.put(id, result)	;		
     			} catch (Exception e) {
     				// TODO: handle exception

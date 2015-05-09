@@ -130,4 +130,14 @@ ADD COLUMN `isAdmin` INT(1) NULL AFTER `isPhieuThu`;
 ALTER TABLE `ael`.`docsgeneral` 
 CHANGE COLUMN `cmb` `cmb` DECIMAL(15,3) NULL DEFAULT NULL ;
 
+ALTER TABLE `ael`.`exhibition` 
+CHANGE COLUMN `exName` `exName` BIGINT(10) NULL DEFAULT NULL ,
+ADD INDEX `toExName_idx` (`exName` ASC);
+ALTER TABLE `ael`.`exhibition` 
+ADD CONSTRAINT `toExName`
+  FOREIGN KEY (`exName`)
+  REFERENCES `ael`.`configuration` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
 

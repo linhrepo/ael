@@ -18,7 +18,9 @@ import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
@@ -139,6 +141,7 @@ public class RefundFormController extends BaseFormController {
         String success = getSuccessView();
         Locale locale = request.getLocale();
         refund.setIsAdmin(true);
+        refund.setIsPhieuThu(false);
  
         if (request.getParameter("delete") != null) {
         	success = getSuccessView();
@@ -158,8 +161,25 @@ public class RefundFormController extends BaseFormController {
     public void doDownload(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
     	Refund refund = this.loadRefundByRequest(request);
-        if (refund != null){
-        	ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REFUND_ITEMS, ReportTeamplates.ADVANCE_REFUND_ITEMS_TEMPLATE, ReportUtil.prepareDataForRefundRequest(refund));
+        if (refund != null && refund.getId() != null){
+        	if (!refund.getIsPhieuThu() && refund.getIsAdmin()){
+        		//update docsgeneral
+        		if (refund.getRefunddetails() != null && !refund.getRefunddetails().isEmpty()){
+        			for (Refunddetail refunddetail : refund.getRefunddetails()){
+        				docsgeneralManager.updateContTruck(refunddetail.getDocs());
+        			}
+        		}
+        		ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REFUND_ITEMS, ReportTeamplates.ADVANCE_REFUND_ITEMS_TEMPLATE, ReportUtil.prepareDataForRefundRequest(refund));
+        	}else if (!refund.getIsPhieuThu() && !refund.getIsAdmin()){
+        		//update docsgeneral
+        		if (refund.getExfeetables() != null && !refund.getExfeetables().isEmpty()){
+        			for (Exfeetable exfeetable : refund.getExfeetables()){
+        				docsgeneralManager.updateContTruck(exfeetable.getDocsgeneral());
+        			}
+        		}
+        		ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REFUND_ITEMS, ReportTeamplates.ADVANCE_REFUND_ITEMS_TEMPLATE, ReportUtil.prepareDataForJobRefundRequest(refund));
+        	}
+        	
         }
     }
     
@@ -216,6 +236,7 @@ public class RefundFormController extends BaseFormController {
         String success = getSuccessView();
         Locale locale = request.getLocale();
         refund.setIsAdmin(false);
+        refund.setIsPhieuThu(false);
  
         if (request.getParameter("delete") != null) {
         	success = getSuccessView();

@@ -63,10 +63,10 @@
 		    </div>
 		    
 		    <spring:bind path="exhibition.exName">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4" addUrl="/admin/config/constant" type="29">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.exName"/>
-		        <form:input path="exName" id="jobNo" maxlength="255"  cssClass="form-control"/>
+		        <form:select path="exName" id="exName" maxlength="255"  cssClass="form-control" items="${docsSelection.selections['exhibitionNames']}"/>
 		        <form:errors path="exName" cssClass="help-block"/>
 		    </div>
 		    

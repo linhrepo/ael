@@ -11,6 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.ael.webapp.util.CalculationUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 
@@ -28,6 +29,7 @@ public class Refund extends BasicAdvance implements Serializable {
 	@OneToMany(mappedBy = "refund", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Refunddetail> refunddetails;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "refund", cascade = CascadeType.ALL)
 	private List<Exfeetable> exfeetables;
 	
