@@ -119,7 +119,7 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 			log.error("FAILED TO GET ADVANCE DETAIL BY JOB NO");
 		}
 		try {
-			listRefundByJobNo.addAll(this.refundDetailRepository.findPhieuThuByJobId(jobId));
+			listRefundByJobNo.addAll(this.refundDetailRepository.findByJobId(jobId));
 		} catch (Exception e) {
 			// TODO: handle exception
 			log.error("FAILED TO GET REFUND DETAIL BY JOB NO");
