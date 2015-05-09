@@ -61,10 +61,10 @@ $( document ).ready(function() {
 	var startDateEle = $("#startDateSumary");
 	var endDateEle = $("#endDateSumary");
 	if (startDateEle.val()==null || startDateEle.val()=="") {
-		startDateEle.datepicker("setDate",new Date());
+		startDateEle.datetimepicker("setDate",new Date());
 	}
 	if (endDateEle.val()==null || endDateEle.val()=="") {
-		endDateEle.datepicker("setDate",new Date());
+		endDateEle.datetimepicker("setDate",new Date());
 	}
 
 });

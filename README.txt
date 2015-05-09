@@ -1,20 +1,25 @@
-AppFuse Basic Spring MVC Archetype
---------------------------------------------------------------------------------
-If you're reading this then you've created your new project using Maven and
-AELManagement.  You have only created the shell of an AppFuse Java EE
-application.  The project object model (pom) is defined in the file pom.xml.
-The application is ready to run as a web application. The pom.xml file is
-pre-defined with Hibernate as a persistence model and Spring MVC as the web
-framework.
+AEL Management Setup
+--------------------------
+Environment setup - What you need?
+1. Java7
+2. Eclipse with m2e plugin
+3. Tomcat 7
+4. MySQL with root account and empty password (update pom.xml if you want to connect with other account/password)
+--------------------------
+Steps:
+1. Check out project into local folder
+2. Import it in to Eclipse as Maven project
+3. Right click on imported project -> Maven -> Update Project
+4. Create ael schema 
+5. Run script InitDB.sql
+6. Deploy your project on Tomcat server
+7. Start server and access http://localhost:8080/AELManagement
 
-To get started, please complete the following steps:
+---------------------------
+Account to login
+1. admin/admin: ROLE_ADMIN
 
-1. Download and install a MySQL 5.x database from 
-   http://dev.mysql.com/downloads/mysql/5.0.html#downloads.
+Then you could go to Quan Ly Nguoi Dung to see list of all users. Password for these users are 123456
 
-2. Run "mvn jetty:run" and view the application at http://localhost:8080.
-
-3. More information can be found at:
-
-   http://appfuse.org/display/APF/AppFuse+QuickStart
+2. Check TinhNangHeThongAEL.xlsx for system functionalities
 
