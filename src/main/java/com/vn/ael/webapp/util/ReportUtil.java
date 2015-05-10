@@ -823,18 +823,27 @@ public class ReportUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(refund.getDate());
 		BigDecimal total = BigDecimal.ZERO;
-		String payReason = "";
+		StringBuffer payReason = new StringBuffer();
 		List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
 		listRefundDetail.addAll(refund.getRefunddetails());
 		if (!listRefundDetail.isEmpty()) {
 			for (Refunddetail refunddetail : listRefundDetail) {
 				try {
 					total = total.add(refunddetail.getAmount());
-					payReason.concat(refunddetail.getDescription()+" ("+refunddetail.getDocs()==null?refunddetail.getDocs().getJobNo():AELConst.EMPTY_STRING+"), ");
+					String jobNo = AELConst.EMPTY_STRING;
+					if (refunddetail.getDocs()!=null) {
+						jobNo=refunddetail.getDocs().getJobNo();
+					}
+					String tmp =refunddetail.getDescription()+" ("+jobNo+") ";
+					if (listRefundDetail.indexOf(refunddetail)==listRefundDetail.size()-1) {
+						tmp+=",";
+					}					
+					payReason.append(tmp);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
 			}
+
 		}
 
 		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
