@@ -461,6 +461,12 @@ public class AdvanceFormListController extends BaseFormController {
 
 	private AdvanceSumary getAdvanceSumaryForEmployee(User employee,
 			Date startDate, Date endDate) throws ParseException {
+		if (startDate==null&&endDate!=null) {
+			startDate = endDate;
+		}
+		else if (startDate!=null&&endDate==null) {
+			endDate = startDate;
+		}
 		BigDecimal totalAdvanceBefore = BigDecimal.ZERO;
 		BigDecimal totalRefundBefore = BigDecimal.ZERO;
 		BigDecimal totalAdvanceBetween = BigDecimal.ZERO;
@@ -482,9 +488,9 @@ public class AdvanceFormListController extends BaseFormController {
 				if (advanceform.getDate() != null) {
 					 String strD1 = dateFormat.format(advanceform.getDate());
 					 Date dateAdvance = dateFormat.parse(strD1);					 
-					if (dateAdvance.before(dateStart) || dateAdvance.equals(dateStart)) {						
+					if (dateAdvance.before(dateStart) ) {						
 						listBefore.add(advanceform);
-					} else if (dateAdvance.after(dateStart)
+					} else if ((dateAdvance.after(dateStart)|| dateAdvance.equals(dateStart))
 							&& (dateAdvance.before(dateEnd) || dateAdvance.equals(dateEnd))) {
 						listBetween.add(advanceform);
 					}
