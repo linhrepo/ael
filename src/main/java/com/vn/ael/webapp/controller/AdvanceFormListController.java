@@ -154,7 +154,7 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Advanceform> advanceforms = advanceFormManager
 				.searchAdvanceForm(searchAdvanceForm);
 		mav.addObject(advanceforms);
-		mav.addObject(refundManager.getAll());
+		mav.addObject(refundManager.findAllThanhtoan());
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
@@ -220,7 +220,7 @@ public class AdvanceFormListController extends BaseFormController {
 		mav.addObject("docsSelection", docsSelection);
 		mav.addObject("enumStatus", StatusType.values());
 		mav.addObject(advanceFormManager.getAll());
-		mav.addObject(refundManager.getAll());
+		mav.addObject(refundManager.findAllThanhtoan());
 		mav.addObject("flag", 3);
 		return mav;
 	}
