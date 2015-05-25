@@ -2,7 +2,7 @@
 <br>
 <div class="col-sm-12">
 	<jsp:include page="searchRefund.jsp"></jsp:include>
-    <div id="actions" class="btn-group">
+    <div id="actionsRefund" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='/users/refund'/>">
             <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>
         <a class="btn btn-primary" href="<c:url value='/users/refundJob'/>">
@@ -10,7 +10,7 @@
         <a class="btn btn-default" href="<c:url value='/home'/>">
             <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>
     </div>
-    <table id="refundList" class="display datatable" cellspacing="0" width="100%" >
+    <table id="refundList1" class="display datatable" cellspacing="0" width="100%" >
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>

@@ -99,12 +99,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noidi" />">
 					<div class="form-group">
-				        ${truck.truckingservice.departure }
+				        ${truck.truckingservice.docsgeneral.placeRev }
 				    </div>
 				</td>
 				<td data-title="<fmt:message key="accountingnhathau.noiden" />">
 					<div class="form-group">
-				        ${truck.truckingservice.arrival }
+				        ${truck.truckingservice.docsgeneral.placeDelivery }
 
 				    </div>
 				</td>

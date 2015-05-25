@@ -525,8 +525,8 @@ public class ReportUtil {
 					accountingNhathauExport.setContO(AELConst.HAVE_ONE);
 				}
 				
-				accountingNhathauExport.setDeparture(truckingdetail.getTruckingservice().getDeparture());
-				accountingNhathauExport.setArrival(truckingdetail.getTruckingservice().getArrival());
+				accountingNhathauExport.setDeparture(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceDelivery());
+				accountingNhathauExport.setArrival(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceRev());
 				accountingNhathauExport.setPhuthu(truckingdetail.getPhuthu());
 				
 				accountingNhathauExports.add(accountingNhathauExport);

@@ -10,7 +10,7 @@
 		  <ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><fmt:message key="advanceList.heading"/></a></li>
 		    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><fmt:message key="refundList.heading"/></a></li>
-		    <li role="presentation"><a href="#sumary" aria-controls="settings" role="tab" data-toggle="tab"><fmt:message key="advanceSumary.heading"/></a></li>
+		    <li role="presentation"><a href="#sumary" aria-controls="sumary" role="tab" data-toggle="tab"><fmt:message key="advanceSumary.heading"/></a></li>
 		  </ul>
 		
 		  <!-- Tab panes -->
