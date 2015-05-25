@@ -474,8 +474,8 @@ public class ReportUtil {
 		beans.put("custPhone", cust.getTel());
 		beans.put("custFax", cust.getFax());
 		beans.put("trans", accountingTransExport);
-		beans.put("month", accountingTrans.getYear());
-		beans.put("year", accountingTrans.getMonth());
+		beans.put("startDate", accountingTrans.getCondition().getStartDate());
+		beans.put("endDate", accountingTrans.getCondition().getEndDate());
 		beans.put("refNo", accountingTrans.getRefNo());
 		beans.put("chihoTotal", chihoTotal);
 		beans.put("giacaTotal", giacaTotal);

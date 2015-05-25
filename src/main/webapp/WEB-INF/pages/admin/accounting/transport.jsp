@@ -8,7 +8,14 @@
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
-    <h2><fmt:message key='accountingTrans.heading'/> - ${accountingTrans.condition.month}/${accountingTrans.condition.year}</h2>
+    <h2><fmt:message key='accountingTrans.heading'/>
+    	<fmt:formatDate value="${accountingTrans.condition.startDate}" var="startDate" 
+                type="date" pattern="dd/MM/yyyy" />
+		&nbsp;${startDate} - 
+		<fmt:formatDate value="${accountingTrans.condition.endDate}" var="endDate" 
+                type="date" pattern="dd/MM/yyyy" />
+        ${endDate}  
+    </h2>
  	<form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="accountingTrans" method="post" action="transport" id="accountingTransForm" cssClass="well">
     <form:hidden path="condition.customerId"/>
@@ -40,7 +47,7 @@
     	
 	</div>
     <div class="form-group form-actions">
-						<a class="btn btn-success" href="transport/download?customerId=${accountingTrans.condition.customerId}&month=${accountingTrans.condition.month}&year=${accountingTrans.condition.year}">
+						<a class="btn btn-success" href="transport/download?customerId=${accountingTrans.condition.customerId}&startDate=${startDate}&endDate=${endDate}&job=${accountingTrans.condition.job}">
 							<i class="fa fa-print"></i>
 							<fmt:message key="accounting.transport.download" />
 						</a>

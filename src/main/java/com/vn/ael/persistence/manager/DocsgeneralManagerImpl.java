@@ -250,14 +250,14 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> findAllByCondition(
 			AccountingTransCondition accountingTransCondition) {
-		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getMonth(), accountingTransCondition.getYear(),accountingTransCondition.getCustomerId());
+		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(),accountingTransCondition.getCustomerId(), accountingTransCondition.getJob());
 		//remove detail which is not in this month
 //		this.removeNotInMonthDetail(accountingTransCondition.getMonth(), accountingTransCondition.getYear(), docsgenerals);
 		
 		if (docsgenerals != null && !docsgenerals.isEmpty()){
 			for (Docsgeneral docsgeneral : docsgenerals){
 				//fect trucking details
-				List<Truckingdetail> truckingdetails = truckingdetailRepository.findWithTruckingserviceAndMonthYear(docsgeneral.getTruckingservice().getId(),accountingTransCondition.getMonth(),accountingTransCondition.getYear());
+				List<Truckingdetail> truckingdetails = truckingdetailRepository.findWithTruckingserviceAndMonthYear(docsgeneral.getTruckingservice().getId(),accountingTransCondition.getStartDate(),accountingTransCondition.getEndDate());
 				docsgeneral.getTruckingservice().setTruckingdetails(truckingdetails);
 				
 				//calculate other information

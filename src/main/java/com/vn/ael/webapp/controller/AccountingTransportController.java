@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
-import com.vn.ael.enums.ReportMergeInfo;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.manager.CustomerManager;
@@ -75,10 +74,10 @@ public class AccountingTransportController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_TRANSPORT)
-    protected ModelAndView showForm(HttpServletRequest request)
+    protected ModelAndView showForm(HttpServletRequest request, AccountingTransCondition accountingTransCondition)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_TRANSPORT);
-        AccountingTrans accountingTrans = this.setupAccountingTrans(request);
+        AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
         mav.addObject("accountingTrans", accountingTrans);
         mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
         return mav;
@@ -115,9 +114,9 @@ public class AccountingTransportController extends BaseFormController {
         return success;
     }
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_TRANSPORT)
-    public void doDownload(HttpServletRequest request,
+    public void doDownload(HttpServletRequest request, AccountingTransCondition accountingTransCondition,
             HttpServletResponse response) throws IOException {
-    	AccountingTrans accountingTrans = this.setupAccountingTrans(request);
+    	AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
        if (accountingTrans!=null) {
     	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans),ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
        }
@@ -129,17 +128,17 @@ public class AccountingTransportController extends BaseFormController {
      * @param request
      * @return
      */
-    private AccountingTrans setupAccountingTrans(HttpServletRequest request){
-    	   AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
-           
-           //load condition
-           String customerId = request.getParameter("customerId");
-           String month = request.getParameter("month");
-           String year = request.getParameter("year");
-           accountingTransCondition.setCustomerId(new Long(customerId));
-           accountingTransCondition.setMonth(Integer.parseInt(month));
-           accountingTransCondition.setYear(Integer.parseInt(year));
-           
+    private AccountingTrans setupAccountingTrans(HttpServletRequest request, AccountingTransCondition accountingTransCondition){
+//    	   AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
+//           
+//           //load condition
+//           String customerId = request.getParameter("customerId");
+//           String month = request.getParameter("month");
+//           String year = request.getParameter("year");
+//           accountingTransCondition.setCustomerId(new Long(customerId));
+//           accountingTransCondition.setMonth(Integer.parseInt(month));
+//           accountingTransCondition.setYear(Integer.parseInt(year));
+//           
            
            //Set up command
            List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
@@ -149,7 +148,7 @@ public class AccountingTransportController extends BaseFormController {
            	}
            }
            AccountingTrans accountingTrans = new AccountingTrans();
-           accountingTrans.setCustomer(customerManager.find(customerId));
+           accountingTrans.setCustomer(customerManager.get(accountingTransCondition.getCustomerId()));
            accountingTrans.setCondition(accountingTransCondition);
            accountingTrans.setDocs(docs);
            accountingTrans.setMonth(accountingTransCondition.getMonth());

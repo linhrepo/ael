@@ -55,11 +55,10 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param(value="jobNo")String jobNo);
 
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.truckingservice ser where ser.id =:id "
-			+"and MONTH(t.dateDev) = :month "
-			+"and YEAR(t.dateDev) = :year "
+			+"and (t.dateDev >= :startDate or :startDate is null) and (t.dateDev < :endDate or :endDate is null) "
 			+ "order by t.consteal, t.nhathau, t.id")
 	List<Truckingdetail> findWithTruckingserviceAndMonthYear(@Param("id")Long serviceId,
-			@Param("month")Integer month, @Param("year")Integer year);
+			@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and "
 			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev < :endDate or :endDate is null) and "

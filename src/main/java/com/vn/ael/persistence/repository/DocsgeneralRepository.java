@@ -61,12 +61,12 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	
 	@Query("select d from Docsgeneral d left join fetch d.truckingservice ser left join fetch ser.truckingdetails detail "
 	+ "where d.customer.id=:customerId and d.doAccounting = :doAccounting and (d.typeOfDocs = :inland or d.typeOfDocs = :seaType) "
-	+"and MONTH(detail.dateDev) = :month "
-	+"and YEAR(detail.dateDev) = :year "
-	+ "group by d"
-	)
-	List<Docsgeneral> getDoAccountingInlandSealandAndTime(@Param(value = "doAccounting")Boolean doAccounting,@Param(value = "inland")ServicesType inland,@Param(value = "seaType")ServicesType seaType
-			,@Param(value="month") int month, @Param(value="year") int year, @Param(value="customerId")long customerId);
+	+"and (detail.dateDev >= :startDate or :startDate is null) and (detail.dateDev < :endDate or :endDate is null) and "
+	+ "(d.jobNo = :jobNo or :jobNo = '') "
+	+ "group by d")
+	List<Docsgeneral> getDoAccountingInlandSealandAndTime(@Param(value = "doAccounting")Boolean doAccounting,@Param(value = "inland")ServicesType inland,
+			@Param(value = "seaType")ServicesType seaType, @Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
+			@Param(value="customerId")long customerId, @Param(value="jobNo") String jobNo);
 
 	
 	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "

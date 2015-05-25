@@ -8,34 +8,36 @@
 <div class="col-sm-10">
     <h2><fmt:message key="accountingTrans.heading"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form  method="get" action="transport" id="accountingtranForm" class="well">
+    <form:form commandName="conditions" method="get"
+		action="transport" id="accountingtranForm" cssClass="well">
      <div class="container-fluid">
     	<div class="row">
-		    <div class="form-group col-md-8">
+		    <div class="form-group col-md-6">
 		    <appfuse:label styleClass="control-label" key="customer.name"/>
-		    <select name="customerId" class="form-control">
+		    <form:select path="customerId" class="form-control">
 	    			<c:forEach items="${customers}" var="customer">
 	    				<option value="${customer.id}">${customer.code} - ${customer.name}</option>
 	    			</c:forEach>
-	    	</select>
+	    	</form:select>
+		    </div>
+		    <div class="form-group col-md-2">
+				<appfuse:label styleClass="control-label"
+					key="accountingnhathau.jobNo" />
+				<form:select path="job" id="job" 
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<form:options items="${jobList }"/>
+				</form:select>
+			</div>
+		    
+		    <div class="form-group col-md-2">
+			    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
+			    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
 		    </div>
 		    
 		    <div class="form-group col-md-2">
-		    <appfuse:label styleClass="control-label" key="accounting.month"/>
-		    <select name="month" class="form-control">
-	    			<c:forEach begin="1" end="12" var="month">
-	    				<option value="${month}">${month}</option>
-	    			</c:forEach>
-	    	</select>
-		    </div>
-		    
-		    <div class="form-group col-md-2">
-		    <appfuse:label styleClass="control-label" key="accounting.year"/>
-		    <select name="year" class="form-control">
-	    			<c:forEach begin="2015" end="2016" var="year">
-	    				<option value="${year}">${year}</option>
-	    			</c:forEach>
-	    	</select>
+			    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
+			    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
 		    </div>
     	</div>
     </div>
@@ -46,6 +48,6 @@
     	<input type="submit" style="display: none;"/>
     </button>
     </div>
-    </form>
+    </form:form>
 </div>
 
