@@ -525,8 +525,8 @@ public class ReportUtil {
 					accountingNhathauExport.setContO(AELConst.HAVE_ONE);
 				}
 				
-				accountingNhathauExport.setDeparture(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceDelivery());
-				accountingNhathauExport.setArrival(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceRev());
+				accountingNhathauExport.setDeparture(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceRev());
+				accountingNhathauExport.setArrival(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceDelivery());
 				accountingNhathauExport.setPhuthu(truckingdetail.getPhuthu());
 				
 				accountingNhathauExports.add(accountingNhathauExport);
@@ -887,8 +887,8 @@ public class ReportUtil {
 				}else{
 					keHoachVanTaiExport.setContL(AELConst.HAVE_ONE);
 				}
-				keHoachVanTaiExport.setDeparture(truckingdetail.getTruckingservice().getDeparture());
-				keHoachVanTaiExport.setArrival(truckingdetail.getTruckingservice().getArrival());
+				keHoachVanTaiExport.setDeparture(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceRev());
+				keHoachVanTaiExport.setArrival(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceDelivery());
 				keHoachVanTaiExport.setShipName(truckingdetail.getVehicleNo()+AELConst.SPLASH+truckingdetail.getNoOfVehicle());
 				keHoachVanTaiExport.setEta(truckingdetail.getTruckingservice().getDocsgeneral().getInland().getEta());
 				keHoachVanTaiExport.setEtd(truckingdetail.getTruckingservice().getDocsgeneral().getInland().getEtd());
@@ -948,8 +948,8 @@ public class ReportUtil {
 					keHoachVanTaiExport.setPks(truckingdetail.getTruckingservice().getDocsgeneral().getNoOfPkgsText());
 					keHoachVanTaiExport.setWeight(truckingdetail.getTruckingservice().getDocsgeneral().getWeigthText());
 				}
-				keHoachVanTaiExport.setDeparture(truckingdetail.getTruckingservice().getDeparture());
-				keHoachVanTaiExport.setArrival(truckingdetail.getTruckingservice().getArrival());
+				keHoachVanTaiExport.setDeparture(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceRev());
+				keHoachVanTaiExport.setArrival(truckingdetail.getTruckingservice().getDocsgeneral().getPlaceDelivery());
 				keHoachVanTaiExport.setEta(docsgeneral.getPackageinfo().getEta());
 				keHoachVanTaiExport.setBill(docsgeneral.getPackageinfo().getBillOfLading());
 				keHoachVanTaiExport.setImportType(docsgeneral.getTypeOfImport().getValue());
