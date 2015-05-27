@@ -27,6 +27,7 @@ import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.service.AccountingTransService;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -108,8 +109,9 @@ public class AccountingTransportController extends BaseFormController {
         String key = "accountingcus.updated";
         saveMessage(request, getText(key, locale));
         success = "redirect:"+URLReference.ACCOUNTING_TRANSPORT+"?customerId=" + accountingTrans.getCondition().getCustomerId()+
-        		"&month="+ accountingTrans.getCondition().getMonth()+
-        		"&year="+accountingTrans.getCondition().getYear();
+        		"&job="+ accountingTrans.getCondition().getJob()+
+        		"&startDate="+CommonUtil.getDateString(accountingTrans.getCondition().getStartDate())+
+        		"&endDate="+CommonUtil.getDateString(accountingTrans.getCondition().getEndDate());
  
         return success;
     }
@@ -153,8 +155,7 @@ public class AccountingTransportController extends BaseFormController {
            accountingTrans.setDocs(docs);
            accountingTrans.setMonth(accountingTransCondition.getMonth());
            accountingTrans.setYear(accountingTransCondition.getYear());
-           accountingTrans.setRefNo(ServicesType.DVVT.getDebit()+AELConst.SPLASH+accountingTrans.getCustomer().getCode()+AELConst.SPLASH
-        		   +accountingTrans.getYear()+accountingTrans.getMonth());
+           accountingTrans.setRefNo(ServicesType.DVVT.getDebit()+AELConst.SPLASH+accountingTrans.getCustomer().getCode());
            return accountingTrans;
     }
 }

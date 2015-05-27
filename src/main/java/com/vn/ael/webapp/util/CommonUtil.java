@@ -87,8 +87,8 @@ public class CommonUtil {
 	 */
 	public static String getDateString(Date date){
 		if (date != null){
-			return addZero(String.valueOf(date.getDate()),2) +AELConst.SEPARATOR+addZero(String.valueOf(date.getMonth()+1),2)
-					+AELConst.SEPARATOR+String.valueOf(date.getYear()+YEAR_OFFSET);
+			return addZero(String.valueOf(date.getDate()),2) +AELConst.SPLASH+addZero(String.valueOf(date.getMonth()+1),2)
+					+AELConst.SPLASH+String.valueOf(date.getYear()+YEAR_OFFSET);
 		}
 		return AELConst.EMPTY_STRING;
 	}

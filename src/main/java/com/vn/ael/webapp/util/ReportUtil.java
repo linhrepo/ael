@@ -486,7 +486,9 @@ public class ReportUtil {
 		beans.put("chihoTotal", chihoTotal);
 		beans.put("giacaTotal", giacaTotal);
 		beans.put("otherTotal", otherTotal);
-		beans.put("total", chihoTotal.add(giacaTotal).add(otherTotal));
+		BigDecimal finalTotal = chihoTotal.add(giacaTotal).add(otherTotal);
+		beans.put("total", finalTotal);
+		beans.put("totalText",ConvertUtil.convertToVND(finalTotal) );
 		return beans;
 	}
 	
