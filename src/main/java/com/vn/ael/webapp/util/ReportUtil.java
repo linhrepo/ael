@@ -368,8 +368,8 @@ public class ReportUtil {
 		beans.put("cusFinalVal", cusFinalVal);
 		beans.put("cusFeeTotal", cusFeeTotal);
 		beans.put("cusFeeVat", cusFeeVat);
-
-		beans.put("total", chihoFinalVal.add(cusFinalVal));
+		BigDecimal finalTotal = chihoFinalVal.add(cusFinalVal);
+		beans.put("total", finalTotal);
 
 		beans.put("customFees", customFee);
 		beans.put("fees", fee);
@@ -388,7 +388,13 @@ public class ReportUtil {
 		beans.put("placeDelivery", doc.getPlaceDelivery());
 		beans.put("tentau", doc.getNameVehicle());
 		beans.put("cmb", doc.getCmbText());
-		beans.put("aelcmb", doc.getCmbText());
+		if (doc.getIsLCL()){
+			beans.put("vol", doc.getCmbText());
+		}else{
+			beans.put("vol", doc.getPackageinfo().getContNo());
+		}
+		beans.put("totalText", ConvertUtil.convertToVND(finalTotal));
+		beans.put("aelJob", doc.getJobNo());
 		beans.put("noOfPkgs", doc.getNoOfPkgsText());
 		beans.put("kg", doc.getWeigthText());
 		beans.put("colourApplying",
@@ -397,7 +403,6 @@ public class ReportUtil {
 						: AELConst.EMPTY_STRING);
 		beans.put("po", doc.getPackageinfo().getPo());
 		beans.put("PTVT", doc.getPTVT());
-		beans.put("vol", doc.getCmbText());
 		return beans;
 	}
 
