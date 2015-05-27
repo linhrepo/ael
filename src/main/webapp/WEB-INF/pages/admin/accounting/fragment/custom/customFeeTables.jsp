@@ -8,6 +8,7 @@
 			<th rowspan="2"><fmt:message key="accountingcus.feeName" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.feeDescription"/></th>
 			<th colspan="4" class="centerText"><fmt:message key="accountingcus.typeOfContainer"/></th>
+			<th rowspan="2"><fmt:message key="accountingcus.unitPrice" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.total" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.vat" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.feevat" /></th>
@@ -70,7 +71,7 @@
 					<form:input
 							path="accountingcusdetails[${idx.index}].quantity20" 
 							id="description${idx.index}"  value="${accountingcus.docsgeneral.noOf20Cont}"
-							cssClass="form-control number" /> 
+							cssClass="form-control number quantity" /> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].quantity20"
 								cssClass="help-block" />
@@ -83,7 +84,7 @@
 					<form:input
 							path="accountingcusdetails[${idx.index}].quantity40" 
 							id="description${idx.index}" 
-							cssClass="form-control number"/> 
+							cssClass="form-control number quantity"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].quantity40"
 								cssClass="help-block" />
@@ -96,7 +97,7 @@
 					<form:input
 							path="accountingcusdetails[${idx.index}].quantityOt" 
 							id="description${idx.index}" 
-							cssClass="form-control number"/> 
+							cssClass="form-control number quantity"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].quantityOt"
 								cssClass="help-block" />
@@ -109,9 +110,22 @@
 					<form:input
 							path="accountingcusdetails[${idx.index}].quantityLCL"
 							id="description${idx.index}" 
-							cssClass="form-control number"/> 
+							cssClass="form-control number quantity"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].quantityLCL"
+								cssClass="help-block" />
+					</div>
+				</td>
+				<td data-title="<fmt:message key="accountingcus.unitPrice"/>">
+					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].unitPrice">
+					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind>
+					<form:input
+							path="accountingcusdetails[${idx.index}].unitPrice"
+							id="description${idx.index}" 
+							cssClass="form-control money unitPrice"/> 
+					<form:errors
+								path="accountingcusdetails[${idx.index}].unitPrice"
 								cssClass="help-block" />
 					</div>
 				</td>
@@ -191,4 +205,43 @@
 		<span class="btn btn-primary" target-table="generalList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
 	</div>
 </div>
+<script type="text/javascript">
+ $(document).ready(function(){
+	 var checkUnitPrice = function(tr){
+			 var val = parseFloat(accounting.unformat($(tr).find(".unitPrice").val()));
+			 if (val >0){
+				 $(tr).find(".amount").attr("readonly","readonly");
+				 //sum quantity
+				 var totalQuantity = 0;
+				 $(tr).find(".quantity").each(function(){
+					 totalQuantity += parseInt($(this).val());
+				 });
+				 $(tr).find(".amount").val(accounting.formatMoney(val*totalQuantity,UTIL.MONEY_STYLE));
+				 $(tr).find(".amount").trigger("change");
+			 }else{
+				 $(tr).find(".amount").removeAttr("readonly");
+			 }
+	 },
+	 checkOneRow = function(tr){
+		 $(tr).find(".unitPrice").on("blur",function(){
+			 checkUnitPrice(tr);
+		 });
+		 $(tr).find(".quantity").on("blur",function(){
+			 checkUnitPrice(tr);
+		 });
+	 }
+	 
+	 $("#generalList").bind("afterAddRow",function(e,tr){
+		 checkOneRow(tr);
+	 });
+	 
+	 $("#generalList").find("tbody > tr").each(function(){
+		 checkOneRow($(this));
+		 var val = parseFloat(accounting.unformat($(this).find(".unitPrice").val()));
+		 if (val >0){
+			 $(this).find(".amount").attr("readonly","readonly");
+		 }
+	 });
+ });
+</script>
 <script type="text/javascript" src="<c:url value='/scripts/custom/feeTables.js'></c:url>"></script>

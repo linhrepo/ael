@@ -322,6 +322,7 @@ public class ReportUtil {
 									.getGeneralVat()),
 							accountingCusDetailItem.getNote(),
 							accountingCusDetailItem.getInvoice());
+					item.setUnitPrice(ConvertUtil.getNotNullValue(accountingCusDetailItem.getUnitPrice()));
 					index++;
 					item.setIndex(index);
 					customFee.add(item);
@@ -368,7 +369,7 @@ public class ReportUtil {
 		beans.put("cusFeeTotal", cusFeeTotal);
 		beans.put("cusFeeVat", cusFeeVat);
 
-		beans.put("total", chihoFinalVal.add(cusFeeTotal));
+		beans.put("total", chihoFinalVal.add(cusFinalVal));
 
 		beans.put("customFees", customFee);
 		beans.put("fees", fee);
@@ -874,7 +875,7 @@ public class ReportUtil {
 				keHoachVanTaiExport.setJobNo(docsgeneral.getJobNo());
 				keHoachVanTaiExport.setCusName(docsgeneral.getCustomer().getName());
 				keHoachVanTaiExport.setTotal(ConvertUtil.getNotNullValue(truckingdetail.getTotal()));
-				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getCode() : AELConst.EMPTY_STRING);
 				if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getTypeOfCont()!= null){
 					keHoachVanTaiExport.setContNo(truckingdetail.getConsteal().getNoOfCont());
 					if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){
@@ -934,7 +935,7 @@ public class ReportUtil {
 				keHoachVanTaiExport.setDateDev(truckingdetail.getDateDev());
 				keHoachVanTaiExport.setJobNo(docsgeneral.getJobNo());
 				keHoachVanTaiExport.setCusName(docsgeneral.getCustomer().getName());
-				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getCode() : AELConst.EMPTY_STRING);
 				if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getTypeOfCont()!= null){
 					keHoachVanTaiExport.setContNo(truckingdetail.getConsteal().getNoOfCont());
 					if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){

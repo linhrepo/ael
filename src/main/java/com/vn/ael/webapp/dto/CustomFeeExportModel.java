@@ -23,6 +23,7 @@ public class CustomFeeExportModel {
 	private String note;
 	private String invoice;
 	private Integer index;
+	private BigDecimal unitPrice;
 	/**
 	 * @return the feeName
 	 */
@@ -233,6 +234,12 @@ public class CustomFeeExportModel {
 	}
 	public void setIndex(Integer index) {
 		this.index = index;
+	}
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
+	}
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 	
 }
