@@ -56,7 +56,12 @@
               		</c:if>
               	</td>
                 <td>
-                	<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	<c:if test="${adv.isAdmin}">
+                		<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	</c:if>
+                	<c:if test="${!adv.isAdmin}">
+                		<a href="${ctx}/users/refundJob?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	</c:if>
                 </td>
             </tr>
         </c:forEach>
