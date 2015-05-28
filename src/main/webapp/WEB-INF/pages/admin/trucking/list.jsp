@@ -8,7 +8,7 @@
 <div class="col-sm-10">
     <h2><fmt:message key="truckingList.heading"/></h2>
     <jsp:include page="searchTrucking.jsp"></jsp:include>
-    <table id="truckingList" class="display datatable" cellspacing="0" width="100%" >
+    <table id="truckingList" class="display datatable" cellspacing="0" width="100%" order="6">
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
@@ -16,6 +16,8 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="trucking.status"/></th>
+                <th><fmt:message key="packageInfo.po"/></th>
+                <th><fmt:message key="notify.lastUpdated"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -27,6 +29,8 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="trucking.status"/></th>
+                <th><fmt:message key="packageInfo.po"/></th>
+                <th><fmt:message key="notify.lastUpdated"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -40,6 +44,22 @@
               	<td>
               		<c:if test="${trucking.doAccounting}">
               			<a><i class="fa fa-check"></i></a>
+              		</c:if>
+              	</td>
+              	<td>
+              		<c:if test="${trucking.packageinfo != null}">
+              			${trucking.packageinfo.po}
+              		</c:if>
+              	</td>
+              	<td>
+              		<c:if test="${trucking.packageinfo != null}">
+              			<fmt:formatDate value="${trucking.packageinfo.lastUpdateDate}" pattern="dd-MM-yyyy HH:mm"/>
+              		</c:if>
+              		<c:if test="${trucking.inland != null}">
+              			<fmt:formatDate value="${trucking.inland.lastUpdateDate}" pattern="dd-MM-yyyy HH:mm"/>
+              		</c:if>
+              		<c:if test="${trucking.exhibition != null}">
+              			<fmt:formatDate value="${trucking.exhibition.lastUpdateDate}" pattern="dd-MM-yyyy HH:mm"/>
               		</c:if>
               	</td>
                 <td>
