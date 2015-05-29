@@ -33,3 +33,13 @@ enclosed by '"'
 lines terminated by '\r\n'
 (id,value,type,description,enabled,implyActions);
 
+load data local infile 'D:\\Projects\\Java\\ael\\DB\\newCus.csv' into table customers CHARACTER SET 'utf8' fields terminated by ','
+enclosed by '"'
+lines terminated by '\r\n'
+(id,name,address,taxno,tel,fax,contact,email,companyType,country,code,creator,updator,createdDate,lastUpdateDate);
+
+update customers set createdDate = '2015-05-29 23:09:27' where id>0;
+update customers set lastUpdateDate = '2015-05-29 23:09:27' where id>0;
+update customers set creator = -2 where id>0;
+update customers set updator = -2 where id>0;
+update customers set taxno = '000' where id>0;
