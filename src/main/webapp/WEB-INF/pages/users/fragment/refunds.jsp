@@ -34,7 +34,7 @@
         </tfoot>
         <tbody>
         <c:forEach items="${refundList}" var="adv" varStatus="idx">
-        	<tr>
+        	<tr class="${adv.doApproval ? '':'impress' }">
                 <td>${idx.index+1}</td>
                 <td>
                 	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>

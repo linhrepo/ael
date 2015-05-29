@@ -44,7 +44,7 @@
         </tfoot>
         <tbody>
         <c:forEach items="${inlandList}" var="inland" varStatus="idx">
-        	<tr>
+        	<tr class="${inland.docsgeneral.doDelivery ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${inland.docsgeneral.jobNo}</td>
               	<td>${inland.docsgeneral.customer.code}</td>

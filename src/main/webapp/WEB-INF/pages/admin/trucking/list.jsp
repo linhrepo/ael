@@ -8,10 +8,10 @@
 <div class="col-sm-10">
     <h2><fmt:message key="truckingList.heading"/></h2>
     <jsp:include page="searchTrucking.jsp"></jsp:include>
-    <table id="truckingList" class="display datatable" cellspacing="0" width="100%" order="6">
+    <table id="truckingList" class="display datatable" cellspacing="0" width="100%" order="5">
         <thead>
             <tr>
-            	<th><fmt:message key="table.no"/></th>
+<%--             	<th><fmt:message key="table.no"/></th> --%>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
@@ -24,7 +24,7 @@
  
         <tfoot>
             <tr>
-                <th><fmt:message key="table.no"/></th>
+<%--                 <th><fmt:message key="table.no"/></th> --%>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
@@ -36,8 +36,8 @@
         </tfoot>
         <tbody>
         <c:forEach items="${docsgeneralList}" var="trucking" varStatus="idx">
-        	<tr>
-                <td>${idx.index+1}</td>
+        	<tr class="${trucking.doAccounting ? '':'impress' }">
+<%--                 <td>${idx.index+1}</td> --%>
               	<td>${trucking.jobNo}</td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
               	<td>${trucking.typeOfContainer.value}</td>
