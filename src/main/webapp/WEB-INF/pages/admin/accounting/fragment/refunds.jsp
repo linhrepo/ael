@@ -14,6 +14,7 @@
         <thead>
             <tr>
 <%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -25,6 +26,7 @@
         <tfoot>
             <tr>
 <%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -37,6 +39,9 @@
         	<c:if test="${not empty adv.refunddetails || not empty adv.exfeetables}">
         	<tr class="${adv.doApproval ? '':'impress' }">
 <%--                 <td>${index+1}</td> --%>
+				<td>
+	               	${adv.employee.firstName} ${adv.employee.lastName}
+	            </td>
                 <td>
                 	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
                 </td>

@@ -12,6 +12,7 @@
         <thead>
             <tr>
 <%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
@@ -22,6 +23,7 @@
         <tfoot>
             <tr>
 <%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
@@ -33,6 +35,9 @@
         	<c:if test="${not empty adv.advancedetails }">
 	        	<tr class="${adv.doApproval ? '':'impress' }">
 <%-- 	                <td>${idx.index+1}</td> --%>
+					<td>
+	                	${adv.employee.firstName} ${adv.employee.lastName}
+	                </td>
 	                <td>
 	                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
 	                </td>
