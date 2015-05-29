@@ -469,6 +469,6 @@ button.collapsed, button.collapsed:focus{
 	z-index: 1040 !important;	
 }
 
-tr.impress {
+tr.impress, tr.impress > .sorting_1 {
 	background-color: #f2dede !important;
 }
