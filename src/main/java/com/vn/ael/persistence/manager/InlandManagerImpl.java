@@ -102,7 +102,7 @@ public class InlandManagerImpl extends GenericManagerImpl<Inland> implements Inl
 
 	@Override
 	public List<Inland> searchInland(Search search) {
-		return inlandRepository.searchInland(search.getCustomer(), search.getTypeOfContainer(), search.getDoDelivery());
+		return inlandRepository.searchInland(search.getCustomer(), search.getTypeOfContainer(), search.getDoDelivery(), search.getStartDate(), search.getEndDate());
 	}
 
 }
