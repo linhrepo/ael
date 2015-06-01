@@ -19,8 +19,9 @@
  	<form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="accountingTrans" method="post" action="transport" id="accountingTransForm" cssClass="well">
     <form:hidden path="condition.customerId"/>
-    <form:hidden path="condition.month"/>
-    <form:hidden path="condition.year"/>
+    <form:hidden path="condition.job"/>
+    <form:hidden path="condition.startDate"/>
+    <form:hidden path="condition.endDate"/>
     <div class="container-fluid">
     	<jsp:include page="fragment/transport/generalInput.jsp"></jsp:include>
     	<div role="tabpanel">

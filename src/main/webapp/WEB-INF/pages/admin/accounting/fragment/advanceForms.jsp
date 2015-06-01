@@ -11,7 +11,8 @@
     <table id="advanceformList" class="display datatable" cellspacing="0" width="100%" >
         <thead>
             <tr>
-            	<th><fmt:message key="table.no"/></th>
+<%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
@@ -21,7 +22,8 @@
  
         <tfoot>
             <tr>
-                <th><fmt:message key="table.no"/></th>
+<%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
@@ -30,23 +32,28 @@
         </tfoot>
         <tbody>
         <c:forEach items="${advanceformList}" var="adv" varStatus="idx">
-        	<tr>
-                <td>${idx.index+1}</td>
-                <td>
-                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
-                </td>
-                 <td class="money">
-                 	${adv.total}
-                </td>
-              	<td>
-              		<c:if test="${adv.doApproval}">
-              			<a><i class="fa fa-check"></i></a>
-              		</c:if>
-              	</td>
-                <td>
-                	<a href="${ctx}/users/advanceForm?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
-                </td>
-            </tr>
+        	<c:if test="${not empty adv.advancedetails }">
+	        	<tr class="${adv.doApproval ? '':'impress' }">
+<%-- 	                <td>${idx.index+1}</td> --%>
+					<td>
+	                	${adv.employee.firstName} ${adv.employee.lastName}
+	                </td>
+	                <td>
+	                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
+	                </td>
+	                 <td class="money">
+	                 	${adv.total}
+	                </td>
+	              	<td>
+	              		<c:if test="${adv.doApproval}">
+	              			<a><i class="fa fa-check"></i></a>
+	              		</c:if>
+	              	</td>
+	                <td>
+	                	<a href="${ctx}/users/advanceForm?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+	                </td>
+	            </tr>
+            </c:if>
         </c:forEach>
         </tbody>
     </table>

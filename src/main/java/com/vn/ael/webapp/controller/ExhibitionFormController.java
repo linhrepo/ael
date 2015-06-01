@@ -80,7 +80,7 @@ public class ExhibitionFormController extends BaseFormController {
         		ConfigurationType.FEE_NAMES,
         		ConfigurationType.EXH_NAME
         		);
-        mav.addObject("nhathaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.NHATHAU)));
+        mav.addObject("hangtaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.HANGTAU)));
         mav.addObject("docsSelection", docsSelection);
         return mav;
     }

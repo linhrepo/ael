@@ -47,6 +47,9 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	private Integer quantityOt;
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal unitPrice;
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal total;
 
 	//bi-directional many-to-one association to Accountingcus
@@ -153,6 +156,14 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	@Transient
 	public BigDecimal getFeewithvat(){
 		return CalculationUtil.getTotalWithVat(this.generalVat, this.total);
+	}
+
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 	
 }

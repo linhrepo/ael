@@ -125,6 +125,11 @@
 			$(lastTr).find('[provide="datepicker"]').datepicker({
 				format: "dd/mm/yyyy"
 			});
+			
+			$('[provide="ddatepicker"]').datepicker({
+				format: "dd/mm/yyyy",
+			});
+			
     	};
     	
     	/**

@@ -79,7 +79,14 @@ $(document).ready(function(){
 	});
 	
 	//init all datatable
-	$(".datatable").dataTable();
+	$(".datatable").each(function(){
+		var order = $(this).attr("order");
+		if (order != undefined){
+			$(this).dataTable({"order": [[ order, "desc" ]]});
+		}else{
+			$(this).dataTable();
+		}
+	});
 	
 	//init all select2
 	SELECT_CONTROL.init();

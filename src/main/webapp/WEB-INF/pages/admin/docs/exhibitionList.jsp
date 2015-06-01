@@ -40,7 +40,7 @@
         </tfoot>
         <tbody>
         <c:forEach items="${exhibitionList}" var="exhibition" varStatus="idx">
-        	<tr>
+        	<tr class="${exhibition.docsgeneral.doDelivery ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${exhibition.docsgeneral.jobNo}</td>
               	<td>${exhibition.docsgeneral.customer.code}</td>

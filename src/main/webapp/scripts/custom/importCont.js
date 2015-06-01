@@ -25,7 +25,7 @@ $(document).ready(function(){
 						var type = $(lastTr).find("select.contType > option:contains('"+data[k]+"')");
 						$(lastTr).find("select.contType").select2("val",($(type).attr("value")));
 					}
-					count = (count +1)%4;
+					if (k!= undefined) {count = (count +1)%4};
 				}
 			}
 		});

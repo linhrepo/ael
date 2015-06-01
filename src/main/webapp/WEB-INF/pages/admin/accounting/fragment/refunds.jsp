@@ -13,7 +13,8 @@
     <table id="refundList1" class="display datatable" cellspacing="0" width="100%" >
         <thead>
             <tr>
-            	<th><fmt:message key="table.no"/></th>
+<%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -24,7 +25,8 @@
  
         <tfoot>
             <tr>
-                <th><fmt:message key="table.no"/></th>
+<%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -34,8 +36,12 @@
         </tfoot>
         <tbody>
         <c:forEach items="${refundList}" var="adv" varStatus="idx">
-        	<tr>
-                <td>${idx.index+1}</td>
+        	<c:if test="${not empty adv.refunddetails || not empty adv.exfeetables}">
+        	<tr class="${adv.doApproval ? '':'impress' }">
+<%--                 <td>${index+1}</td> --%>
+				<td>
+	               	${adv.employee.firstName} ${adv.employee.lastName}
+	            </td>
                 <td>
                 	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
                 </td>
@@ -56,9 +62,15 @@
               		</c:if>
               	</td>
                 <td>
-                	<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	<c:if test="${adv.isAdmin}">
+                		<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	</c:if>
+                	<c:if test="${!adv.isAdmin}">
+                		<a href="${ctx}/users/refundJob?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                	</c:if>
                 </td>
             </tr>
+            </c:if>
         </c:forEach>
         </tbody>
     </table>

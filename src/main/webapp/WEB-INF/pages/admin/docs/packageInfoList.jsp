@@ -41,7 +41,7 @@
         </tfoot>
         <tbody>
         <c:forEach items="${packageinfoList}" var="packageInfo" varStatus="idx">
-        	<tr>
+        	<tr class="${packageInfo.docsgeneral.doDelivery ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${packageInfo.docsgeneral.jobNo}</td>
               	<td>${packageInfo.docsgeneral.customer.code}</td>

@@ -322,6 +322,7 @@ public class ReportUtil {
 									.getGeneralVat()),
 							accountingCusDetailItem.getNote(),
 							accountingCusDetailItem.getInvoice());
+					item.setUnitPrice(ConvertUtil.getNotNullValue(accountingCusDetailItem.getUnitPrice()));
 					index++;
 					item.setIndex(index);
 					customFee.add(item);
@@ -367,8 +368,8 @@ public class ReportUtil {
 		beans.put("cusFinalVal", cusFinalVal);
 		beans.put("cusFeeTotal", cusFeeTotal);
 		beans.put("cusFeeVat", cusFeeVat);
-
-		beans.put("total", chihoFinalVal.add(cusFeeTotal));
+		BigDecimal finalTotal = chihoFinalVal.add(cusFinalVal);
+		beans.put("total", finalTotal);
 
 		beans.put("customFees", customFee);
 		beans.put("fees", fee);
@@ -387,7 +388,13 @@ public class ReportUtil {
 		beans.put("placeDelivery", doc.getPlaceDelivery());
 		beans.put("tentau", doc.getNameVehicle());
 		beans.put("cmb", doc.getCmbText());
-		beans.put("aelcmb", doc.getCmbText());
+		if (doc.getIsLCL()){
+			beans.put("vol", doc.getCmbText());
+		}else{
+			beans.put("vol", doc.getPackageinfo().getContNo());
+		}
+		beans.put("totalText", ConvertUtil.convertToVND(finalTotal));
+		beans.put("aelJob", doc.getJobNo());
 		beans.put("noOfPkgs", doc.getNoOfPkgsText());
 		beans.put("kg", doc.getWeigthText());
 		beans.put("colourApplying",
@@ -396,7 +403,6 @@ public class ReportUtil {
 						: AELConst.EMPTY_STRING);
 		beans.put("po", doc.getPackageinfo().getPo());
 		beans.put("PTVT", doc.getPTVT());
-		beans.put("vol", doc.getCmbText());
 		return beans;
 	}
 
@@ -480,7 +486,9 @@ public class ReportUtil {
 		beans.put("chihoTotal", chihoTotal);
 		beans.put("giacaTotal", giacaTotal);
 		beans.put("otherTotal", otherTotal);
-		beans.put("total", chihoTotal.add(giacaTotal).add(otherTotal));
+		BigDecimal finalTotal = chihoTotal.add(giacaTotal).add(otherTotal);
+		beans.put("total", finalTotal);
+		beans.put("totalText",ConvertUtil.convertToVND(finalTotal) );
 		return beans;
 	}
 	
@@ -874,7 +882,7 @@ public class ReportUtil {
 				keHoachVanTaiExport.setJobNo(docsgeneral.getJobNo());
 				keHoachVanTaiExport.setCusName(docsgeneral.getCustomer().getName());
 				keHoachVanTaiExport.setTotal(ConvertUtil.getNotNullValue(truckingdetail.getTotal()));
-				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getCode() : AELConst.EMPTY_STRING);
 				if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getTypeOfCont()!= null){
 					keHoachVanTaiExport.setContNo(truckingdetail.getConsteal().getNoOfCont());
 					if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){
@@ -934,7 +942,7 @@ public class ReportUtil {
 				keHoachVanTaiExport.setDateDev(truckingdetail.getDateDev());
 				keHoachVanTaiExport.setJobNo(docsgeneral.getJobNo());
 				keHoachVanTaiExport.setCusName(docsgeneral.getCustomer().getName());
-				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				keHoachVanTaiExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getCode() : AELConst.EMPTY_STRING);
 				if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getTypeOfCont()!= null){
 					keHoachVanTaiExport.setContNo(truckingdetail.getConsteal().getNoOfCont());
 					if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){

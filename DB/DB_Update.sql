@@ -140,4 +140,7 @@ ADD CONSTRAINT `toExName`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
+----27052015
+ALTER TABLE `ael`.`accountingcusdetail` 
+ADD COLUMN `unitPrice` DECIMAL(20,2) NULL AFTER `quantityOt`;
 

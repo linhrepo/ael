@@ -3,7 +3,6 @@
 		      <b><fmt:message key="accountingcus.refNo"/>:</b> ${accountingcus.refNo}
 		      <hr>
 		    </c:if>
-
 <div class="row">
 			<form:hidden path="refNo"/>
 		    <div class="form-group col-md-4">
@@ -28,11 +27,16 @@
 		    </div>
 		    <div class="form-group col-md-2">
 		        <appfuse:label styleClass="control-label" key="accountingcus.cmb"/>
-		        <form:input path="docsgeneral.cmbText" id="cmb" maxlength="45"  cssClass="form-control" disabled="true"/>
+		        <c:if test="${accountingcus.docsgeneral.isLCL == true}">
+		        	<form:input path="docsgeneral.cmbText" id="cmb" maxlength="45"  cssClass="form-control" disabled="true"/>
+		        </c:if>
+		        <c:if test="${accountingcus.docsgeneral.isLCL == false}">
+		        	<form:input path="docsgeneral.packageinfo.contNo" id="cmb" maxlength="45"  cssClass="form-control" disabled="true"/>
+		        </c:if>
 		    </div>
 		    <div class="form-group col-md-2">
 		        <appfuse:label styleClass="control-label" key="accountingcus.aelcmb"/>
-		        <form:input path="docsgeneral.cmbText" id="aelcmb" maxlength="45"  cssClass="form-control" disabled="true"/>
+		        <form:input path="docsgeneral.jobNo" id="aelcmb" maxlength="45"  cssClass="form-control" disabled="true"/>
 		    </div>
 		    <div class="form-group col-md-2">
 		        <appfuse:label styleClass="control-label" key="accountingcus.noOfPkgs"/>
