@@ -23,8 +23,8 @@
 		    <div class="form-group col-md-2">
 				<appfuse:label styleClass="control-label"
 					key="accountingnhathau.jobNo" />
-				<form:select path="job" id="job" 
-					cssClass="form-control select2">
+				<form:select path="jobList" id="jobList" 
+					cssClass="form-control select2" multiple="true">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<form:options items="${jobList }"/>
 				</form:select>

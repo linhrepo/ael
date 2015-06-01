@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class AccountingTransCondition {
 	
@@ -16,6 +17,7 @@ public class AccountingTransCondition {
 	String consignee;
 	String shipper;
 	Long typeOfDocs;
+	List<String> jobList;
 	
 	
 	public Long getCustomerId() {
@@ -89,6 +91,12 @@ public class AccountingTransCondition {
 	}
 	public void setTypeOfDocs(Long typeOfDocs) {
 		this.typeOfDocs = typeOfDocs;
+	}
+	public List<String> getJobList() {
+		return jobList;
+	}
+	public void setJobList(List<String> jobList) {
+		this.jobList = jobList;
 	}
 
 }

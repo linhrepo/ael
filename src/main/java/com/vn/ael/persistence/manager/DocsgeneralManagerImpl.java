@@ -250,7 +250,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> findAllByCondition(
 			AccountingTransCondition accountingTransCondition) {
-		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(),accountingTransCondition.getCustomerId(), accountingTransCondition.getJob());
+		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(),accountingTransCondition.getCustomerId(), accountingTransCondition.getJobList());
 		//remove detail which is not in this month
 //		this.removeNotInMonthDetail(accountingTransCondition.getMonth(), accountingTransCondition.getYear(), docsgenerals);
 		
