@@ -22,7 +22,7 @@
 			
 			<div class="form-group col-md-2">
 				  <appfuse:label styleClass="control-label" key="truckingservice.weigth"/>
-				  <form:input path="docsgeneral.weigth" id="weigth"   cssClass="form-control money" disabled="true"/>
+				  <form:input path="docsgeneral.weigth" id="weigth"   cssClass="form-control money2" disabled="true"/>
 			</div>
 			
 			<div class="form-group col-md-2">

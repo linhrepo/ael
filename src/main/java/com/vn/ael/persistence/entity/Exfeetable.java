@@ -28,7 +28,7 @@ import com.vn.ael.webapp.util.CalculationUtil;
 public class Exfeetable extends BasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal amount;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -38,7 +38,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal vat;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal total;
 	
 	//bi-directional many-to-one association to Exhibition

@@ -117,6 +117,9 @@
 			$(lastTr).find("input.money").on("blur",function(){
 				$(this).val(accounting.formatMoney($(this).val(),UTIL.MONEY_STYLE)); 
 			});
+			$(lastTr).find("input.money2").on("blur",function(){
+				$(this).val(accounting.formatMoney($(this).val(),UTIL.MONEY_STYLE_2_DIGIT)); 
+			});
 			
 			$(lastTr).find("input.number").on("blur",function(){
 				$(this).val(accounting.formatMoney($(this).val(),UTIL.NUMBER_STYLE)); 

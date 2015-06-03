@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 public class Refunddetail extends BasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal amount;
 
 	private String description;
@@ -29,7 +29,7 @@ public class Refunddetail extends BasedChildEntity implements Serializable {
 	@JoinColumn(name="docs")
 	private Docsgeneral docs;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal oAmount;
 
 	//bi-directional many-to-one association to Refund

@@ -53,19 +53,19 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	private String deliveryPlace;
 	
 	@Transient
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal chiho;
 	
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal phuthu;
 	
 	@Transient
 	private BigDecimal total;	
 	
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal otherFees;
 	
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal accountingPrice;
 
 	public Truckingdetail() {

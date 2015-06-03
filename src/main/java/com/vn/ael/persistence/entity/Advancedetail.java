@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 public class Advancedetail extends BasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal amount;
 
 	private String description;
