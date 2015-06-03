@@ -22,7 +22,7 @@ public interface InlandRepository extends GenericRepository<Inland> {
 	@Query("SELECT e FROM Inland e WHERE (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
 			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
 			+ "(e.docsgeneral.doDelivery =:doDelivery or :doDelivery is null) and "
-			+ "(e.docsgeneral.docReceiveDate >= :startDate or :startDate is null) and (e.docsgeneral.docReceiveDate < :endDate or :endDate is null) ")
+			+ "(e.docsgeneral.docReceiveDate >= :startDate or :startDate is null) and (e.docsgeneral.docReceiveDate <= :endDate or :endDate is null) ")
 	List<Inland> searchInland(@Param("customerId") Long customerId,
 			@Param("typeOfContainer") Long typeOfContainer, @Param("doDelivery") Boolean doDelivery,
 			@Param("startDate") Date startDate, @Param("endDate") Date endDate);

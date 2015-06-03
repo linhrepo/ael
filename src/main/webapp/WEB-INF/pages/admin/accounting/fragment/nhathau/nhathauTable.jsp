@@ -64,12 +64,26 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
 					<div class="form-group">
-						${truck.truckingservice.docsgeneral.placeRev}
+						<c:choose>
+							<c:when test="${not empty truck.truckingservice.docsgeneral.packageinfo && truck.truckingservice.docsgeneral.typeOfImport.id == -3}">
+								${truck.truckingservice.docsgeneral.packageinfo.portOfArrival}
+						  	</c:when>
+						  	<c:otherwise>
+						  		${truck.truckingservice.docsgeneral.placeRev}
+						  	</c:otherwise>
+						</c:choose>
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
 					<div class="form-group">
-						 ${truck.truckingservice.docsgeneral.placeDelivery}
+						<c:choose>
+							<c:when test="${not empty truck.truckingservice.docsgeneral.packageinfo && truck.truckingservice.docsgeneral.typeOfImport.id == -3}">
+								${truck.truckingservice.departure}
+						  	</c:when>
+						  	<c:otherwise>
+						  		${truck.truckingservice.docsgeneral.placeDelivery}
+						  	</c:otherwise>
+						</c:choose>						 
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>">

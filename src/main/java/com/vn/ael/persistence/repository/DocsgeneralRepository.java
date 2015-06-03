@@ -61,7 +61,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	
 	@Query("select d from Docsgeneral d left join fetch d.truckingservice ser left join fetch ser.truckingdetails detail "
 	+ "where d.customer.id=:customerId and d.doAccounting = :doAccounting and (d.typeOfDocs = :inland or d.typeOfDocs = :seaType) "
-	+"and (detail.dateDev >= :startDate or :startDate is null) and (detail.dateDev < :endDate or :endDate is null) and "
+	+"and (detail.dateDev >= :startDate or :startDate is null) and (detail.dateDev <= :endDate or :endDate is null) and "
 	+ "(d.jobNo in (:jobList) or COALESCE(:jobList) is null) "
 	+ "group by d")
 	List<Docsgeneral> getDoAccountingInlandSealandAndTime(@Param(value = "doAccounting")Boolean doAccounting,@Param(value = "inland")ServicesType inland,
@@ -99,7 +99,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "e.typeOfDocs =:typeOfDocs and "
-			+ "(e.packageinfo.customsDate >= :startDate or :startDate is null) and (e.packageinfo.customsDate < :endDate or :endDate is null) and "			
+			+ "(e.packageinfo.customsDate >= :startDate or :startDate is null) and (e.packageinfo.customsDate <= :endDate or :endDate is null) and "			
 			+ "(e.packageinfo.consignee = :consignee or :consignee = '') and "
 			+ "(e.packageinfo.shipper = :shipper or :shipper = '') and "
 			+ "(e.jobNo = :jobNo or :jobNo = '')")
