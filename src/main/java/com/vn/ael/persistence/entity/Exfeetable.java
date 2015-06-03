@@ -38,7 +38,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal vat;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER)
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal total;
 	
 	//bi-directional many-to-one association to Exhibition
@@ -62,6 +62,8 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	
 	private Boolean checkByAdmin = false;
 	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal exhUsd;
 	
 	@ManyToOne
 	@JoinColumn(name= "exhibition")
@@ -214,6 +216,14 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	public void setRefund(Refund refund) {
 		this.refund = refund;
+	}
+
+	public BigDecimal getExhUsd() {
+		return exhUsd;
+	}
+
+	public void setExhUsd(BigDecimal exhUsd) {
+		this.exhUsd = exhUsd;
 	}
 	
 }

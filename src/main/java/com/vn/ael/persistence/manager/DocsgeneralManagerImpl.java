@@ -474,7 +474,8 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 					List<Exfeetable> exfeetables = exfeetableRepository.findByExhibition(docsgeneral.getExhibition());
 					if (exfeetables != null && !exfeetables.isEmpty()){
 						for (Exfeetable exfeetable : exfeetables){
-							debit = debit.add(CalculationUtil.getTotalWithVat(exfeetable.getVat(), exfeetable.getAmount()));
+//							debit = debit.add(CalculationUtil.getTotalWithVat(exfeetable.getVat(), exfeetable.getAmount()));
+							debit = debit.add(ConvertUtil.getNotNullValue(exfeetable.getAmount()));
 						}
 					}
 				}
