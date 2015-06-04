@@ -148,3 +148,8 @@ ADD COLUMN `unitPrice` DECIMAL(20,2) NULL AFTER `quantityOt`;
 ALTER TABLE `ael`.`exfeetable` 
 ADD COLUMN `exhUsd` DECIMAL(20,2) NULL AFTER `refund`;
 
+----04042015
+ALTER TABLE truckingdetail 
+ADD COLUMN  placeGetCont VARCHAR(255) NULL,
+ADD COLUMN placePutCont VARCHAR(255) NULL
+
