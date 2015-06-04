@@ -341,7 +341,7 @@ public class ReportUtil {
 			for (Extendfeeacc extendFeeAcc : accountingcus.getExtendfeeaccs()) {
 				CustomFeeExportModel item = new CustomFeeExportModel(
 						extendFeeAcc.getFeeowner().getName().getValue(),
-						extendFeeAcc.getDescription().getValue(),
+						(extendFeeAcc.getDescription() != null ?extendFeeAcc.getDescription().getValue() : null),
 						extendFeeAcc.getQuantity20(),
 						extendFeeAcc.getQuantity40(),
 						extendFeeAcc.getQuantityLCL(),
@@ -349,7 +349,7 @@ public class ReportUtil {
 								.getAmount()),
 						ConvertUtil.getNotNullValue(extendFeeAcc.getFeeowner()
 								.getVat()), extendFeeAcc.getNote(),
-						extendFeeAcc.getInvoice());
+						extendFeeAcc.getFeeowner().getInvoiceNo());
 				index++;
 				item.setIndex(index);
 				fee.add(item);

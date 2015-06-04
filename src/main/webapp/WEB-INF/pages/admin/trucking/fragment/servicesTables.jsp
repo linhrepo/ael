@@ -43,7 +43,11 @@
 			</c:choose>
 			<th><fmt:message key="truckingservice.dateDev" /></th>
 			<th><fmt:message key="truckingservice.deliveryPlace" /></th>
-				<th><fmt:message key="table.action" /></th>
+			<c:if test="${truckingservice.docsgeneral.typeOfDocs.value == 5 || truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4}">
+				<th><fmt:message key="truckingservice.getCont" /></th>
+				<th><fmt:message key="truckingservice.putCont" /></th>
+			</c:if>
+			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
 	<tbody class="parent">
@@ -165,17 +169,17 @@
 					</c:when>
 				</c:choose>
 				<td data-title="<fmt:message key="truckingservice.dateDev"/>">
-							<spring:bind path="truckingdetails[${idx.index}].dateDev">
-								<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-							</spring:bind> 
-							<form:input path="truckingdetails[${idx.index}].dateDev"
-								id="dateDev${idx.index}" maxlength="45" provide="ddatepicker" 
-								cssClass="form-control" /> 
-							<form:errors
-								path="truckingdetails[${idx.index}].dateDev"
-								cssClass="help-block" />
-							</div>
-						</td>
+					<spring:bind path="truckingdetails[${idx.index}].dateDev">
+						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> 
+					<form:input path="truckingdetails[${idx.index}].dateDev"
+						id="dateDev${idx.index}" maxlength="45" provide="ddatepicker" 
+						cssClass="form-control" /> 
+					<form:errors
+						path="truckingdetails[${idx.index}].dateDev"
+						cssClass="help-block" />
+					</div>
+				</td>
 				<td>
 					<spring:bind path="truckingdetails[${idx.index}].deliveryPlace">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -188,6 +192,32 @@
 								cssClass="help-block" />
 					</div>
 				</td>
+				<c:if test="${truckingservice.docsgeneral.typeOfDocs.value == 5 || truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4}">
+					<td>
+						<spring:bind path="truckingdetails[${idx.index}].placeGetCont">
+						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						</spring:bind> 
+						<form:input path="truckingdetails[${idx.index}].placeGetCont"
+									id="deliveryPlace${idx.index}" maxlength="45" 
+									cssClass="form-control" /> 
+						<form:errors
+									path="truckingdetails[${idx.index}].placeGetCont"
+									cssClass="help-block" />
+						</div>
+					</td>
+					<td>
+						<spring:bind path="truckingdetails[${idx.index}].placePutCont">
+						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+						</spring:bind> 
+						<form:input path="truckingdetails[${idx.index}].placePutCont"
+									id="deliveryPlace${idx.index}" maxlength="45" 
+									cssClass="form-control" /> 
+						<form:errors
+									path="truckingdetails[${idx.index}].placePutCont"
+									cssClass="help-block" />
+						</div>
+					</td>
+				</c:if>
 				<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 							<td rowType="actions">
 								<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>"> 

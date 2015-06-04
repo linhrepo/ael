@@ -119,12 +119,12 @@
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.placegetcont"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
 						<div class="form-group">
-							${doc.truckingservice.arrival}
+							${detail.placeGetCont}
 						</div>
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.placeputcont"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
 						<div class="form-group">
-							${doc.truckingservice.departure}
+							${detail.placePutCont}
 						</div>
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.chiho"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">

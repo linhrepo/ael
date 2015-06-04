@@ -133,15 +133,15 @@
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingcus.invoice"/>">
-					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].invoice">
+					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].feeowner.invoiceNo">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> 
 					<form:input
-								path="extendfeeaccs[${idx.index}].invoice"
+								path="extendfeeaccs[${idx.index}].feeowner.invoiceNo"
 								autofocus="true"
 								cssClass="form-control"/>
 								 <form:errors
-								path="extendfeeaccs[${idx.index}].invoice"
+								path="extendfeeaccs[${idx.index}].feeowner.invoiceNo"
 								cssClass="help-block" />
 					</div>
 				</td>

@@ -67,6 +67,10 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal accountingPrice;
+	
+	private String placeGetCont;
+	
+	private String placePutCont;
 
 	public Truckingdetail() {
 	}
@@ -184,8 +188,24 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setChiho(BigDecimal chiho) {
 		this.chiho = chiho;
-	}
+	}		
 	
+	public String getPlaceGetCont() {
+		return placeGetCont;
+	}
+
+	public void setPlaceGetCont(String placeGetCont) {
+		this.placeGetCont = placeGetCont;
+	}
+
+	public String getPlacePutCont() {
+		return placePutCont;
+	}
+
+	public void setPlacePutCont(String placePutCont) {
+		this.placePutCont = placePutCont;
+	}
+
 	@Transient
 	public BigDecimal getTotalTransReport(){
 		return ConvertUtil.getNotNullValue(this.chiho).add(ConvertUtil.getNotNullValue(this.accountingPrice))
