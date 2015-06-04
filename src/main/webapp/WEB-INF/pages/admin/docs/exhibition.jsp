@@ -172,11 +172,11 @@
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="exhibition.typeOfContainer"/>
 		        <c:if test="${exhibition.docsgeneral.doDelivery}">
-			        <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control selectReadOnly" items="${docsSelection.selections['typeOfContainers']}"/>
+			        <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control selectReadOnly" addUrl="/admin/config/constant" type="30" items="${docsSelection.selections['typeOfContainers']}"/>
 			        <form:hidden path="docsgeneral.typeOfContainer.id"/>
 			     </c:if>
 			     <c:if test="${!exhibition.docsgeneral.doDelivery}">
-			     <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control" items="${docsSelection.selections['typeOfContainers']}"/>
+			     <form:select showElements="-1:consealContainer,consealTab" path="docsgeneral.typeOfContainer.id" id="typeOfContainer"   cssClass="form-control" addUrl="/admin/config/constant" type="30" items="${docsSelection.selections['typeOfContainers']}"/>
 			       </c:if>
 		        <form:errors path="docsgeneral.typeOfContainer.id" cssClass="help-block"/>
 		    </div>
