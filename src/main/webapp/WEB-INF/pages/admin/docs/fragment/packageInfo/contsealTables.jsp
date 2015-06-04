@@ -73,7 +73,7 @@
 								class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 						</spring:bind> <form:input path="docsgeneral.contseals[${idx.index}].weight"
 							id="weight${idx.index}" maxlength="12" 
-							cssClass="form-control money" /> <form:errors
+							cssClass="form-control money2" /> <form:errors
 							path="docsgeneral.contseals[${idx.index}].weight"
 							cssClass="help-block" />
 						</div></td>

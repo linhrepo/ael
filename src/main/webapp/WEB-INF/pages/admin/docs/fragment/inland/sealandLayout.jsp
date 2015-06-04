@@ -195,7 +195,7 @@
 				    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 				    </spring:bind>
 				        <appfuse:label styleClass="control-label" key="inland.weigth"/>
-				        <form:input path="docsgeneral.weigth" id="weigth" maxlength="12"  cssClass="form-control money"/>
+				        <form:input path="docsgeneral.weigth" id="weigth" maxlength="12"  cssClass="form-control money2"/>
 				        <form:errors path="docsgeneral.weigth" cssClass="help-block"/>
 				    </div>
 				    

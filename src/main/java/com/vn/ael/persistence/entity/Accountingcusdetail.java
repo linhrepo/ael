@@ -27,7 +27,7 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	@JoinColumn(name="description")
 	private Configuration description;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal generalVat;
 
 	private String invoice;
@@ -46,10 +46,10 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	
 	private Integer quantityOt;
 	
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal unitPrice;
 	
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal total;
 
 	//bi-directional many-to-one association to Accountingcus

@@ -28,7 +28,7 @@ import com.vn.ael.webapp.util.CalculationUtil;
 public class Exfeetable extends BasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal amount;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -62,6 +62,8 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	
 	private Boolean checkByAdmin = false;
 	
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal exhUsd;
 	
 	@ManyToOne
 	@JoinColumn(name= "exhibition")
@@ -214,6 +216,14 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	public void setRefund(Refund refund) {
 		this.refund = refund;
+	}
+
+	public BigDecimal getExhUsd() {
+		return exhUsd;
+	}
+
+	public void setExhUsd(BigDecimal exhUsd) {
+		this.exhUsd = exhUsd;
 	}
 	
 }

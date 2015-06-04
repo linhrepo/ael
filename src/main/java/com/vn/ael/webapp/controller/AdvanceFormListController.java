@@ -473,6 +473,8 @@ public class AdvanceFormListController extends BaseFormController {
 		BigDecimal totalRefundBetween = BigDecimal.ZERO;
 		BigDecimal totalAdvanceAfter = BigDecimal.ZERO;
 		BigDecimal totalRefundAfter = BigDecimal.ZERO;
+		BigDecimal before = BigDecimal.ZERO;
+		BigDecimal after = BigDecimal.ZERO;
 		List<Advanceform> listAdvance = new ArrayList<Advanceform>();
 		listAdvance.addAll(advanceFormManager.findByEmpoyeeForAccounting(employee.getId(), true));
 		List<Advanceform> listBefore = new ArrayList<Advanceform>();
@@ -510,9 +512,9 @@ public class AdvanceFormListController extends BaseFormController {
 				if(refund.getDate() != null){
 					String rDate = dateFormat.format(refund.getDate());
 					Date refundDate = dateFormat.parse(rDate);
-					if (refundDate.before(dateStart) || refundDate.equals(dateStart)) {
+					if (refund.getIsAdmin()!=true && refundDate.before(dateStart) || refundDate.equals(dateStart)) {
 						listRefundBefore.add(refund);
-					} else if (refundDate.after(dateStart)
+					} else if (refund.getIsAdmin()!=true && refundDate.after(dateStart)
 							&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
 						listRefundBetween.add(refund);
 					}
@@ -521,6 +523,24 @@ public class AdvanceFormListController extends BaseFormController {
 			totalRefundBefore = this.calculateTotalRefund(listRefundBefore);
 			totalRefundBetween = this.calculateTotalRefund(listRefundBetween);
 			totalRefundAfter = totalRefundBefore.add(totalRefundBetween);
+		}
+		before = totalRefundBefore.subtract(totalAdvanceBefore);
+		if (before.doubleValue()<=0) {
+			totalAdvanceBefore = before.negate();
+			totalRefundBefore= BigDecimal.ZERO;
+		}
+		else{
+			totalRefundBefore = before;
+			totalAdvanceBefore = BigDecimal.ZERO;
+		}
+		after = totalRefundAfter.subtract(totalAdvanceAfter);
+		if (after.doubleValue()<=0) {
+			totalAdvanceAfter = after.negate();
+			totalRefundAfter = BigDecimal.ZERO;
+		}
+		else{
+			totalAdvanceAfter = BigDecimal.ZERO;
+			totalRefundAfter = after;
 		}
 		return new AdvanceSumary(employee.getFullName(), totalAdvanceBefore,
 				totalRefundBefore, totalAdvanceBetween, totalRefundBetween,

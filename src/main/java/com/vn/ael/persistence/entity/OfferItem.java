@@ -26,14 +26,14 @@ import com.vn.ael.enums.ConfigurationType;
 public class OfferItem extends BasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal feeNoVAT;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "feeUnit")
 	private Configuration feeUnit;
 
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal feeWithVAT;
 
 	@ManyToOne

@@ -144,3 +144,7 @@ ADD CONSTRAINT `toExName`
 ALTER TABLE `ael`.`accountingcusdetail` 
 ADD COLUMN `unitPrice` DECIMAL(20,2) NULL AFTER `quantityOt`;
 
+----03062015
+ALTER TABLE `ael`.`exfeetable` 
+ADD COLUMN `exhUsd` DECIMAL(20,2) NULL AFTER `refund`;
+

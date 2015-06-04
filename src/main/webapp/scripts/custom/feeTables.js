@@ -15,7 +15,13 @@ var FEE_TABLE_CONTROL ={
 			vatAmount = amount*vat/100,
 			total = vatAmount+amount;
 			$(tr).find("input.vatAmount").val(accounting.formatMoney(vatAmount,UTIL.MONEY_STYLE));
-			$(tr).find("input.total").val(accounting.formatMoney(total,UTIL.MONEY_STYLE));
+			var iTotal = $(tr).find("input.total");
+			if ($(iTotal).hasClass("money2")){
+				$(tr).find("input.total").val(accounting.formatMoney(total,UTIL.MONEY_STYLE_2_DIGIT));
+			}else{
+				$(tr).find("input.total").val(accounting.formatMoney(total,UTIL.MONEY_STYLE));
+			}
+			
 	},
 	/**
 	 * Calculate total value for a specific row
@@ -28,7 +34,13 @@ var FEE_TABLE_CONTROL ={
 			
 			var vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),
 			amount = parseFloat(total)*100/parseFloat(vat+100);
-			$(tr).find("input.amount").val(accounting.formatMoney(amount,UTIL.MONEY_STYLE));
+			var iTotal = $(tr).find("input.amount");
+			if ($(iTotal).hasClass("money2")){
+				$(tr).find("input.amount").val(accounting.formatMoney(amount,UTIL.MONEY_STYLE_2_DIGIT));
+			}else{
+				$(tr).find("input.amount").val(accounting.formatMoney(amount,UTIL.MONEY_STYLE));
+			}
+			
 	},
 	/**
 	 * Init fee table

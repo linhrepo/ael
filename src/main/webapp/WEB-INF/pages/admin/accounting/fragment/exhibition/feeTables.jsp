@@ -27,9 +27,10 @@
 			<th><fmt:message key="table.no" /></th>
 			<th><fmt:message key="inland.masterFee" /></th>
 			<th><fmt:message key="inland.feeName" /></th>
-			<th><fmt:message key="inland.feevalue" /></th>
+			<th><fmt:message key="inland.feevalue" /> <fmt:message key="(USD)" /></th>
 			<th><fmt:message key="inland.feevavat" /></th>
-			<th><fmt:message key="inland.total" /></th>
+			<th><fmt:message key="inland.total" /> <fmt:message key="(USD)" /></th>
+			<th><fmt:message key="VND" /></th>
 			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
@@ -61,19 +62,19 @@
 						<div addUrl="/admin/config/constant" type="26"
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:select path="exfeetables[${idx.index}].name.id" 
-						id="name${idx.index}" autofocus="true" cssClass="form-control" empty-on-add="false"
+						id="name${idx.index}" cssClass="form-control" empty-on-add="false"
 						items="${docsSelection.selections['exhFeeNamesReport']}" /> <form:errors
 						path="exfeetables[${idx.index}].name.id"
 						cssClass="help-block" />
 					</div></td>
 				<td><spring:bind
-						path="exhibition.exfeetables[${idx.index}].amount">
+						path="exhibition.exfeetables[${idx.index}].exhUsd">
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					</spring:bind> <form:input path="exfeetables[${idx.index}].amount"
-						id="amount${idx.index}" maxlength="45" autofocus="true" 
-						cssClass="form-control amount money" /> <form:errors
-						path="exfeetables[${idx.index}].amount"
+					</spring:bind> <form:input path="exfeetables[${idx.index}].exhUsd"
+						id="amount${idx.index}" maxlength="45" 
+						cssClass="form-control amount money2" /> <form:errors
+						path="exfeetables[${idx.index}].exhUsd"
 						cssClass="help-block" />
 					</div></td>
 				<td><spring:bind
@@ -81,16 +82,26 @@
 						<div
 							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					</spring:bind> <form:input path="exfeetables[${idx.index}].vat"
-						id="vat${idx.index}" maxlength="45" autofocus="true" 
-						cssClass="form-control vat money" /> <form:errors
+						id="vat${idx.index}" maxlength="45" 
+						cssClass="form-control vat money2" /> <form:errors
 						path="exfeetables[${idx.index}].vat"
 						cssClass="help-block" />
 					</div></td>
 				<td>
 					<form:input path="exfeetables[${idx.index}].total"
-						id="total${idx.index}" maxlength="45" autofocus="true" 
-						cssClass="form-control total money" />
+						id="total${idx.index}" maxlength="45" 
+						cssClass="form-control total money2" />
 				</td>
+				<td><spring:bind
+						path="exhibition.exfeetables[${idx.index}].amount">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:input path="exfeetables[${idx.index}].amount"
+						id="amount${idx.index}" maxlength="45" 
+						cssClass="form-control money" /> <form:errors
+						path="exfeetables[${idx.index}].amount"
+						cssClass="help-block" />
+					</div></td>
 				<td rowType="actions"><span class="iconButton removeRow"
 					title="<fmt:message key='table.buttonEditTitle'/>"> <i
 						class="fa fa-trash"></i>

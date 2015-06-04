@@ -69,7 +69,7 @@
 					
 				</spring:bind> <form:input path="docsgeneral.inlandsizes[${idx.index}].kg"
 					id="kg${idx.index}" maxlength="10" autofocus="true"
-					cssClass="form-control money" /> <form:errors
+					cssClass="form-control money2" /> <form:errors
 					path="docsgeneral.inlandsizes[${idx.index}].kg"
 					cssClass="help-block" />
 					</div></td>

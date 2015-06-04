@@ -74,6 +74,14 @@ UTIL.MONEY_STYLE = {
 		symbol : "",
 		decimal : ".",
 		thousand: ",",
+		precision : 0,
+		format: "%s%v"
+};
+
+UTIL.MONEY_STYLE_2_DIGIT = {
+		symbol : "",
+		decimal : ".",
+		thousand: ",",
 		precision : 2,
 		format: "%s%v"
 };
