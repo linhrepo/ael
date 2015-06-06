@@ -4,7 +4,7 @@
 	<jsp:include page="searchRefund.jsp"></jsp:include>
     <div id="actionsRefund" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='/users/refund'/>">
-            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>
+            <i class="fa fa-plus"></i> <fmt:message key="button.addRefundAdmin"/></a>
         <a class="btn btn-primary" href="<c:url value='/users/refundJob'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.addRefundJob"/></a>
         <a class="btn btn-default" href="<c:url value='/home'/>">

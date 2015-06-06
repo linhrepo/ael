@@ -448,10 +448,8 @@ public class ReportUtil {
 								: AELConst.EMPTY_STRING);
 						item.setVolumn(doc.getCmbText());
 						item.setKg(doc.getWeigthText());
-						item.setPlacegetcont(doc.getTruckingservice()
-								.getArrival());
-						item.setPlaceputcont(doc.getTruckingservice()
-								.getDeparture());
+						item.setPlacegetcont(truckingdetail.getPlaceGetCont());
+						item.setPlaceputcont(truckingdetail.getPlacePutCont());
 						item.setChiho(doc.getChiho());
 						
 						item.setAccountingPrice(truckingdetail

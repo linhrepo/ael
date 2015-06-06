@@ -13,10 +13,10 @@
 			<th colspan="4" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.vehicleNo" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.contNo" /></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.volumn" /></th>
-			<th rowspan="2"><fmt:message key="accountingtrans.kg" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.placegetcont" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.placeputcont" /></th>
+			<th rowspan="2"><fmt:message key="accountingtrans.volumn" /></th>
+			<th rowspan="2"><fmt:message key="accountingtrans.kg" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.chiho" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.price" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.otherfee" /></th>
@@ -105,6 +105,16 @@
 							${detail.consteal.noOfCont}
 					</div>
 				</td>
+				<td data-title="<fmt:message key="accountingtrans.placegetcont"/>">
+						<div class="form-group">
+							${detail.placeGetCont}
+						</div>
+					</td>
+					<td data-title="<fmt:message key="accountingtrans.placeputcont"/>">
+						<div class="form-group">
+							${detail.placePutCont}
+						</div>
+					</td>
 				
 				<c:if test="${indx.index == 0 }">
 					<td data-title="<fmt:message key="accountingtrans.volumn"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
@@ -117,24 +127,12 @@
 							${doc.weigthText}
 						</div>
 					</td>
-					<td data-title="<fmt:message key="accountingtrans.placegetcont"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
-						<div class="form-group">
-							${detail.placeGetCont}
-						</div>
-					</td>
-					<td data-title="<fmt:message key="accountingtrans.placeputcont"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
-						<div class="form-group">
-							${detail.placePutCont}
-						</div>
-					</td>
 					<td data-title="<fmt:message key="accountingtrans.chiho"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
 					<div class="form-group money">
 						${doc.chiho}
 					</div>
 					</td>
 				</c:if>
-				
-				
 				<td data-title="<fmt:message key="accountingtrans.price"/>">
 					<div class="form-group">
 						<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].accountingPrice" cssClass="form-control money amount" />
