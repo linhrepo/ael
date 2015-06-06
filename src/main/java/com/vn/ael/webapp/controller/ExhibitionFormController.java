@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.controller;
 
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,9 +79,13 @@ public class ExhibitionFormController extends BaseFormController {
         		ConfigurationType.DOCS_TYPE_OF_CONTAINER_CONT,
         		ConfigurationType.EXH_MASTER_FEE,
         		ConfigurationType.FEE_NAMES,
-        		ConfigurationType.EXH_NAME
+        		ConfigurationType.EXH_NAME,
+        		ConfigurationType.EXH_PRODUCT_TYPE
         		);
         mav.addObject("hangtaus", EntityUtil.fromNhathauList2Map(nhathauManager.findByType(NhathauType.HANGTAU)));
+        Map<String, Map<Long, String>> tempselect = docsSelection.getSelections();
+        Map< Long, String> exhProType = docsSelection.getSelections().get("exhibitionProductTypes");
+        docsSelection.getSelections().get("typeOfContainers").putAll(exhProType);
         mav.addObject("docsSelection", docsSelection);
         return mav;
     }

@@ -309,8 +309,8 @@ public class ReportUtil {
 							accountingCusDetailItem.getName() != null ? accountingCusDetailItem
 									.getName().getValue()
 									: AELConst.EMPTY_STRING,
-							accountingCusDetailItem.getDescription() != null ? accountingCusDetailItem
-									.getDescription().getValue()
+							accountingCusDetailItem.getName() != null ? accountingCusDetailItem
+									.getName().getDescription()
 									: AELConst.EMPTY_STRING,
 							accountingCusDetailItem.getQuantity20(),
 							accountingCusDetailItem.getQuantity40(),
@@ -326,8 +326,7 @@ public class ReportUtil {
 					index++;
 					item.setIndex(index);
 					customFee.add(item);
-					cusFeeTotal = cusFeeTotal.add(accountingCusDetailItem
-							.getTotal());
+					cusFeeTotal = cusFeeTotal.add(accountingCusDetailItem.getTotal() != null ? accountingCusDetailItem.getTotal() : new BigDecimal(0));
 					cusFeeVat = cusFeeVat.add(accountingCusDetailItem
 							.getFeevat());
 				}

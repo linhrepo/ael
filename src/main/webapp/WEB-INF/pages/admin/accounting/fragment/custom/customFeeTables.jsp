@@ -38,9 +38,9 @@
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].name.id">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="23">
 					</spring:bind>
-					<form:select
+					<form:select onchange="changeDes(this);"
 							path="accountingcusdetails[${idx.index}].name.id"
-							id="description${idx.index}" 
+							id="descriptionSer${idx.index}" 
 							items="${selections['debitfees']}"
 							empty-on-add="false"
 							cssClass="form-control"/> 
@@ -50,20 +50,48 @@
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingcus.feeDescription" />">
-					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].description.id">
+					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].name.description">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="24">
 					</spring:bind>
-					<form:select
-							path="accountingcusdetails[${idx.index}].description.id"
-							id="description${idx.index}" 
-							empty-on-add="false"
-							items="${selections['debitfeesDes']}"
-							cssClass="form-control"/> 
+					<%-- <form:select
+						path="accountingcusdetails[${idx.index}].name.id"
+						id="description${idx.index}" 
+						empty-on-add="false"
+						items="${selections['debitfees']}"
+						cssClass="form-control">							
+					</form:select>  
 					<form:errors
-								path="accountingcusdetails[${idx.index}].description.id"
-								cssClass="help-block" />
+								path="accountingcusdetails[${idx.index}].name.id"
+								cssClass="help-block" /> --%>
+						<form:input id="description${idx.index}" type="text" path="accountingcusdetails[${idx.index}].name.description" cssClass="form-control descript"/>
 					</div>
 				</td>
+				<script>
+					$(document).ready(function(){
+						$("#description${idx.index}").prop('disabled', true);
+						var id = $( "#descriptionSer${idx.index} option:selected" ).val();
+						$.ajax({
+						    type: "GET",
+						    url: "<c:url value='/admin/accounting/custom/ajax'/>",
+						    data: "id=" + id,
+						    success: function(msg){
+						    	$("#description${idx.index}").val(msg);
+						    }
+						});
+						
+					});
+					function changeDes(obj){
+						var id = $(obj).find('option:selected').val();
+						$.ajax({
+						    type: "GET",
+						    url: "<c:url value='/admin/accounting/custom/ajax'/>",
+						    data: "id=" + id,
+						    success: function(msg){
+						    	$(obj).parents('td').next('td').find('.descript').val(msg);
+						    }
+						});
+					}
+				</script>
 				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.20" />">
 					<spring:bind path="accountingcus.accountingcusdetails[${idx.index}].quantity20">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" defaultValue="${accountingcus.docsgeneral.noOf20Cont}">
@@ -233,6 +261,15 @@
 	 
 	 $("#generalList").bind("afterAddRow",function(e,tr){
 		 checkOneRow(tr);
+		 var id = $(tr).find('select option:selected').val();
+			$.ajax({
+			    type: "GET",
+			    url: "<c:url value='/admin/accounting/custom/ajax'/>",
+			    data: "id=" + id,
+			    success: function(msg){
+			    	$(tr).find(".descript").val(msg);
+			    }
+			});
 	 });
 	 
 	 $("#generalList").find("tbody > tr").each(function(){
