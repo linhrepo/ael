@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.ReportTeamplates;
@@ -21,8 +23,10 @@ import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Accountingcus;
+import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.manager.AccountingcusManager;
+import com.vn.ael.persistence.manager.ConfigurationManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -34,6 +38,7 @@ import com.vn.ael.webapp.util.ReportUtil;
 public class AccountingCustomController extends BaseFormController {
 
 	private ExfeetableManager exfeetableManager = null;
+	
 	@Autowired
     public void setExfeetableManager(final ExfeetableManager exfeetableManager) {
         this.exfeetableManager = exfeetableManager;
@@ -53,12 +58,19 @@ public class AccountingCustomController extends BaseFormController {
         this.accountingcusManager = accountingcusManager;
     }
     
+    private ConfigurationManager configurationManager = null;
+    
+    @Autowired
+    public void setConfigurationManager(ConfigurationManager configurationManager) {
+		this.configurationManager = configurationManager;
+	}
+    
     public AccountingCustomController() {
         setCancelView("redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST);
         setSuccessView("redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST);
-    }
- 
-    @RequestMapping(method = RequestMethod.GET, value = URLReference.ACCOUNTING_CUSTOM)
+    }     
+
+	@RequestMapping(method = RequestMethod.GET, value = URLReference.ACCOUNTING_CUSTOM)
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
         String id = request.getParameter("docId");
@@ -136,25 +148,34 @@ public class AccountingCustomController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCPACKAGEINFO_SEARCH)
-       	public ModelAndView searchAccPackageInfo(Search searchAccPackageInfo)
-       			throws Exception {
-       		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_CUSTOM_LIST);
-       		searchAccPackageInfo.setServicesType(ServicesType.DVTQ);
-       		List<Docsgeneral> docsgenerals = docsgeneralManager.searchAccounting(searchAccPackageInfo);
-       		mav.addObject(docsgenerals);
-       		
-       		//selection
-               DocsSelection docsSelection = 
-               		configurationManager.loadSelectionForDocsPage
-               		(
-               				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-               				ConfigurationType.TYPE_OF_IMPORT,
-               				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
-               		);
-               mav.addObject("docsSelection", docsSelection);
-               mav.addObject("enumStatus", StatusType.values());
-               mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-       		return mav;
-       	}
+   	public ModelAndView searchAccPackageInfo(Search searchAccPackageInfo)
+   			throws Exception {
+   		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_CUSTOM_LIST);
+   		searchAccPackageInfo.setServicesType(ServicesType.DVTQ);
+   		List<Docsgeneral> docsgenerals = docsgeneralManager.searchAccounting(searchAccPackageInfo);
+   		mav.addObject(docsgenerals);
+   		
+   		//selection
+           DocsSelection docsSelection = 
+           		configurationManager.loadSelectionForDocsPage
+           		(
+           				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+           				ConfigurationType.TYPE_OF_IMPORT,
+           				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+           		);
+           mav.addObject("docsSelection", docsSelection);
+           mav.addObject("enumStatus", StatusType.values());
+           mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+   		return mav;
+   	}
+    @RequestMapping(method = RequestMethod.GET, value = URLReference.ACCOUNTING_CUSTOM_AJAX)
+   	public @ResponseBody String loadDescription(@RequestParam("id") Long id)
+   			throws Exception {
+    	Configuration configuration = configurationManager.find(String.valueOf(id));
+    	if(configuration != null){
+    		return configuration.getDescription();
+    	}
+   		return "";
+   	}
 }
 

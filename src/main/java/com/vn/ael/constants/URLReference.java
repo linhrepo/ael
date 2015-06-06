@@ -45,6 +45,7 @@ public interface URLReference {
 	String ACCOUNTING_EXHIBITION_LIST = "/admin/accounting/exhibitionList";
 	
 	String ACCOUNTING_CUSTOM = "/admin/accounting/custom";
+	String ACCOUNTING_CUSTOM_AJAX = "/admin/accounting/custom/ajax";
 	String ACCOUNTING_CUSTOM_EXCEL = "/admin/accounting/customExcel";
 	String ACCOUNTING_TRANSPORT = "/admin/accounting/transport";
 	String ACCOUNTING_EXHIBITION = "/admin/accounting/exhibition";
