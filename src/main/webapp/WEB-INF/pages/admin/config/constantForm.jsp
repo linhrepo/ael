@@ -11,7 +11,7 @@
  
 <div class="col-sm-10">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="configuration" method="post" action="constant" id="configurationForm" cssClass="well">
+    <form:form commandName="configuration" method="post" action="constantForm" id="configurationForm" cssClass="well">
     <form:hidden path="id"/>
     <form:hidden path="enabled"/>
     <div class="container-fluid">

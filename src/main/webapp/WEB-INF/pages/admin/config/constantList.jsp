@@ -9,7 +9,7 @@
 <div class="col-sm-10">
     <h2><fmt:message key="configuration.heading"/></h2>
  	<div id="actions" class="btn-group">
-        <a class="btn btn-primary" href="<c:url value='constant?method=Add&from=list'/>">
+        <a class="btn btn-primary" href="<c:url value='constantForm?method=Add&from=list'/>">
             <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>
 
         <a class="btn btn-default" href="<c:url value='/home'/>">
@@ -49,7 +49,7 @@
 <!--               	</td> -->
               	<td>
               		<c:if test="${cons.enabled}">
-                		<a href="constant?id=${cons.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                		<a href="constantForm?id=${cons.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
                 	</c:if>
                 </td>
             </tr>
