@@ -85,13 +85,16 @@ public class AdvanceFormController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ADVANCE_FORM)
-    public ModelAndView showForm(HttpServletRequest request)
+    public ModelAndView showForm(HttpServletRequest request, @RequestParam(value="isAdmin", required= false) Boolean isAdmin)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.ADVANCE_FORM);
         Advanceform advanceform = this.loadAdvancesByRequest(request);
         if (advanceform == null){
         	Locale locale = request.getLocale();
         	saveMessage(request, getText("offerPrice.error.wrongCustomer", locale));
+        }
+        if (advanceform != null && advanceform.getId() == null){
+        	 advanceform.setIsAdmin(isAdmin);
         }
         mav.addObject("advanceform", advanceform);
         //create selection

@@ -36,7 +36,7 @@
 	        	</security:authorize>
 	        </c:if>
 	        <c:if test="${not empty advanceform.id}">
-	        	<c:if test="${not empty advanceform.advancedetails[0].docs.id}">
+	        	<c:if test="${not empty advanceform.advancedetails[0]}">
 	        	<a class="btn btn-success" href="advanceForm/download?id=${advanceform.id}">
 							<i class="fa fa-print"></i>
 							<fmt:message key="advanceform.printAdvance" />

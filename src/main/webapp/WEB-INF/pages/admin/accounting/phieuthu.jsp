@@ -2,7 +2,7 @@
 <script src="<c:url value="/scripts/custom/phieuthu.js" />"></script>
 <head>
     <title><fmt:message key="menu.acct.phieuthu"/></title>
-    <meta name="menu" content="Home"/>
+    <meta name="menu" content="AccountingMenu"/>
 </head>
  <c:set var="delObject" scope="request"><fmt:message key="menu.acct.phieuthu"/></c:set>
 <script type="text/javascript">var msgDelConfirm =

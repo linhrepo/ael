@@ -3,6 +3,8 @@
  */
 package com.vn.ael.webapp.dto;
 
+import java.math.BigDecimal;
+
 /**
  * @author hiendn1992
  *
@@ -12,8 +14,8 @@ public class AdvanceRequestItem {
 	private String jobNo;
 	private String packageDetail;
 	private String advanceReason;
-	private String amount;
-	private String remainAdvance;
+	private BigDecimal amount;
+	private BigDecimal remainAdvance;
 	/**
 	 * @return the jobNo
 	 */
@@ -51,30 +53,6 @@ public class AdvanceRequestItem {
 		this.advanceReason = advanceReason;
 	}
 	/**
-	 * @return the amount
-	 */
-	public String getAmount() {
-		return amount;
-	}
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
-	/**
-	 * @return the remainAdvance
-	 */
-	public String getRemainAdvance() {
-		return remainAdvance;
-	}
-	/**
-	 * @param remainAdvance the remainAdvance to set
-	 */
-	public void setRemainAdvance(String remainAdvance) {
-		this.remainAdvance = remainAdvance;
-	}
-	/**
 	 * @return the index
 	 */
 	public Integer getIndex() {
@@ -94,7 +72,7 @@ public class AdvanceRequestItem {
 	 * @param remainAdvance
 	 */
 	public AdvanceRequestItem(Integer index, String jobNo, String packageDetail,
-			String advanceReason, String amount, String remainAdvance) {
+			String advanceReason, BigDecimal amount, BigDecimal remainAdvance) {
 		super();
 		this.index = index;
 		this.jobNo = jobNo;
@@ -106,6 +84,17 @@ public class AdvanceRequestItem {
 	public AdvanceRequestItem() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	public BigDecimal getRemainAdvance() {
+		return remainAdvance;
+	}
+	public void setRemainAdvance(BigDecimal remainAdvance) {
+		this.remainAdvance = remainAdvance;
+	}
 
 }

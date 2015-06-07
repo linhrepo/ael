@@ -33,6 +33,8 @@ public class Refund extends BasicAdvance implements Serializable {
 	@OneToMany(mappedBy = "refund", cascade = CascadeType.ALL)
 	private List<Exfeetable> exfeetables;
 	
+	private Boolean isRAdmin;
+	
 	private Boolean isPhieuThu;
 	
 	private Boolean isAdmin;
@@ -142,7 +144,13 @@ public class Refund extends BasicAdvance implements Serializable {
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-	
-	
+
+	public Boolean getIsRAdmin() {
+		return isRAdmin;
+	}
+
+	public void setIsRAdmin(Boolean isRAdmin) {
+		this.isRAdmin = isRAdmin;
+	}
 	
 }
