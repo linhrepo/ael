@@ -152,4 +152,9 @@ ADD COLUMN `exhUsd` DECIMAL(20,2) NULL AFTER `refund`;
 ALTER TABLE truckingdetail 
 ADD COLUMN  placeGetCont VARCHAR(255) NULL,
 ADD COLUMN placePutCont VARCHAR(255) NULL
+----07062015
+ALTER TABLE `ael`.`advanceform` 
+ADD COLUMN `isAdmin` INT(1) NULL AFTER `payReason`;
+ALTER TABLE `ael`.`refund` 
+ADD COLUMN `isRAdmin` INT(1) NULL AFTER `isAdmin`;
 

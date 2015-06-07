@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.ReportTeamplates;
@@ -50,8 +51,8 @@ public class AccountingPhieuThuController extends BaseFormController {
 	 * 
 	 */
 	public AccountingPhieuThuController() {
-		setCancelView("redirect:" + URLReference.HOME_PAGE);
-		setSuccessView("redirect:" + URLReference.OFFERPRICE_LIST);
+		setCancelView("redirect:" + URLReference.ACCOUNTING_PHIEUTHU_LIST);
+		setSuccessView("redirect:" + URLReference.ACCOUNTING_PHIEUTHU_LIST);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = URLReference.ACCOUNTING_PHIEUTHU_LIST)
@@ -92,13 +93,16 @@ public class AccountingPhieuThuController extends BaseFormController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = URLReference.ACCOUNTING_PHIEUTHU)
-	public ModelAndView showForm(HttpServletRequest request) throws Exception {
+	public ModelAndView showForm(HttpServletRequest request, @RequestParam(value="isAdmin", required= false) Boolean isAdmin) throws Exception {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_PHIEUTHU);
 		Refund refund = this.loadPhieuThuByRequest(request);
 		if (refund == null) {
 			Locale locale = request.getLocale();
 			saveMessage(request,
 					getText("offerPrice.error.wrongCustomer", locale));
+		}
+		if (refund != null && refund.getId() == null){
+			refund.setIsRAdmin(isAdmin);
 		}
 		mav.addObject("refund", refund);
 		// create selection

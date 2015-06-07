@@ -5,8 +5,10 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<c:if test="${empty advanceform.isAdmin or advanceform.isAdmin == false }">
                 <th><fmt:message key="advanceform.fileCus"/></th>
                 <th><fmt:message key="advanceform.goodDes"/></th>
+                </c:if>
                 <th><fmt:message key="advanceform.description"/></th>
                 <th><fmt:message key="advanceform.amount"/></th>
                 <th><fmt:message key="advanceform.dueAmount"/></th>
@@ -24,6 +26,7 @@
 	                	<form:hidden path="advancedetails[${idx.index}].isAdded" valueType="added" />
 	                	<form:hidden path="advancedetails[${idx.index}].isDeleted" valueType="deleted"/>
 	            </td>
+	            <c:if test="${empty advanceform.isAdmin or advanceform.isAdmin == false }">
 	            <td>
 	            		<spring:bind path="advancedetails[${idx.index}].docs.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -40,6 +43,7 @@
 					        <form:errors path="advancedetails[${idx.index}].goodDes" cssClass="help-block"/>
 					    </div>
 	            </td>
+	            </c:if>
 	            <td>
 	            		<spring:bind path="advancedetails[${idx.index}].description">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">

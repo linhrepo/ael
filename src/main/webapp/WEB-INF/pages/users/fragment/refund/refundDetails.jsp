@@ -5,7 +5,7 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
-                <th><fmt:message key="refund.fileCus"/></th>
+<%--                 <th><fmt:message key="refund.fileCus"/></th> --%>
                 <th><fmt:message key="refund.description"/></th>
                 <th><fmt:message key="refund.amount"/></th>
                 <th><fmt:message key="refund.oAmount"/></th>
@@ -23,14 +23,14 @@
 	                	<form:hidden path="refunddetails[${idx.index}].isAdded" valueType="added" />
 	                	<form:hidden path="refunddetails[${idx.index}].isDeleted" valueType="deleted"/>
 	            </td>
-	            <td>
-	            		<spring:bind path="refunddetails[${idx.index}].docs.id">
-					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
-					    </spring:bind>
-					        <form:select path="refunddetails[${idx.index}].docs.id" id="docs${idx.index}" cssClass="form-control" items="${docsSelection.selections['docs']}" empty-on-add="false"/>
-					        <form:errors path="refunddetails[${idx.index}].docs.id" cssClass="help-block"/>
-					    </div>
-	            </td>
+<!-- 	            <td> -->
+<%-- 	            		<spring:bind path="refunddetails[${idx.index}].docs.id"> --%>
+<%-- 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}"> --%>
+<%-- 					    </spring:bind> --%>
+<%-- 					        <form:select path="refunddetails[${idx.index}].docs.id" id="docs${idx.index}" cssClass="form-control" items="${docsSelection.selections['docs']}" empty-on-add="false"/> --%>
+<%-- 					        <form:errors path="refunddetails[${idx.index}].docs.id" cssClass="help-block"/> --%>
+<!-- 					    </div> -->
+<!-- 	            </td> -->
 	            <td>
 	            		<spring:bind path="refunddetails[${idx.index}].description">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">

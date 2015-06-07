@@ -5,7 +5,9 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<c:if test="${empty refund.isRAdmin or advanceform.isRAdmin == false }">
                 <th><fmt:message key="refund.fileCus"/></th>
+                </c:if>
                 <th><fmt:message key="refund.description"/></th>
                 <th><fmt:message key="refund.amount"/></th>
               <%--   <th><fmt:message key="refund.oAmount"/></th> --%>
@@ -23,6 +25,7 @@
 	                	<form:hidden path="refunddetails[${idx.index}].isAdded" valueType="added" />
 	                	<form:hidden path="refunddetails[${idx.index}].isDeleted" valueType="deleted"/>
 	            </td>
+	            <c:if test="${empty refund.isRAdmin or advanceform.isRAdmin == false }">
 	            <td>
 	            		<spring:bind path="refunddetails[${idx.index}].docs.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -31,6 +34,7 @@
 					        <form:errors path="refunddetails[${idx.index}].docs.id" cssClass="help-block"/>
 					    </div>
 	            </td>
+	            </c:if>
 	            <td>
 	            		<spring:bind path="refunddetails[${idx.index}].description">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
