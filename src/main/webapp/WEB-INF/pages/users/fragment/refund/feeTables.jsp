@@ -115,7 +115,7 @@
 						cssClass="help-block" />
 					</div></td>
 					<td rowType="actions">
-					<c:if test="${ empty exfeetable.approved or exfeetable.approved == false }">
+					<c:if test="${(empty refund.doApproval or refund.doApproval==false) and (empty exfeetable.approved or exfeetable.approved == false) }">
 						<span class="iconButton removeRow"
 							title="<fmt:message key='table.buttonEditTitle'/>"> <i
 								class="fa fa-trash"></i>
@@ -127,12 +127,14 @@
 		</c:forEach>
 	</tbody>
 </table>
+<c:if test="${ empty refund.doApproval or refund.doApproval==false }">
 <div class="row">
 	<div class="col-md-10"></div>
 	<div class="col-md-2">
 		<span class="btn btn-primary" target-table="refundExfeetableList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
 	</div>
 </div>
+</c:if>
 	</div>
     <div role="tabpanel" class="tab-pane" id="profile">
     	<table id="refundExfeetableListSummary" class="display table table-striped">

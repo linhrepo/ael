@@ -30,6 +30,8 @@ public class Advanceform extends BasicAdvance implements Serializable {
 
 	private Date timeRefund;
 
+	private Boolean isAdmin;
+	
 	//bi-directional many-to-one association to Advancedetail
 	@OneToMany(mappedBy="advanceform", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Advancedetail> advancedetails;
@@ -79,5 +81,15 @@ public class Advanceform extends BasicAdvance implements Serializable {
 		}
 		return this.total;
 	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
+	
 
 }

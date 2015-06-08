@@ -3,8 +3,10 @@
 <div class="col-sm-12">
 	<jsp:include page="searchAdvance.jsp"></jsp:include>
     <div id="actions" class="btn-group">
-    	<a class="btn btn-primary" href="<c:url value='/users/advanceForm'/>">
-            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>
+    	<a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=1'/>">
+            <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceAdmin"/></a>
+    	<a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=0'/>">
+            <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceJob"/></a>
         <a class="btn btn-default" href="<c:url value='/home'/>">
             <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>
     </div>
@@ -15,6 +17,7 @@
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
+                 <th><fmt:message key="refund.type"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
@@ -26,6 +29,7 @@
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
+                 <th><fmt:message key="refund.type"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
@@ -44,6 +48,14 @@
 	                 <td class="money">
 	                 	${adv.total}
 	                </td>
+	                <td>
+              		<c:if test="${adv.isAdmin}">
+              			<fmt:message key="refund.adminFee"/>
+              		</c:if>
+              		<c:if test="${!adv.isAdmin}">
+              			<fmt:message key="refund.manifestFee"/>
+              		</c:if>
+              	</td>
 	              	<td>
 	              		<c:if test="${adv.doApproval}">
 	              			<a><i class="fa fa-check"></i></a>
