@@ -728,17 +728,19 @@ public class ReportUtil {
 						.getDocs().getJobNo() : AELConst.EMPTY_STRING);
 				item.setPackageDetail(advancedetail.getGoodDes());
 				item.setAdvanceReason(advancedetail.getDescription());
-				item.setAmount(advancedetail.getAmount().toString());
-				item.setRemainAdvance(listRemainAdvancebyJob.get(
-						advancedetail.getDocs().getId().intValue()).toString());
-				if (!usedRemain.containsKey(advancedetail.getDocs().getId().intValue())) {
-					totalRemainAdv = totalRemainAdv.add(listRemainAdvancebyJob.get(
-							advancedetail.getDocs().getId().intValue()));
-					usedRemain.put(advancedetail.getDocs().getId().intValue(), totalRemainAdv);
+				item.setAmount(ConvertUtil.getNotNullValue(advancedetail.getAmount()));
+				if (advanceForm.getIsAdmin() != null && advanceForm.getIsAdmin() == false){
+					item.setRemainAdvance(ConvertUtil.getNotNullValue(listRemainAdvancebyJob.get(
+							advancedetail.getDocs().getId().intValue())));
+					if (!usedRemain.containsKey(advancedetail.getDocs().getId().intValue())) {
+						totalRemainAdv = totalRemainAdv.add(listRemainAdvancebyJob.get(
+								advancedetail.getDocs().getId().intValue()));
+						usedRemain.put(advancedetail.getDocs().getId().intValue(), totalRemainAdv);
+					}
 				}
 				
 				item.setIndex(index);
-				total += advancedetail.getAmount().doubleValue();
+				total += ConvertUtil.getNotNullValue(advancedetail.getAmount()).doubleValue();
 				listAdvance.add(item);
 			}
 		}
@@ -749,7 +751,7 @@ public class ReportUtil {
 		beans.put("employee", advanceForm.getEmployee());
 		beans.put("refundDate",
 				CommonUtil.getDateString(advanceForm.getTimeRefund()));
-		beans.put("totalRemainAdv", totalRemainAdv.toString());
+		beans.put("totalRemainAdv", ConvertUtil.getNotNullValue(totalRemainAdv));
 		return beans;
 	}
 
