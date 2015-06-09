@@ -155,6 +155,11 @@ ADD COLUMN placePutCont VARCHAR(255) NULL
 ----07062015
 ALTER TABLE `ael`.`advanceform` 
 ADD COLUMN `isAdmin` INT(1) NULL AFTER `payReason`;
+
+update advanceform 
+set isAdmin = 0
+where id>0;
+
 ALTER TABLE `ael`.`refund` 
 ADD COLUMN `isRAdmin` INT(1) NULL AFTER `isAdmin`;
 
