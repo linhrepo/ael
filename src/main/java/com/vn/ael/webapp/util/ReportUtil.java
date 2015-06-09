@@ -711,7 +711,7 @@ public class ReportUtil {
 		List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
 		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
 		if (!listAdvanceDetail.isEmpty()) {
-			for (Advancedetail advancedetail : listAdvanceDetail) {
+			/*for (Advancedetail advancedetail : listAdvanceDetail) {
 				try {
 					if (listRemainAdvancebyJob.containsKey(advancedetail.getDocs().getId().intValue())) {
 						BigDecimal tmp = listRemainAdvancebyJob.get(advancedetail.getDocs().getId().intValue()).subtract(advancedetail.getAmount());
@@ -722,7 +722,7 @@ public class ReportUtil {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-			}
+			}*/
 			Map<Integer, BigDecimal> usedRemain = new HashMap<Integer, BigDecimal>();
 			for (Advancedetail advancedetail : listAdvanceDetail) {
 				AdvanceRequestItem item = new AdvanceRequestItem();
