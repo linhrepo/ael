@@ -100,10 +100,17 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 
 	@Override
 	public List<Advanceform> searchAdvanceForm(Search search) {
-		return advanceFormRepository.searchAdvanceForm(search.getEmployee(),
+		if(search.getJob() != null && !search.getJob().isEmpty()){
+			return advanceFormRepository.searchAdvanceForm(search.getEmployee(),
+					search.getStartDate(), search.getEndDate(),
+					search.getStartTimeRefund(), search.getEndTimeRefund(),
+					search.getDoApproval(), search.getJob());
+		}
+		return advanceFormRepository.searchAdvanceFormAll(search.getEmployee(),
 				search.getStartDate(), search.getEndDate(),
 				search.getStartTimeRefund(), search.getEndTimeRefund(),
 				search.getDoApproval());
+		
 	}
 
 	@Override

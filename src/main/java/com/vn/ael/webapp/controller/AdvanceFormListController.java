@@ -34,6 +34,7 @@ import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
+import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -60,6 +61,13 @@ public class AdvanceFormListController extends BaseFormController {
 		this.refundManager = refundManager;
 
 	}
+	
+	private DocsgeneralManager docsgeneralManager;
+
+    @Autowired
+    public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
+        this.docsgeneralManager = docsgeneralManager;
+    }
 
 	public AdvanceFormListController() {
 		setCancelView("redirect:" + URLReference.HOME_PAGE);
@@ -88,6 +96,7 @@ public class AdvanceFormListController extends BaseFormController {
 				.loadSelectionForDocsPage(true);
 		model.addAttribute("docsSelection", docsSelection);
 		model.addAttribute("enumStatus", StatusType.values());
+		model.addAttribute("jobList", docsgeneralManager.getAllJob());
 		return new ModelAndView(URLReference.ADVANCE_REFUNDS, model.asMap());
 	}
 
@@ -116,6 +125,7 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Advanceform> advanceforms = advanceFormManager
 				.searchAdvanceForm(searchAdvanceForm);
 		mav.addObject(advanceforms);
+		mav.addObject("jobList", docsgeneralManager.getAllJob());
 		mav.addObject(refundManager.findByEmpoyee(getUserManager()
 				.getLoggedUser(request),false));
 		// selection
@@ -138,6 +148,7 @@ public class AdvanceFormListController extends BaseFormController {
 		mav.addObject(refunds);
 		mav.addObject(advanceFormManager.findByEmpoyee(getUserManager()
 				.getLoggedUser(request),false));
+		mav.addObject("jobList", docsgeneralManager.getAllJob());
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
