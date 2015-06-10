@@ -15,6 +15,6 @@ import com.vn.ael.persistence.entity.Nhathau;
  */
 public interface NhathauRepository extends GenericRepository<Nhathau> {
 	
-	List<Nhathau> findByType(Integer type);
+	List<Nhathau> findByType(Integer type, Sort sort);
 
 }

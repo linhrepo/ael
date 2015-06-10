@@ -51,6 +51,8 @@ public class EntityUtil {
 	
 	public static Sort TRUCKING_DETAIL_CONTSEAL_SORTING = new Sort(Sort.Direction.ASC, "consteal", "nhathau", "id");
 	
+	public static Sort NHATHAU_DEFAULT_SORTING = new Sort(Sort.Direction.ASC, "name", "code", "id");
+	
 	/**
 	 * Wired all childs of Docsgeneral
 	 * @param docsgeneral

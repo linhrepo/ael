@@ -6,6 +6,8 @@ package com.vn.ael.persistence.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
@@ -39,6 +41,14 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 	 */
 	List<Exfeetable> findByTruckingdetail(Truckingdetail truckingdetail);
 
+	/**
+	 * Find by truckingdetail
+	 * @param truckingdetail
+	 * @return
+	 */
+	@Query("from Exfeetable e where e.truckingdetail.truckingservice.id = :truckingId ")
+	List<Exfeetable> findWithTruckingService(@Param(value = "truckingId") long truckingId);
+	
 	/**
 	 * Find by Exhibition
 	 * @param exhibition

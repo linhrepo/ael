@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.enums.NhathauType;
 import com.vn.ael.persistence.entity.Nhathau;
 import com.vn.ael.persistence.repository.NhathauRepository;
+import com.vn.ael.webapp.util.EntityUtil;
 
 /**
  * @author liv1hc
@@ -32,7 +33,7 @@ public class NhathauManagerImpl extends GenericManagerImpl<Nhathau> implements N
 	@Override
 	public List<Nhathau> findByType(NhathauType type) {
 		if (type != null){
-			return this.nhathauRepository.findByType(type.getValue());
+			return this.nhathauRepository.findByType(type.getValue(),EntityUtil.NHATHAU_DEFAULT_SORTING);
 		}
 		return this.nhathauRepository.findAll();
 	}

@@ -150,7 +150,7 @@ public class AdvanceFormController extends BaseFormController {
 						for (Advancedetail adv : advanceform.getAdvancedetails()) {
 							BigDecimal val = BigDecimal.ZERO;
 							try {
-								val = this.advanceFormManager.calculateRemainAdvance(adv.getDocs().getId(),adv.getAdvanceform().getEmployee().getId(), advanceform.getDate());
+								val = this.advanceFormManager.calculateRemainAdvance(adv.getDocs().getId(),adv.getAdvanceform().getEmployee().getId(), advanceform.getDate(), advanceform.getId());
 								listRemainAdvancebyJob.put(adv.getDocs().getId().intValue(), val);
 							} catch (Exception e) {
 								// TODO: handle exception

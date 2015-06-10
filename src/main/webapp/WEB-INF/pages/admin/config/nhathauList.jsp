@@ -41,7 +41,8 @@
         </tfoot>
         <tbody>
         <c:forEach items="${nhathauList}" var="cons" varStatus="idx">
-        	<tr>
+        	<c:if test="${cons.id != 99 }">
+        		<tr>
         		<td>${idx.index+1}</td>
                 <td>${cons.name}</td>
                 <td>${cons.code}</td>
@@ -53,6 +54,8 @@
                 	<a href="nhathauForm?id=${cons.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
                 </td>
             </tr>
+        	</c:if>
+        	
         </c:forEach>
         </tbody>
     </table>

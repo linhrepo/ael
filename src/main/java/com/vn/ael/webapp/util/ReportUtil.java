@@ -372,8 +372,8 @@ public class ReportUtil {
 
 		beans.put("customFees", customFee);
 		beans.put("fees", fee);
-		beans.put("updateDate",
-				FormatterUtil.formatDate(accountingcus.getLastUpdateDate()));
+		beans.put("customsDate",
+				FormatterUtil.formatDate(accountingcus.getDocsgeneral().getPackageinfo().getCustomsDate()));
 		Customer cust = accountingcus.getDocsgeneral().getCustomer();
 		Docsgeneral doc = accountingcus.getDocsgeneral();
 		beans.put("refNo", accountingcus.getRefNo());
@@ -387,6 +387,9 @@ public class ReportUtil {
 		beans.put("placeDelivery", doc.getPlaceDelivery());
 		beans.put("tentau", doc.getNameVehicle());
 		beans.put("cmb", doc.getCmbText());
+		beans.put("thanhtienTong", ConvertUtil.getNotNullValue(cusFeeTotal).add(chihoTotal));
+		beans.put("tongcongTong", ConvertUtil.getNotNullValue(cusFinalVal).add(chihoFinalVal));
+		
 		if (doc.getIsLCL()){
 			beans.put("vol", doc.getCmbText());
 		}else{
@@ -708,7 +711,7 @@ public class ReportUtil {
 		List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
 		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
 		if (!listAdvanceDetail.isEmpty()) {
-			for (Advancedetail advancedetail : listAdvanceDetail) {
+			/*for (Advancedetail advancedetail : listAdvanceDetail) {
 				try {
 					if (listRemainAdvancebyJob.containsKey(advancedetail.getDocs().getId().intValue())) {
 						BigDecimal tmp = listRemainAdvancebyJob.get(advancedetail.getDocs().getId().intValue()).subtract(advancedetail.getAmount());
@@ -719,7 +722,7 @@ public class ReportUtil {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-			}
+			}*/
 			Map<Integer, BigDecimal> usedRemain = new HashMap<Integer, BigDecimal>();
 			for (Advancedetail advancedetail : listAdvanceDetail) {
 				AdvanceRequestItem item = new AdvanceRequestItem();

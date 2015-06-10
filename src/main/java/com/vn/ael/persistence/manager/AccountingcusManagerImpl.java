@@ -164,6 +164,12 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 	private void updateCustomFee(Accountingcus accountingcus){
 		//calculate trucking fee
 		List<Exfeetable> exfeetables = exfeetableRepository.findByDocsgeneral(accountingcus.getDocsgeneral());
+		List<Exfeetable> truckingFee = exfeetableRepository.findWithTruckingService(accountingcus.getDocsgeneral().getTruckingservice().getId());
+		if (exfeetables != null){
+			exfeetables.addAll(truckingFee);
+		}else{
+			exfeetables = truckingFee;
+		}
 		List<Extendfeeacc> chiho = new ArrayList<Extendfeeacc>();
 		if (exfeetables != null && !exfeetables.isEmpty()){
 			for (Exfeetable exfeetable : exfeetables){

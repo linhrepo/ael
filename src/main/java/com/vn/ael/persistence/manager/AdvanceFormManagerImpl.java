@@ -114,7 +114,8 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 	}
 
 	@Override
-	public BigDecimal calculateRemainAdvance(Long jobId, Long userId, Date advanceDate) {
+	public BigDecimal calculateRemainAdvance(Long jobId, Long userId, Date advanceDate, Long... formId) {
+		Long b1 = formId.length > 0 ? formId[0] : -99;
 		// TODO Auto-generated method stub
 		BigDecimal result = BigDecimal.ZERO;
 		List<Advancedetail> listAdvanceByJobNo = new ArrayList<Advancedetail>();
@@ -134,7 +135,7 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 		if (!listAdvanceByJobNo.isEmpty()) {
 			for (Advancedetail advancedetail : listAdvanceByJobNo) {
 				if (advancedetail.getAdvanceform()!=null) {
-					if (advancedetail.getAdvanceform().getDoApproval() && advancedetail.getAdvanceform().getEmployee().getId().equals(userId) && (advancedetail.getAdvanceform().getDate().before(advanceDate)||advancedetail.getAdvanceform().getDate().equals(advanceDate))) {
+					if (advancedetail.getAdvanceform().getId()!=b1 && advancedetail.getAdvanceform().getDoApproval() && advancedetail.getAdvanceform().getEmployee().getId().equals(userId) && (advancedetail.getAdvanceform().getDate().before(advanceDate)||advancedetail.getAdvanceform().getDate().equals(advanceDate))) {
 						result=result.add(advancedetail.getAmount());
 					}
 				}
