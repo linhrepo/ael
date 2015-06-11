@@ -56,7 +56,15 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			
+			<div class="form-group col-md-4">
+				<appfuse:label styleClass="control-label"
+					key="accountingnhathau.jobNo" />
+				<form:select path="job" id="job" 
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<form:options items="${jobList }"/>
+				</form:select>
+			</div>
 		</div> 
 		<div class="row">
 			<div class="form-group col-md-2">
