@@ -11,6 +11,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.ael.webapp.util.CalculationUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
@@ -31,9 +34,8 @@ public class Refund extends BasicAdvance implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "refund", cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Exfeetable> exfeetables;
-	
-	private Boolean isRAdmin;
 	
 	private Boolean isPhieuThu;
 	
@@ -144,13 +146,7 @@ public class Refund extends BasicAdvance implements Serializable {
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-
-	public Boolean getIsRAdmin() {
-		return isRAdmin;
-	}
-
-	public void setIsRAdmin(Boolean isRAdmin) {
-		this.isRAdmin = isRAdmin;
-	}
+	
+	
 	
 }
