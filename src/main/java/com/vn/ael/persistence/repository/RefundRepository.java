@@ -19,11 +19,22 @@ public interface RefundRepository extends GenericRepository<Refund> {
 	
 	List<Refund> findByEmployee(User employee);
 	
-	@Query("SELECT e FROM Refund e left join e.exfeetables exf WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and (e.employee.id = :employeeId or :employeeId is null) and "
+	@Query("SELECT e FROM Refund e left join e.exfeetables fee WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and (e.employee.id = :employeeId or :employeeId is null) and "
+			+ "(e.date >= :startDate or :startDate is null) and (e.date <= :endDate or :endDate is null) and "
+			+ "(e.doApproval =:doApproval or :doApproval is null) and "
+			+ "(fee.docsgeneral.jobNo = :jobNo or :jobNo = '') "
+			+ " group by e")
+	List<Refund> searchRefund(@Param("employeeId") Long employeeId,
+			@Param("startDate") Date startDate,
+			@Param("endDate") Date endDate,
+			@Param("doApproval") Boolean doApproval, 
+			@Param("jobNo") String jobNo);
+	
+	@Query("SELECT e FROM Refund e left join e.exfeetables exf  WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and (e.employee.id = :employeeId or :employeeId is null) and "
 			+ "(e.date >= :startDate or :startDate is null) and (e.date <= :endDate or :endDate is null) and "
 			+ "(e.doApproval =:doApproval or :doApproval is null)"
 			+ " group by e")
-	List<Refund> searchRefund(@Param("employeeId") Long employeeId,
+	List<Refund> searchRefundAll(@Param("employeeId") Long employeeId,
 			@Param("startDate") Date startDate,
 			@Param("endDate") Date endDate,
 			@Param("doApproval") Boolean doApproval);
