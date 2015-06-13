@@ -5,6 +5,7 @@
 		    </c:if>
 <div class="row">
 			<form:hidden path="refNo"/>
+			<form:hidden path="counting"/>
 		    <div class="form-group col-md-4">
 		        <appfuse:label styleClass="control-label" key="accountingcus.companyType"/>
 		        <form:input path="docsgeneral.customer.name" id="companyType" maxlength="45"  cssClass="form-control" disabled="true"/>

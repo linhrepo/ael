@@ -124,7 +124,7 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 	 * @param accountingcus
 	 */
 	private void updateJobNo(Accountingcus accountingcus){
-		if (accountingcus.getId() == null || accountingcus.getRefNo() == null || accountingcus.getRefNo().isEmpty()){
+		if (accountingcus.getId() == null || accountingcus.getRefNo() == null || accountingcus.getRefNo().isEmpty() || accountingcus.getCounting() == null){
 			if (accountingcus.getDocsgeneral() != null && accountingcus.getDocsgeneral().getId() != null){
 				accountingcus.setDocsgeneral(docsgeneralRepository.getOne(accountingcus.getDocsgeneral().getId()));
 			}
@@ -133,7 +133,7 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 					counting = AELConst.START_COUNT_JOB_ID;
 				}
 				accountingcus.setCounting(counting+1);
-			String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+CommonUtil.addZero(accountingcus.getCounting().toString(), CommonUtil.LENGTH_OF_COUNTER);
+			String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+CommonUtil.addZero(accountingcus.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
 			accountingcus.setRefNo(jobNo);
 		}
 		

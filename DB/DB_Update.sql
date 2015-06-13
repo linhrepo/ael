@@ -162,7 +162,9 @@ where id>0;
 
 ALTER TABLE `ael`.`refund` 
 ADD COLUMN `isRAdmin` INT(1) NULL AFTER `isAdmin`;
-
+--------------------- 13062015
 ALTER TABLE `ael`.`docsgeneral` 
 ADD COLUMN `isCollectMoney` INT(1) DEFAULT 0;
 
+ALTER TABLE `ael`.`accountingcus` 
+ADD UNIQUE INDEX `refNo_UNIQUE` (`refNo` ASC);
