@@ -127,13 +127,15 @@ public class UserFormController extends BaseFormController {
 
             // set a random password if user is added by admin
             if (originalVersion == null && StringUtils.isBlank(user.getPassword())) {
-                user.setPassword(UUID.randomUUID().toString()); // XXX review if
+               // user.setPassword(UUID.randomUUID().toString()); // XXX review if
+            	user.setPassword("123456");
                 // UUID is a
                 // good choice
                 // here
             }
 
             try {
+            	user.setEnabled(true);
                 getUserManager().saveUser(user);
             } catch (final AccessDeniedException ade) {
                 // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity

@@ -19,7 +19,7 @@ public interface RefundRepository extends GenericRepository<Refund> {
 	
 	List<Refund> findByEmployee(User employee);
 	
-	@Query("SELECT e FROM Refund e left join fetch e.exfeetables fee WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and (e.employee.id = :employeeId or :employeeId is null) and "
+	@Query("SELECT e FROM Refund e left join e.exfeetables fee WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and (e.employee.id = :employeeId or :employeeId is null) and "
 			+ "(e.date >= :startDate or :startDate is null) and (e.date <= :endDate or :endDate is null) and "
 			+ "(e.doApproval =:doApproval or :doApproval is null) and "
 			+ "(fee.docsgeneral.jobNo = :jobNo or :jobNo = '') "
@@ -30,7 +30,7 @@ public interface RefundRepository extends GenericRepository<Refund> {
 			@Param("doApproval") Boolean doApproval, 
 			@Param("jobNo") String jobNo);
 	
-	@Query("SELECT e FROM Refund e left join fetch e.exfeetables WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and (e.employee.id = :employeeId or :employeeId is null) and "
+	@Query("SELECT e FROM Refund e left join e.exfeetables exf  WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and (e.employee.id = :employeeId or :employeeId is null) and "
 			+ "(e.date >= :startDate or :startDate is null) and (e.date <= :endDate or :endDate is null) and "
 			+ "(e.doApproval =:doApproval or :doApproval is null)"
 			+ " group by e")
@@ -56,10 +56,10 @@ public interface RefundRepository extends GenericRepository<Refund> {
 			@Param("endDate") Date endDate,
 			@Param("doApproval") Boolean doApproval);
 	
-	@Query("SELECT e FROM Refund e left join fetch e.exfeetables WHERE e.isPhieuThu is null or e.isPhieuThu = false group by e")
+	@Query("SELECT e FROM Refund e left join e.exfeetables exf WHERE e.isPhieuThu is null or e.isPhieuThu = false group by e")
 	List<Refund> findAllThanhToan();
 	
-	@Query("SELECT e FROM Refund e left join fetch e.exfeetables WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and e.employee.id = :employeeId group by e")
+	@Query("SELECT e FROM Refund e left join e.exfeetables exf WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and e.employee.id = :employeeId group by e")
 	List<Refund> findAllThanhToanEmployee(@Param("employeeId")long id);
 	
 	

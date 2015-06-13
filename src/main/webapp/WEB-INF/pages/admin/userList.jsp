@@ -15,13 +15,13 @@
 <div class="col-sm-10">
     <h2><fmt:message key="userList.heading"/></h2>
 
-<!--     <div id="actions" class="btn-group"> -->
-<%--         <a class="btn btn-primary" href="<c:url value='/userform?method=Add&from=list'/>"> --%>
-<%--             <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a> --%>
+    <div id="actions" class="btn-group">
+        <a class="btn btn-primary" href="<c:url value='/userform?method=Add&from=list'/>">
+            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></a>
 
 <%--         <a class="btn btn-default" href="<c:url value='/home'/>"> --%>
 <%--             <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a> --%>
-<!--     </div> -->
+    </div>
 
       
     <table id="userList" class="display" cellspacing="0" width="100%">
