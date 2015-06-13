@@ -107,10 +107,11 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "e.typeOfDocs =:typeOfDocs and "
-			+ "(e.packageinfo.customsDate >= :startDate or :startDate is null) and (e.packageinfo.customsDate <= :endDate or :endDate is null) and "			
+			+ "(e.docReceiveDate >= :startDate or :startDate is null) and (e.docReceiveDate <= :endDate or :endDate is null) and "			
 			+ "(e.packageinfo.consignee = :consignee or :consignee = '') and "
 			+ "(e.packageinfo.shipper = :shipper or :shipper = '') and "
-			+ "(e.jobNo = :jobNo or :jobNo = '')")
+			+ "(e.jobNo = :jobNo or :jobNo = '')"
+			+ " order by e.jobNo, e.docReceiveDate")
 	List<Docsgeneral> searchShipment(@Param("customerId") Long customerId,
 			@Param("typeOfImport") Long typeOfImport,
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
