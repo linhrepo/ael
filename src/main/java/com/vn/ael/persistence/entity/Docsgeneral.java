@@ -135,6 +135,8 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@JoinColumn(name = "typeOfImport")
 	private Configuration typeOfImport;
 	
+	private Boolean isCollectMoney;
+	
 	public BigDecimal getCmb() {
 		return this.cmb;
 	}
@@ -568,6 +570,14 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 
 	public void setDebit(BigDecimal debit) {
 		this.debit = debit;
+	}
+
+	public Boolean getIsCollectMoney() {
+		return isCollectMoney;
+	}
+
+	public void setIsCollectMoney(Boolean isCollectMoney) {
+		this.isCollectMoney = isCollectMoney;
 	}
 	
 	

@@ -105,4 +105,7 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
 	void updateTongChiPhi(List<Docsgeneral> docsgenerals);
 	
+	List<Docsgeneral> findByDoAccountingAndIsCollectMoney(Boolean doAccounting, Boolean isCollectMoney);
+	
+	List<Docsgeneral> searchDebit(Search search);
 }

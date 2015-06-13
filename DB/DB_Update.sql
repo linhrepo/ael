@@ -163,3 +163,6 @@ where id>0;
 ALTER TABLE `ael`.`refund` 
 ADD COLUMN `isRAdmin` INT(1) NULL AFTER `isAdmin`;
 
+ALTER TABLE `ael`.`docsgeneral` 
+ADD COLUMN `isCollectMoney` INT(1) DEFAULT 0;
+

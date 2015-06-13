@@ -28,6 +28,7 @@ public class Search {
 	private Date startSumDate;
 	private Date endSumDate;
 	private String job = null;
+	private Boolean isCollectMoney;
 	
 	public Long getCustomer() {
 		return customer;
@@ -160,6 +161,12 @@ public class Search {
 	}
 	public void setJob(String job) {
 		this.job = job;
+	}
+	public Boolean getIsCollectMoney() {
+		return isCollectMoney;
+	}
+	public void setIsCollectMoney(Boolean isCollectMoney) {
+		this.isCollectMoney = isCollectMoney;
 	}	
 	
 }

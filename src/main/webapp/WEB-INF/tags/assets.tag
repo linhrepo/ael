@@ -56,5 +56,6 @@
 		<script type="text/javascript" src="${base}/scripts/custom/selectionControl.js"></script>
         <script type="text/javascript" src="${base}/scripts/utils.js"></script>
         <script type="text/javascript" src="${base}/scripts/script.js"></script>
+        <script type="text/javascript" src="${base}/scripts/jquery.confirm.min.js"></script>
     </c:otherwise>
 </c:choose>

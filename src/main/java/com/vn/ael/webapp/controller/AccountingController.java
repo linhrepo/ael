@@ -394,4 +394,50 @@ public class AccountingController extends BaseFormController {
         mav.addObject(docsgeneralManager.findByDoAccounting(true));
 		return mav;
 	}
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_MANAGE_DEBIT)
+    public ModelAndView manageDebitRequest() throws Exception {
+        Model model = new ExtendedModelMap();
+        model.addAttribute(docsgeneralManager.findByDoAccountingAndIsCollectMoney(true, false));
+        Search searchAccFee = new Search();
+        model.addAttribute("search", searchAccFee);
+        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        model.addAttribute("enumStatus", StatusType.values());
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.DEBIT_SEARCH)
+	public ModelAndView searchDebit(Search searchDebit)
+			throws Exception {
+		// Model model = new ExtendedModelMap();
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT);
+		
+		List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchDebit);
+		mav.addObject(docsgenerals);
+        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+		return mav;
+	}
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.DEBIT_APPROVE_COLLECT)
+    public ModelAndView approvalMoneyDetailRequest(@RequestParam(value="id") Long id, @RequestParam(value="approve") String approve) throws Exception {
+    	Docsgeneral docsgeneral = docsgeneralManager.get(id);
+    	if(docsgeneral != null){
+    		if(docsgeneral.getIsCollectMoney() == null || !docsgeneral.getIsCollectMoney()){
+    			docsgeneral.setIsCollectMoney(true);
+    		}
+    	}
+    	this.docsgeneralManager.save(docsgeneral);
+    	Model model = new ExtendedModelMap();
+        model.addAttribute(docsgeneralManager.findByDoAccountingAndIsCollectMoney(true, false));
+        Search searchAccFee = new Search();
+        model.addAttribute("search", searchAccFee);
+        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        model.addAttribute("enumStatus", StatusType.values());
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("approve", approve);
+        return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
+    }
 }

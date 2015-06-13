@@ -37,7 +37,6 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.Search;
-import com.vn.ael.webapp.util.CalculationUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
@@ -483,5 +482,20 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			}
 		}
 		
+	}
+
+	@Override
+	public List<Docsgeneral> findByDoAccountingAndIsCollectMoney(
+			Boolean doAccounting, Boolean isCollectMoney) {
+		return docsgeneralRepository.findByDoAccountingAndIsCollectMoney(doAccounting, isCollectMoney);
+	}
+
+	@Override
+	public List<Docsgeneral> searchDebit(Search search) {
+		ServicesType servicesType = null;
+		if(search.getTypeOfDocs() == null){
+			return docsgeneralRepository.searchDebit(true, servicesType, search.getIsCollectMoney(), search.getJob());
+		}
+		return docsgeneralRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), search.getIsCollectMoney(), search.getJob());
 	}
 }

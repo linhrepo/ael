@@ -39,6 +39,14 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	List<Docsgeneral> findByDoAccountingAndTypeOfDocs(Boolean doAccounting, ServicesType typeOfDocs);
 	
 	/**
+	 * Find all by doAccounting value and isCollectMoney
+	 * @param doAccounting
+	 * @param isCollectMoney
+	 * @return
+	 */
+	List<Docsgeneral> findByDoAccountingAndIsCollectMoney(Boolean doAccounting, Boolean isCollectMoney);
+	
+	/**
 	 * Find all by doAccounting and Inland/Sealand
 	 * @param doAccounting
 	 * @return
@@ -129,5 +137,16 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="doDelivery") Boolean doDelivery,
 			@Param(value="checkByAdmin") Boolean checkByAdmin,
 			@Param(value="approved") Boolean approved);
+	
+	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
+			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
+			+ "(e.jobNo =:jobNo or :jobNo = '') and "
+			+ "e.doAccounting =:doAccounting and "
+			+ "(e.isCollectMoney =:isCollectMoney or :isCollectMoney is null) "
+			+ "group by e")
+	List<Docsgeneral> searchDebit(@Param("doAccounting") Boolean doAccounting,
+			@Param(value="typeOfDocs") ServicesType typeOfDocs,
+			@Param(value="isCollectMoney") Boolean isCollectMoney,
+			@Param(value="jobNo") String jobNo);
 }
 

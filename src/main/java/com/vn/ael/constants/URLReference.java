@@ -120,4 +120,8 @@ public interface URLReference {
 	String ACCOUNTING_PHIEUTHU = "/admin/accounting/phieuthu";
 	String ACCOUNTING_PHIEUTHU_DOWNLOAD = "/admin/accounting/phieuthu/download";
 	String ACCOUNTING_PHIEUTHU_SEARCH = "/admin/accounting/searchPhieuThu";
+	String ACCOUNTING_MANAGE_DEBIT = "/admin/accounting/manageDebit";
+	String DEBIT_SEARCH = "/admin/accounting/searchDebit";
+	String DEBIT_APPROVE_COLLECT = "/admin/accounting/approveCollectMoney";
+	
 }
