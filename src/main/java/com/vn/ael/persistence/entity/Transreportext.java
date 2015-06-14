@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.vn.ael.constants.FormatterPattern;
+import com.vn.ael.webapp.util.ConvertUtil;
 
 
 /**
@@ -86,7 +87,7 @@ public class Transreportext extends BasedChildEntity {
 	private BigDecimal total;
 
 	public BigDecimal getTotal() {
-		return total;
+		return ConvertUtil.getNotNullValue(this.priceUnit).add(ConvertUtil.getNotNullValue(this.vatValue));
 	}
 
 	public void setTotal(BigDecimal total) {

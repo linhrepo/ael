@@ -13,8 +13,10 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.webapp.util.CalculationUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 
@@ -112,6 +114,7 @@ public class Refund extends BasicAdvance implements Serializable {
 	}
 	
 	@Transient
+	@NumberFormat(pattern =FormatterPattern.NUMBER)
 	private BigDecimal total;
 	
 	public BigDecimal getTotal(){

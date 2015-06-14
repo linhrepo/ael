@@ -15,7 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.appfuse.model.User;
+import org.springframework.format.annotation.NumberFormat;
 
+import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.webapp.util.ConvertUtil;
 
 
@@ -70,6 +72,7 @@ public class Advanceform extends BasicAdvance implements Serializable {
 	}
 
 	@Transient
+	@NumberFormat(pattern =FormatterPattern.NUMBER)
 	private BigDecimal total;
 	
 	public BigDecimal getTotal(){

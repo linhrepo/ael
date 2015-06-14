@@ -46,7 +46,7 @@
 	                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
 	                </td>
 	                 <td class="money">
-	                 	${adv.total}
+	                 	<fmt:formatNumber pattern="#,###" value="${adv.total}"></fmt:formatNumber>
 	                </td>
 	                <td>
               		<c:if test="${adv.isAdmin}">
