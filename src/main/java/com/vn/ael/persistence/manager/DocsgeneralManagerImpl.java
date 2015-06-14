@@ -25,6 +25,7 @@ import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Inlandsize;
 import com.vn.ael.persistence.entity.Multitype;
+import com.vn.ael.persistence.entity.Transreportext;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.repository.AttachmentRepository;
 import com.vn.ael.persistence.repository.ContsealRepository;
@@ -260,23 +261,25 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				docsgeneral.getTruckingservice().setTruckingdetails(truckingdetails);
 				
 				//calculate other information
-//				if (truckingdetails != null){
-//					for (Truckingdetail truckingdetail : truckingdetails){
-//						List<Exfeetable> exfeetables = truckingdetail.getExfeetables();
-//						if (exfeetables != null && !exfeetables.isEmpty()){
-//							if (docsgeneral.getChiho() == null){
-//								truckingdetail.setChiho(BigDecimal.ZERO);
-//							}
-//							
-//							for (Exfeetable exfeetable : exfeetables){
-//								if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
+				if (truckingdetails != null){
+					for (Truckingdetail truckingdetail : truckingdetails){
+						List<Exfeetable> exfeetables = truckingdetail.getExfeetables();
+						if (exfeetables != null && !exfeetables.isEmpty()){
+							if (docsgeneral.getChiho() == null){
+								truckingdetail.setChiho(BigDecimal.ZERO);
+								truckingdetail.setChihoTruckings(new ArrayList<Exfeetable>());
+							}
+							
+							for (Exfeetable exfeetable : exfeetables){
+								if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
 //									//add to accounting cus
-//									truckingdetail.setChiho(truckingdetail.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
-//								}
-//							}
-//						}
-//					}
-//				}
+									truckingdetail.setChiho(truckingdetail.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
+									truckingdetail.getChihoTruckings().add(exfeetable);
+								}
+							}
+						}
+				}
+				}
 				this.updateChiHo(docsgeneral);
 			}
 		}
@@ -294,7 +297,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			for (Exfeetable exfeetable : exfeetables){
 				if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
 					//add to accounting cus
-					docsgeneral.setChiho(docsgeneral.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
+					docsgeneral.setChiho(docsgeneral.getChiho().add(ConvertUtil.getNotNullValue(exfeetable.getTotal())));
 				}
 			}
 		}

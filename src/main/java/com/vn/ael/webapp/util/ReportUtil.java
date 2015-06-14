@@ -421,8 +421,9 @@ public class ReportUtil {
 		List<AccountingTransportExport> accountingTransExport = new ArrayList<>();
 		BigDecimal chihoTotal = BigDecimal.ZERO;
 		BigDecimal giacaTotal = BigDecimal.ZERO;
-		BigDecimal otherTotal = BigDecimal.ZERO;
-
+		BigDecimal vatAmountTotal = BigDecimal.ZERO;
+		List<List<Exfeetable>> feesListChiho = new ArrayList<>();
+		
 		if (accountingTrans.getDocs() != null) {
 			int i = 0;
 			for (Docsgeneral doc : accountingTrans.getDocs()) {
@@ -435,6 +436,7 @@ public class ReportUtil {
 					for (Truckingdetail truckingdetail : doc
 							.getTruckingservice().getTruckingdetails()) {
 						AccountingTransportExport item = new AccountingTransportExport();
+						feesListChiho.add(truckingdetail.getChihoTruckings());
 						item.setJobNo(doc.getJobNo());
 						item.setDateDev(FormatterUtil.formatDate(truckingdetail
 								.getDateDev()));
@@ -454,24 +456,57 @@ public class ReportUtil {
 						item.setPlaceputcont(truckingdetail.getPlacePutCont());
 						item.setChiho(doc.getChiho());
 						
-						item.setAccountingPrice(truckingdetail
-								.getAccountingPrice());
+						if (truckingdetail.getTransreportext() != null){
+							item.setAccountingPrice(truckingdetail
+									.getTransreportext().getPriceUnit());
+							item.setVat(truckingdetail
+									.getTransreportext().getVat());
+							item.setVatAmount(truckingdetail
+									.getTransreportext().getVatValue());
+							item.setNote(truckingdetail
+									.getTransreportext().getNote());
+						}
+						
+						
 						giacaTotal = giacaTotal.add(ConvertUtil
-								.getNotNullValue(truckingdetail
-										.getAccountingPrice()));
-						item.setOtherfee(truckingdetail.getOtherFees());
-						otherTotal = otherTotal
-								.add(ConvertUtil.getNotNullValue(truckingdetail
-										.getOtherFees()));
+								.getNotNullValue(item.getAccountingPrice()));
+						vatAmountTotal = vatAmountTotal.add(ConvertUtil.getNotNullValue(item.getVatAmount()));
+						
 						item.setIndex(i);
-						item.setTotal(truckingdetail.getTotalTransReport());
+						item.setFeeWithVat(ConvertUtil
+								.getNotNullValue(item.getAccountingPrice()).add(
+										ConvertUtil
+										.getNotNullValue(item.getVatAmount())));
+						item.setTotal(item.getFeeWithVat());
 						accountingTransExport.add(item);
 					}
 				}
 			}
 		}
-
 		Map<String, Object> beans = new LinkedHashMap<>();
+		BigDecimal finalTotal = BigDecimal.ZERO;
+		//chi phi nha thau
+		FeeNameExport  feeNameExportThu = ConvertUtil.fromFeeListToFeeExport(feesListChiho);
+		beans.put("feeNames", feeNameExportThu.getName());
+		List<BigDecimal> totaTruckingFee = ConvertUtil.createListFromSize(feeNameExportThu.getName().size());
+		if (!accountingTransExport.isEmpty() && !feeNameExportThu.getValues().isEmpty()){
+			for (int i=0; i<accountingTransExport.size(); ++i){
+				accountingTransExport.get(i).setConvertedFeeThu(feeNameExportThu.getValues().get(i));
+				//calculate total
+				//BigDecimal total = BigDecimal.ZERO;
+				if (feeNameExportThu.getValues() != null && !feeNameExportThu.getValues().isEmpty()){
+					for (int j=0; j<feeNameExportThu.getValues().get(i).size();++j){
+						totaTruckingFee.set(j,totaTruckingFee.get(j).add(ConvertUtil.getNotNullValue(feeNameExportThu.getValues().get(i).get(j).getFeeVal())));
+						accountingTransExport.get(i).setTotal(
+								accountingTransExport.get(i).getTotal().add(ConvertUtil.getNotNullValue(feeNameExportThu.getValues().get(i).get(j).getFeeVal())));
+					}
+					finalTotal = finalTotal.add(accountingTransExport.get(i).getTotal());
+				}
+			}
+		}
+		beans.put("totaTruckingFees", totaTruckingFee);
+
+		
 		Customer cust = accountingTrans.getCustomer();
 		beans.put("custCode", cust.getCode());
 		beans.put("custName", cust.getName());
@@ -479,15 +514,17 @@ public class ReportUtil {
 		beans.put("custTaxNo", cust.getTaxno());
 		beans.put("custPhone", cust.getTel());
 		beans.put("custFax", cust.getFax());
-		beans.put("trans", accountingTransExport);
+		beans.put("tranreports", accountingTransExport);
 		beans.put("startDate", accountingTrans.getCondition().getStartDate());
 		beans.put("endDate", accountingTrans.getCondition().getEndDate());
 		beans.put("refNo", accountingTrans.getRefNo());
 		beans.put("chihoTotal", chihoTotal);
 		beans.put("giacaTotal", giacaTotal);
-		beans.put("otherTotal", otherTotal);
-		BigDecimal finalTotal = chihoTotal.add(giacaTotal).add(otherTotal);
+		beans.put("vatAmountTotal", vatAmountTotal);
+		beans.put("thanhtien", giacaTotal.add(vatAmountTotal));
 		beans.put("total", finalTotal);
+		finalTotal = finalTotal.add(chihoTotal);
+		beans.put("finalTotal", finalTotal);
 		beans.put("totalText",ConvertUtil.convertToVND(finalTotal) );
 		return beans;
 	}

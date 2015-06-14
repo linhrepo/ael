@@ -536,5 +536,13 @@ public class ConvertUtil {
 		}
 		return integers;
 	}
+	
+	public static List<BigDecimal> createListFromSize(int size){
+		List<BigDecimal> integers = new ArrayList<>();
+		for (int i=0 ; i<size ; ++i){
+			integers.add(BigDecimal.ZERO);
+		}
+		return integers;
+	}
 
 }

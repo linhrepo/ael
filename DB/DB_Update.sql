@@ -168,3 +168,29 @@ ADD COLUMN `isCollectMoney` INT(1) DEFAULT 0;
 
 ALTER TABLE `ael`.`accountingcus` 
 ADD UNIQUE INDEX `refNo_UNIQUE` (`refNo` ASC);
+
+CREATE TABLE `ael`.`transreportext` (
+  `id` BIGINT(20) NOT NULL,
+  `priceUnit` DECIMAL(20,2) NULL,
+  `price` DECIMAL(20,2) NULL,
+  `vat` DECIMAL(10,2) NULL,
+  `vatValue` DECIMAL(20,2) NULL,
+  `truckingDetail` BIGINT(20) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `reportToTruckDetail_idx` (`truckingDetail` ASC),
+  CONSTRAINT `reportToTruckDetail`
+    FOREIGN KEY (`truckingDetail`)
+    REFERENCES `ael`.`truckingdetail` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+ALTER TABLE `ael`.`transreportext` 
+CHANGE COLUMN `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `ael`.`transreportext` 
+ADD COLUMN `note` VARCHAR(250) NULL AFTER `truckingDetail`;
+
+
+

@@ -177,7 +177,7 @@
 					<form:input
 							path="accountingcusdetails[${idx.index}].generalVat"
 							id="description${idx.index}" 
-							cssClass="form-control money vat"/> 
+							cssClass="form-control money2 vat"/> 
 					<form:errors
 								path="accountingcusdetails[${idx.index}].generalVat"
 								cssClass="help-block" />
@@ -185,12 +185,12 @@
 				</td>
 				<td data-title="<fmt:message key="accountingcus.feevat"/>">
 					<div class="form-group">
-				        <form:input path="accountingcusdetails[${idx.index}].feevat" cssClass="form-control money vatAmount readonly" readonly="readonly"/>
+				        <form:input path="accountingcusdetails[${idx.index}].feevat" cssClass="form-control money vatAmount readonly" readonly="true"/>
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.feewithvat"/>">
 					<div class="form-group">
-				        <form:input path="accountingcusdetails[${idx.index}].feewithvat" cssClass="form-control money total readonly" readonly="readonly"/>
+				        <form:input path="accountingcusdetails[${idx.index}].feewithvat" cssClass="form-control money total readonly" readonly="true"/>
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.note"/>">

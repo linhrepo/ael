@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class AccountingTransportExport {
 	private String jobNo;
@@ -19,9 +20,13 @@ public class AccountingTransportExport {
 	private String placeputcont;
 	private BigDecimal chiho;
 	private BigDecimal accountingPrice;
-	private BigDecimal otherfee;
+	private BigDecimal vat;
+	private BigDecimal vatAmount;
+	private String note;
 	private BigDecimal total;
 	private Integer index;
+	private BigDecimal feeWithVat;
+	private List<FeeExportItem> convertedFeeThu;
 	/**
 	 * @return the noOfOthCont
 	 */
@@ -75,12 +80,6 @@ public class AccountingTransportExport {
 	 */
 	public void setAccountingPrice(BigDecimal accountingPrice) {
 		this.accountingPrice = accountingPrice;
-	}
-	/**
-	 * @param otherfee the otherfee to set
-	 */
-	public void setOtherfee(BigDecimal otherfee) {
-		this.otherfee = otherfee;
 	}
 	/**
 	 * @param total the total to set
@@ -232,13 +231,6 @@ public class AccountingTransportExport {
 	}
 	
 	/**
-	 * @return the otherfee
-	 */
-	public BigDecimal getOtherfee() {
-		return otherfee;
-	}
-	
-	/**
 	 * @return the total
 	 */
 	public BigDecimal getTotal() {
@@ -285,7 +277,6 @@ public class AccountingTransportExport {
 		this.placeputcont = placeputcont;
 		this.chiho = chiho;
 		this.accountingPrice = accountingPrice;
-		this.otherfee = otherfee;
 		this.total = total;
 	}
 	public AccountingTransportExport() {
@@ -296,6 +287,36 @@ public class AccountingTransportExport {
 	}
 	public void setIndex(Integer index) {
 		this.index = index;
+	}
+	public BigDecimal getVat() {
+		return vat;
+	}
+	public void setVat(BigDecimal vat) {
+		this.vat = vat;
+	}
+	public BigDecimal getVatAmount() {
+		return vatAmount;
+	}
+	public void setVatAmount(BigDecimal vatAmount) {
+		this.vatAmount = vatAmount;
+	}
+	public List<FeeExportItem> getConvertedFeeThu() {
+		return convertedFeeThu;
+	}
+	public void setConvertedFeeThu(List<FeeExportItem> convertedFeeThu) {
+		this.convertedFeeThu = convertedFeeThu;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public BigDecimal getFeeWithVat() {
+		return feeWithVat;
+	}
+	public void setFeeWithVat(BigDecimal feeWithVat) {
+		this.feeWithVat = feeWithVat;
 	}
 	
 }

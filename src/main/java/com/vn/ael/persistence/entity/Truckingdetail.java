@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.springframework.format.annotation.NumberFormat;
@@ -35,6 +36,9 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	private String noOfVehicle;
 
 	private String vehicleNo;
+	
+	@OneToOne(mappedBy = "truckingdetail", cascade = CascadeType.ALL)
+	private Transreportext transreportext;
 	
 	//bi-directional many-to-one association to Truckingservice
 	@ManyToOne
@@ -211,5 +215,27 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 		return ConvertUtil.getNotNullValue(this.chiho).add(ConvertUtil.getNotNullValue(this.accountingPrice))
 				.add(ConvertUtil.getNotNullValue(otherFees));
 	}
+
+	public Transreportext getTransreportext() {
+		return transreportext;
+	}
+
+	public void setTransreportext(Transreportext transreportext) {
+		this.transreportext = transreportext;
+	}
 	
+	//just used for trans report
+	@Transient
+	private List<Exfeetable> chihoTruckings;
+
+	public List<Exfeetable> getChihoTruckings() {
+		return chihoTruckings;
+	}
+
+	public void setChihoTruckings(List<Exfeetable> chihoTruckings) {
+		this.chihoTruckings = chihoTruckings;
+	}
+	
+	
+
 }
