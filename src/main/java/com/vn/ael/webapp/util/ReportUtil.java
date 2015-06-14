@@ -1180,8 +1180,15 @@ public class ReportUtil {
 						.getDocsgeneral().getJobNo() : AELConst.EMPTY_STRING);
 				item.setDescription(exfeetable.getName().getValue());
 				BigDecimal total = CalculationUtil.getTotalWithVat(exfeetable.getVat(), exfeetable.getAmount());
-				item.setAmount(NumberFormat.getCurrencyInstance().format(total).replace("$", ""));
-				totalAmount = totalAmount.add(total);
+				if (exfeetable.getInvoiceNo() == null || exfeetable.getInvoiceNo().isEmpty() || exfeetable.getInvoiceNo().trim().isEmpty()){
+					item.setoAmount(NumberFormat.getCurrencyInstance().format(total).replace("$", ""));
+					totalOAmount = totalOAmount.add(total);
+				}else{
+					item.setAmount(NumberFormat.getCurrencyInstance().format(total).replace("$", ""));
+					totalAmount = totalAmount.add(total);
+				}
+				
+				
 				try {
 					if (exfeetable.getDocsgeneral().getIsLCL()) {
 						item.setCont("LCL");
