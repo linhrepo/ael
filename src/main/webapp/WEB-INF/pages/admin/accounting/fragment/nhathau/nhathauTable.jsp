@@ -68,6 +68,9 @@
 							<c:when test="${not empty truck.truckingservice.docsgeneral.packageinfo && truck.truckingservice.docsgeneral.typeOfImport.id == -3}">
 								${truck.truckingservice.docsgeneral.packageinfo.portOfArrival}
 						  	</c:when>
+						  	<c:when test="${not empty truck.truckingservice.docsgeneral.inland}">
+								${truck.placeGetCont}
+						  	</c:when>
 						  	<c:otherwise>
 						  		${truck.truckingservice.docsgeneral.placeRev}
 						  	</c:otherwise>
@@ -79,6 +82,9 @@
 						<c:choose>
 							<c:when test="${not empty truck.truckingservice.docsgeneral.packageinfo && truck.truckingservice.docsgeneral.typeOfImport.id == -3}">
 								${truck.truckingservice.departure}
+						  	</c:when>
+						  	<c:when test="${not empty truck.truckingservice.docsgeneral.inland}">
+								${truck.placePutCont}
 						  	</c:when>
 						  	<c:otherwise>
 						  		${truck.truckingservice.docsgeneral.placeDelivery}

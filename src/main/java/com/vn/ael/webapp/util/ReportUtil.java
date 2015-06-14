@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -395,7 +396,7 @@ public class ReportUtil {
 		}else{
 			beans.put("vol", doc.getPackageinfo().getContNo());
 		}
-		beans.put("totalText", ConvertUtil.convertToVND(finalTotal));
+		beans.put("totalText", ConvertUtil.convertToVND(finalTotal.setScale(0, RoundingMode.HALF_UP)));
 		beans.put("aelJob", doc.getJobNo());
 		beans.put("noOfPkgs", doc.getNoOfPkgsText());
 		beans.put("kg", doc.getWeigthText());
@@ -558,6 +559,10 @@ public class ReportUtil {
 				if(docsgeneral.getPackageinfo() != null && docsgeneral.getTypeOfImport().getId() == -3){
 					accountingNhathauExport.setPlaceGetCont(docsgeneral.getPackageinfo().getPortOfArrival());
 					accountingNhathauExport.setPlacePutCont(truckingdetail.getTruckingservice().getDeparture());
+				}
+				else if (docsgeneral.getInland() != null){
+					accountingNhathauExport.setPlaceGetCont(truckingdetail.getPlaceGetCont());
+					accountingNhathauExport.setPlacePutCont(truckingdetail.getPlacePutCont());
 				}
 				else{
 					accountingNhathauExport.setPlaceGetCont(docsgeneral.getPlaceRev());
