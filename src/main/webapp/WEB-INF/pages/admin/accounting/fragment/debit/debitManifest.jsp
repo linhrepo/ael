@@ -70,7 +70,7 @@
 		$('#approveMoney').click(function(){
 			
 			$.confirm({
-			    text: "Are you sure you want to delete that comment?",
+			    text: '<fmt:message key="debit.confirmApprove"/>',
 			    confirm: function() {
 			    	$(location).attr('href','<c:url value="approveCollectMoney?id="></c:url>' + $('#approveMoney').attr("value") + "&approve=1");
 			    },
