@@ -28,6 +28,8 @@
 			<th><fmt:message key="packageInfo.feevavat" /></th>
 			<th><fmt:message key="packageIngo.total" /></th>
 			<th><fmt:message key="inland.feeInvoiceNo" /></th>
+			<th><fmt:message key="refund.accApproved" /></th>
+			<th><fmt:message key="refund.adminApproved" /></th>
 			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
@@ -114,6 +116,22 @@
 						path="exfeetables[${idx.index}].invoiceNo"
 						cssClass="help-block" />
 					</div></td>
+					<td verify="true">
+					<form:checkbox path="exfeetables[${idx.index}].approved" disabled="true"/>
+					<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_ACCOUNTING">
+				  				<c:if test="${refund.doApproval==true}">
+				  					<form:hidden path="doApproval" />
+				  				</c:if>
+			  				</security:authorize>
+					</td>
+					<td verify="true">
+					<form:checkbox path="exfeetables[${idx.index}].checkByAdmin" disabled="true"/>
+					<security:authorize ifNotGranted="ROLE_ADMIN">
+				  				<c:if test="${refund.doApproval==true}">
+				  					<form:hidden path="doApproval" />
+				  				</c:if>
+			  				</security:authorize>
+					</td>
 					<td rowType="actions">
 					<c:if test="${(empty refund.doApproval or refund.doApproval==false) and (empty exfeetable.approved or exfeetable.approved == false) }">
 						<span class="iconButton removeRow"
