@@ -7,9 +7,9 @@
 		<tr>
 			<th rowspan="2"><fmt:message key="table.no" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.jobNo" /></th>
+			<th rowspan="2"><fmt:message key="accountingtrans.khonhan"/></th>
+			<th rowspan="2"><fmt:message key="accountingtrans.khogiao"/></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.dateDev"/></th>
-<%-- 			<th rowspan="2"><fmt:message key="accountingtrans.khonhan"/></th> --%>
-<%-- 			<th rowspan="2"><fmt:message key="accountingtrans.khogiao"/></th> --%>
 <%-- 			<th colspan="4" class="centerText"><fmt:message key="accountingtrans.typeOfContainer"/></th> --%>
 			<th rowspan="2"><fmt:message key="accountingtrans.vehicleNo" /></th>
 			<th rowspan="2"><fmt:message key="accountingtrans.contNo" /></th>
@@ -55,6 +55,16 @@
 				        ${doc.jobNo}
 				    </div>
 				</td>
+					<td data-title="<fmt:message key="accountingtrans.khonhan" />" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
+					<div class="form-group">
+				        ${doc.placeRev}
+				    </div>
+				</td>
+				<td data-title="<fmt:message key="accountingtrans.khogiao" />" rowspan="${fn:length(doc.truckingservice.truckingdetails)}">
+					<div class="form-group">
+				        ${doc.placeDelivery}
+				    </div>
+				</td>
 		  		</c:if>
 		  		
 		  		<td data-title="<fmt:message key="accountingtrans.dateDev" />">
@@ -64,16 +74,7 @@
 				</td>
 				
 <%-- 				<c:if test="${indx.index == 0 }"> --%>
-<%-- 					<td data-title="<fmt:message key="accountingtrans.khonhan" />" rowspan="${fn:length(doc.truckingservice.truckingdetails)}"> --%>
-<!-- 					<div class="form-group"> -->
-<%-- 				        ${doc.placeRev} --%>
-<!-- 				    </div> -->
-<!-- 				</td> -->
-<%-- 				<td data-title="<fmt:message key="accountingtrans.khogiao" />" rowspan="${fn:length(doc.truckingservice.truckingdetails)}"> --%>
-<!-- 					<div class="form-group"> -->
-<%-- 				        ${doc.placeDelivery} --%>
-<!-- 				    </div> -->
-<!-- 				</td> -->
+				
 <%-- 				<td data-title="<fmt:message key="accountingtrans.typeOfContainer"/>:<fmt:message key="accountingtrans.20"/>" rowspan="${fn:length(doc.truckingservice.truckingdetails)}"> --%>
 <!-- 					<div class="form-group"> -->
 <%-- 						${doc.noOf20Cont} --%>
