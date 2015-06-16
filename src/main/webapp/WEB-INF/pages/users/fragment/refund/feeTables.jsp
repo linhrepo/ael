@@ -44,9 +44,6 @@
 						valueType="added" /> <form:hidden
 						path="exfeetables[${idx.index}].isDeleted"
 						valueType="deleted" />
-						 <form:hidden
-						path="exfeetables[${idx.index}].approved"
-						/>
 						<form:hidden
 						path="exfeetables[${idx.index}].dateChange"
 						/>
