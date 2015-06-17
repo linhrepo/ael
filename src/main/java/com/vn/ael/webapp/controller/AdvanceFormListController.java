@@ -523,9 +523,9 @@ public class AdvanceFormListController extends BaseFormController {
 				if(refund.getDate() != null){
 					String rDate = dateFormat.format(refund.getDate());
 					Date refundDate = dateFormat.parse(rDate);
-					if (refund.getIsAdmin()!=true && refundDate.before(dateStart) || refundDate.equals(dateStart)) {
+					if ((refund.getIsAdmin() == null || refund.getIsAdmin()==false) && refundDate.before(dateStart) || refundDate.equals(dateStart)) {
 						listRefundBefore.add(refund);
-					} else if (refund.getIsAdmin()!=true && refundDate.after(dateStart)
+					} else if ((refund.getIsAdmin() == null || refund.getIsAdmin()==false) && refundDate.after(dateStart)
 							&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
 						listRefundBetween.add(refund);
 					}
