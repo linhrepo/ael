@@ -37,14 +37,15 @@
 					<spring:bind path="accountingcus.extendfeeaccs[${idx.index}].description.id">
 					<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}" addUrl="/admin/config/constant" type="24">
 					</spring:bind>
-					<form:select
+					<%-- <form:select
 							path="extendfeeaccs[${idx.index}].description.id"
 							id="description${idx.index}" autofocus="true"
 							items="${selections['debitfeesDes']}"
 							cssClass="form-control"/> 
 								 <form:errors
 								path="extendfeeaccs[${idx.index}].description.id"
-								cssClass="help-block" />
+								cssClass="help-block" /> --%>
+						<form:input id="description${idx.index}" type="text" path="extendfeeaccs[${idx.index}].feeowner.name.description" cssClass="form-control" readonly="true"/>
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingcus.typeOfContainer"/>:<fmt:message key="accountingcus.20" />">
