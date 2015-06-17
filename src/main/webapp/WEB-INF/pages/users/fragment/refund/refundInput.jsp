@@ -7,7 +7,7 @@
 	    <div class="row">
 	    	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
 		    	<spring:bind path="refund.employee.id">
-			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="refund.employee"/>
 			        <form:select path="employee.id" cssClass="form-control select2">
@@ -20,13 +20,17 @@
 		    </security:authorize>
 		    <security:authorize ifNotGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
 		    	<form:hidden path="employee.id"/>
-		    	<div class="form-group col-md-3">
+		    	<div class="form-group col-md-2">
 		    		<appfuse:label styleClass="control-label" key="refund.employee"/>
 		    		<input class="form-control" value="${refund.employee.firstName}&nbsp;${refund.employee.lastName}" readonly="readonly"/>
 		    	</div>
 		    </security:authorize>
+		    <div class="form-group col-md-2">
+	    		<appfuse:label styleClass="control-label" key="advanceform.refcode"/>
+	    		<input class="form-control" value="${refund.refCode}" id="refCode" readonly="readonly"/>
+	    	</div>
 		    <spring:bind path="refund.date">
-		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-2">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="refund.date"/>
 		        <form:input path="date" id="date"  cssClass="form-control"/>

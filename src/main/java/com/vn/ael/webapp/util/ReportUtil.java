@@ -797,6 +797,7 @@ public class ReportUtil {
 		beans.put("refundDate",
 				CommonUtil.getDateString(advanceForm.getTimeRefund()));
 		beans.put("totalRemainAdv", ConvertUtil.getNotNullValue(totalRemainAdv));
+		beans.put("refNo", advanceForm.getRefCode());
 		return beans;
 	}
 
@@ -846,7 +847,7 @@ public class ReportUtil {
 			parameterMap.put("grandTotal", NumberFormat.getCurrencyInstance().format(grandTotal).replace("$", ""));
 			parameterMap.put("refundDate",
 					CommonUtil.getDateString(refund.getDate()));
-			parameterMap.put("refNo", refund.getRefNo());
+			parameterMap.put("refNo", refund.getRefCode());
 		}
 		return parameterMap;
 	}
@@ -868,7 +869,7 @@ public class ReportUtil {
 		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
 		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
 		parameterMap.put("year", cal.get(Calendar.YEAR));
-		parameterMap.put("refNo", advanceForm.getRefNo());
+		parameterMap.put("refNo", advanceForm.getRefCode());
 		parameterMap.put("employee", advanceForm.getEmployee());
 		parameterMap.put("reason", advanceForm.getPayReason());
 		parameterMap.put("amount", total);
@@ -907,7 +908,7 @@ public class ReportUtil {
 		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
 		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
 		parameterMap.put("year", cal.get(Calendar.YEAR));
-		parameterMap.put("refNo", refund.getRefNo());
+		parameterMap.put("refNo", refund.getRefCode());
 		parameterMap.put("employee", refund.getEmployee());
 		parameterMap.put("reason", payReason);
 		parameterMap.put("amount", total);
@@ -1212,7 +1213,7 @@ public class ReportUtil {
 			parameterMap.put("grandTotal", NumberFormat.getCurrencyInstance().format(grandTotal).replace("$", ""));
 			parameterMap.put("refundDate",
 					CommonUtil.getDateString(refund.getDate()));
-			parameterMap.put("refNo", refund.getRefNo());
+			parameterMap.put("refNo", refund.getRefCode());
 		}
 		return parameterMap;
 	}

@@ -40,7 +40,7 @@
         </tfoot>
         <tbody>
         <c:forEach items="${docsgeneralList}" var="trucking" varStatus="idx">
-        	<tr params="docId=${trucking.id}">
+        	<tr params="docId=${trucking.id}" class="${trucking.isCollectMoney ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>

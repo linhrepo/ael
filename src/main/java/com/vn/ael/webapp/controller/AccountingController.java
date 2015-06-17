@@ -398,7 +398,7 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_MANAGE_DEBIT)
     public ModelAndView manageDebitRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccountingAndIsCollectMoney(true, false));
+        model.addAttribute(docsgeneralManager.findByDoAccounting(true));
         Search searchAccFee = new Search();
         model.addAttribute("search", searchAccFee);
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());

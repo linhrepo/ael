@@ -91,8 +91,6 @@ public class Advanceform extends BasicAdvance implements Serializable {
 
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
-	}
-	
-	
+	}		
 
 }

@@ -1,9 +1,12 @@
 package com.vn.ael.persistence.entity;
 
 import java.util.Date;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+
 import org.appfuse.model.User;
 
 @MappedSuperclass
@@ -61,5 +64,15 @@ public class BasicAdvance extends BasedEntityTracking{
 
 	public void setPayReason(String payReason) {
 		this.payReason = payReason;
+	}
+	
+	@Transient
+	private String refCode;
+	
+	public String getRefCode(){
+		if(this.getId() != null && this.getEmployee() != null){
+			this.refCode = String.valueOf(this.getEmployee().getId()) + String.valueOf(this.getId());
+		}
+		return this.refCode;
 	}
 }

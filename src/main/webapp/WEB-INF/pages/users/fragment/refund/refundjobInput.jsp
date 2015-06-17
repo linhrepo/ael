@@ -25,6 +25,10 @@
 		    		<input class="form-control" value="${refund.employee.firstName}&nbsp;${refund.employee.lastName}" readonly="readonly"/>
 		    	</div>
 		    </security:authorize>
+		    <div class="form-group col-md-3">
+	    		<appfuse:label styleClass="control-label" key="advanceform.refcode"/>
+	    		<input class="form-control" value="${refund.refCode}" id="refCode" readonly="readonly"/>
+	    	</div>
 		    <spring:bind path="refund.date">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		    </spring:bind>
