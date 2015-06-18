@@ -193,5 +193,9 @@ CHANGE COLUMN `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT ;
 ALTER TABLE `ael`.`transreportext` 
 ADD COLUMN `note` VARCHAR(250) NULL AFTER `truckingDetail`;
 
+--------------------- 18062015
+ALTER TABLE `ael`.`refunddetail` 
+ADD COLUMN `approved` INT(1) NULL AFTER `oAmount`,
+ADD COLUMN `checkByAdmin` INT(1) NULL AFTER `approved`;
 
 

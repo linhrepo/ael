@@ -9,6 +9,8 @@
                 <th><fmt:message key="refund.description"/></th>
                 <th><fmt:message key="refund.amount"/></th>
                 <th><fmt:message key="refund.oAmount"/></th>
+                <th><fmt:message key="refund.accApproved" /></th>
+				<th><fmt:message key="refund.adminApproved" /></th>
                 <c:if test="${empty refund.doApproval or refund.doApproval==false}">
                 	<th><fmt:message key="table.action"/></th>
                 </c:if>
@@ -55,6 +57,22 @@
 					        <form:errors path="refunddetails[${idx.index}].oAmount" cssClass="help-block"/>
 					    </div>
 	            </td>
+	            <td verify="true">
+					<form:checkbox path="refunddetails[${idx.index}].approved" disabled="true"/>
+					<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_ACCOUNTING">
+				  				<c:if test="${refund.doApproval==true}">
+				  					<form:hidden path="doApproval" />
+				  				</c:if>
+			  				</security:authorize>
+					</td>
+					<td verify="true">
+					<form:checkbox path="refunddetails[${idx.index}].checkByAdmin" disabled="true"/>
+					<security:authorize ifNotGranted="ROLE_ADMIN">
+				  				<c:if test="${refund.doApproval==true}">
+				  					<form:hidden path="doApproval" />
+				  				</c:if>
+			  				</security:authorize>
+					</td>
 				<c:if test="${empty refund.doApproval or refund.doApproval==false}">
 	                <td>
 	                	<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">

@@ -36,6 +36,10 @@ public class Refunddetail extends BasedChildEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="refundForm")
 	private Refund refund;
+	
+	private Boolean approved = false;
+	
+	private Boolean checkByAdmin = false;
 
 	public Refunddetail() {
 	}
@@ -78,6 +82,34 @@ public class Refunddetail extends BasedChildEntity implements Serializable {
 
 	public void setRefund(Refund refund) {
 		this.refund = refund;
+	}
+
+	/**
+	 * @return the approved
+	 */
+	public Boolean getApproved() {
+		return approved;
+	}
+
+	/**
+	 * @param approved the approved to set
+	 */
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
+	}
+
+	/**
+	 * @return the checkByAdmin
+	 */
+	public Boolean getCheckByAdmin() {
+		return checkByAdmin;
+	}
+
+	/**
+	 * @param checkByAdmin the checkByAdmin to set
+	 */
+	public void setCheckByAdmin(Boolean checkByAdmin) {
+		this.checkByAdmin = checkByAdmin;
 	}
 
 }
