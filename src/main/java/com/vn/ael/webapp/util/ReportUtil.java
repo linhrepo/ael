@@ -35,6 +35,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jxls.exception.ParsePropertyException;
 import net.sf.jxls.transformer.XLSTransformer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -456,7 +457,7 @@ public class ReportUtil {
 						item.setPlacegetcont(truckingdetail.getPlaceGetCont());
 						item.setPlaceputcont(truckingdetail.getPlacePutCont());
 						item.setChiho(doc.getChiho());
-						
+						item.setInvoiceMani(doc.getInvoiceChiho());
 						if (truckingdetail.getTransreportext() != null){
 							item.setAccountingPrice(truckingdetail
 									.getTransreportext().getPriceUnit());
@@ -498,6 +499,9 @@ public class ReportUtil {
 				if (feeNameExportThu.getValues() != null && !feeNameExportThu.getValues().isEmpty()){
 					for (int j=0; j<feeNameExportThu.getValues().get(i).size();++j){
 						totaTruckingFee.set(j,totaTruckingFee.get(j).add(ConvertUtil.getNotNullValue(feeNameExportThu.getValues().get(i).get(j).getFeeVal())));
+						if ( StringUtils.isNotBlank(feeNameExportThu.getValues().get(i).get(j).getSoHD())){
+							accountingTransExport.get(i).setInvoiceTruck(accountingTransExport.get(i).getInvoiceTruck()+ feeNameExportThu.getValues().get(i).get(j).getSoHD());
+						}
 						accountingTransExport.get(i).setTotal(
 								accountingTransExport.get(i).getTotal().add(ConvertUtil.getNotNullValue(feeNameExportThu.getValues().get(i).get(j).getFeeVal())));
 					}
@@ -820,8 +824,8 @@ public class ReportUtil {
 				item.setFileCus(refunddetail.getDocs() != null ? refunddetail
 						.getDocs().getJobNo() : AELConst.EMPTY_STRING);
 				item.setDescription(refunddetail.getDescription());
-				item.setAmount(NumberFormat.getCurrencyInstance().format(refunddetail.getAmount()).replace("$", ""));
-				item.setoAmount(NumberFormat.getCurrencyInstance().format(refunddetail.getOAmount()).replace("$", ""));
+				item.setAmount(refunddetail.getAmount());
+				item.setoAmount(refunddetail.getOAmount());
 				totalAmount = totalAmount.add(refunddetail.getAmount());
 				totalOAmount = totalOAmount.add(refunddetail.getOAmount());
 				try {
@@ -841,10 +845,10 @@ public class ReportUtil {
 			grandTotal = grandTotal.add(totalAmount);
 			grandTotal = grandTotal.add(totalOAmount);
 			parameterMap.put("refundDetails", listItem);
-			parameterMap.put("totalAmount", NumberFormat.getCurrencyInstance().format(totalAmount).replace("$", ""));
-			parameterMap.put("totalOAmount", NumberFormat.getCurrencyInstance().format(totalOAmount).replace("$", ""));
+			parameterMap.put("totalAmount", totalAmount);
+			parameterMap.put("totalOAmount",totalOAmount);
 			parameterMap.put("employee", refund.getEmployee());
-			parameterMap.put("grandTotal", NumberFormat.getCurrencyInstance().format(grandTotal).replace("$", ""));
+			parameterMap.put("grandTotal", grandTotal);
 			parameterMap.put("refundDate",
 					CommonUtil.getDateString(refund.getDate()));
 			parameterMap.put("refNo", refund.getRefCode());
@@ -1182,10 +1186,10 @@ public class ReportUtil {
 				item.setDescription(exfeetable.getName().getValue());
 				BigDecimal total = CalculationUtil.getTotalWithVat(exfeetable.getVat(), exfeetable.getAmount());
 				if (exfeetable.getInvoiceNo() == null || exfeetable.getInvoiceNo().isEmpty() || exfeetable.getInvoiceNo().trim().isEmpty()){
-					item.setoAmount(NumberFormat.getCurrencyInstance().format(total).replace("$", ""));
+					item.setoAmount(total);
 					totalOAmount = totalOAmount.add(total);
 				}else{
-					item.setAmount(NumberFormat.getCurrencyInstance().format(total).replace("$", ""));
+					item.setAmount(total);
 					totalAmount = totalAmount.add(total);
 				}
 				

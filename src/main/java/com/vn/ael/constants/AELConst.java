@@ -10,6 +10,7 @@ public interface AELConst {
 	String SUFFIX_KG = "kgs";
 	String SUFFIX_CMB = "cmb";
 	String PREFFIX_TK = "TK";
+	char SPACE = ' ';
 	
 	String ACC_FEE_IS_APPROVED ="accounting.fee.isApproved";
 	String ACC_FEE_ISNOT_APPROVED ="accounting.fee.notApproved";
@@ -18,6 +19,7 @@ public interface AELConst {
 	String AJAX_ERROR = "error";
 	
 	String SEPARATOR = "-";
+	char SEMICOLON =';';
 	
 	String ATTACHMENT_REQUEST_PARAM = "attachments";
 	String ATTACHMENT_REQUEST_DATA = "data";

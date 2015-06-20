@@ -26,6 +26,8 @@ public class AccountingTransportExport {
 	private BigDecimal total;
 	private Integer index;
 	private BigDecimal feeWithVat;
+	private String invoiceTruck = "";
+	private String invoiceMani = "";
 	private List<FeeExportItem> convertedFeeThu;
 	/**
 	 * @return the noOfOthCont
@@ -317,6 +319,18 @@ public class AccountingTransportExport {
 	}
 	public void setFeeWithVat(BigDecimal feeWithVat) {
 		this.feeWithVat = feeWithVat;
+	}
+	public String getInvoiceTruck() {
+		return invoiceTruck;
+	}
+	public void setInvoiceTruck(String invoiceTruck) {
+		this.invoiceTruck = invoiceTruck;
+	}
+	public String getInvoiceMani() {
+		return invoiceMani;
+	}
+	public void setInvoiceMani(String invoiceMani) {
+		this.invoiceMani = invoiceMani;
 	}
 	
 }

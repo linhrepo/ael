@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.enums.ServicesType;
@@ -38,6 +40,7 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
 
@@ -298,6 +301,9 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 				if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
 					//add to accounting cus
 					docsgeneral.setChiho(docsgeneral.getChiho().add(ConvertUtil.getNotNullValue(exfeetable.getTotal())));
+					if (StringUtils.isNotBlank(exfeetable.getInvoiceNo())){
+						docsgeneral.setInvoiceChiho(CommonUtil.concate(docsgeneral.getInvoiceChiho(),exfeetable.getInvoiceNo()));
+					}
 				}
 			}
 		}

@@ -9,6 +9,10 @@ import javax.persistence.Transient;
 
 import org.appfuse.model.User;
 
+import com.vn.ael.constants.AELConst;
+import com.vn.ael.webapp.util.CommonUtil;
+import com.vn.ael.webapp.util.ConvertUtil;
+
 @MappedSuperclass
 public class BasicAdvance extends BasedEntityTracking{
 
@@ -71,7 +75,7 @@ public class BasicAdvance extends BasedEntityTracking{
 	
 	public String getRefCode(){
 		if(this.getId() != null && this.getEmployee() != null){
-			this.refCode = String.valueOf(this.getEmployee().getId()) + String.valueOf(this.getId());
+			this.refCode = this.employee.getUsername()+AELConst.SPLASH +String.valueOf(this.getId());
 		}
 		return this.refCode;
 	}

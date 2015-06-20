@@ -580,5 +580,17 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.isCollectMoney = isCollectMoney;
 	}
 	
+	@Transient
+	private String invoiceChiho = "";
+
+	public String getInvoiceChiho() {
+		return invoiceChiho;
+	}
+
+	public void setInvoiceChiho(String invoiceChiho) {
+		this.invoiceChiho = invoiceChiho;
+	}
+	
+	
 	
 }

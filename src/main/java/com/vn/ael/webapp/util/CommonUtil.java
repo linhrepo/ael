@@ -103,4 +103,8 @@ public class CommonUtil {
 		return addZero(String.valueOf(counting), len);
 	}
 	
+	
+	public static String concate(String s1, String s2){
+		return s1 + AELConst.SPACE+ s2 + AELConst.NEW_LINE_REPORT;
+	}
 }

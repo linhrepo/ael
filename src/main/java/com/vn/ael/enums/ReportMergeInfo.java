@@ -2,7 +2,7 @@ package com.vn.ael.enums;
 
 public enum ReportMergeInfo {
 	
-	BANG_KE_CUOC_VAN_CHUYEN(17,0,1,3,4,5,6,7,11,12,15),
+	BANG_KE_CUOC_VAN_CHUYEN(17,0,1,3,4,5,6,7,8,11,12,15,16),
 	BANG_KE_CUOC_VAN_CHUYEN_L2(16,10),
 	
 	KE_HOACH_VAN_TAI_NOI_DIA(5,0,1,3,4,15,16),
