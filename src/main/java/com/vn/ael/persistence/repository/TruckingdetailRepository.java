@@ -43,6 +43,16 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param(value="nhathauId")Long nhathauId, @Param(value="jobNo")String jobNo, 
 			@Param(value="customer")Long customer);
 	
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.truckingservice where (t.nhathau.id =:nhathauId or :nhathauId is null) and "
+			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo = '') and "
+			+ "(t.truckingservice.docsgeneral.customer.id = :customer or :customer is null) "
+			+ "group by (t.id) "
+			+ "order by t.truckingservice.docsgeneral.jobNo, t.truckingservice.docsgeneral.customer, t.consteal, t.id")
+	List<Truckingdetail> searchPreNhathau(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
+			@Param(value="nhathauId")Long nhathauId, @Param(value="jobNo")String jobNo, 
+			@Param(value="customer")Long customer);
+	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d where d.typeOfDocs =:transId and "
 			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
 			+ "(d.customer.id = :customerId or :customerId is null) and "

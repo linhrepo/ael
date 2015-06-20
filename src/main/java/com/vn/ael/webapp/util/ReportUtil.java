@@ -538,7 +538,7 @@ public class ReportUtil {
 	public static Map<String, Object> prepareDataForBangKeNhaThau(AccountingTrans accountingTrans){
 		Map<String, Object> beans = new LinkedHashMap<>();
 		//general info
-		beans.put("name", accountingTrans.getNhathau().getName());
+		beans.put("name", accountingTrans.getNhathau() != null ? accountingTrans.getNhathau().getName() : "");
 		beans.put("start",accountingTrans.getCondition().getStartDate());
 		beans.put("end",accountingTrans.getCondition().getEndDate());
 		List<List<Exfeetable>> feesList = new ArrayList<>();

@@ -82,4 +82,15 @@ public class FormatterUtil {
 		}
 		return AELConst.EMPTY_STRING;
 	}
+	
+	public static Date parseDateTime(String date){
+		try{
+			if (date != null){
+				return dateTimeFormat.parse(date);
+			}
+		}catch(Exception e){
+			log.error(e);
+		}
+		return null;
+	}
 }

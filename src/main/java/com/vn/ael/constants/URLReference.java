@@ -75,6 +75,8 @@ public interface URLReference {
 	
 	String ACCOUNTING_NHATHAU_LIST = "/admin/accounting/nhathau/nhathauList";
 	String ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/nhathau";
+	String ACCOUNTING_NHATHAU_SEARCH = "/admin/accounting/nhathau/nhathauSearch";
+	String ACCOUNTING_NHATHAU_DETAIL = "/admin/accounting/nhathau/nhathauDetail";
 	
 	String ACCOUNTING_SHIPMENT = "/admin/docs/shipment";
 	String ACCOUNTING_PROFIT_LOSS = "/admin/accounting/profitloss";
