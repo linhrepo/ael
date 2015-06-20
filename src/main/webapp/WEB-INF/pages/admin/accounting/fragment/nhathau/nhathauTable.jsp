@@ -39,8 +39,8 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.dateDev" />">
 					<div class="form-group">
-					<fmt:formatDate value="${truck.dateDev}" pattern="dd/MM/yyyy"/>
-				    </div>
+					<fmt:formatDate value="${truck.dateDev}" pattern="dd/MM/yyyy"/>					
+				    </div>				    
 				</td>
 				 <td data-title="<fmt:message key="accountingtrans.jobNo" />">
 					<div class="form-group">

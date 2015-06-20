@@ -9,12 +9,13 @@
     <h2><fmt:message key="accountingnhathau.heading"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="conditions" method="get"
-		action="nhathau" id="accountingNhathauForm" cssClass="well">
+		action="nhathauSearch" id="accountingNhathauForm" cssClass="well">
 	     <div class="container-fluid">
 	    	<div class="row">
 			    <div class="form-group col-md-3">
 				    <appfuse:label styleClass="control-label" key="nhathau.name"/>
 				    <form:select path="nhathauId" id="nhathauId" class="form-control">
+				    	<form:option value=""><fmt:message key="searchall" /></form:option>
 		    			<c:forEach items="${nhathauList}" var="nhathau">
 		    				<option value="${nhathau.id}">${nhathau.name}</option>
 		    			</c:forEach>
@@ -62,4 +63,48 @@
 	    	</button>
 	    </div>
     </form:form>
+    <fmt:formatDate value="${accountingNhathau.condition.startDate}" var="startDate" 
+               type="date" pattern="dd/MM/yyyy" />
+	<fmt:formatDate value="${accountingNhathau.condition.endDate}" var="endDate" 
+               type="date" pattern="dd/MM/yyyy" />
+    <table id="packageInfoList" class="datatable" cellspacing="0" width="100%" >
+        <thead>
+            <tr>
+            	<th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="accountingnhathau.name"/></th>
+                <th><fmt:message key="accountingnhathau.address"/></th>
+                <th><fmt:message key="accountingnhathau.taxno"/></th>
+                <th><fmt:message key="table.action"/></th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="accountingnhathau.name"/></th>
+                <th><fmt:message key="accountingnhathau.address"/></th>
+                <th><fmt:message key="accountingnhathau.taxno"/></th>
+                <th><fmt:message key="table.action"/></th>
+            </tr>
+        </tfoot>
+        <tbody>
+        <c:forEach items="${listNhathau}" var="nhathau" varStatus="idx">
+        	<tr>
+                <td>${idx.index+1}</td>
+              	<td>${nhathau.name}</td>
+              	<td>${nhathau.address}</td>
+              	<td>${nhathau.taxNo}</td>              	
+                <td>
+                	<a href="nhathauDetail?nhathauId=${nhathau.id}&startDate=${startDate}&endDate=${endDate}&customerId=${accountingNhathau.condition.customerId}&job=${accountingNhathau.condition.job}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <div class="form-group form-actions">
+    	<a class="btn btn-success" href="nhathau/download?nhathauId=${accountingNhathau.condition.nhathauId}&startDate=${startDate}&endDate=${endDate}&customerId=${accountingNhathau.condition.customerId}&job=${accountingNhathau.condition.job}">
+			<i class="fa fa-print"></i>
+			<fmt:message key="accounting.transport.download" />
+		</a>        
+    </div>
 </div>
