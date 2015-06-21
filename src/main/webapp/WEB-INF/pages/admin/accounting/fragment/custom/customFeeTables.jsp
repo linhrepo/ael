@@ -276,6 +276,7 @@
 	 
 	 $("#generalList").find("tbody > tr").each(function(){
 		 checkOneRow($(this));
+		 FEE_TABLE_CONTROL.calculate_total($(this));
 		 FEE_TABLE_CONTROL.constrain2class($(this),".unitPrice",".amount");
 	 });
  });

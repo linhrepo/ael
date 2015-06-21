@@ -102,7 +102,10 @@ public class AccountingProfitLossController extends BaseFormController{
 					if (docsgeneral.getDebit() == null){
 						docsgeneral.setDebit(BigDecimal.ZERO);
 					}
+					if (truckingdetail.getTransreportext() != null){
 						docsgeneral.setDebit(docsgeneral.getDebit().add(ConvertUtil.getNotNullValue(truckingdetail.getTransreportext().getTotal())));
+					}
+						
 				}
 				docsgeneral.setTongThu(ConvertUtil.getNotNullValue(docsgeneral.getTongThu()).add(truckingdetail.getTotal()));
 			}
