@@ -156,7 +156,7 @@
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
 					<div class="form-group">
-						<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.vatValue" cssClass="form-control money vatAmount" readonly="true"/>
+						<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.vatValue" cssClass="form-control money vatAmount"/>
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.total"/>">

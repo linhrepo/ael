@@ -325,6 +325,8 @@ public class ReportUtil {
 							accountingCusDetailItem.getNote(),
 							accountingCusDetailItem.getInvoice());
 					item.setUnitPrice(ConvertUtil.getNotNullValue(accountingCusDetailItem.getUnitPrice()));
+					item.setFeewithvat(accountingCusDetailItem.getFeewithvat());
+					item.setFeevat(accountingCusDetailItem.getFeevat());
 					index++;
 					item.setIndex(index);
 					customFee.add(item);

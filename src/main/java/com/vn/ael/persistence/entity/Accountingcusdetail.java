@@ -47,6 +47,17 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	private Integer quantityOt;
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
+	private BigDecimal vatAmount;
+	
+	public BigDecimal getVatAmount() {
+		return vatAmount;
+	}
+
+	public void setVatAmount(BigDecimal vatAmount) {
+		this.vatAmount = vatAmount;
+	}
+
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal unitPrice;
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
@@ -150,12 +161,18 @@ public class Accountingcusdetail extends BasedChildEntity implements Serializabl
 	
 	@Transient
 	public BigDecimal getFeevat(){
-		return CalculationUtil.getVatFee(this.generalVat, this.total);
+		if (this.generalVat != null && this.generalVat.compareTo(BigDecimal.ZERO) >0){
+			return CalculationUtil.getVatFee(this.generalVat, this.total);
+		}
+		return this.vatAmount;
 	}
 	
 	@Transient
 	public BigDecimal getFeewithvat(){
-		return CalculationUtil.getTotalWithVat(this.generalVat, this.total);
+		if (this.generalVat != null && this.generalVat.compareTo(BigDecimal.ZERO) >0){
+			return CalculationUtil.getTotalWithVat(this.generalVat, this.total);
+		}
+		return ConvertUtil.getNotNullValue(this.vatAmount).add(ConvertUtil.getNotNullValue(this.total));
 	}
 
 	public BigDecimal getUnitPrice() {

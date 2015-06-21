@@ -30,6 +30,9 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal amount;
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
+	private BigDecimal vatAmount;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "name")
@@ -132,7 +135,10 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	@Transient
 	public BigDecimal getVatFee(){
-		return CalculationUtil.getVatFee(this.vat, this.amount);
+		if (this.vatAmount == null || this.vatAmount.compareTo(BigDecimal.ZERO) <= 0){
+			return CalculationUtil.getVatFee(this.vat, this.amount);
+		}
+		return vatAmount;
 	}
 
 	@JsonIgnore
@@ -224,6 +230,14 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	public void setExhUsd(BigDecimal exhUsd) {
 		this.exhUsd = exhUsd;
+	}
+
+	public BigDecimal getVatAmount() {
+		return this.getVatFee();
+	}
+
+	public void setVatAmount(BigDecimal vatAmount) {
+		this.vatAmount = vatAmount;
 	}
 	
 }

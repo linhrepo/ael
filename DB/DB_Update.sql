@@ -198,4 +198,11 @@ ALTER TABLE `ael`.`refunddetail`
 ADD COLUMN `approved` INT(1) NULL AFTER `oAmount`,
 ADD COLUMN `checkByAdmin` INT(1) NULL AFTER `approved`;
 
+ALTER TABLE `ael`.`accountingcusdetail` 
+ADD COLUMN `vatAmountexfeetable` DECIMAL(20,2) NULL AFTER `unitPrice`;
+
+ALTER TABLE `ael`.`exfeetable` 
+ADD COLUMN `vatAmount` DECIMAL(20,2) NULL AFTER `exhUsd`;
+
+
 

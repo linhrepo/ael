@@ -102,7 +102,7 @@
 					</spring:bind>
 					<form:input
 							path="extendfeeaccs[${idx.index}].feeowner.vat"
-							id="description${idx.index}" autofocus="true"
+							id="description${idx.index}" autofocus="true" 
 							cssClass="form-control money vat"/> 
 								 <form:errors
 								path="extendfeeaccs[${idx.index}].feeowner.vat"
@@ -110,7 +110,7 @@
 					<form:hidden path="extendfeeaccs[${idx.index}].feeowner.id"/>
 					</div>
 			    </td>
-			     <td data-title="<fmt:message key="accountingcus.feevat"/>">
+			     <td data-title="<fmt:message key="accountingcus.vatAmount"/>">
 					<div class="form-group">
 				        <input value="${extendfeeacc.feeowner.vatFee}"  maxlength="45" autofocus="true" class="form-control money vatAmount" readonly="true"/>
 				    </div>

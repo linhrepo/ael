@@ -185,7 +185,7 @@
 				</td>
 				<td data-title="<fmt:message key="accountingcus.feevat"/>">
 					<div class="form-group">
-				        <form:input path="accountingcusdetails[${idx.index}].feevat" cssClass="form-control money vatAmount readonly" readonly="true"/>
+				        <form:input path="accountingcusdetails[${idx.index}].vatAmount" cssClass="form-control money vatAmount " />
 				    </div>
 			    </td>
 			    <td data-title="<fmt:message key="accountingcus.feewithvat"/>">
@@ -233,6 +233,7 @@
 		<span class="btn btn-primary" target-table="generalList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>
 	</div>
 </div>
+<script type="text/javascript" src="<c:url value='/scripts/custom/feeTables.js'></c:url>"></script>
 <script type="text/javascript">
  $(document).ready(function(){
 	 var checkUnitPrice = function(tr){
@@ -257,8 +258,9 @@
 		 $(tr).find(".quantity").on("blur",function(){
 			 checkUnitPrice(tr);
 		 });
-	 }
+	 };
 	 
+	 	 
 	 $("#generalList").bind("afterAddRow",function(e,tr){
 		 checkOneRow(tr);
 		 var id = $(tr).find('select option:selected').val();
@@ -274,11 +276,7 @@
 	 
 	 $("#generalList").find("tbody > tr").each(function(){
 		 checkOneRow($(this));
-		 var val = parseFloat(accounting.unformat($(this).find(".unitPrice").val()));
-		 if (val >0){
-			 $(this).find(".amount").attr("readonly","readonly");
-		 }
+		 FEE_TABLE_CONTROL.constrain2class($(this),".unitPrice",".amount");
 	 });
  });
 </script>
-<script type="text/javascript" src="<c:url value='/scripts/custom/feeTables.js'></c:url>"></script>

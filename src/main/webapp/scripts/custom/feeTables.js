@@ -11,9 +11,14 @@ var FEE_TABLE_CONTROL ={
 				amount+=parseFloat(accounting.unformat($(this).val()));
 			});
 			
-			var vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),
-			vatAmount = amount*vat/100,
-			total = vatAmount+amount;
+			var vat = parseFloat(accounting.unformat($(tr).find("input.vat").val())),vatAmount;
+			if (vat >0){
+				vatAmount = amount*vat/100;
+			}else{
+				vatAmount = parseFloat(accounting.unformat($(tr).find("input.vatAmount").val()));
+			}
+			
+			var total = vatAmount+amount;
 			$(tr).find("input.vatAmount").val(accounting.formatMoney(vatAmount,UTIL.MONEY_STYLE));
 			var iTotal = $(tr).find("input.total");
 			if ($(iTotal).hasClass("money2")){
@@ -42,6 +47,45 @@ var FEE_TABLE_CONTROL ={
 			}
 			
 	},
+	//add constraint between 2 class
+	checkVatPrice : function(tr,clazz1, clazz2){
+		 var val = parseFloat(accounting.unformat($(tr).find(clazz1).val()));
+		 if (val >0){
+			 $(tr).find(clazz2).attr("readonly","readonly");
+		 }else{
+			 $(tr).find(clazz2).removeAttr("readonly");
+		 }
+	 },
+	 clazzVat : ".vat",
+	 clazzVatAmount : ".vatAmount",
+	 checkVatRow : function(tr){
+		 $(tr).find(FEE_TABLE_CONTROL.clazzVat).on("blur",function(){
+			 FEE_TABLE_CONTROL.checkVatPrice(tr,FEE_TABLE_CONTROL.clazzVat,FEE_TABLE_CONTROL.clazzVatAmount);
+		 });
+		 $(tr).find(FEE_TABLE_CONTROL.clazzVatAmount).on("blur",function(){
+			 FEE_TABLE_CONTROL.checkVatPrice(tr,FEE_TABLE_CONTROL.clazzVatAmount,FEE_TABLE_CONTROL.clazzVat);
+		 });
+	 },
+	 constrain2class : function(tr,clazz1,clazz2){
+		 var val = parseFloat(accounting.unformat($(tr).find(clazz1).val()));
+		 if (val >0){
+			 $(tr).find(clazz2).attr("readonly","readonly");
+		 };
+	 },
+	 initCheckVat : function(tableId){
+		 $("#"+tableId).bind("afterAddRow",function(e,tr){
+			 FEE_TABLE_CONTROL.checkVatRow(tr);
+		 });
+		 $("#"+tableId).find("tbody > tr").each(function(){
+			 FEE_TABLE_CONTROL.checkVatRow($(this));
+			 FEE_TABLE_CONTROL.constrain2class($(this),FEE_TABLE_CONTROL.clazzVat,FEE_TABLE_CONTROL.clazzVatAmount);
+			 var val = parseFloat(accounting.unformat($(this).find(FEE_TABLE_CONTROL.clazzVatAmount).val()));
+			 var valAmount = parseFloat(accounting.unformat($(this).find(FEE_TABLE_CONTROL.clazzVat).val()));
+			 if (val >0 && valAmount ==0){
+				 $(this).find(FEE_TABLE_CONTROL.clazzVat).attr("readonly","readonly");
+			 }
+		 });
+	 },
 	/**
 	 * Init fee table
 	 */
@@ -71,6 +115,11 @@ var FEE_TABLE_CONTROL ={
 		$(tr).find("input.vat").on("change",function(){
 			FEE_TABLE_CONTROL.calculate_total($(this).closest("tr"));
 			FEE_TABLE_CONTROL.initTotalTable(tableId);
+		});
+		
+		$(tr).find("input.vatAmount").on("change",function(){
+			FEE_TABLE_CONTROL.calculate_total($(this).closest("tr"));
+			//FEE_TABLE_CONTROL.initTotalTable(tableId);
 		});
 		
 		$(tr).find("select.masterFee").on("change",function(){
@@ -130,6 +179,7 @@ $(document).ready(function(){
 	//feetable
 	$("table.feeTable").each(function(){
 		FEE_TABLE_CONTROL.init($(this).attr("id"));
+		FEE_TABLE_CONTROL.initCheckVat($(this).attr("id"));
 	});
 });
 
