@@ -296,6 +296,7 @@ public class ReportUtil {
 			Accountingcus accountingcus) {
 		BigDecimal cusFeeTotal = BigDecimal.ZERO;
 		BigDecimal cusFeeVat = BigDecimal.ZERO;
+		BigDecimal chihoFinalVal = BigDecimal.ZERO;
 
 		BigDecimal chihoTotal = BigDecimal.ZERO;
 		BigDecimal chihoVat = BigDecimal.ZERO;
@@ -359,9 +360,9 @@ public class ReportUtil {
 				chihoTotal = chihoTotal.add(extendFeeAcc.getFeeowner()
 						.getAmount());
 				chihoVat = chihoVat.add(extendFeeAcc.getFeeowner().getVatFee());
+				chihoFinalVal = chihoFinalVal.add(extendFeeAcc.getFeeowner().getTotal());
 			}
 		}
-		BigDecimal chihoFinalVal = chihoTotal.add(chihoVat);
 
 		Map<String, Object> beans = new LinkedHashMap<>();
 		beans.put("chihoFinalVal", chihoFinalVal);

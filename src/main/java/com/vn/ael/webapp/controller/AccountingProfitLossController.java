@@ -95,14 +95,14 @@ public class AccountingProfitLossController extends BaseFormController{
 				truckingdetail.setExfeetables(exfeetables);
 				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral();
 				docsgeneralManager.updateTongChiPhi(docsgeneral);
-				this.docsgeneralManager.updateChiHo(docsgeneral);
+				this.docsgeneralManager.updateChiHo(docsgeneral,true);
 				if (docsgeneral.getTypeOfDocs() != ServicesType.DVVT_INLAND && docsgeneral.getTypeOfDocs()!= ServicesType.DVVT_SEALAND){
 					this.docsgeneralManager.updateDebit(docsgeneral);
 				}else{
 					if (docsgeneral.getDebit() == null){
 						docsgeneral.setDebit(BigDecimal.ZERO);
 					}
-						docsgeneral.setDebit(docsgeneral.getDebit().add(truckingdetail.getAccountingPrice()).add(truckingdetail.getOtherFees()));
+						docsgeneral.setDebit(docsgeneral.getDebit().add(ConvertUtil.getNotNullValue(truckingdetail.getTransreportext().getTotal())));
 				}
 				docsgeneral.setTongThu(ConvertUtil.getNotNullValue(docsgeneral.getTongThu()).add(truckingdetail.getTotal()));
 			}

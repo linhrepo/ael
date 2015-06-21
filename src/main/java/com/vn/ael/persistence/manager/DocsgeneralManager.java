@@ -71,7 +71,7 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	 * Update chi ho
 	 * @param docsgeneral
 	 */
-	void updateChiHo(Docsgeneral docsgeneral);
+	void updateChiHo(Docsgeneral docsgeneral, boolean addTruck);
 	
 	/**
 	 * Update chi ho

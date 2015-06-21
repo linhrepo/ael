@@ -283,7 +283,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 						}
 				}
 				}
-				this.updateChiHo(docsgeneral);
+				this.updateChiHo(docsgeneral,false);
 			}
 		}
 		return docsgenerals;
@@ -293,8 +293,16 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	 * 
 	 * @param docsgeneral
 	 */
-	public void updateChiHo(Docsgeneral docsgeneral){
+	public void updateChiHo(Docsgeneral docsgeneral, boolean addTruck){
 		List<Exfeetable> exfeetables = exfeetableRepository.findByDocsgeneral(docsgeneral);
+		if (addTruck){
+			List<Exfeetable> truckingFee = exfeetableRepository.findWithTruckingService(docsgeneral.getTruckingservice().getId());
+			if (exfeetables != null){
+				exfeetables.addAll(truckingFee);
+			}else{
+				exfeetables = truckingFee;
+			}
+		}
 		docsgeneral.setChiho(BigDecimal.ZERO);
 		if (exfeetables != null && !exfeetables.isEmpty()){
 			for (Exfeetable exfeetable : exfeetables){
@@ -473,7 +481,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 						List<Accountingcusdetail> accountingcusdetails = accountingcus.getAccountingcusdetails();
 						if (accountingcusdetails != null && !accountingcusdetails.isEmpty()){
 							for (Accountingcusdetail accountingcusdetail: accountingcusdetails){
-								debit = debit.add(ConvertUtil.getNotNullValue(accountingcusdetail.getTotal()));
+								debit = debit.add(ConvertUtil.getNotNullValue(accountingcusdetail.getFeewithvat()));
 							}
 						}
 					}
