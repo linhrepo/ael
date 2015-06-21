@@ -120,6 +120,9 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@OneToOne(mappedBy = "docsgeneral", cascade = CascadeType.ALL)
 	private Packageinfo packageinfo;
 	
+	@OneToOne(mappedBy = "docsgeneral")
+	private Accountingcus accountingcus;
+	
 	@OneToMany(mappedBy="docsgeneral")
 	private List<Exfeetable> exfeetables;
 	
@@ -590,7 +593,14 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	public void setInvoiceChiho(String invoiceChiho) {
 		this.invoiceChiho = invoiceChiho;
 	}
-	
+
+	public Accountingcus getAccountingcus() {
+		return accountingcus;
+	}
+
+	public void setAccountingcus(Accountingcus accountingcus) {
+		this.accountingcus = accountingcus;
+	}
 	
 	
 }
