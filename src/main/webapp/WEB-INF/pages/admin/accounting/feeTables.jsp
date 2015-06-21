@@ -21,37 +21,42 @@
 
 <script type="text/javascript">
  $(document).ready(function(){
-	 $(".nestedDatatable tbody td i").each(function(){
-		 var nTr = $(this).parents('tr')[0];
-		 var reloadChild = function(tr){
-			 $(tr).find("td i").click();
-			 $(tr).find("td i").click();
-		 };
-		 
-		 $(nTr).bind("afterOpenChild",function(ev,oInnerTable){
-			 $(oInnerTable).find("td.actions a").on("click",function(e){
-				 e.preventDefault();
-				 var link = $(this).attr("href");
-				 $.ajax({
-					  type: "POST",
-					  async:false,
-					  url: link,
-					  success: function(data){
-						  if (data == "error"){
-							  UTIL.showMessage(showMessage("accounting.changeApprovalError"), "error");
-						  }else{
-							  reloadChild(nTr);
-						  }
-					  },
-					  dataType: "text",
-					  error: function (xhr, status,response) {
-						  UTIL.showMessage(showMessage("ajax.error"), "error");
-				      }
-					});
+	 var checkNestedTable = function(){
+		 $(".nestedDatatable tbody td i").each(function(){
+			 var nTr = $(this).parents('tr')[0];
+			 var reloadChild = function(tr){
+				 $(tr).find("td i").click();
+				 $(tr).find("td i").click();
+			 };
+			 
+			 $(nTr).bind("afterOpenChild",function(ev,oInnerTable){
+				 $(oInnerTable).find("td.actions a").on("click",function(e){
+					 e.preventDefault();
+					 var link = $(this).attr("href");
+					 $.ajax({
+						  type: "POST",
+						  async:false,
+						  url: link,
+						  success: function(data){
+							  if (data == "error"){
+								  UTIL.showMessage(showMessage("accounting.changeApprovalError"), "error");
+							  }else{
+								  reloadChild(nTr);
+							  }
+						  },
+						  dataType: "text",
+						  error: function (xhr, status,response) {
+							  UTIL.showMessage(showMessage("ajax.error"), "error");
+					      }
+						});
+				 });
 			 });
 		 });
+	 };
+	 $('.nestedDatatable').bind('redraw',function(){
+	 	checkNestedTable();
 	 });
-	 
+	 checkNestedTable();
 	 if($('#flag').val() == "1"){		 
 	 	$('.nav-tabs a[href="#settings"]').tab('show');
 	 }

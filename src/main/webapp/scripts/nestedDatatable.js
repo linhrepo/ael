@@ -22,7 +22,7 @@
             // code goes here
             this.cloneElements();
             this.initParentTable();
-            this.childsHandler();
+            //this.childsHandler();
         };
         
         /**
@@ -54,8 +54,13 @@
 	     * Initialse DataTables, with no sorting on the 'details' column
 	     */
 	    plugin.initParentTable	= function(){
+	    	var that = this;
             this.oTable = $('#'+options.tableId).dataTable({
                 "sPaginationType": "full_numbers",
+                "fnDrawCallback": function( oSettings ) {
+                	that.childsHandler();
+                	$('#'+options.tableId).trigger('redraw');
+                },
                 "aoColumnDefs": [
                 { "bSortable": false, "aTargets": [0] }
             ],
