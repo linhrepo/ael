@@ -805,6 +805,7 @@ public class ReportUtil {
 				CommonUtil.getDateString(advanceForm.getTimeRefund()));
 		beans.put("totalRemainAdv", ConvertUtil.getNotNullValue(totalRemainAdv));
 		beans.put("refNo", advanceForm.getRefCode());
+		beans.put("amountVND", ConvertUtil.convertToVND(BigDecimal.valueOf(total)));
 		return beans;
 	}
 
@@ -855,6 +856,7 @@ public class ReportUtil {
 			parameterMap.put("refundDate",
 					CommonUtil.getDateString(refund.getDate()));
 			parameterMap.put("refNo", refund.getRefCode());
+			parameterMap.put("amountVND", ConvertUtil.convertToVND(grandTotal));
 		}
 		return parameterMap;
 	}
@@ -1221,6 +1223,7 @@ public class ReportUtil {
 			parameterMap.put("refundDate",
 					CommonUtil.getDateString(refund.getDate()));
 			parameterMap.put("refNo", refund.getRefCode());
+			parameterMap.put("amountVND", ConvertUtil.convertToVND(grandTotal));
 		}
 		return parameterMap;
 	}
