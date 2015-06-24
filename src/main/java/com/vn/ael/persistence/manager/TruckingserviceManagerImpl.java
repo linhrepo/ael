@@ -134,6 +134,10 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 						truckingdetail.setNoOfVehicle(truckingservice.getDocsgeneral().getSochuyen());
 						truckingdetail.setVehicleNo(truckingservice.getDocsgeneral().getNameVehicle());
 						truckingservice.getTruckingdetails().add(truckingdetail);
+//						if (truckingservice.getDocsgeneral().getTypeOfDocs() == ServicesType.DVVT_SEALAND){
+//							truckingservice.getTruckingdetails().add(truckingdetail);
+//							truckingservice.getTruckingdetails().add(truckingdetail);
+//						}
 					}
 				}
 			}
