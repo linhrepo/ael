@@ -160,4 +160,17 @@ public class Refund extends BasicAdvance implements Serializable {
 		this.isRAdmin = isRAdmin;
 	}
 	
+	
+	//used to defind dulicated job
+	@Transient
+	private boolean containDuplicated  = false;
+
+	public boolean getIsContainDuplicated() {
+		return containDuplicated;
+	}
+
+	public void setIsContainDuplicated(boolean containDuplicated) {
+		this.containDuplicated = containDuplicated;
+	}
+	
 }

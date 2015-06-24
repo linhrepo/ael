@@ -602,5 +602,15 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.accountingcus = accountingcus;
 	}
 	
-	
+	//used to defind dulicated job
+		@Transient
+		private boolean containDuplicated  = false;
+
+		public boolean getIsContainDuplicated() {
+			return containDuplicated;
+		}
+
+		public void setIsContainDuplicated(boolean containDuplicated) {
+			this.containDuplicated = containDuplicated;
+		}
 }

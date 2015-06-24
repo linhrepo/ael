@@ -32,6 +32,7 @@ import com.vn.ael.persistence.manager.ContsealManager;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocserviceManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -42,6 +43,13 @@ import com.vn.ael.webapp.util.ReportUtil;
 public class PackageinfoFormController extends BaseFormController {
 
 	private NhathauManager nhathauManager;
+	
+	private ExfeetableManager exfeetableManager;
+	
+	@Autowired
+	private void setExfeetableManager(ExfeetableManager exfeetableManager){
+		this.exfeetableManager = exfeetableManager;
+	}
 	
 	@Autowired
 	private void setNhauthauManager(NhathauManager nhathauManager){
@@ -109,6 +117,12 @@ public class PackageinfoFormController extends BaseFormController {
     protected ModelAndView showForm(HttpServletRequest request)
     throws Exception {
     	Packageinfo packageInfo = this.loadPackgageByRequest(request);
+    	if (packageInfo != null ){
+    		packageInfo.getDocsgeneral().setIsContainDuplicated(exfeetableManager.updateDuplicated(packageInfo.getDocsgeneral().getExfeetables()));
+    		if (packageInfo.getDocsgeneral().getIsContainDuplicated()){
+    			saveError(request, getText("errors.duplicatedFee", request.getLocale()));
+    		}
+    	}
         ModelAndView mav = new ModelAndView(URLReference.PACKAGEINFO_FORM);
         mav.addObject("packageInfo", packageInfo);
         //selection

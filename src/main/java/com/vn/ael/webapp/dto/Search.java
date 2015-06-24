@@ -29,6 +29,7 @@ public class Search {
 	private Date endSumDate;
 	private String job = null;
 	private Boolean isCollectMoney;
+	private Boolean isDuplicated;
 	
 	public Long getCustomer() {
 		return customer;
@@ -167,6 +168,12 @@ public class Search {
 	}
 	public void setIsCollectMoney(Boolean isCollectMoney) {
 		this.isCollectMoney = isCollectMoney;
+	}
+	public Boolean getIsDuplicated() {
+		return isDuplicated;
+	}
+	public void setIsDuplicated(Boolean isDuplicated) {
+		this.isDuplicated = isDuplicated;
 	}	
 	
 }

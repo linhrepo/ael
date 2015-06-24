@@ -23,6 +23,7 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
+               	<th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="accounting.ngaygiaohang"/></th>
             </tr>
@@ -34,6 +35,7 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
+                <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="accounting.ngaygiaohang"/></th>
             </tr>
@@ -45,6 +47,7 @@
               	<td>${trucking.truckingservice.docsgeneral.jobNo}</td>
               	<td><fmt:message key="${trucking.truckingservice.docsgeneral.typeOfDocs.textKey}"/></td>
               	<td>${trucking.truckingservice.docsgeneral.typeOfContainer.value}</td>
+              	<td>${trucking.consteal.noOfCont }</td>
               	<td>${trucking.nhathau.name }</td>
               	<td><fmt:formatDate value="${trucking.dateDev}" pattern="dd/MM/yyyy"/></td>
             </tr>

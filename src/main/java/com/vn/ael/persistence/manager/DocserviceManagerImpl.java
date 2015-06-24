@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.persistence.entity.Docservice;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.repository.DocserviceRepository;
+import com.vn.ael.persistence.repository.ExfeetableRepository;
 
 /**
  * @author liv1hc

@@ -126,7 +126,8 @@ $(document).ready(function(){
 		editDetail = $(this).attr("editDetail"),
 		successLoadMessage = $(this).attr("successLoadMessage"),
 		actionCheck = $(this).attr("actionCheck"),
-		actionIcon = $(this).attr("actionIcon")
+		actionIcon = $(this).attr("actionIcon"),
+		actionConfirm = $().attr("actionConfirm");
 		$(this).nestedTable({
 			tableId : id,
 			urlForChild:contextPath+childUrl,
@@ -140,7 +141,8 @@ $(document).ready(function(){
 			detailTableMapping:detailTableMapping,
 			successLoadMessage:showMessage(successLoadMessage),
 			actionCheck:actionCheck,
-			actionIcon : actionIcon
+			actionIcon : actionIcon,
+			actionConfirm:actionConfirm == undefined ? false : actionConfirm
 		});
 	});
 	

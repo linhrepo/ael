@@ -392,6 +392,8 @@ public class ReportUtil {
 		beans.put("placeDelivery", doc.getPlaceDelivery());
 		beans.put("tentau", doc.getNameVehicle());
 		beans.put("cmb", doc.getCmbText());
+		beans.put("delivery", doc.getPlaceDelivery());
+		beans.put("updateDate", CommonUtil.getDateString(Calendar.getInstance().getTime()));
 		beans.put("thanhtienTong", ConvertUtil.getNotNullValue(cusFeeTotal).add(chihoTotal));
 		beans.put("tongcongTong", ConvertUtil.getNotNullValue(cusFinalVal).add(chihoFinalVal));
 		

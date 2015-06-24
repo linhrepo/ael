@@ -22,6 +22,7 @@ import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -35,9 +36,17 @@ public class RefundFormController extends BaseFormController {
 	
 	private DocsgeneralManager docsgeneralManager;
 	
+	private ExfeetableManager exfeetableManager;
+	
 	@Autowired
 	public void setPermissionChecking(PermissionCheckingService permissionCheckingService){
 		this.permissionCheckingService = permissionCheckingService;
+		
+	}
+	
+	@Autowired
+	public void setExfeetableManager(ExfeetableManager exfeetableManager){
+		this.exfeetableManager = exfeetableManager;
 		
 	}
 	
@@ -196,10 +205,15 @@ public class RefundFormController extends BaseFormController {
     public ModelAndView showFormRefundJob(HttpServletRequest request)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.REFUND_JOB_FORM);
+        Locale locale = request.getLocale();
         Refund refund = this.loadRefundByRequest(request);
         if (refund == null){
-        	Locale locale = request.getLocale();
         	saveMessage(request, getText("offerPrice.error.wrongCustomer", locale));
+        }else{
+        	refund.setIsContainDuplicated(exfeetableManager.updateDuplicated(refund.getExfeetables()));
+        	if (refund.getIsContainDuplicated()){
+        		saveError(request, getText("errors.duplicatedFee", locale));
+        	}
         }
         mav.addObject("refund", refund);
         //selection

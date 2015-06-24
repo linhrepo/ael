@@ -33,22 +33,30 @@
 				 $(oInnerTable).find("td.actions a").on("click",function(e){
 					 e.preventDefault();
 					 var link = $(this).attr("href");
-					 $.ajax({
-						  type: "POST",
-						  async:false,
-						  url: link,
-						  success: function(data){
-							  if (data == "error"){
-								  UTIL.showMessage(showMessage("accounting.changeApprovalError"), "error");
-							  }else{
-								  reloadChild(nTr);
-							  }
-						  },
-						  dataType: "text",
-						  error: function (xhr, status,response) {
-							  UTIL.showMessage(showMessage("ajax.error"), "error");
-					      }
-						});
+					 $.confirm({
+					     text: 'Are you sure?',
+					     confirm: function() {
+					    	 $.ajax({
+								  type: "POST",
+								  async:false,
+								  url: link,
+								  success: function(data){
+									  if (data == "error"){
+										  UTIL.showMessage(showMessage("accounting.changeApprovalError"), "error");
+									  }else{
+										  reloadChild(nTr);
+									  }
+								  },
+								  dataType: "text",
+								  error: function (xhr, status,response) {
+									  UTIL.showMessage(showMessage("ajax.error"), "error");
+							      }
+								});
+					     },
+					     cancel: function() {
+					         // nothing to do
+					     }
+					 });
 				 });
 			 });
 		 });
