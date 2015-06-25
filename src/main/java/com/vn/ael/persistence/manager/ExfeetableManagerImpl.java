@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.manager;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,12 +83,14 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 		boolean hasDuplicated = false;
 		if (exfeetables != null && !exfeetables.isEmpty()){
 			for (Exfeetable exfeetable : exfeetables){
-				List<Exfeetable> persitted = exfeetableRepository.findByDocsgeneralAndMasterFeeAndNameAndAmountAndVatAndInvoiceNo(exfeetable.getDocsgeneral(), exfeetable.getMasterFee(), exfeetable.getName()
-						,exfeetable.getAmount(), exfeetable.getVat(), exfeetable.getInvoiceNo());
-				exfeetable.setIsDuplicated(false);
-				if (persitted != null && !persitted.isEmpty() && persitted.size() >1){
-					exfeetable.setIsDuplicated(true);
-					hasDuplicated = true;
+				if (exfeetable.getTotal()!= null && exfeetable.getTotal().compareTo(BigDecimal.ZERO) >0 && exfeetable.getInvoiceNo() != null && !exfeetable.getInvoiceNo().isEmpty()){
+					List<Exfeetable> persitted = exfeetableRepository.findByDocsgeneralAndMasterFeeAndNameAndAmountAndVatAndInvoiceNo(exfeetable.getDocsgeneral(), exfeetable.getMasterFee(), exfeetable.getName()
+							,exfeetable.getAmount(), exfeetable.getVat(), exfeetable.getInvoiceNo());
+					exfeetable.setIsDuplicated(false);
+					if (persitted != null && !persitted.isEmpty() && persitted.size() >1){
+						exfeetable.setIsDuplicated(true);
+						hasDuplicated = true;
+					}
 				}
 			}
 		}
