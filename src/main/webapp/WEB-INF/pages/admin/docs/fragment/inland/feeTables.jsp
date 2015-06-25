@@ -33,7 +33,7 @@
 	<tbody>
 		<c:forEach items="${inland.docsgeneral.exfeetables}"
 			var="exfeetable" varStatus="idx">
-			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}" 
+			<tr class="${exfeetable.isAdded == true ? 'hidden' :''} ${exfeetable.isDuplicated ? 'impress' : ''}" 
 <%-- 			readonly="${empty exfeetable.approved or exfeetable.approved == false ? '':'readonly'}" --%>
 			readonly="readonly"
 			>

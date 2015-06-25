@@ -156,9 +156,15 @@ var FEE_TABLE_CONTROL ={
 				//add to value
 				var value = parseFloat(accounting.unformat($(this).closest("tr").find(".total").val()));
 				masterList[currSelected].value = parseFloat(masterList[currSelected].value)+value;
-				finalTotal +=masterList[currSelected].value;
+				//finalTotal +=masterList[currSelected].value;
 			}
 		});
+		for (var key in masterList) {
+			  if (masterList.hasOwnProperty(key)) {
+				  finalTotal +=masterList[key].value;
+			    //alert(key + " -> " + p[key]);
+			  }
+			}
 		//render table
 		var html="",j=0;
 		for (var i in masterList){

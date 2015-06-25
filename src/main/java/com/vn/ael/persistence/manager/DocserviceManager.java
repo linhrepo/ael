@@ -14,5 +14,5 @@ public interface DocserviceManager extends GenericManager<Docservice> {
 	 * @return
 	 */
 	List<Docservice> findByDocsgeneral(Docsgeneral docsgeneral);
-
+	
 }

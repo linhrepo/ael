@@ -36,7 +36,7 @@
 	<tbody>
 		<c:forEach items="${refund.exfeetables}"
 			var="exfeetable" varStatus="idx">
-			<tr class="${exfeetable.isAdded == true ? 'hidden' :''}" readonly="${empty exfeetable.approved or exfeetable.approved == false ? '':'readonly'}">
+			<tr class="${exfeetable.isAdded == true ? 'hidden' :''} ${exfeetable.isDuplicated ? 'impress' : ''}" readonly="${empty exfeetable.approved or exfeetable.approved == false ? '':'readonly'}">
 				<td colType="index">${idx.index+1}</td>
 				<td colType="generalInfo" class="hidden"><form:hidden
 						path="exfeetables[${idx.index}].id" /> <form:hidden

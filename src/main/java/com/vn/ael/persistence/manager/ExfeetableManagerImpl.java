@@ -86,5 +86,21 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 		Refund refund = refundRepository.findOne(id);
 		return exfeetableRepository.findByRefund(refund);
 	}
+	public boolean updateDuplicated(List<Exfeetable> exfeetables) {
+		// TODO Auto-generated method stub
+		boolean hasDuplicated = false;
+		if (exfeetables != null && !exfeetables.isEmpty()){
+			for (Exfeetable exfeetable : exfeetables){
+				List<Exfeetable> persitted = exfeetableRepository.findByDocsgeneralAndMasterFeeAndNameAndAmountAndVatAndInvoiceNo(exfeetable.getDocsgeneral(), exfeetable.getMasterFee(), exfeetable.getName()
+						,exfeetable.getAmount(), exfeetable.getVat(), exfeetable.getInvoiceNo());
+				exfeetable.setIsDuplicated(false);
+				if (persitted != null && !persitted.isEmpty() && persitted.size() >1){
+					exfeetable.setIsDuplicated(true);
+					hasDuplicated = true;
+				}
+			}
+		}
+		return hasDuplicated;
+	}
 
 }

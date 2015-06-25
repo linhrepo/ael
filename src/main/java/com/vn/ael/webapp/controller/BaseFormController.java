@@ -61,7 +61,7 @@ public class BaseFormController implements ServletContextAware {
     public static final String ERRORS_MESSAGES_KEY = "errors";
     protected final transient Log log = LogFactory.getLog(getClass());
     private UserManager userManager = null;
-    private EntityService entityService = null;
+    protected EntityService entityService = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     protected String templateName = "accountCreated.vm";

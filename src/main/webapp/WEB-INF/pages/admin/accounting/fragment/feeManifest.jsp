@@ -14,6 +14,7 @@
     	detailTableMapping="masterFee.value,name.value,amount[money],vat[money],total[money],approvedText[Key],dateChange[Date],checkByAdminText[Key]"
     	editDetail="/admin/accounting/changeApproval"
     	actionCheck = "checkByAdmin:false,null"
+    	actionConfirm = "true"    	
     	successLoadMessage="accounting.fees.detailLoaded"
     	>
         <thead>

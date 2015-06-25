@@ -34,6 +34,7 @@ import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
+import com.vn.ael.persistence.service.EntityService;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
@@ -276,6 +277,9 @@ public class AccountingController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST);
 		
 		List<Docsgeneral> docsgenerals = docsgeneralManager.searchFeeTables(searchFeeTables);
+		if (searchFeeTables.getIsDuplicated()){
+			docsgenerals = entityService.listContainsDuplicatedFees(docsgenerals);
+		}
 		mav.addObject(docsgenerals);
 		
 		//selection
@@ -366,6 +370,9 @@ public class AccountingController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN);
 		
 		List<Docsgeneral> docsgenerals = docsgeneralManager.searchFeeTables(searchFeeTables);
+		if (searchFeeTables.getIsDuplicated()){
+			docsgenerals = entityService.listContainsDuplicatedFees(docsgenerals);
+		}
 		mav.addObject(docsgenerals);
 		
 		//selection

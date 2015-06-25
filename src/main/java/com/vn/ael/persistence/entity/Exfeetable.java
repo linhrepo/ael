@@ -240,4 +240,18 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		this.vatAmount = vatAmount;
 	}
 	
+	//used for highlight duplicated row
+	@Transient
+	private boolean isDuplicated= false;
+
+	public boolean getIsDuplicated() {
+		return isDuplicated;
+	}
+
+	public void setIsDuplicated(boolean isDuplicated) {
+		this.isDuplicated = isDuplicated;
+	}
+	
+	
+	
 }

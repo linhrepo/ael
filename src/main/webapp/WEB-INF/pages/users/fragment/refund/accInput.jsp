@@ -3,8 +3,8 @@
 	     	<table class="table">
 		  		<thead>
 		  			<tr >
-			  			<th style="text-align: center"><fmt:message key="advanceform.payForm"/></th>
-			  			<th style="text-align: center"><fmt:message key="advanceform.payReason"/></th>
+			  			<th style="text-align: center"><fmt:message key="refund.payForm"/></th>
+			  			<th style="text-align: center"><fmt:message key="refund.payReason"/></th>
 		  			</tr>
 		  		</thead>
 		  		<tbody>

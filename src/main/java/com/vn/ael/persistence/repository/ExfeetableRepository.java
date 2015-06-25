@@ -3,12 +3,14 @@
  */
 package com.vn.ael.persistence.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
@@ -57,5 +59,8 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 	List<Exfeetable> findByExhibition(Exhibition exhibition);
 	
 	List<Exfeetable> findByRefund(Refund refund);
+	
+	List<Exfeetable> findByDocsgeneralAndMasterFeeAndNameAndAmountAndVatAndInvoiceNo(Docsgeneral docsgeneral, 
+			Configuration masterFee, Configuration name,BigDecimal amount, BigDecimal vat, String invoiceNo);
 	
 }

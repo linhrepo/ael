@@ -22,6 +22,7 @@ import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Exhibition;
 import com.vn.ael.persistence.entity.Inland;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.ExhibitionManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -32,6 +33,13 @@ import com.vn.ael.webapp.util.EntityUtil;
 public class ExhibitionFormController extends BaseFormController {
 
 	private NhathauManager nhathauManager;
+	
+	private ExfeetableManager exfeetableManager;
+	
+	@Autowired
+	private void setExfeetableManager(ExfeetableManager exfeetableManager){
+		this.exfeetableManager = exfeetableManager;
+	}
 	
 	@Autowired
 	private void setNhauthauManager(NhathauManager nhathauManager){
@@ -68,6 +76,12 @@ public class ExhibitionFormController extends BaseFormController {
         	exhibition= new Exhibition();
         }
         docsgeneralManager.updateChilds(exhibition.getDocsgeneral());
+        if (exhibition != null ){
+    		exhibition.getDocsgeneral().setIsContainDuplicated(exfeetableManager.updateDuplicated(exhibition.getDocsgeneral().getExfeetables()));
+    		if (exhibition.getDocsgeneral().getIsContainDuplicated()){
+    			saveError(request, getText("errors.duplicatedFee", request.getLocale()));
+    		}
+    	}
         ModelAndView mav = new ModelAndView(URLReference.EXHIBITION_FORM);
         mav.addObject("exhibition", exhibition);
         DocsSelection docsSelection = configurationManager.loadSelectionForDocsPage(

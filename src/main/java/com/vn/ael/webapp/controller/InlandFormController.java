@@ -23,6 +23,7 @@ import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Inland;
 import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.InlandManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -31,6 +32,13 @@ import com.vn.ael.webapp.util.EntityUtil;
 @Controller
 public class InlandFormController extends BaseFormController {
 
+	private ExfeetableManager exfeetableManager;
+	
+	@Autowired
+	private void setExfeetableManager(ExfeetableManager exfeetableManager){
+		this.exfeetableManager = exfeetableManager;
+	}
+	
 	private NhathauManager nhathauManager;
 	
 	@Autowired
@@ -75,6 +83,12 @@ public class InlandFormController extends BaseFormController {
 			}
         }
         docsgeneralManager.updateChilds(inland.getDocsgeneral());
+        if (inland != null ){
+    		inland.getDocsgeneral().setIsContainDuplicated(exfeetableManager.updateDuplicated(inland.getDocsgeneral().getExfeetables()));
+    		if (inland.getDocsgeneral().getIsContainDuplicated()){
+    			saveError(request, getText("errors.duplicatedFee", request.getLocale()));
+    		}
+    	}
         ModelAndView mav = new ModelAndView(URLReference.INLAND_FORM);
         mav.addObject("inland", inland);
       //selection
