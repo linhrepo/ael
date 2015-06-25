@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Extendfeeacc;
+import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
+import com.vn.ael.persistence.repository.RefundRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.util.EntityUtil;
 
@@ -34,6 +36,9 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
     
     @Autowired
     private TruckingdetailRepository truckingdetailRepository;
+    
+    @Autowired
+    private RefundRepository refundRepository;
 
     @Autowired
     public ExfeetableManagerImpl(final ExfeetableRepository exfeetableRepository) {
@@ -74,6 +79,12 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 	public List<Exfeetable> findByTruckingdetail(Long id) {
 		Truckingdetail truckingdetail = truckingdetailRepository.findOne(id);
 		return exfeetableRepository.findByTruckingdetail(truckingdetail);
+	}
+
+	@Override
+	public List<Exfeetable> findByRefund(Long id) {
+		Refund refund = refundRepository.findOne(id);
+		return exfeetableRepository.findByRefund(refund);
 	}
 
 }

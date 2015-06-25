@@ -93,7 +93,7 @@ public class AccountingTransCondition {
 		this.typeOfDocs = typeOfDocs;
 	}
 	public List<String> getJobList() {
-		return jobList;
+		return this.jobList;
 	}
 	public void setJobList(List<String> jobList) {
 		this.jobList = jobList;

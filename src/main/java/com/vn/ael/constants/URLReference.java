@@ -53,6 +53,7 @@ public interface URLReference {
 	String ACCOUNTING_FEE_LIST = "/admin/accounting/feeTables";
 	String ACCOUNTING_FEE_LIST_DETAIL = "/admin/accounting/feesDetail";
 	String ACCOUNTING_FEE_NHATHAU_LIST_DETAIL = "/admin/accounting/feeNhathauDetail";
+	String ACCOUNTING_FEE_REFUND_LIST_DETAIL = "/admin/accounting/feeRefundDetail";
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL = "/admin/accounting/changeApproval";
 	
@@ -94,7 +95,8 @@ public interface URLReference {
 	String ADVANCE_SEARCH = "/users/searchAdvance";
 	String REFUND_SEARCH = "/users/searchRefund";
 	String ACC_ADVANCE_SEARCH = "/admin/accounting/searchAdvance";
-	String ACC_REFUND_SEARCH = "/admin/accounting/searchRefund";	
+	String ACC_REFUND_SEARCH = "/admin/accounting/searchRefund";
+	String FEEREFUND_SEARCH = "/admin/accounting/searchFeeRefund";
 	
 	String AJAX_REPORT_ACCOUNTING_TRANSPORT = "/admin/accounting/transport/download";
 	String AJAX_REPORT_ACCOUNTING_NHATHAU = "/admin/accounting/nhathau/nhathau/download";
@@ -126,4 +128,5 @@ public interface URLReference {
 	String DEBIT_SEARCH = "/admin/accounting/searchDebit";
 	String DEBIT_APPROVE_COLLECT = "/admin/accounting/approveCollectMoney";
 	
+	String ACCOUNTING_TRANSPORT_SEARCH = "/admin/accounting/transportSearch";
 }

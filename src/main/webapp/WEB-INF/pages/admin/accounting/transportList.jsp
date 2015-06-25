@@ -9,15 +9,16 @@
     <h2><fmt:message key="accountingTrans.heading"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="conditions" method="get"
-		action="transport" id="accountingtranForm" cssClass="well">
+		action="transportSearch" id="accountingtranForm" cssClass="well">
      <div class="container-fluid">
     	<div class="row">
 		    <div class="form-group col-md-6">
 		    <appfuse:label styleClass="control-label" key="customer.name"/>
 		    <form:select path="customerId" class="form-control">
-	    			<c:forEach items="${customers}" var="customer">
-	    				<option value="${customer.id}">${customer.code} - ${customer.name}</option>
-	    			</c:forEach>
+<%-- 		    	<form:option value=""><fmt:message key="searchall" /></form:option> --%>
+    			<c:forEach items="${customers}" var="customer">
+    				<option value="${customer.id}">${customer.code} - ${customer.name}</option>
+    			</c:forEach>
 	    	</form:select>
 		    </div>
 		    <div class="form-group col-md-2">
@@ -48,5 +49,56 @@
     </button>
     </div>
     </form:form>
+    <fmt:formatDate value="${accountingNhathau.condition.startDate}" var="startDate" 
+               type="date" pattern="dd/MM/yyyy" />
+	<fmt:formatDate value="${accountingNhathau.condition.endDate}" var="endDate" 
+               type="date" pattern="dd/MM/yyyy" />
+    <c:if test="${not empty accountingTrans.condition.jobList }">
+    	<c:forEach items="${accountingTrans.condition.jobList }" var="job">
+    		<c:set var="listJob" value="&jobList=${job}${listJob}" />    		
+    	</c:forEach>
+    	<c:set var="sum" value="${fn:replace(listJob, 'amp;', '')}" />    
+    </c:if>
+    
+    <table id="packageInfoList" class="datatable" cellspacing="0" width="100%" >
+        <thead>
+            <tr>
+            	<th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="accountingtrans.companyName"/></th>
+                <th><fmt:message key="accountingtrans.address"/></th>
+                <th><fmt:message key="accountingtrans.taxno"/></th>
+                <th><fmt:message key="accountingtrans.tel"/></th>
+                <th><fmt:message key="accountingtrans.fax"/></th>
+                <th><fmt:message key="table.action"/></th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="accountingtrans.companyName"/></th>
+                <th><fmt:message key="accountingtrans.address"/></th>
+                <th><fmt:message key="accountingtrans.taxno"/></th>
+                <th><fmt:message key="accountingtrans.tel"/></th>
+                <th><fmt:message key="accountingtrans.fax"/></th>
+                <th><fmt:message key="table.action"/></th>
+            </tr>
+        </tfoot>
+        <tbody>
+        <c:forEach items="${listCustomer}" var="cus" varStatus="idx">
+        	<tr>
+                <td>${idx.index+1}</td>
+              	<td>${cus.name}</td>
+              	<td>${cus.address}</td>
+              	<td>${cus.taxno}</td>  
+              	<td>${cus.tel}</td>
+              	<td>${cus.fax}</td>             	
+                <td>
+                	<a href="transport?customerId=${cus.id}&startDate=${startDate}&endDate=${endDate}&_jobList=1${sum}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>                	
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 

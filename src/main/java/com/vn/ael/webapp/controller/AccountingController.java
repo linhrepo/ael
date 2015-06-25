@@ -25,12 +25,14 @@ import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
+import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -48,6 +50,8 @@ public class AccountingController extends BaseFormController {
 	private PackageinfoManager packageinfoManager;
 	
 	private TruckingserviceManager truckingserviceManager;
+	
+	private RefundManager refundManager;
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -75,6 +79,11 @@ public class AccountingController extends BaseFormController {
 	public void setTruckingserviceManager(
 			TruckingserviceManager truckingserviceManager) {
 		this.truckingserviceManager = truckingserviceManager;
+	}
+        
+    @Autowired
+	public void setRefundManager(RefundManager refundManager) {
+		this.refundManager = refundManager;
 	}
 
 	public AccountingController() {
@@ -144,6 +153,7 @@ public class AccountingController extends BaseFormController {
         Model model = new ExtendedModelMap();
         model.addAttribute(docsgeneralManager.findByDoAccounting(true));
         model.addAttribute(truckingserviceManager.findByDoAccounting(true));
+//        model.addAttribute(refundManager.findByDoApproval(true));
         Search searchAccFee = new Search();
         model.addAttribute("search", searchAccFee);
       //selection
@@ -279,6 +289,7 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("flag", 1);
 		return mav;
 	}
     
@@ -338,6 +349,7 @@ public class AccountingController extends BaseFormController {
         mav.addObject("flag", 1);
         mav.addObject("jobList", docsgeneralManager.getAllJob());
         mav.addObject(docsgeneralManager.findByDoAccounting(true));
+        mav.addObject("flag", 2);
 		return mav;
 	}
     
@@ -440,4 +452,35 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("approve", approve);
         return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
     }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_REFUND_LIST_DETAIL)
+    public @ResponseBody List<Exfeetable> handleFeeRefundDetailRequest(@RequestParam(value="refundId") Long id) throws Exception {
+    	List<Exfeetable> exfeetables = this.exfeetableManager.findByRefund(id);
+    	return exfeetables;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEEREFUND_SEARCH)
+	public ModelAndView searchFeeRefund(Search searchFeeTables)
+			throws Exception {
+		// Model model = new ExtendedModelMap();
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST);
+		
+		List<Refund> refunds = refundManager.searchFeeRefund(searchFeeTables);
+		mav.addObject(refunds);
+		mav.addObject(docsgeneralManager.findByDoAccounting(true));
+		mav.addObject(truckingserviceManager.findByDoAccounting(true));
+		//selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT
+        		);
+        mav.addObject("docsSelection", docsSelection);
+        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("flag", 3);
+		return mav;
+	}
 }

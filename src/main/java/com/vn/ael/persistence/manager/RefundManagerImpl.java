@@ -120,9 +120,9 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	@Override
 	public List<Refund> searchRefund(Search search) {
 		if(search.getJob() != null && !search.getJob().isEmpty()){
-			return this.refundRepository.searchRefund(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(), search.getDoApproval(), search.getJob());
+			return this.refundRepository.searchRefund(search.getEmployee(), search.getStartDate(), search.getEndDate(), search.getDoApproval(), search.getJob());
 		}
-		return this.refundRepository.searchRefundAll(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(), search.getDoApproval());
+		return this.refundRepository.searchRefundAll(search.getEmployee(), search.getStartDate(), search.getEndDate(), search.getDoApproval());
 	}
 
 	@Override
@@ -139,11 +139,21 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	
 	@Override
 	public List<Refund> searchPhieuThu(Search search) {
-		return this.refundRepository.searchPhieuThu(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(), search.getDoApproval());
+		return this.refundRepository.searchPhieuThu(search.getEmployee(), search.getStartDate(), search.getEndDate(), search.getDoApproval());
 	}
 
 	@Override
 	public List<Refund> findAllThanhtoan() {
 		return this.refundRepository.findAllThanhToan();
+	}
+
+	@Override
+	public List<Refund> searchFeeRefund(Search search) {
+		return this.refundRepository.searchFeeRefund(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(), search.getJob(), true, search.getCheckByAdmin(), search.getApproved());
+	}
+
+	@Override
+	public List<Refund> findByDoApproval(Boolean doApproval) {
+		return this.refundRepository.findByDoApproval(doApproval);
 	}
 }

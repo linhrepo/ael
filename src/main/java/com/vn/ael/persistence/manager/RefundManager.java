@@ -24,4 +24,8 @@ public interface RefundManager extends GenericManager<Refund> {
 	List<Refund> findAllThanhtoan();
 
 	List<Refund> searchPhieuThu(Search search);
+	
+	List<Refund> searchFeeRefund(Search search);
+	
+	List<Refund> findByDoApproval(Boolean doApproval);
 }

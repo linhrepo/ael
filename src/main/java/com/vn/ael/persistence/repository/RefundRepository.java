@@ -62,5 +62,20 @@ public interface RefundRepository extends GenericRepository<Refund> {
 	@Query("SELECT e FROM Refund e left join e.exfeetables exf WHERE (e.isPhieuThu is null or e.isPhieuThu = false) and e.employee.id = :employeeId group by e")
 	List<Refund> findAllThanhToanEmployee(@Param("employeeId")long id);
 	
+	@Query("SELECT e FROM Refund e left join fetch e.exfeetables f WHERE (e.employee.id = :employeeId or :employeeId is null) and "
+			+ "(e.date >= :startDate or :startDate is null) and (e.date <= :endDate or :endDate is null) and "
+			+ "(e.doApproval =:doApproval or :doApproval is null) and "
+			+ "(f.docsgeneral.jobNo = :jobNo or :jobNo = '') and "
+			+ "(f.checkByAdmin =:checkByAdmin or :checkByAdmin is null) and "
+			+ "(f.approved =:approved or :approved is null) "
+			+ "group by e")
+	List<Refund> searchFeeRefund(@Param("employeeId") Long employeeId,
+			@Param("startDate") Date startDate, 
+			@Param("endDate") Date endDate,
+			@Param("jobNo") String jobNo,
+			@Param("doApproval") Boolean doApproval,
+			@Param(value="checkByAdmin") Boolean checkByAdmin,
+			@Param(value="approved") Boolean approved);
 	
+	List<Refund> findByDoApproval(Boolean doApproval);
 }

@@ -217,7 +217,7 @@
 	    		value = "";
 	    	}
 	    	return value;
-	    };
+	    };	    	   
 	    
         // fire up the plugin!
         // call the "constructor" method
@@ -236,5 +236,4 @@
         });
 
     };
-
 })(jQuery);

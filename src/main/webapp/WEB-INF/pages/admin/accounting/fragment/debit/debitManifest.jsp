@@ -67,8 +67,7 @@
 		if($("#approve").val() != null && $("#approve").val() != ""){
 			UTIL.showMessage('<fmt:message key="debit.approved"/>', "info");
 		}
-		$('#approveMoney').click(function(){
-			
+		$('#approveMoney').click(function(){			
 			$.confirm({
 			    text: '<fmt:message key="debit.confirmApprove"/>',
 			    confirm: function() {

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.enums.ServicesType;
@@ -27,7 +26,6 @@ import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Inlandsize;
 import com.vn.ael.persistence.entity.Multitype;
-import com.vn.ael.persistence.entity.Transreportext;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.repository.AttachmentRepository;
 import com.vn.ael.persistence.repository.ContsealRepository;
