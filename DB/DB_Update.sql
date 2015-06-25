@@ -205,4 +205,29 @@ ALTER TABLE `ael`.`exfeetable`
 ADD COLUMN `vatAmount` DECIMAL(20,2) NULL AFTER `exhUsd`;
 
 
+-------- 2606
+ALTER TABLE `ael`.`truckingservice` 
+DROP FOREIGN KEY `truckingdocs`;
+ALTER TABLE `ael`.`truckingservice` 
+CHANGE COLUMN `docsgeneral` `docsgeneral` BIGINT(20) NOT NULL ,
+ADD UNIQUE INDEX `docsgeneral_UNIQUE` (`docsgeneral` ASC);
+ALTER TABLE `ael`.`truckingservice` 
+ADD CONSTRAINT `truckingdocs`
+  FOREIGN KEY (`docsgeneral`)
+  REFERENCES `ael`.`docsgeneral` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `ael`.`nhathau` 
+CHANGE COLUMN `code` `code` VARCHAR(45) NOT NULL ;
+
+UPDATE truckingdetail
+SET dateDev=DATE_FORMAT(dateDev,'2015-%m-%d') where id>0;
+
+ALTER TABLE `ael`.`transreportext` 
+ADD COLUMN `otherFee` DECIMAL(20,2) NULL AFTER `note`;
+
+
+
+
 

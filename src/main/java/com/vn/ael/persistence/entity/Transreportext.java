@@ -35,6 +35,9 @@ public class Transreportext extends BasedChildEntity {
 
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal vat;
+	
+	@NumberFormat(pattern = FormatterPattern.NUMBER)
+	private BigDecimal otherFee;
 
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal vatValue;
@@ -100,6 +103,14 @@ public class Transreportext extends BasedChildEntity {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public BigDecimal getOtherFee() {
+		return otherFee;
+	}
+
+	public void setOtherFee(BigDecimal otherFee) {
+		this.otherFee = otherFee;
 	}
 	
 

@@ -18,7 +18,7 @@
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
-                <th><fmt:message key="refund.approval"/></th>
+               <th><fmt:message key="advanceform.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -30,7 +30,7 @@
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
-                <th><fmt:message key="refund.approval"/></th>
+                <th><fmt:message key="advanceform.approval"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>

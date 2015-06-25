@@ -428,6 +428,7 @@ public class ReportUtil {
 		List<AccountingTransportExport> accountingTransExport = new ArrayList<>();
 		BigDecimal chihoTotal = BigDecimal.ZERO;
 		BigDecimal giacaTotal = BigDecimal.ZERO;
+		BigDecimal otherFeeTotal = BigDecimal.ZERO;
 		BigDecimal vatAmountTotal = BigDecimal.ZERO;
 		List<List<Exfeetable>> feesListChiho = new ArrayList<>();
 		
@@ -464,6 +465,7 @@ public class ReportUtil {
 						item.setChiho(doc.getChiho());
 						item.setInvoiceMani(doc.getInvoiceChiho());
 						if (truckingdetail.getTransreportext() != null){
+							item.setOtherFee(truckingdetail.getTransreportext().getOtherFee());
 							item.setAccountingPrice(truckingdetail
 									.getTransreportext().getPriceUnit());
 							item.setVat(truckingdetail
@@ -474,7 +476,7 @@ public class ReportUtil {
 									.getTransreportext().getNote());
 						}
 						
-						
+						otherFeeTotal = otherFeeTotal.add(ConvertUtil.getNotNullValue(item.getOtherFee()));
 						giacaTotal = giacaTotal.add(ConvertUtil
 								.getNotNullValue(item.getAccountingPrice()));
 						vatAmountTotal = vatAmountTotal.add(ConvertUtil.getNotNullValue(item.getVatAmount()));
@@ -484,7 +486,7 @@ public class ReportUtil {
 								.getNotNullValue(item.getAccountingPrice()).add(
 										ConvertUtil
 										.getNotNullValue(item.getVatAmount())));
-						item.setTotal(item.getFeeWithVat());
+						item.setTotal(item.getFeeWithVat().add(ConvertUtil.getNotNullValue(item.getOtherFee())));
 						accountingTransExport.add(item);
 					}
 				}
@@ -530,6 +532,8 @@ public class ReportUtil {
 		beans.put("refNo", accountingTrans.getRefNo());
 		beans.put("chihoTotal", chihoTotal);
 		beans.put("giacaTotal", giacaTotal);
+		beans.put("otherFeeTotal", otherFeeTotal);
+		beans.put("updateDate", CommonUtil.getDateString(Calendar.getInstance().getTime()));
 		beans.put("vatAmountTotal", vatAmountTotal);
 		beans.put("thanhtien", giacaTotal.add(vatAmountTotal));
 		beans.put("total", finalTotal);

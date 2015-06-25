@@ -94,6 +94,8 @@
               	<td>${cus.tel}</td>
               	<td>${cus.fax}</td>             	
                 <td>
+                	<fmt:formatDate value="${accountingTrans.condition.startDate}" pattern="dd/MM/yyyy" var="startDate"/>
+                	<fmt:formatDate value="${accountingTrans.condition.endDate}" pattern="dd/MM/yyyy" var="endDate"/>
                 	<a href="transport?customerId=${cus.id}&startDate=${startDate}&endDate=${endDate}&_jobList=1${sum}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>                	
                 </td>
             </tr>

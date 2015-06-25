@@ -23,6 +23,7 @@
 			<th rowspan="2"><fmt:message key="accountingcus.vat" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.feevat" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.feewithvat" /></th>
+			<th rowspan="2"><fmt:message key="truckingservice.otherFee" /></th>
 			<th rowspan="2"><fmt:message key="accountingcus.note" /></th>
 		</tr>
 <!-- 		<tr> -->
@@ -162,6 +163,11 @@
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
 					<div class="form-group">
 						<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.total" cssClass="form-control money total" readonly="true"/>
+					</div>
+				</td>
+				<td data-title="<fmt:message key="accountingtrans.total"/>">
+					<div class="form-group">
+						<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.otherFee" cssClass="form-control money"/>
 					</div>
 				</td>
 				<td data-title="<fmt:message key="accountingtrans.total"/>">
