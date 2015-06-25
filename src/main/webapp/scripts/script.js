@@ -265,4 +265,44 @@ $(document).ready(function(){
 	$('[provide="datepicker"]').datetimepicker({
 		format: "DD/MM/YYYY"
 	});
+	
+	$('[data-provide="datetimepicker"]').blur(function(){
+		var part = $(this).val();
+		if(part != null){
+			part = part.split("/");
+			var dt = new Date(parseInt(part[2], 10),
+								parseInt(part[1], 10) -1,
+								parseInt(part[0], 10));
+			if(dt.getFullYear() < 2000){
+				UTIL.showMessage("Year must to be greater than 2000", "error");
+			}
+		}
+	});
+	
+	$('[provide="ddatepicker"]').blur(function(){
+		var part = $(this).val();
+		if(part != null){
+			part = part.split("/");
+			var dt = new Date(parseInt(part[2], 10),
+								parseInt(part[1], 10) -1,
+								parseInt(part[0], 10));
+			if(dt.getFullYear() < 2000){
+				UTIL.showMessage("Year must to be greater than 2000", "error");
+			}
+		}
+	});
+	
+	$('[provide="datepicker"]').blur(function(){
+		var part = $(this).val();
+		if(part != null){
+			part = part.split("/");
+			var dt = new Date(parseInt(part[2], 10),
+								parseInt(part[1], 10) -1,
+								parseInt(part[0], 10));
+			if(dt.getFullYear() < 2000){
+				UTIL.showMessage("Year must to be greater than 2000", "error");
+			}
+		}
+		
+	});
 });

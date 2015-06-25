@@ -1,8 +1,11 @@
 package com.vn.ael.webapp.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +23,10 @@ import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Nhathau;
+import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
@@ -80,6 +86,33 @@ public class AccountingTransportController extends BaseFormController {
         ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_TRANSPORT);
         AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
         mav.addObject("accountingTrans", accountingTrans);
+        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
+        return mav;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_TRANSPORT_SEARCH)
+    protected ModelAndView searchTransport(HttpServletRequest request, AccountingTransCondition accountingTransCondition)
+    throws Exception {
+        ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST);
+        AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
+        List<Customer> customers = new ArrayList<>();
+        //list transport id after fetch
+        Set<Long> transportIds = new HashSet<>();
+        //get distinct nhathau
+        if(accountingTrans.getDocs() != null && !accountingTrans.getDocs().isEmpty()){
+        	for (Docsgeneral docsgeneral : accountingTrans.getDocs()) {
+        		transportIds.add(docsgeneral.getCustomer().getId());
+			}
+        	for (Long id : transportIds) {
+        		Customer customer = customerManager.get(id);
+        		customers.add(customer);
+			}
+        }
+        mav.addObject("conditions",new AccountingTransCondition());
+        mav.addObject("customers", customerManager.getAll());
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("accountingTrans", accountingTrans);
+        mav.addObject("listCustomer", customers);
         mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
         return mav;
     }

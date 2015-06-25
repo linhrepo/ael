@@ -10,12 +10,14 @@
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><fmt:message key="accounting.feeManifest" /></a></li>
 		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><fmt:message key="accounting.feeNhathau" /></a></li>
+		<%-- <li role="presentation"><a href="#sumary" aria-controls="settings" role="tab" data-toggle="tab"><fmt:message key="feeRefundAcc.heading" /></a></li> --%>
 	</ul>
 	<!-- Tab panes -->
 	<div class="tab-content">
 		<input type="hidden" id="flag" value="${flag }">
 		<div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="fragment/feeManifest.jsp"></jsp:include></div>
 		<div role="tabpanel" class="tab-pane" id="settings"><jsp:include page="fragment/feeNhathau.jsp"></jsp:include></div>		
+		<%-- <div role="tabpanel" class="tab-pane" id="sumary"><jsp:include page="fragment/feeRefundAdmin.jsp"></jsp:include></div> --%>
 	</div>
 </div>
 
@@ -70,3 +72,4 @@
 	 }
  });
 </script>
+<script type="text/javascript" src="<c:url value='/scripts/advanceRefund.js'/>"></script>

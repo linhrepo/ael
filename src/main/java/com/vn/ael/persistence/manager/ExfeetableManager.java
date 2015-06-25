@@ -30,6 +30,7 @@ public interface ExfeetableManager extends GenericManager<Exfeetable> {
 	
 	List<Exfeetable> findByTruckingdetail(Long id);
 	
+	List<Exfeetable> findByRefund(Long id);
 	boolean updateDuplicated(List<Exfeetable> exfeetables);
 
 }
