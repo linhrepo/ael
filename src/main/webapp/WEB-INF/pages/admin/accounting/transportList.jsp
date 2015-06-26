@@ -12,7 +12,7 @@
 		action="transportSearch" id="accountingtranForm" cssClass="well">
      <div class="container-fluid">
     	<div class="row">
-		    <div class="form-group col-md-6">
+		    <div class="form-group col-md-8">
 		    <appfuse:label styleClass="control-label" key="customer.name"/>
 		    <form:select path="customerId" class="form-control">
 <%-- 		    	<form:option value=""><fmt:message key="searchall" /></form:option> --%>

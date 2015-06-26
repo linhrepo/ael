@@ -108,7 +108,7 @@ public class AccountingTransportController extends BaseFormController {
         		customers.add(customer);
 			}
         }
-        mav.addObject("conditions",new AccountingTransCondition());
+        mav.addObject("conditions", accountingTransCondition);
         mav.addObject("customers", customerManager.getAll());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
         mav.addObject("accountingTrans", accountingTrans);
