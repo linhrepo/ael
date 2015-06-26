@@ -102,7 +102,7 @@ public class AccountingNhathauController extends BaseFormController{
         		nhathaus.add(nhathau);
 			}
         }
-        mav.addObject("conditions",new AccountingTransCondition());
+        mav.addObject("conditions", accountingTransCondition);
         mav.addObject("listNhathau", nhathaus);
         mav.addObject("accountingNhathau", accountingTrans);
         mav.addObject("nhathauList", nhathauManager.getAll());
