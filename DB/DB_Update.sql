@@ -229,5 +229,26 @@ ADD COLUMN `otherFee` DECIMAL(20,2) NULL AFTER `note`;
 
 
 
+--------- 2806
+ALTER TABLE `ael`.`exfeetable` 
+DROP FOREIGN KEY `nameOfFee`,
+DROP FOREIGN KEY `toMasterFee`;
+ALTER TABLE `ael`.`exfeetable` 
+CHANGE COLUMN `name` `name` BIGINT(20) NOT NULL ,
+CHANGE COLUMN `masterFee` `masterFee` BIGINT(20) NOT NULL ;
+ALTER TABLE `ael`.`exfeetable` 
+ADD CONSTRAINT `nameOfFee`
+  FOREIGN KEY (`name`)
+  REFERENCES `ael`.`configuration` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `toMasterFee`
+  FOREIGN KEY (`masterFee`)
+  REFERENCES `ael`.`configuration` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
 
+delete from exfeetable where name is null and masterFee is null and total is null;
+
+select * from exfeetable where name is null and masterFee is null and total is null;
 

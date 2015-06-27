@@ -36,7 +36,7 @@
 				<form:select path="jobList" id="jobList" 
 					cssClass="form-control select2" multiple="true">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<form:options items="${jobList }"/>
+					<form:options items="${jobList}"/>
 				</form:select>
 			</div>
     	</div>

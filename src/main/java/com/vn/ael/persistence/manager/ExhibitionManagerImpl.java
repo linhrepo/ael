@@ -106,6 +106,7 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public Exhibition findReportObjects(String id) {
 		Exhibition exhibition = this.exhibitionRepository.findOne(new Long(id));
@@ -123,7 +124,12 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 			exfeetable.setIsAdded(true);
 			exfeetables.add(exfeetable);
 		}
-		exhibition.setExfeetables(exfeetables);
+		try{
+			exhibition.setExfeetables(exfeetables);
+		}catch (Exception e){
+			log.debug("This is auto commit, need to fix later");
+		}
+		
 		return exhibition;
 	}
 
