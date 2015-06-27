@@ -569,18 +569,18 @@ public class ReportUtil {
 				accountingNhathauExport.setCusName(docsgeneral.getCustomer().getName());
 				
 				accountingNhathauExport.setImportType(docsgeneral.getTypeOfImport()!= null ? docsgeneral.getTypeOfImport().getValue() : AELConst.EMPTY_STRING);
-				if(docsgeneral.getPackageinfo() != null && docsgeneral.getTypeOfImport().getId() == -3){
-					accountingNhathauExport.setPlaceGetCont(docsgeneral.getPackageinfo().getPortOfArrival());
-					accountingNhathauExport.setPlacePutCont(truckingdetail.getTruckingservice().getDeparture());
-				}
-				else if (docsgeneral.getInland() != null){
+//				if(docsgeneral.getPackageinfo() != null && docsgeneral.getTypeOfImport().getId() == -3){
+//					accountingNhathauExport.setPlaceGetCont(docsgeneral.getPackageinfo().getPortOfArrival());
+//					accountingNhathauExport.setPlacePutCont(truckingdetail.getTruckingservice().getDeparture());
+//				}
+//				else if (docsgeneral.getInland() != null){
 					accountingNhathauExport.setPlaceGetCont(truckingdetail.getPlaceGetCont());
 					accountingNhathauExport.setPlacePutCont(truckingdetail.getPlacePutCont());
-				}
-				else{
-					accountingNhathauExport.setPlaceGetCont(docsgeneral.getPlaceRev());
-					accountingNhathauExport.setPlacePutCont(docsgeneral.getPlaceDelivery());
-				}				
+//				}
+//				else{
+//					accountingNhathauExport.setPlaceGetCont(docsgeneral.getPlaceRev());
+//					accountingNhathauExport.setPlacePutCont(docsgeneral.getPlaceDelivery());
+//				}				
 				if (truckingdetail.getConsteal() != null && truckingdetail.getConsteal().getTypeOfCont()!= null){
 					accountingNhathauExport.setContNo(truckingdetail.getConsteal().getNoOfCont());
 					if (truckingdetail.getConsteal().getTypeOfCont().getValue().startsWith(TypeOfContainer.FCL_20_START)){

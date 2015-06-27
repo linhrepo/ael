@@ -43,10 +43,10 @@
 			</c:choose>
 			<th><fmt:message key="truckingservice.dateDev" /></th>
 			<th><fmt:message key="truckingservice.deliveryPlace" /></th>
-			<c:if test="${truckingservice.docsgeneral.typeOfDocs.value == 5 || truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4}">
+<%-- 			<c:if test="${truckingservice.docsgeneral.typeOfDocs.value == 5 || truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4}"> --%>
 				<th><fmt:message key="truckingservice.getCont" /></th>
 				<th><fmt:message key="truckingservice.putCont" /></th>
-			</c:if>
+<%-- 			</c:if> --%>
 			<th><fmt:message key="table.action" /></th>
 		</tr>
 	</thead>
@@ -192,7 +192,7 @@
 								cssClass="help-block" />
 					</div>
 				</td>
-				<c:if test="${truckingservice.docsgeneral.typeOfDocs.value == 5 || truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4}">
+<%-- 				<c:if test="${truckingservice.docsgeneral.typeOfDocs.value == 5 || truckingservice.docsgeneral.typeOfDocs.value == 1 || truckingservice.docsgeneral.typeOfDocs.value == 4}"> --%>
 					<td>
 						<spring:bind path="truckingdetails[${idx.index}].placeGetCont">
 						<div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
@@ -217,7 +217,7 @@
 									cssClass="help-block" />
 						</div>
 					</td>
-				</c:if>
+<%-- 				</c:if> --%>
 				<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
 							<td rowType="actions">
 								<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>"> 
