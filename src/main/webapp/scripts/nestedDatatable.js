@@ -77,31 +77,33 @@
 	    		var that = this;
 	    		this.iTableCounter = 1;
 	            var oInnerTable;
-	            $('#'+options.tableId+' tbody td i.child').on('click', function () {
-	                var nTr = $(this).parents('tr')[0];
-	                if (that.oTable.fnIsOpen(nTr)) {
-	                    /* This row is already open - close it */
-	                	$(this).removeClass(options.closeTag);
-	                    $(this).addClass(options.openTag);
-	                    that.oTable.fnClose(nTr);
-	                }
-	                else {
-	                    /* Open this row */
-	                	$(this).removeClass(options.openTag);
-	                    $(this).addClass(options.closeTag);
-	                    var childDetail = that.loadChildDetail(nTr);
-	                    that.oTable.fnOpen(nTr, fnFormatDetails(that.iTableCounter, childDetail), 'details');
-	                    oInnerTable = $("#childTable_" + that.iTableCounter).dataTable({
-	                        "bJQueryUI": true,
-	                        "destroy": true,
-	                        "sPaginationType": "full_numbers",
-	                         "paging": false,
-	                         "searching": false
-	                    });
-	                    that.iTableCounter = that.iTableCounter + 1;
-	                    $(nTr).trigger("afterOpenChild",oInnerTable);
-	                }
+	            $('#'+options.tableId+' tbody td i.child[hasEvent != "true"]').on('click', function () {
+	            		$(this).attr("hasEvent","true");
+		                var nTr = $(this).parents('tr')[0];
+		                if (that.oTable.fnIsOpen(nTr)) {
+		                    /* This row is already open - close it */
+		                	$(this).removeClass(options.closeTag);
+		                    $(this).addClass(options.openTag);
+		                    that.oTable.fnClose(nTr);
+		                }
+		                else {
+		                    /* Open this row */
+		                	$(this).removeClass(options.openTag);
+		                    $(this).addClass(options.closeTag);
+		                    var childDetail = that.loadChildDetail(nTr);
+		                    that.oTable.fnOpen(nTr, fnFormatDetails(that.iTableCounter, childDetail), 'details');
+		                    oInnerTable = $("#childTable_" + that.iTableCounter).dataTable({
+		                        "bJQueryUI": true,
+		                        "destroy": true,
+		                        "sPaginationType": "full_numbers",
+		                         "paging": false,
+		                         "searching": false
+		                    });
+		                    that.iTableCounter = that.iTableCounter + 1;
+		                    $(nTr).trigger("afterOpenChild",oInnerTable);
+		                }
 	            });
+	            $('#'+options.tableId+' tbody td i.child[hasEvent != "true"]').attr("hasEvent","true");
 	    };
 	    
 	    /**
