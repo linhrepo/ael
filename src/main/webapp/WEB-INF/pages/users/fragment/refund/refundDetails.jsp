@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         <c:forEach items="${refund.refunddetails}" var="adv" varStatus="idx">
-        	<tr class="${adv.isAdded == true ? 'hidden' :''}">
+        	<tr class="${adv.isAdded == true ? 'hidden' :''}" readonly="${empty adv.approved or adv.approved == false ? '':'readonly'}">
                 <td colType="index">${idx.index+1}</td>
                 <td colType="generalInfo" class="hidden">
 	                	<form:hidden path="refunddetails[${idx.index}].id" />
@@ -73,13 +73,14 @@
 				  				</c:if>
 			  				</security:authorize>
 					</td>
-				<c:if test="${empty refund.doApproval or refund.doApproval==false}">
 	                <td>
-	                	<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">
+	                	<c:if test="${(empty refund.doApproval or refund.doApproval==false) and (empty adv.approved or adv.approved == false) }">
+						<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">
 		                			<i class="fa fa-trash"></i>
 		                	</span>
+					</c:if>
 	                </td>
-                </c:if>
+                
             </tr>
         </c:forEach>
         </tbody>

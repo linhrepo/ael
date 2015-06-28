@@ -32,7 +32,7 @@
 	    	//Insert a 'details' column to the table
             var nCloneTh = document.createElement('th');
             var nCloneTd = document.createElement('td');
-            	nCloneTd.innerHTML = "<i class='"+options.openTag+"'></i>";
+            	nCloneTd.innerHTML = "<i class='"+options.openTag+" child'></i>";
             
             nCloneTd.className = "center";
             nCloneTd.setAttribute("colType", "childControl");
@@ -77,7 +77,7 @@
 	    		var that = this;
 	    		this.iTableCounter = 1;
 	            var oInnerTable;
-	            $('#'+options.tableId+' tbody td i').on('click', function () {
+	            $('#'+options.tableId+' tbody td i.child').on('click', function () {
 	                var nTr = $(this).parents('tr')[0];
 	                if (that.oTable.fnIsOpen(nTr)) {
 	                    /* This row is already open - close it */
