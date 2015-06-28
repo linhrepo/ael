@@ -31,6 +31,8 @@ public class Search {
 	private Boolean isCollectMoney;
 	private Boolean isDuplicated;
 	
+	private Boolean hasRecord;
+	
 	public Long getCustomer() {
 		return customer;
 	}
@@ -174,6 +176,12 @@ public class Search {
 	}
 	public void setIsDuplicated(Boolean isDuplicated) {
 		this.isDuplicated = isDuplicated;
+	}
+	public Boolean getHasRecord() {
+		return hasRecord;
+	}
+	public void setHasRecord(Boolean hasRecord) {
+		this.hasRecord = hasRecord;
 	}	
 	
 }

@@ -378,9 +378,9 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	public List<Docsgeneral> searchTrucking(Search search) {
 		ServicesType servicesType = null;
 		if(search.getTypeOfDocs() == null){
-			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), servicesType, true);
+			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), servicesType, true,search.getHasRecord());
 		}
-		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), ServicesType.fromValue(search.getTypeOfDocs().intValue()), true);
+		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), ServicesType.fromValue(search.getTypeOfDocs().intValue()), true,search.getHasRecord());
 	}
 
 	@Override
