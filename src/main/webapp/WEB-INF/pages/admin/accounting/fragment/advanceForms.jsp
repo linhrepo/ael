@@ -2,6 +2,9 @@
 <br>
 <div class="col-sm-12">
 	<jsp:include page="searchAdvance.jsp"></jsp:include>
+	 <a class="btn btn-default" href="<c:url value='/home'/>">
+            <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>
+            <hr>
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=1'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceAdmin"/></a>

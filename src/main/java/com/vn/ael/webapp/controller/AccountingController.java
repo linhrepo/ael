@@ -275,7 +275,7 @@ public class AccountingController extends BaseFormController {
     	this.refundDetailManager.save(refunddetail);
     	return AELConst.AJAX_SUCCESS;
     }
-    
+
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_ADVANCE_CHANGE_APPROVAL)
     public @ResponseBody String approvalAdvanceDetailRequest(@RequestParam(value="id") Long id) throws Exception {
     	Advancedetail advancedetail = this.advanceDetailManager.get(id);

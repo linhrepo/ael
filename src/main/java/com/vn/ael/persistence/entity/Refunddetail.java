@@ -88,7 +88,6 @@ public class Refunddetail extends ApprovableBasedChildEntity implements Serializ
 			return this.docs.getJobNo();
 		}
 		return "";
-		
 	}
 
 }

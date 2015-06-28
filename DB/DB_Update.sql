@@ -252,3 +252,8 @@ delete from exfeetable where name is null and masterFee is null and total is nul
 
 select * from exfeetable where name is null and masterFee is null and total is null;
 
+ALTER TABLE `ael`.`advancedetail` 
+ADD COLUMN `approved` INT(1) NULL AFTER `goodDes`,
+ADD COLUMN `checkByAdmin` INT(1) NULL AFTER `approved`;
+
+
