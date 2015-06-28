@@ -9,7 +9,7 @@
     <h2><fmt:message key="accountingTrans.heading"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="conditions" method="get"
-		action="transportSearch" id="accountingtranForm" cssClass="well">
+		action="transport" id="accountingtranForm" cssClass="well">
      <div class="container-fluid">
     	<div class="row">
 		    <div class="form-group col-md-8">
@@ -60,47 +60,47 @@
     	<c:set var="sum" value="${fn:replace(listJob, 'amp;', '')}" />    
     </c:if>
     
-    <table id="packageInfoList" class="datatable" cellspacing="0" width="100%" >
-        <thead>
-            <tr>
-            	<th><fmt:message key="table.no"/></th>
-                <th><fmt:message key="accountingtrans.companyName"/></th>
-                <th><fmt:message key="accountingtrans.address"/></th>
-                <th><fmt:message key="accountingtrans.taxno"/></th>
-                <th><fmt:message key="accountingtrans.tel"/></th>
-                <th><fmt:message key="accountingtrans.fax"/></th>
-                <th><fmt:message key="table.action"/></th>
-            </tr>
-        </thead>
+<!--     <table id="packageInfoList" class="datatable" cellspacing="0" width="100%" > -->
+<!--         <thead> -->
+<!--             <tr> -->
+<%--             	<th><fmt:message key="table.no"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.companyName"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.address"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.taxno"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.tel"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.fax"/></th> --%>
+<%--                 <th><fmt:message key="table.action"/></th> --%>
+<!--             </tr> -->
+<!--         </thead> -->
  
-        <tfoot>
-            <tr>
-                <th><fmt:message key="table.no"/></th>
-                <th><fmt:message key="accountingtrans.companyName"/></th>
-                <th><fmt:message key="accountingtrans.address"/></th>
-                <th><fmt:message key="accountingtrans.taxno"/></th>
-                <th><fmt:message key="accountingtrans.tel"/></th>
-                <th><fmt:message key="accountingtrans.fax"/></th>
-                <th><fmt:message key="table.action"/></th>
-            </tr>
-        </tfoot>
-        <tbody>
-        <c:forEach items="${listCustomer}" var="cus" varStatus="idx">
-        	<tr>
-                <td>${idx.index+1}</td>
-              	<td>${cus.name}</td>
-              	<td>${cus.address}</td>
-              	<td>${cus.taxno}</td>  
-              	<td>${cus.tel}</td>
-              	<td>${cus.fax}</td>             	
-                <td>
-                	<fmt:formatDate value="${accountingTrans.condition.startDate}" pattern="dd/MM/yyyy" var="startDate"/>
-                	<fmt:formatDate value="${accountingTrans.condition.endDate}" pattern="dd/MM/yyyy" var="endDate"/>
-                	<a href="transport?customerId=${cus.id}&startDate=${startDate}&endDate=${endDate}&_jobList=1${sum}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>                	
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+<!--         <tfoot> -->
+<!--             <tr> -->
+<%--                 <th><fmt:message key="table.no"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.companyName"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.address"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.taxno"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.tel"/></th> --%>
+<%--                 <th><fmt:message key="accountingtrans.fax"/></th> --%>
+<%--                 <th><fmt:message key="table.action"/></th> --%>
+<!--             </tr> -->
+<!--         </tfoot> -->
+<!--         <tbody> -->
+<%--         <c:forEach items="${listCustomer}" var="cus" varStatus="idx"> --%>
+<!--         	<tr> -->
+<%--                 <td>${idx.index+1}</td> --%>
+<%--               	<td>${cus.name}</td> --%>
+<%--               	<td>${cus.address}</td> --%>
+<%--               	<td>${cus.taxno}</td>   --%>
+<%--               	<td>${cus.tel}</td> --%>
+<%--               	<td>${cus.fax}</td>             	 --%>
+<!--                 <td> -->
+<%--                 	<fmt:formatDate value="${accountingTrans.condition.startDate}" pattern="dd/MM/yyyy" var="startDate"/> --%>
+<%--                 	<fmt:formatDate value="${accountingTrans.condition.endDate}" pattern="dd/MM/yyyy" var="endDate"/> --%>
+<%--                 	<a href="transport?customerId=${cus.id}&startDate=${startDate}&endDate=${endDate}&_jobList=1${sum}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>                	 --%>
+<!--                 </td> -->
+<!--             </tr> -->
+<%--         </c:forEach> --%>
+<!--         </tbody> -->
+<!--     </table> -->
 </div>
 

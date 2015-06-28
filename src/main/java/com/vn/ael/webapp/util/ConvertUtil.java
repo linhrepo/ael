@@ -2,6 +2,7 @@ package com.vn.ael.webapp.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -53,6 +54,13 @@ public class ConvertUtil {
 			return BigDecimal.ZERO;
 		}
 		return bigDecimal;
+	}
+	
+	public static BigDecimal getNotNullRound(BigDecimal bigDecimal){
+		if (bigDecimal == null){
+			return BigDecimal.ZERO;
+		}
+		return bigDecimal.setScale(0, RoundingMode.HALF_UP);
 	}
 	
 	/**

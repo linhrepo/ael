@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -93,7 +95,7 @@ public class AccountingTransportController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_TRANSPORT_SEARCH)
     protected ModelAndView searchTransport(HttpServletRequest request, AccountingTransCondition accountingTransCondition)
     throws Exception {
-        ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST);
+    	Model model = new ExtendedModelMap();
         AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
         List<Customer> customers = new ArrayList<>();
         //list transport id after fetch
@@ -108,13 +110,22 @@ public class AccountingTransportController extends BaseFormController {
         		customers.add(customer);
 			}
         }
-        mav.addObject("conditions", accountingTransCondition);
-        mav.addObject("customers", customerManager.getAll());
-        mav.addObject("jobList", docsgeneralManager.getAllJob());
-        mav.addObject("accountingTrans", accountingTrans);
-        mav.addObject("listCustomer", customers);
-        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
-        return mav;
+//        	mav.addObject("conditions", new AccountingTransCondition());
+////        mav.addObject("customers", customerManager.getAll());
+////        mav.addObject("jobList", docsgeneralManager.getAllJob());
+////        mav.addObject("accountingTrans", accountingTrans);
+////        mav.addObject("listCustomer", customers);
+////        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
+        //TODO: need to be fixed
+        accountingTransCondition.setJobList(new ArrayList<String>());
+        
+        model.addAttribute("conditions", accountingTransCondition);
+        model.addAttribute("accountingTrans", accountingTrans);
+        model.addAttribute("listCustomer", customers);
+//        return new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST, model.asMap());
+        model.addAttribute("customers", customerManager.getAll());
+        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        return new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST, model.asMap());
     }
  
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_TRANSPORT)

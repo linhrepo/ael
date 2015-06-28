@@ -834,10 +834,10 @@ public class ReportUtil {
 				item.setFileCus(refunddetail.getDocs() != null ? refunddetail
 						.getDocs().getJobNo() : AELConst.EMPTY_STRING);
 				item.setDescription(refunddetail.getDescription());
-				item.setAmount(refunddetail.getAmount());
-				item.setoAmount(refunddetail.getOAmount());
-				totalAmount = totalAmount.add(refunddetail.getAmount());
-				totalOAmount = totalOAmount.add(refunddetail.getOAmount());
+				item.setAmount(ConvertUtil.getNotNullRound(refunddetail.getAmount()));
+				item.setoAmount(ConvertUtil.getNotNullRound(refunddetail.getOAmount()));
+				totalAmount = totalAmount.add(item.getAmount());
+				totalOAmount = totalOAmount.add(item.getoAmount());
 				try {
 					if (refunddetail.getDocs().getIsLCL()) {
 						item.setCont("LCL");
@@ -1195,7 +1195,7 @@ public class ReportUtil {
 				item.setFileCus(exfeetable.getDocsgeneral() != null ? exfeetable
 						.getDocsgeneral().getJobNo() : AELConst.EMPTY_STRING);
 				item.setDescription(exfeetable.getName().getValue());
-				BigDecimal total = CalculationUtil.getTotalWithVat(exfeetable.getVat(), exfeetable.getAmount());
+				BigDecimal total = ConvertUtil.getNotNullRound(exfeetable.getTotal());
 				if (exfeetable.getInvoiceNo() == null || exfeetable.getInvoiceNo().isEmpty() || exfeetable.getInvoiceNo().trim().isEmpty()){
 					item.setoAmount(total);
 					totalOAmount = totalOAmount.add(total);
@@ -1219,13 +1219,15 @@ public class ReportUtil {
 				
 				listItem.add(item);
 			}
+			totalAmount = ConvertUtil.getNotNullRound(totalAmount);
+			totalOAmount = ConvertUtil.getNotNullRound(totalOAmount);
 			grandTotal = grandTotal.add(totalAmount);
 			grandTotal = grandTotal.add(totalOAmount);
 			parameterMap.put("refundDetails", listItem);
-			parameterMap.put("totalAmount", NumberFormat.getCurrencyInstance().format(totalAmount).replace("$", ""));
-			parameterMap.put("totalOAmount", NumberFormat.getCurrencyInstance().format(totalOAmount).replace("$", ""));
+			parameterMap.put("totalAmount", totalAmount);
+			parameterMap.put("totalOAmount", totalOAmount);
 			parameterMap.put("employee", refund.getEmployee());
-			parameterMap.put("grandTotal", NumberFormat.getCurrencyInstance().format(grandTotal).replace("$", ""));
+			parameterMap.put("grandTotal", grandTotal);
 			parameterMap.put("refundDate",
 					CommonUtil.getDateString(refund.getDate()));
 			parameterMap.put("refNo", refund.getRefCode());
