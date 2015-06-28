@@ -149,5 +149,9 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
 			@Param(value="isCollectMoney") Boolean isCollectMoney,
 			@Param(value="jobNo") String jobNo);
+	
+	@Query(value = "SELECT d.id, d.jobNo, c.name FROM Docsgeneral d left join Customers c on d.customer = c.id", nativeQuery = true)
+	List<Object> findAllNotForSelection();
+	
 }
 

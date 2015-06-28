@@ -85,7 +85,7 @@ public class ConfigurationManagerImpl extends GenericManagerImpl<Configuration> 
 		DocsSelection docsSelection = this.loadSelectionForDocsPage(configurationTypes);
 		//load docs
 		if (hasJobs){
-			docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL,ConvertUtil.fromDocsList2MapCus(docsgeneralRepository.findAll()));
+			docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL,ConvertUtil.fromDocsList2MapCusNative(docsgeneralRepository.findAllNotForSelection()));
 		}
 		return docsSelection;
 	}

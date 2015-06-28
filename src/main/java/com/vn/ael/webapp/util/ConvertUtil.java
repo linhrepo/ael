@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.util;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -88,6 +89,22 @@ public class ConvertUtil {
 		if (docs != null && !docs.isEmpty()){
 			for (Docsgeneral docsgeneral : docs){
 				map.put( docsgeneral.getId(), docsgeneral.getJobNo()+AELConst.SEPARATOR+docsgeneral.getCustomer().getName());
+			}
+		}
+		return map;
+	}
+	
+	/**
+	 * From docslist 2 map
+	 * @param docs
+	 * @return
+	 */
+	public static Map<Long,String> fromDocsList2MapCusNative(List<Object> docs) {
+		Map<Long,String> map = new LinkedHashMap<>();
+		if (docs != null && !docs.isEmpty()){
+			for (Object object : docs){
+				Object[] obj = (Object[]) object;
+				map.put(((BigInteger)obj[0]).longValue(), obj[1]+AELConst.SEPARATOR+obj[2]);
 			}
 		}
 		return map;

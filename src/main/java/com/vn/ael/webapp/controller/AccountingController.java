@@ -24,11 +24,13 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
+import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.persistence.manager.AdvanceDetailManager;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
@@ -59,9 +61,16 @@ public class AccountingController extends BaseFormController {
 	
 	private RefundDetailManager refundDetailManager;
 	
+	private AdvanceDetailManager advanceDetailManager;
+	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
 		this.exfeetableManager = exfeetableManager;
+	}
+	
+	@Autowired
+	public void setAdvanceDetailManager(AdvanceDetailManager advanceDetailManager){
+		this.advanceDetailManager = advanceDetailManager;
 	}
 	
 	@Autowired
@@ -216,14 +225,12 @@ public class AccountingController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_LIST_ADVDETAIL)
-    public @ResponseBody List<Exfeetable> handleadvanceAdminRequest(@RequestParam(value="docId",required = false) Long id,@RequestParam(value="refundId",required = false) Long refund) throws Exception {
-    	List<Exfeetable> exfeetables = new ArrayList<>();
-//    	if (id != null){
-//    		exfeetables = this.exfeetableManager.findByDocsgeneral(id);
-//    	}else if (refund != null){
-//    		exfeetables = this.exfeetableManager.findByRefund(refund);
-//    	}
-    	return exfeetables;
+    public @ResponseBody List<Advancedetail> handleadvanceAdminRequest(@RequestParam(value="id",required = false) Long id) throws Exception {
+    	List<Advancedetail> advancedetails = new ArrayList<>();
+    	if (id != null){
+    		advancedetails = this.advanceDetailManager.findAllByAdvance(id);
+    	}
+    	return advancedetails;
     }
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_REFUND_ADMIN_LIST_DETAIL)
@@ -266,6 +273,23 @@ public class AccountingController extends BaseFormController {
     		refunddetail.setApproved(false);
     	}
     	this.refundDetailManager.save(refunddetail);
+    	return AELConst.AJAX_SUCCESS;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_ADVANCE_CHANGE_APPROVAL)
+    public @ResponseBody String approvalAdvanceDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    	Advancedetail advancedetail = this.advanceDetailManager.get(id);
+    	if (advancedetail == null){
+    		return AELConst.AJAX_ERROR;
+    	}
+    	if (advancedetail.getApproved() == null || !advancedetail.getApproved()){
+    		advancedetail.setApproved(true);
+//    		refunddetail.setDateChange(Calendar.getInstance().getTime());
+    	}
+    	else if(advancedetail.getCheckByAdmin() == null || !advancedetail.getCheckByAdmin()){
+    		advancedetail.setApproved(false);
+    	}
+    	this.advanceDetailManager.save(advancedetail);
     	return AELConst.AJAX_SUCCESS;
     }
     

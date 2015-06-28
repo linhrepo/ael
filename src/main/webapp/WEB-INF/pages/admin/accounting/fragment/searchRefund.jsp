@@ -33,7 +33,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="refund.payForm" />
+					key="advanceform.payForm" />
 				<form:select path="doApproval" id="doApproval1"
 					cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>

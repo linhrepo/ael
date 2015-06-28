@@ -59,6 +59,7 @@ public interface URLReference {
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL = "/admin/accounting/changeApproval";
 	String ACCOUNTING_REFUND_ADMIN_CHANGE_APPROVAL = "/admin/accounting/changeRefundAdminApproval";
+	String ACCOUNTING_ADVANCE_CHANGE_APPROVAL = "/admin/accounting/changeAdvanceApproval";
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN = "/admin/changeApproval";
 	String ACCOUNTING_FEE_LIST_ADMIN = "/admin/feeTables";

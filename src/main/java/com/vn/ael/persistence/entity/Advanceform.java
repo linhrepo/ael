@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import org.appfuse.model.User;
 import org.springframework.format.annotation.NumberFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.webapp.util.ConvertUtil;
 
@@ -35,6 +36,7 @@ public class Advanceform extends BasicAdvance implements Serializable {
 	private Boolean isAdmin;
 	
 	//bi-directional many-to-one association to Advancedetail
+	@JsonIgnore
 	@OneToMany(mappedBy="advanceform", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Advancedetail> advancedetails;
 

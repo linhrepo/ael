@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <c:forEach items="${advanceform.advancedetails}" var="adv" varStatus="idx">
-        	<tr class="${adv.isAdded == true ? 'hidden' :''}">
+        	<tr class="${adv.isAdded == true ? 'hidden' :''}" readonly="${empty adv.approved or adv.approved == false ? '':'readonly'}">
                 <td colType="index">${idx.index+1}</td>
                 <td colType="generalInfo" class="hidden">
 	                	<form:hidden path="advancedetails[${idx.index}].id" />

@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 
 import java.math.BigDecimal;
@@ -17,7 +19,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @NamedQuery(name="Advancedetail.findAll", query="SELECT a FROM Advancedetail a")
-public class Advancedetail extends BasedChildEntity implements Serializable {
+public class Advancedetail extends ApprovableBasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
@@ -27,6 +29,7 @@ public class Advancedetail extends BasedChildEntity implements Serializable {
 	
 	private String goodDes;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="docs")
 	private Docsgeneral docs;
@@ -55,6 +58,7 @@ public class Advancedetail extends BasedChildEntity implements Serializable {
 		this.description = description;
 	}
 
+	@JsonIgnore
 	public Docsgeneral getDocs() {
 		return this.docs;
 	}
@@ -77,6 +81,14 @@ public class Advancedetail extends BasedChildEntity implements Serializable {
 
 	public void setGoodDes(String goodDes) {
 		this.goodDes = goodDes;
+	}
+	
+	@Transient
+	public String getJobNo(){
+		if (this.docs != null){
+			return this.docs.getJobNo();
+		}
+		return AELConst.EMPTY_STRING;
 	}
 	
 }
