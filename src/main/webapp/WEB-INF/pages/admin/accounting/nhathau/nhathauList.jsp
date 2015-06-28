@@ -17,7 +17,14 @@
 				    <form:select path="nhathauId" id="nhathauId" class="form-control">
 				    	<form:option value=""><fmt:message key="searchall" /></form:option>
 		    			<c:forEach items="${nhathauList}" var="nhathau">
-		    				<option value="${nhathau.id}">${nhathau.name}</option>
+		    				<c:choose>
+			                    <c:when test="${conditions.nhathauId == nhathau.id}">
+			                        <option value="${nhathau.id}" selected="selected">${nhathau.name}</option>
+			                    </c:when>
+			                    <c:otherwise>
+			                        <option value="${nhathau.id}">${nhathau.name}</option>
+			                    </c:otherwise>
+			                </c:choose>
 		    			</c:forEach>
 			    	</form:select>
 			    </div>
