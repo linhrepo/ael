@@ -6,18 +6,18 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.ael.constants.FormatterPattern;
 
 import java.math.BigDecimal;
-
 
 /**
  * The persistent class for the refunddetail database table.
  * 
  */
 @Entity
-@NamedQuery(name="Refunddetail.findAll", query="SELECT r FROM Refunddetail r")
-public class Refunddetail extends BasedChildEntity implements Serializable {
+@NamedQuery(name = "Refunddetail.findAll", query = "SELECT r FROM Refunddetail r")
+public class Refunddetail extends ApprovableBasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
@@ -26,20 +26,16 @@ public class Refunddetail extends BasedChildEntity implements Serializable {
 	private String description;
 
 	@ManyToOne
-	@JoinColumn(name="docs")
+	@JoinColumn(name = "docs")
 	private Docsgeneral docs;
 
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
 	private BigDecimal oAmount;
 
-	//bi-directional many-to-one association to Refund
+	// bi-directional many-to-one association to Refund
 	@ManyToOne
-	@JoinColumn(name="refundForm")
+	@JoinColumn(name = "refundForm")
 	private Refund refund;
-	
-	private Boolean approved = false;
-	
-	private Boolean checkByAdmin = false;
 
 	public Refunddetail() {
 	}
@@ -60,6 +56,7 @@ public class Refunddetail extends BasedChildEntity implements Serializable {
 		this.description = description;
 	}
 
+	@JsonIgnore
 	public Docsgeneral getDocs() {
 		return this.docs;
 	}
@@ -76,6 +73,7 @@ public class Refunddetail extends BasedChildEntity implements Serializable {
 		this.oAmount = oAmount;
 	}
 
+	@JsonIgnore
 	public Refund getRefund() {
 		return this.refund;
 	}
@@ -84,32 +82,9 @@ public class Refunddetail extends BasedChildEntity implements Serializable {
 		this.refund = refund;
 	}
 
-	/**
-	 * @return the approved
-	 */
-	public Boolean getApproved() {
-		return approved;
-	}
-
-	/**
-	 * @param approved the approved to set
-	 */
-	public void setApproved(Boolean approved) {
-		this.approved = approved;
-	}
-
-	/**
-	 * @return the checkByAdmin
-	 */
-	public Boolean getCheckByAdmin() {
-		return checkByAdmin;
-	}
-
-	/**
-	 * @param checkByAdmin the checkByAdmin to set
-	 */
-	public void setCheckByAdmin(Boolean checkByAdmin) {
-		this.checkByAdmin = checkByAdmin;
+	@Transient
+	public String getDocNo() {
+		return this.docs.getJobNo();
 	}
 
 }

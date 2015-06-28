@@ -52,10 +52,13 @@ public interface URLReference {
 	
 	String ACCOUNTING_FEE_LIST = "/admin/accounting/feeTables";
 	String ACCOUNTING_FEE_LIST_DETAIL = "/admin/accounting/feesDetail";
+	String ACCOUNTING_FEE_LIST_ADVDETAIL = "/admin/accounting/advDetail";
 	String ACCOUNTING_FEE_NHATHAU_LIST_DETAIL = "/admin/accounting/feeNhathauDetail";
 	String ACCOUNTING_FEE_REFUND_LIST_DETAIL = "/admin/accounting/feeRefundDetail";
+	String ACCOUNTING_FEE_REFUND_ADMIN_LIST_DETAIL = "/admin/accounting/feeRefundAdminDetail";
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL = "/admin/accounting/changeApproval";
+	String ACCOUNTING_REFUND_ADMIN_CHANGE_APPROVAL = "/admin/accounting/changeRefundAdminApproval";
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN = "/admin/changeApproval";
 	String ACCOUNTING_FEE_LIST_ADMIN = "/admin/feeTables";

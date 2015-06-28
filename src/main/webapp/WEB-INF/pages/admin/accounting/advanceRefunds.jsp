@@ -21,5 +21,5 @@
 		    <div role="tabpanel" class="tab-pane" id="sumary"><jsp:include page="fragment/advanceSumary.jsp"></jsp:include></div>
 		  </div>
 </div>
-
+<script type="text/javascript" src="<c:url value='/scripts/custom/approveFee.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/advanceRefund.js'/>"></script>

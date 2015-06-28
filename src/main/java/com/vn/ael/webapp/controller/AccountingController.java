@@ -1,6 +1,7 @@
 
 package com.vn.ael.webapp.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -26,12 +27,14 @@ import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.persistence.manager.PackageinfoManager;
+import com.vn.ael.persistence.manager.RefundDetailManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.persistence.service.EntityService;
@@ -54,9 +57,16 @@ public class AccountingController extends BaseFormController {
 	
 	private RefundManager refundManager;
 	
+	private RefundDetailManager refundDetailManager;
+	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
 		this.exfeetableManager = exfeetableManager;
+	}
+	
+	@Autowired
+	public void setRefundDetailManager(RefundDetailManager refundDetailManager){
+		this.refundDetailManager = refundDetailManager;
 	}
 	
 	@Autowired
@@ -195,9 +205,34 @@ public class AccountingController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_LIST_DETAIL)
-    public @ResponseBody List<Exfeetable> handleFeeDetailRequest(@RequestParam(value="docId") Long id) throws Exception {
-    	List<Exfeetable> exfeetables = this.exfeetableManager.findByDocsgeneral(id);
+    public @ResponseBody List<Exfeetable> handleFeeDetailRequest(@RequestParam(value="docId",required = false) Long id,@RequestParam(value="refundId",required = false) Long refund) throws Exception {
+    	List<Exfeetable> exfeetables = new ArrayList<>();
+    	if (id != null){
+    		exfeetables = this.exfeetableManager.findByDocsgeneral(id);
+    	}else if (refund != null){
+    		exfeetables = this.exfeetableManager.findByRefund(refund);
+    	}
     	return exfeetables;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_LIST_ADVDETAIL)
+    public @ResponseBody List<Exfeetable> handleadvanceAdminRequest(@RequestParam(value="docId",required = false) Long id,@RequestParam(value="refundId",required = false) Long refund) throws Exception {
+    	List<Exfeetable> exfeetables = new ArrayList<>();
+//    	if (id != null){
+//    		exfeetables = this.exfeetableManager.findByDocsgeneral(id);
+//    	}else if (refund != null){
+//    		exfeetables = this.exfeetableManager.findByRefund(refund);
+//    	}
+    	return exfeetables;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_REFUND_ADMIN_LIST_DETAIL)
+    public @ResponseBody List<Refunddetail> handleRefundAdminRequest(@RequestParam(value="adminId",required = false) Long refund) throws Exception {
+    	List<Refunddetail> refunddetails = new ArrayList<>();
+    	if (refund != null){
+    		refunddetails = this.refundDetailManager.findAllByRefund(refund);
+    	}
+    	return refunddetails;
     }
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL)
@@ -214,6 +249,23 @@ public class AccountingController extends BaseFormController {
     		exfee.setApproved(false);
     	}
     	this.exfeetableManager.save(exfee);
+    	return AELConst.AJAX_SUCCESS;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_REFUND_ADMIN_CHANGE_APPROVAL)
+    public @ResponseBody String approvalFeeRefundAdminDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    	Refunddetail refunddetail = this.refundDetailManager.get(id);
+    	if (refunddetail == null){
+    		return AELConst.AJAX_ERROR;
+    	}
+    	if (refunddetail.getApproved() == null || !refunddetail.getApproved()){
+    		refunddetail.setApproved(true);
+//    		refunddetail.setDateChange(Calendar.getInstance().getTime());
+    	}
+    	else if(refunddetail.getCheckByAdmin() == null || !refunddetail.getCheckByAdmin()){
+    		refunddetail.setApproved(false);
+    	}
+    	this.refundDetailManager.save(refunddetail);
     	return AELConst.AJAX_SUCCESS;
     }
     
@@ -474,8 +526,8 @@ public class AccountingController extends BaseFormController {
 		
 		List<Refund> refunds = refundManager.searchFeeRefund(searchFeeTables);
 		mav.addObject(refunds);
-		mav.addObject(docsgeneralManager.findByDoAccounting(true));
-		mav.addObject(truckingserviceManager.findByDoAccounting(true));
+		//mav.addObject(docsgeneralManager.findByDoAccounting(true));
+		//mav.addObject(truckingserviceManager.findByDoAccounting(true));
 		//selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage

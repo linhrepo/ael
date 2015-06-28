@@ -25,7 +25,7 @@ import com.vn.ael.webapp.util.CalculationUtil;
  */
 @Entity
 @NamedQuery(name="Exfeetable.findAll", query="SELECT e FROM Exfeetable e")
-public class Exfeetable extends BasedChildEntity implements Serializable {
+public class Exfeetable extends ApprovableBasedChildEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NumberFormat(pattern = FormatterPattern.NUMBER)
@@ -60,10 +60,6 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 	
 	@OneToOne(mappedBy = "feeowner")
 	private Extendfeeacc extendfeeacc;
-	
-	private Boolean approved = false;
-	
-	private Boolean checkByAdmin = false;
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
 	private BigDecimal exhUsd;
@@ -168,29 +164,7 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		this.exhibition = exhibition;
 	}
 
-	public Boolean getApproved() {
-		return approved;
-	}
-
-	public void setApproved(Boolean approved) {
-		this.approved = approved;
-	}
 	
-	@Transient
-	public String getApprovedText(){
-		if (this.approved == null || ! this.approved){
-			return AELConst.ACC_FEE_ISNOT_APPROVED;
-		}
-		return AELConst.ACC_FEE_IS_APPROVED;
-	}
-	
-	@Transient
-	public String getCheckByAdminText(){
-		if (this.checkByAdmin == null || ! this.checkByAdmin){
-			return AELConst.ACC_FEE_ISNOT_APPROVED;
-		}
-		return AELConst.ACC_FEE_IS_APPROVED;
-	}
 
 	public Date getDateChange() {
 		return dateChange;
@@ -206,14 +180,6 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 
 	public void setInvoiceNo(String invoiceNo) {
 		this.invoiceNo = invoiceNo;
-	}
-
-	public Boolean getCheckByAdmin() {
-		return checkByAdmin;
-	}
-
-	public void setCheckByAdmin(Boolean checkByAdmin) {
-		this.checkByAdmin = checkByAdmin;
 	}
 
 	public Refund getRefund() {
@@ -252,6 +218,9 @@ public class Exfeetable extends BasedChildEntity implements Serializable {
 		this.isDuplicated = isDuplicated;
 	}
 	
-	
-	
+	@Transient
+	public String getDocNo() {
+		return this.docsgeneral.getJobNo();
+	}
+
 }

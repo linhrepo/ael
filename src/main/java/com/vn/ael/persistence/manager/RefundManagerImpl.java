@@ -149,7 +149,7 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 
 	@Override
 	public List<Refund> searchFeeRefund(Search search) {
-		return this.refundRepository.searchFeeRefund(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(), search.getJob(), true, search.getCheckByAdmin(), search.getApproved());
+		return this.refundRepository.searchFeeRefundAdmin(search.getEmployee(), search.getStartPayDate(), search.getEndPayDate(),  true, search.getCheckByAdmin(), search.getApproved());
 	}
 
 	@Override
