@@ -19,6 +19,7 @@
         <thead>
             <tr>
 <%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
@@ -31,6 +32,7 @@
         <tfoot>
             <tr>
 <%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
@@ -44,6 +46,7 @@
         	<c:if test="${not empty adv.refunddetails}">
         	<tr class="${adv.doApproval ? '':'impress' }" params="adminId=${adv.id}">
 <%--                 <td>${index+1}</td> --%>
+				<td>${adv.refCode}</td>
 				<td>
 	               	${adv.employee.firstName} ${adv.employee.lastName}
 	            </td>
@@ -96,6 +99,7 @@
         <thead>
             <tr>
 <%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
@@ -108,6 +112,7 @@
         <tfoot>
             <tr>
 <%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
@@ -121,6 +126,7 @@
         	<c:if test="${not empty adv.exfeetables}">
         	<tr class="${adv.doApproval ? '':'impress' }" params="refundId=${adv.id}">
 <%--                 <td>${index+1}</td> --%>
+				<td>${adv.refCode}</td>
 				<td>
 	               	${adv.employee.firstName} ${adv.employee.lastName}
 	            </td>

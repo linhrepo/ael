@@ -72,7 +72,7 @@
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-4">
 		    </spring:bind>
 		        <appfuse:label styleClass="control-label" key="nhathau.address"/>
-		        <form:input path="address"  maxlength="255"  cssClass="form-control"/>
+		        <form:input path="address"  maxlength="500"  cssClass="form-control"/>
 		        <form:errors path="address" cssClass="help-block"/>
 		    </div>
 		    

@@ -22,6 +22,7 @@
         <thead>
             <tr>
 <%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
@@ -34,6 +35,7 @@
         <tfoot>
             <tr>
 <%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
@@ -47,6 +49,7 @@
         	<c:if test="${not empty adv.advancedetails and adv.isAdmin}">
 	        	<tr class="${adv.doApproval ? '':'impress' }" params="id=${adv.id}">
 <%-- 	                <td>${idx.index+1}</td> --%>
+					<td>${adv.refCode}</td>
 					<td>
 	                	${adv.employee.firstName} ${adv.employee.lastName}
 	                </td>
@@ -94,6 +97,7 @@
         <thead>
             <tr>
 <%--             	<th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
@@ -106,6 +110,7 @@
         <tfoot>
             <tr>
 <%--                 <th><fmt:message key="table.no"/></th> --%>
+				<th><fmt:message key="advanceform.refcode"/></th>
 				<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="advanceform.date"/></th>
                 <th><fmt:message key="advanceform.total"/></th>
@@ -119,6 +124,7 @@
         	<c:if test="${not empty adv.advancedetails and !adv.isAdmin}">
 	        	<tr class="${adv.doApproval ? '':'impress' }" params="id=${adv.id}">
 <%-- 	                <td>${idx.index+1}</td> --%>
+					<td>${adv.refCode}</td>
 					<td>
 	                	${adv.employee.firstName} ${adv.employee.lastName}
 	                </td>

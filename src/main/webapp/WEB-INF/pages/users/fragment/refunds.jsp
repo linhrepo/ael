@@ -14,6 +14,7 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<th><fmt:message key="advanceform.refcode"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -25,6 +26,7 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="advanceform.refcode"/></th>
                 <th><fmt:message key="refund.date"/></th>
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -36,6 +38,7 @@
         <c:forEach items="${refundList}" var="adv" varStatus="idx">
         	<tr class="${adv.doApproval ? '':'impress' }">
                 <td>${idx.index+1}</td>
+                <td>${adv.refCode}</td>
                 <td>
                 	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
                 </td>

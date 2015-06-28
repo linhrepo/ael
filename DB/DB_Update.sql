@@ -256,4 +256,6 @@ ALTER TABLE `ael`.`advancedetail`
 ADD COLUMN `approved` INT(1) NULL AFTER `goodDes`,
 ADD COLUMN `checkByAdmin` INT(1) NULL AFTER `approved`;
 
+ALTER TABLE `ael`.`nhathau` 
+CHANGE COLUMN `address` `address` VARCHAR(500) NULL DEFAULT NULL ;
 
