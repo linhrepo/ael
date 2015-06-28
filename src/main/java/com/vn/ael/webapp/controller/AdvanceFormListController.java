@@ -104,10 +104,13 @@ public class AdvanceFormListController extends BaseFormController {
 	public ModelAndView handleRequestAcc(HttpServletRequest request)
 			throws Exception {
 		Model model = new ExtendedModelMap();
-		model.addAttribute(advanceFormManager.getAll());
-		model.addAttribute(refundManager.findAllThanhtoan());
-		Search searchRefund = new Search();
-		model.addAttribute("search", searchRefund);
+		Search searchAdvanceForm = new Search();
+		//by defaut search not approved job
+		searchAdvanceForm.setDoApproval(false);
+		model.addAttribute(advanceFormManager
+				.searchAdvanceForm(searchAdvanceForm));
+		model.addAttribute(refundManager.searchRefund(searchAdvanceForm));
+		model.addAttribute("search", searchAdvanceForm);
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
 		model.addAttribute("docsSelection", docsSelection);
