@@ -9,8 +9,8 @@
                 <th><fmt:message key="refund.description"/></th>
                 <th><fmt:message key="refund.amount"/></th>
                 <th><fmt:message key="refund.oAmount"/></th>
-                <th><fmt:message key="refund.accApproved" /></th>
-				<th><fmt:message key="refund.adminApproved" /></th>
+<%--                 <th><fmt:message key="refund.accApproved" /></th> --%>
+<%-- 				<th><fmt:message key="refund.adminApproved" /></th> --%>
                 <c:if test="${empty refund.doApproval or refund.doApproval==false}">
                 	<th><fmt:message key="table.action"/></th>
                 </c:if>
@@ -23,6 +23,7 @@
                 <td colType="generalInfo" class="hidden">
 	                	<form:hidden path="refunddetails[${idx.index}].id" />
 	                	<form:hidden path="refunddetails[${idx.index}].isAdded" valueType="added" />
+	                	<form:hidden path="refunddetails[${idx.index}].approved"/>
 	                	<form:hidden path="refunddetails[${idx.index}].isDeleted" valueType="deleted"/>
 	            </td>
 <!-- 	            <td> -->
@@ -57,22 +58,22 @@
 					        <form:errors path="refunddetails[${idx.index}].oAmount" cssClass="help-block"/>
 					    </div>
 	            </td>
-	            <td verify="true">
-					<form:checkbox path="refunddetails[${idx.index}].approved" disabled="true"/>
-					<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_ACCOUNTING">
-				  				<c:if test="${refund.doApproval==true}">
-				  					<form:hidden path="doApproval" />
-				  				</c:if>
-			  				</security:authorize>
-					</td>
-					<td verify="true">
-					<form:checkbox path="refunddetails[${idx.index}].checkByAdmin" disabled="true"/>
-					<security:authorize ifNotGranted="ROLE_ADMIN">
-				  				<c:if test="${refund.doApproval==true}">
-				  					<form:hidden path="doApproval" />
-				  				</c:if>
-			  				</security:authorize>
-					</td>
+<!-- 	            <td verify="true"> -->
+<%-- 					<form:checkbox path="refunddetails[${idx.index}].approved" disabled="true"/> --%>
+<%-- 					<security:authorize ifNotGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> --%>
+<%-- 				  				<c:if test="${refund.doApproval==true}"> --%>
+<%-- 				  					<form:hidden path="doApproval" /> --%>
+<%-- 				  				</c:if> --%>
+<%-- 			  				</security:authorize> --%>
+<!-- 					</td> -->
+<!-- 					<td verify="true"> -->
+<%-- 					<form:checkbox path="refunddetails[${idx.index}].checkByAdmin" disabled="true"/> --%>
+<%-- 					<security:authorize ifNotGranted="ROLE_ADMIN"> --%>
+<%-- 				  				<c:if test="${refund.doApproval==true}"> --%>
+<%-- 				  					<form:hidden path="doApproval" /> --%>
+<%-- 				  				</c:if> --%>
+<%-- 			  				</security:authorize> --%>
+<!-- 					</td> -->
 	                <td>
 	                	<c:if test="${(empty refund.doApproval or refund.doApproval==false) and (empty adv.approved or adv.approved == false) }">
 						<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">

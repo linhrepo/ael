@@ -513,4 +513,9 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		}
 		return docsgeneralRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), search.getIsCollectMoney(), search.getJob());
 	}
+
+	@Override
+	public Map<Long, String> getJobForSelection() {
+		return ConvertUtil.fromDocsList2MapCusNativeNoCus(docsgeneralRepository.findAllNotForSelection());
+	}
 }

@@ -48,6 +48,9 @@
 						path="exfeetables[${idx.index}].approved"
 						/> 
 						<form:hidden
+						path="exfeetables[${idx.index}].checkByAdmin" 
+ 						/>  
+						<form:hidden
 						path="exfeetables[${idx.index}].dateChange"
 						/>
 				</td>

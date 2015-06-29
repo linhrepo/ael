@@ -110,21 +110,12 @@ public class AccountingTransportController extends BaseFormController {
         		customers.add(customer);
 			}
         }
-//        	mav.addObject("conditions", new AccountingTransCondition());
-////        mav.addObject("customers", customerManager.getAll());
-////        mav.addObject("jobList", docsgeneralManager.getAllJob());
-////        mav.addObject("accountingTrans", accountingTrans);
-////        mav.addObject("listCustomer", customers);
-////        mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
-        //TODO: need to be fixed
-        accountingTransCondition.setJobList(new ArrayList<String>());
-        
         model.addAttribute("conditions", accountingTransCondition);
         model.addAttribute("accountingTrans", accountingTrans);
         model.addAttribute("listCustomer", customers);
 //        return new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST, model.asMap());
         model.addAttribute("customers", customerManager.getAll());
-        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("jobList", docsgeneralManager.getJobForSelection());
         return new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST, model.asMap());
     }
  
