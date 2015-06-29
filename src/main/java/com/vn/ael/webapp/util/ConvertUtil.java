@@ -117,6 +117,22 @@ public class ConvertUtil {
 		}
 		return map;
 	}
+	
+	/**
+	 * From docslist 2 map
+	 * @param docs
+	 * @return
+	 */
+	public static Map<Long,String> fromDocsList2MapCusNativeNoCus(List<Object> docs) {
+		Map<Long,String> map = new LinkedHashMap<>();
+		if (docs != null && !docs.isEmpty()){
+			for (Object object : docs){
+				Object[] obj = (Object[]) object;
+				map.put(((BigInteger)obj[0]).longValue(), obj[1]+"");
+			}
+		}
+		return map;
+	}
 
 	/**
 	 * 

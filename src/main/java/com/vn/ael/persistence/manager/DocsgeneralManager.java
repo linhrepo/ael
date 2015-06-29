@@ -1,6 +1,7 @@
 package com.vn.ael.persistence.manager;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
@@ -108,4 +109,6 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	List<Docsgeneral> findByDoAccountingAndIsCollectMoney(Boolean doAccounting, Boolean isCollectMoney);
 	
 	List<Docsgeneral> searchDebit(Search search);
+	
+	Map<Long,String> getJobForSelection();
 }

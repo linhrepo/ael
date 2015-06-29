@@ -17,7 +17,7 @@ public class AccountingTransCondition {
 	String consignee;
 	String shipper;
 	Long typeOfDocs;
-	List<String> jobList;
+	List<Long> jobList;
 	
 	
 	public Long getCustomerId() {
@@ -92,10 +92,10 @@ public class AccountingTransCondition {
 	public void setTypeOfDocs(Long typeOfDocs) {
 		this.typeOfDocs = typeOfDocs;
 	}
-	public List<String> getJobList() {
+	public List<Long> getJobList() {
 		return this.jobList;
 	}
-	public void setJobList(List<String> jobList) {
+	public void setJobList(List<Long> jobList) {
 		this.jobList = jobList;
 	}
 

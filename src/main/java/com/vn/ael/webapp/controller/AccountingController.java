@@ -146,7 +146,7 @@ public class AccountingController extends BaseFormController {
         Model model = new ExtendedModelMap();
         model.addAttribute("customers", customerManager.getAll());
         model.addAttribute("conditions",new AccountingTransCondition());
-        model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("jobList", docsgeneralManager.getJobForSelection());
         return new ModelAndView(URLReference.ACCOUNTING_TRANSPORT_LIST, model.asMap());
     }
     
