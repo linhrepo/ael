@@ -8,7 +8,7 @@
 	<form:form commandName="search" method="post"
 		action="searchRefund" id="refundForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.employee" />
 				<form:select path="employee" id="employeecode1"
@@ -19,19 +19,16 @@
 		        	</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
-					key="refund.startdate" />
-					<form:input path="startDate" provide="datepicker" id="startDate1"  cssClass="form-control"/>
-			        <form:errors path="startDate" cssClass="help-block"/>
+					key="accountingnhathau.jobNo" />
+				<form:select path="job" id="job" 
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<form:options items="${jobList }"/>
+				</form:select>
 			</div>
-			<div class="form-group col-md-3">
-				<appfuse:label styleClass="control-label"
-					key="refund.startdate" />
-					<form:input path="endDate" provide="datepicker" id="endDate1"  cssClass="form-control"/>
-			        <form:errors path="endDate" cssClass="help-block"/>
-			</div>
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.payForm" />
 				<form:select path="doApproval" id="doApproval1"
@@ -41,7 +38,20 @@
 						<form:option value="${entry}">${entry}</form:option>
 					</c:forEach>
 				</form:select>
-			</div>			
+			</div>	
+			<div class="form-group col-md-4">
+				<appfuse:label styleClass="control-label"
+					key="refund.startdate" />
+					<form:input path="startDate" provide="datepicker" id="startDate1"  cssClass="form-control"/>
+			        <form:errors path="startDate" cssClass="help-block"/>
+			</div>
+			<div class="form-group col-md-4">
+				<appfuse:label styleClass="control-label"
+					key="refund.startdate" />
+					<form:input path="endDate" provide="datepicker" id="endDate1"  cssClass="form-control"/>
+			        <form:errors path="endDate" cssClass="help-block"/>
+			</div>
+					
 		</div> 
 		<div class="row">
 			<div class="form-group col-md-2">
