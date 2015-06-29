@@ -24,6 +24,7 @@
                 <td colType="generalInfo" class="hidden">
 	                	<form:hidden path="advancedetails[${idx.index}].id" />
 	                	<form:hidden path="advancedetails[${idx.index}].isAdded" valueType="added" />
+	                	<form:hidden path="advancedetails[${idx.index}].approved" />
 	                	<form:hidden path="advancedetails[${idx.index}].isDeleted" valueType="deleted"/>
 	            </td>
 	            <c:if test="${empty advanceform.isAdmin or advanceform.isAdmin == false }">
