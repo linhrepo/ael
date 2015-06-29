@@ -66,7 +66,7 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	 * @param accountingTransCondition
 	 * @return
 	 */
-	List<Docsgeneral> findAllByCondition(AccountingTransCondition accountingTransCondition);
+	List<Docsgeneral> findAllByCondition(AccountingTransCondition accountingTransCondition,boolean forList);
 	
 	/**
 	 * Update chi ho

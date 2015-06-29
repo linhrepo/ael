@@ -250,38 +250,40 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	
 	@Override
 	public List<Docsgeneral> findAllByCondition(
-			AccountingTransCondition accountingTransCondition) {
+			AccountingTransCondition accountingTransCondition,boolean forList) {
 		List<Docsgeneral> docsgenerals = this.docsgeneralRepository.getDoAccountingInlandSealandAndTime(true, ServicesType.DVVT_INLAND, ServicesType.DVVT_SEALAND, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(),accountingTransCondition.getCustomerId(), accountingTransCondition.getJobList());
 		//remove detail which is not in this month
 //		this.removeNotInMonthDetail(accountingTransCondition.getMonth(), accountingTransCondition.getYear(), docsgenerals);
-		
-		if (docsgenerals != null && !docsgenerals.isEmpty()){
-			for (Docsgeneral docsgeneral : docsgenerals){
-				//fect trucking details
-				List<Truckingdetail> truckingdetails = truckingdetailRepository.findWithTruckingserviceAndMonthYear(docsgeneral.getTruckingservice().getId(),accountingTransCondition.getStartDate(),accountingTransCondition.getEndDate());
-				docsgeneral.getTruckingservice().setTruckingdetails(truckingdetails);
-				
-				//calculate other information
-				if (truckingdetails != null){
-					for (Truckingdetail truckingdetail : truckingdetails){
-						List<Exfeetable> exfeetables = truckingdetail.getExfeetables();
-						if (exfeetables != null && !exfeetables.isEmpty()){
-							if (docsgeneral.getChiho() == null){
-								truckingdetail.setChiho(BigDecimal.ZERO);
-								truckingdetail.setChihoTruckings(new ArrayList<Exfeetable>());
-							}
-							
-							for (Exfeetable exfeetable : exfeetables){
-								if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
-//									//add to accounting cus
-									truckingdetail.setChiho(truckingdetail.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
-									truckingdetail.getChihoTruckings().add(exfeetable);
+		if (!forList){
+			
+			if (docsgenerals != null && !docsgenerals.isEmpty()){
+				for (Docsgeneral docsgeneral : docsgenerals){
+					//fect trucking details
+					List<Truckingdetail> truckingdetails = truckingdetailRepository.findWithTruckingserviceAndMonthYear(docsgeneral.getTruckingservice().getId(),accountingTransCondition.getStartDate(),accountingTransCondition.getEndDate());
+					docsgeneral.getTruckingservice().setTruckingdetails(truckingdetails);
+					
+					//calculate other information
+					if (truckingdetails != null){
+						for (Truckingdetail truckingdetail : truckingdetails){
+							List<Exfeetable> exfeetables = truckingdetail.getExfeetables();
+							if (exfeetables != null && !exfeetables.isEmpty()){
+								if (docsgeneral.getChiho() == null){
+									truckingdetail.setChiho(BigDecimal.ZERO);
+									truckingdetail.setChihoTruckings(new ArrayList<Exfeetable>());
+								}
+								
+								for (Exfeetable exfeetable : exfeetables){
+									if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
+	//									//add to accounting cus
+										truckingdetail.setChiho(truckingdetail.getChiho().add(EntityUtil.calTotalWithVat(exfeetable.getAmount(),exfeetable.getVat())));
+										truckingdetail.getChihoTruckings().add(exfeetable);
+									}
 								}
 							}
-						}
+					}
+					}
+					this.updateChiHo(docsgeneral,false);
 				}
-				}
-				this.updateChiHo(docsgeneral,false);
 			}
 		}
 		return docsgenerals;

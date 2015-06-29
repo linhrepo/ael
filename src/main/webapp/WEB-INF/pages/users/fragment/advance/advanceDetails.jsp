@@ -66,7 +66,7 @@
 					    <input class="form-control money remainAdvance" readonly="readonly"/>
 					    </div>
 	            </td>
-				<c:if test="${empty advanceform.doApproval or advanceform.doApproval==false}">
+				<c:if test="${(empty advanceform.doApproval or advanceform.doApproval==false) and (empty adv.approved or adv.approved == false)}">
 	                <td>
 	                	<span class="iconButton removeRow" title="<fmt:message key='table.buttonEditTitle'/>">
 		                			<i class="fa fa-trash"></i>

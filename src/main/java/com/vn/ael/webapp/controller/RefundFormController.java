@@ -115,7 +115,7 @@ public class RefundFormController extends BaseFormController {
             				ConfigurationType.MASTER_FEE,
             				ConfigurationType.FEE_NAMES
             		);
-            docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL, ConvertUtil.fromDocsList2MapCus(docsgeneralManager.getAll()));
+            docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL, docsgeneralManager.getJobForSelection());
             mav.addObject("docsSelection", docsSelection);
         }
         else{
@@ -223,7 +223,7 @@ public class RefundFormController extends BaseFormController {
         				ConfigurationType.MASTER_FEE,
         				ConfigurationType.FEE_NAMES
         		);
-        docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL, ConvertUtil.fromDocsList2MapCus(docsgeneralManager.getAll()));
+        docsSelection.getSelections().put(AELConst.SELECTION_DOCSGENERAL, docsgeneralManager.getJobForSelection());
         mav.addObject("docsSelection", docsSelection);
         return mav;
     }

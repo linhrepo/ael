@@ -86,7 +86,7 @@ public class AccountingTransportController extends BaseFormController {
     protected ModelAndView showForm(HttpServletRequest request, AccountingTransCondition accountingTransCondition)
     throws Exception {
         ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_TRANSPORT);
-        AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
+        AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition,false);
         mav.addObject("accountingTrans", accountingTrans);
         mav.addObject("sales", offerpriceManager.findByCustomerAndTypeOfServiceAndIsValid(accountingTrans.getCustomer(), ServicesType.DVVT,true));
         return mav;
@@ -96,7 +96,7 @@ public class AccountingTransportController extends BaseFormController {
     protected ModelAndView searchTransport(HttpServletRequest request, AccountingTransCondition accountingTransCondition)
     throws Exception {
     	Model model = new ExtendedModelMap();
-        AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
+        AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition,true);
         List<Customer> customers = new ArrayList<>();
         //list transport id after fetch
         Set<Long> transportIds = new HashSet<>();
@@ -153,7 +153,7 @@ public class AccountingTransportController extends BaseFormController {
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_TRANSPORT)
     public void doDownload(HttpServletRequest request, AccountingTransCondition accountingTransCondition,
             HttpServletResponse response) throws IOException {
-    	AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition);
+    	AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition,false);
        if (accountingTrans!=null) {
     	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans),ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
        }
@@ -165,7 +165,7 @@ public class AccountingTransportController extends BaseFormController {
      * @param request
      * @return
      */
-    private AccountingTrans setupAccountingTrans(HttpServletRequest request, AccountingTransCondition accountingTransCondition){
+    private AccountingTrans setupAccountingTrans(HttpServletRequest request, AccountingTransCondition accountingTransCondition,boolean forList){
 //    	   AccountingTransCondition accountingTransCondition = new AccountingTransCondition();
 //           
 //           //load condition
@@ -178,19 +178,25 @@ public class AccountingTransportController extends BaseFormController {
 //           
            
            //Set up command
-           List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition);
-           if (docs !=null && !docs.isEmpty()){
-           	for (Docsgeneral docsgeneral : docs){
-           		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
-           	}
+           List<Docsgeneral> docs = this.docsgeneralManager.findAllByCondition(accountingTransCondition,forList);
+           if (!forList){
+        	   if (docs !=null && !docs.isEmpty()){
+                  	for (Docsgeneral docsgeneral : docs){
+                  		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
+                  	}
+                  }
            }
+          
            AccountingTrans accountingTrans = new AccountingTrans();
-           accountingTrans.setCustomer(customerManager.get(accountingTransCondition.getCustomerId()));
+           if (!forList){
+        	   accountingTrans.setCustomer(customerManager.get(accountingTransCondition.getCustomerId()));
+        	   accountingTrans.setRefNo(ServicesType.DVVT.getDebit()+AELConst.SPLASH+accountingTrans.getCustomer().getCode());
+           }
            accountingTrans.setCondition(accountingTransCondition);
            accountingTrans.setDocs(docs);
            accountingTrans.setMonth(accountingTransCondition.getMonth());
            accountingTrans.setYear(accountingTransCondition.getYear());
-           accountingTrans.setRefNo(ServicesType.DVVT.getDebit()+AELConst.SPLASH+accountingTrans.getCustomer().getCode());
+           
            return accountingTrans;
     }
 }

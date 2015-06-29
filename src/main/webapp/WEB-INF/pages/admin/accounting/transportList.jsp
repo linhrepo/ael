@@ -15,7 +15,7 @@
 		    <div class="form-group col-md-8">
 		    <appfuse:label styleClass="control-label" key="customer.name"/>
 		    <form:select path="customerId" class="form-control">
-<%-- 		    	<form:option value=""><fmt:message key="searchall" /></form:option> --%>
+		    	<form:option value=""><fmt:message key="searchall" /></form:option>
     			<c:forEach items="${customers}" var="customer">
 		    				<c:choose>
 			                    <c:when test="${customer.id == conditions.customerId}">
