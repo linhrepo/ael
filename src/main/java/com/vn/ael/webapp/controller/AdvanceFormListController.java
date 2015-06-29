@@ -115,6 +115,7 @@ public class AdvanceFormListController extends BaseFormController {
 				.loadSelectionForDocsPage(true);
 		model.addAttribute("docsSelection", docsSelection);
 		model.addAttribute("enumStatus", StatusType.values());
+		model.addAttribute("jobList", docsgeneralManager.getAllJob());
 		return new ModelAndView(URLReference.ADVANCE_FORM_ACC, model.asMap());
 	}
 
@@ -168,13 +169,17 @@ public class AdvanceFormListController extends BaseFormController {
 		List<Advanceform> advanceforms = advanceFormManager
 				.searchAdvanceForm(searchAdvanceForm);
 		mav.addObject(advanceforms);
-		mav.addObject(refundManager.findAllThanhtoan());
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
 		mav.addObject("docsSelection", docsSelection);
 		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("jobList", docsgeneralManager.getAllJob());
 		mav.addObject("flag", 1);
+		Search search = new Search();
+		//by defaut search not approved job
+		searchAdvanceForm.setDoApproval(false);
+		mav.addObject(refundManager.searchRefund(search));
 		return mav;
 	}
 
@@ -185,12 +190,17 @@ public class AdvanceFormListController extends BaseFormController {
 
 		List<Refund> refunds = refundManager.searchRefund(searchRefund);
 		mav.addObject(refunds);
-		mav.addObject(advanceFormManager.getAll());
 		// selection
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);
 		mav.addObject("docsSelection", docsSelection);
 		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("jobList", docsgeneralManager.getAllJob());
+		Search searchAdvanceForm = new Search();
+		//by defaut search not approved job
+		searchAdvanceForm.setDoApproval(false);
+		mav.addObject(advanceFormManager
+				.searchAdvanceForm(searchAdvanceForm));
 		mav.addObject("flag", 2);
 		return mav;
 	}
