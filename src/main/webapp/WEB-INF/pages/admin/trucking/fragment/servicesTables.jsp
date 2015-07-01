@@ -274,7 +274,14 @@
 			>
 				<td colType="index" data-title="<fmt:message key="table.no"/>">${idxx.index+1}</td>
 				<td colType="generalInfo" class="hidden"><form:hidden
-						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].id" /> <form:hidden
+						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].id" />
+						<form:hidden
+						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].approved"
+						/> 
+						<form:hidden
+						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].checkByAdmin"
+						/>
+						<form:hidden
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].isAdded"
 						valueType="added" /> <form:hidden
 						path="truckingdetails[${idx.index}].exfeetables[${idxx.index}].isDeleted"
