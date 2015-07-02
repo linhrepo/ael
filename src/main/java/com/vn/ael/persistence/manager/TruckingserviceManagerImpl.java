@@ -30,7 +30,6 @@ import com.vn.ael.webapp.util.EntityUtil;
  * @author liv1hc
  *
  */
-@Transactional
 @Service
 public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservice> implements TruckingserviceManager{
 
@@ -54,6 +53,7 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
         this.repository = truckingserviceRepository;
     }
 
+    @Transactional(readOnly=true)
 	@Override
 	public Truckingservice createFromDocsgeneral(Docsgeneral docsgeneral) {
 		if (docsgeneral !=null){
@@ -100,6 +100,7 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 		return null;
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public void updateChilds(Truckingservice truckingservice) {
 		if (truckingservice != null && truckingservice.getId() != null){
@@ -145,9 +146,11 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 			//wire fees
 			List<Truckingdetail> truckingdetailsEmpty = new  ArrayList<>();
 			for (Truckingdetail truckingdetail: truckingservice.getTruckingdetails()){
-				truckingdetail.setExfeetables(exfeetableRepository.findByTruckingdetail(truckingdetail));
-				if (truckingdetail.getExfeetables() == null || truckingdetail.getExfeetables().isEmpty() ){
-					truckingdetailsEmpty.add(truckingdetail);
+				if (truckingdetail.getId() != null){
+					truckingdetail.setExfeetables(exfeetableRepository.findByTruckingdetail(truckingdetail));
+					if (truckingdetail.getExfeetables() == null || truckingdetail.getExfeetables().isEmpty() ){
+						truckingdetailsEmpty.add(truckingdetail);
+					}
 				}
 			}
 			EntityUtil.updateExfeetableForNewTruckingdetail(truckingdetailsEmpty,true);
@@ -155,6 +158,7 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 		
 	}
 
+    @Transactional
 	@Override
 	public void saveWholePackage(Truckingservice truckingservice) {
 		//wire staff
@@ -163,6 +167,7 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 		truckingserviceRepository.save(truckingservice);
 	}
 
+    @Transactional
 	@Override
 	public void checkToDeleteChilds(Truckingservice truckingservice) {
 		if (truckingservice.getTruckingdetails() != null){
@@ -192,6 +197,7 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 		
 	}
 
+    @Transactional
 	@Override
 	public void saveTruckingdetail(List<Truckingdetail> truckingdetails) {	
 		if(truckingdetails != null && !truckingdetails.isEmpty()){
@@ -205,41 +211,48 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 		}		
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> searchNhathau(
 			AccountingTransCondition accountingTransCondition) {
 		return truckingdetailRepository.searchNhathau(accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getNhathauId(), accountingTransCondition.getJob(), accountingTransCondition.getCustomerId());
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> searchVantai(
 			AccountingTransCondition accountingTransCondition) {
 		return truckingdetailRepository.findAllByConditionVantai(ServicesType.fromValue(accountingTransCondition.getTransId().intValue()), accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getNhathauId(), accountingTransCondition.getJob());
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> searchPackageInfo(
 			AccountingTransCondition accountingTransCondition) {
 		return truckingdetailRepository.findAllByConditionPackageInfo(ServicesType.DVTQ, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), accountingTransCondition.getCustomerId(), accountingTransCondition.getJob(), accountingTransCondition.getConsignee(), accountingTransCondition.getShipper());
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> searchProfitLoss(
 			AccountingTransCondition accountingTransCondition) {
 		return truckingdetailRepository.searchProfitLoss(accountingTransCondition.getCustomerId(), true, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), ServicesType.fromValue(accountingTransCondition.getTypeOfDocs().intValue()), accountingTransCondition.getJob());
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> findWithFullTruckingservice(
 			Long truckingServiceId) {
 		return truckingdetailRepository.findWithFullTruckingservice(truckingServiceId);
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> searchFeeNhathau(Search search) {
 		return truckingdetailRepository.searchFeeNhathau(search.getStartDate(), search.getEndDate(), search.getJob(), search.getCustomer(), true, search.getCheckByAdmin(), search.getApproved());
 	}
 
+    @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> findByDoAccounting(Boolean doAccounting) {
 		return truckingdetailRepository.findByDoAccounting(doAccounting);

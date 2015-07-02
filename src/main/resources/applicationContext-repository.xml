@@ -10,11 +10,11 @@
 
 	<bean id="entityManagerFactory" depends-on="entityChangeInterceptor"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="jpaDialect">
-        <bean class="com.vn.ael.webapp.spring.HibernateJpaDialect">
-            <property name="flushMode" value="MANUAL"/>
-        </bean>
-    	</property>
+<!-- 		<property name="jpaDialect"> -->
+<!--         <bean class="com.vn.ael.webapp.spring.HibernateJpaDialect"> -->
+<!--             <property name="flushMode" value="COMMIT"/> -->
+<!--         </bean> -->
+<!--     	</property> -->
 		<property name="persistenceUnitName" value="ApplicationEntityManager"/>
 		<property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml"/>
 		<property name="dataSource" ref="dataSource" />

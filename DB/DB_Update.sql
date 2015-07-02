@@ -259,3 +259,15 @@ ADD COLUMN `checkByAdmin` INT(1) NULL AFTER `approved`;
 ALTER TABLE `ael`.`nhathau` 
 CHANGE COLUMN `address` `address` VARCHAR(500) NULL DEFAULT NULL ;
 
+---- 0307
+DELETE FROM ael.truckingdetail where trucking is null;
+ALTER TABLE `ael`.`truckingdetail` 
+DROP FOREIGN KEY `toTruckingFD`;
+ALTER TABLE `ael`.`truckingdetail` 
+CHANGE COLUMN `trucking` `trucking` BIGINT(20) NOT NULL ;
+ALTER TABLE `ael`.`truckingdetail` 
+ADD CONSTRAINT `toTruckingFD`
+  FOREIGN KEY (`trucking`)
+  REFERENCES `ael`.`truckingservice` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE NO ACTION;
