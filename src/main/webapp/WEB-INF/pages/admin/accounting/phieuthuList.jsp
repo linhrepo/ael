@@ -15,6 +15,7 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="phieuthu.date"/></th>
                 <th><fmt:message key="phieuthu.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -26,6 +27,7 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="phieuthu.date"/></th>
                 <th><fmt:message key="phieuthu.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
@@ -37,6 +39,9 @@
         <c:forEach items="${refundList}" var="adv" varStatus="idx">
         	<tr>
                 <td>${idx.index+1}</td>
+                <td>
+                	${adv.employee.firstName}&nbsp;${adv.employee.lastName}
+                </td>
                 <td>
                 	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
                 </td>
