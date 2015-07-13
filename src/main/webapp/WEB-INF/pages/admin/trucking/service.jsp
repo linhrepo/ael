@@ -30,10 +30,18 @@
               <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
           </button>
         </c:if>
+        <!-- Add by Phuc -->
+        <c:if test="${not empty truckingservice.id}">
+	        <a class="btn btn-success" href="service/download?id=${truckingservice.docsgeneral.id}">
+		           	 <i class="fa fa-print" ></i> <fmt:message key="button.refund"/>
+		        	</a>
+	     </c:if>
+	     <!-- End Add by Phuc -->
         <button type="submit" class="btn btn-default" name="cancel" onclick="bCancel=true">
             <i class="fa fa-sign-out"></i> <fmt:message key="button.cancel"/>
         </button>
     </div>
+    
 	</div>
     
     </form:form>

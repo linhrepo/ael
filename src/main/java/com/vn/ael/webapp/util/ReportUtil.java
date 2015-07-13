@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.appfuse.model.User;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
@@ -64,6 +66,7 @@ import com.vn.ael.persistence.entity.Packageinfo;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.webapp.dto.AccountingExhibitionItemExport;
 import com.vn.ael.webapp.dto.AccountingNhathauExport;
 import com.vn.ael.webapp.dto.AccountingProfitLossExport;
@@ -1235,4 +1238,48 @@ public class ReportUtil {
 		}
 		return parameterMap;
 	}
+	//Add by Phuc
+		public static Map<String, Object> prepareDataForRefundTrucking(Truckingservice truckingservice, User employee) {
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			List<RefundRequestItem> listItem = new ArrayList<RefundRequestItem>();
+			BigDecimal totalAmount = BigDecimal.ZERO;
+			BigDecimal totalOAmount = BigDecimal.ZERO;
+			BigDecimal grandTotal = BigDecimal.ZERO;
+			int index = 0;
+			if(truckingservice.getTruckingdetails() != null && !truckingservice.getTruckingdetails().isEmpty()){
+				for(Truckingdetail truckingdetail : truckingservice.getTruckingdetails()){
+					if(truckingdetail != null && truckingdetail.getExfeetables() != null && !truckingdetail.getExfeetables().isEmpty()){
+						for (Exfeetable exfeetable : truckingdetail.getExfeetables()) {
+							RefundRequestItem item = new RefundRequestItem();
+							index++;
+							item.setIndex(index);
+							item.setFileCus(truckingservice.getDocsgeneral().getJobNo());
+							BigDecimal total = ConvertUtil.getNotNullRound(exfeetable.getTotal());
+							if (exfeetable.getInvoiceNo() == null || exfeetable.getInvoiceNo().isEmpty() || exfeetable.getInvoiceNo().trim().isEmpty()){
+								item.setoAmount(total);
+								totalOAmount = totalOAmount.add(total);
+							}else{
+								item.setAmount(total);
+								totalAmount = totalAmount.add(total);
+							}																								
+							listItem.add(item);
+						}					
+					}
+				}
+			}
+			totalAmount = ConvertUtil.getNotNullRound(totalAmount);
+			totalOAmount = ConvertUtil.getNotNullRound(totalOAmount);
+			grandTotal = grandTotal.add(totalAmount);
+			grandTotal = grandTotal.add(totalOAmount);
+			parameterMap.put("refundDetails", listItem);
+			parameterMap.put("totalAmount", totalAmount);
+			parameterMap.put("totalOAmount", totalOAmount);
+			parameterMap.put("employee", employee);
+			parameterMap.put("grandTotal", grandTotal);
+			parameterMap.put("refundDate",
+					CommonUtil.getDateString(new Date()));
+			parameterMap.put("amountVND", ConvertUtil.convertToVND(grandTotal));
+			return parameterMap;
+		}
+		//End Add by Phuc
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
@@ -33,6 +35,7 @@ import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
+import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
 @RequestMapping(URLReference.TRUCKING_SERVICE+"*")
@@ -126,6 +129,20 @@ public class TruckingFormController extends BaseFormController {
  
         return success;
     }
-
+    //Add by Phuc
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.TRUCKING_SERVICE_DOWNLOAD)
+    public void doDownload(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {
+    	String id = request.getParameter("id");
+    	User customer = getUserManager().getLoggedUser(request);
+    	Truckingservice truckingservice = null;
+    	if (!StringUtils.isBlank(id)) {
+    		//load docsgeneral
+        	Docsgeneral docsgeneral = docsgeneralManager.find(id);
+        	truckingservice = truckingserviceManager.createFromDocsgeneral(docsgeneral);
+        	ReportUtil.dispatchReport(response, ReportTeamplates.ADVANCE_REFUND_ITEMS, ReportTeamplates.ADVANCE_REFUND_ITEMS_TEMPLATE, ReportUtil.prepareDataForRefundTrucking(truckingservice, customer));
+    	}
+    }
+    //End Add by Phuc
 }
 

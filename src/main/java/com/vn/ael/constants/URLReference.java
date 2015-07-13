@@ -133,4 +133,7 @@ public interface URLReference {
 	String DEBIT_APPROVE_COLLECT = "/admin/accounting/approveCollectMoney";
 	
 	String ACCOUNTING_TRANSPORT_SEARCH = "/admin/accounting/transportSearch";
+	//Add by Phuc
+		String TRUCKING_SERVICE_DOWNLOAD = "/download";
+		//End Add by PHuc
 }
