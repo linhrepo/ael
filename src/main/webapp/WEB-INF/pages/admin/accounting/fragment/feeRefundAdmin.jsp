@@ -38,7 +38,7 @@
         <c:forEach items="${refundList}" var="refund" varStatus="idx">
         	<tr params="refundId=${refund.id}">
                 <td>${idx.index+1}</td>
-              	<td>${refund.employee.firstName} ${refund.employee.lastName}</td>
+              	<td>${refund.employee.firstName}&nbsp;${refund.employee.lastName}</td>
               	<td><fmt:formatDate value="${refund.date}" pattern="dd-MM-yyyy"/></td>
               	<td>
               		<c:if test="${refund.isAdmin}">

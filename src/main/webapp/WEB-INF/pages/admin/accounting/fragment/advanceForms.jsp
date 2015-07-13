@@ -51,7 +51,7 @@
 <%-- 	                <td>${idx.index+1}</td> --%>
 					<td>${adv.refCode}</td>
 					<td>
-	                	${adv.employee.firstName} ${adv.employee.lastName}
+	                	${adv.employee.firstName}&nbsp;${adv.employee.lastName}
 	                </td>
 	                <td>
 	                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
@@ -126,7 +126,7 @@
 <%-- 	                <td>${idx.index+1}</td> --%>
 					<td>${adv.refCode}</td>
 					<td>
-	                	${adv.employee.firstName} ${adv.employee.lastName}
+	                	${adv.employee.firstName}&nbsp;${adv.employee.lastName}
 	                </td>
 	                <td>
 	                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>

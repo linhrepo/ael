@@ -33,7 +33,7 @@
         <!-- Add by Phuc -->
         <c:if test="${not empty truckingservice.id}">
 	        <a class="btn btn-success" href="service/download?id=${truckingservice.docsgeneral.id}">
-		           	 <i class="fa fa-print" ></i> <fmt:message key="button.refund"/>
+		           	 <i class="fa fa-print" ></i> <fmt:message key="advanceform.printAdvance"/>
 		        	</a>
 	     </c:if>
 	     <!-- End Add by Phuc -->
