@@ -51,7 +51,9 @@ var FEE_TABLE_CONTROL ={
 	checkVatPrice : function(tr,clazz1, clazz2){
 		 var val = parseFloat(accounting.unformat($(tr).find(clazz1).val()));
 		 if (val >0){
-			 $(tr).find(clazz2).attr("readonly","readonly");
+			 if($(tr).find(clazz1).attr("readonly") != "readonly") {
+				 $(tr).find(clazz2).attr("readonly","readonly");
+			 }
 		 }else{
 			 $(tr).find(clazz2).removeAttr("readonly");
 		 }
