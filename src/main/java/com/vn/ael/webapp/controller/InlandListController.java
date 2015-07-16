@@ -57,7 +57,9 @@ public class InlandListController extends BaseFormController {
         Model model = new ExtendedModelMap();
         Search searchInland = new Search();
         model.addAttribute("search", searchInland);
-        model.addAttribute(inlandManager.getAll());
+      //Add comment by Phuc
+//      model.addAttribute(inlandManager.getAll());
+    //End Add comment by Phuc
       //selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage

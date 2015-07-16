@@ -86,10 +86,12 @@ public class AdvanceFormListController extends BaseFormController {
 	public ModelAndView handleRequest(HttpServletRequest request)
 			throws Exception {
 		Model model = new ExtendedModelMap();
-		model.addAttribute(advanceFormManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request),false));
-		model.addAttribute(refundManager.findByEmpoyee(getUserManager()
-				.getLoggedUser(request),false));
+		//Add comment by Phuc
+//		model.addAttribute(advanceFormManager.findByEmpoyee(getUserManager()
+//				.getLoggedUser(request),false));
+//		model.addAttribute(refundManager.findByEmpoyee(getUserManager()
+//				.getLoggedUser(request),false));
+		//End Add comment by Phuc
 		Search searchRefund = new Search();
 		model.addAttribute("search", searchRefund);
 		DocsSelection docsSelection = configurationManager

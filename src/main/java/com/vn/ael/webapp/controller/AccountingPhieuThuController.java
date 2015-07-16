@@ -59,7 +59,9 @@ public class AccountingPhieuThuController extends BaseFormController {
 	public ModelAndView handleRequest(HttpServletRequest request)
 			throws Exception {
 		Model model = new ExtendedModelMap();
-		model.addAttribute(refundManager.findAllPhieuThu());
+		//Add comment by Phuc
+//		model.addAttribute(refundManager.findAllPhieuThu());
+		//End Add comment by Phuc
 		Search searchRefund = new Search();
 		model.addAttribute("search", searchRefund);
 		DocsSelection docsSelection = configurationManager

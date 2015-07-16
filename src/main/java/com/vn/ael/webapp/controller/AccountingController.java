@@ -153,9 +153,11 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_EXHIBITION_LIST)
     public ModelAndView handleExhRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccountingAndTypeOfDocs(true,ServicesType.EXHS));
-        Search searchAccExhibition = new Search();
-        model.addAttribute("search", searchAccExhibition);
+      //Add comment by Phuc
+//      model.addAttribute(docsgeneralManager.findByDoAccountingAndTypeOfDocs(true,ServicesType.EXHS));
+    //End Add comment by Phuc
+      Search searchAccExhibition = new Search();
+      model.addAttribute("search", searchAccExhibition);
       //selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage
@@ -171,11 +173,13 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_FEE_LIST)
     public ModelAndView handleFeeRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccounting(true));
-        model.addAttribute(truckingserviceManager.findByDoAccounting(true));
-//        model.addAttribute(refundManager.findByDoApproval(true));
-        Search searchAccFee = new Search();
-        model.addAttribute("search", searchAccFee);
+      //Add comment by Phuc
+//      model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+//      model.addAttribute(truckingserviceManager.findByDoAccounting(true));
+    //End Add comment by Phuc
+//      model.addAttribute(refundManager.findByDoApproval(true));
+      Search searchAccFee = new Search();
+      model.addAttribute("search", searchAccFee);
       //selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage
@@ -194,10 +198,12 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_FEE_LIST_ADMIN)
     public ModelAndView handleFeeAdminRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccounting(true));
-        model.addAttribute(truckingserviceManager.findByDoAccounting(true));
-        Search searchAccFee = new Search();
-        model.addAttribute("search", searchAccFee);
+      //Add comment by Phuc
+//      model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+//      model.addAttribute(truckingserviceManager.findByDoAccounting(true));
+    //End Add comment by Phuc
+      Search searchAccFee = new Search();
+      model.addAttribute("search", searchAccFee);
       //selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage

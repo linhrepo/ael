@@ -49,7 +49,9 @@ public class TruckingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.TRUCKING_LIST)
     public ModelAndView handleRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoDelivery(true));
+      //Add comment by Phuc
+//      model.addAttribute(docsgeneralManager.findByDoDelivery(true));
+    //End Add comment by Phuc
         Search searchTrucking = new Search();
         model.addAttribute("search", searchTrucking);
       //selection

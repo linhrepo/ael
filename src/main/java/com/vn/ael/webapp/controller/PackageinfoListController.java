@@ -47,7 +47,9 @@ public class PackageinfoListController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PACKAGEINFO_LIST)
     public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(packageinfoManager.getAll());
+      //Add comment by Phuc
+//      model.addAttribute(inlandManager.getAll());
+    //End Add comment by Phuc
         Search searchPackageInfo = new Search();
         model.addAttribute("search", searchPackageInfo);
       //selection

@@ -57,7 +57,9 @@ public class ExhibitionListController extends BaseFormController {
         Model model = new ExtendedModelMap();
         Search searchExhibition = new Search();
         model.addAttribute("search", searchExhibition);
-        model.addAttribute(exhibitionManager.getAll());
+      //Add comment by Phuc
+//        model.addAttribute(exhibitionManager.getAll());
+      //End Add comment by Phuc
       //selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage
