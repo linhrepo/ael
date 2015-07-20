@@ -77,6 +77,7 @@
 <%-- 				</form:select> --%>
 <!-- 			</div> -->
 			<div class="form-group col-md-2">
+				<br>
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
 

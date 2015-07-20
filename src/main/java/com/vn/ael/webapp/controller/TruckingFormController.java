@@ -115,8 +115,10 @@ public class TruckingFormController extends BaseFormController {
         Locale locale = request.getLocale();
  
         if (request.getParameter("delete") != null) {
+        	log.debug("Delete delivery: actualy set delivery = 0, truckingservice.getId(): " + truckingservice.getId());
         	success = "redirect:"+URLReference.TRUCKING_LIST;
-            truckingserviceManager.remove(truckingservice.getId());
+            //truckingserviceManager.remove(truckingservice.getId());
+            docsgeneralManager.updateDelivery(truckingservice.getDocsgeneral());
             saveMessage(request, getText("truckingservice.deleted", locale));
         } else {
         	getEntityService().checkUpdateInfo(truckingservice, isNew, request);

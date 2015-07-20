@@ -230,6 +230,16 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			docsgeneralRepository.save(docsgeneralDB);
 		}
 	}
+	
+	@Override
+	public void updateDelivery(Docsgeneral docsgeneral) {
+		if (docsgeneral != null && docsgeneral.getId() != null){
+			Docsgeneral docsgeneralDB = docsgeneralRepository.getOne(docsgeneral.getId());
+			docsgeneralDB.setDoDelivery(false);
+			docsgeneralRepository.save(docsgeneralDB);
+		}
+	}
+
 
 	@Override
 	public List<Docsgeneral> findByDoAccounting(Boolean doAccounting) {

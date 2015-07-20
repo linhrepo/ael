@@ -111,4 +111,6 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	List<Docsgeneral> searchDebit(Search search);
 	
 	Map<Long,String> getJobForSelection();
+
+	void updateDelivery(Docsgeneral docsgeneral);
 }

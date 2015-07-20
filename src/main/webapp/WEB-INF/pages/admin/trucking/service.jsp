@@ -25,15 +25,17 @@
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
             <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
         </button>
-        <c:if test="${not empty truckingservice.id and !truckingservice.docsgeneral.doAccounting}">
-          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
-              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
-          </button>
-        </c:if>
+        <security:authorize ifAnyGranted="ROLE_ADMIN">
+	        <c:if test="${!truckingservice.docsgeneral.doAccounting}">
+	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+	              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
+	          </button>
+	        </c:if>
+        </security:authorize>
         <!-- Add by Phuc -->
         <c:if test="${not empty truckingservice.id}">
 	        <a class="btn btn-success" href="service/download?id=${truckingservice.docsgeneral.id}">
-		           	 <i class="fa fa-print" ></i> <fmt:message key="advanceform.printAdvance"/>
+		           	 <i class="fa fa-print" ></i> <fmt:message key="refund.printRefund"/>
 		        	</a>
 	     </c:if>
 	     <!-- End Add by Phuc -->
