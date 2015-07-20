@@ -907,6 +907,9 @@ public class ReportUtil {
 			for (Refunddetail refunddetail : listRefundDetail) {
 				try {
 					total = total.add(refunddetail.getAmount());
+					if (refunddetail.getOAmount()!=null) {
+						total = total.add(refunddetail.getOAmount());
+					}
 					String jobNo = AELConst.EMPTY_STRING;
 					if (refunddetail.getDocs()!=null) {
 						jobNo=refunddetail.getDocs().getJobNo();

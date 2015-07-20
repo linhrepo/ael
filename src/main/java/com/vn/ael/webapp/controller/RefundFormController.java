@@ -197,7 +197,7 @@ public class RefundFormController extends BaseFormController {
     	    throws Exception {    	 
     	        Refund refundForm = this.loadRefundByRequest(request);
     	        if (refundForm != null){
-    	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_THU_ITEMS,ReportTeamplates.PHIEU_THU_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
+    	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
     	        }
     	    }
     
