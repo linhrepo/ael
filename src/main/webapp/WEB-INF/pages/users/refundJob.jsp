@@ -36,6 +36,11 @@
 			           	 <i class="fa fa-print" ></i> <fmt:message key="refund.printRefund"/>
 			        	</a>
 		     </c:if>
+		     <c:if test="${refund.doApproval == true}">
+		        <a class="btn btn-success" href="refundJob/phieuthu/download?id=${refund.id}">
+			           	 <i class="fa fa-print" ></i> <fmt:message key="advanceform.printPayment"/>
+			        	</a>
+		     </c:if>
 	        <c:if test="${not empty refund.id && refund.doApproval != true}">
 	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
 	              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>

@@ -136,4 +136,5 @@ public interface URLReference {
 	//Add by Phuc
 		String TRUCKING_SERVICE_DOWNLOAD = "/download";
 		//End Add by PHuc
+	String REFUND_JOB_FORM_DOWNLOAD = "/users/refundJob/phieuthu/download";
 }

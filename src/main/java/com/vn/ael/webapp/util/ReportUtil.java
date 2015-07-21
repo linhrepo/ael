@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -898,11 +899,15 @@ public class ReportUtil {
 	public static Map<String, Object> prepareDataForPhieuThu(Refund refund) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(refund.getDate());
+		if (refund.getDate()!=null) {
+			cal.setTime(refund.getDate());
+		}		
 		BigDecimal total = BigDecimal.ZERO;
 		StringBuffer payReason = new StringBuffer();
 		List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
+		List<Exfeetable> listExFeetable = new ArrayList<Exfeetable>();
 		listRefundDetail.addAll(refund.getRefunddetails());
+		listExFeetable.addAll(refund.getExfeetables());
 		if (!listRefundDetail.isEmpty()) {
 			for (Refunddetail refunddetail : listRefundDetail) {
 				try {
@@ -923,7 +928,22 @@ public class ReportUtil {
 					// TODO: handle exception
 				}
 			}
-
+		}
+		if (!listExFeetable.isEmpty()) {
+			for (Exfeetable exfeetable : listExFeetable) {
+				try {
+					total= total.add(exfeetable.getTotal());
+					/*String jobNo = AELConst.EMPTY_STRING;*/
+					
+					String tmp =exfeetable.getName().getValue();
+					if (listExFeetable.indexOf(exfeetable)==listExFeetable.size()-1) {
+						tmp+=",";
+					}					
+					payReason.append(tmp);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
 		}
 
 		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));

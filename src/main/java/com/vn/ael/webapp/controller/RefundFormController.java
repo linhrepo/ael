@@ -266,5 +266,15 @@ public class RefundFormController extends BaseFormController {
  
         return success;
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.REFUND_JOB_FORM_DOWNLOAD)
+    public void doDownloadPhieuChiRefundJob(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	 Refund refundForm = this.loadRefundByRequest(request);
+	        if (refundForm != null){
+	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
+	        }
+	        
+    }
 }
 
