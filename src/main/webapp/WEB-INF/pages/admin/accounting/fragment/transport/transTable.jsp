@@ -40,7 +40,7 @@
 				<th rowspan="2"><fmt:message key="accountingcus.feewithvat" /></th>
 				<th rowspan="2"><fmt:message key="truckingservice.otherFee" /></th>
 				<th rowspan="2"><fmt:message key="accountingcus.note" /></th>
-				<th rowspan="2"><fmt:message key="inland.otherInfo" /></th>
+				<%-- <th rowspan="2"><fmt:message key="inland.otherInfo" /></th> --%>
 			</tr>
 		</thead>
 		<tbody>
@@ -182,14 +182,16 @@
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.total"/>">
 						<div class="form-group">
-							<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.note" cssClass="form-control" maxlength="250"/>
+							<%-- <form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.note" cssClass="form-control" maxlength="250"/>
+							 --%>
+							 <form:input path="docs[${idx.index}].note" cssClass="form-control" maxlength="250"/>
 						</div>
 					</td>
-					<td data-title="<fmt:message key="accountingtrans.total"/>">
+					<%-- <td data-title="<fmt:message key="accountingtrans.total"/>">
 						<div class="form-group">
 							<form:input path="docs[${idx.index}].inland.otherInfo" cssClass="form-control" maxlength="250"/>
 						</div>
-					</td>
+					</td> --%>
 			  	</tr>
 			  </c:forEach>
 			</c:forEach>

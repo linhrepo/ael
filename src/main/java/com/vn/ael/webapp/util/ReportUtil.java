@@ -476,8 +476,7 @@ public class ReportUtil {
 									.getTransreportext().getVat());
 							item.setVatAmount(truckingdetail
 									.getTransreportext().getVatValue());
-							item.setNote(truckingdetail
-									.getTransreportext().getNote());
+							item.setNote(doc.getNote());
 						}
 						
 						otherFeeTotal = otherFeeTotal.add(ConvertUtil.getNotNullValue(item.getOtherFee()));
