@@ -1187,7 +1187,7 @@ public class ReportUtil {
 			item.setTotalAdvanceBetween(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceBetween()).replace("$", ""));
 			item.setTotalAdvanceAfter(NumberFormat.getCurrencyInstance().format(advS.getTotalAdvanceAfter()).replace("$", ""));
 			item.setTotalRefundBefore(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundBefore()).replace("$", ""));
-			item.setTotalRefundBetween(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundBefore()).replace("$", ""));
+			item.setTotalRefundBetween(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundBetween()).replace("$", ""));
 			item.setTotalRefundAfter(NumberFormat.getCurrencyInstance().format(advS.getTotalRefundAfter()).replace("$", ""));
 			result.add(item);
 		}

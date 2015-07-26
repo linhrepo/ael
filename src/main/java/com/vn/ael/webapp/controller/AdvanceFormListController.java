@@ -489,8 +489,7 @@ public class AdvanceFormListController extends BaseFormController {
 			Date startDate, Date endDate) throws ParseException {
 		if (startDate==null&&endDate!=null) {
 			startDate = endDate;
-		}
-		else if (startDate!=null&&endDate==null) {
+		} else if (startDate!=null&&endDate==null) {
 			endDate = startDate;
 		}
 		BigDecimal totalAdvanceBefore = BigDecimal.ZERO;
@@ -516,7 +515,7 @@ public class AdvanceFormListController extends BaseFormController {
 				if (advanceform.getDate() != null) {
 					 String strD1 = dateFormat.format(advanceform.getDate());
 					 Date dateAdvance = dateFormat.parse(strD1);					 
-					if (dateAdvance.before(dateStart) ) {						
+					if (dateAdvance.before(dateStart)) {						
 						listBefore.add(advanceform);
 					} else if ((dateAdvance.after(dateStart)|| dateAdvance.equals(dateStart))
 							&& (dateAdvance.before(dateEnd) || dateAdvance.equals(dateEnd))) {
@@ -538,11 +537,13 @@ public class AdvanceFormListController extends BaseFormController {
 				if(refund.getDate() != null){
 					String rDate = dateFormat.format(refund.getDate());
 					Date refundDate = dateFormat.parse(rDate);
-					if ((refund.getIsAdmin() == null || refund.getIsAdmin()==false) && refundDate.before(dateStart) || refundDate.equals(dateStart)) {
-						listRefundBefore.add(refund);
-					} else if ((refund.getIsAdmin() == null || refund.getIsAdmin()==false) && refundDate.after(dateStart)
-							&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
-						listRefundBetween.add(refund);
+					if (refund.getIsAdmin() == null || refund.getIsAdmin()==false) {
+						if (refundDate.before(dateStart)) {//|| refundDate.equals(dateStart)
+							listRefundBefore.add(refund);
+						} else if ((refundDate.equals(dateStart) || refundDate.after(dateStart))
+								&& (refundDate.before(dateEnd) || refundDate.equals(dateEnd))) {
+							listRefundBetween.add(refund);
+						}
 					}
 				}				
 			}
