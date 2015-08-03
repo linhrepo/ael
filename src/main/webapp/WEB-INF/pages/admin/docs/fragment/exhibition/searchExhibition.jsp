@@ -8,6 +8,18 @@
 	<form:form commandName="search" method="post"
 		action="searchExhibition" id="exhibitionForm" cssClass="well">
 		<div class="row">
+				<!-- Add Phuc 1.8 -->
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="packageInfo.jobId" />
+				<form:select path="jobNo" id="customercode"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach items="${docsSelection.docsgenerals}" var="docs">
+						<form:option value="${docs.id}">${docs.jobNo}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.customerCode" />
@@ -55,6 +67,7 @@
 			<div class="form-group col-md-2">
 				<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
+			<!-- Add Phuc 1.8 -->
 
 		</div>
 	</form:form>

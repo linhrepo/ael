@@ -8,7 +8,19 @@
 	<form:form commandName="search" method="post"
 		action="searchInland" id="packageInfoForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-4">
+			<!-- Add Phuc 1.8 -->
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="packageInfo.jobId" />
+				<form:select path="jobNo" id="customercode"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach items="${docsSelection.docsgenerals}" var="docs">
+						<form:option value="${docs.id}">${docs.jobNo}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.customerCode" />
 				<form:select path="customer" id="customercode"
@@ -19,7 +31,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.typeOfContainer" />
 				<form:select path="typeOfContainer"
@@ -30,6 +42,18 @@
 					</c:forEach>
 				</form:select>
 			</div>
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="contseal.noOfCont" />
+				<form:select path="contSeal" id="customercode"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach items="${docsSelection.contseals}" var="contseal">
+						<form:option value="${contseal.id}">${contseal.noOfCont}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
+			<!-- End Add Phuc 1.8 -->
 			
 			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
