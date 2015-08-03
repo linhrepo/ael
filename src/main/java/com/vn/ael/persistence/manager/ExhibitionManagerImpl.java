@@ -161,7 +161,10 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 
 	@Override
 	public List<Exhibition> searchInland(Search search) {
-		return exhibitionRepository.searchExhibition(search.getCustomer(), search.getTypeOfImport(), search.getDoDelivery(), search.getTypeOfContainer());
+//		Add Phuc 1.8
+		return exhibitionRepository.searchExhibition(search.getCustomer(), search.getTypeOfImport(), 
+				search.getDoDelivery(), search.getTypeOfContainer(), search.getJobNo());
+//		End Add Phuc 1.8
 	}
 
 }

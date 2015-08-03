@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.appfuse.model.User;
 
+import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
 
@@ -14,6 +15,12 @@ public class DocsSelection {
 	private List<Customer> customers;
 	
 	private List<User> staff;
+	
+	//Add Phuc 1.8
+		private List<Docsgeneral> docsgenerals;
+		
+		private List<Contseal> contseals;
+		//End Add Phuc 1.8
 	
 	public List<Customer> getCustomers() {
 		return customers;

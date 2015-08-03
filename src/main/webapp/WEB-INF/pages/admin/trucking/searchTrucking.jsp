@@ -8,6 +8,18 @@
 	<form:form commandName="search" method="post"
 		action="searchTrucking" id="truckingForm" cssClass="well">
 		<div class="row">
+				<!-- Add Phuc 1.8 -->
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="packageInfo.jobId" />
+				<form:select path="jobNo" id="customercode"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach items="${docsSelection.docsgenerals}" var="docs">
+						<form:option value="${docs.id}">${docs.jobNo}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
 			<div class="form-group col-md-2">
 				<appfuse:label styleClass="control-label"
 					key="trucking.customercode" />
@@ -52,7 +64,17 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="contseal.noOfCont" />
+				<form:select path="contSeal" id="customercode"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach items="${docsSelection.contseals}" var="contseal">
+						<form:option value="${contseal.id}">${contseal.noOfCont}</form:option>
+					</c:forEach>
+				</form:select>
+			</div>
 			<div class="form-group col-md-2">
 				<appfuse:label styleClass="control-label"
 					key="trucking.status" />
@@ -77,9 +99,9 @@
 <%-- 				</form:select> --%>
 <!-- 			</div> -->
 			<div class="form-group col-md-2">
-				<br>
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
+			<!-- End Add Phuc 1.8 -->
 
 		</div> 
 	</form:form>

@@ -77,12 +77,15 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="customerId")Long customerId, @Param(value="jobList") List<Long> jobList);
 
 	
-	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
+//	Add Phuc 1.8
+	@Query("SELECT e FROM Docsgeneral e left join fetch e.contseals c WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
 			+ "(e.doAccounting =:doAccounting or :doAccounting is null) and "
 			+ "(e.doDelivery =:doDelivery or :doDelivery is null) and "
+			+ "(e.id =:jobNo or :jobNo is null) and "
+			+ "(c.id =:contSeal or :contSeal is null) and "
 			+ "((e.truckingservice is not null and :hasRecord = true) or (e.truckingservice is null and :hasRecord = false) or ( :hasRecord is null))"
 			)
 	List<Docsgeneral> searchTrucking(@Param("customerId") Long customerId,
@@ -91,8 +94,11 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param("doAccounting") Boolean doAccounting,
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
 			@Param(value="doDelivery") Boolean doDelivery,
-			@Param(value="hasRecord") Boolean hasRecord
+			@Param(value="hasRecord") Boolean hasRecord,
+			@Param(value="jobNo") Long jobNo,
+			@Param(value="contSeal") Long contSeal
 			);
+//	Add Phuc 1.8
 	
 	@Query("SELECT e FROM Docsgeneral e WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
