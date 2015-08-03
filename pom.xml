@@ -858,7 +858,7 @@
         <jdbc.username>root</jdbc.username>
         <jdbc.password></jdbc.password>
         <jdbc.validationQuery>SELECT 1 + 1</jdbc.validationQuery>
-        <jdbc.showSql>true</jdbc.showSql>
+        <jdbc.showSql>false</jdbc.showSql>
         <jdbc.generateDdl>false</jdbc.generateDdl>
     </properties>
 </project>
