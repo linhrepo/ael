@@ -474,6 +474,9 @@ tr.impress, tr.impress > .sorting_1 {
 }
 
 /* for same height with the select box */
-.form-control {
-	height: 34px !important;
+.select2-container, .select2-choice {
+	height: 38px !important;
+}
+.select2-choice > span {
+	margin-top: 3px;
 }

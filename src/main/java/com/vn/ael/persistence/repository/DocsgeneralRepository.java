@@ -78,7 +78,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 
 	
 //	Add Phuc 1.8
-	@Query("SELECT e FROM Docsgeneral e left join fetch e.contseals c WHERE (e.customer.id = :customerId or :customerId is null) and "
+	@Query("SELECT distinct e FROM Docsgeneral e left join fetch e.contseals c WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
