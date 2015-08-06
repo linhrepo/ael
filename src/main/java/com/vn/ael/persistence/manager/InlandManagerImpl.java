@@ -102,9 +102,13 @@ public class InlandManagerImpl extends GenericManagerImpl<Inland> implements Inl
 
 	@Override
 	public List<Inland> searchInland(Search search) {
-		//Add Phuc 1.8
-				return inlandRepository.searchInland(search.getCustomer(), search.getTypeOfContainer(), search.getDoDelivery(), search.getStartDate(), search.getEndDate(), search.getJobNo(), search.getContSeal());
-				//End Add Phuc 1.8
+		List<Inland> list = null;
+		try {
+			list = inlandRepository.searchInland(search.getCustomer(), search.getTypeOfContainer(), search.getDoDelivery(), search.getStartDate(), search.getEndDate(), search.getJobNo());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }
