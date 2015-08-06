@@ -33,9 +33,9 @@ public class Search {
 	
 	private Boolean hasRecord;
 	//Add Phuc 1.8
-		private Long jobNo;
-		private Long contSeal;
-		//Add Phuc 1.8
+	private String jobNo;
+	/*private String contSeal;*/
+	//Add Phuc 1.8
 	public Long getCustomer() {
 		return customer;
 	}
@@ -187,17 +187,18 @@ public class Search {
 		this.hasRecord = hasRecord;
 	}	
 	//Add Phuc 1.8
-		public Long getJobNo() {
-			return jobNo;
-		}
-		public void setJobNo(Long jobNo) {
-			this.jobNo = jobNo;
-		}
-		public Long getContSeal() {
-			return contSeal;
-		}
-		public void setContSeal(Long contSeal) {
-			this.contSeal = contSeal;
-		}	
-		//End Add Phuc 1.8
+	public String getJobNo() {
+		return jobNo;
+	}
+	public void setJobNo(String jobNo) {
+		this.jobNo = jobNo;
+	}
+	/*
+	public String getContSeal() {
+		return contSeal;
+	}
+	public void setContSeal(String contSeal) {
+		this.contSeal = contSeal;
+	}*/	
+	//End Add Phuc 1.8
 }

@@ -84,8 +84,8 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
 			+ "(e.doAccounting =:doAccounting or :doAccounting is null) and "
 			+ "(e.doDelivery =:doDelivery or :doDelivery is null) and "
-			+ "(e.id =:jobNo or :jobNo is null) and "
-			+ "(c.id =:contSeal or :contSeal is null) and "
+			+ "(e.jobNo like %:jobNo% or :jobNo is null) and "
+			/*+ "(c.id =:contSeal or :contSeal is null) and "*/
 			+ "((e.truckingservice is not null and :hasRecord = true) or (e.truckingservice is null and :hasRecord = false) or ( :hasRecord is null))"
 			)
 	List<Docsgeneral> searchTrucking(@Param("customerId") Long customerId,
@@ -95,8 +95,8 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
 			@Param(value="doDelivery") Boolean doDelivery,
 			@Param(value="hasRecord") Boolean hasRecord,
-			@Param(value="jobNo") Long jobNo,
-			@Param(value="contSeal") Long contSeal
+			@Param(value="jobNo") String jobNo/*,
+			@Param(value="contSeal") String contSeal*/
 			);
 //	Add Phuc 1.8
 	

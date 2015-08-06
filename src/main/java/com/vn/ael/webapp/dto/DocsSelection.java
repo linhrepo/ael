@@ -17,10 +17,10 @@ public class DocsSelection {
 	private List<User> staff;
 	
 	//Add Phuc 1.8
-		private List<Docsgeneral> docsgenerals;
-		
-		private List<Contseal> contseals;
-		//End Add Phuc 1.8
+	private List<Docsgeneral> docsgenerals;
+	
+	private List<Contseal> contseals;
+	//End Add Phuc 1.8
 	
 	public List<Customer> getCustomers() {
 		return customers;
@@ -44,6 +44,22 @@ public class DocsSelection {
 
 	public void setSelections(Map<String,Map<Long,String>> selections) {
 		this.selections = selections;
+	}
+
+	public List<Docsgeneral> getDocsgenerals() {
+		return docsgenerals;
+	}
+
+	public void setDocsgenerals(List<Docsgeneral> docsgenerals) {
+		this.docsgenerals = docsgenerals;
+	}
+
+	public List<Contseal> getContseals() {
+		return contseals;
+	}
+
+	public void setContseals(List<Contseal> contseals) {
+		this.contseals = contseals;
 	}
 
 }

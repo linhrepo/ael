@@ -9,18 +9,8 @@
 		action="searchTrucking" id="truckingForm" cssClass="well">
 		<div class="row">
 				<!-- Add Phuc 1.8 -->
-			<div class="form-group col-md-3">
-				<appfuse:label styleClass="control-label"
-					key="packageInfo.jobId" />
-				<form:select path="jobNo" id="customercode"
-					cssClass="form-control select2">
-					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<c:forEach items="${docsSelection.docsgenerals}" var="docs">
-						<form:option value="${docs.id}">${docs.jobNo}</form:option>
-					</c:forEach>
-				</form:select>
-			</div>
-			<div class="form-group col-md-2">
+			
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="trucking.customercode" />
 				<form:select path="customer" id="customercode"
@@ -31,7 +21,19 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
+				<appfuse:label styleClass="control-label"
+					key="packageInfo.jobNo" />
+				<%-- <form:select path="jobNo" id="customercode"
+					cssClass="form-control select2">
+					<form:option value=""><fmt:message key="searchall" /></form:option>
+					<c:forEach items="${docsSelection.docsgenerals}" var="docs">
+						<form:option value="${docs.id}">${docs.jobNo}</form:option>
+					</c:forEach>
+				</form:select> --%>
+				<form:input path="jobNo" cssClass="form-control" maxlength="100"/>
+			</div>
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="trucking.typeOfDocs" />
 				<form:select path="typeOfDocs" id="typeOfDocs"
@@ -42,7 +44,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="trucking.typeOfContainer" />
 				<form:select path="typeOfContainer"
@@ -53,7 +55,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="configuration.typeOfImport" />
 				<form:select path="typeOfImport" id="typeOfImport"
@@ -64,7 +66,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-3">
+			<%-- <div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="contseal.noOfCont" />
 				<form:select path="contSeal" id="customercode"
@@ -74,8 +76,8 @@
 						<form:option value="${contseal.id}">${contseal.noOfCont}</form:option>
 					</c:forEach>
 				</form:select>
-			</div>
-			<div class="form-group col-md-2">
+			</div> --%>
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="trucking.status" />
 				<form:select path="doAccounting" id="doAccounting"
@@ -98,7 +100,7 @@
 <%-- 					</c:forEach> --%>
 <%-- 				</form:select> --%>
 <!-- 			</div> -->
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-4">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
 			<!-- End Add Phuc 1.8 -->

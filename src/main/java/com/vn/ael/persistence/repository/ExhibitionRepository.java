@@ -21,12 +21,12 @@ public interface ExhibitionRepository extends GenericRepository<Exhibition> {
 	@Query("SELECT e FROM Exhibition e where (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
 			+ "(e.docsgeneral.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "(e.docsgeneral.doDelivery =:doDelivery or :doDelivery is null) and "
-			+ "(e.docsgeneral.id =:jobNo or :jobNo is null) and "
+			+ "(e.docsgeneral.jobNo like %:jobNo% or :jobNo is null) and "
 			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null)")
 	List<Exhibition> searchExhibition(@Param("customerId") Long customerId,
 			@Param("typeOfImport") Long typeOfImport,
 			@Param("doDelivery") Boolean doDelivery,
 			@Param("typeOfContainer") Long typeOfContainer,
-			@Param(value="jobNo") Long jobNo);
+			@Param(value="jobNo") String jobNo);
 //	Add Phuc 1.8
 }

@@ -472,3 +472,8 @@ button.collapsed, button.collapsed:focus{
 tr.impress, tr.impress > .sorting_1 {
 	background-color: #f2dede !important;
 }
+
+/* for same height with the select box */
+.form-control {
+	height: 34px !important;
+}
