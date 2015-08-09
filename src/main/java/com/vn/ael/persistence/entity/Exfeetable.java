@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.appfuse.model.User;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -76,7 +77,20 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 	@ManyToOne
 	@JoinColumn(name="refund")
 	private Refund refund;
+	
+	@Transient
+	private String refCode;
+	
+	public String getRefCode(){
+		if(this.getDocsgeneral() != null && this.getDocsgeneral().getId()!= null){
+			User e = refund.getEmployee();
+			this.refCode = e.getUsername();
+			this.refCode = e.getUsername()+AELConst.SPLASH +String.valueOf(this.getDocsgeneral().getId());
+		}
 
+		return this.refCode;
+	}
+	
 	public Exfeetable() {
 	}
 
@@ -225,5 +239,4 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 		}
 		return "";
 	}
-
 }
