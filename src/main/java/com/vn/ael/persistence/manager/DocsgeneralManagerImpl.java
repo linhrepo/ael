@@ -236,6 +236,12 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		if (docsgeneral != null && docsgeneral.getId() != null){
 			Docsgeneral docsgeneralDB = docsgeneralRepository.getOne(docsgeneral.getId());
 			docsgeneralDB.setDoDelivery(false);
+			//delete contseal
+			if (docsgeneralDB.getContseals() != null){
+				List<Contseal> conts = docsgeneralDB.getContseals();
+				contsealRepository.delete(conts);
+				docsgeneralDB.setContseals(null);
+			}
 			docsgeneralRepository.save(docsgeneralDB);
 		}
 	}

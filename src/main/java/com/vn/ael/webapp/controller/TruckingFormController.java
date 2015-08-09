@@ -117,7 +117,10 @@ public class TruckingFormController extends BaseFormController {
         if (request.getParameter("delete") != null) {
         	log.debug("Delete delivery: actualy set delivery = 0, truckingservice.getId(): " + truckingservice.getId());
         	success = "redirect:"+URLReference.TRUCKING_LIST;
-            //truckingserviceManager.remove(truckingservice.getId());
+            
+        	if (truckingservice.getId() != null) {
+        		truckingserviceManager.remove(truckingservice.getId());
+        	}
             docsgeneralManager.updateDelivery(truckingservice.getDocsgeneral());
             saveMessage(request, getText("truckingservice.deleted", locale));
         } else {
