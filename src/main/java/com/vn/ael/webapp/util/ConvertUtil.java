@@ -437,7 +437,9 @@ public class ConvertUtil {
 											contOrder.add(countCont);
 											countCont = 1;
 										}
+										if (truckingdetail.getConsteal() != null) {
 											contNo = truckingdetail.getConsteal().getId();
+										}
 									}else{
 										++countCont;
 									}
