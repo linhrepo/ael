@@ -2,6 +2,7 @@ package com.vn.ael.webapp.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,20 +11,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
+import com.vn.ael.webapp.dto.AccountingProfitLossExport;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.dto.FeeNameExport;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
@@ -52,6 +61,35 @@ public class AccountingProfitLossController extends BaseFormController{
 			TruckingserviceManager truckingserviceManager) {
 		this.truckingserviceManager = truckingserviceManager;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = URLReference.ACCOUNTING_PROFIT_LOSS)
+	protected ModelAndView doSearchProfitLoss(
+			@ModelAttribute AccountingTransCondition accountingTransCondition,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_PROFIT_LOSS);
+		
+		AccountingTrans accountingTrans = this.setUpDataProfitLoss(request,
+				accountingTransCondition);
+		
+		if (accountingTrans != null) {
+			Map<String,Object> parameter = this.prepareData(accountingTrans);
+			mav.addObject("summary", parameter);
+		}
+		
+		DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT,
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        		);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+		mav.addObject("jobList", docsgeneralManager.getAllJob());
+		mav.addObject("conditions", accountingTransCondition);
+		return mav;
+	}
 
 	@RequestMapping(method = RequestMethod.GET, value = URLReference.AJAX_REPORT_ACCOUNTING_PROFIT_LOSS)
 	protected void doDownloadProfitLoss(
@@ -70,7 +108,46 @@ public class AccountingProfitLossController extends BaseFormController{
 					parameter,ConvertUtil.generateMergeIndexForProfitLoss(accountingTrans.getTruckingdetails()),ConvertUtil.generateDynamicsMergeIndexForProfitLoss(parameter));
 		}
 	}
-
+	
+	public Map<String, Object> prepareData(
+			AccountingTrans accountingTrans) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startDate", accountingTrans.getCondition().getStartDate());
+		parameterMap.put("endDate", accountingTrans.getCondition().getEndDate());
+		List<AccountingProfitLossExport> profitLossExports = new ArrayList<>();
+		List<List<Exfeetable>> feesList = new ArrayList<>();
+		List<List<Exfeetable>> feesListThu = new ArrayList<>();
+		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
+			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
+				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
+				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
+				feesList.add(docsgeneral.getExfeetables());
+				feesListThu.add(truckingdetail.getExfeetables());
+				AccountingProfitLossExport profitLossExport = new AccountingProfitLossExport();
+				profitLossExport.setJobNo(docsgeneral.getJobNo());
+				profitLossExport.setCusName(docsgeneral.getCustomer().getName());
+				profitLossExport.setContNo(truckingdetail.getConsteal() != null ? truckingdetail.getConsteal().getNoOfCont() : AELConst.EMPTY_STRING);
+				profitLossExport.setNhathau(truckingdetail.getNhathau() != null ? truckingdetail.getNhathau().getName() : AELConst.EMPTY_STRING);
+				profitLossExport.setDateDev(truckingdetail.getDateDev());
+				//chi phi manifest
+				profitLossExport.setTongChi(ConvertUtil.getNotNullValue(docsgeneral.getTongChiPhi()));
+				//chi phi nha thau
+				profitLossExport.setTongThu(ConvertUtil.getNotNullValue(docsgeneral.getTongThu()));
+				//thu ho
+				profitLossExport.setThuHo(truckingdetail.getTruckingservice().getDocsgeneral().getChiho());
+				//debit
+				profitLossExport.setDebit(truckingdetail.getTruckingservice().getDocsgeneral().getDebit());
+				
+				profitLossExport.setProfitLoss(profitLossExport.getThuHo().add(profitLossExport.getDebit()).subtract(profitLossExport.getTongThu().add(profitLossExport.getTongChi())));
+				
+				profitLossExports.add(profitLossExport);
+			}
+		}
+		
+		parameterMap.put("details", profitLossExports);
+		return parameterMap;
+	}
+	
 	private AccountingTrans setUpDataProfitLoss(HttpServletRequest request,
 			AccountingTransCondition accountingTransCondition) {
 

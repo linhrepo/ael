@@ -1,4 +1,5 @@
 <%@ include file="/common/taglibs.jsp" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <head>
     <title><fmt:message key="menu.acct.profitloss"/></title>
@@ -8,7 +9,7 @@
 <div class="col-sm-10">
     <h2><fmt:message key="menu.acct.profitloss"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="conditions"  method="get" action="profitloss/download" id="profitlossForm" cssClass="well" showLoading="false">
+    <form:form commandName="conditions"  method="post" action="profitloss" id="profitlossForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
     		<div class="row">		    
 		    	<div class="form-group col-md-4">
@@ -56,11 +57,112 @@
     	</div>
 	     <hr>
 	    <div class="form-group form-actions">
-	        <button class="btn btn-success">
-	    	<i class="fa fa-print"></i> <fmt:message key="accounting.transport.download"/>
+	        <button class="btn btn-primary">
+	    	<i class="fa fa-print"></i> <fmt:message key="button.search"/>
 	    	<input type="submit" style="display: none;"/>
 	    	</button>
-	    </div>
+	    
+	    	<c:if test="${fn:length(summary.details) gt 0}">
+		        <button class="btn btn-success" onclick="goDownload()">
+		    	<i class="fa fa-print"></i> <fmt:message key="accounting.transport.download"/>
+		    	</button>
+	    	</c:if>
+	    </div> 
     </form:form>
+    
+    <table id="profitlossList" class="display datatable" cellspacing="0" width="100%" >
+        <%--<thead>
+             <tr>
+            	<th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="profitloss.file"/></th>
+                <th><fmt:message key="profitloss.customer"/></th>
+                <th><fmt:message key="profitloss.nhathau"/></th>
+                <th><fmt:message key="profitloss.tongthu"/></th>
+                <th><fmt:message key="profitloss.tongchi"/></th>
+                <th><fmt:message key="profitloss.thuho"/></th>
+                <th><fmt:message key="profitloss.debit"/></th>
+                <th><fmt:message key="profitloss.pl"/></th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="profitloss.file"/></th>
+                <th><fmt:message key="profitloss.customer"/></th>
+                <th><fmt:message key="profitloss.nhathau"/></th>
+                <th><fmt:message key="profitloss.tongthu"/></th>
+                <th><fmt:message key="profitloss.tongchi"/></th>
+                <th><fmt:message key="profitloss.thuho"/></th>
+                <th><fmt:message key="profitloss.debit"/></th>
+                <th><fmt:message key="profitloss.pl"/></th>
+            </tr>
+        </tfoot> --%>
+        <thead>
+       		 <tr>
+            	<th>STT</th>
+                <th>File</th>
+                <th>Khach hang</th>
+                <th>Nha thau</th>
+                <th>Tong thu</th>
+                <th>Tong chi</th>
+                <th>Thu ho</th>
+                <th>Debit</th>
+                <th>P/L</th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>STT</th>
+                <th>File</th>
+                <th>Khach hang</th>
+                <th>Nha thau</th>
+                <th>Tong thu</th>
+                <th>Tong chi</th>
+                <th>Thu ho</th>
+                <th>Debit</th>
+                <th>P/L</th>
+            </tr>
+        </tfoot>
+        <tbody>
+        <c:forEach items="${summary.details}" var="prolos" varStatus="idx">
+        	<tr>
+                <td>${idx.index+1}</td>
+                <td>
+                	${prolos.jobNo}
+                </td>
+                 <td>
+                 	${prolos.cusName}
+                </td>
+          		<td>
+                 	${prolos.nhathau}
+                </td>
+                <td>
+                 	${prolos.tongThu}
+                </td>
+                <td>
+                 	${prolos.tongChi}
+                </td>
+                <td>
+                 	${prolos.thuHo}
+                </td>
+                <td>
+                 	${prolos.debit}
+                </td>
+                <td>
+                 	${prolos.profitLoss}
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 <script type="text/javascript" src="<c:url value='/scripts/advanceRefund.js'/>"></script>
+<script>
+	function goDownload() {
+		$("#profitlossForm").attr("action", "profitloss/download");
+		$("#profitlossForm").attr("method", "get");
+		$("#profitlossForm").submit();
+	}
+</script>
