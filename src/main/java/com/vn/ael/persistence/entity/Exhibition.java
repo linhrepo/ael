@@ -40,7 +40,11 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 
 	private String exhPlace;
 
-	private String exName;
+	/*private String exName;*/
+	
+	@ManyToOne
+	@JoinColumn(name="exName")
+	private Configuration exName;
 
 	private String location;
 	
@@ -232,13 +236,13 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 		this.exhPlace = exhPlace;
 	}
 
-	public String getExName() {
+	/*public String getExName() {
 		return this.exName;
 	}
 
 	public void setExName(String exName) {
 		this.exName = exName;
-	}
+	}*/
 
 	public String getLocation() {
 		return this.location;
@@ -346,6 +350,18 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 	}
 	public void setDateRe(Date dateRe) {
 		this.dateRe = dateRe;
+	}
+	/**
+	 * @return the exName
+	 */
+	public Configuration getExName() {
+		return exName;
+	}
+	/**
+	 * @param exName the exName to set
+	 */
+	public void setExName(Configuration exName) {
+		this.exName = exName;
 	}
 	
 }

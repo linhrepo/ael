@@ -19,6 +19,8 @@
             <tr>
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="exhibition.refNo"/></th>
+                <th><fmt:message key="exhibition.exName"/></th>
+                <th><fmt:message key="exhibition.typeOfEx"/></th>
                 <th><fmt:message key="exhibition.customerCode"/></th>
                 <th><fmt:message key="exhibition.typeOfContainer"/></th>
                 <th><fmt:message key="configuration.typeOfImport"/></th>
@@ -31,6 +33,8 @@
             <tr>
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="exhibition.refNo"/></th>
+                <th><fmt:message key="exhibition.exName"/></th>
+                <th><fmt:message key="exhibition.typeOfEx"/></th>
                 <th><fmt:message key="exhibition.customerCode"/></th>
                 <th><fmt:message key="exhibition.typeOfContainer"/></th>
                 <th><fmt:message key="configuration.typeOfImport"/></th>
@@ -43,6 +47,8 @@
         	<tr class="${exhibition.docsgeneral.doDelivery ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${exhibition.docsgeneral.jobNo}</td>
+              	<td>${exhibition.exName.value}</td>
+              	<td>${exhibition.typeOfEx.value}</td>
               	<td>${exhibition.docsgeneral.customer.code}</td>
               	<td>${exhibition.docsgeneral.typeOfContainer.value}</td>
               	<td>${exhibition.docsgeneral.typeOfImport.value}</td>
