@@ -71,14 +71,13 @@
     </form:form>
     
     <table id="profitlossList" class="display datatable" cellspacing="0" width="100%" >
-        <%--<thead>
+        <thead>
              <tr>
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="profitloss.file"/></th>
                 <th><fmt:message key="profitloss.customer"/></th>
-                <th><fmt:message key="profitloss.nhathau"/></th>
-                <th><fmt:message key="profitloss.tongthu"/></th>
                 <th><fmt:message key="profitloss.tongchi"/></th>
+                <th><fmt:message key="profitloss.tongthu"/></th>
                 <th><fmt:message key="profitloss.thuho"/></th>
                 <th><fmt:message key="profitloss.debit"/></th>
                 <th><fmt:message key="profitloss.pl"/></th>
@@ -90,41 +89,13 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="profitloss.file"/></th>
                 <th><fmt:message key="profitloss.customer"/></th>
-                <th><fmt:message key="profitloss.nhathau"/></th>
-                <th><fmt:message key="profitloss.tongthu"/></th>
                 <th><fmt:message key="profitloss.tongchi"/></th>
+                <th><fmt:message key="profitloss.tongthu"/></th>
                 <th><fmt:message key="profitloss.thuho"/></th>
                 <th><fmt:message key="profitloss.debit"/></th>
                 <th><fmt:message key="profitloss.pl"/></th>
             </tr>
-        </tfoot> --%>
-        <thead>
-       		 <tr>
-            	<th>STT</th>
-                <th>File</th>
-                <th>Khach hang</th>
-                <th>Nha thau</th>
-                <th>Tong thu</th>
-                <th>Tong chi</th>
-                <th>Thu ho</th>
-                <th>Debit</th>
-                <th>P/L</th>
-            </tr>
-        </thead>
- 
-        <tfoot>
-            <tr>
-                <th>STT</th>
-                <th>File</th>
-                <th>Khach hang</th>
-                <th>Nha thau</th>
-                <th>Tong thu</th>
-                <th>Tong chi</th>
-                <th>Thu ho</th>
-                <th>Debit</th>
-                <th>P/L</th>
-            </tr>
-        </tfoot>
+        </tfoot> 
         <tbody>
         <c:forEach items="${summary.details}" var="prolos" varStatus="idx">
         	<tr>
@@ -135,23 +106,20 @@
                  <td>
                  	${prolos.cusName}
                 </td>
-          		<td>
-                 	${prolos.nhathau}
+                <td>
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.tongChi}"/>
                 </td>
                 <td>
-                 	${prolos.tongThu}
+                	<fmt:formatNumber pattern="#,###" value="${prolos.tongThu}"/>
                 </td>
                 <td>
-                 	${prolos.tongChi}
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.thuHo}"/>
                 </td>
                 <td>
-                 	${prolos.thuHo}
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.debit}"/>
                 </td>
                 <td>
-                 	${prolos.debit}
-                </td>
-                <td>
-                 	${prolos.profitLoss}
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.profitLoss}"/>
                 </td>
             </tr>
         </c:forEach>

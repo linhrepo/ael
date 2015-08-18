@@ -784,9 +784,8 @@ public class AdvanceFormListController extends BaseFormController {
 		return false;
 	}
 	
-	static boolean beforeTime(String startDate, Date checkDate) throws ParseException {
+	boolean beforeTime(String startDate, Date checkDate) throws ParseException {
 		Date sd = sdf.parse(startDate);
-
 		if (checkDate.before(sd)) {
 			return true;
 		}
