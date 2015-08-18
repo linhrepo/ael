@@ -75,7 +75,9 @@ public interface URLReference {
 	String REFUND_JOB_FORM ="/users/refundJob";
 	
 	String ADVANCE_FORM_ACC = "/admin/accounting/advanceRefunds";
-
+	String LIABILITY_DETAIL = "/admin/accounting/liabilityDetail";
+	String LIABILITY_DETAIL_USER = "/users/liabilityDetail";
+	
 	String AJAX_REPORT_DEBIT_NOTE = "/admin/accounting/custom/download";
 	
 	String ACCOUNTING_NHATHAU_LIST = "/admin/accounting/nhathau/nhathauList";

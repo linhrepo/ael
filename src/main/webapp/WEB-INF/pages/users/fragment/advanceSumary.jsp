@@ -39,7 +39,7 @@
         	<tr>
                 <td>${idx.index+1}</td>
                 <td>
-                	${adv.employeeName}
+                	<a onclick="advanceDetail('${adv.id}');" style="cursor:pointer;">${adv.employeeName}</a>
                 </td>
                  <td class="money">
                  	${adv.totalAdvanceBefore}
@@ -65,3 +65,12 @@
     </table>
 </div>
 
+<script>
+	function advanceDetail(id) {
+		var sd = $("#startDateSumary").val();
+		var ed = $("#endDateSumary").val();
+		sd = sd.replace(/\//g,'');
+		ed = ed.replace(/\//g,'');
+		window.location.href = "../users/liabilityDetail?id=" + id + "&sd=" + sd + "&ed=" + ed;
+	}
+</script>

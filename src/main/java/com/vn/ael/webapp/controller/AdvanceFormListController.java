@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
@@ -38,6 +41,7 @@ import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.webapp.dto.AdvanceSumary;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.dto.LiabilityDetail;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
@@ -47,6 +51,8 @@ import com.vn.ael.webapp.util.ReportUtil;
 public class AdvanceFormListController extends BaseFormController {
 
 	private AdvanceFormManager advanceFormManager;
+	
+	static SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
 
 	@Autowired
 	public void setAdvanceFormManager(AdvanceFormManager advanceFormManager) {
@@ -569,9 +575,222 @@ public class AdvanceFormListController extends BaseFormController {
 			totalAdvanceAfter = BigDecimal.ZERO;
 			totalRefundAfter = after;
 		}
-		return new AdvanceSumary(employee.getFullName(), totalAdvanceBefore,
+		return new AdvanceSumary(employee.getId(),employee.getFullName(), totalAdvanceBefore,
 				totalRefundBefore, totalAdvanceBetween, totalRefundBetween,
 				totalAdvanceAfter, totalRefundAfter);
 
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = URLReference.LIABILITY_DETAIL)
+	public ModelAndView handleRequestLiabilityDetail(HttpServletRequest request)
+			throws Exception {
+		log.info("Come liability detail");
+		Model model = new ExtendedModelMap();
+		String employeeId = request.getParameter("id");
+		String startDate = request.getParameter("sd");
+		String endDate = request.getParameter("ed");
+		BigDecimal nodauky = new BigDecimal(0);
+		BigDecimal nocuoiky = new BigDecimal(0);
+		
+		try {
+			Long empId = Long.parseLong(employeeId);
+			List<LiabilityDetail> liabilities = new ArrayList<LiabilityDetail>();
+			List<Advanceform> listAdvance = new ArrayList<Advanceform>();
+			listAdvance.addAll(advanceFormManager.findByEmpoyeeForAccounting(empId, true));
+			if (listAdvance != null) {
+				for (Advanceform af : listAdvance) {
+					if(beforeTime(startDate, af.getDate()) && af.getAdvancedetails() != null) {
+						for (Advancedetail ad : af.getAdvancedetails()) {
+							nodauky = nodauky.add(ad.getAmount()); 
+						}
+					
+					} else if(betweenTime(startDate, endDate, af.getDate()) && af.getAdvancedetails() != null) {
+						for (Advancedetail ad : af.getAdvancedetails()) {
+							LiabilityDetail li = new LiabilityDetail();
+							li.setDate(af.getCreatedDate());
+							li.setType("Phiếu chi");
+							li.setExplain(ad.getDescription());
+							li.setDebt(ad.getAmount());
+							li.setRefund(null);
+							liabilities.add(li);
+						}
+					}
+				}
+			}
+			
+			List<Refund> listRefund = new ArrayList<Refund>();
+			listRefund.addAll(refundManager.findByEmpoyeeForAccounting(empId, true));
+			
+			if (listRefund != null) {
+				for (Refund rf : listRefund) {
+					if(beforeTime(startDate, rf.getDate()) && rf.getRefunddetails() != null) {
+						for (Refunddetail rd : rf.getRefunddetails()) {
+							BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();
+							nodauky = nodauky.subtract(amount); 
+						}
+					} else if (betweenTime(startDate, endDate, rf.getDate()) && rf.getRefunddetails() != null) {
+						for (Refunddetail rd : rf.getRefunddetails()) {
+							LiabilityDetail li = new LiabilityDetail();
+							li.setDate(rf.getCreatedDate());
+							li.setType("Phiếu thu");
+							li.setExplain(rd.getDescription());
+							BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();
+							li.setRefund(amount);
+							li.setDebt(null);
+							liabilities.add(li);
+						}
+					}
+				}
+			}
+			
+			Collections.sort(liabilities, new Comparator<LiabilityDetail>(){
+	            public int compare(LiabilityDetail s1,LiabilityDetail s2) {
+	                return s1.getDate().before(s2.getDate()) ? -1 : 1;
+	        }}); 
+			
+			BigDecimal remain = nodauky;
+			for (LiabilityDetail li : liabilities) {
+				BigDecimal debt = li.getDebt() != null ? li.getDebt() : new BigDecimal(0);
+				BigDecimal refund = li.getRefund() != null ? li.getRefund() : new BigDecimal(0);
+				remain = remain.add(debt).subtract(refund);
+				li.setRemain(remain);
+			}
+			//calculate remain
+			nocuoiky = remain;
+			model.addAttribute("liabilities", liabilities);
+			model.addAttribute("remainStart", nodauky);
+			model.addAttribute("remainEnd", nocuoiky);
+			Date sd = sdf.parse(startDate);
+			Date ed = sdf.parse(endDate);
+			model.addAttribute("startDate", sd);
+			model.addAttribute("endDate", ed);
+			User employee = advanceFormManager.getUserById(empId);
+			model.addAttribute("employee", employee);
+		} catch (Exception e) {
+			log.error("FAILED TO PARSE ID " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return new ModelAndView(URLReference.LIABILITY_DETAIL, model.asMap());
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = URLReference.LIABILITY_DETAIL_USER)
+	public ModelAndView handleRequestLiabilityDetailForUser(HttpServletRequest request)
+			throws Exception {
+		log.info("Come liability detail user");
+		Model model = new ExtendedModelMap();
+		String employeeId = request.getParameter("id");
+		String startDate = request.getParameter("sd");
+		String endDate = request.getParameter("ed");
+		BigDecimal nodauky = new BigDecimal(0);
+		BigDecimal nocuoiky = new BigDecimal(0);
+
+		try {
+			Long empId = Long.parseLong(employeeId);
+			User user = getUserManager().getLoggedUser(request);
+			if (user.getId() == empId) {
+			
+				List<LiabilityDetail> liabilities = new ArrayList<LiabilityDetail>();
+				List<Advanceform> listAdvance = new ArrayList<Advanceform>();
+				listAdvance.addAll(advanceFormManager.findByEmpoyeeForAccounting(empId, true));
+				if (listAdvance != null) {
+					for (Advanceform af : listAdvance) {
+						if(beforeTime(startDate, af.getDate()) && af.getAdvancedetails() != null) {
+							for (Advancedetail ad : af.getAdvancedetails()) {
+								nodauky = nodauky.add(ad.getAmount()); 
+							}
+						
+						} else if(betweenTime(startDate, endDate, af.getDate()) && af.getAdvancedetails() != null) {
+							for (Advancedetail ad : af.getAdvancedetails()) {
+								LiabilityDetail li = new LiabilityDetail();
+								li.setDate(af.getCreatedDate());
+								li.setType("Phiếu chi");
+								li.setExplain(ad.getDescription());
+								li.setDebt(ad.getAmount());
+								li.setRefund(null);
+								liabilities.add(li);
+							}
+						}
+					}
+				}
+				
+				List<Refund> listRefund = new ArrayList<Refund>();
+				listRefund.addAll(refundManager.findByEmpoyeeForAccounting(empId, true));
+				
+				if (listRefund != null) {
+					for (Refund rf : listRefund) {
+						if(beforeTime(startDate, rf.getDate()) && rf.getRefunddetails() != null) {
+							for (Refunddetail rd : rf.getRefunddetails()) {
+								BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();
+								nodauky = nodauky.subtract(amount); 
+							}
+						} else if (betweenTime(startDate, endDate, rf.getDate()) && rf.getRefunddetails() != null) {
+							for (Refunddetail rd : rf.getRefunddetails()) {
+								LiabilityDetail li = new LiabilityDetail();
+								li.setDate(rf.getCreatedDate());
+								li.setType("Phiếu thu");
+								li.setExplain(rd.getDescription());
+								BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();
+								li.setRefund(amount);
+								li.setDebt(null);
+								liabilities.add(li);
+							}
+						}
+					}
+				}
+				
+				Collections.sort(liabilities, new Comparator<LiabilityDetail>(){
+		            public int compare(LiabilityDetail s1,LiabilityDetail s2) {
+		                return s1.getDate().before(s2.getDate()) ? -1 : 1;
+		        }}); 
+				
+				BigDecimal remain = nodauky;
+				for (LiabilityDetail li : liabilities) {
+					BigDecimal debt = li.getDebt() != null ? li.getDebt() : new BigDecimal(0);
+					BigDecimal refund = li.getRefund() != null ? li.getRefund() : new BigDecimal(0);
+					remain = remain.add(debt).subtract(refund);
+					li.setRemain(remain);
+				}
+				//calculate remain
+				nocuoiky = remain;
+				model.addAttribute("liabilities", liabilities);
+				model.addAttribute("remainStart", nodauky);
+				model.addAttribute("remainEnd", nocuoiky);
+				Date sd = sdf.parse(startDate);
+				Date ed = sdf.parse(endDate);
+				model.addAttribute("startDate", sd);
+				model.addAttribute("endDate", ed);
+				User employee = advanceFormManager.getUserById(empId);
+				model.addAttribute("employee", employee);
+			}
+			
+			return new ModelAndView(URLReference.LIABILITY_DETAIL_USER, model.asMap());
+		} catch (Exception e) {
+			log.error("FAILED TO PARSE ID " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	boolean betweenTime(String startDate, String endDate, Date checkDate) throws ParseException {
+		Date sd = sdf.parse(startDate);
+		Date ed = sdf.parse(endDate);
+		sd = new Date(sd.getTime() - 1); //23h59'59s the day before
+		ed = new Date(ed.getTime() + (1000 * 60 * 60 * 24));
+		if (checkDate.after(sd) && checkDate.before(ed)) {
+			return true;
+		}
+		return false;
+	}
+	
+	static boolean beforeTime(String startDate, Date checkDate) throws ParseException {
+		Date sd = sdf.parse(startDate);
+
+		if (checkDate.before(sd)) {
+			return true;
+		}
+		return false;
+	}
+
 }

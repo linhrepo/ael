@@ -1,5 +1,9 @@
 <%@ include file="/common/taglibs.jsp" %>
 <br>
+<head>
+    <title><fmt:message key="feeTablesacc.title"/></title>
+    <meta name="menu" content="AccountingMenu"/>
+</head>
 <div class="col-sm-12">
 	<jsp:include page="searchAdvanceSumary.jsp"></jsp:include>
     <%-- <div id="actions" class="btn-group">
@@ -39,7 +43,7 @@
         	<tr>
                 <td>${idx.index+1}</td>
                 <td>
-                	${adv.employeeName}
+                	<a onclick="advanceDetail('${adv.id}');" style="cursor:pointer;">${adv.employeeName}</a>
                 </td>
                  <td class="money">
                  	${adv.totalAdvanceBefore}
@@ -65,3 +69,12 @@
     </table>
 </div>
 
+<script>
+	function advanceDetail(id) {
+		var sd = $("#startDateSumary").val();
+		var ed = $("#endDateSumary").val();
+		sd = sd.replace(/\//g,'');
+		ed = ed.replace(/\//g,'');
+		window.location.href = "../accounting/liabilityDetail?id=" + id + "&sd=" + sd + "&ed=" + ed;
+	}
+</script>

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  *
  */
 public class AdvanceSumary {
+	private Long id;
 	private String employeeName;
 	private BigDecimal totalAdvanceBefore;
 	private BigDecimal totalRefundBefore;
@@ -101,6 +102,12 @@ public class AdvanceSumary {
 	public void setTotalRefundAfter(BigDecimal totalRefundAfter) {
 		this.totalRefundAfter = totalRefundAfter;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	/**
 	 * @param employeeName
 	 * @param totalAdvanceBefore
@@ -110,11 +117,12 @@ public class AdvanceSumary {
 	 * @param totalAdvanceAfter
 	 * @param totalRefundAfter
 	 */
-	public AdvanceSumary(String employeeName, BigDecimal totalAdvanceBefore,
+	public AdvanceSumary(Long id, String employeeName, BigDecimal totalAdvanceBefore,
 			BigDecimal totalRefundBefore, BigDecimal totalAdvanceBetween,
 			BigDecimal totalRefundBetween, BigDecimal totalAdvanceAfter,
 			BigDecimal totalRefundAfter) {
 		super();
+		this.id = id;
 		this.employeeName = employeeName;
 		this.totalAdvanceBefore = totalAdvanceBefore;
 		this.totalRefundBefore = totalRefundBefore;
