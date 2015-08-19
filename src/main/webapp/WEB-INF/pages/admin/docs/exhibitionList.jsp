@@ -47,7 +47,13 @@
         	<tr class="${exhibition.docsgeneral.doDelivery ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${exhibition.docsgeneral.jobNo}</td>
-              	<td>${exhibition.exName.value}</td>
+              	<td>
+              		<c:forEach items="${docsSelection.selections['exhibitionNames']}" var="entry">
+		    			<c:if test="${entry.key == exhibition.exName}">
+		    				${entry.value}
+		    			</c:if>		
+		    		</c:forEach>
+		    	</td>
               	<td>${exhibition.typeOfEx.value}</td>
               	<td>${exhibition.docsgeneral.customer.code}</td>
               	<td>${exhibition.docsgeneral.typeOfContainer.value}</td>

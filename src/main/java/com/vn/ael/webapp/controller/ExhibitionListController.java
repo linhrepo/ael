@@ -87,7 +87,8 @@ public class ExhibitionListController extends BaseFormController {
         		(
         				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
         				ConfigurationType.TYPE_OF_IMPORT,
-        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT
+        				ConfigurationType.DOCS_SHIPPING_CUSTOM_DEPT,
+        				ConfigurationType.EXH_NAME
         		);
         mav.addObject("docsSelection", docsSelection);
         mav.addObject("enumStatus", StatusType.values());
