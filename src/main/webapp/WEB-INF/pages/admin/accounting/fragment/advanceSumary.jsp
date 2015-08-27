@@ -45,23 +45,23 @@
                 <td>
                 	<a onclick="advanceDetail('${adv.id}');" style="cursor:pointer;">${adv.employeeName}</a>
                 </td>
-                 <td class="money">
-                 	${adv.totalAdvanceBefore}
+                <td class="money">
+                 	<fmt:formatNumber pattern="#,###" value="${adv.totalAdvanceBefore}"/>
                 </td>
           		<td class="money">
-                 	${adv.totalRefundBefore}
+                 	<fmt:formatNumber pattern="#,###" value="${adv.totalRefundBefore}"/>
                 </td>
                 <td class="money">
-                 	${adv.totalAdvanceBetween}
+                	<fmt:formatNumber pattern="#,###" value="${adv.totalAdvanceBetween}"/>
                 </td>
                 <td class="money">
-                 	${adv.totalRefundBetween}
+                	<fmt:formatNumber pattern="#,###" value="${adv.totalRefundBetween}"/>
                 </td>
                 <td class="money">
-                 	${adv.totalAdvanceAfter}
+                	<fmt:formatNumber pattern="#,###" value="${adv.totalAdvanceAfter}"/>
                 </td>
                 <td class="money">
-                 	${adv.totalRefundAfter}
+                	<fmt:formatNumber pattern="#,###" value="${adv.totalRefundAfter}"/>	
                 </td>
             </tr>
         </c:forEach>

@@ -133,7 +133,8 @@ public class AccountingcusManagerImpl extends GenericManagerImpl<Accountingcus> 
 					counting = AELConst.START_COUNT_JOB_ID;
 				}
 				accountingcus.setCounting(counting+1);
-			String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+CommonUtil.addZero(accountingcus.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
+			//String jobNo = ServicesType.DVTQ.getDebit()+accountingcus.getDocsgeneral().getCustomer().getCode()+CommonUtil.addZero(accountingcus.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
+			String jobNo = accountingcus.getDocsgeneral().getJobNo();
 			accountingcus.setRefNo(jobNo);
 		}
 		
