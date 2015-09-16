@@ -14,6 +14,7 @@ public class LiabilityDetail {
 	private Long employeeId;
 	private Date date;
 	private String type;
+	private String refcode;
 	private String explain;
 	private BigDecimal debt;
 	private BigDecimal refund;
@@ -63,6 +64,12 @@ public class LiabilityDetail {
 	}
 
 
+	public String getRefcode() {
+		return refcode;
+	}
+	public void setRefcode(String refcode) {
+		this.refcode = refcode;
+	}
 	public String getExplain() {
 		return explain;
 	}

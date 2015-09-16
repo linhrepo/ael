@@ -96,6 +96,7 @@ public class RefundFormController extends BaseFormController {
         return refund;
     }
     
+    //users/refund
     @RequestMapping(method = RequestMethod.GET, value=URLReference.REFUND_FORM)
     public ModelAndView showForm(HttpServletRequest request)
     throws Exception {
@@ -128,6 +129,7 @@ public class RefundFormController extends BaseFormController {
         return mav;
     }
  
+    //users/refund
     @RequestMapping(method = RequestMethod.POST, value=URLReference.REFUND_FORM)
     public String onSubmit(Refund refund, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)

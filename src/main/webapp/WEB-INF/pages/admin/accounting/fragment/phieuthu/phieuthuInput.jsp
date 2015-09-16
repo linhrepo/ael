@@ -25,17 +25,18 @@
 		    		<input class="form-control" value="${refund.employee.firstName}&nbsp;${refund.employee.lastName}" readonly="readonly"/>
 		    	</div>
 		    </security:authorize>
-		    <spring:bind path="refund.date">
+		    <%-- <spring:bind path="refund.date">
 		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
-		    </spring:bind>
+		    </spring:bind> --%>
+		    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 		        <appfuse:label styleClass="control-label" key="phieuthu.date"/>
 		        <form:input  path="date" id="date"  cssClass="form-control"/>
 		        <form:errors path="date" cssClass="help-block"/>
 		    </div>
 		    <div class="form-group col-md-2">
-		    		<appfuse:label styleClass="control-label" key="phieuthu.total"/>
-		    		<input class="form-control money" value="${refund.totalAmount}" readonly="readonly" id="totalVal"/>
-		    	</div>
+	    		<appfuse:label styleClass="control-label" key="phieuthu.total"/>
+	    		<input class="form-control money" value="${refund.totalAmount}" readonly="readonly" id="totalVal"/>
+	    	</div>
 		  <%--   <div class="form-group col-md-2">
 		    		<appfuse:label styleClass="control-label" key="refund.totalOAmount"/>
 		    		<input class="form-control money" value="${refund.totalOAmount}" readonly="readonly"/>
@@ -48,6 +49,6 @@
 	</div>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#date").datepicker("setDate",new Date());
+		$("#date").datepicker();/* "setDate",new Date() */
 	});
 </script>

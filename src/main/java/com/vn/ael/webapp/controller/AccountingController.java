@@ -25,12 +25,14 @@ import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Advancedetail;
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.AdvanceDetailManager;
+import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
@@ -39,7 +41,6 @@ import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.persistence.manager.RefundDetailManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
-import com.vn.ael.persistence.service.EntityService;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
@@ -62,6 +63,8 @@ public class AccountingController extends BaseFormController {
 	private RefundDetailManager refundDetailManager;
 	
 	private AdvanceDetailManager advanceDetailManager;
+	
+	private AdvanceFormManager advanceFormManager;
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -116,6 +119,11 @@ public class AccountingController extends BaseFormController {
 		this.nhathauManager = nhathauManager;
 	}
 
+    @Autowired
+	public void setAdvanceFormManager(AdvanceFormManager advanceFormManager) {
+		this.advanceFormManager = advanceFormManager;
+	}
+    
 	@Override
     @InitBinder
     protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
@@ -219,6 +227,7 @@ public class AccountingController extends BaseFormController {
         return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN, model.asMap());
     }
     
+    //admin/accounting/feesDetail
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_LIST_DETAIL)
     public @ResponseBody List<Exfeetable> handleFeeDetailRequest(@RequestParam(value="docId",required = false) Long id,@RequestParam(value="refundId",required = false) Long refund) throws Exception {
     	List<Exfeetable> exfeetables = new ArrayList<>();
@@ -248,6 +257,7 @@ public class AccountingController extends BaseFormController {
     	return refunddetails;
     }
     
+    //admin/accounting/changeApproval
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL)
     public @ResponseBody String approvalFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
     	Exfeetable exfee = this.exfeetableManager.get(id);
@@ -279,9 +289,34 @@ public class AccountingController extends BaseFormController {
     		refunddetail.setApproved(false);
     	}
     	this.refundDetailManager.save(refunddetail);
+    	// check for details
+    	try {
+	    	Refund rd = this.refundManager.get(refunddetail.getRefund().getId());
+	    	if (rd == null){
+	    		return AELConst.AJAX_ERROR;
+	    	}
+	    	this.refundManager.updateChilds(rd);
+	    	int count = 0;
+	    	if (rd.getRefunddetails() != null) {
+		    	for (Refunddetail ad : rd.getRefunddetails()) {
+		    		if (ad != null && ad.getApproved() != null && ad.getApproved()) {
+		    			count++;
+		    		}
+		    	}
+		    	if (count < rd.getRefunddetails().size()) {
+		    		rd.setDoApproval(false);
+		    	} else {
+		    		rd.setDoApproval(true);
+		    	}
+		    	this.refundManager.saveRefund(rd);
+	    	}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     	return AELConst.AJAX_SUCCESS;
     }
 
+    //admin/accounting/changeAdvanceApproval
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_ADVANCE_CHANGE_APPROVAL)
     public @ResponseBody String approvalAdvanceDetailRequest(@RequestParam(value="id") Long id) throws Exception {
     	Advancedetail advancedetail = this.advanceDetailManager.get(id);
@@ -296,6 +331,30 @@ public class AccountingController extends BaseFormController {
     		advancedetail.setApproved(false);
     	}
     	this.advanceDetailManager.save(advancedetail);
+    	
+    	//check if advanceform fully approved
+
+    	Advanceform af = this.advanceFormManager.get(advancedetail.getAdvanceform().getId());
+    	if (af == null){
+    		return AELConst.AJAX_ERROR;
+    	}
+    	this.advanceFormManager.updateChilds(af);
+    	int count = 0;
+    	if (af.getAdvancedetails() != null) {
+	    	for (Advancedetail ad : af.getAdvancedetails()) {
+	    		if (ad != null && ad.getApproved() != null && ad.getApproved()) {
+	    			count++;
+	    		}
+	    	}
+    	
+	    	if (count < af.getAdvancedetails().size()) {
+	    		af.setDoApproval(false);
+	    	} else {
+	    		af.setDoApproval(true);
+	    	}
+	    	this.advanceFormManager.save(af);
+    	}
+    	
     	return AELConst.AJAX_SUCCESS;
     }
     

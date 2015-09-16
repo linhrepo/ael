@@ -78,7 +78,21 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 		EntityUtil.wireChildOfRefund(refund);
 		return refundRepository.save(refund);
 	}
-
+	
+	@Override
+	public Refund saveRefund(Refund refund) {
+		List<Exfeetable> exfeetables = new ArrayList<>();
+		if(refund.getExfeetables() != null && !refund.getExfeetables().isEmpty()){
+			for(Exfeetable exfeetable : refund.getExfeetables()){
+				if(exfeetable.getIsAdded() == null || !exfeetable.getIsAdded()){
+					exfeetable.setRefund(refund);
+					exfeetables.add(exfeetable);
+				}
+			}
+			refund.setExfeetables(exfeetables);
+		}
+		return refundRepository.save(refund);
+	}
 	/**
 	 * Check to delete childs
 	 * @param advanceform

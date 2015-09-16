@@ -316,10 +316,13 @@ public class EntityUtil {
      */
 	public static void wireChildOfAdvanceform(Advanceform advanceform) {
 		List<Advancedetail> items = new ArrayList<>();
+		Boolean status = advanceform.getDoApproval();
 		if (advanceform.getAdvancedetails() != null && !advanceform.getAdvancedetails().isEmpty()){
 			for (Advancedetail advancedetail: advanceform.getAdvancedetails()){
 				if (advancedetail.getIsAdded() == null || !advancedetail.getIsAdded()){
 					advancedetail.setAdvanceform(advanceform);
+					//14.9 change status correspondingly Advanceform <-> Advancedetails
+					advancedetail.setApproved(status);
 					items.add(advancedetail);
 				}
 			}
@@ -329,11 +332,14 @@ public class EntityUtil {
 
 	public static void wireChildOfRefund(Refund refund) {
 		List<Refunddetail> items = new ArrayList<>();
+		Boolean status = refund.getDoApproval();
 		List<Exfeetable> exfeetables = new ArrayList<>();
 		if (refund.getRefunddetails() != null && !refund.getRefunddetails().isEmpty()){
 			for (Refunddetail refunddetail: refund.getRefunddetails()){
 				if (refunddetail.getIsAdded() == null || !refunddetail.getIsAdded()){
 					refunddetail.setRefund(refund);
+					//14.9 change status correspondingly
+					refunddetail.setApproved(status);
 					items.add(refunddetail);
 				}
 			}

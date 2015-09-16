@@ -40,19 +40,19 @@
 					<form:input path="endDate" provide="datepicker" id="endDate"  cssClass="form-control"/>
 			        <form:errors path="endDate" cssClass="help-block"/>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.startrefundDate" />
 					<form:input path="startTimeRefund" provide="datepicker" id="startTimeRefund"  cssClass="form-control"/>
 			        <form:errors path="startTimeRefund" cssClass="help-block"/>				
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.endrefundDate" />
 					<form:input path="endTimeRefund" provide="datepicker" id="endTimeRefund"  cssClass="form-control"/>
 			        <form:errors path="endTimeRefund" cssClass="help-block"/>				
 			</div>			
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="advanceform.payForm" />
 				<form:select path="doApproval" id="doApproval"
@@ -63,12 +63,11 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			
-		</div> 
-		<div class="row">
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
+				<br>
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
-		</div>
+		</div> 
+		
 	</form:form>
 </div>

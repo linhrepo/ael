@@ -9,7 +9,9 @@
     <table id="refundList1" class="display nestedDatatable" cellspacing="0" width="100%" 
     	childDetailURL="/admin/accounting/feeRefundAdminDetail" 
     	emptyMessage="accounting.fees.detailFailed"
-    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="refund.description"/>,<fmt:message key="refund.amount"/>,<fmt:message key="refund.oAmount"/>,<fmt:message key="refund.accApproved" />,<fmt:message key="accounting.changeApproval" />"
+    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="refund.description"/>,
+	    	<fmt:message key="refund.amount"/>,<fmt:message key="refund.oAmount"/>,
+	    	<fmt:message key="refund.accApproved" />,<fmt:message key="accounting.changeApproval" />"
     	detailTableMapping="description,amount[money],oamount[money],approvedText[Key]"
     	editDetail="/admin/accounting/changeRefundAdminApproval"
     	actionCheck = "checkByAdmin:false,null"
@@ -68,13 +70,18 @@
               		<c:if test="${adv.doApproval}">
               			<a><i class="fa fa-check"></i></a>
               		</c:if>
+              		<%-- <c:if test="${adv.doApproval == false}">
+              			<a><i class="fa fa-clock-o"></i></a>
+              		</c:if> --%>
               	</td>
                 <td>
                 	<c:if test="${adv.isAdmin}">
-                		<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                		<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" 
+                		title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-arrow-right"></i></a>
                 	</c:if>
                 	<c:if test="${!adv.isAdmin}">
-                		<a href="${ctx}/users/refundJob?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                		<a href="${ctx}/users/refundJob?id=${adv.id}" class="iconButton" 
+                		title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-arrow-right"></i></a>
                 	</c:if>
                 </td>
             </tr>
@@ -89,7 +96,11 @@
      <table id="refundList1Job" class="display nestedDatatable" cellspacing="0" width="100%" 
      	childDetailURL="/admin/accounting/feesDetail" 
     	emptyMessage="accounting.fees.detailFailed"
-    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="refund.fileCus"/>,<fmt:message key="packageInfo.masterFee" />,<fmt:message key="packageInfo.feeName" />,<fmt:message key="packageInfo.feevalue" />,<fmt:message key="packageInfo.feevavat" />,<fmt:message key="packageIngo.total" />,<fmt:message key="accounting.approval" />,<fmt:message key="accounting.approvalDate" />,<fmt:message key="accounting.changeApproval" />"
+    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="refund.fileCus"/>,
+	    	<fmt:message key="packageInfo.masterFee" />,<fmt:message key="packageInfo.feeName" />,
+	    	<fmt:message key="packageInfo.feevalue" />,<fmt:message key="packageInfo.feevavat" />,
+	    	<fmt:message key="packageIngo.total" />,<fmt:message key="accounting.approval" />,
+	    	<fmt:message key="accounting.approvalDate" />,<fmt:message key="accounting.changeApproval" />"
     	detailTableMapping="docNo,masterFee.value,name.value,amount[money],vat[money],total[money],approvedText[Key],dateChange[Date]"
     	editDetail="/admin/accounting/changeApproval"
     	actionCheck = "checkByAdmin:false,null"
@@ -148,13 +159,21 @@
               		<c:if test="${adv.doApproval}">
               			<a><i class="fa fa-check"></i></a>
               		</c:if>
+              		<%-- <c:if test="${not adv.doApproval}">
+              			<i class="fa fa-hourglass-half"></i>
+              		</c:if> --%>
+              		<%-- <c:if test="${adv.doApproval == false}">
+              			<a><i class="fa fa-clock-o"></i></a>
+              		</c:if> --%>
               	</td>
                 <td>
                 	<c:if test="${adv.isAdmin}">
-                		<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                		<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" 
+                		title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-arrow-right"></i></a>
                 	</c:if>
                 	<c:if test="${!adv.isAdmin}">
-                		<a href="${ctx}/users/refundJob?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+                		<a href="${ctx}/users/refundJob?id=${adv.id}" class="iconButton" 
+                		title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-arrow-right"></i></a>
                 	</c:if>
                 </td>
             </tr>

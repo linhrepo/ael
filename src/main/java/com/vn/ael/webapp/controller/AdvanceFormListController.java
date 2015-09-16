@@ -88,6 +88,7 @@ public class AdvanceFormListController extends BaseFormController {
 		binder.setDisallowedFields("password", "confirmPassword");
 	}
 
+	//users/advanceRefunds
 	@RequestMapping(method = RequestMethod.GET, value = URLReference.ADVANCE_REFUNDS)
 	public ModelAndView handleRequest(HttpServletRequest request)
 			throws Exception {
@@ -108,6 +109,7 @@ public class AdvanceFormListController extends BaseFormController {
 		return new ModelAndView(URLReference.ADVANCE_REFUNDS, model.asMap());
 	}
 
+	//admin/accounting/advanceRefunds 
 	@RequestMapping(method = RequestMethod.GET, value = URLReference.ADVANCE_FORM_ACC)
 	public ModelAndView handleRequestAcc(HttpServletRequest request)
 			throws Exception {
@@ -127,6 +129,7 @@ public class AdvanceFormListController extends BaseFormController {
 		return new ModelAndView(URLReference.ADVANCE_FORM_ACC, model.asMap());
 	}
 
+	//users/searchAdvance
 	@RequestMapping(method = RequestMethod.POST, value = URLReference.ADVANCE_SEARCH)
 	public ModelAndView searchAdvanceForm(Search searchAdvanceForm,
 			HttpServletRequest request) throws Exception {
@@ -149,6 +152,7 @@ public class AdvanceFormListController extends BaseFormController {
 		return mav;
 	}
 
+	//user/searchRefund
 	@RequestMapping(method = RequestMethod.POST, value = URLReference.REFUND_SEARCH)
 	public ModelAndView searchRefund(Search searchRefund,
 			HttpServletRequest request) throws Exception {
@@ -170,6 +174,7 @@ public class AdvanceFormListController extends BaseFormController {
 		return mav;
 	}
 
+	//admin/accounting/searchAdvance
 	@RequestMapping(method = RequestMethod.POST, value = URLReference.ACC_ADVANCE_SEARCH)
 	public ModelAndView searchAccAdvanceForm(Search searchAdvanceForm,
 			HttpServletRequest request) throws Exception {
@@ -186,11 +191,12 @@ public class AdvanceFormListController extends BaseFormController {
 		mav.addObject("flag", 1);
 		Search search = new Search();
 		//by defaut search not approved job
-		searchAdvanceForm.setDoApproval(false);
+		//searchAdvanceForm.setDoApproval(false);
 		mav.addObject(refundManager.searchRefund(search));
 		return mav;
 	}
 
+	//admin/accounting/searchRefund
 	@RequestMapping(method = RequestMethod.POST, value = URLReference.ACC_REFUND_SEARCH)
 	public ModelAndView searchAccRefund(Search searchRefund,
 			HttpServletRequest request) throws Exception {
@@ -607,8 +613,9 @@ public class AdvanceFormListController extends BaseFormController {
 					} else if(betweenTime(startDate, endDate, af.getDate()) && af.getAdvancedetails() != null) {
 						for (Advancedetail ad : af.getAdvancedetails()) {
 							LiabilityDetail li = new LiabilityDetail();
-							li.setDate(af.getCreatedDate());
+							li.setDate(af.getDate());
 							li.setType("Phiếu chi");
+							li.setRefcode(af.getRefCode());
 							li.setExplain(ad.getDescription());
 							li.setDebt(ad.getAmount());
 							li.setRefund(null);
@@ -633,6 +640,7 @@ public class AdvanceFormListController extends BaseFormController {
 							LiabilityDetail li = new LiabilityDetail();
 							li.setDate(rf.getCreatedDate());
 							li.setType("Phiếu thu");
+							li.setRefcode(rf.getRefCode());
 							li.setExplain(rd.getDescription());
 							BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();
 							li.setRefund(amount);
@@ -684,7 +692,6 @@ public class AdvanceFormListController extends BaseFormController {
 		String endDate = request.getParameter("ed");
 		BigDecimal nodauky = new BigDecimal(0);
 		BigDecimal nocuoiky = new BigDecimal(0);
-
 		try {
 			Long empId = Long.parseLong(employeeId);
 			User user = getUserManager().getLoggedUser(request);
@@ -705,6 +712,7 @@ public class AdvanceFormListController extends BaseFormController {
 								LiabilityDetail li = new LiabilityDetail();
 								li.setDate(af.getCreatedDate());
 								li.setType("Phiếu chi");
+								li.setRefcode(af.getRefCode());
 								li.setExplain(ad.getDescription());
 								li.setDebt(ad.getAmount());
 								li.setRefund(null);
@@ -729,6 +737,7 @@ public class AdvanceFormListController extends BaseFormController {
 								LiabilityDetail li = new LiabilityDetail();
 								li.setDate(rf.getCreatedDate());
 								li.setType("Phiếu thu");
+								li.setRefcode(rf.getRefCode());
 								li.setExplain(rd.getDescription());
 								BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();
 								li.setRefund(amount);

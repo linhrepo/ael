@@ -1,5 +1,21 @@
 <%@ include file="/common/taglibs.jsp" %>
+<style>
+.nav-tabs {
+	position: fixed;
+    z-index: 1000;
+    background-color: white;
+    width: 70%;
+    padding-top: 15px;
+    margin-top: -40px;
+    margin-bottom: 50px;
+    font-size: 15px;
+    font-weight: bold;;
+}
 
+.tab-content {
+	margin-top: 20px;
+} 
+</style>
 <head>
     <title><fmt:message key="advanceList.title"/></title>
     <meta name="menu" content="AccountingMenu"/>

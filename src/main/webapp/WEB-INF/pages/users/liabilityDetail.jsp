@@ -23,6 +23,7 @@
 				<th><fmt:message key="liability.date" /></th>
 				<%-- <th><fmt:message key="liability.id" /></th> --%>
 				<th><fmt:message key="liability.type" /></th>
+				<th><fmt:message key="liability.refcode" /></th>
 				<th><fmt:message key="liability.explain" /></th>
 				<th><fmt:message key="liability.debt" /></th>
 				<th><fmt:message key="liability.refund" /></th>
@@ -46,6 +47,7 @@
 			<tr>
 				<td></td>
 				<td></td>
+				<td></td>
 				<td><b><i><fmt:message key="liability.remain.start" /></i></b></td>
 				<td></td>
 				<td></td>
@@ -56,6 +58,7 @@
 					<td><fmt:formatDate value="${li.date}" pattern="dd/MM/yyyy"/></td>
 					<%-- <td>${li.number}</td> --%>
 					<td>${li.type}</td>
+					<td>${li.refcode}</td>
 					<td>${li.explain}</td>
 					<td><fmt:formatNumber pattern="#,###" value="${li.debt}"/></td>
 					<td><fmt:formatNumber pattern="#,###" value="${li.refund}"/></td>
@@ -63,6 +66,7 @@
 				</tr>
 			</c:forEach>
 			<tr>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td><b><i><fmt:message key="liability.remain.end" /></i></b></td>

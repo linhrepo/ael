@@ -51,12 +51,11 @@
 					<form:input path="endDate" provide="datepicker" id="endDate1"  cssClass="form-control"/>
 			        <form:errors path="endDate" cssClass="help-block"/>
 			</div>
-					
-		</div> 
-		<div class="row">
 			<div class="form-group col-md-2">
+				<br>
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
-			</div>
-		</div>
+			</div>		
+		</div> 
+		
 	</form:form>
 </div>

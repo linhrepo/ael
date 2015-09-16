@@ -2,9 +2,9 @@
 <br>
 <div class="col-sm-12">
 	<jsp:include page="searchAdvance.jsp"></jsp:include>
-	 <a class="btn btn-default" href="<c:url value='/home'/>">
+	 <%-- <a class="btn btn-default" href="<c:url value='/home'/>">
             <i class="fa fa-sign-out"></i> <fmt:message key="button.done"/></a>
-            <hr>
+            <hr> --%>
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=1'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceAdmin"/></a>
@@ -12,7 +12,9 @@
 <table id="advanceformListAdmin" class="display nestedDatatable" cellspacing="0" width="100%" 
     	childDetailURL="/admin/accounting/advDetail" 
     	emptyMessage="accounting.fees.detailFailed"
-    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="advanceform.description"/>,<fmt:message key="advanceform.amount"/>,<fmt:message key="accounting.approval" />,<fmt:message key="accounting.changeApproval" />"
+    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="advanceform.description"/>,
+    	<fmt:message key="advanceform.amount"/>,<fmt:message key="accounting.approval" />,
+    	<fmt:message key="accounting.changeApproval" />"
     	detailTableMapping="description,amount[money],approvedText[Key]"
     	editDetail="/admin/accounting/changeAdvanceApproval"
     	actionCheck = "checkByAdmin:false,null"
@@ -67,13 +69,17 @@
 <%--               			<fmt:message key="refund.manifestFee"/> --%>
 <%--               		</c:if> --%>
               	</td>
-	              	<td>
+	              	<td class="icon-status">
 	              		<c:if test="${adv.doApproval}">
 	              			<a><i class="fa fa-check"></i></a>
 	              		</c:if>
+	              		<%-- <c:if test="${adv.doApproval == false}">
+	              			<a><i class="fa fa-clock-o"></i></a>
+	              		</c:if> --%>
 	              	</td>
 	                <td>
-	                	<a href="${ctx}/users/advanceForm?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+	                	<a href="${ctx}/users/advanceForm?id=${adv.id}" class="iconButton" 
+	                	title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa fa-arrow-right"></i></a>
 	                </td>
 	            </tr>
             </c:if>
@@ -87,7 +93,10 @@
     <table id="advanceformListJob" class="display nestedDatatable" cellspacing="0" width="100%" 
     	childDetailURL="/admin/accounting/advDetail" 
     	emptyMessage="accounting.fees.detailFailed"
-    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="advanceform.fileCus"/>,<fmt:message key="advanceform.goodDes"/>,<fmt:message key="advanceform.description"/>,<fmt:message key="advanceform.amount"/>,<fmt:message key="accounting.approval" />,<fmt:message key="accounting.changeApproval" />"
+    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="advanceform.fileCus"/>,
+    	<fmt:message key="advanceform.goodDes"/>,<fmt:message key="advanceform.description"/>,
+    	<fmt:message key="advanceform.amount"/>,<fmt:message key="accounting.approval" />,
+    	<fmt:message key="accounting.changeApproval" />"
     	detailTableMapping="jobNo,goodDes,description,amount[money],approvedText[Key]"
     	editDetail="/admin/accounting/changeAdvanceApproval"
     	actionCheck = "checkByAdmin:false,null"
@@ -142,13 +151,17 @@
               			<fmt:message key="refund.manifestFee"/>
               		</c:if>
               	</td>
-	              	<td>
+	              	<td class="icon-status">
 	              		<c:if test="${adv.doApproval}">
 	              			<a><i class="fa fa-check"></i></a>
 	              		</c:if>
+	              		<%-- <c:if test="${adv.doApproval == false}">
+	              			<a><i class="fa fa-clock-o"></i></a>
+	              		</c:if> --%>
 	              	</td>
 	                <td>
-	                	<a href="${ctx}/users/advanceForm?id=${adv.id}" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
+	                	<a href="${ctx}/users/advanceForm?id=${adv.id}" class="iconButton" 
+	                	title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-arrow-right"></i></a>
 	                </td>
 	            </tr>
             </c:if>
