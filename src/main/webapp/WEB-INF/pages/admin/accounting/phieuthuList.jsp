@@ -1,6 +1,7 @@
 <%@ include file="/common/taglibs.jsp" %>
 <br>
 <div class="col-sm-10">
+	<h2><fmt:message key='menu.acct.listphieuthu'/></h2>
 	<jsp:include page="searchPhieuThu.jsp"></jsp:include>
 	<br/>
     <div id="actions" class="btn-group">
@@ -46,7 +47,7 @@
                 	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
                 </td>
                  <td class="money">
-                 	${adv.total}
+                 	<fmt:formatNumber>${adv.total}</fmt:formatNumber>
                 </td>
                  <td>
               		<c:if test="${adv.isRAdmin}">

@@ -8,9 +8,9 @@
 <script type="text/javascript">var msgDelConfirm =
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
-    <h2><fmt:message key='menu.acct.phieuthu'/></h2>
+<h2><fmt:message key='menu.acct.phieuthu'/></h2>
  
-<div class="col-sm-12">
+<div class="col-sm-10">
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
     <form:form commandName="refund" method="post" action="phieuthu" id="refundForm" cssClass="well" readonly="${refund.doApproval == 'true' ? 'readonly' :''}" >
     	<jsp:include page="fragment/phieuthu/phieuthuInput.jsp"></jsp:include>
@@ -41,6 +41,11 @@
 	              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
 	          </button>
 	        </c:if>
+	        <c:if test="${not empty refund.id}">
+		        <button type="button" class="btn btn-info" name="addnew" onclick="addNewPhieuthu();">
+	              <i class="fa fa-plus"></i> <fmt:message key="button.addnew"/>
+	            </button>
+            </c:if>
     	</div>
     </form:form>
     <hr>
@@ -56,3 +61,11 @@
  
 <v:javascript formName="phieuthuForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
+<script>
+function addNewPhieuthu() {
+	var msg = "<fmt:message key='notify.saveBeforeGo'/>";
+	if (confirm(msg)) {
+		window.location.href='phieuthu';
+	}
+}
+</script>

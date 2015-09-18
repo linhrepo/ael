@@ -638,7 +638,7 @@ public class AdvanceFormListController extends BaseFormController {
 					} else if (betweenTime(startDate, endDate, rf.getDate()) && rf.getRefunddetails() != null) {
 						for (Refunddetail rd : rf.getRefunddetails()) {
 							LiabilityDetail li = new LiabilityDetail();
-							li.setDate(rf.getCreatedDate());
+							li.setDate(rf.getDate());
 							li.setType("Phiếu thu");
 							li.setRefcode(rf.getRefCode());
 							li.setExplain(rd.getDescription());

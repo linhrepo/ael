@@ -26,7 +26,7 @@
 	                	<form:hidden path="refunddetails[${idx.index}].isDeleted" valueType="deleted"/>
 	            </td>
 	            <c:if test="${empty refund.isRAdmin or refund.isRAdmin == false }">
-	            <td>
+	            <td class="text-center">
 	            		<spring:bind path="refunddetails[${idx.index}].docs.id">
 					    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
 					    </spring:bind>
@@ -72,8 +72,7 @@
     </table>
     <c:if test="${empty refund.doApproval or refund.doApproval==false}">
 	    <div class="row">
-		    	<div class="col-md-10"></div>
-		    	<div class="col-md-2">
+		    	<div class="col-md-12 text-center">
 		    		<span class="btn btn-primary" target-table="refundList">
 			            <i class="fa fa-plus"></i> <fmt:message key="button.add"/></span>
 		    	</div>

@@ -8,55 +8,57 @@
 <div class="col-sm-10">
     <h2><fmt:message key="accountingTrans.heading"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
-    <form:form commandName="conditions" method="get"
-		action="transportSearch" id="accountingtranForm" cssClass="well">
-     <div class="container-fluid">
-    	<div class="row">
-		    <div class="form-group col-md-8">
-		    <appfuse:label styleClass="control-label" key="customer.name"/>
-		    <form:select path="customerId" class="form-control">
-		    	<form:option value=""><fmt:message key="searchall" /></form:option>
-    			<c:forEach items="${customers}" var="customer">
-		    				<c:choose>
-			                    <c:when test="${customer.id == conditions.customerId}">
-			                        <option value="${customer.id}" selected="selected">${customer.code} - ${customer.name}</option>
-			                    </c:when>
-			                    <c:otherwise>
-			                        <option value="${customer.id}">${customer.code} - ${customer.name}</option>
-			                    </c:otherwise>
-			                </c:choose>
-    				
-    			</c:forEach>
-	    	</form:select>
+    <div class="col-sm-12">
+	    <form:form commandName="conditions" method="get"
+			action="transportSearch" id="accountingtranForm" cssClass="well">
+		     <div class="container-fluid">
+		    	<div class="row">
+				    <div class="form-group col-md-8">
+				    <appfuse:label styleClass="control-label" key="customer.name"/>
+				    <form:select path="customerId" class="form-control">
+				    	<form:option value=""><fmt:message key="searchall" /></form:option>
+		    			<c:forEach items="${customers}" var="customer">
+				    				<c:choose>
+					                    <c:when test="${customer.id == conditions.customerId}">
+					                        <option value="${customer.id}" selected="selected">${customer.code} - ${customer.name}</option>
+					                    </c:when>
+					                    <c:otherwise>
+					                        <option value="${customer.id}">${customer.code} - ${customer.name}</option>
+					                    </c:otherwise>
+					                </c:choose>
+		    				
+		    			</c:forEach>
+			    	</form:select>
+				    </div>
+				    <div class="form-group col-md-2">
+					    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
+					    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
+				    </div>
+				    
+				    <div class="form-group col-md-2">
+					    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
+					    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
+				    </div>
+				     <div class="form-group col-md-12">
+						<appfuse:label styleClass="control-label"
+							key="accountingnhathau.jobNo" />
+						<form:select path="jobList" id="jobList" 
+							cssClass="form-control select2" multiple="false">
+							<form:option value=""><fmt:message key="searchall" /></form:option>
+							<form:options items="${jobList}"/>
+						</form:select>
+					</div>
+		    	</div>
 		    </div>
-		    <div class="form-group col-md-2">
-			    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
-			    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
-		    </div>
-		    
-		    <div class="form-group col-md-2">
-			    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
-			    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
-		    </div>
-		     <div class="form-group col-md-12">
-				<appfuse:label styleClass="control-label"
-					key="accountingnhathau.jobNo" />
-				<form:select path="jobList" id="jobList" 
-					cssClass="form-control select2" multiple="false">
-					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<form:options items="${jobList}"/>
-				</form:select>
-			</div>
-    	</div>
+		     <hr>
+		    <div class="form-group form-actions">
+		    <button class="btn btn-primary">
+		    	<i class="fa fa-search"></i> <fmt:message key="button.search"/>
+		    	<input type="submit" style="display: none;"/>
+		    </button>
+	    </div>
+	    </form:form>
     </div>
-     <hr>
-    <div class="form-group form-actions">
-    <button class="btn btn-primary">
-    	<i class="fa fa-search"></i> <fmt:message key="button.search"/>
-    	<input type="submit" style="display: none;"/>
-    </button>
-    </div>
-    </form:form>
     <fmt:formatDate value="${accountingNhathau.condition.startDate}" var="startDate" 
                type="date" pattern="dd/MM/yyyy" />
 	<fmt:formatDate value="${accountingNhathau.condition.endDate}" var="endDate" 
