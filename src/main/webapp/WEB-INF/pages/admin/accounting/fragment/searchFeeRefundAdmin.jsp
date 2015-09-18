@@ -4,7 +4,7 @@
 <title><fmt:message key="packageInfoList.title" /></title>
 <meta name="menu" content="AccountingMenu" />
 </head>
-<div class="col-sm-12">
+
 	<form:form commandName="search" method="post"
 		action="searchFeeRefund" id="refundForm" cssClass="well">
 		<div class="row">
@@ -69,4 +69,3 @@
 			</div>
 		</div>
 	</form:form>
-</div>

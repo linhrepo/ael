@@ -4,7 +4,7 @@
 <title><fmt:message key="packageInfoList.title" /></title>
 <meta name="menu" content="DocsMenu" />
 </head>
-<div class="col-sm-12">
+
 	<form:form commandName="search" method="post"
 		action="searchExhibition" id="exhibitionForm" cssClass="well">
 		<div class="row">
@@ -80,4 +80,3 @@
 
 		</div>
 	</form:form>
-</div>

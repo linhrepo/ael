@@ -9,6 +9,7 @@
 <div class="col-sm-10">
     <h2><fmt:message key="menu.acct.profitloss"/></h2>
     <form:errors path="*" cssClass="alert alert-danger alert-dismissable" element="div"/>
+   	
     <form:form commandName="conditions"  method="post" action="profitloss" id="profitlossForm" cssClass="well" showLoading="false">
     	<div class="container-fluid">
     		<div class="row">		    
@@ -53,23 +54,24 @@
 				    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
 				    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDateVT1"/>
 			    </div>
+			    <div class="form-group col-md-4">
+			    	<div class="form-group form-actions">
+				        <button class="btn btn-primary">
+				    	<i class="fa fa-print"></i> <fmt:message key="button.search"/>
+				    	<input type="submit" style="display: none;"/>
+				    	</button>
+				    
+				    	<c:if test="${fn:length(summary.details) gt 0}">
+					        <button class="btn btn-success" onclick="goDownload()">
+					    	<i class="fa fa-print"></i> <fmt:message key="accounting.transport.download"/>
+					    	</button>
+				    	</c:if>
+				    </div> 
+			    </div>
     		</div>
     	</div>
-	     <hr>
-	    <div class="form-group form-actions">
-	        <button class="btn btn-primary">
-	    	<i class="fa fa-print"></i> <fmt:message key="button.search"/>
-	    	<input type="submit" style="display: none;"/>
-	    	</button>
-	    
-	    	<c:if test="${fn:length(summary.details) gt 0}">
-		        <button class="btn btn-success" onclick="goDownload()">
-		    	<i class="fa fa-print"></i> <fmt:message key="accounting.transport.download"/>
-		    	</button>
-	    	</c:if>
-	    </div> 
     </form:form>
-    
+
     <table id="profitlossList" class="display datatable" cellspacing="0" width="100%" >
         <thead>
              <tr>

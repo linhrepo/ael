@@ -4,7 +4,7 @@
 <title><fmt:message key="packageInfoList.title" /></title>
 <meta name="menu" content="DocsMenu" />
 </head>
-<div class="col-sm-12">
+
 	<form:form commandName="search" method="post"
 		action="searchInland" id="packageInfoForm" cssClass="well">
 		<div class="row">
@@ -81,7 +81,7 @@
 
 		</div>
 	</form:form>
-</div>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		/* $('select').prepend('<option val="0">None</option>'); */

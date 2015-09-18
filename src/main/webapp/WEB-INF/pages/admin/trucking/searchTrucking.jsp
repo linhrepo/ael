@@ -4,7 +4,7 @@
 <title><fmt:message key="packageInfoList.title" /></title>
 <meta name="menu" content="TrackingMenu" />
 </head>
-<div class="col-sm-12">
+
 	<form:form commandName="search" method="post"
 		action="searchTrucking" id="truckingForm" cssClass="well">
 		<div class="row">
@@ -107,4 +107,3 @@
 
 		</div> 
 	</form:form>
-</div>

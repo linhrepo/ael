@@ -4,7 +4,7 @@
 <title><fmt:message key="packageInfoList.title" /></title>
 <meta name="menu" content="Home" />
 </head>
-<div class="col-sm-12">
+
 	<form:form commandName="search" method="post"
 		action="searchAdvanceSumary" id="advanceSumaryForm" cssClass="well" showLoading="false">
 		<div class="row">
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</form:form>
-</div>
+
 <script>
 var exportButton = $("button[name='export']");
 exportButton.click(function() {

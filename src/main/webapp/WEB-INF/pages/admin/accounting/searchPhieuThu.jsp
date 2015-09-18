@@ -4,7 +4,7 @@
 <title><fmt:message key="phieuthu.title" /></title>
 <meta name="menu" content="AccountingMenu" />
 </head>
-<div class="col-sm-12">
+
 	<form:form commandName="search" method="post"
 		action="searchPhieuThu" id="refundForm" cssClass="well" showLoading="false">
 		<div class="row">
@@ -49,4 +49,3 @@
 			</div>
 		</div>
 	</form:form>
-</div>
