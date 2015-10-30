@@ -37,6 +37,7 @@
         	<Item name="ProfitLoss" title="menu.acct.profitloss" page="/admin/accounting/profitloss" image="/images/icons/trans.png"/>
 			<Item name="Fees" title="phieuthu.title" page="/admin/accounting/phieuthuList" image="/images/icons/feeAcc.png"/>
 			<Item name="ManageDebit" title="debit.title" page="/admin/accounting/manageDebit" image="/images/icons/feeAcc.png"/>
+			<Item name="ManageMoneyBook" title="menu.moneybook" page="/admin/accounting/moneyBook" image="/images/icons/feeAcc.png"/>
         </Menu>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN,ROLE_CONFIG,ROLE_DOCS,ROLE_TRUCK" page="/admin/users" image="/images/icons/admin.png">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users" image="/images/icons/employee.png" roles="ROLE_ADMIN"/>
