@@ -8,6 +8,11 @@
     <div id="actions" class="btn-group">
     	<a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=1'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceAdmin"/></a>
+        <span></span>
+        <a class="btn btn-success" onclick="downloadPhieuchi()">
+          	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
+       	</a>
+        <span>*<fmt:message key="advanceform.print.notification"/></span>
     </div>
 <table id="advanceformListAdmin" class="display nestedDatatable" cellspacing="0" width="100%" 
     	childDetailURL="/admin/accounting/advDetail" 
@@ -140,7 +145,7 @@
 	                <td>
 	                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
 	                </td>
-	                 <td class="money">
+	                 <td class="money" >
 	                 	<fmt:formatNumber pattern="#,###" value="${adv.total}"></fmt:formatNumber>
 	                </td>
 	                <td>
@@ -170,3 +175,48 @@
     </table>
 </div>
 
+<style>
+	.highlight {
+		pointer: cursor;
+		background : #38b44a !important;
+	}
+</style>
+<script>
+var printedIds = [];
+var printedGroupString = "";
+
+$(document).ready(function() {
+	$("tr").click(function() {
+		/* var groupString = $(this).find("td").eq(2).text() + " " + $(this).find("td").eq(3).text(); 
+		var same = true;
+		
+		if (groupString.localCompare(printedGroupString) != 0) {
+			same = false;
+		} else {
+			same = true;
+			printedGroupString = groupString;
+		}
+		alert(printedGroupString); */
+		
+		if ($(this).find(".icon-status").size() > 0) {
+			var id = $(this).attr("params").substring(3);
+			printedIds.push(id);
+			
+			$(this).find("td").each(function() {
+				if($(this).hasClass("highlight")) {
+					$(this).removeClass("highlight");
+				} else {
+					$(this).addClass("highlight");
+				}
+			});
+		}
+	})
+});
+
+function downloadPhieuchi() {
+	alert("download" + printedIds.length);
+	
+	var ids = "1,2,3";
+	window.location.href="advanceForm/phieuchi/download?id=" + ids;
+}
+</script>
