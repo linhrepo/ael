@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -64,14 +66,37 @@ public class AdvanceFormController extends BaseFormController {
      * @return
      */
     private Advanceform loadAdvancesByRequest(HttpServletRequest request){
-    	String id = request.getParameter("id");
+    	String idStr = request.getParameter("id");
     	User customer = getUserManager().getLoggedUser(request);
-    	Advanceform advanceform = null;
-        if (!StringUtils.isBlank(id)) {
-        	advanceform = advanceFormManager.get(new Long(id));
-        	if (advanceform == null || !(advanceform.getEmployee().getId().compareTo(customer.getId()) ==0  
-        			|| permissionCheckingService.couldViewUserAdvance(customer))){
-        		return null;
+    	Advanceform advanceform = new Advanceform();
+    	List<Advanceform> listaf = new ArrayList<Advanceform>();
+        if (!StringUtils.isBlank(idStr)) {
+        	String[] ids = idStr.split(",");
+        	for (String id : ids) {
+        		Advanceform af = advanceFormManager.get(new Long(id));
+	        	if (af == null || !(af.getEmployee().getId().compareTo(customer.getId()) ==0  
+	        			|| permissionCheckingService.couldViewUserAdvance(customer))){
+	        		return null;
+	        	}
+	        	listaf.add(af);
+        	}
+        	System.out.println("listaf.size() " +listaf.size());
+        	if (listaf != null && listaf.size() > 0) {
+        		advanceform = listaf.get(0);
+        		String refNos = "";
+        		String reasons = "";
+        		boolean first = true;
+        		for (Advanceform a : listaf) {
+        			if (!first) {
+        				refNos += ",";
+        				reasons += ",";
+        			}
+        			refNos += a.getRefCode();
+        			reasons += a.getPayReason();
+        			first = false;
+        		}
+        		advanceform.setRefNo(refNos);
+        		advanceform.setPayReason(reasons);
         	}
         }else{
         		 //load user
@@ -81,6 +106,8 @@ public class AdvanceFormController extends BaseFormController {
         		 }
         }
         advanceFormManager.updateChilds(advanceform);
+        System.out.println(advanceform.getRefNo());
+        System.out.println(advanceform.getPayReason());
         return advanceform;
     }
     

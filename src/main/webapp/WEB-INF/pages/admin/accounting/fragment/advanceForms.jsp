@@ -9,7 +9,7 @@
     	<a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=1'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceAdmin"/></a>
         <span></span>
-        <a class="btn btn-success" onclick="downloadPhieuchi()">
+        <a id="btn-download" class="btn btn-success" onclick="downloadPhieuchi()">
           	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
        	</a>
         <span>*<fmt:message key="advanceform.print.notification"/></span>
@@ -180,43 +180,71 @@
 		pointer: cursor;
 		background : #38b44a !important;
 	}
+	.disabled {
+	    background: #dddddd;
+	}
 </style>
 <script>
 var printedIds = [];
 var printedGroupString = "";
 
 $(document).ready(function() {
-	$("tr").click(function() {
-		/* var groupString = $(this).find("td").eq(2).text() + " " + $(this).find("td").eq(3).text(); 
+	onOffButton();
+	$( "table" ).on( "click", "tr td:not(:first-child,:last-child)", function() {
+		var tr =  $(this).closest("tr");
+		
+		groupString = tr.find("td").eq(2).text() + " " + tr.find("td").eq(3).text(); 
 		var same = true;
-		
-		if (groupString.localCompare(printedGroupString) != 0) {
-			same = false;
-		} else {
-			same = true;
-			printedGroupString = groupString;
-		}
-		alert(printedGroupString); */
-		
-		if ($(this).find(".icon-status").size() > 0) {
-			var id = $(this).attr("params").substring(3);
-			printedIds.push(id);
 			
-			$(this).find("td").each(function() {
+		if (printedGroupString != "" && groupString.localeCompare(printedGroupString) != 0) {
+			same = false;
+		}
+		var id = tr.attr("params");
+		
+		if (id != null && !tr.hasClass("impress") && same) {
+			idNum = id.substring(3);
+			printedIds.push(idNum);
+			
+			tr.find("td:not(:first-child,:last-child)").each(function() {
 				if($(this).hasClass("highlight")) {
 					$(this).removeClass("highlight");
+					
+					var index = printedIds.indexOf(idNum);
+					if (index > -1) {
+						printedIds.splice(index, 1);
+					}
+					
+					if (printedIds.length == 0) {
+						printedGroupString = "";
+					}
 				} else {
 					$(this).addClass("highlight");
+					printedGroupString = groupString;
 				}
 			});
+		} else {
+			alert("Please choose same employee and date");
 		}
+		onOffButton();
 	})
 });
 
+function onOffButton() {
+	if (printedIds.length > 0) {
+		$('#btn-download').removeClass('disabled');
+	} else {
+		$('#btn-download').addClass('disabled');
+	}
+}
+
 function downloadPhieuchi() {
-	alert("download" + printedIds.length);
+	if (printedIds.length > 0) {
+		var ids = printedIds[0];
+		for(var i = 1; i < printedIds.length; i ++) {
+			ids += "," + printedIds[i];
+		}
+		window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
+	}
 	
-	var ids = "1,2,3";
-	window.location.href="advanceForm/phieuchi/download?id=" + ids;
 }
 </script>
