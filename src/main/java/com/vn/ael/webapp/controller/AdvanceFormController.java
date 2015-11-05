@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.appfuse.model.User;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -80,9 +81,8 @@ public class AdvanceFormController extends BaseFormController {
 	        	}
 	        	listaf.add(af);
         	}
-        	System.out.println("listaf.size() " +listaf.size());
         	if (listaf != null && listaf.size() > 0) {
-        		advanceform = listaf.get(0);
+        		BeanUtils.copyProperties(listaf.get(0), advanceform);
         		String refNos = "";
         		String reasons = "";
         		boolean first = true;
@@ -95,7 +95,7 @@ public class AdvanceFormController extends BaseFormController {
         			reasons += a.getPayReason();
         			first = false;
         		}
-        		advanceform.setRefNo(refNos);
+        		advanceform.setRefCode(refNos);
         		advanceform.setPayReason(reasons);
         	}
         }else{
@@ -106,8 +106,6 @@ public class AdvanceFormController extends BaseFormController {
         		 }
         }
         advanceFormManager.updateChilds(advanceform);
-        System.out.println(advanceform.getRefNo());
-        System.out.println(advanceform.getPayReason());
         return advanceform;
     }
     
