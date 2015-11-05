@@ -32,6 +32,8 @@ import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.persistence.entity.MoneyBook;
+import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -50,9 +52,17 @@ public class AdvanceFormController extends BaseFormController {
 	
 	private AdvanceFormManager advanceFormManager;
 	
+	private AccountingMoneyBookManager moneybookManager;
+	
 	@Autowired
 	public void setAdvanceFormManager(AdvanceFormManager advanceFormManager){
 		this.advanceFormManager = advanceFormManager;
+		
+	}
+	
+	@Autowired
+	public void setAdvanceFormManager(AccountingMoneyBookManager moneybookManager){
+		this.moneybookManager = moneybookManager;
 		
 	}
 	
@@ -74,29 +84,37 @@ public class AdvanceFormController extends BaseFormController {
         if (!StringUtils.isBlank(idStr)) {
         	String[] ids = idStr.split(",");
         	for (String id : ids) {
-        		Advanceform af = advanceFormManager.get(new Long(id));
+        		Advanceform af = new Advanceform();
+        		af = advanceFormManager.get(new Long(id));
 	        	if (af == null || !(af.getEmployee().getId().compareTo(customer.getId()) ==0  
 	        			|| permissionCheckingService.couldViewUserAdvance(customer))){
 	        		return null;
 	        	}
 	        	listaf.add(af);
         	}
+
         	if (listaf != null && listaf.size() > 0) {
-        		BeanUtils.copyProperties(listaf.get(0), advanceform);
-        		String refNos = "";
-        		String reasons = "";
-        		boolean first = true;
+        		StringBuilder refCodes = new StringBuilder();
+        		StringBuilder reasons = new StringBuilder();
+        		BigDecimal amount = BigDecimal.ZERO;
+
         		for (Advanceform a : listaf) {
-        			if (!first) {
-        				refNos += ",";
-        				reasons += ",";
-        			}
-        			refNos += a.getRefCode();
-        			reasons += a.getPayReason();
-        			first = false;
+        			if (!StringUtils.isEmpty(a.getRefCode())) {
+        				refCodes.append(a.getRefCode() +", ");
+        			} 
+        			if (!StringUtils.isEmpty(a.getPayReason())) {
+        				reasons.append(a.getPayReason() +", ");
+        			} 
+        			System.out.println(a.getRefCode() + " a.getTotal()" + a.getTotal());
+        			amount = amount.add(a.getTotal());
         		}
-        		advanceform.setRefCode(refNos);
-        		advanceform.setPayReason(reasons);
+        		
+        		String ref = refCodes.length() < 2 ? "" : refCodes.toString().substring(0, refCodes.length()-2);
+        		String rea = reasons.length() < 2 ? "" : reasons.toString().substring(0, reasons.length()-2);
+        		BeanUtils.copyProperties(listaf.get(0), advanceform);
+        		advanceform.setRefCode(ref);
+        		advanceform.setPayReason(rea);
+        		advanceform.setTotal(amount);
         	}
         }else{
         		 //load user
@@ -106,6 +124,7 @@ public class AdvanceFormController extends BaseFormController {
         		 }
         }
         advanceFormManager.updateChilds(advanceform);
+        System.out.println("advanceform.getTotal() " + advanceform.getMultipleTotal());
         return advanceform;
     }
     
@@ -190,11 +209,21 @@ public class AdvanceFormController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD)
     public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
-    	        Advanceform advanceform = this.loadAdvancesByRequest(request);
-    	        if (advanceform != null){
-    	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuChi(advanceform));
-    	        }
-    	    }
+        Advanceform advanceform = this.loadAdvancesByRequest(request);
+        if (advanceform != null){
+        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuChi(advanceform));
+        }
+        
+        //update moneybook 
+        MoneyBook moneyBook = new MoneyBook();
+        moneyBook.setRefNos(advanceform.getMultipleRefCode());
+        moneyBook.setDate(new Date());
+        moneyBook.setTypeOfBook(0);//cashbook
+        moneyBook.setTypeOfVoucher(0);//payment (phieuchi)
+        moneyBook.setDescription(advanceform.getPayReason());
+        moneyBook.setPaymentMoney(advanceform.getMultipleTotal());
+        moneybookManager.save(moneyBook);
+    }
    /* @RequestMapping( method = RequestMethod.GET, value = "/users/advanceForm/getRemainAdvance")
     public @ResponseBody String getList(@RequestParam(value="docIdList") String[] docIdList) {
     	Map<Long, BigDecimal> map = new HashMap<Long, BigDecimal>();

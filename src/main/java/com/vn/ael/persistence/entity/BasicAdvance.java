@@ -83,4 +83,8 @@ public class BasicAdvance extends BasedEntityTracking{
 	public void setRefCode(String refcode) {
 		this.refCode = refcode;
 	}
+	
+	public String getMultipleRefCode() {
+		return this.refCode;
+	}
 }

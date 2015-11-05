@@ -31,6 +31,8 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	private BigDecimal balance;
 	
 	private String description;
+	
+	private String refNos;
 
 	/**
 	 * @return the date
@@ -142,6 +144,14 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getRefNos() {
+		return refNos;
+	}
+
+	public void setRefNos(String refNos) {
+		this.refNos = refNos;
 	}
 	
 	

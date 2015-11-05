@@ -875,19 +875,19 @@ public class ReportUtil {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
 		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
-		BigDecimal total = BigDecimal.ZERO;
-		if (!listAdvanceDetail.isEmpty()) {
+		BigDecimal total = advanceForm.getMultipleTotal();//BigDecimal.ZERO;
+		/*if (!listAdvanceDetail.isEmpty()) {
 			for (Advancedetail advancedetail : listAdvanceDetail) {
 				total = total.add(advancedetail.getAmount());
 			}
-		}
+		}*/
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(advanceForm.getDate());
-
+		//cal.setTime(advanceForm.getDate());
+		cal.setTime(new Date());
 		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
 		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
 		parameterMap.put("year", cal.get(Calendar.YEAR));
-		parameterMap.put("refNo", advanceForm.getRefCode());
+		parameterMap.put("refNo", advanceForm.getMultipleRefCode());
 		parameterMap.put("employee", advanceForm.getEmployee());
 		parameterMap.put("reason", advanceForm.getPayReason());
 		parameterMap.put("amount", total);

@@ -87,6 +87,14 @@ public class Advanceform extends BasicAdvance implements Serializable {
 		return this.total;
 	}
 
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+	
+	public BigDecimal getMultipleTotal() {
+		return this.total;
+	}
+	
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}

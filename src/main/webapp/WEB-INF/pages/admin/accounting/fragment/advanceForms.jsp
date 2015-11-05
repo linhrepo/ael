@@ -222,9 +222,9 @@ $(document).ready(function() {
 					printedGroupString = groupString;
 				}
 			});
-		} else {
+		} /* else {
 			alert("Please choose same employee and date");
-		}
+		} */
 		onOffButton();
 	})
 });
