@@ -52,7 +52,7 @@ public class AdvanceFormController extends BaseFormController {
 	
 	private AdvanceFormManager advanceFormManager;
 	
-	private AccountingMoneyBookManager moneybookManager;
+	private AccountingMoneyBookManager accountingMoneyBookManager;
 	
 	@Autowired
 	public void setAdvanceFormManager(AdvanceFormManager advanceFormManager){
@@ -61,8 +61,8 @@ public class AdvanceFormController extends BaseFormController {
 	}
 	
 	@Autowired
-	public void setAdvanceFormManager(AccountingMoneyBookManager moneybookManager){
-		this.moneybookManager = moneybookManager;
+	public void setAccountingMoneyBookManager(AccountingMoneyBookManager accountingMoneyBookManager){
+		this.accountingMoneyBookManager = accountingMoneyBookManager;
 		
 	}
 	
@@ -216,13 +216,16 @@ public class AdvanceFormController extends BaseFormController {
         
         //update moneybook 
         MoneyBook moneyBook = new MoneyBook();
+        moneyBook.setVoucherNo("PC01/15");
         moneyBook.setRefNos(advanceform.getMultipleRefCode());
         moneyBook.setDate(new Date());
         moneyBook.setTypeOfBook(0);//cashbook
         moneyBook.setTypeOfVoucher(0);//payment (phieuchi)
         moneyBook.setDescription(advanceform.getPayReason());
         moneyBook.setPaymentMoney(advanceform.getMultipleTotal());
-        moneybookManager.save(moneyBook);
+        moneyBook.setBalance(null);
+        moneyBook.setReceptMoney(null);
+        moneyBook = accountingMoneyBookManager.save(moneyBook);
     }
    /* @RequestMapping( method = RequestMethod.GET, value = "/users/advanceForm/getRemainAdvance")
     public @ResponseBody String getList(@RequestParam(value="docIdList") String[] docIdList) {

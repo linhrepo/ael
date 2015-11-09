@@ -38,5 +38,6 @@
 		<mapping class="com.vn.ael.persistence.entity.Refunddetail" />
 		<mapping class="com.vn.ael.persistence.entity.Truckingdetail" />
 		<mapping class="com.vn.ael.persistence.entity.Truckingservice" />
+		<mapping class="com.vn.ael.persistence.entity.MoneyBook" />
     </session-factory>
 </hibernate-configuration>

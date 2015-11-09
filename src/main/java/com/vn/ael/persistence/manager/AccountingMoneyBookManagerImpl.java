@@ -13,14 +13,16 @@ import com.vn.ael.persistence.repository.MoneyBookRepository;
 @Transactional
 @Service
 public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook> implements AccountingMoneyBookManager {
-	@Autowired
+	
     private MoneyBookRepository moneyBookRepository;
 	
-	/*@Autowired
+	@Autowired
     public AccountingMoneyBookManagerImpl(final MoneyBookRepository moneyBookRepository) {
         this.moneyBookRepository = moneyBookRepository;
-    }*/
+        this.repository = moneyBookRepository;
+    }
 
+	
 	@Override
 	public List<MoneyBook> findByDuration(Date startDate, Date endDate) {
 		return this.moneyBookRepository.findByDuration(startDate, endDate);

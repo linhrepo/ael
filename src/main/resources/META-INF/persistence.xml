@@ -29,6 +29,7 @@
         <class>com.vn.ael.persistence.entity.Refund</class>
         <class>com.vn.ael.persistence.entity.Refunddetail</class>
         <class>com.vn.ael.persistence.entity.Transreportext</class>
+        <class>com.vn.ael.persistence.entity.MoneyBook</class>
         <properties>
           <property name="hibernate.ejb.interceptor"
                       value="com.vn.ael.persistence.entity.interceptors.StaticInterceptor" />          
