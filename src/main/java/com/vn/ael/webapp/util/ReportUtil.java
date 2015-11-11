@@ -888,6 +888,9 @@ public class ReportUtil {
 		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
 		parameterMap.put("year", cal.get(Calendar.YEAR));
 		parameterMap.put("refNo", advanceForm.getMultipleRefCode());
+		if (advanceForm.getMoneyBook() != null) {
+			parameterMap.put("voucherNo", advanceForm.getMoneyBook().getVoucherNo());
+		}
 		parameterMap.put("employee", advanceForm.getEmployee());
 		parameterMap.put("reason", advanceForm.getPayReason());
 		parameterMap.put("amount", total);

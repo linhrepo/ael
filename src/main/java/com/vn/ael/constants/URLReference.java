@@ -120,6 +120,7 @@ public interface URLReference {
 	
 	String REFUND_FORM_DOWNLOAD = "/users/refund/download";
 	
+	String PHIEU_CHI_PRINT = "/users/advanceForm/phieuchi/print";
 	String PHIEU_CHI_DOWNLOAD = "/users/advanceForm/phieuchi/download";
 	String PHIEU_THU_DOWNLOAD = "/users/refund/phieuthu/download";
 	

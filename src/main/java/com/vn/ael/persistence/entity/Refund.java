@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -44,6 +46,10 @@ public class Refund extends BasicAdvance implements Serializable {
 	private Boolean isPhieuThu;
 	
 	private Boolean isAdmin;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="moneyBook")
+	private MoneyBook moneyBook;
 
 	public Refund() {
 	}
@@ -171,6 +177,14 @@ public class Refund extends BasicAdvance implements Serializable {
 
 	public void setIsContainDuplicated(boolean containDuplicated) {
 		this.containDuplicated = containDuplicated;
+	}
+
+	public MoneyBook getMoneyBook() {
+		return moneyBook;
+	}
+
+	public void setMoneyBook(MoneyBook moneyBook) {
+		this.moneyBook = moneyBook;
 	}
 	
 }

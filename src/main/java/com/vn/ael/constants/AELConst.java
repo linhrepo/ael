@@ -4,6 +4,11 @@ public interface AELConst {
 	
 	int START_COUNT_JOB_ID = 0;
 	
+	int START_COUNT_VOUCHER_PAYMENT = 0;//phieuchi
+	int START_COUNT_VOUCHER_RECEPT = 0;//phieuthu
+	String VOUCHER_NO_PREFIX_PAYMENT = "PC";
+	String VOUCHER_NO_PREFIX_RECEPT = "PT";
+	
 	int VAT_PERCENT = 100; 
 	
 	String SUFFIX_PKGS = "pkgs";

@@ -73,6 +73,9 @@ public class BasicAdvance extends BasedEntityTracking{
 	@Transient
 	private String refCode;
 	
+	@Transient
+	private String multipleIds;
+	
 	public String getRefCode(){
 		if(this.getId() != null && this.getEmployee() != null){
 			this.refCode = this.employee.getUsername()+AELConst.SPLASH +String.valueOf(this.getId());
@@ -87,4 +90,19 @@ public class BasicAdvance extends BasedEntityTracking{
 	public String getMultipleRefCode() {
 		return this.refCode;
 	}
+
+	/**
+	 * @return the multipleIds
+	 */
+	public String getMultipleIds() {
+		return multipleIds;
+	}
+
+	/**
+	 * @param multipleIds the multipleIds to set
+	 */
+	public void setMultipleIds(String multipleIds) {
+		this.multipleIds = multipleIds;
+	}
+	
 }

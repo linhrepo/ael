@@ -3,9 +3,13 @@ package com.vn.ael.persistence.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
 @NamedQuery(name="MoneyBook.findAll", query="SELECT mb FROM MoneyBook mb")
@@ -34,6 +38,12 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	
 	private String refNos;
 
+	@OneToMany(mappedBy="moneyBook", cascade = CascadeType.ALL)
+	private List<Advanceform> advanceForms;
+	
+	@OneToMany(mappedBy="moneyBook", cascade = CascadeType.ALL)
+	private List<Refund> refunds;
+	
 	/**
 	 * @return the date
 	 */
@@ -152,6 +162,22 @@ public class MoneyBook extends BaseEntity implements Serializable {
 
 	public void setRefNos(String refNos) {
 		this.refNos = refNos;
+	}
+
+	public List<Advanceform> getAdvanceForms() {
+		return advanceForms;
+	}
+
+	public void setAdvanceForms(List<Advanceform> advanceForms) {
+		this.advanceForms = advanceForms;
+	}
+
+	public List<Refund> getRefunds() {
+		return refunds;
+	}
+
+	public void setRefunds(List<Refund> refunds) {
+		this.refunds = refunds;
 	}
 	
 	

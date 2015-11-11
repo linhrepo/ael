@@ -10,9 +10,10 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<th><fmt:message key="moneybook.voucherNo"/></th>
                 <th><fmt:message key="moneybook.date"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
-                <th><fmt:message key="moneybook.voucherNo"/></th>
+                <th>RefNo(s)</th>
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -23,9 +24,10 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
-                <th><fmt:message key="moneybook.date"/></th>
-                <th><fmt:message key="moneybook.voucherType"/></th>
                 <th><fmt:message key="moneybook.voucherNo"/></th>
+                <th><fmt:message key="moneybook.date"/></th>
+                <th>RefNo(s)</th>
+                <th><fmt:message key="moneybook.voucherType"/></th>
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -37,13 +39,16 @@
         	<tr>
                 <td>${idx.index+1}</td>
                 <td>
+                	${mb.voucherNo}
+                </td>
+                <td>
                 	<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>
                 </td>
                 <td>
                 	${mb.typeOfVoucher}
                 </td>
                 <td>
-                	${mb.voucherNo}
+                	${mb.refNos}
                 </td>
                 <td>
                 	${mb.description}
@@ -68,9 +73,10 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<th><fmt:message key="moneybook.voucherNo"/></th>
                 <th><fmt:message key="moneybook.date"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
-                <th><fmt:message key="moneybook.voucherNo"/></th>
+                <th>RefNo(s)</th>
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -81,9 +87,10 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="moneybook.voucherNo"/></th>
                 <th><fmt:message key="moneybook.date"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
-                <th><fmt:message key="moneybook.voucherNo"/></th>
+                <th>RefNo(s)</th>
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -95,13 +102,16 @@
         	<tr>
                 <td>${idx.index+1}</td>
                 <td>
+                	${mb.voucherNo}
+                </td>
+                <td>
                 	<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>
                 </td>
                 <td>
                 	${mb.typeOfVoucher}
                 </td>
                 <td>
-                	${mb.voucherNo}
+                	${mb.refNos}
                 </td>
                 <td>
                 	${mb.description}

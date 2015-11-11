@@ -105,26 +105,26 @@ public class AdvanceFormController extends BaseFormController {
         			if (!StringUtils.isEmpty(a.getPayReason())) {
         				reasons.append(a.getPayReason() +", ");
         			} 
-        			System.out.println(a.getRefCode() + " a.getTotal()" + a.getTotal());
         			amount = amount.add(a.getTotal());
         		}
         		
+        		//remove the last comma
         		String ref = refCodes.length() < 2 ? "" : refCodes.toString().substring(0, refCodes.length()-2);
         		String rea = reasons.length() < 2 ? "" : reasons.toString().substring(0, reasons.length()-2);
         		BeanUtils.copyProperties(listaf.get(0), advanceform);
         		advanceform.setRefCode(ref);
         		advanceform.setPayReason(rea);
         		advanceform.setTotal(amount);
+        		advanceform.setMultipleIds(idStr);
         	}
-        }else{
-        		 //load user
-        		 if (customer != null){
-        			 advanceform = new Advanceform();
-        			 advanceform.setEmployee(customer);
-        		 }
+        } else {
+    		 //load user
+    		 if (customer != null){
+    			 advanceform = new Advanceform();
+    			 advanceform.setEmployee(customer);
+    		 }
         }
         advanceFormManager.updateChilds(advanceform);
-        System.out.println("advanceform.getTotal() " + advanceform.getMultipleTotal());
         return advanceform;
     }
     
@@ -206,26 +206,28 @@ public class AdvanceFormController extends BaseFormController {
     	        }
     	    }
     
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT)
+    public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+        Advanceform advanceform = this.loadAdvancesByRequest(request);
+        //insert payment form to moneybook
+        this.accountingMoneyBookManager.insertMoneyBook(advanceform);
+        this.advanceFormManager.updateAdvanceForm(advanceform);
+        
+        return advanceform.getMoneyBook().getVoucherNo();
+    }
+    
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD)
     public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);
+        //insert payment form to moneybook
+        MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(advanceform);
+        this.advanceFormManager.updateAdvanceForm(advanceform);
+        
         if (advanceform != null){
         	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuChi(advanceform));
         }
-        
-        //update moneybook 
-        MoneyBook moneyBook = new MoneyBook();
-        moneyBook.setVoucherNo("PC01/15");
-        moneyBook.setRefNos(advanceform.getMultipleRefCode());
-        moneyBook.setDate(new Date());
-        moneyBook.setTypeOfBook(0);//cashbook
-        moneyBook.setTypeOfVoucher(0);//payment (phieuchi)
-        moneyBook.setDescription(advanceform.getPayReason());
-        moneyBook.setPaymentMoney(advanceform.getMultipleTotal());
-        moneyBook.setBalance(null);
-        moneyBook.setReceptMoney(null);
-        moneyBook = accountingMoneyBookManager.save(moneyBook);
     }
    /* @RequestMapping( method = RequestMethod.GET, value = "/users/advanceForm/getRemainAdvance")
     public @ResponseBody String getList(@RequestParam(value="docIdList") String[] docIdList) {

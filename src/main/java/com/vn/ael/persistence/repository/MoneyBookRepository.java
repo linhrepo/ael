@@ -22,4 +22,6 @@ public interface MoneyBookRepository extends GenericRepository<MoneyBook> {
 	List<MoneyBook> findByDuration(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 	/*List<MoneyBook> findByMoneyBook(Integer typeOfBook);*/
 	
+	@Query("SELECT max(e.id) FROM MoneyBook e WHERE e.typeOfVoucher = :type")
+	Integer findMaxCountingByType(@Param("type") Integer type);
 }
