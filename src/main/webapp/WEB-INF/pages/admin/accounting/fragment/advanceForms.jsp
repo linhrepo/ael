@@ -255,7 +255,7 @@ $(document).ready(function() {
 });
 
 function onOffButton() {
-	if (printedIds.length > 0) {
+	if (printedGroupString.length > 0) {
 		$('.btn-download').removeClass('disabled');
 	} else {
 		$('.btn-download').addClass('disabled');
@@ -280,6 +280,7 @@ function downloadPhieuchi() {
 			    	currentRow[i].find("td").removeClass("highlight");
 		    	}
 		    	printedGroupString = "";
+		    	printedIds = [];
 		    	window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
 		    	onOffButton();
 		    }

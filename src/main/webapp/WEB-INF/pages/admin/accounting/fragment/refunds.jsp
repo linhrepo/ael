@@ -27,6 +27,7 @@
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
                <th><fmt:message key="advanceform.approval"/></th>
+               <th><fmt:message key="advanceform.print"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -40,6 +41,7 @@
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
+                <th><fmt:message key="advanceform.print"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -73,6 +75,11 @@
               		<%-- <c:if test="${adv.doApproval == false}">
               			<a><i class="fa fa-clock-o"></i></a>
               		</c:if> --%>
+              	</td>
+              	<td class="icon-status">
+              		<c:if test="${adv.doPrint}">
+              			${adv.moneyBook.voucherNo}
+              		</c:if>
               	</td>
                 <td>
                 	<c:if test="${adv.isAdmin}">
@@ -116,6 +123,7 @@
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
                <th><fmt:message key="advanceform.approval"/></th>
+               <th><fmt:message key="advanceform.print"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </thead>
@@ -129,6 +137,7 @@
                 <th><fmt:message key="refund.total"/></th>
                 <th><fmt:message key="refund.type"/></th>
                 <th><fmt:message key="advanceform.approval"/></th>
+                <th><fmt:message key="advanceform.print"/></th>
                 <th><fmt:message key="table.action"/></th>
             </tr>
         </tfoot>
@@ -166,6 +175,11 @@
               			<a><i class="fa fa-clock-o"></i></a>
               		</c:if> --%>
               	</td>
+              	<td class="icon-status">
+              		<c:if test="${adv.doPrint}">
+              			${adv.moneyBook.voucherNo}
+              		</c:if>
+              	</td>
                 <td>
                 	<c:if test="${adv.isAdmin}">
                 		<a href="${ctx}/users/refund?id=${adv.id}" class="iconButton" 
@@ -183,3 +197,86 @@
     </table>       
 </div>
 
+<script>
+$(document).ready(function() {
+	onOffButton();
+	$( "table" ).on( "click", "tr td:not(:first-child,:last-child)", function() {
+		var tr =  $(this).closest("tr");
+		currentRow.push(tr);
+		groupString = tr.find("td").eq(2).text() + " " + tr.find("td").eq(3).text(); 
+		var same = true;
+		if (printedGroupString != "" && groupString.localeCompare(printedGroupString) != 0) {
+			same = false;
+		}
+		var id = tr.attr("params");
+		var printed = tr.find("td").eq(7).html().trim().length > 0;
+		/* var a = (id != null);
+		var b = (!tr.hasClass("impress"));
+		var c = (same);
+		var d = (!printed); 
+		alert(a +" " + b + " " + c + " " + d); */
+		
+		if (id != null && !tr.hasClass("impress") && same && !printed) {
+			idNum = id.substring(3);
+			printedIds.push(idNum);
+			
+			tr.find("td:not(:first-child,:last-child)").each(function() {
+				if($(this).hasClass("highlight")) {
+					$(this).removeClass("highlight");
+					
+					var index = printedIds.indexOf(idNum);
+					if (index > -1) {
+						printedIds.splice(index, 1);
+						currentRow.splice(index, 1);
+					}
+					
+					if (printedIds.length == 0) {
+						printedGroupString = "";
+						currentRow = [];
+					}
+				} else {
+					$(this).addClass("highlight");
+					printedGroupString = groupString;
+				}
+			});
+		} 
+		onOffButton();
+	})
+});
+
+function onOffButton() {
+	if (printedGroupString.length > 0) {
+		$('.btn-download').removeClass('disabled');
+	} else {
+		$('.btn-download').addClass('disabled');
+	}
+}
+
+function downloadPhieuchi() {
+	if (printedIds.length > 0) {
+		var ids = printedIds[0];
+		for(var i = 1; i < printedIds.length; i ++) {
+			ids += "," + printedIds[i];
+		}
+		//window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
+		
+		$.ajax({
+		    type: "POST",
+		    url: "../../users/advanceForm/phieuchi/print",
+		    data: {"id": ids},
+		    success: function(msg){
+		    	for (var i = 0; i < currentRow.length; i++) {
+		    		currentRow[i].find("td").eq(7).html(msg);
+			    	currentRow[i].find("td").removeClass("highlight");
+		    	}
+		    	printedGroupString = "";
+		    	printedIds = [];
+		    	window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
+		    	onOffButton();
+		    }
+		}); 
+
+	}
+	
+}
+</script>
