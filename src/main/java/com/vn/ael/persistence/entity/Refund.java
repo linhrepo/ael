@@ -45,6 +45,8 @@ public class Refund extends BasicAdvance implements Serializable {
 	
 	private Boolean isPhieuThu;
 	
+	private Boolean doPrint;
+	
 	private Boolean isAdmin;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -185,6 +187,14 @@ public class Refund extends BasicAdvance implements Serializable {
 
 	public void setMoneyBook(MoneyBook moneyBook) {
 		this.moneyBook = moneyBook;
+	}
+
+	public Boolean getDoPrint() {
+		return doPrint;
+	}
+
+	public void setDoPrint(Boolean doPrint) {
+		this.doPrint = doPrint;
 	}
 	
 }
