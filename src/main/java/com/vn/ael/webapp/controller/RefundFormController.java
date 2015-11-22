@@ -1,5 +1,8 @@
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,20 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.model.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
+import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.RefundManager;
@@ -37,6 +44,8 @@ public class RefundFormController extends BaseFormController {
 	private DocsgeneralManager docsgeneralManager;
 	
 	private ExfeetableManager exfeetableManager;
+	
+	private AccountingMoneyBookManager accountingMoneyBookManager;
 	
 	@Autowired
 	public void setPermissionChecking(PermissionCheckingService permissionCheckingService){
@@ -63,7 +72,11 @@ public class RefundFormController extends BaseFormController {
 		this.docsgeneralManager = docsgeneralManager;
 	}
 
-
+	@Autowired
+	public void setAccountingMoneyBookManager(AccountingMoneyBookManager accountingMoneyBookManager){
+		this.accountingMoneyBookManager = accountingMoneyBookManager;
+		
+	}
 
 	public RefundFormController() {
         setCancelView("redirect:"+URLReference.ADVANCE_REFUNDS);
@@ -75,7 +88,7 @@ public class RefundFormController extends BaseFormController {
      * @param request
      * @return
      */
-    private Refund loadRefundByRequest(HttpServletRequest request){
+    /*private Refund loadRefundByRequest(HttpServletRequest request){
     	String id = request.getParameter("id");
     	User customer = getUserManager().getLoggedUser(request);
     	Refund refund = null;
@@ -94,8 +107,64 @@ public class RefundFormController extends BaseFormController {
         }
         refundManager.updateChilds(refund);
         return refund;
-    }
+    }*/
     
+    /**
+     * Based on request parameter, load offers
+     * @param request
+     * @return
+     */
+    private Refund loadRefundByRequest(HttpServletRequest request){
+    	String idStr = request.getParameter("id");
+    	User customer = getUserManager().getLoggedUser(request);
+    	Refund refund = new Refund();
+    	List<Refund> listaf = new ArrayList<Refund>();
+        if (!StringUtils.isBlank(idStr)) {
+        	String[] ids = idStr.split(",");
+        	for (String id : ids) {
+        		Refund af = new Refund();
+        		af = refundManager.get(new Long(id));
+	        	if (af == null || !(af.getEmployee().getId().compareTo(customer.getId()) ==0  
+	        			|| permissionCheckingService.couldViewUserAdvance(customer))){
+	        		return null;
+	        	}
+	        	listaf.add(af);
+        	}
+
+        	if (listaf != null && listaf.size() > 0) {
+        		StringBuilder refCodes = new StringBuilder();
+        		StringBuilder reasons = new StringBuilder();
+        		BigDecimal amount = BigDecimal.ZERO;
+
+        		for (Refund a : listaf) {
+        			if (!StringUtils.isEmpty(a.getRefCode())) {
+        				refCodes.append(a.getRefCode() +", ");
+        			} 
+        			if (!StringUtils.isEmpty(a.getPayReason())) {
+        				reasons.append(a.getPayReason() +", ");
+        			} 
+        			amount = amount.add(a.getTotal());
+        		}
+        		
+        		//remove the last comma
+        		String ref = refCodes.length() < 2 ? "" : refCodes.toString().substring(0, refCodes.length()-2);
+        		String rea = reasons.length() < 2 ? "" : reasons.toString().substring(0, reasons.length()-2);
+        		BeanUtils.copyProperties(listaf.get(0), refund);
+        		refund.setRefCode(ref);
+        		refund.setPayReason(rea);
+        		refund.setTotal(amount);
+        		refund.setMultipleIds(idStr);
+        	}
+        } else {
+    		 //load user
+    		 if (customer != null){
+    			 refund = new Refund();
+    			 refund.setEmployee(customer);
+    		 }
+        }
+        refundManager.updateChilds(refund);
+        return refund;
+    }
     //users/refund
     @RequestMapping(method = RequestMethod.GET, value=URLReference.REFUND_FORM)
     public ModelAndView showForm(HttpServletRequest request)
@@ -194,14 +263,25 @@ public class RefundFormController extends BaseFormController {
         }
     }
     
-    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_THU_DOWNLOAD)
-    public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_REFUND)
+    public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
-    	        Refund refundForm = this.loadRefundByRequest(request);
-    	        if (refundForm != null){
-    	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
-    	        }
-    	    }
+        Refund refund = this.loadRefundByRequest(request);
+        //insert payment form to moneybook
+        this.accountingMoneyBookManager.insertMoneyBook(refund);
+        this.refundManager.updateRefund(refund);
+        
+        return refund.getMoneyBook().getVoucherNo();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_REFUND)
+    public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
+    throws Exception {    	 
+        Refund refundForm = this.loadRefundByRequest(request);
+        if (refundForm != null){
+        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
+        }
+    }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.REFUND_JOB_FORM)
     public ModelAndView showFormRefundJob(HttpServletRequest request)

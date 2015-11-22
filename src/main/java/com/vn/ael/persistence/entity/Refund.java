@@ -138,6 +138,13 @@ public class Refund extends BasicAdvance implements Serializable {
 		return total;
 	}
 
+	public BigDecimal getMultipleTotal() {
+		return this.total;
+	}
+	
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
 	/**
 	 * @return the isPhieuThu
 	 */

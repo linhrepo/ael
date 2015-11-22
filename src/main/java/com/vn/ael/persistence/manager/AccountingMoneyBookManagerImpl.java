@@ -1,6 +1,5 @@
 package com.vn.ael.persistence.manager;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.MoneyBook;
+import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.repository.AdvanceFormRepository;
 import com.vn.ael.persistence.repository.MoneyBookRepository;
 import com.vn.ael.webapp.util.CommonUtil;
@@ -81,6 +81,27 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 	    
 	    updateVoucherNo(moneyBook, 0);
 	    advanceform.setMoneyBook(moneyBook);
+        
+	    return moneyBook;
+	}
+	
+	@Override
+	public MoneyBook insertMoneyBook(Refund refund) {
+		
+		//update moneybook 
+	    MoneyBook moneyBook = new MoneyBook();
+	    moneyBook.setRefNos(refund.getMultipleRefCode());
+	    moneyBook.setDate(new Date());
+	    moneyBook.setTypeOfBook(0);//cashbook
+	    moneyBook.setTypeOfVoucher(0);//payment (phieuchi)
+	    moneyBook.setDescription(refund.getPayReason());
+	    moneyBook.setPaymentMoney(refund.getMultipleTotal());
+	    moneyBook.setBalance(null);
+	    moneyBook.setReceptMoney(null);
+	    moneyBook = this.moneyBookRepository.save(moneyBook);
+	    
+	    updateVoucherNo(moneyBook, 0);
+	    refund.setMoneyBook(moneyBook);
         
 	    return moneyBook;
 	}

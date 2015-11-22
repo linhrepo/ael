@@ -922,7 +922,7 @@ public class ReportUtil {
 						jobNo=refunddetail.getDocs().getJobNo();
 					}
 					String tmp =refunddetail.getDescription()+" ("+jobNo+") ";
-					if (listRefundDetail.indexOf(refunddetail)==listRefundDetail.size()-1) {
+					if (listRefundDetail.indexOf(refunddetail) != listRefundDetail.size()-1) {
 						tmp+=",";
 					}					
 					payReason.append(tmp);
@@ -938,7 +938,7 @@ public class ReportUtil {
 					/*String jobNo = AELConst.EMPTY_STRING;*/
 					
 					String tmp =exfeetable.getName().getValue();
-					if (listExFeetable.indexOf(exfeetable)==listExFeetable.size()-1) {
+					if (listExFeetable.indexOf(exfeetable) != listExFeetable.size()-1) {
 						tmp+=",";
 					}					
 					payReason.append(tmp);
@@ -951,10 +951,13 @@ public class ReportUtil {
 		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
 		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
 		parameterMap.put("year", cal.get(Calendar.YEAR));
-		parameterMap.put("refNo", refund.getRefCode());
+		parameterMap.put("refNo", refund.getMultipleRefCode());
+		if (refund.getMoneyBook() != null) {
+			parameterMap.put("voucherNo", refund.getMoneyBook().getVoucherNo());
+		}
 		parameterMap.put("employee", refund.getEmployee());
 		parameterMap.put("reason", payReason);
-		parameterMap.put("amount", total);
+		parameterMap.put("amount", refund.getMultipleTotal());
 		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
 	}

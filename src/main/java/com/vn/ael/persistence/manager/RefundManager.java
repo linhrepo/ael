@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.appfuse.model.User;
 
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.webapp.dto.Search;
 
@@ -30,4 +31,6 @@ public interface RefundManager extends GenericManager<Refund> {
 	List<Refund> searchFeeRefund(Search search);
 	
 	List<Refund> findByDoApproval(Boolean doApproval);
+	
+	void updateRefund(Refund refund);
 }

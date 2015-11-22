@@ -80,23 +80,26 @@ public class AccountingMoneyBookController extends BaseFormController {
 			@ModelAttribute(SEARCH_MODEL) AccountingMoneyBookCondition searchBook, 
 			BindingResult errors)
 			throws Exception {
-		log.info("searching bankbook");
-		System.out.println("handle post request" + searchBook.getStartDate() + " " + searchBook.getEndDate());
+		System.out.println("searching bankbook");
 		ModelAndView mav = new ModelAndView(ACCOUNTING_MONEY_BOOK);
-		System.out.println(searchBook.getStartDate()+ " " + searchBook.getEndDate());
-		List<MoneyBook> cashbooks = mbManager.findByDuration(searchBook.getStartDate(), searchBook.getEndDate());
-		System.out.println("size: " + cashbooks.size());
-		//List<MoneyBook> cashbooks = new ArrayList<MoneyBook>();
+		Date startDate = searchBook.getStartDate();
+		Date endDate = searchBook.getEndDate();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(endDate); 
+		c.add(Calendar.DATE, 1);
+		endDate = c.getTime();
+		System.out.println(endDate);
+		List<MoneyBook> books = mbManager.findByDuration(startDate, endDate);
+		List<MoneyBook> cashbooks = new ArrayList<MoneyBook>();
 		List<MoneyBook> bankbooks = new ArrayList<MoneyBook>();
-		MoneyBook mb1 = new MoneyBook();
-		mb1.setId(1L);
-		mb1.setTypeOfBook(1);
-		mb1.setTypeOfVoucher(2);
-		mb1.setDate(new Date());
-		mb1.setDescription("Description");
-		//cashbooks.add(mb1);
-		bankbooks.add(mb1);
-		
+		for (MoneyBook mb : books) {
+			if (mb.getTypeOfBook() == 0) {
+				cashbooks.add(mb);
+			} else {
+				bankbooks.add(mb);
+			}
+		}
+
 		mav.addObject("cashbooks", cashbooks);
 		mav.addObject("bankbooks", bankbooks);
 		

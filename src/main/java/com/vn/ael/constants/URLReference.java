@@ -120,9 +120,12 @@ public interface URLReference {
 	
 	String REFUND_FORM_DOWNLOAD = "/users/refund/download";
 	
-	String PHIEU_CHI_PRINT = "/users/advanceForm/phieuchi/print";
-	String PHIEU_CHI_DOWNLOAD = "/users/advanceForm/phieuchi/download";
+	String PHIEU_CHI_PRINT_ADVANCE_FORM = "/users/advanceForm/phieuchi/print";
+	String PHIEU_CHI_PRINT_REFUND = "/users/refund/phieuchi/print";
+	String PHIEU_CHI_DOWNLOAD_ADVANCE_FORM = "/users/advanceForm/phieuchi/download";
 	String PHIEU_THU_DOWNLOAD = "/users/refund/phieuthu/download";
+	
+	String PHIEU_CHI_DOWNLOAD_REFUND = "/users/refund/phieuchi/download";
 	
 	String ACC_ADVANCE_SUMARY_SEARCH = "/admin/accounting/searchAdvanceSumary";
 	String ADVANCE_SUMARY_SEARCH = "/users/searchAdvanceSumary";

@@ -9,7 +9,7 @@
    	   <a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=1'/>">
            <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceAdmin"/></a>
        <!-- <span></span> -->
-       <a class="btn btn-success btn-download" onclick="downloadPhieuchi()">
+       <a class="btn btn-success btn-download" onclick="downloadPhieuchi(0)">
          	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
        </a>
        <br><br>
@@ -102,7 +102,7 @@
     <hr>
     	<a class="btn btn-primary" href="<c:url value='/users/advanceForm?isAdmin=0'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.addAdvanceJob"/></a>
-   		<a class="btn btn-success btn-download" onclick="downloadPhieuchi()">
+   		<a class="btn btn-success btn-download" onclick="downloadPhieuchi(0)">
          	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
       	</a>
     <br><br>
@@ -204,6 +204,7 @@
 	}
 </style>
 <script>
+
 var printedIds = [];
 var printedGroupString = "";
 var currentRow = [];
@@ -211,9 +212,18 @@ var currentRow = [];
 $(document).ready(function() {
 	onOffButton();
 	$( "table" ).on( "click", "tr td:not(:first-child,:last-child)", function() {
+		var settingTab = false;
 		var tr =  $(this).closest("tr");
 		currentRow.push(tr);
-		groupString = tr.find("td").eq(2).text() + " " + tr.find("td").eq(3).text(); 
+		//groupString = tr.find("td").eq(2).text() + " " + tr.find("td").eq(3).text();
+		if($(this).closest(".tab-pane").attr("id") == "settings") {
+			//neu la chi phi, group theo ten
+			groupString = tr.find("td").eq(2).text(); 
+		} else {
+			//neu la tam ung, group theo ten va ngay
+			groupString = tr.find("td").eq(2).text() + " " + tr.find("td").eq(3).text(); 
+		}
+		
 		var same = true;
 		if (printedGroupString != "" && groupString.localeCompare(printedGroupString) != 0) {
 			same = false;
@@ -227,7 +237,7 @@ $(document).ready(function() {
 		alert(a +" " + b + " " + c + " " + d); */
 		
 		if (id != null && !tr.hasClass("impress") && same && !printed) {
-			idNum = id.substring(3);
+			idNum = id.substring(id.indexOf('=') + 1);
 			printedIds.push(idNum);
 			
 			tr.find("td:not(:first-child,:last-child)").each(function() {
@@ -262,30 +272,48 @@ function onOffButton() {
 	}
 }
 
-function downloadPhieuchi() {
+function downloadPhieuchi(voucherType) {
 	if (printedIds.length > 0) {
 		var ids = printedIds[0];
 		for(var i = 1; i < printedIds.length; i ++) {
 			ids += "," + printedIds[i];
 		}
 		//window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
-		
-		$.ajax({
-		    type: "POST",
-		    url: "../../users/advanceForm/phieuchi/print",
-		    data: {"id": ids},
-		    success: function(msg){
-		    	for (var i = 0; i < currentRow.length; i++) {
-		    		currentRow[i].find("td").eq(7).html(msg);
-			    	currentRow[i].find("td").removeClass("highlight");
-		    	}
-		    	printedGroupString = "";
-		    	printedIds = [];
-		    	window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
-		    	onOffButton();
-		    }
-		}); 
-
+		if(confirm("Download payment for ids : " + printedIds + " ?")) {
+			if(voucherType == 0) {//advanceForm
+				$.ajax({
+				    type: "POST",
+				    url: "../../users/advanceForm/phieuchi/print",
+				    data: {"id": ids},
+				    success: function(msg){
+				    	for (var i = 0; i < currentRow.length; i++) {
+				    		currentRow[i].find("td").eq(7).html(msg);
+					    	currentRow[i].find("td").removeClass("highlight");
+				    	}
+				    	printedGroupString = "";
+				    	printedIds = [];
+				    	window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
+				    	onOffButton();
+				    }
+				}); 
+			} else {
+				$.ajax({
+				    type: "POST",
+				    url: "../../users/refund/phieuchi/print",
+				    data: {"id": ids},
+				    success: function(msg){
+				    	for (var i = 0; i < currentRow.length; i++) {
+				    		currentRow[i].find("td").eq(7).html(msg);
+					    	currentRow[i].find("td").removeClass("highlight");
+				    	}
+				    	printedGroupString = "";
+				    	printedIds = [];
+				    	window.location.href="../../users/refund/phieuchi/download?id=" + ids;
+				    	onOffButton();
+				    }
+				}); 
+			}
+		}
 	}
 	
 }

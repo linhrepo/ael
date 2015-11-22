@@ -206,7 +206,7 @@ public class AdvanceFormController extends BaseFormController {
     	        }
     	    }
     
-    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT)
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_ADVANCE_FORM)
     public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);
@@ -217,7 +217,7 @@ public class AdvanceFormController extends BaseFormController {
         return advanceform.getMoneyBook().getVoucherNo();
     }
     
-    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD)
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_ADVANCE_FORM)
     public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
@@ -169,5 +170,20 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	@Override
 	public List<Refund> findByDoApproval(Boolean doApproval) {
 		return this.refundRepository.findByDoApproval(doApproval);
+	}
+	
+	@Override
+	public void updateRefund(Refund refund) {
+		String[] ids = refund.getMultipleIds().split(",");
+		List<Long> listIds = new ArrayList<Long>();
+		for (int i = 0; i < ids.length; i++) {
+			listIds.add(Long.parseLong(ids[i]));
+		}
+		List<Refund> forms = refundRepository.findAll(listIds);
+		for (Refund form : forms) {
+			form.setMoneyBook(refund.getMoneyBook());
+			form.setDoPrint(true);
+			refundRepository.save(form);
+		}
 	}
 }
