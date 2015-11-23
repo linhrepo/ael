@@ -39,7 +39,7 @@
         	<tr params="refundId=${refund.id}">
                 <td>${idx.index+1}</td>
               	<td>${refund.employee.firstName}&nbsp;${refund.employee.lastName}</td>
-              	<td><fmt:formatDate value="${refund.date}" pattern="dd-MM-yyyy"/></td>
+              	<td><fmt:formatDate value="${refund.date}" pattern="yyyy-MM-dd"/></td>
               	<td>
               		<c:if test="${refund.isAdmin}">
               			<fmt:message key="refund.adminFee"/>

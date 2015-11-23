@@ -59,7 +59,7 @@
 	               	${adv.employee.firstName}&nbsp;${adv.employee.lastName}
 	            </td>
                 <td>
-                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
+                	<fmt:formatDate value="${adv.date}" pattern="yyyy-MM-dd"/>
                 </td>
                  <td class="money">
                  	<fmt:formatNumber pattern="#,###" value="${adv.total}"></fmt:formatNumber>
@@ -159,7 +159,7 @@
 	               	${adv.employee.firstName}&nbsp;${adv.employee.lastName}
 	            </td>
                 <td>
-                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
+                	<fmt:formatDate value="${adv.date}" pattern="yyyy-MM-dd"/>
                 </td>
                  <td class="money">
                  	<fmt:formatNumber pattern="#,###" value="${adv.total}"></fmt:formatNumber>

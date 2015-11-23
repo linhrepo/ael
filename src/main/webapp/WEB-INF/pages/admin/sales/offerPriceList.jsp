@@ -49,7 +49,7 @@
               	<td>${offerPrice.customer.code}</td>
               	<td>${offerPrice.customer.name}</td>
               	<td><fmt:message key="${offerPrice.typeOfServiveText}"/></td>
-              	<td><fmt:formatDate value="${offerPrice.dateOffer}" pattern="dd-MM-yyyy"/></td>
+              	<td><fmt:formatDate value="${offerPrice.dateOffer}" pattern="yyyy-MM-dd"/></td>
               	<td class="centerText">
               		<c:if test="${offerPrice.isValid}">
               			<a><i class="fa fa-check"></i></a>

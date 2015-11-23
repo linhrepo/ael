@@ -60,13 +60,13 @@
               	</td>
               	<td>
               		<c:if test="${trucking.packageinfo != null}">
-              			<fmt:formatDate value="${trucking.packageinfo.lastUpdateDate}" pattern="dd-MM-yyyy HH:mm"/>
+              			<fmt:formatDate value="${trucking.packageinfo.lastUpdateDate}" pattern="yyyy-MM-dd HH:mm"/>
               		</c:if>
               		<c:if test="${trucking.inland != null}">
-              			<fmt:formatDate value="${trucking.inland.lastUpdateDate}" pattern="dd-MM-yyyy HH:mm"/>
+              			<fmt:formatDate value="${trucking.inland.lastUpdateDate}" pattern="yyyy-MM-dd HH:mm"/>
               		</c:if>
               		<c:if test="${trucking.exhibition != null}">
-              			<fmt:formatDate value="${trucking.exhibition.lastUpdateDate}" pattern="dd-MM-yyyy HH:mm"/>
+              			<fmt:formatDate value="${trucking.exhibition.lastUpdateDate}" pattern="yyyy-MM-dd HH:mm"/>
               		</c:if>
               	</td>
                 <td>

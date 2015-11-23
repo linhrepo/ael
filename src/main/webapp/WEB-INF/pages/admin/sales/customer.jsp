@@ -153,7 +153,7 @@
         	<tr params="offerId=${offerPrice.id}">
                 <td colType="index">${idx.index+1}</td>
               	<td><fmt:message key="${offerPrice.typeOfServiveText}"/></td>
-              	<td><fmt:formatDate value="${offerPrice.dateOffer}" pattern="dd-MM-yyyy"/></td>
+              	<td><fmt:formatDate value="${offerPrice.dateOffer}" pattern="yyyy-MM-dd"/></td>
               	<td>
               		<c:if test="${offerPrice.isValid}">
               			<a><i class="fa fa-check"></i></a>

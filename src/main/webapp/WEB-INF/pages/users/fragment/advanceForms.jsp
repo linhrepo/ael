@@ -40,7 +40,7 @@
                 <td>${idx.index+1}</td>
                 <td>${adv.refCode}</td>
                 <td>
-                	<fmt:formatDate value="${adv.date}" pattern="dd-MM-yyyy"/>
+                	<fmt:formatDate value="${adv.date}" pattern="yyyy-MM-dd"/>
                 </td>
                  <td class="money">
                  	<fmt:formatNumber pattern="#,###" value="${adv.total}"></fmt:formatNumber>

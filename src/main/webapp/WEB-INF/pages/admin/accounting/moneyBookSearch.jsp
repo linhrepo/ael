@@ -8,7 +8,7 @@
 	<form:form modelAttribute="accountingMoneyBookCondition" method="post"
 		action="searchMoneyBook" id="refundForm" cssClass="well" showLoading="false">
 		<div class="row">
-			<div class="form-group col-md-3">
+			<%-- <div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="moneybook.voucherType" />
 				<form:select path="typeOfVoucher" id="typeOfVoucher"
@@ -18,7 +18,7 @@
 						<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
 					</c:forEach>
 				</form:select>
-			</div>
+			</div> --%>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="moneybook.startdate" />
@@ -41,11 +41,12 @@
 						<form:option value="${entry}">${entry}</form:option>
 					</c:forEach>
 				</form:select>
-			</div>	 --%>		
+			</div>	 --%>
+				
 		</div> 
 		<div class="row">
 			<div class="form-group col-md-2">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
-		</div>
+		</div>	
 	</form:form>

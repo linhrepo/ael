@@ -42,7 +42,7 @@
                 	${mb.voucherNo}
                 </td>
                 <td>
-                	<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>
+                	<fmt:formatDate value="${mb.date}" pattern="yyyy-MM-dd"/>
                 </td>
                 <td>
                 	<%-- ${mb.typeOfVoucher} --%>
@@ -107,7 +107,7 @@
                 	${mb.voucherNo}
                 </td>
                 <td>
-                	<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>
+                	<fmt:formatDate value="${mb.date}" pattern="yyyy-MM-dd"/>
                 </td>
                 <td>
                 	<%-- ${mb.typeOfVoucher} --%>
