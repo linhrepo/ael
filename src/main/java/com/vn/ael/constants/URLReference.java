@@ -120,11 +120,13 @@ public interface URLReference {
 	
 	String REFUND_FORM_DOWNLOAD = "/users/refund/download";
 	
+	//ajax call to change do print status
 	String PHIEU_CHI_PRINT_ADVANCE_FORM = "/users/advanceForm/phieuchi/print";
 	String PHIEU_CHI_PRINT_REFUND = "/users/refund/phieuchi/print";
-	String PHIEU_CHI_DOWNLOAD_ADVANCE_FORM = "/users/advanceForm/phieuchi/download";
-	String PHIEU_THU_DOWNLOAD = "/users/refund/phieuthu/download";
 	
+	String PHIEU_THU_PRINT_REFUND = "/admin/accounting/phieuthu/print";
+	
+	String PHIEU_CHI_DOWNLOAD_ADVANCE_FORM = "/users/advanceForm/phieuchi/download";
 	String PHIEU_CHI_DOWNLOAD_REFUND = "/users/refund/phieuchi/download";
 	
 	String ACC_ADVANCE_SUMARY_SEARCH = "/admin/accounting/searchAdvanceSumary";
@@ -132,7 +134,7 @@ public interface URLReference {
 	
 	String ACCOUNTING_PHIEUTHU_LIST = "/admin/accounting/phieuthuList";
 	String ACCOUNTING_PHIEUTHU = "/admin/accounting/phieuthu";
-	String ACCOUNTING_PHIEUTHU_DOWNLOAD = "/admin/accounting/phieuthu/download";
+	String ACCOUNTING_PHIEUTHU_DOWNLOAD = "/admin/accounting/phieuthu/download";//download phieuthu refund
 	String ACCOUNTING_PHIEUTHU_SEARCH = "/admin/accounting/searchPhieuThu";
 	String ACCOUNTING_MANAGE_DEBIT = "/admin/accounting/manageDebit";
 	String DEBIT_SEARCH = "/admin/accounting/searchDebit";

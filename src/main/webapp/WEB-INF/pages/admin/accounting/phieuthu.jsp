@@ -24,7 +24,7 @@
 	        </c:if>
 	        <c:if test="${refund.doApproval == true}">
 	        	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
-	        		<button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+	        		<button type="submit" class="btn btn-success" name="save" onclick="bCancel=false">
 		           	 <i class="fa fa-floppy-o"></i> <fmt:message key="button.save"/>
 		        	</button>
 	        	</security:authorize>

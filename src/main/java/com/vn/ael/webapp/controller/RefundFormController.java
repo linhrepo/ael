@@ -270,6 +270,17 @@ public class RefundFormController extends BaseFormController {
         //insert payment form to moneybook
         this.accountingMoneyBookManager.insertMoneyBook(refund);
         this.refundManager.updateRefund(refund);
+        System.out.println(refund.getMoneyBook().getVoucherNo());
+        return refund.getMoneyBook().getVoucherNo();
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_THU_PRINT_REFUND)
+    public @ResponseBody String phieuThuPrint(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+        Refund refund = this.loadRefundByRequest(request);
+        //insert payment form to moneybook
+        this.accountingMoneyBookManager.insertMoneyBook(refund);
+        this.refundManager.updateRefund(refund);
         
         return refund.getMoneyBook().getVoucherNo();
     }
