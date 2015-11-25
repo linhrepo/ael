@@ -900,10 +900,7 @@ public class ReportUtil {
 
 	public static Map<String, Object> prepareDataForPhieuThu(Refund refund) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		Calendar cal = Calendar.getInstance();
-		if (refund.getDate()!=null) {
-			cal.setTime(refund.getDate());
-		}		
+			
 		BigDecimal total = BigDecimal.ZERO;
 		StringBuffer payReason = new StringBuffer();
 		List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
@@ -948,6 +945,9 @@ public class ReportUtil {
 			}
 		}
 
+		Calendar cal = Calendar.getInstance();
+		//cal.setTime(advanceForm.getDate());
+		cal.setTime(new Date());
 		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
 		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
 		parameterMap.put("year", cal.get(Calendar.YEAR));

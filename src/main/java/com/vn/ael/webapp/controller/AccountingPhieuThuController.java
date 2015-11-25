@@ -1,5 +1,7 @@
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.model.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
@@ -71,7 +74,7 @@ public class AccountingPhieuThuController extends BaseFormController {
 		return new ModelAndView(URLReference.ACCOUNTING_PHIEUTHU_LIST, model.asMap());
 	}
 
-	private Refund loadPhieuThuByRequest(HttpServletRequest request) {
+	/*private Refund loadPhieuThuByRequest(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		User customer = getUserManager().getLoggedUser(request);
 		Refund refund = null;
@@ -92,8 +95,60 @@ public class AccountingPhieuThuController extends BaseFormController {
 		}
 		refundManager.updateChilds(refund);
 		return refund;
-	}
+	}*/
 
+	private Refund loadPhieuThuByRequest(HttpServletRequest request){
+    	String idStr = request.getParameter("id");
+    	User customer = getUserManager().getLoggedUser(request);
+    	Refund refund = new Refund();
+    	List<Refund> listaf = new ArrayList<Refund>();
+        if (!StringUtils.isBlank(idStr)) {
+        	String[] ids = idStr.split(",");
+        	for (String id : ids) {
+        		Refund af = new Refund();
+        		af = refundManager.get(new Long(id));
+	        	if (af == null || !(af.getEmployee().getId().compareTo(customer.getId()) ==0  
+	        			|| permissionCheckingService.couldViewUserAdvance(customer))){
+	        		return null;
+	        	}
+	        	listaf.add(af);
+        	}
+
+        	if (listaf != null && listaf.size() > 0) {
+        		StringBuilder refCodes = new StringBuilder();
+        		StringBuilder reasons = new StringBuilder();
+        		BigDecimal amount = BigDecimal.ZERO;
+
+        		for (Refund a : listaf) {
+        			if (!StringUtils.isEmpty(a.getRefCode())) {
+        				refCodes.append(a.getRefCode() +", ");
+        			} 
+        			if (!StringUtils.isEmpty(a.getPayReason())) {
+        				reasons.append(a.getPayReason() +", ");
+        			} 
+        			amount = amount.add(a.getTotal());
+        		}
+        		
+        		//remove the last comma
+        		String ref = refCodes.length() < 2 ? "" : refCodes.toString().substring(0, refCodes.length()-2);
+        		String rea = reasons.length() < 2 ? "" : reasons.toString().substring(0, reasons.length()-2);
+        		BeanUtils.copyProperties(listaf.get(0), refund);
+        		refund.setRefCode(ref);
+        		refund.setPayReason(rea);
+        		refund.setTotal(amount);
+        		refund.setMultipleIds(idStr);
+        	}
+        } else {
+    		 //load user
+    		 if (customer != null){
+    			 refund = new Refund();
+    			 refund.setEmployee(customer);
+    		 }
+        }
+        refundManager.updateChilds(refund);
+        return refund;
+    }
+	
 	@RequestMapping(method = RequestMethod.GET, value = URLReference.ACCOUNTING_PHIEUTHU)
 	public ModelAndView showForm(HttpServletRequest request, @RequestParam(value="isAdmin", required= false) Boolean isAdmin) throws Exception {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_PHIEUTHU);

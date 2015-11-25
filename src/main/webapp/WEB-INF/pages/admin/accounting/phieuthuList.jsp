@@ -138,9 +138,9 @@ function downloadPhieuthu() {
 			    		currentRow.find("td").eq(5).html(msg);
 				    	currentRow.find("td").removeClass("highlight");
 			    	}
-			    	printedId = "";
-			    	currentRow = null;
 			    	window.location.href="phieuthu/download?id=" + printedId;
+			    	currentRow = null;
+			    	printedId = "";
 			    	onOffButton();
 			    },
 			    error: function(msg){
