@@ -918,7 +918,7 @@ public class ReportUtil {
 					if (refunddetail.getDocs()!=null) {
 						jobNo=refunddetail.getDocs().getJobNo();
 					}
-					String tmp =refunddetail.getDescription()+" ("+jobNo+") ";
+					String tmp = jobNo != null ? refunddetail.getDescription() + " ("+jobNo+") " : refunddetail.getDescription() ;
 					if (listRefundDetail.indexOf(refunddetail) != listRefundDetail.size()-1) {
 						tmp+=",";
 					}					

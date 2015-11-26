@@ -19,12 +19,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -35,6 +38,8 @@ import com.vn.ael.webapp.util.ReportUtil;
 public class AccountingPhieuThuController extends BaseFormController {
 	private RefundManager refundManager;
 
+	private AccountingMoneyBookManager accountingMoneyBookManager;
+	
 	@Autowired
 	public void setRefundManager(RefundManager refundManager) {
 		this.refundManager = refundManager;
@@ -50,6 +55,12 @@ public class AccountingPhieuThuController extends BaseFormController {
 
 	}
 
+	@Autowired
+	public void setAccountingMoneyBookManager(AccountingMoneyBookManager accountingMoneyBookManager){
+		this.accountingMoneyBookManager = accountingMoneyBookManager;
+		
+	}
+	
 	/**
 	 * 
 	 */
@@ -220,6 +231,17 @@ public class AccountingPhieuThuController extends BaseFormController {
 	        }
 	 
 	        return success;
+	    }
+	 
+	 @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_THU_PRINT_REFUND)
+	    public @ResponseBody String phieuThuPrint(HttpServletRequest request,  HttpServletResponse response)
+	    	    throws Exception {    	 
+	        Refund refund = this.loadPhieuThuByRequest(request);
+	        //insert payment form to moneybook
+	        this.accountingMoneyBookManager.insertMoneyBook(refund, VoucherType.PHIEUTHU);
+	        this.refundManager.updateRefund(refund);
+	        
+	        return refund.getMoneyBook().getVoucherNo();
 	    }
 	 
 	 @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_PHIEUTHU_DOWNLOAD)

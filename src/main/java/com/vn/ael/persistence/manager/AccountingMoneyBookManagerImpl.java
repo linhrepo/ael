@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.entity.Refund;
@@ -75,32 +76,36 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 	    moneyBook.setTypeOfVoucher(0);//payment (phieuchi)
 	    moneyBook.setDescription(advanceform.getPayReason());
 	    moneyBook.setPaymentMoney(advanceform.getMultipleTotal());
-	    moneyBook.setBalance(null);
 	    moneyBook.setReceptMoney(null);
+	    moneyBook.setBalance(null);
+	    
 	    moneyBook = this.moneyBookRepository.save(moneyBook);
 	    
-	    updateVoucherNo(moneyBook, 0);
+	    updateVoucherNo(moneyBook, VoucherType.PHIEUCHI.getValue());
 	    advanceform.setMoneyBook(moneyBook);
         
 	    return moneyBook;
 	}
 	
 	@Override
-	public MoneyBook insertMoneyBook(Refund refund) {
+	public MoneyBook insertMoneyBook(Refund refund, VoucherType typeOfVoucher) {
 		
 		//update moneybook 
 	    MoneyBook moneyBook = new MoneyBook();
 	    moneyBook.setRefNos(refund.getMultipleRefCode());
 	    moneyBook.setDate(new Date());
 	    moneyBook.setTypeOfBook(0);//cashbook
-	    moneyBook.setTypeOfVoucher(0);//payment (phieuchi)
+	    moneyBook.setTypeOfVoucher(typeOfVoucher.getValue());
 	    moneyBook.setDescription(refund.getPayReason());
-	    moneyBook.setPaymentMoney(refund.getMultipleTotal());
+	    if (typeOfVoucher.getValue() == 0) { 
+	    	moneyBook.setPaymentMoney(refund.getMultipleTotal());
+	    } else {
+	    	moneyBook.setReceptMoney(refund.getMultipleTotal());
+	    }
 	    moneyBook.setBalance(null);
-	    moneyBook.setReceptMoney(null);
 	    moneyBook = this.moneyBookRepository.save(moneyBook);
 	    
-	    updateVoucherNo(moneyBook, 0);
+	    updateVoucherNo(moneyBook, typeOfVoucher.getValue());
 	    refund.setMoneyBook(moneyBook);
         
 	    return moneyBook;

@@ -17,6 +17,7 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<th>RefCode</th>
             	<th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="phieuthu.date"/></th>
                 <th><fmt:message key="phieuthu.total"/></th>
@@ -29,6 +30,7 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
+                <th>RefCode</th>
                 <th><fmt:message key="advanceform.employee"/></th>
                 <th><fmt:message key="phieuthu.date"/></th>
                 <th><fmt:message key="phieuthu.total"/></th>
@@ -41,13 +43,14 @@
         <c:forEach items="${refundList}" var="adv" varStatus="idx">
         	<tr>
                 <td id='${adv.id}'>${idx.index+1}</td>
+                <td>${adv.refCode}</td>
                 <td>
                 	${adv.employee.firstName}&nbsp;${adv.employee.lastName}
                 </td>
                 <td>
                 	<fmt:formatDate value="${adv.date}" pattern="yyyy-MM-dd"/>
                 </td>
-                 <td class="money">
+                <td class="money">
                  	<fmt:formatNumber>${adv.total}</fmt:formatNumber>
                 </td>
                  <td>
@@ -93,7 +96,7 @@ $(document).ready(function() {
 		var tr =  $(this).closest("tr");
 		currentRow = tr;
 		var id = tr.find("td").first().attr("id");
-		var printed = tr.find("td").eq(5).html().trim().length > 0;
+		var printed = tr.find("td").eq(6).html().trim().length > 0;
 		var same = true;
 		if (printedId != "" && id != printedId) {
 			same = false;
@@ -135,7 +138,7 @@ function downloadPhieuthu() {
 			    data: {"id": printedId},
 			    success: function(msg){
 			    	for (var i = 0; i < currentRow.length; i++) {
-			    		currentRow.find("td").eq(5).html(msg);
+			    		currentRow.find("td").eq(6).html(msg);
 				    	currentRow.find("td").removeClass("highlight");
 			    	}
 			    	window.location.href="phieuthu/download?id=" + printedId;
