@@ -37,6 +37,8 @@ import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
+import net.sf.json.JSONObject;
+
 @Controller
 public class RefundFormController extends BaseFormController {
 
@@ -271,8 +273,27 @@ public class RefundFormController extends BaseFormController {
         //insert payment form to moneybook
         this.accountingMoneyBookManager.insertMoneyBook(refund, VoucherType.PHIEUCHI);
         this.refundManager.updateRefund(refund);
-        System.out.println(refund.getMoneyBook().getVoucherNo());
-        return refund.getMoneyBook().getVoucherNo();
+        
+        JSONObject obj = new JSONObject();
+        obj.put("employee", refund.getEmployee().getFirstName() + " " + refund.getEmployee().getLastName());
+        obj.put("voucherNo", refund.getMoneyBook().getVoucherNo());
+        obj.put("refCodes", refund.getRefCode());
+        
+        obj.put("reason", refund.getPayReason());
+        obj.put("amount", refund.getMultipleTotal());
+        //System.out.println("payreason: " + advanceform.getPayReason());
+        return obj.toString();
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_UPDATE_REASON_REFUND)
+    public @ResponseBody String phieuChiUpdateReason(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	String voucherNo = request.getParameter("voucherNo");
+	 	String reason = request.getParameter("reason");
+        //insert payment form to moneybook
+        this.accountingMoneyBookManager.updateReason(voucherNo, reason);
+        
+        return "success";
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_REFUND)

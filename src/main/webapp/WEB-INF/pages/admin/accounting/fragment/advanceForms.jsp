@@ -214,7 +214,7 @@ $(document).ready(function() {
 	$( "table" ).on( "click", "tr td:not(:first-child,:last-child)", function() {
 		var settingTab = false;
 		var tr =  $(this).closest("tr");
-		currentRow.push(tr);
+		
 		//groupString = tr.find("td").eq(2).text() + " " + tr.find("td").eq(3).text();
 		if($(this).closest(".tab-pane").attr("id") == "settings") {
 			//neu la chi phi, group theo ten
@@ -230,15 +230,11 @@ $(document).ready(function() {
 		}
 		var id = tr.attr("params");
 		var printed = tr.find("td").eq(7).html().trim().length > 0;
-		/* var a = (id != null);
-		var b = (!tr.hasClass("impress"));
-		var c = (same);
-		var d = (!printed); 
-		alert(a +" " + b + " " + c + " " + d); */
 		
 		if (id != null && !tr.hasClass("impress") && same && !printed) {
 			idNum = id.substring(id.indexOf('=') + 1);
 			printedIds.push(idNum);
+			currentRow.push(tr);
 			
 			tr.find("td:not(:first-child,:last-child)").each(function() {
 				if($(this).hasClass("highlight")) {
@@ -278,43 +274,57 @@ function downloadPhieuchi(voucherType) {
 		for(var i = 1; i < printedIds.length; i ++) {
 			ids += "," + printedIds[i];
 		}
-		//window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
-		if(confirm("Download payment for ids : " + printedIds + " ?")) {
-			if(voucherType == 0) {//advanceForm
-				$.ajax({
-				    type: "POST",
-				    url: "../../users/advanceForm/phieuchi/print",
-				    data: {"id": ids},
-				    success: function(msg){
-				    	for (var i = 0; i < currentRow.length; i++) {
-				    		currentRow[i].find("td").eq(7).html(msg);
-					    	currentRow[i].find("td").removeClass("highlight");
-				    	}
-				    	printedGroupString = "";
-				    	printedIds = [];
-				    	window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
-				    	onOffButton();
-				    }
-				}); 
-			} else {
-				$.ajax({
-				    type: "POST",
-				    url: "../../users/refund/phieuchi/print",
-				    data: {"id": ids},
-				    success: function(msg){
-				    	for (var i = 0; i < currentRow.length; i++) {
-				    		currentRow[i].find("td").eq(7).html(msg);
-					    	currentRow[i].find("td").removeClass("highlight");
-				    	}
-				    	printedGroupString = "";
-				    	printedIds = [];
-				    	window.location.href="../../users/refund/phieuchi/download?id=" + ids;
-				    	onOffButton();
-				    }
-				}); 
-			}
+		if(voucherType == 0) {//advanceForm
+			$.ajax({
+			    type: "POST",
+			    url: "../../users/advanceForm/phieuchi/print",
+			    data: {"id": ids},
+			    success: function(msg){
+			    	reviewVoucherPayment(ids, msg, "advanceForm");
+			    }
+			}); 
+		} else {
+			$.ajax({
+			    type: "POST",
+			    url: "../../users/refund/phieuchi/print",
+			    data: {"id": ids},
+			    success: function(msg){
+			    	reviewVoucherPayment(ids, msg, "refund");
+			    }
+			}); 
 		}
 	}
-	
 }
+
+function reviewVoucherPayment(ids, voucherInfo, type) {
+	var data = JSON.parse(voucherInfo);
+	var reason = prompt("\n===Print PAYMENT SHEET===" +
+						/* "\nName: " + data.employee + */
+						"\nRefCodes: " + data.refCodes +
+						"\nAmount: " + data.amount + 
+						"\nReason ", data.reason);
+	if (reason !== null) {
+		$.ajax({
+		    type: "POST",
+		    url: "../../users/" + type + "/phieuchi/updateReason",
+		    data: {"voucherNo": data.voucherNo, "reason": reason},
+	        /* contentType: "application/json; charset=utf-8", */
+		    success: function(msg){
+		    	for (var i = 0; i < currentRow.length; i++) {
+		    		currentRow[i].find("td").eq(7).html(data.voucherNo);
+		        	currentRow[i].find("td").removeClass("highlight");
+		    	}
+		    	window.location.href="../../users/" + type + "/phieuchi/download?id=" + ids;
+		    	printedGroupString = "";
+		    	printedIds = [];
+		    	onOffButton();
+		    },
+		    error: function(msg){
+		    	alert(msg);
+		    }
+		    
+		}); 
+	}
+}
+
 </script>

@@ -114,8 +114,6 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 	@Override
 	public void updateReason(String voucherNo, String reason) {
 		MoneyBook moneyBook = this.moneyBookRepository.findByVoucherNo(voucherNo);
-		System.out.println("REASON: " + reason);
-		System.out.println("moneyBook " + moneyBook);
 		moneyBook.setDescription(reason);
 		this.moneyBookRepository.save(moneyBook);
 	}

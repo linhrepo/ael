@@ -29,13 +29,13 @@
 		        	</button>
 	        	</security:authorize>
 	        </c:if>
-	         <c:if test="${not empty refund.id}">
+	        <%--  <c:if test="${not empty refund.id}">
 	        	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
 		        	<a class="btn btn-success" href="phieuthu/download?id=${refund.id}">
 		           	 <i class="fa fa-print"></i> <fmt:message key="refund.printPayment"/>
 		        	</a>
 	        	</security:authorize>
-	        </c:if>
+	        </c:if> --%>
 	        <c:if test="${not empty refund.id && refund.doApproval != true}">
 	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
 	              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>

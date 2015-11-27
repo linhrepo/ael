@@ -124,6 +124,9 @@ public interface URLReference {
 	String PHIEU_CHI_PRINT_ADVANCE_FORM = "/users/advanceForm/phieuchi/print";
 	String PHIEU_CHI_PRINT_REFUND = "/users/refund/phieuchi/print";
 	
+	String PHIEU_CHI_UPDATE_REASON_ADVANCE_FORM = "/users/advanceForm/phieuchi/updateReason";
+	String PHIEU_CHI_UPDATE_REASON_REFUND = "/users/refund/phieuchi/updateReason";
+	
 	String PHIEU_THU_PRINT_REFUND = "/admin/accounting/phieuthu/print";
 	String PHIEU_THU_UPDATE_REASON = "/admin/accounting/phieuthu/updateReason";
 	

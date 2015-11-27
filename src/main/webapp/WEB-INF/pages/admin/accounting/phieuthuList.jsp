@@ -94,7 +94,7 @@ $(document).ready(function() {
 	onOffButton();
 	$( "table" ).on( "click", "tr td:not(:first-child,:last-child)", function() {
 		var tr =  $(this).closest("tr");
-		currentRow = tr;
+		
 		var id = tr.find("td").first().attr("id");
 		var printed = tr.find("td").eq(6).html().trim().length > 0;
 		var same = true;
@@ -104,7 +104,7 @@ $(document).ready(function() {
 
 		if (id != null && !printed && same) {
 			printedId = id;
-			
+			currentRow = tr;
 			tr.find("td:not(:first-child,:last-child)").each(function() {
 				if($(this).hasClass("highlight")) {
 					$(this).removeClass("highlight");
@@ -130,31 +130,28 @@ function onOffButton() {
 function downloadPhieuthu() {
 	if (printedId.length > 0) {
 		//window.location.href="../../users/advanceForm/phieuchi/download?id=" + ids;
-		if(confirm("Download refund for ids : " + printedId + " ?")) {
-			
-			$.ajax({
-			    type: "POST",
-			    url: "phieuthu/print",
-			    dataType: "application/json; charset=utf-8",
-			    data: {"id": printedId},
-		        /* contentType: "application/json; charset=utf-8", */
-			    success: function(voucherInfo){
-			    	reviewPhieuthu(voucherInfo);
-			    },
-			    error: function(msg){
-			    	alert(msg);
-			    }
-			    
-			}); 
-			
-		}
+		/* if(confirm("Download refund for ids : " + printedId + " ?")) { */
+		$.ajax({
+		    type: "POST",
+		    url: "phieuthu/print",
+		    data: {"id": printedId},
+	        /* contentType: "application/json; charset=utf-8", */
+		    success: function(voucherInfo){
+		    	reviewPhieuthu(voucherInfo);
+		    },
+		    error: function(msg){
+		    	alert(msg);
+		    }
+		    
+		}); 
+		
 	}
 }
 
 function reviewPhieuthu(voucherInfo) {
 	var data = JSON.parse(voucherInfo);
-	var reason = prompt("\n===Print RECEPT===" +
-						"\nName: " + data.employee +
+	var reason = prompt("\n===Print RECEIPT===" +
+						/* "\nName: " + data.employee + */
 						"\nRefCodes: " + data.refCodes +
 						"\nAmount: " + data.amount + 
 						"\nReason ", data.reason);

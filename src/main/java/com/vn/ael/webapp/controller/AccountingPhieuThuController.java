@@ -163,7 +163,7 @@ public class AccountingPhieuThuController extends BaseFormController {
         }
         refundManager.updateChilds(refund);
         //update reason
-        List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
+        /*List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
 		List<Exfeetable> listExFeetable = new ArrayList<Exfeetable>();
 		listRefundDetail.addAll(refund.getRefunddetails());
 		listExFeetable.addAll(refund.getExfeetables());
@@ -194,7 +194,7 @@ public class AccountingPhieuThuController extends BaseFormController {
 				}
 			}
 		}
-        refund.setPayReason(payReason.toString());
+        refund.setPayReason(payReason.toString());*/
         return refund;
     }
 	

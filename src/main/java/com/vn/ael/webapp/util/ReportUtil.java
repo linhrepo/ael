@@ -892,7 +892,7 @@ public class ReportUtil {
 			parameterMap.put("voucherNo", advanceForm.getMoneyBook().getVoucherNo());
 		}
 		parameterMap.put("employee", advanceForm.getEmployee());
-		parameterMap.put("reason", advanceForm.getPayReason());
+		parameterMap.put("reason", advanceForm.getMoneyBook().getDescription());
 		parameterMap.put("amount", total);
 		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;

@@ -39,6 +39,8 @@ import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.ReportUtil;
 
+import net.sf.json.JSONObject;
+
 @Controller
 public class AdvanceFormController extends BaseFormController {
 
@@ -214,17 +216,33 @@ public class AdvanceFormController extends BaseFormController {
         this.accountingMoneyBookManager.insertMoneyBook(advanceform);
         this.advanceFormManager.updateAdvanceForm(advanceform);
         
-        return advanceform.getMoneyBook().getVoucherNo();
+        JSONObject obj = new JSONObject();
+        obj.put("employee", advanceform.getEmployee().getFirstName() + " " + advanceform.getEmployee().getLastName());
+        obj.put("voucherNo", advanceform.getMoneyBook().getVoucherNo());
+        obj.put("refCodes", advanceform.getRefCode());
+        
+        obj.put("reason", advanceform.getPayReason());
+        obj.put("amount", advanceform.getMultipleTotal());
+        //System.out.println("payreason: " + advanceform.getPayReason());
+        return obj.toString();
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_UPDATE_REASON_ADVANCE_FORM)
+    public @ResponseBody String phieuChiUpdateReason(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+        
+        String voucherNo = request.getParameter("voucherNo");
+	 	String reason = request.getParameter("reason");
+        //insert payment form to moneybook
+        this.accountingMoneyBookManager.updateReason(voucherNo, reason);
+        
+        return "success";
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_ADVANCE_FORM)
     public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);
-        //insert payment form to moneybook
-        MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(advanceform);
-        this.advanceFormManager.updateAdvanceForm(advanceform);
-        
         if (advanceform != null){
         	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuChi(advanceform));
         }
