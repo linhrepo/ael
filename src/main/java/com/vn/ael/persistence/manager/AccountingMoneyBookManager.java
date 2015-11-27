@@ -17,4 +17,6 @@ public interface AccountingMoneyBookManager extends GenericManager<MoneyBook> {
 	List<MoneyBook> findByDuration(Date startDate, Date endDate);
 	
 	List<MoneyBook> findByMoneyVoucher(Integer typeOfVoucher);
+	
+	void updateReason(String voucherNo, String reason);
 }

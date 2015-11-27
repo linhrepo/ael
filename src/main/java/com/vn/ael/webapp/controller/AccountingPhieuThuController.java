@@ -8,6 +8,8 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.model.User;
 import org.springframework.beans.BeanUtils;
@@ -22,11 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.StatusType;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
@@ -142,10 +147,10 @@ public class AccountingPhieuThuController extends BaseFormController {
         		
         		//remove the last comma
         		String ref = refCodes.length() < 2 ? "" : refCodes.toString().substring(0, refCodes.length()-2);
-        		String rea = reasons.length() < 2 ? "" : reasons.toString().substring(0, reasons.length()-2);
+        		//String rea = reasons.length() < 2 ? "" : reasons.toString().substring(0, reasons.length()-2);
         		BeanUtils.copyProperties(listaf.get(0), refund);
         		refund.setRefCode(ref);
-        		refund.setPayReason(rea);
+        		//refund.setPayReason(rea);
         		refund.setTotal(amount);
         		refund.setMultipleIds(idStr);
         	}
@@ -157,6 +162,39 @@ public class AccountingPhieuThuController extends BaseFormController {
     		 }
         }
         refundManager.updateChilds(refund);
+        //update reason
+        List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
+		List<Exfeetable> listExFeetable = new ArrayList<Exfeetable>();
+		listRefundDetail.addAll(refund.getRefunddetails());
+		listExFeetable.addAll(refund.getExfeetables());
+		StringBuilder payReason = new StringBuilder();
+		if (!listRefundDetail.isEmpty()) {
+			for (Refunddetail refunddetail : listRefundDetail) {
+				try {
+					String tmp = refunddetail.getDescription() ;
+					if (listRefundDetail.indexOf(refunddetail) != listRefundDetail.size()-1) {
+						tmp+=",";
+					}					
+					payReason.append(tmp);
+				} catch (Exception e) {
+					
+				}
+			}
+		}
+		if (!listExFeetable.isEmpty()) {
+			for (Exfeetable exfeetable : listExFeetable) {
+				try {
+					String tmp = exfeetable.getName().getValue();
+					if (listExFeetable.indexOf(exfeetable) != listExFeetable.size()-1) {
+						tmp+=",";
+					}					
+					payReason.append(tmp);
+				} catch (Exception e) {
+					
+				}
+			}
+		}
+        refund.setPayReason(payReason.toString());
         return refund;
     }
 	
@@ -241,15 +279,34 @@ public class AccountingPhieuThuController extends BaseFormController {
 	        this.accountingMoneyBookManager.insertMoneyBook(refund, VoucherType.PHIEUTHU);
 	        this.refundManager.updateRefund(refund);
 	        
-	        return refund.getMoneyBook().getVoucherNo();
+	        JSONObject obj = new JSONObject();
+	        obj.put("employee", refund.getEmployee().getFirstName() + " " + refund.getEmployee().getLastName());
+	        obj.put("voucherNo", refund.getMoneyBook().getVoucherNo());
+	        obj.put("refCodes", refund.getRefCode());
+	        
+	        obj.put("reason", refund.getPayReason());
+	        obj.put("amount", refund.getMultipleTotal());
+	        System.out.println("payreason: " + refund.getPayReason());
+	        return obj.toString();
+	    }
+	 
+	 @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_THU_UPDATE_REASON)
+	    public @ResponseBody String updateReasonPhieuThu(HttpServletRequest request,  HttpServletResponse response)
+	    	    throws Exception {    	 
+		 	String voucherNo = request.getParameter("voucherNo");
+		 	String reason = request.getParameter("reason");
+	        //insert payment form to moneybook
+	        this.accountingMoneyBookManager.updateReason(voucherNo, reason);
+	        
+	        return "success";
 	    }
 	 
 	 @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_PHIEUTHU_DOWNLOAD)
 	    public void phieuThuDownload(HttpServletRequest request,  HttpServletResponse response)
-	    	    throws Exception {    	 
-	    	        Refund refundForm = this.loadPhieuThuByRequest(request);
-	    	        if (refundForm != null){
-	    	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_THU_ITEMS,ReportTeamplates.PHIEU_THU_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
-	    	        }
-	    	    }
+	    throws Exception {    	 
+	        Refund refundForm = this.loadPhieuThuByRequest(request);
+	        if (refundForm != null){
+	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_THU_ITEMS,ReportTeamplates.PHIEU_THU_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
+	        }
+	    }
 }

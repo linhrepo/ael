@@ -135,16 +135,11 @@ function downloadPhieuthu() {
 			$.ajax({
 			    type: "POST",
 			    url: "phieuthu/print",
+			    dataType: "application/json; charset=utf-8",
 			    data: {"id": printedId},
-			    success: function(msg){
-			    	for (var i = 0; i < currentRow.length; i++) {
-			    		currentRow.find("td").eq(6).html(msg);
-				    	currentRow.find("td").removeClass("highlight");
-			    	}
-			    	window.location.href="phieuthu/download?id=" + printedId;
-			    	currentRow = null;
-			    	printedId = "";
-			    	onOffButton();
+		        /* contentType: "application/json; charset=utf-8", */
+			    success: function(voucherInfo){
+			    	reviewPhieuthu(voucherInfo);
 			    },
 			    error: function(msg){
 			    	alert(msg);
@@ -153,6 +148,38 @@ function downloadPhieuthu() {
 			}); 
 			
 		}
+	}
+}
+
+function reviewPhieuthu(voucherInfo) {
+	var data = JSON.parse(voucherInfo);
+	var reason = prompt("\n===Print RECEPT===" +
+						"\nName: " + data.employee +
+						"\nRefCodes: " + data.refCodes +
+						"\nAmount: " + data.amount + 
+						"\nReason ", data.reason);
+	if (reason !== null) {
+		$.ajax({
+		    type: "POST",
+		    url: "phieuthu/updateReason",
+		    data: {"voucherNo": data.voucherNo, "reason": reason},
+	        /* contentType: "application/json; charset=utf-8", */
+		    success: function(msg){
+	
+		    	for (var i = 0; i < currentRow.length; i++) {
+		    		currentRow.find("td").eq(6).html(data.voucherNo);
+		        	currentRow.find("td").removeClass("highlight");
+		    	}
+		    	window.location.href="phieuthu/download?id=" + printedId;
+		    	currentRow = null;
+		    	printedId = "";
+		    	onOffButton();
+		    },
+		    error: function(msg){
+		    	alert(msg);
+		    }
+		    
+		}); 
 	}
 	
 }

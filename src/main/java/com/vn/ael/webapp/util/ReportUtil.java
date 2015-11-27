@@ -902,11 +902,12 @@ public class ReportUtil {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 			
 		BigDecimal total = BigDecimal.ZERO;
-		StringBuffer payReason = new StringBuffer();
+		/*StringBuffer payReason = new StringBuffer();*/
 		List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
 		List<Exfeetable> listExFeetable = new ArrayList<Exfeetable>();
 		listRefundDetail.addAll(refund.getRefunddetails());
 		listExFeetable.addAll(refund.getExfeetables());
+		
 		if (!listRefundDetail.isEmpty()) {
 			for (Refunddetail refunddetail : listRefundDetail) {
 				try {
@@ -918,33 +919,31 @@ public class ReportUtil {
 					if (refunddetail.getDocs()!=null) {
 						jobNo=refunddetail.getDocs().getJobNo();
 					}
-					String tmp = jobNo != null ? refunddetail.getDescription() + " ("+jobNo+") " : refunddetail.getDescription() ;
-					if (listRefundDetail.indexOf(refunddetail) != listRefundDetail.size()-1) {
-						tmp+=",";
-					}					
-					payReason.append(tmp);
 				} catch (Exception e) {
-					// TODO: handle exception
+					
 				}
+				/*String tmp = jobNo != null ? refunddetail.getDescription() + " ("+jobNo+") " : refunddetail.getDescription() ;
+				if (listRefundDetail.indexOf(refunddetail) != listRefundDetail.size()-1) {
+					tmp+=",";
+				}					
+				payReason.append(tmp);*/
 			}
 		}
 		if (!listExFeetable.isEmpty()) {
 			for (Exfeetable exfeetable : listExFeetable) {
 				try {
 					total= total.add(exfeetable.getTotal());
-					/*String jobNo = AELConst.EMPTY_STRING;*/
-					
-					String tmp =exfeetable.getName().getValue();
-					if (listExFeetable.indexOf(exfeetable) != listExFeetable.size()-1) {
-						tmp+=",";
-					}					
-					payReason.append(tmp);
 				} catch (Exception e) {
-					// TODO: handle exception
+					
 				}
+				/*String tmp =exfeetable.getName().getValue();
+				if (listExFeetable.indexOf(exfeetable) != listExFeetable.size()-1) {
+					tmp+=",";
+				}					
+				payReason.append(tmp);*/
 			}
 		}
-
+		
 		Calendar cal = Calendar.getInstance();
 		//cal.setTime(advanceForm.getDate());
 		cal.setTime(new Date());
@@ -956,7 +955,7 @@ public class ReportUtil {
 			parameterMap.put("voucherNo", refund.getMoneyBook().getVoucherNo());
 		}
 		parameterMap.put("employee", refund.getEmployee());
-		parameterMap.put("reason", payReason);
+		parameterMap.put("reason", refund.getMoneyBook().getDescription());
 		parameterMap.put("amount", refund.getMultipleTotal());
 		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
