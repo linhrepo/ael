@@ -19,4 +19,8 @@ public interface AccountingMoneyBookManager extends GenericManager<MoneyBook> {
 	List<MoneyBook> findByMoneyVoucher(Integer typeOfVoucher);
 	
 	void updateReason(String voucherNo, String reason);
+	
+	MoneyBook checkFirstBalance(Integer bookType);
+	
+	void insertFirstBalance(MoneyBook firstBalance);
 }

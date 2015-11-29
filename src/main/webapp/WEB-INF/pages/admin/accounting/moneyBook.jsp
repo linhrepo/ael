@@ -6,6 +6,38 @@
 	<br/>
     
     <h3><fmt:message key='moneybook.cashbook.title'/></h3>
+
+	<table>
+		<tr>
+			<td><fmt:message key="moneybook.first.balance" />&nbsp;</td>
+			<c:if test="${empty firstCashBalance}">
+				<td><input id="cashAmount"/></td>
+				<td><button onclick="saveFirstBalance()">Save</button></td>
+			</c:if>
+			<c:if test="${not empty firstCashBalance}">
+				<td><span>${firstCashBalance.amount}</span></td>
+				<td><button onclick="editFirstBalance()">Edit</button></td>
+			</c:if>
+		</tr>
+	</table>
+	<script>
+		saveFirstBalance() {
+			var amount = $("#cashAmount").val();
+			if (isNaN(amount)) {
+				alert("Please input number");
+			} else {
+				$.ajax({
+				    type: "POST",
+				    url: "moneybook/saveFirstBalance",
+				    data: {"amount": amount},
+				    success: function(msg){
+				    	alert("Done");
+				    }
+				}); 
+			}
+		}
+	</script>
+	<br><br>
     <table id="cashbook" class="display datatable" cellspacing="0" width="100%" >
         <thead>
             <tr>
@@ -71,6 +103,9 @@
     </table>
     <hr>
     <h3><fmt:message key='moneybook.bankbook.title'/></h3>
+    <c:if test="${empty firstCashBalance}">
+    
+    </c:if>
     <table id="bankbook" class="display datatable" cellspacing="0" width="100%" >
         <thead>
             <tr>

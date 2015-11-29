@@ -118,4 +118,17 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 		this.moneyBookRepository.save(moneyBook);
 	}
 	
+	
+	@Override
+	public MoneyBook checkFirstBalance(Integer bookType) {
+		MoneyBook moneyBook = this.moneyBookRepository.findFistBalance(bookType);
+
+		return moneyBook;
+	}
+	
+	@Override
+	public void insertFirstBalance(MoneyBook firstBalance) {
+		this.moneyBookRepository.save(firstBalance);
+	}
+	
 }
