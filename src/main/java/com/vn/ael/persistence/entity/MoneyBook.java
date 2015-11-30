@@ -2,14 +2,18 @@ package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import com.vn.ael.constants.AELConst;
+import com.vn.ael.webapp.util.CommonUtil;
 
 @Entity
 @NamedQuery(name="MoneyBook.findAll", query="SELECT mb FROM MoneyBook mb")
@@ -26,7 +30,10 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	
 	private Integer typeOfVoucher;//payment(chi): 0, recept(thu): 1
 	
-	private String voucherNo;
+	private Long voucherNo;
+	
+	@Transient
+	private String voucherNoPrint;
 	
 	private BigDecimal paymentMoney;
 	
@@ -89,14 +96,22 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	/**
 	 * @return the voucherNo
 	 */
-	public String getVoucherNo() {
+	public Long getVoucherNo() {
 		return voucherNo;
+	}
+	
+	public String getVoucherNoPrint() {
+		String prefix = (typeOfVoucher == 0 ? AELConst.VOUCHER_NO_PREFIX_PAYMENT : AELConst.VOUCHER_NO_PREFIX_RECEPT);
+		String number = CommonUtil.addZero(String.valueOf(voucherNo), CommonUtil.LENGTH_OF_COUNTER);
+
+		String voucherNoPrint = prefix + number ;
+		return voucherNoPrint;
 	}
 
 	/**
 	 * @param voucherNo the voucherNo to set
 	 */
-	public void setVoucherNo(String voucherNo) {
+	public void setVoucherNo(Long voucherNo) {
 		this.voucherNo = voucherNo;
 	}
 

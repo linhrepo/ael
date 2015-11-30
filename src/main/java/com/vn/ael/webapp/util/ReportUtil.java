@@ -889,7 +889,7 @@ public class ReportUtil {
 		parameterMap.put("year", cal.get(Calendar.YEAR));
 		parameterMap.put("refNo", advanceForm.getMultipleRefCode());
 		if (advanceForm.getMoneyBook() != null) {
-			parameterMap.put("voucherNo", advanceForm.getMoneyBook().getVoucherNo());
+			parameterMap.put("voucherNo", advanceForm.getMoneyBook().getVoucherNoPrint());
 		}
 		parameterMap.put("employee", advanceForm.getEmployee());
 		parameterMap.put("reason", advanceForm.getMoneyBook().getDescription());
@@ -952,7 +952,7 @@ public class ReportUtil {
 		parameterMap.put("year", cal.get(Calendar.YEAR));
 		parameterMap.put("refNo", refund.getMultipleRefCode());
 		if (refund.getMoneyBook() != null) {
-			parameterMap.put("voucherNo", refund.getMoneyBook().getVoucherNo());
+			parameterMap.put("voucherNo", refund.getMoneyBook().getVoucherNoPrint());
 		}
 		parameterMap.put("employee", refund.getEmployee());
 		parameterMap.put("reason", refund.getMoneyBook().getDescription());

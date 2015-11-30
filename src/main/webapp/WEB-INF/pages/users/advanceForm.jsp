@@ -35,7 +35,7 @@
 		        	</a>
 	        	</security:authorize>
 	        </c:if>
-	        <c:if test="${not empty advanceform.id}">
+	        <%-- <c:if test="${not empty advanceform.id}">
 	        	<c:if test="${not empty advanceform.advancedetails[0]}">
 	        	<a class="btn btn-success" href="advanceForm/download?id=${advanceform.id}">
 							<i class="fa fa-print"></i>
@@ -43,7 +43,7 @@
 						</a>
 	        	</c:if>
 	        	
-	        </c:if>
+	        </c:if> --%>
 	        <c:if test="${not empty advanceform.id && advanceform.doApproval != true}">
 	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
 	               <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>

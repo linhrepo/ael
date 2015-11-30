@@ -35,16 +35,10 @@ public class Advanceform extends BasicAdvance implements Serializable {
 
 	private Boolean isAdmin;
 	
-	private Boolean doPrint;
-	
 	//bi-directional many-to-one association to Advancedetail
 	@JsonIgnore
 	@OneToMany(mappedBy="advanceform", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Advancedetail> advancedetails;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="moneyBook")
-	private MoneyBook moneyBook;
 	
 	public Advanceform() {
 	}
@@ -97,10 +91,11 @@ public class Advanceform extends BasicAdvance implements Serializable {
 		this.total = total;
 	}
 	
+	@Override
 	public BigDecimal getMultipleTotal() {
 		return this.total;
 	}
-	
+
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
@@ -108,21 +103,5 @@ public class Advanceform extends BasicAdvance implements Serializable {
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-
-	public Boolean getDoPrint() {
-		return doPrint;
-	}
-
-	public void setDoPrint(Boolean doPrint) {
-		this.doPrint = doPrint;
-	}
-
-	public MoneyBook getMoneyBook() {
-		return moneyBook;
-	}
-
-	public void setMoneyBook(MoneyBook moneyBook) {
-		this.moneyBook = moneyBook;
-	}		
 
 }

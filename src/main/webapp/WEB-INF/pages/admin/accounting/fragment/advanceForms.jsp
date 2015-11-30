@@ -87,7 +87,7 @@
 	              	</td>
 	              	<td class="icon-status">
 	              		<c:if test="${adv.doPrint}">
-	              			${adv.moneyBook.voucherNo}
+	              			${adv.moneyBook.voucherNoPrint}
 	              		</c:if>
 	              	</td>
 	                <td>
@@ -180,7 +180,7 @@
 	              	</td>
 	              	<td class="icon-status">
 	              		<c:if test="${adv.doPrint}">
-	              			${adv.moneyBook.voucherNo}
+	              			${adv.moneyBook.voucherNoPrint}
 	              		</c:if>
 	              	</td>
 	                <td>
@@ -193,7 +193,24 @@
         </tbody>
     </table>
 </div>
-
+<div id="voucher-info-modal" style="display:none;">
+		<table class="display table table-striped table-bordered table-hover">
+			<tbody>
+				<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
+				<tr><td><fmt:message key="advanceform.employee"/></td><td id="vi-name"></td></tr>
+				<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
+				<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
+				<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
+				<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Put content"/></td></tr>
+			</tbody>
+		</table>
+					
+	</div>
+<div style="display:none;">
+	<div id="myModal"><span>This campaign hasn't been set Result Target yet. Go
+							to Result target setting page?</span></div>
+	<button id="bootbox-options">${needResultTargetSetting}</button>
+</div>
 <style>
 	.highlight {
 		pointer: cursor;
@@ -210,6 +227,7 @@ var printedGroupString = "";
 var currentRow = [];
 
 $(document).ready(function() {
+	
 	onOffButton();
 	$( "table" ).on( "click", "tr td:not(:first-child,:last-child)", function() {
 		var settingTab = false;
@@ -298,33 +316,65 @@ function downloadPhieuchi(voucherType) {
 
 function reviewVoucherPayment(ids, voucherInfo, type) {
 	var data = JSON.parse(voucherInfo);
-	var reason = prompt("\n===Print PAYMENT SHEET===" +
-						/* "\nName: " + data.employee + */
-						"\nRefCodes: " + data.refCodes +
-						"\nAmount: " + data.amount + 
-						"\nReason ", data.reason);
-	if (reason !== null) {
-		$.ajax({
-		    type: "POST",
-		    url: "../../users/" + type + "/phieuchi/updateReason",
-		    data: {"voucherNo": data.voucherNo, "reason": reason},
-	        /* contentType: "application/json; charset=utf-8", */
-		    success: function(msg){
-		    	for (var i = 0; i < currentRow.length; i++) {
-		    		currentRow[i].find("td").eq(7).html(data.voucherNo);
-		        	currentRow[i].find("td").removeClass("highlight");
-		    	}
-		    	window.location.href="../../users/" + type + "/phieuchi/download?id=" + ids;
-		    	printedGroupString = "";
-		    	printedIds = [];
-		    	onOffButton();
-		    },
-		    error: function(msg){
-		    	alert(msg);
-		    }
-		    
-		}); 
-	}
+	var name = currentRow[0].find("td").eq(2).text();
+	$("#vi-name").html(name);
+	$("#vi-refcodes").html(data.refCodes);
+	$("#vi-amount").html(data.amount.toLocaleString('en-IN'));
+
+	var voucherNo = $("#vi-voucherNo").val();
+	var reason = $("#vi-reason").val();
+	var date = $("#vi-date").val();
+	
+	bootbox.dialog({
+		closeButton: false,
+	       message: $("#voucher-info-modal").html(),
+	       title: "PRINT PAYMENT SHEET CONFIRMATION",
+	       className: "modal-darkorange",
+	       buttons: {
+	    	   "Confirm": {
+	               className: "btn-blue",
+	               callback: function () {
+	            	   if (validateForm()){};
+	            	   
+	            	   $.ajax({
+	            		    type: "POST",
+	            		    url: "../../users/" + type + "/phieuchi/updateReason",
+	            		    data: {"date": date, "voucherNo": voucherNo, "reason": reason},
+	            	        /* contentType: "application/json; charset=utf-8", */
+	            	        
+	            		    success: function(msg){
+	            		    	for (var i = 0; i < currentRow.length; i++) {
+	            		    		currentRow[i].find("td").eq(7).html(data.voucherNoPrint);
+	            		        	currentRow[i].find("td").removeClass("highlight");
+	            		    	}
+	            		    	window.location.href="../../users/" + type + "/phieuchi/download?id=" + ids;
+	            		    	printedGroupString = "";
+	            		    	printedIds = [];
+	            		    	onOffButton();
+	            		    },
+	            		    error: function(msg){
+	            		    	alert(msg);
+	            		    }
+	            		    
+	            		}); 
+	               }
+	           }, 
+	           "Cancel": {
+	               className: "btn-red"
+	           }
+	       }
+	});
+	
+	$(".modal-content #vi-id").val(data.voucherNoPrint);
+	$(".modal-content #vi-reason").val(data.reason);
+	$(".modal-content #vi-date").datepicker("setDate", new Date());
+	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
+		$(this).datepicker('hide');
+	})
 }
 
+function validateForm() {
+}
 </script>
+
+<script src="../../scripts/bootbox/bootbox.js"></script>

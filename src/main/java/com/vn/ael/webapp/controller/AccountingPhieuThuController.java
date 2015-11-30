@@ -37,6 +37,7 @@ import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.ControllerUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 @Controller
@@ -279,24 +280,13 @@ public class AccountingPhieuThuController extends BaseFormController {
 	        this.accountingMoneyBookManager.insertMoneyBook(refund, VoucherType.PHIEUTHU);
 	        this.refundManager.updateRefund(refund);
 	        
-	        JSONObject obj = new JSONObject();
-	        obj.put("employee", refund.getEmployee().getFirstName() + " " + refund.getEmployee().getLastName());
-	        obj.put("voucherNo", refund.getMoneyBook().getVoucherNo());
-	        obj.put("refCodes", refund.getRefCode());
-	        
-	        obj.put("reason", refund.getPayReason());
-	        obj.put("amount", refund.getMultipleTotal());
-	        System.out.println("payreason: " + refund.getPayReason());
-	        return obj.toString();
+	        return ControllerUtil.createJsonObject(VoucherType.PHIEUTHU, refund, this.accountingMoneyBookManager, request, response);
 	    }
 	 
 	 @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_THU_UPDATE_REASON)
 	    public @ResponseBody String updateReasonPhieuThu(HttpServletRequest request,  HttpServletResponse response)
 	    	    throws Exception {    	 
-		 	String voucherNo = request.getParameter("voucherNo");
-		 	String reason = request.getParameter("reason");
-	        //insert payment form to moneybook
-	        this.accountingMoneyBookManager.updateReason(voucherNo, reason);
+		 	ControllerUtil.voucherUpdateInfo(this.accountingMoneyBookManager, request, response);
 	        
 	        return "success";
 	    }

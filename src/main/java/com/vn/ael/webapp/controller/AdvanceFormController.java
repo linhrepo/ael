@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.MoneyBook;
@@ -37,6 +38,7 @@ import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
+import com.vn.ael.webapp.util.ControllerUtil;
 import com.vn.ael.webapp.util.ReportUtil;
 
 import net.sf.json.JSONObject;
@@ -212,30 +214,19 @@ public class AdvanceFormController extends BaseFormController {
     public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);
-        //insert payment form to moneybook
-        this.accountingMoneyBookManager.insertMoneyBook(advanceform);
-        this.advanceFormManager.updateAdvanceForm(advanceform);
-        
-        JSONObject obj = new JSONObject();
-        obj.put("employee", advanceform.getEmployee().getFirstName() + " " + advanceform.getEmployee().getLastName());
-        obj.put("voucherNo", advanceform.getMoneyBook().getVoucherNo());
-        obj.put("refCodes", advanceform.getRefCode());
-        
-        obj.put("reason", advanceform.getPayReason());
-        obj.put("amount", advanceform.getMultipleTotal());
-        //System.out.println("payreason: " + advanceform.getPayReason());
-        return obj.toString();
+
+        return ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, advanceform, this.accountingMoneyBookManager, request, response);
     }
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_UPDATE_REASON_ADVANCE_FORM)
     public @ResponseBody String phieuChiUpdateReason(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         
-        String voucherNo = request.getParameter("voucherNo");
-	 	String reason = request.getParameter("reason");
-        //insert payment form to moneybook
-        this.accountingMoneyBookManager.updateReason(voucherNo, reason);
+//    	Advanceform advanceform = this.loadAdvancesByRequest(request);
+//    	this.accountingMoneyBookManager.insertMoneyBook(advanceform, VoucherType.PHIEUCHI);
+//        this.advanceFormManager.updateAdvanceForm(advanceform);
         
+    	ControllerUtil.voucherUpdateInfo(this.accountingMoneyBookManager, request, response);
         return "success";
     }
     

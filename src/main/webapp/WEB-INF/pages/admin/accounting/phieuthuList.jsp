@@ -63,7 +63,7 @@
               	</td>
               	<td>
               		<c:if test="${adv.doPrint}">
-              			${adv.moneyBook.voucherNo}
+              			${adv.moneyBook.voucherNoPrint}
               		</c:if>
               	</td>
                 <td>
@@ -159,12 +159,12 @@ function reviewPhieuthu(voucherInfo) {
 		$.ajax({
 		    type: "POST",
 		    url: "phieuthu/updateReason",
-		    data: {"voucherNo": data.voucherNo, "reason": reason},
+		    data: {"id": data.id, "voucherNo": data.voucherNo, "reason": reason},
 	        /* contentType: "application/json; charset=utf-8", */
 		    success: function(msg){
 	
 		    	for (var i = 0; i < currentRow.length; i++) {
-		    		currentRow.find("td").eq(6).html(data.voucherNo);
+		    		currentRow.find("td").eq(6).html(data.voucherNoPrint);
 		        	currentRow.find("td").removeClass("highlight");
 		    	}
 		    	window.location.href="phieuthu/download?id=" + printedId;

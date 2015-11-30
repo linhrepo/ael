@@ -1,7 +1,9 @@
 package com.vn.ael.persistence.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -29,7 +31,17 @@ public class BasicAdvance extends BasedEntityTracking{
 	private Boolean doApproval = false;
 	
 	private String payReason;
+	
+	private Boolean doPrint;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="moneyBook")
+	private MoneyBook moneyBook;
 
+	public BigDecimal getMultipleTotal() {
+		return BigDecimal.ZERO;
+	}
+	
 	public Date getDate() {
 		return this.date;
 	}
@@ -104,5 +116,20 @@ public class BasicAdvance extends BasedEntityTracking{
 	public void setMultipleIds(String multipleIds) {
 		this.multipleIds = multipleIds;
 	}
+
+	public Boolean getDoPrint() {
+		return doPrint;
+	}
+
+	public void setDoPrint(Boolean doPrint) {
+		this.doPrint = doPrint;
+	}
 	
+	public MoneyBook getMoneyBook() {
+		return moneyBook;
+	}
+
+	public void setMoneyBook(MoneyBook moneyBook) {
+		this.moneyBook = moneyBook;
+	}
 }

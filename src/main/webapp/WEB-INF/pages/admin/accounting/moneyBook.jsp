@@ -139,7 +139,7 @@
         	<tr>
                 <td>${idx.index+1}</td>
                 <td>
-                	${mb.voucherNo}
+                	${mb.voucherNoPrint}
                 </td>
                 <td>
                 	<fmt:formatDate value="${mb.date}" pattern="yyyy-MM-dd"/>
