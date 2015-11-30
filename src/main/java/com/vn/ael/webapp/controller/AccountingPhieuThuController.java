@@ -25,11 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.StatusType;
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
@@ -276,25 +279,25 @@ public class AccountingPhieuThuController extends BaseFormController {
 	    public @ResponseBody String phieuThuPrint(HttpServletRequest request,  HttpServletResponse response)
 	    	    throws Exception {    	 
 	        Refund refund = this.loadPhieuThuByRequest(request);
-	        //insert payment form to moneybook
-	        this.accountingMoneyBookManager.insertMoneyBook(refund, VoucherType.PHIEUTHU);
-	        this.refundManager.updateRefund(refund);
-	        
-	        return ControllerUtil.createJsonObject(VoucherType.PHIEUTHU, refund, this.accountingMoneyBookManager, request, response);
-	    }
-	 
-	 @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_THU_UPDATE_REASON)
-	    public @ResponseBody String updateReasonPhieuThu(HttpServletRequest request,  HttpServletResponse response)
-	    	    throws Exception {    	 
-		 	ControllerUtil.voucherUpdateInfo(this.accountingMoneyBookManager, request, response);
-	        
-	        return "success";
+	        return ControllerUtil.createJsonObject(VoucherType.PHIEUTHU, refund, this.accountingMoneyBookManager, request);
 	    }
 	 
 	 @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_PHIEUTHU_DOWNLOAD)
 	    public void phieuThuDownload(HttpServletRequest request,  HttpServletResponse response)
 	    throws Exception {    	 
 	        Refund refundForm = this.loadPhieuThuByRequest(request);
+	        
+	        MoneyBook mb = ControllerUtil.createMoneyBook(
+	        		refundForm,
+	    			VoucherType.PHIEUTHU,
+	    			BookType.CASHBOOK,
+	    			this.accountingMoneyBookManager, 
+	    			request);
+		    
+	    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+	        this.accountingMoneyBookManager.updateBasicAdvance(refundForm, moneyBook);
+	        refundForm.setMoneyBook(moneyBook);
+	        
 	        if (refundForm != null){
 	        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_THU_ITEMS,ReportTeamplates.PHIEU_THU_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
 	        }

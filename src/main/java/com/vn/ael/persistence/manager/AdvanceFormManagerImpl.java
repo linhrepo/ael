@@ -170,19 +170,4 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 	public List<Advanceform> findByEmpoyeeForAccounting(Long employeeId, Boolean doApproval) {
 		return this.advanceFormRepository.findByEmployeeAndDoApproval(employeeId, doApproval);
 	}
-	
-	@Override
-	public void updateAdvanceForm(Advanceform advanceform) {
-		String[] ids = advanceform.getMultipleIds().split(",");
-		List<Long> listIds = new ArrayList<Long>();
-		for (int i = 0; i < ids.length; i++) {
-			listIds.add(Long.parseLong(ids[i]));
-		}
-		List<Advanceform> forms = advanceFormRepository.findAll(listIds);
-		for (Advanceform form : forms) {
-			form.setMoneyBook(advanceform.getMoneyBook());
-			form.setDoPrint(true);
-			advanceFormRepository.save(form);
-		}
-	}
 }

@@ -881,18 +881,19 @@ public class ReportUtil {
 				total = total.add(advancedetail.getAmount());
 			}
 		}*/
-		Calendar cal = Calendar.getInstance();
-		//cal.setTime(advanceForm.getDate());
-		cal.setTime(new Date());
-		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
-		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
-		parameterMap.put("year", cal.get(Calendar.YEAR));
-		parameterMap.put("refNo", advanceForm.getMultipleRefCode());
 		if (advanceForm.getMoneyBook() != null) {
 			parameterMap.put("voucherNo", advanceForm.getMoneyBook().getVoucherNoPrint());
+			parameterMap.put("reason", advanceForm.getMoneyBook().getDescription());
+			
+			Calendar cal = Calendar.getInstance();
+			//cal.setTime(advanceForm.getDate());
+			cal.setTime(advanceForm.getMoneyBook().getDate());
+			parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
+			parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
+			parameterMap.put("year", cal.get(Calendar.YEAR));
 		}
+		parameterMap.put("refNo", advanceForm.getMultipleRefCode());
 		parameterMap.put("employee", advanceForm.getEmployee());
-		parameterMap.put("reason", advanceForm.getMoneyBook().getDescription());
 		parameterMap.put("amount", total);
 		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
@@ -943,19 +944,18 @@ public class ReportUtil {
 				payReason.append(tmp);*/
 			}
 		}
-		
-		Calendar cal = Calendar.getInstance();
-		//cal.setTime(advanceForm.getDate());
-		cal.setTime(new Date());
-		parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
-		parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
-		parameterMap.put("year", cal.get(Calendar.YEAR));
-		parameterMap.put("refNo", refund.getMultipleRefCode());
+
 		if (refund.getMoneyBook() != null) {
 			parameterMap.put("voucherNo", refund.getMoneyBook().getVoucherNoPrint());
+			parameterMap.put("reason", refund.getMoneyBook().getDescription());
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(refund.getMoneyBook().getDate());
+			parameterMap.put("day", cal.get(Calendar.DAY_OF_MONTH));
+			parameterMap.put("month", cal.get(Calendar.MONTH) + 1);
+			parameterMap.put("year", cal.get(Calendar.YEAR));
 		}
+		parameterMap.put("refNo", refund.getMultipleRefCode());
 		parameterMap.put("employee", refund.getEmployee());
-		parameterMap.put("reason", refund.getMoneyBook().getDescription());
 		parameterMap.put("amount", refund.getMultipleTotal());
 		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;

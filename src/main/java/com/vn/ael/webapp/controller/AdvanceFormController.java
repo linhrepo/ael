@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
@@ -40,8 +41,6 @@ import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.ControllerUtil;
 import com.vn.ael.webapp.util.ReportUtil;
-
-import net.sf.json.JSONObject;
 
 @Controller
 public class AdvanceFormController extends BaseFormController {
@@ -215,27 +214,31 @@ public class AdvanceFormController extends BaseFormController {
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);
 
-        return ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, advanceform, this.accountingMoneyBookManager, request, response);
-    }
-    
-    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_UPDATE_REASON_ADVANCE_FORM)
-    public @ResponseBody String phieuChiUpdateReason(HttpServletRequest request,  HttpServletResponse response)
-    	    throws Exception {    	 
-        
-//    	Advanceform advanceform = this.loadAdvancesByRequest(request);
-//    	this.accountingMoneyBookManager.insertMoneyBook(advanceform, VoucherType.PHIEUCHI);
-//        this.advanceFormManager.updateAdvanceForm(advanceform);
-        
-    	ControllerUtil.voucherUpdateInfo(this.accountingMoneyBookManager, request, response);
-        return "success";
+        return ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, advanceform, this.accountingMoneyBookManager, request);
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_ADVANCE_FORM)
     public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);
+        
+        MoneyBook mb = ControllerUtil.createMoneyBook(
+        		advanceform,
+    			VoucherType.PHIEUCHI,
+    			BookType.CASHBOOK,
+    			this.accountingMoneyBookManager, 
+    			request);
+	    
+    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+        this.accountingMoneyBookManager.updateBasicAdvance(advanceform, moneyBook);
+        advanceform.setMoneyBook(moneyBook);
+        
         if (advanceform != null){
-        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuChi(advanceform));
+        	ReportUtil.dispatchReport(
+    			response, 
+    			ReportTeamplates.PHIEU_CHI_ITEMS,
+    			ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, 
+    			ReportUtil.prepareDataForPhieuChi(advanceform));
         }
     }
    /* @RequestMapping( method = RequestMethod.GET, value = "/users/advanceForm/getRemainAdvance")
