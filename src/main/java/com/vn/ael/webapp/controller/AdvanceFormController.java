@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.ReportTeamplates;
+import com.vn.ael.constants.SessionNames;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.Advancedetail;
@@ -213,34 +214,50 @@ public class AdvanceFormController extends BaseFormController {
     public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Advanceform advanceform = this.loadAdvancesByRequest(request);
-
+        request.getSession().setAttribute(SessionNames.ADVANCE_FORM_PRINT_PHIEU_CHI, advanceform);
         return ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, advanceform, this.accountingMoneyBookManager, request);
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_CREATE_MONEYBOOK_ADVANCE_FORM)
+    public @ResponseBody String updateMoneyBook(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	
+    	Advanceform advanceform = (Advanceform) request.getSession().getAttribute(SessionNames.ADVANCE_FORM_PRINT_PHIEU_CHI);
+    	String validate = ControllerUtil.validateForm(request, this.accountingMoneyBookManager);
+    	System.out.println("Validate " + validate);
+    	if (validate.length() == 0) {
+	        if (advanceform != null) {
+		        MoneyBook mb = ControllerUtil.createMoneyBook(
+		        	advanceform,
+		    		VoucherType.PHIEUCHI,
+		    		BookType.CASHBOOK,
+		    		request);
+		    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+		        this.accountingMoneyBookManager.updateBasicAdvance(advanceform, moneyBook);
+		        advanceform.setMoneyBook(moneyBook);
+		        return "ok";
+	        }
+    	} else {
+    		return validate;
+    	}
+        return "notok";
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_ADVANCE_FORM)
     public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
-        Advanceform advanceform = this.loadAdvancesByRequest(request);
         
-        MoneyBook mb = ControllerUtil.createMoneyBook(
-        		advanceform,
-    			VoucherType.PHIEUCHI,
-    			BookType.CASHBOOK,
-    			this.accountingMoneyBookManager, 
-    			request);
-	    
-    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
-        this.accountingMoneyBookManager.updateBasicAdvance(advanceform, moneyBook);
-        advanceform.setMoneyBook(moneyBook);
-        
+    	Advanceform advanceform = (Advanceform) request.getSession().getAttribute(SessionNames.ADVANCE_FORM_PRINT_PHIEU_CHI);
+    	String fileName = "Phieuchi" + advanceform.getMoneyBook().getVoucherNo() + ".xlsx";
         if (advanceform != null){
         	ReportUtil.dispatchReport(
     			response, 
-    			ReportTeamplates.PHIEU_CHI_ITEMS,
+    			fileName,
     			ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, 
     			ReportUtil.prepareDataForPhieuChi(advanceform));
         }
     }
+    
    /* @RequestMapping( method = RequestMethod.GET, value = "/users/advanceForm/getRemainAdvance")
     public @ResponseBody String getList(@RequestParam(value="docIdList") String[] docIdList) {
     	Map<Long, BigDecimal> map = new HashMap<Long, BigDecimal>();

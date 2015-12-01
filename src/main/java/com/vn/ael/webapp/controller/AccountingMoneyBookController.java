@@ -104,7 +104,6 @@ public class AccountingMoneyBookController extends BaseFormController {
 		c.setTime(endDate); 
 		c.add(Calendar.DATE, 1);
 		endDate = c.getTime();
-		System.out.println(endDate);
 		
 		return this.searchByDate(startDate, endDate);
 	}

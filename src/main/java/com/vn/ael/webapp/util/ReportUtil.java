@@ -13,7 +13,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +54,7 @@ import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.persistence.entity.BasicAdvance;
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
@@ -871,10 +871,10 @@ public class ReportUtil {
 	}
 
 	public static Map<String, Object> prepareDataForPhieuChi(
-			Advanceform advanceForm) {
+			BasicAdvance advanceForm) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
-		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());
+		/*List<Advancedetail> listAdvanceDetail = new ArrayList<Advancedetail>();
+		listAdvanceDetail.addAll(advanceForm.getAdvancedetails());*/
 		BigDecimal total = advanceForm.getMultipleTotal();//BigDecimal.ZERO;
 		/*if (!listAdvanceDetail.isEmpty()) {
 			for (Advancedetail advancedetail : listAdvanceDetail) {
@@ -898,6 +898,8 @@ public class ReportUtil {
 		parameterMap.put("amountVND", ConvertUtil.convertToVND(total));
 		return parameterMap;
 	}
+	
+	
 
 	public static Map<String, Object> prepareDataForPhieuThu(Refund refund) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();

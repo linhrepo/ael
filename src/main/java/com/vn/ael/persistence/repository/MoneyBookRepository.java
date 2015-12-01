@@ -24,8 +24,8 @@ public interface MoneyBookRepository extends GenericRepository<MoneyBook> {
 	@Query("SELECT max(e.voucherNo) FROM MoneyBook e WHERE e.typeOfVoucher = :type")
 	Integer findMaxVoucherNoByType(@Param("type") Integer type);
 	
-	@Query("SELECT m FROM MoneyBook m WHERE voucherNo = :voucherNo and id = -1")
-	MoneyBook findByVoucherNo(@Param("voucherNo") String voucherNo);
+	@Query("SELECT m FROM MoneyBook m WHERE voucherNo = :voucherNo and typeOfVoucher = :type")
+	MoneyBook findByVoucherNoAndType(@Param("voucherNo") Integer voucherNo, @Param("type") Integer type);
 	
 	@Query("SELECT m FROM MoneyBook m WHERE typeOfBook = :bookType and id = -2")
 	MoneyBook findFistBalance(@Param("bookType") Integer bookType);

@@ -123,22 +123,22 @@ public interface URLReference {
 	//ajax call to change do print status
 	String PHIEU_CHI_PRINT_ADVANCE_FORM = "/users/advanceForm/phieuchi/print";
 	String PHIEU_CHI_PRINT_REFUND = "/users/refund/phieuchi/print";
-	
-	String PHIEU_CHI_UPDATE_REASON_ADVANCE_FORM = "/users/advanceForm/phieuchi/updateReason";
-	String PHIEU_CHI_UPDATE_REASON_REFUND = "/users/refund/phieuchi/updateReason";
-	
 	String PHIEU_THU_PRINT_REFUND = "/admin/accounting/phieuthu/print";
-	String PHIEU_THU_UPDATE_REASON = "/admin/accounting/phieuthu/updateReason";
-	
+
+	String PHIEU_CHI_CREATE_MONEYBOOK_ADVANCE_FORM = "/users/advanceForm/phieuchi/createmoneybook";
+	String PHIEU_CHI_CREATE_MONEYBOOK_REFUND = "/users/refund/phieuchi/createmoneybook";
+	String PHIEU_THU_CREATE_MONEYBOOK = "/admin/accounting/phieuthu/createmoneybook";
+
 	String PHIEU_CHI_DOWNLOAD_ADVANCE_FORM = "/users/advanceForm/phieuchi/download";
 	String PHIEU_CHI_DOWNLOAD_REFUND = "/users/refund/phieuchi/download";
+	String PHIEUTHU_DOWNLOAD = "/admin/accounting/phieuthu/download";//download phieuthu refund
 	
 	String ACC_ADVANCE_SUMARY_SEARCH = "/admin/accounting/searchAdvanceSumary";
 	String ADVANCE_SUMARY_SEARCH = "/users/searchAdvanceSumary";
 	
 	String ACCOUNTING_PHIEUTHU_LIST = "/admin/accounting/phieuthuList";
 	String ACCOUNTING_PHIEUTHU = "/admin/accounting/phieuthu";
-	String ACCOUNTING_PHIEUTHU_DOWNLOAD = "/admin/accounting/phieuthu/download";//download phieuthu refund
+	
 	String ACCOUNTING_PHIEUTHU_SEARCH = "/admin/accounting/searchPhieuThu";
 	String ACCOUNTING_MANAGE_DEBIT = "/admin/accounting/manageDebit";
 	String DEBIT_SEARCH = "/admin/accounting/searchDebit";

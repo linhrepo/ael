@@ -22,10 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.ReportTeamplates;
+import com.vn.ael.constants.SessionNames;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.ConfigurationType;
-import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.entity.Refund;
@@ -269,7 +270,7 @@ public class RefundFormController extends BaseFormController {
         }
     }
     
-    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_REFUND)
+   /* @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_REFUND)
     public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
         Refund refund = this.loadRefundByRequest(request);
@@ -297,6 +298,49 @@ public class RefundFormController extends BaseFormController {
         if (refundForm != null){
         	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,
         			ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
+        }
+    }*/
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_REFUND)
+    public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+        Refund refund = this.loadRefundByRequest(request);
+        request.getSession().setAttribute(SessionNames.REFUND_PRINT_PHIEU_CHI, refund);
+        return ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, refund, this.accountingMoneyBookManager, request);
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_CREATE_MONEYBOOK_REFUND)
+    public @ResponseBody String updateMoneyBook(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	
+    	Refund refund = (Refund) request.getSession().getAttribute(SessionNames.REFUND_PRINT_PHIEU_CHI);
+        if (refund != null) {
+	        MoneyBook mb = ControllerUtil.createMoneyBook(
+	        		refund,
+	    			VoucherType.PHIEUCHI,
+	    			BookType.CASHBOOK,
+	    			request);
+		    
+	    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+	        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
+	        refund.setMoneyBook(moneyBook);
+	        return "ok";
+        }
+        return "error";
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_REFUND)
+    public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+        
+    	Refund refund = (Refund) request.getSession().getAttribute(SessionNames.REFUND_PRINT_PHIEU_CHI);
+    	String fileName = "Phieuchi" + refund.getMoneyBook().getVoucherNo() + ".xlsx";
+        if (refund != null){
+        	ReportUtil.dispatchReport(
+    			response, 
+    			fileName,
+    			ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, 
+    			ReportUtil.prepareDataForPhieuChi(refund));
         }
     }
     

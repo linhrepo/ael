@@ -75,7 +75,153 @@
     </table>
 </div>
 
+<div id="voucher-info-modal" style="display:none;">
+		<table class="display table table-striped table-bordered table-hover">
+			<tbody>
+				<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
+				<tr><td><fmt:message key="advanceform.employee"/></td><td id="vi-name"></td></tr>
+				<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
+				<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
+				<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
+				<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
+			</tbody>
+		</table>
+		<!-- <span id="error-msg" style="color: red;"></span> -->
+	</div>
+<div style="display:none;">
+	<div id="myModal"><span>This campaign hasn't been set Result Target yet. Go
+							to Result target setting page?</span></div>
+	<button id="bootbox-options">${needResultTargetSetting}</button>
+</div>
 <style>
+	.highlight {
+		pointer: cursor;
+		background : #38b44a !important;
+	}
+	.disabled {
+	    background: #dddddd;
+	}
+</style>
+<script>
+
+var printedId = "";
+var currentRow = null;
+
+$(document).ready(function() {
+	onOffButton();
+	$( "table" ).on( "click", "tr td:not(:first-child,:last-child)", function() {
+		var tr =  $(this).closest("tr");
+		
+		var id = tr.find("td").first().attr("id");
+		var printed = tr.find("td").eq(6).html().trim().length > 0;
+		var same = true;
+		if (printedId != "" && id != printedId) {
+			same = false;
+		}
+
+		if (id != null && !printed && same) {
+			printedId = id;
+			currentRow = tr;
+			tr.find("td:not(:first-child,:last-child)").each(function() {
+				if($(this).hasClass("highlight")) {
+					$(this).removeClass("highlight");
+					printedId = "";
+					
+				} else {
+					$(this).addClass("highlight");
+				}
+			});
+		} 
+		onOffButton();
+	})
+});
+
+function onOffButton() {
+	alert(printedId.length);
+	if (printedId.length > 0) {
+		$('.btn-download').removeClass('disabled');
+	} else {
+		$('.btn-download').addClass('disabled');
+	}
+}
+
+function downloadPhieuthu() {
+	var ids = printedId; //only download 1 row
+	if (printedId.length > 0) {
+		$.ajax({
+		    type: "POST",
+		    url: "phieuthu/print",
+		    data: {"id": printedId},
+		    success: function(msg){
+		    	reviewVoucherPayment(ids, msg);
+		    },
+		    error: function(msg){
+		    	alert("not ok");
+		    }
+		    
+		}); 
+	}
+}
+
+function reviewVoucherPayment(ids, voucherInfo) {
+	var data = JSON.parse(voucherInfo);
+	var name = currentRow.find("td").eq(2).text();
+	$("#vi-name").html(name);
+	$("#vi-refcodes").html(data.refCodes);
+	$("#vi-amount").html(data.amount.toLocaleString('en-IN'));
+
+	bootbox.dialog({
+		   closeButton: false,
+	       message: $("#voucher-info-modal").html(),
+	       title: "PRINT RECEIPT CONFIRMATION",
+	       className: "modal-darkorange",
+	       buttons: {
+	    	   "Confirm": {
+	               className: "btn-blue",
+	               callback: function () {
+            	    	
+            	    	$.ajax({
+            			    type: "POST",
+            			    url:  "phieuthu/createmoneybook",
+            			    data: { "date" : $(".modal-content #vi-date").val(),
+	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
+	       		    			    "reason" : $(".modal-content #vi-reason").val()},
+            			    success: function(msg){
+            			    	if (msg == "ok") { 
+	        	       		    	window.location.href="phieuthu/download?id=" + ids;
+	        	       		    	currentRow.find("td").eq(6).html($(".modal-content #vi-id").val());
+	    	       		        	currentRow.find("td").removeClass("highlight");
+	        	       		    	printedIds = "";
+	        	       		    	currentRow = null;
+            			    	} else {
+            			    		alert(msg);
+            			    		//reviewVoucherPayment(ids, voucherInfo, type);
+            			    	}
+            			    },
+            			    error: function(msg) {
+            			    	alert(msg);
+            			    }
+            			})
+	               }
+	           }, 
+	           "Cancel": {
+	               className: "btn-red"
+	           }
+	       }
+	});
+	
+	$(".modal-content #vi-id").val(data.voucherNoPrint);
+	/* $(".modal-content #vi-reason").val(data.reason); */
+	$(".modal-content #vi-date").datepicker("setDate", new Date());
+	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
+		$(this).datepicker('hide');
+	})
+}
+</script>
+<script src="../../scripts/bootbox/bootbox.js"></script>
+
+
+<!-- <style>
 	.highlight {
 		pointer: cursor;
 		background : #38b44a !important;
@@ -180,4 +326,4 @@ function reviewPhieuthu(voucherInfo) {
 	}
 	
 }
-</script>
+</script> -->

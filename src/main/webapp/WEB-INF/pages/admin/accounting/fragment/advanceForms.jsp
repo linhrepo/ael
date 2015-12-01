@@ -201,10 +201,10 @@
 				<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
 				<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
 				<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
-				<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Put content"/></td></tr>
+				<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
 			</tbody>
 		</table>
-		<span id="error-msg" style="color: red;"></span>
+		<!-- <span id="error-msg" style="color: red;"></span> -->
 	</div>
 <div style="display:none;">
 	<div id="myModal"><span>This campaign hasn't been set Result Target yet. Go
@@ -330,19 +330,34 @@ function reviewVoucherPayment(ids, voucherInfo, type) {
 	    	   "Confirm": {
 	               className: "btn-blue",
 	               callback: function () {
-            	    	for (var i = 0; i < currentRow.length; i++) {
-	       		    		currentRow[i].find("td").eq(7).html($(".modal-content #vi-id").val());
-	       		        	currentRow[i].find("td").removeClass("highlight");
-	       		    	}
-	       		    	window.location.href="../../users/" + type + "/phieuchi/download?"
-	       		    			+"id=" + ids
-	       		    			+"&date=" + $(".modal-content #vi-date").val()
-	       		    			+"&voucherNo=" + $(".modal-content #vi-id").val()
-	       		    			+"&reason=" + $(".modal-content #vi-reason").val();
-	       		    	printedGroupString = "";
-	       		    	printedIds = [];
-	       		    	currentRow = [];
-	       		    	onOffButton();
+            	    	
+            	    	$.ajax({
+            			    type: "POST",
+            			    url: "../../users/" + type + "/phieuchi/createmoneybook",
+            			    data: { "date" : $(".modal-content #vi-date").val(),
+	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
+	       		    			    "reason" : $(".modal-content #vi-reason").val()},
+            			    success: function(msg){
+            			    	if (msg == "ok") { 
+	        	       		    	window.location.href="../../users/" + type + "/phieuchi/download?id=" + ids;
+	        	       		    	
+	        	       		    	for (var i = 0; i < currentRow.length; i++) {
+	        	       		    		currentRow[i].find("td").eq(7).html($(".modal-content #vi-id").val());
+	        	       		        	currentRow[i].find("td").removeClass("highlight");
+	        	       		    	}
+	            			    	printedGroupString = "";
+	        	       		    	printedIds = [];
+	        	       		    	currentRow = [];
+	        	       		    	onOffButton();
+            			    	} else {
+            			    		alert(msg);
+            			    		//reviewVoucherPayment(ids, voucherInfo, type);
+            			    	}
+            			    },
+            			    error: function(msg) {
+            			    	alert(msg);
+            			    }
+            			})
 	               }
 	           }, 
 	           "Cancel": {
@@ -352,15 +367,11 @@ function reviewVoucherPayment(ids, voucherInfo, type) {
 	});
 	
 	$(".modal-content #vi-id").val(data.voucherNoPrint);
-	$(".modal-content #vi-reason").val(data.reason);
+	/* $(".modal-content #vi-reason").val(data.reason); */
 	$(".modal-content #vi-date").datepicker("setDate", new Date());
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
 		$(this).datepicker('hide');
 	})
 }
-
-function validateForm() {
-}
 </script>
-
 <script src="../../scripts/bootbox/bootbox.js"></script>

@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.BookType;
@@ -13,26 +14,62 @@ import com.vn.ael.persistence.entity.BasicAdvance;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 
-import net.sf.json.JSONObject;
-
 public class ControllerUtil {
+	public static String validateForm(HttpServletRequest request, AccountingMoneyBookManager mbMa) {
+		StringBuilder result = new StringBuilder();
+		/*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    	String dateStr=  request.getParameter("date");
+    	try {
+			sdf.parse(dateStr);
+		} catch (ParseException e) {
+			result.append("- Wrong date format \n");
+		}*/
+		boolean voucherNoProblem = false;
+		String voucherNoParam = request.getParameter("voucherNo");
+		if (voucherNoParam.length() < 3) {
+			voucherNoProblem = true;
+		}
+    	String voucherNoStr = voucherNoParam.substring(2);
+
+    	try {
+    		Integer voucherNo = Integer.parseInt(voucherNoStr);
+    		MoneyBook mb = mbMa.getMoneyBookByVoucherNoAndType(voucherNo, VoucherType.PHIEUCHI.getValue());
+    		if(mb != null) {
+    			voucherNoProblem = true;
+    		}
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		voucherNoProblem = true;
+		}
+ 
+    	if (voucherNoProblem) {
+    		result.append("- Sheet no is wrong format or existed \n");
+    	}
+    	
+    	/*String reason = request.getParameter("reason");
+    	if (reason == null || reason.trim().length() == 0) {
+    		result.append("- Description shouldn't be null \n");
+    	}*/
+		return result.toString();
+    }
+	
 	public static MoneyBook createMoneyBook(
 			BasicAdvance form,
 			VoucherType voucherType,
 			BookType bookType,
-			AccountingMoneyBookManager mbMa, 
+			 
 			HttpServletRequest request)
     	    throws Exception {    	
 		
     	String voucherNoParam = request.getParameter("voucherNo");
     	String voucherNoStr = voucherNoParam.substring(2);
-    	Long voucherNo = Long.parseLong(voucherNoStr);
+    	Integer voucherNo = Integer.parseInt(voucherNoStr);
     	
     	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     	String dateStr=  request.getParameter("date");
     	Date date = sdf.parse(dateStr);
 	 	String reason = request.getParameter("reason");
-	 	
         //create moneybook
 	 	MoneyBook moneyBook = new MoneyBook();
 	 	moneyBook.setVoucherNo(voucherNo);
@@ -40,8 +77,8 @@ public class ControllerUtil {
 	 	moneyBook.setDescription(reason);
 	 	
 	    moneyBook.setRefNos(form.getMultipleRefCode());
-	    moneyBook.setTypeOfBook(voucherType.getValue());//cashbook
-	    moneyBook.setTypeOfVoucher(bookType.getValue());
+	    moneyBook.setTypeOfBook(bookType.getValue());//cashbook
+	    moneyBook.setTypeOfVoucher(voucherType.getValue());
 	    if (voucherType.getValue() == 0) { 
 	    	moneyBook.setPaymentMoney(form.getMultipleTotal());
 	    } else {
@@ -70,4 +107,5 @@ public class ControllerUtil {
         //System.out.println("payreason: " + advanceform.getPayReason());
         return obj.toString();
     }
+	
 }

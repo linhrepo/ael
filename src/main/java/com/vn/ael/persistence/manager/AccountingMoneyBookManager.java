@@ -26,6 +26,8 @@ public interface AccountingMoneyBookManager extends GenericManager<MoneyBook> {
 	
 	Integer getMaxVoucherNo(VoucherType type);
 	
+	MoneyBook getMoneyBookByVoucherNoAndType(Integer voucherNo, Integer voucherType);
+	
 	void updateBasicAdvance(Advanceform form, MoneyBook book);
 
 	void updateBasicAdvance(Refund form, MoneyBook book);

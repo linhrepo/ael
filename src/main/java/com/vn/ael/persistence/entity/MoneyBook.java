@@ -30,7 +30,7 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	
 	private Integer typeOfVoucher;//payment(chi): 0, recept(thu): 1
 	
-	private Long voucherNo;
+	private Integer voucherNo;
 	
 	@Transient
 	private String voucherNoPrint;
@@ -96,7 +96,7 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	/**
 	 * @return the voucherNo
 	 */
-	public Long getVoucherNo() {
+	public Integer getVoucherNo() {
 		return voucherNo;
 	}
 	
@@ -111,7 +111,7 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	/**
 	 * @param voucherNo the voucherNo to set
 	 */
-	public void setVoucherNo(Long voucherNo) {
+	public void setVoucherNo(Integer voucherNo) {
 		this.voucherNo = voucherNo;
 	}
 
