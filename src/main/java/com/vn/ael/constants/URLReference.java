@@ -138,8 +138,13 @@ public interface URLReference {
 	
 	String ACCOUNTING_PHIEUTHU_LIST = "/admin/accounting/phieuthuList";
 	String ACCOUNTING_PHIEUTHU = "/admin/accounting/phieuthu";
-	
 	String ACCOUNTING_PHIEUTHU_SEARCH = "/admin/accounting/searchPhieuThu";
+	
+	String ACCOUNTING_PHIEUTHU_LIST_CUSTOMER = "/admin/accounting/phieuthuListCustomer";
+	String ACCOUNTING_PHIEUTHU_CUSTOMER = "/admin/accounting/phieuthuCustomer";
+	String ACCOUNTING_PHIEUTHU_SEARCH_CUSTOMER = "/admin/accounting/searchPhieuThuCustomer";
+	
+	
 	String ACCOUNTING_MANAGE_DEBIT = "/admin/accounting/manageDebit";
 	String DEBIT_SEARCH = "/admin/accounting/searchDebit";
 	String DEBIT_APPROVE_COLLECT = "/admin/accounting/approveCollectMoney";

@@ -36,6 +36,7 @@
         	<Item name="Advance" title="menu.acct.advance" page="/admin/accounting/advanceRefunds" image="/images/icons/advance.png"/>
         	<Item name="ProfitLoss" title="menu.acct.profitloss" page="/admin/accounting/profitloss" image="/images/icons/trans.png"/>
 			<Item name="Fees" title="phieuthu.title" page="/admin/accounting/phieuthuList" image="/images/icons/feeAcc.png"/>
+			<Item name="FeesCustommer" title="phieuthu.title.customer" page="/admin/accounting/phieuthuListCustomer" image="/images/icons/feeAcc.png"/>
 			<Item name="ManageDebit" title="debit.title" page="/admin/accounting/manageDebit" image="/images/icons/feeAcc.png"/>
 			<Item name="ManageMoneyBook" title="menu.moneybook" page="/admin/accounting/moneyBook" image="/images/icons/feeAcc.png"/>
         </Menu>
