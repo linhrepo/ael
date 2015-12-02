@@ -137,7 +137,6 @@ $(document).ready(function() {
 });
 
 function onOffButton() {
-	alert(printedId.length);
 	if (printedId.length > 0) {
 		$('.btn-download').removeClass('disabled');
 	} else {
@@ -193,6 +192,7 @@ function reviewVoucherPayment(ids, voucherInfo) {
 	    	       		        	currentRow.find("td").removeClass("highlight");
 	        	       		    	printedIds = "";
 	        	       		    	currentRow = null;
+	        	       		    	$('.btn-download').addClass('disabled');
             			    	} else {
             			    		alert(msg);
             			    		//reviewVoucherPayment(ids, voucherInfo, type);

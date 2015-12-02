@@ -224,7 +224,6 @@ public class AdvanceFormController extends BaseFormController {
     	
     	Advanceform advanceform = (Advanceform) request.getSession().getAttribute(SessionNames.ADVANCE_FORM_PRINT_PHIEU_CHI);
     	String validate = ControllerUtil.validateForm(request, this.accountingMoneyBookManager);
-    	System.out.println("Validate " + validate);
     	if (validate.length() == 0) {
 	        if (advanceform != null) {
 		        MoneyBook mb = ControllerUtil.createMoneyBook(

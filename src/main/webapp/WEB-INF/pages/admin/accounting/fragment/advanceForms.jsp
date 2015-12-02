@@ -348,7 +348,8 @@ function reviewVoucherPayment(ids, voucherInfo, type) {
 	            			    	printedGroupString = "";
 	        	       		    	printedIds = [];
 	        	       		    	currentRow = [];
-	        	       		    	onOffButton();
+	        	       		    	//onOffButton();
+	        	       		    	$('.btn-download').addClass('disabled');
             			    	} else {
             			    		alert(msg);
             			    		//reviewVoucherPayment(ids, voucherInfo, type);
