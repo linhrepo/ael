@@ -314,18 +314,23 @@ public class RefundFormController extends BaseFormController {
     	    throws Exception {    	 
     	
     	Refund refund = (Refund) request.getSession().getAttribute(SessionNames.REFUND_PRINT_PHIEU_CHI);
-        if (refund != null) {
-	        MoneyBook mb = ControllerUtil.createMoneyBook(
-	        		refund,
-	    			VoucherType.PHIEUCHI,
-	    			BookType.CASHBOOK,
-	    			request);
-		    
-	    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
-	        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
-	        refund.setMoneyBook(moneyBook);
-	        return "ok";
-        }
+    	String validate = ControllerUtil.validateForm(request, VoucherType.PHIEUCHI, this.accountingMoneyBookManager);
+    	if (validate.length() == 0) {
+	        if (refund != null) {
+		        MoneyBook mb = ControllerUtil.createMoneyBook(
+		        		refund,
+		    			VoucherType.PHIEUCHI,
+		    			BookType.CASHBOOK,
+		    			request);
+			    
+		    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+		        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
+		        refund.setMoneyBook(moneyBook);
+		        return "ok";
+	        } 
+    	} else {
+    		return validate;
+    	}
         return "error";
     }
     
@@ -352,7 +357,7 @@ public class RefundFormController extends BaseFormController {
         Refund refund = this.loadRefundByRequest(request);
         if (refund == null){
         	saveMessage(request, getText("offerPrice.error.wrongCustomer", locale));
-        }else{
+        } else {
         	refund.setIsContainDuplicated(exfeetableManager.updateDuplicated(refund.getExfeetables()));
         	if (refund.getIsContainDuplicated()){
         		saveError(request, getText("errors.duplicatedFee", locale));

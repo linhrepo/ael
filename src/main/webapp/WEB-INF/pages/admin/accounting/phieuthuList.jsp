@@ -118,7 +118,6 @@ $(document).ready(function() {
 		if (printedId != "" && id != printedId) {
 			same = false;
 		}
-
 		if (id != null && !printed && same) {
 			printedId = id;
 			currentRow = tr;
@@ -190,7 +189,7 @@ function reviewVoucherPayment(ids, voucherInfo) {
 	        	       		    	window.location.href="phieuthu/download?id=" + ids;
 	        	       		    	currentRow.find("td").eq(6).html($(".modal-content #vi-id").val());
 	    	       		        	currentRow.find("td").removeClass("highlight");
-	        	       		    	printedIds = "";
+	        	       		    	printedId = "";
 	        	       		    	currentRow = null;
 	        	       		    	$('.btn-download').addClass('disabled');
             			    	} else {

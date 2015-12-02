@@ -15,7 +15,7 @@ import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 
 public class ControllerUtil {
-	public static String validateForm(HttpServletRequest request, AccountingMoneyBookManager mbMa) {
+	public static String validateForm(HttpServletRequest request, VoucherType type, AccountingMoneyBookManager mbMa) {
 		StringBuilder result = new StringBuilder();
 		/*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     	String dateStr=  request.getParameter("date");
@@ -33,7 +33,7 @@ public class ControllerUtil {
 
     	try {
     		Integer voucherNo = Integer.parseInt(voucherNoStr);
-    		MoneyBook mb = mbMa.getMoneyBookByVoucherNoAndType(voucherNo, VoucherType.PHIEUCHI.getValue());
+    		MoneyBook mb = mbMa.getMoneyBookByVoucherNoAndType(voucherNo, type.getValue());
     		if(mb != null) {
     			voucherNoProblem = true;
     		}

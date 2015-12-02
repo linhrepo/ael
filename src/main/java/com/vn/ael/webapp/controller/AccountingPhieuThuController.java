@@ -317,18 +317,23 @@ public class AccountingPhieuThuController extends BaseFormController {
 	    	    throws Exception {    	 
 	    	
 	    	Refund refund = (Refund) request.getSession().getAttribute(SessionNames.REFUND_PRINT_PHIEU_THU);
-	        if (refund != null) {
-		        MoneyBook mb = ControllerUtil.createMoneyBook(
-		        		refund,
-		    			VoucherType.PHIEUTHU,
-		    			BookType.CASHBOOK,
-		    			request);
-			    
-		    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
-		        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
-		        refund.setMoneyBook(moneyBook);
-		        return "ok";
-	        }
+	    	String validate = ControllerUtil.validateForm(request, VoucherType.PHIEUTHU, this.accountingMoneyBookManager);
+	    	if (validate.length() == 0) {
+		        if (refund != null) {
+			        MoneyBook mb = ControllerUtil.createMoneyBook(
+			        		refund,
+			    			VoucherType.PHIEUTHU,
+			    			BookType.CASHBOOK,
+			    			request);
+				    
+			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+			        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
+			        refund.setMoneyBook(moneyBook);
+			        return "ok";
+		        }
+	    	} else {
+	    		return validate;
+	    	}
 	        return "error";
 	    }
 	    
