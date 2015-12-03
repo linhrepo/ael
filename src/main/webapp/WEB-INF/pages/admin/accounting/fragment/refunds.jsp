@@ -10,6 +10,7 @@
        	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
        </a>
     <!-- </div> -->
+    <br><br>
     <table id="refundList1" class="display nestedDatatable" cellspacing="0" width="100%" 
     	childDetailURL="/admin/accounting/feeRefundAdminDetail" 
     	emptyMessage="accounting.fees.detailFailed"
@@ -82,7 +83,7 @@
               	</td>
               	<td class="icon-status">
               		<c:if test="${adv.doPrint}">
-              			${adv.moneyBook.voucherNo}
+              			${adv.moneyBook.voucherNoPrint}
               		</c:if>
               	</td>
                 <td>

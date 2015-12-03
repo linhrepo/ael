@@ -22,7 +22,7 @@
 				key="trucking.typeOfDocs" />
 			<form:select path="typeOfDocs" id="typeOfDocs"
 				cssClass="form-control select2">
-				<form:option value=""><fmt:message key="searchall" /></form:option>
+				<%-- <form:option value=""><fmt:message key="searchall" /></form:option> --%>
 				<c:forEach var="entry" items="${typeOfDocs}">
 					<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
 				</c:forEach>

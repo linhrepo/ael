@@ -555,7 +555,7 @@ public class AccountingController extends BaseFormController {
 		return mav;
 	}
     
-    @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_MANAGE_DEBIT)
+    /*@RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_MANAGE_DEBIT)
     public ModelAndView manageDebitRequest() throws Exception {
         Model model = new ExtendedModelMap();
         model.addAttribute(docsgeneralManager.findByDoAccounting(true));
@@ -599,7 +599,7 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
         model.addAttribute("approve", approve);
         return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
-    }
+    }*/
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_REFUND_LIST_DETAIL)
     public @ResponseBody List<Exfeetable> handleFeeRefundDetailRequest(@RequestParam(value="refundId") Long id) throws Exception {
