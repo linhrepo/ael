@@ -35,7 +35,7 @@
 				cssClass="form-control select2">
 				<form:option value=""><fmt:message key="searchall" /></form:option>
 				<c:forEach var="entry" items="${enumStatus}">
-					<form:option value="${entry}">${entry}</form:option>
+					<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
 				</c:forEach>
 			</form:select>
 		</div>

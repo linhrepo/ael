@@ -34,7 +34,7 @@ import com.vn.ael.persistence.manager.TruckingserviceManager;
 import com.vn.ael.webapp.dto.Search;
 
 @Controller
-public class AccountingCollectionMoneyController extends BaseFormController {
+public class AccountingCollectMoneyController extends BaseFormController {
 
 	private CustomerManager customerManager;
 	
@@ -97,7 +97,7 @@ public class AccountingCollectionMoneyController extends BaseFormController {
 		this.refundManager = refundManager;
 	}
 
-	public AccountingCollectionMoneyController() {
+	public AccountingCollectMoneyController() {
         setCancelView("redirect:"+URLReference.HOME_PAGE);
         setSuccessView("redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST);
     }
@@ -126,7 +126,7 @@ public class AccountingCollectionMoneyController extends BaseFormController {
         Search searchAccFee = new Search();
         model.addAttribute("search", searchAccFee);
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        model.addAttribute("enumStatus", CollectMoneyStatusType.values());
+        model.addAttribute("enumStatus", CollectMoneyStatusType.getLabelsMap());
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
         searchAccFee.setTypeOfDocs((long) ServicesType.DVTQ.getValue());
         List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchAccFee);
@@ -143,7 +143,7 @@ public class AccountingCollectionMoneyController extends BaseFormController {
 		List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchDebit);
 		mav.addObject(docsgenerals);
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        mav.addObject("enumStatus", CollectMoneyStatusType.values());
+        mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
 		return mav;
 	}
@@ -162,7 +162,7 @@ public class AccountingCollectionMoneyController extends BaseFormController {
         Search searchAccFee = new Search();
         model.addAttribute("search", searchAccFee);
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        model.addAttribute("enumStatus", CollectMoneyStatusType.values());
+        model.addAttribute("enumStatus", CollectMoneyStatusType.getLabelsMap());
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
         model.addAttribute("approve", approve);
         return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());

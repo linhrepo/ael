@@ -7,7 +7,7 @@ public enum CollectMoneyStatusType {
 
 	NO(0,"debit.type.no"),
 	YES(1,"debit.type.yes"),
-	STILL(1,"debit.type.still");
+	STILL(2,"debit.type.still");
 	
 	private Integer value;
 	private String label;
