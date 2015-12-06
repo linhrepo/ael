@@ -1,5 +1,6 @@
 package com.vn.ael.persistence.manager;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -113,4 +114,8 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	Map<Long,String> getJobForSelection();
 
 	void updateDelivery(Docsgeneral docsgeneral);
+	
+	//for thu tien khach hang
+	void updatePhiAELAndThuHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal thuHo);
+
 }

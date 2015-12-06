@@ -540,4 +540,13 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	public Map<Long, String> getJobForSelection() {
 		return ConvertUtil.fromDocsList2MapCusNativeNoCus(docsgeneralRepository.findAllNotForSelection());
 	}
+	
+	//for thu tien khach hang
+	@Override
+	public void updatePhiAELAndThuHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal thuHo) {
+		Docsgeneral doc = docsgeneralRepository.getOne(docsgeneral.getId());
+		doc.setPhiAEL(phiAel);
+		doc.setTongThu(thuHo);
+		docsgeneralRepository.save(doc);
+	}
 }

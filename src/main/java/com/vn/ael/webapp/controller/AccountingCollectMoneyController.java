@@ -1,9 +1,13 @@
 
 package com.vn.ael.webapp.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +18,17 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.AdvanceDetailManager;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.manager.CustomerManager;
@@ -31,7 +39,13 @@ import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.persistence.manager.RefundDetailManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
+import com.vn.ael.webapp.dto.AccountingProfitLossExport;
+import com.vn.ael.webapp.dto.AccountingTrans;
+import com.vn.ael.webapp.dto.FeeNameExport;
 import com.vn.ael.webapp.dto.Search;
+import com.vn.ael.webapp.util.ConvertUtil;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class AccountingCollectMoneyController extends BaseFormController {
@@ -166,5 +180,23 @@ public class AccountingCollectMoneyController extends BaseFormController {
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
         model.addAttribute("approve", approve);
         return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value=URLReference.DEBIT_LOAD_JOB_MONEY)
+    public @ResponseBody String loadMoneyForFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	Long id = Long.parseLong(request.getParameter("id"));
+    	
+    	Docsgeneral docsgeneral = docsgeneralManager.get(id);
+    	//this.docsgeneralManager.updateTongChiPhi(docsgeneral);
+		//this.docsgeneralManager.updateChiHo(docsgeneral,true);
+    	//obj.put("phiAEL", docsgeneral.getTongChiPhi());
+        //obj.put("chiho", docsgeneral.getChiho());
+    	Model model = new ExtendedModelMap();
+       // model.addAttribute(docsgeneralManager.findByDoAccountingAndIsCollectMoney(true, false));
+   
+        JSONObject obj = new JSONObject();
+        System.out.println("chiphi: " + docsgeneral.getTongChiPhi());
+        System.out.println("chiho: " + docsgeneral.getChiho());
+        return obj.toString(); 
     }
 }

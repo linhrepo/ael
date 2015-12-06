@@ -1,8 +1,10 @@
 package com.vn.ael.webapp.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -130,7 +132,7 @@ public class AccountingCustomController extends BaseFormController {
  
         return success;
     }
-    
+    //dbkp
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_DEBIT_NOTE)
     public void doDownload(HttpServletRequest request,
             HttpServletResponse response) throws IOException {
@@ -141,10 +143,23 @@ public class AccountingCustomController extends BaseFormController {
         	Docsgeneral docsgeneral = docsgeneralManager.find(id);
         	accountingcus = accountingcusManager.createFromDocsgeneral(docsgeneral);
         	this.docsgeneralManager.updateContTruck(accountingcus.getDocsgeneral());
+        
+	        Map<String, Object> map = ReportUtil.prepareDataForCust(accountingcus);
+
+	        BigDecimal phiAel = (BigDecimal) map.get("cusFinalVal");
+	        BigDecimal chiHo = (BigDecimal) map.get("chihoFinalVal");
+	        if (phiAel == null) {
+	        	phiAel = BigDecimal.ZERO;
+	        }
+	        if (chiHo == null) {
+	        	chiHo = BigDecimal.ZERO;
+	        }
+	        this.docsgeneralManager.updatePhiAELAndThuHo(docsgeneral, phiAel, chiHo);
+	        
+	        if (accountingcus!=null) {
+	        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, map);
+			}
         }
-        if (accountingcus!=null) {
-        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, ReportUtil.prepareDataForCust(accountingcus));
-		}
     }
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCPACKAGEINFO_SEARCH)

@@ -134,78 +134,77 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	private String note;
 	
+	//for thu tien khach hang
+	private BigDecimal phiAEL;
+	
+	private BigDecimal phiThuHo;
+		
 	@ManyToOne
 	@JoinColumn(name = "typeOfImport")
 	private Configuration typeOfImport;
 	
 	private Boolean isCollectMoney;
 	
-	public BigDecimal getCmb() {
-		return this.cmb;
+	@Transient
+	private int noOf20Cont;
+	
+	@Transient
+	private int noOf40Cont;
+	
+	@Transient
+	private boolean isLCL;
+	
+	@Transient
+	private int otCont;
+
+	@Transient
+	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
+	private BigDecimal chiho;
+	
+	//profitloss
+	@Transient
+	private BigDecimal tongChiPhi;
+	
+	@Transient
+	private BigDecimal tongThu;
+	
+	@Transient
+	private BigDecimal debit;
+	
+	@Transient
+	private String invoiceChiho = "";
+
+	@Transient
+	private boolean containDuplicated  = false;
+	
+	public Docsgeneral() {
+	}
+
+	@Transient
+	public String getPTVT(){
+		if (this.packageinfo == null){
+			return  this.typeOfContainer.getValue();
+		}
+		if (this.typeOfContainer == null){
+			return this.packageinfo.getTypeOfTransport().getValue();
+		}
+		return this.packageinfo.getTypeOfTransport().getValue()+"/"+this.typeOfContainer.getValue();
 	}
 	
 	@Transient
 	public String getCmbText(){
 		return FormatterUtil.formatBigDecimal(this.cmb,true)+AELConst.SUFFIX_CMB;
 	}
-
-	public void setCmb(BigDecimal cmb) {
-		this.cmb = cmb;
-	}
-	
-	public String getContactDelivery() {
-		return contactDelivery;
-	}
-
-	public void setContactDelivery(String contactDelivery) {
-		this.contactDelivery = contactDelivery;
-	}
-	
-	public String getInfoInvoice() {
-		return infoInvoice;
-	}
-
-	public void setInfoInvoice(String infoInvoice) {
-		this.infoInvoice = infoInvoice;
-	}
-
-	public Exhibition getExhibition() {
-		return exhibition;
-	}
-	
-	public void setExhibition(Exhibition exhibition) {
-		this.exhibition = exhibition;
-	}
-
-	public Integer getNoOfPkgs() {
-		return this.noOfPkgs;
-	}
-
-	public void setNoOfPkgs(Integer noOfPkgs) {
-		this.noOfPkgs = noOfPkgs;
-	}
 	
 	@Transient
 	public String getNoOfPkgsText(){
 		return FormatterUtil.formatInteger(this.noOfPkgs)+AELConst.SUFFIX_PKGS;
 	}
-
-	public BigDecimal getWeigth() {
-		return this.weigth;
-	}
-	
 	@Transient
 	public String getWeigthText(){
 		return FormatterUtil.formatBigDecimal(this.weigth)+AELConst.SUFFIX_KG;
 	}
-
-	public void setWeigth(BigDecimal weigth) {
-		this.weigth = weigth;
-	}
 	
-	public Docsgeneral() {
-	}
-
 	public Customer getCustomer() {
 		return this.customer;
 	}
@@ -411,65 +410,16 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.placeGetCont = placeGetCont;
 	}
 	
-	@Transient
-	public String getPTVT(){
-		if (this.packageinfo == null){
-			return  this.typeOfContainer.getValue();
-		}
-		if (this.typeOfContainer == null){
-			return this.packageinfo.getTypeOfTransport().getValue();
-		}
-		return this.packageinfo.getTypeOfTransport().getValue()+"/"+this.typeOfContainer.getValue();
+	
+
+	public boolean getIsContainDuplicated() {
+		return containDuplicated;
+	}
+
+	public void setIsContainDuplicated(boolean containDuplicated) {
+		this.containDuplicated = containDuplicated;
 	}
 	
-	@Transient
-	private int noOf20Cont;
-	
-	@Transient
-	private int noOf40Cont;
-	
-	@Transient
-	private boolean isLCL;
-	
-	@Transient
-	private int otCont;
-
-	public Integer getNoOf20Cont() {
-		return noOf20Cont;
-	}
-
-	public void setNoOf20Cont(int noOf20Cont) {
-		this.noOf20Cont = noOf20Cont;
-	}
-
-	public int getNoOf40Cont() {
-		return noOf40Cont;
-	}
-
-	public void setNoOf40Cont(int noOf40Cont) {
-		this.noOf40Cont = noOf40Cont;
-	}
-
-	public boolean getIsLCL() {
-		return isLCL;
-	}
-
-	public void setIsLCL(boolean isLCL) {
-		this.isLCL = isLCL;
-	}
-
-	public Truckingservice getTruckingservice() {
-		return truckingservice;
-	}
-
-	public void setTruckingservice(Truckingservice truckingservice) {
-		this.truckingservice = truckingservice;
-	}
-	
-	@Transient
-	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
-	private BigDecimal chiho;
-
 	public BigDecimal getChiho() {
 		return chiho;
 	}
@@ -542,11 +492,38 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.sochuyen = sochuyen;
 	}
 	
-	@Transient
-	private BigDecimal tongChiPhi;
+	public String getInvoiceChiho() {
+		return invoiceChiho;
+	}
+
+	public void setInvoiceChiho(String invoiceChiho) {
+		this.invoiceChiho = invoiceChiho;
+	}
+
+	public Accountingcus getAccountingcus() {
+		return accountingcus;
+	}
+
+	public void setAccountingcus(Accountingcus accountingcus) {
+		this.accountingcus = accountingcus;
+	}
 	
-	@Transient
-	private BigDecimal tongThu;
+	public BigDecimal getDebit() {
+		return debit;
+	}
+
+	public void setDebit(BigDecimal debit) {
+		this.debit = debit;
+	}
+
+	public Boolean getIsCollectMoney() {
+		return isCollectMoney;
+	}
+
+	public void setIsCollectMoney(Boolean isCollectMoney) {
+		this.isCollectMoney = isCollectMoney;
+	}
+	
 
 	public BigDecimal getTongChiPhi() {
 		return tongChiPhi;
@@ -564,53 +541,98 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.tongThu = tongThu;
 	}
 	
-	@Transient
-	private BigDecimal debit;
-
-	public BigDecimal getDebit() {
-		return debit;
+	public Integer getNoOf20Cont() {
+		return noOf20Cont;
 	}
 
-	public void setDebit(BigDecimal debit) {
-		this.debit = debit;
+	public void setNoOf20Cont(int noOf20Cont) {
+		this.noOf20Cont = noOf20Cont;
 	}
 
-	public Boolean getIsCollectMoney() {
-		return isCollectMoney;
+	public int getNoOf40Cont() {
+		return noOf40Cont;
 	}
 
-	public void setIsCollectMoney(Boolean isCollectMoney) {
-		this.isCollectMoney = isCollectMoney;
-	}
-	
-	@Transient
-	private String invoiceChiho = "";
-
-	public String getInvoiceChiho() {
-		return invoiceChiho;
+	public void setNoOf40Cont(int noOf40Cont) {
+		this.noOf40Cont = noOf40Cont;
 	}
 
-	public void setInvoiceChiho(String invoiceChiho) {
-		this.invoiceChiho = invoiceChiho;
+	public boolean getIsLCL() {
+		return isLCL;
 	}
 
-	public Accountingcus getAccountingcus() {
-		return accountingcus;
+	public void setIsLCL(boolean isLCL) {
+		this.isLCL = isLCL;
 	}
 
-	public void setAccountingcus(Accountingcus accountingcus) {
-		this.accountingcus = accountingcus;
+	public Truckingservice getTruckingservice() {
+		return truckingservice;
+	}
+
+	public void setTruckingservice(Truckingservice truckingservice) {
+		this.truckingservice = truckingservice;
 	}
 	
-	//used to defind dulicated job
-		@Transient
-		private boolean containDuplicated  = false;
+	public void setCmb(BigDecimal cmb) {
+		this.cmb = cmb;
+	}
+	
+	public String getContactDelivery() {
+		return contactDelivery;
+	}
 
-		public boolean getIsContainDuplicated() {
-			return containDuplicated;
-		}
+	public void setContactDelivery(String contactDelivery) {
+		this.contactDelivery = contactDelivery;
+	}
+	
+	public String getInfoInvoice() {
+		return infoInvoice;
+	}
 
-		public void setIsContainDuplicated(boolean containDuplicated) {
-			this.containDuplicated = containDuplicated;
-		}
+	public void setInfoInvoice(String infoInvoice) {
+		this.infoInvoice = infoInvoice;
+	}
+
+	public Exhibition getExhibition() {
+		return exhibition;
+	}
+	
+	public void setExhibition(Exhibition exhibition) {
+		this.exhibition = exhibition;
+	}
+
+	public Integer getNoOfPkgs() {
+		return this.noOfPkgs;
+	}
+
+	public void setNoOfPkgs(Integer noOfPkgs) {
+		this.noOfPkgs = noOfPkgs;
+	}
+	
+	public BigDecimal getCmb() {
+		return this.cmb;
+	}
+	
+	public BigDecimal getWeigth() {
+		return this.weigth;
+	}
+	public void setWeigth(BigDecimal weigth) {
+		this.weigth = weigth;
+	}
+
+	public BigDecimal getPhiAEL() {
+		return phiAEL;
+	}
+
+	public void setPhiAEL(BigDecimal phiAEL) {
+		this.phiAEL = phiAEL;
+	}
+
+	public BigDecimal getPhiThuHo() {
+		return phiThuHo;
+	}
+
+	public void setPhiThuHo(BigDecimal phiThuHo) {
+		this.phiThuHo = phiThuHo;
+	}
 }
