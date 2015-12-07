@@ -8,6 +8,8 @@ public interface AELConst {
 	int START_COUNT_VOUCHER_RECEPT = 0;//phieuthu
 	String VOUCHER_NO_PREFIX_PAYMENT = "PC";
 	String VOUCHER_NO_PREFIX_RECEPT = "PT";
+	String VOUCHER_NO_PREFIX_NTTK = "NTTK";
+	String VOUCHER_NO_PREFIX_UNC = "UNC";
 	
 	int VAT_PERCENT = 100; 
 	

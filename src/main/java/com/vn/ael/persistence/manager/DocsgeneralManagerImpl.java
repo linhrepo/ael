@@ -36,7 +36,9 @@ import com.vn.ael.persistence.repository.InlandsizeRepository;
 import com.vn.ael.persistence.repository.MultitypeRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
+import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
@@ -528,12 +530,12 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	}
 
 	@Override
-	public List<Docsgeneral> searchDebit(Search search) {
+	public List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search) {
 		ServicesType servicesType = null;
 		if(search.getTypeOfDocs() == null){
-			return docsgeneralRepository.searchDebit(true, servicesType, search.getIsCollectMoney(), search.getJob());
+			return docsgeneralRepository.searchDebit(true, servicesType, search.getCollectMoneyStatus(), search.getJob());
 		}
-		return docsgeneralRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), search.getIsCollectMoney(), search.getJob());
+		return docsgeneralRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), search.getCollectMoneyStatus(), search.getJob());
 	}
 
 	@Override
@@ -543,10 +545,32 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	
 	//for thu tien khach hang
 	@Override
-	public void updatePhiAELAndThuHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal thuHo) {
+	public void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo) {
 		Docsgeneral doc = docsgeneralRepository.getOne(docsgeneral.getId());
 		doc.setPhiAEL(phiAel);
-		doc.setTongThu(thuHo);
+		doc.setPhiChiHo(phiChiHo);
 		docsgeneralRepository.save(doc);
+	}
+	
+	@Override
+	public void updatePhiAELAndChiHo(List<AccountingTransportExport> list) {
+		List<Long> ids = new ArrayList<Long>();
+		Map<Long, BigDecimal[]> mapMoney = new HashMap<Long, BigDecimal[]>();
+		
+		for (AccountingTransportExport acc : list) {
+			ids.add(acc.getJobId());
+			BigDecimal[] ar = new BigDecimal[2];
+			ar[0] = acc.getTotal();
+			ar[1] = acc.getChiho();
+			mapMoney.put(acc.getJobId(), ar);
+		}
+		
+		List<Docsgeneral> docs = docsgeneralRepository.findAll(ids);
+		for (Docsgeneral doc : docs) {
+			doc.setPhiAEL(mapMoney.get(doc.getId())[0]);
+			doc.setPhiChiHo(mapMoney.get(doc.getId())[1]);
+		}
+		
+		docsgeneralRepository.save(docs);
 	}
 }

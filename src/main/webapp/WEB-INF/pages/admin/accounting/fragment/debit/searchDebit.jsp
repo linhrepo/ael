@@ -5,7 +5,7 @@
 <meta name="menu" content="AccountingMenu" />
 </head>
 
-<form:form commandName="search" method="post"
+<form:form commandName="accountingCollectMoneyCondition" method="post"
 	action="searchDebit" id="feeTabelsForm" cssClass="well">
 	<div class="row">
 		<div class="form-group col-md-4">
@@ -31,7 +31,7 @@
 		<div class="form-group col-md-4">
 			<appfuse:label styleClass="control-label"
 				key="debit.collectMoney" />
-			<form:select path="isCollectMoney" id="isCollectMoney"
+			<form:select path="collectMoneyStatus" id="collectMoneyStatus"
 				cssClass="form-control select2">
 				<form:option value=""><fmt:message key="searchall" /></form:option>
 				<c:forEach var="entry" items="${enumStatus}">
@@ -44,6 +44,5 @@
 		<div class="form-group col-md-2">
 			<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 		</div>
-
 	</div> 
 </form:form>

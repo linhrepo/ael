@@ -108,4 +108,20 @@ public class ControllerUtil {
         return obj.toString();
     }
 	
+	//for NTTK & UNC
+	public static String createJsonObject(VoucherType type, AccountingMoneyBookManager mbMa)
+    	    throws Exception {    	 
+		JSONObject obj = new JSONObject();
+		
+		Integer voucherNo = mbMa.getMaxVoucherNo(type);
+		String prefix = (type.getValue() == 2 ? AELConst.VOUCHER_NO_PREFIX_NTTK : AELConst.VOUCHER_NO_PREFIX_UNC);
+		String number = CommonUtil.addZero(String.valueOf(voucherNo + 1), CommonUtil.LENGTH_OF_COUNTER_NTTK);
+
+		String voucherNoPrint = prefix + number ;
+        obj.put("voucherNo", voucherNo);
+        obj.put("voucherNoPrint", voucherNoPrint);
+        obj.put("date", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        return obj.toString();
+    }
+	
 }

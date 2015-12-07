@@ -146,9 +146,10 @@ public interface URLReference {
 	
 	
 	String ACCOUNTING_MANAGE_DEBIT = "/admin/accounting/manageDebit";
-	String DEBIT_SEARCH = "/admin/accounting/searchDebit";
-	String DEBIT_APPROVE_COLLECT = "/admin/accounting/approveCollectMoney";
-	String DEBIT_LOAD_JOB_MONEY = "/admin/accounting/loadJobMoney";
+	String ACCOUNT_SEARCH_DEBIT = "/admin/accounting/searchDebit";
+	//String DEBIT_APPROVE_COLLECT = "/admin/accounting/approveCollectMoney";
+	String ACCOUNTING_COLLECT_MONEY_AJAX = "/admin/accounting/collectMoney";
+	String ACCOUNTING_SAVE_MONEYBOOK_AJAX = "/admin/accounting/saveMoney";
 	
 	String ACCOUNTING_TRANSPORT_SEARCH = "/admin/accounting/transportSearch";
 	//Add by Phuc

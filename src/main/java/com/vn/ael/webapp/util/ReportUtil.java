@@ -449,6 +449,7 @@ public class ReportUtil {
 							.getTruckingservice().getTruckingdetails()) {
 						AccountingTransportExport item = new AccountingTransportExport();
 						feesListChiho.add(truckingdetail.getChihoTruckings());
+						item.setJobId(doc.getId());
 						item.setJobNo(doc.getJobNo());
 						item.setDateDev(FormatterUtil.formatDate(truckingdetail
 								.getDateDev()));
@@ -490,6 +491,7 @@ public class ReportUtil {
 										ConvertUtil
 										.getNotNullValue(item.getVatAmount())));
 						item.setTotal(item.getFeeWithVat().add(ConvertUtil.getNotNullValue(item.getOtherFee())));
+						
 						accountingTransExport.add(item);
 					}
 				}

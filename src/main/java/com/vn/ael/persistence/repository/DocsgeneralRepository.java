@@ -153,11 +153,11 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(e.jobNo =:jobNo or :jobNo = '') and "
 			+ "e.doAccounting =:doAccounting and "
-			+ "(e.isCollectMoney =:isCollectMoney or :isCollectMoney is null) "
+			+ "(e.collectMoneyStatus =:collectMoneyStatus or :collectMoneyStatus is null) "
 			+ "group by e")
 	List<Docsgeneral> searchDebit(@Param("doAccounting") Boolean doAccounting,
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
-			@Param(value="isCollectMoney") Boolean isCollectMoney,
+			@Param(value="collectMoneyStatus") Integer collectMoneyStatus,
 			@Param(value="jobNo") String jobNo);
 	
 	@Query(value = "SELECT d.id, d.jobNo, c.name FROM Docsgeneral d left join Customers c on d.customer = c.id", nativeQuery = true)

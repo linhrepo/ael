@@ -136,9 +136,11 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	
 	//for thu tien khach hang
 	private BigDecimal phiAEL;
+	private BigDecimal phiChiHo;
+	//0: chua thu, 1: da thu, 2: dathuAEL, 3: dathuChiHo
+
+	private Integer collectMoneyStatus;
 	
-	private BigDecimal phiThuHo;
-		
 	@ManyToOne
 	@JoinColumn(name = "typeOfImport")
 	private Configuration typeOfImport;
@@ -628,11 +630,19 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.phiAEL = phiAEL;
 	}
 
-	public BigDecimal getPhiThuHo() {
-		return phiThuHo;
+	public BigDecimal getPhiChiHo() {
+		return phiChiHo;
 	}
 
-	public void setPhiThuHo(BigDecimal phiThuHo) {
-		this.phiThuHo = phiThuHo;
+	public void setPhiChiHo(BigDecimal phiChiHo) {
+		this.phiChiHo = phiChiHo;
+	}
+
+	public Integer getCollectMoneyStatus() {
+		return collectMoneyStatus;
+	}
+
+	public void setCollectMoneyStatus(Integer collectMoneyStatus) {
+		this.collectMoneyStatus = collectMoneyStatus;
 	}
 }

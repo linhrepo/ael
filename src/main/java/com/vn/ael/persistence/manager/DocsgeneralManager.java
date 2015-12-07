@@ -6,7 +6,9 @@ import java.util.Map;
 
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.Search;
 
 public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
@@ -109,13 +111,13 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
 	List<Docsgeneral> findByDoAccountingAndIsCollectMoney(Boolean doAccounting, Boolean isCollectMoney);
 	
-	List<Docsgeneral> searchDebit(Search search);
+	List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search);
 	
 	Map<Long,String> getJobForSelection();
 
 	void updateDelivery(Docsgeneral docsgeneral);
 	
 	//for thu tien khach hang
-	void updatePhiAELAndThuHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal thuHo);
-
+	void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo);
+	void updatePhiAELAndChiHo(List<AccountingTransportExport> list);
 }

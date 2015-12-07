@@ -76,23 +76,19 @@
 </div>
 
 <div id="voucher-info-modal" style="display:none;">
-		<table class="display table table-striped table-bordered table-hover">
-			<tbody>
-				<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
-				<tr><td><fmt:message key="advanceform.employee"/></td><td id="vi-name"></td></tr>
-				<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
-				<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
-				<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
-				<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
-			</tbody>
-		</table>
-		<!-- <span id="error-msg" style="color: red;"></span> -->
-	</div>
-<div style="display:none;">
-	<div id="myModal"><span>This campaign hasn't been set Result Target yet. Go
-							to Result target setting page?</span></div>
-	<button id="bootbox-options">${needResultTargetSetting}</button>
+	<table class="display table table-striped table-bordered table-hover">
+		<tbody>
+			<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
+			<tr><td><fmt:message key="advanceform.employee"/></td><td id="vi-name"></td></tr>
+			<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
+			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
+			<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
+			<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
+		</tbody>
+	</table>
+	<!-- <span id="error-msg" style="color: red;"></span> -->
 </div>
+
 <style>
 	.highlight {
 		pointer: cursor;

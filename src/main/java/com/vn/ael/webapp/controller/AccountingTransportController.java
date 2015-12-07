@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.service.AccountingTransService;
 import com.vn.ael.webapp.dto.AccountingTrans;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
+import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
@@ -139,15 +141,18 @@ public class AccountingTransportController extends BaseFormController {
  
         String success = getSuccessView();
         Locale locale = request.getLocale();
- 
+       
         accountingTransService.saveWholePackage(accountingTrans);
+        
         String key = "accountingcus.updated";
         saveMessage(request, getText(key, locale));
         success = "redirect:"+URLReference.ACCOUNTING_TRANSPORT+"?customerId=" + accountingTrans.getCondition().getCustomerId()+
         		"&job="+ accountingTrans.getCondition().getJob()+
         		"&startDate="+CommonUtil.getDateString(accountingTrans.getCondition().getStartDate())+
         		"&endDate="+CommonUtil.getDateString(accountingTrans.getCondition().getEndDate());
- 
+        for (Docsgeneral dg : accountingTrans.getDocs()) {
+        	System.out.println(dg.getJobNo());
+        }
         return success;
     }
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_TRANSPORT)
@@ -155,7 +160,11 @@ public class AccountingTransportController extends BaseFormController {
             HttpServletResponse response) throws IOException {
     	AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition,false);
        if (accountingTrans!=null) {
-    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, ReportUtil.prepareDataForAccountingTransport(accountingTrans),ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
+    	   Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
+    	   List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map.get("tranreports");
+    	   docsgeneralManager.updatePhiAELAndChiHo(accountingTransExport);
+    	   
+    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
        }
     }
      

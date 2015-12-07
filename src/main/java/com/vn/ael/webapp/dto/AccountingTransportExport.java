@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class AccountingTransportExport {
+	private Long jobId;
 	private String jobNo;
 	private String dateDev;
 	private String placeRev1;
@@ -30,6 +31,18 @@ public class AccountingTransportExport {
 	private String invoiceMani = "";
 	private BigDecimal otherFee;
 	private List<FeeExportItem> convertedFeeThu;
+	/**
+	 * @return the jobId
+	 */
+	public Long getJobId() {
+		return jobId;
+	}
+	/**
+	 * @param jobId the jobId to set
+	 */
+	public void setJobId(Long jobId) {
+		this.jobId = jobId;
+	}
 	/**
 	 * @return the noOfOthCont
 	 */
