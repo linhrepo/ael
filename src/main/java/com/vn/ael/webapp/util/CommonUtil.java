@@ -8,8 +8,7 @@ import com.vn.ael.constants.AELConst;
 public class CommonUtil {
 	private static String ZERO = "0";
 	private static int LENGTH_OF_MONTH_STRING = 2;
-	public static int LENGTH_OF_COUNTER = 5;
-	public static int LENGTH_OF_COUNTER_NTTK = 4;
+	public static int LENGTH_OF_COUNTER = 4;
 	private static int YEAR_OFFSET = 1900;
 	
 	/**

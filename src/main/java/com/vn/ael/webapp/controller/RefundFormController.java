@@ -270,37 +270,6 @@ public class RefundFormController extends BaseFormController {
         }
     }
     
-   /* @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_REFUND)
-    public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
-    	    throws Exception {    	 
-        Refund refund = this.loadRefundByRequest(request);
-        return ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, refund, this.accountingMoneyBookManager, request);
-
-    }
-
-    
-    @RequestMapping(method = RequestMethod.GET, value=URLReference.PHIEU_CHI_DOWNLOAD_REFUND)
-    public void phieuChiDownload(HttpServletRequest request,  HttpServletResponse response)
-    throws Exception {    	 
-        Refund refundForm = this.loadRefundByRequest(request);
-        
-        MoneyBook mb = ControllerUtil.createMoneyBook(
-        		refundForm,
-    			VoucherType.PHIEUTHU,
-    			BookType.CASHBOOK,
-    			this.accountingMoneyBookManager, 
-    			request);
-	    
-    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
-        this.accountingMoneyBookManager.updateBasicAdvance(refundForm, moneyBook);
-        refundForm.setMoneyBook(moneyBook);
-        
-        if (refundForm != null){
-        	ReportUtil.dispatchReport(response, ReportTeamplates.PHIEU_CHI_ITEMS,
-        			ReportTeamplates.PHIEU_CHI_ITEMS_TEMPLATE, ReportUtil.prepareDataForPhieuThu(refundForm));
-        }
-    }*/
-    
     @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_REFUND)
     public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 

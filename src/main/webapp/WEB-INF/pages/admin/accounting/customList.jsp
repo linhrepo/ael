@@ -40,11 +40,14 @@
               	<td>
               	<c:if test="${not empty trucking.accountingcus.id }">
               		<c:choose>
-              			<c:when test="${trucking.isCollectMoney}">
-              				<fmt:message key="debit.dathu"/>
+              			<c:when test="${trucking.collectMoneyStatus == 0}">
+              				<fmt:message key="debit.type.no"/>
+              			</c:when>
+              			<c:when test="${trucking.collectMoneyStatus == 1}">
+              				<fmt:message key="debit.type.yes"/>
               			</c:when>
               			<c:otherwise>
-              				<fmt:message key="debit.chuathu"/>
+              				<fmt:message key="debit.type.still"/>
               			</c:otherwise>
               		</c:choose>
               	</c:if>

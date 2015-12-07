@@ -1,11 +1,10 @@
 package com.vn.ael.webapp.util;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-
-import net.sf.json.JSONObject;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.BookType;
@@ -13,6 +12,8 @@ import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.BasicAdvance;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
+
+import net.sf.json.JSONObject;
 
 public class ControllerUtil {
 	public static String validateForm(HttpServletRequest request, VoucherType type, AccountingMoneyBookManager mbMa) {
@@ -26,14 +27,15 @@ public class ControllerUtil {
 		}*/
 		boolean voucherNoProblem = false;
 		String voucherNoParam = request.getParameter("voucherNo");
-		if (voucherNoParam.length() < 3) {
+		
+    	String voucherNoStr = voucherNoParam.replaceAll("\\D+","");
+    	if (voucherNoParam.length() < 4) {
 			voucherNoProblem = true;
 		}
-    	String voucherNoStr = voucherNoParam.substring(2);
-
+    	
     	try {
     		Integer voucherNo = Integer.parseInt(voucherNoStr);
-    		MoneyBook mb = mbMa.getMoneyBookByVoucherNoAndType(voucherNo, type.getValue());
+    		MoneyBook mb = mbMa.getMoneyBookByVoucherNoAndType(voucherNo, type);
     		if(mb != null) {
     			voucherNoProblem = true;
     		}
@@ -46,11 +48,6 @@ public class ControllerUtil {
     	if (voucherNoProblem) {
     		result.append("- Sheet no is wrong format or existed \n");
     	}
-    	
-    	/*String reason = request.getParameter("reason");
-    	if (reason == null || reason.trim().length() == 0) {
-    		result.append("- Description shouldn't be null \n");
-    	}*/
 		return result.toString();
     }
 	
@@ -58,12 +55,11 @@ public class ControllerUtil {
 			BasicAdvance form,
 			VoucherType voucherType,
 			BookType bookType,
-			 
 			HttpServletRequest request)
     	    throws Exception {    	
 		
     	String voucherNoParam = request.getParameter("voucherNo");
-    	String voucherNoStr = voucherNoParam.substring(2);
+    	String voucherNoStr = voucherNoParam.replaceAll("\\D+","");;
     	Integer voucherNo = Integer.parseInt(voucherNoStr);
     	
     	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -75,17 +71,28 @@ public class ControllerUtil {
 	 	moneyBook.setVoucherNo(voucherNo);
 	 	moneyBook.setDate(date);
 	 	moneyBook.setDescription(reason);
-	 	
-	    moneyBook.setRefNos(form.getMultipleRefCode());
-	    moneyBook.setTypeOfBook(bookType.getValue());//cashbook
-	    moneyBook.setTypeOfVoucher(voucherType.getValue());
-	    if (voucherType.getValue() == 0) { 
-	    	moneyBook.setPaymentMoney(form.getMultipleTotal());
-	    } else {
-	    	moneyBook.setReceptMoney(form.getMultipleTotal());
-	    }
-	    moneyBook.setBalance(null);
-	    
+	 	moneyBook.setTypeOfBook(bookType.getValue());//cashbook
+	 	moneyBook.setTypeOfVoucher(voucherType);
+	 	moneyBook.setBalance(null);
+	 	if (form != null) {
+		    moneyBook.setRefNos(form.getMultipleRefCode());
+		    if (voucherType.getValue() == 0) { 
+		    	moneyBook.setPaymentMoney(form.getMultipleTotal());
+		    } else {
+		    	moneyBook.setReceptMoney(form.getMultipleTotal());
+		    }
+	 	} else {
+	 		String refCode = request.getParameter("jobNo");
+	 		String amount = request.getParameter("amount");
+	 		BigDecimal amountNumber = new BigDecimal(amount);
+	 		moneyBook.setRefNos(refCode);
+	 		if (voucherType.getValue() == 2) { 
+		    	moneyBook.setReceptMoney(amountNumber);
+		    } else {
+		    	//UNC
+		    	//moneyBook.setPaymentMoney(form.getMultipleTotal());
+		    }
+	 	}
 	 	return moneyBook;
     }
 	
@@ -94,8 +101,8 @@ public class ControllerUtil {
 		JSONObject obj = new JSONObject();
 		
 		Integer voucherNo = mbMa.getMaxVoucherNo(type);
-		String prefix = (type.getValue() == 0 ? AELConst.VOUCHER_NO_PREFIX_PAYMENT : AELConst.VOUCHER_NO_PREFIX_RECEPT);
-		String number = CommonUtil.addZero(String.valueOf(voucherNo + 1), CommonUtil.LENGTH_OF_COUNTER);
+		String prefix = type.getPrefix();
+		String number = CommonUtil.addZero(String.valueOf(voucherNo + 1), type.getLengthOfCounter());
 
 		String voucherNoPrint = prefix + number ;
         obj.put("voucherNo", voucherNo);
@@ -104,7 +111,6 @@ public class ControllerUtil {
         obj.put("reason", basicForm.getPayReason());
         obj.put("date", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
         obj.put("amount", basicForm.getMultipleTotal());
-        //System.out.println("payreason: " + advanceform.getPayReason());
         return obj.toString();
     }
 	
@@ -114,8 +120,8 @@ public class ControllerUtil {
 		JSONObject obj = new JSONObject();
 		
 		Integer voucherNo = mbMa.getMaxVoucherNo(type);
-		String prefix = (type.getValue() == 2 ? AELConst.VOUCHER_NO_PREFIX_NTTK : AELConst.VOUCHER_NO_PREFIX_UNC);
-		String number = CommonUtil.addZero(String.valueOf(voucherNo + 1), CommonUtil.LENGTH_OF_COUNTER_NTTK);
+		String prefix = type.getPrefix();
+		String number = CommonUtil.addZero(String.valueOf(voucherNo + 1), type.getLengthOfCounter());
 
 		String voucherNoPrint = prefix + number ;
         obj.put("voucherNo", voucherNo);

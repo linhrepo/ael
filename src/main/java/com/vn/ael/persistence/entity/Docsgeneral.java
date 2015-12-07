@@ -22,6 +22,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
+import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.webapp.formatter.FormatterUtil;
 
@@ -135,7 +136,7 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	private String note;
 	
 	//for thu tien khach hang
-	private BigDecimal phiAEL;
+	private BigDecimal phiAel;
 	private BigDecimal phiChiHo;
 	//0: chua thu, 1: da thu, 2: dathuAEL, 3: dathuChiHo
 
@@ -622,12 +623,12 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 		this.weigth = weigth;
 	}
 
-	public BigDecimal getPhiAEL() {
-		return phiAEL;
+	public BigDecimal getPhiAel() {
+		return phiAel;
 	}
 
-	public void setPhiAEL(BigDecimal phiAEL) {
-		this.phiAEL = phiAEL;
+	public void setPhiAEL(BigDecimal phiAel) {
+		this.phiAel = phiAel;
 	}
 
 	public BigDecimal getPhiChiHo() {

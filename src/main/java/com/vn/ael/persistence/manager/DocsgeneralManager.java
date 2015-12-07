@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
@@ -120,4 +121,5 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	//for thu tien khach hang
 	void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo);
 	void updatePhiAELAndChiHo(List<AccountingTransportExport> list);
+	void updateCollectMoneyStatus(Long jobId, int feeType);
 }

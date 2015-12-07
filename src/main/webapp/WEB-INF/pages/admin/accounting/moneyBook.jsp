@@ -77,9 +77,7 @@
                 	<fmt:formatDate value="${mb.date}" pattern="yyyy-MM-dd"/>
                 </td>
                 <td>
-                	<%-- ${mb.typeOfVoucher} --%>
-                	<c:if test="${mb.typeOfVoucher == 0}"><fmt:message key="moneybook.voucherType.payment"/></c:if>
-                	<c:if test="${mb.typeOfVoucher == 1}"><fmt:message key="moneybook.voucherType.recept"/></c:if>
+                	<fmt:message key="${mb.typeOfVoucher.printValue}"/>
                 </td>
                 <td>
                 	${mb.refNos}
@@ -145,9 +143,7 @@
                 	<fmt:formatDate value="${mb.date}" pattern="yyyy-MM-dd"/>
                 </td>
                 <td>
-                	<%-- ${mb.typeOfVoucher} --%>
-                	<c:if test="${mb.typeOfVoucher == 0}"><fmt:message key="moneybook.voucherType.payment"/></c:if>
-                	<c:if test="${mb.typeOfVoucher == 1}"><fmt:message key="moneybook.voucherType.recept"/></c:if>
+                	<fmt:message key="${mb.typeOfVoucher.printValue}"/>
                 </td>
                 <td>
                 	${mb.refNos}

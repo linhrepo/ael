@@ -109,13 +109,13 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 	
 	@Override
 	public Integer getMaxVoucherNo(VoucherType type) {
-		Integer i = this.moneyBookRepository.findMaxVoucherNoByType(type.getValue());
+		Integer i = this.moneyBookRepository.findMaxVoucherNoByType(type);
 		return i != null ? i : 0;
 	}
 
 
 	@Override
-	public MoneyBook getMoneyBookByVoucherNoAndType(Integer voucherNo, Integer type) {
+	public MoneyBook getMoneyBookByVoucherNoAndType(Integer voucherNo, VoucherType type) {
 		return this.moneyBookRepository.findByVoucherNoAndType(voucherNo, type);
 	}
 	

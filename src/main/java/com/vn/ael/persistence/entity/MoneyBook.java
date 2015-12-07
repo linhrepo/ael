@@ -2,7 +2,6 @@ package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.VoucherType;
 import com.vn.ael.webapp.util.CommonUtil;
 
 @Entity
@@ -28,9 +27,11 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	
 	private Integer typeOfBook;
 	
-	private Integer typeOfVoucher;//payment(chi): 0, recept(thu): 1
-	
+	/*private Integer typeOfVoucher;//payment(chi): 0, recept(thu): 1
+*/	
 	private Integer voucherNo;
+	
+	private VoucherType typeOfVoucher;
 	
 	@Transient
 	private String voucherNoPrint;
@@ -82,14 +83,14 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	/**
 	 * @return the typeOfVoucher
 	 */
-	public Integer getTypeOfVoucher() {
+	public VoucherType getTypeOfVoucher() {
 		return typeOfVoucher;
 	}
 
 	/**
 	 * @param typeOfVoucher the typeOfVoucher to set
 	 */
-	public void setTypeOfVoucher(Integer typeOfVoucher) {
+	public void setTypeOfVoucher(VoucherType typeOfVoucher) {
 		this.typeOfVoucher = typeOfVoucher;
 	}
 
@@ -101,8 +102,8 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	}
 	
 	public String getVoucherNoPrint() {
-		String prefix = (typeOfVoucher == 0 ? AELConst.VOUCHER_NO_PREFIX_PAYMENT : AELConst.VOUCHER_NO_PREFIX_RECEPT);
-		String number = CommonUtil.addZero(String.valueOf(voucherNo), CommonUtil.LENGTH_OF_COUNTER);
+		String prefix = typeOfVoucher.getPrefix();
+		String number = CommonUtil.addZero(String.valueOf(voucherNo), typeOfVoucher.getLengthOfCounter());
 
 		String voucherNoPrint = prefix + number ;
 		return voucherNoPrint;

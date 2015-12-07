@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.constants.TypeOfFee;
+import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
@@ -43,6 +44,8 @@ import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
+
+import net.sf.ezmorph.object.BigDecimalMorpher;
 
 /**
  * @author liv1hc
@@ -549,6 +552,18 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		Docsgeneral doc = docsgeneralRepository.getOne(docsgeneral.getId());
 		doc.setPhiAEL(phiAel);
 		doc.setPhiChiHo(phiChiHo);
+
+		/*if (phiAel.equals(BigDecimal.ZERO)) {
+			if (!phiChiHo.equals(BigDecimal.ZERO)) {
+				doc.setCollectMoneyStatus(3);
+			}
+		} 
+		
+		if (phiChiHo.equals(BigDecimal.ZERO)) {
+			if (!phiAel.equals(BigDecimal.ZERO)) {
+				doc.setCollectMoneyStatus(2);
+			}
+		}*/
 		docsgeneralRepository.save(doc);
 	}
 	
@@ -572,5 +587,34 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		}
 		
 		docsgeneralRepository.save(docs);
+	}
+	
+	@Override
+	public void updateCollectMoneyStatus(Long jobId, int feeType) {
+		Docsgeneral doc = docsgeneralRepository.getOne(jobId);
+		BigDecimal phiAel = doc.getPhiAel();
+		BigDecimal phiChiHo = doc.getPhiChiHo();
+		int currentCollectMoneyStatus = doc.getCollectMoneyStatus();
+		//collect money type
+		// 0: chua thu (default)
+		// 1: da thu
+		// 2: chi moi thu AEL
+		// 3: chi moi thu phiChiHo
+	
+		if (feeType == 0) {//phiAel
+			if (phiChiHo.equals(BigDecimal.ZERO) || currentCollectMoneyStatus == 3) {//phiChiHo = 0 hoac da thu
+				doc.setCollectMoneyStatus(1);
+			} else {
+				doc.setCollectMoneyStatus(2);
+			} 
+		} else if (feeType == 1) {//phiChiHo
+			if (phiAel.equals(BigDecimal.ZERO) || currentCollectMoneyStatus == 2) {//phiAel = 0 hoac da thu
+				doc.setCollectMoneyStatus(1);
+			} else {
+				doc.setCollectMoneyStatus(3);
+			}
+		}
+		
+		docsgeneralRepository.save(doc);
 	}
 }

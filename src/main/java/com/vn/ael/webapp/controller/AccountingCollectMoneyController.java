@@ -176,70 +176,47 @@ public class AccountingCollectMoneyController extends BaseFormController {
 		return mav;
 	}
     
-    /*@RequestMapping(method = RequestMethod.GET, value=URLReference.DEBIT_APPROVE_COLLECT)
-    public ModelAndView approvalMoneyDetailRequest(@RequestParam(value="id") Long id, @RequestParam(value="approve") String approve) throws Exception {
-    	Docsgeneral docsgeneral = docsgeneralManager.get(id);
-    	if(docsgeneral != null){
-    		if(docsgeneral.getIsCollectMoney() == null || !docsgeneral.getIsCollectMoney()){
-    			docsgeneral.setIsCollectMoney(true);
-    		}
-    	}
-    	this.docsgeneralManager.save(docsgeneral);
-    	Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccountingAndIsCollectMoney(true, false));
-        Search searchAccFee = new Search();
-        model.addAttribute("search", searchAccFee);
-        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        model.addAttribute("enumStatus", CollectMoneyStatusType.getLabelsMap());
-        model.addAttribute("jobList", docsgeneralManager.getAllJob());
-        model.addAttribute("approve", approve);
-        return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
-    }*/
-    
-    /*@RequestMapping(method = RequestMethod.GET, value=URLReference.DEBIT_LOAD_JOB_MONEY)
-    public @ResponseBody String loadMoneyForFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	Long id = Long.parseLong(request.getParameter("id"));
-    	
-    	Docsgeneral docsgeneral = docsgeneralManager.get(id);
-    	//this.docsgeneralManager.updateTongChiPhi(docsgeneral);
-		//this.docsgeneralManager.updateChiHo(docsgeneral,true);
-    	//obj.put("phiAEL", docsgeneral.getTongChiPhi());
-        //obj.put("chiho", docsgeneral.getChiho());
-    	Model model = new ExtendedModelMap();
-       // model.addAttribute(docsgeneralManager.findByDoAccountingAndIsCollectMoney(true, false));
-   
-        JSONObject obj = new JSONObject();
-        return obj.toString(); 
-    }*/
-    
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_COLLECT_MONEY_AJAX)
-    public @ResponseBody String phieuThuPrint(HttpServletRequest request, HttpServletResponse response)
+    public @ResponseBody String loadCollectMoney(HttpServletRequest request, HttpServletResponse response)
     	    throws Exception {    	 
-
-        return ControllerUtil.createJsonObject(VoucherType.NTTK, this.accountingMoneyBookManager);
+    	try {
+    		String result = ControllerUtil.createJsonObject(VoucherType.NTTK, this.accountingMoneyBookManager);
+    		return result;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	return null;
     }
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_SAVE_MONEYBOOK_AJAX)
     public @ResponseBody String updateMoneyBook(HttpServletRequest request, HttpServletResponse response)
     	    throws Exception {    	 
     	
-    	Refund refund = (Refund) request.getSession().getAttribute(SessionNames.REFUND_PRINT_PHIEU_THU);
-    	String validate = ControllerUtil.validateForm(request, VoucherType.PHIEUTHU, this.accountingMoneyBookManager);
-    	if (validate.length() == 0) {
-	        if (refund != null) {
-		        MoneyBook mb = ControllerUtil.createMoneyBook(
-		        		refund,
-		    			VoucherType.NTTK,
-		    			BookType.BANKBOOK,
-		    			request);
-			    
-		    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
-		        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
-		        refund.setMoneyBook(moneyBook);
+    	String validate = ControllerUtil.validateForm(request, VoucherType.NTTK, this.accountingMoneyBookManager);
+    	try {
+	    	if (validate.length() == 0) {
+		        String id = request.getParameter("jobId");
+		        String feeType = request.getParameter("feeType");
+		        try {
+		        	Long idLong = Long.parseLong(id);
+		        	Integer feeTypeInt = Integer.parseInt(feeType);
+			        MoneyBook mb = ControllerUtil.createMoneyBook(
+			        		null,
+			    			VoucherType.NTTK,
+			    			BookType.BANKBOOK,
+			    			request);
+			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+			    	this.docsgeneralManager.updateCollectMoneyStatus(idLong, feeTypeInt);
+		        } catch (Exception e) {
+		        	e.printStackTrace();
+		        }
 		        return "ok";
-	        }
-    	} else {
-    		return validate;
+		        
+	    	} else {
+	    		return validate;
+	    	}
+    	} catch (Exception e) {
+    		e.printStackTrace();
     	}
         return "error";
     }

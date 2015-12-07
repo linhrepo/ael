@@ -51,29 +51,32 @@
               	<td>${trucking.jobNo}</td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
               	<td>${trucking.typeOfContainer.value}</td>
-              	<%-- <td><button>${trucking.phiAEL}</button></td> --%>
+              	<%-- <td><button>${trucking.phiAel}</button></td> --%>
               	<td>
               		<c:choose>
-              			<c:when test="${not empty trucking.phiAEL and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2}">
-              				<button onclick="collectMoney('${trucking.jobNo}', 0, ${trucking.phiAEL})"><fmt:formatNumber pattern="#,###" value="${trucking.phiAEL}"></fmt:formatNumber></button>
+              			<%-- no for: empty, isCollectedAll (1) and not collected Ael (!2) --%>
+              			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2}">
+              				<button onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 0, ${trucking.phiAel})">
+              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAEL}"></fmt:formatNumber>
+              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber>
               			</c:otherwise>
               		</c:choose>
               	</td>
               	<td>
               		<c:choose>
               			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3}">
-              				<button onclick="collectMoney('${trucking.jobNo}', 1, ${trucking.phiChiHo})"><fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
+              				<button onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 1, ${trucking.phiChiHo})">
+              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber>
               			</c:otherwise>
               		</c:choose>
               	<td>
-              		<c:if test="${not empty trucking.phiAEL}">
-              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAEL + trucking.phiChiHo}"></fmt:formatNumber>
+              		<c:if test="${not empty trucking.phiAel}">
+              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAel + trucking.phiChiHo}"></fmt:formatNumber>
               		</c:if>
               	</td>
               	<td>
@@ -141,12 +144,12 @@
 	});
 }); */
 
-function collectMoney(jobNo, feeType, amount) {
+function collectMoney(id, jobNo, feeType, amount) {
 	$.ajax({
 	    type: "GET",
 	    url: "collectMoney",
 	    success: function(msg){
-	    	reviewCollectMoney(jobNo, feeType, amount, msg);
+	    	reviewCollectMoney(id, jobNo, feeType, amount, msg);
 	    },
 	    error: function(msg){
 	    	alert("not ok");
@@ -154,13 +157,12 @@ function collectMoney(jobNo, feeType, amount) {
 	}); 
 }
 
-function reviewCollectMoney(jobNo, feeType, amount, voucherInfo) {
+function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo) {
 	var data = JSON.parse(voucherInfo);
 	$("#vi-refcodes").html(jobNo);
 	var feeTypeName = feeType == 0 ? $("#phiAel").text() : $("#phiChiHo").text();
 	$("#vi-feetype").html(feeTypeName);
 	$("#vi-amount").html(amount.toLocaleString('en-IN'));
-
 	bootbox.dialog({
 		   closeButton: false,
 	       message: $("#voucher-info-modal").html(),
@@ -170,18 +172,19 @@ function reviewCollectMoney(jobNo, feeType, amount, voucherInfo) {
 	    	   "Confirm": {
 	               className: "btn-blue",
 	               callback: function () {
-            	    	
             	    	$.ajax({
             			    type: "POST",
             			    url:  "saveMoney",
-            			    data: { "date" : $(".modal-content #vi-date").val(),
+            			    data: { "jobId" : id,
+            			    		"date" : $(".modal-content #vi-date").val(),
 	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
 	       		    			    "reason" : $(".modal-content #vi-reason").val(),
+	       		    			 	"amount": amount,
 	       		    			    "feeType": feeType, //for update docs collectMoneyStatus
 	       		    			    "jobNo": jobNo}, //for update docs collectMoneyStatus
             			    success: function(msg){
             			    	if (msg == "ok") { 
-		        	       		    alert("Collect money successful!")
+		        	       		   
             			    	} else {
             			    		alert(msg);
             			    	}

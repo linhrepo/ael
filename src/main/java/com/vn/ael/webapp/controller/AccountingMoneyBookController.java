@@ -96,7 +96,6 @@ public class AccountingMoneyBookController extends BaseFormController {
 			@ModelAttribute(SEARCH_MODEL) AccountingMoneyBookCondition searchBook, 
 			BindingResult errors)
 			throws Exception {
-		System.out.println("searching bankbook");
 		
 		Date startDate = searchBook.getStartDate();
 		Date endDate = searchBook.getEndDate();
