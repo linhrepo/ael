@@ -46,18 +46,7 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 		return null;
 	}
 	
-	/*private void updateVoucherNo(MoneyBook moneyBookElement, Integer type) { //0: phieuchi 1: phieuthu
-		if (moneyBookElement.getVoucherNo() == null) {
-			
-			Integer counting = moneyBookRepository.findMaxVoucherNoByType(type);
-			if (counting == null) {
-				counting = 0;
-			}
- 			moneyBookElement.setVoucherNo((long) (counting + 1));
-		}
-	}*/
-	
-	
+
 	
 	@Override
 	public MoneyBook insertMoneyBook(MoneyBook moneyBook) {
@@ -117,6 +106,16 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 	@Override
 	public MoneyBook getMoneyBookByVoucherNoAndType(Integer voucherNo, VoucherType type) {
 		return this.moneyBookRepository.findByVoucherNoAndType(voucherNo, type);
+	}
+	
+	@Override
+	public MoneyBook updateMoneyBook(Long id, Integer voucherNo, Date date, String reason) {
+		MoneyBook book = moneyBookRepository.getOne(id);
+		book.setVoucherNo(voucherNo);
+		book.setDate(date);
+		book.setDescription(reason);
+		moneyBookRepository.save(book);
+		return book;
 	}
 	
 }

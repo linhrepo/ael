@@ -18,8 +18,6 @@ public interface AccountingMoneyBookManager extends GenericManager<MoneyBook> {
 	
 	List<MoneyBook> findByMoneyVoucher(Integer typeOfVoucher);
 	
-	/*void updateMoneyBook(Long id, Long voucherNo, String reason);*/
-	
 	MoneyBook checkFirstBalance(Integer bookType);
 	
 	void insertFirstBalance(MoneyBook firstBalance);
@@ -31,4 +29,6 @@ public interface AccountingMoneyBookManager extends GenericManager<MoneyBook> {
 	void updateBasicAdvance(Advanceform form, MoneyBook book);
 
 	void updateBasicAdvance(Refund form, MoneyBook book);
+	
+	MoneyBook updateMoneyBook(Long id, Integer voucherNo, Date date, String reason);
 }

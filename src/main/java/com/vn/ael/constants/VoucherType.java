@@ -1,8 +1,8 @@
 package com.vn.ael.constants;
 
 public enum VoucherType {
-	PHIEUCHI(0, "PC", 5, "moneybook.voucherType.phieuthu"), 
-	PHIEUTHU(1, "PT", 5, "moneybook.voucherType.phieuchi"), 
+	PHIEUCHI(0, "PC", 5, "moneybook.voucherType.phieuchi"), 
+	PHIEUTHU(1, "PT", 5, "moneybook.voucherType.phieuthu"), 
 	NTTK(2, "NTTK", 4, "moneybook.voucherType.nttk"), 
 	UNC(3, "UNC", 4, "moneybook.voucherType.unc");
 

@@ -1,11 +1,13 @@
 package com.vn.ael.webapp.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,10 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vn.ael.constants.URLReference;
+import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.AccountingMoneyBookCondition;
+
+import antlr.StringUtils;
+import net.sf.json.JSONObject;
 
 @Controller
 public class AccountingMoneyBookController extends BaseFormController {
@@ -132,4 +139,55 @@ public class AccountingMoneyBookController extends BaseFormController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_UPDATE_MONEYBOOK_AJAX)
+    public @ResponseBody String updateMoneyBook(HttpServletRequest request, HttpServletResponse response)
+    	    throws Exception {    	 
+		String idStr = request.getParameter("id");
+		String voucherNoParam = request.getParameter("voucherNo");
+		String prefix = voucherNoParam.replaceAll("\\d", "");
+    	String voucherNoStr = voucherNoParam.replaceAll("\\D+","");
+		Integer voucherNo = null;
+		Long id = null;
+	
+		VoucherType type = null;
+    	if (prefix.equals("PC")) type = VoucherType.PHIEUCHI;
+    	if (prefix.equals("PT")) type = VoucherType.PHIEUTHU;
+    	if (prefix.equals("NTTK")) type = VoucherType.NTTK;
+    	if (prefix.equals("UNC")) type = VoucherType.UNC;
+	    	
+    	boolean voucherNoProblem = type == null ? true : false;
+    	try {
+    		id = Long.parseLong(idStr);
+    		voucherNo = Integer.parseInt(voucherNoStr);
+    		MoneyBook mb = mbManager.getMoneyBookByVoucherNoAndType(voucherNo, type);
+
+    		if(mb != null && !mb.getId().equals(id)) {
+    			voucherNoProblem = true;
+    		}
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		voucherNoProblem = true;
+		}
+    	
+    	if (!voucherNoProblem) {
+	        	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	        	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+	        	String dateStr=  request.getParameter("date");
+	        	Date date = sdf.parse(dateStr);
+	    	 	String reason = request.getParameter("reason");
+		    	MoneyBook book = this.mbManager.updateMoneyBook(id, voucherNo, date, reason);
+		    	
+		    	JSONObject obj = new JSONObject();
+		    	obj.put("voucherNo", book.getVoucherNoPrint());
+		    	obj.put("date", sdf2.format(book.getDate()));
+		    	obj.put("reason", book.getDescription());
+		    	
+		    	return obj.toString();
+	        
+    	} else {
+    		return "notok";
+    	}
+    }
 }

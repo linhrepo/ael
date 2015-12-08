@@ -18,13 +18,7 @@ import net.sf.json.JSONObject;
 public class ControllerUtil {
 	public static String validateForm(HttpServletRequest request, VoucherType type, AccountingMoneyBookManager mbMa) {
 		StringBuilder result = new StringBuilder();
-		/*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    	String dateStr=  request.getParameter("date");
-    	try {
-			sdf.parse(dateStr);
-		} catch (ParseException e) {
-			result.append("- Wrong date format \n");
-		}*/
+
 		boolean voucherNoProblem = false;
 		String voucherNoParam = request.getParameter("voucherNo");
 		

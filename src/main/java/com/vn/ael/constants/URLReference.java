@@ -151,6 +151,8 @@ public interface URLReference {
 	String ACCOUNTING_COLLECT_MONEY_AJAX = "/admin/accounting/collectMoney";
 	String ACCOUNTING_SAVE_MONEYBOOK_AJAX = "/admin/accounting/saveMoney";
 	
+	String ACCOUNTING_UPDATE_MONEYBOOK_AJAX = "/admin/accounting/updateMoneybook";
+	
 	String ACCOUNTING_TRANSPORT_SEARCH = "/admin/accounting/transportSearch";
 	//Add by Phuc
 		String TRUCKING_SERVICE_DOWNLOAD = "/download";
