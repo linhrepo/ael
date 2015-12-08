@@ -16,12 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.TypeOfContainer;
 import com.vn.ael.constants.TypeOfFee;
-import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Accountingcus;
 import com.vn.ael.persistence.entity.Accountingcusdetail;
 import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Contseal;
+import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docservice;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
@@ -44,8 +44,6 @@ import com.vn.ael.webapp.dto.Search;
 import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.EntityUtil;
-
-import net.sf.ezmorph.object.BigDecimalMorpher;
 
 /**
  * @author liv1hc
@@ -535,10 +533,12 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search) {
 		ServicesType servicesType = null;
+		Long cusId = search.getCustomer();
+
 		if(search.getTypeOfDocs() == null){
-			return docsgeneralRepository.searchDebit(true, servicesType, search.getCollectMoneyStatus(), search.getJob());
+			return docsgeneralRepository.searchDebit(true, servicesType, cusId, search.getCollectMoneyStatus());
 		}
-		return docsgeneralRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), search.getCollectMoneyStatus(), search.getJob());
+		return docsgeneralRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), cusId, search.getCollectMoneyStatus());
 	}
 
 	@Override
@@ -553,17 +553,6 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		doc.setPhiAEL(phiAel);
 		doc.setPhiChiHo(phiChiHo);
 
-		/*if (phiAel.equals(BigDecimal.ZERO)) {
-			if (!phiChiHo.equals(BigDecimal.ZERO)) {
-				doc.setCollectMoneyStatus(3);
-			}
-		} 
-		
-		if (phiChiHo.equals(BigDecimal.ZERO)) {
-			if (!phiAel.equals(BigDecimal.ZERO)) {
-				doc.setCollectMoneyStatus(2);
-			}
-		}*/
 		docsgeneralRepository.save(doc);
 	}
 	
@@ -590,7 +579,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	}
 	
 	@Override
-	public void updateCollectMoneyStatus(Long jobId, int feeType) {
+	public Integer updateCollectMoneyStatus(Long jobId, int feeType) {
 		Docsgeneral doc = docsgeneralRepository.getOne(jobId);
 		BigDecimal phiAel = doc.getPhiAel();
 		BigDecimal phiChiHo = doc.getPhiChiHo();
@@ -600,21 +589,21 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		// 1: da thu
 		// 2: chi moi thu AEL
 		// 3: chi moi thu phiChiHo
-	
 		if (feeType == 0) {//phiAel
-			if (phiChiHo.equals(BigDecimal.ZERO) || currentCollectMoneyStatus == 3) {//phiChiHo = 0 hoac da thu
+			if (phiChiHo.compareTo(BigDecimal.ZERO) == 0 || currentCollectMoneyStatus == 3) {//phiChiHo = 0 hoac da thu chiho
 				doc.setCollectMoneyStatus(1);
 			} else {
 				doc.setCollectMoneyStatus(2);
 			} 
 		} else if (feeType == 1) {//phiChiHo
-			if (phiAel.equals(BigDecimal.ZERO) || currentCollectMoneyStatus == 2) {//phiAel = 0 hoac da thu
+			if (phiAel.compareTo(BigDecimal.ZERO) == 0 || currentCollectMoneyStatus == 2) {//phiAel = 0 hoac da thu ael
 				doc.setCollectMoneyStatus(1);
 			} else {
 				doc.setCollectMoneyStatus(3);
 			}
 		}
-		
+
 		docsgeneralRepository.save(doc);
+		return doc.getCollectMoneyStatus();
 	}
 }

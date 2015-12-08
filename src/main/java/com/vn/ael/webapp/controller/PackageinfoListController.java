@@ -73,7 +73,7 @@ public class PackageinfoListController extends BaseFormController {
 		
 		List<Packageinfo> packageinfos = packageinfoManager.searchPackageInfo(searchPackageInfo);
 		mav.addObject(packageinfos);
-		
+
 		//selection
         DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage

@@ -9,12 +9,21 @@
 	action="searchDebit" id="feeTabelsForm" cssClass="well">
 	<div class="row">
 		<div class="form-group col-md-4">
-			<appfuse:label styleClass="control-label"
+			<%-- <appfuse:label styleClass="control-label"
 				key="accountingnhathau.jobNo" />
 			<form:select path="job" id="job" 
 				cssClass="form-control select2">
 				<form:option value=""><fmt:message key="searchall" /></form:option>
 				<form:options items="${jobList }"/>
+			</form:select> --%>
+			<appfuse:label styleClass="control-label"
+					key="packageInfo.customerCode" />
+			<form:select path="customer" id="customercode"
+				cssClass="form-control select2">
+				<form:option value=""><fmt:message key="searchall" /></form:option>
+				<c:forEach items="${customers}" var="cust">
+					<form:option value="${cust.id}">${cust.code}</form:option>
+				</c:forEach>
 			</form:select>
 		</div>
 		<div class="form-group col-md-4">
@@ -22,7 +31,7 @@
 				key="trucking.typeOfDocs" />
 			<form:select path="typeOfDocs" id="typeOfDocs"
 				cssClass="form-control select2">
-				<%-- <form:option value=""><fmt:message key="searchall" /></form:option> --%>
+				<form:option value=""><fmt:message key="searchall" /></form:option>
 				<c:forEach var="entry" items="${typeOfDocs}">
 					<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
 				</c:forEach>

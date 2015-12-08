@@ -123,7 +123,7 @@
             <tr>
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="moneybook.voucherNo"/></th>
-                <th><fmt:message key="moneybook.date"/></th>
+                <th><fmt:message key="moneybook.date.transaction"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
                 <th>RefNo(s)</th>
                 <th><fmt:message key="moneybook.description"/></th>

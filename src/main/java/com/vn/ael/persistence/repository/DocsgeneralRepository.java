@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
 
 /**
@@ -151,14 +152,14 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	
 	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
-			+ "(e.jobNo =:jobNo or :jobNo = '') and "
+			+ "(e.customer.id = :customer or :customer is null) and "
 			+ "e.doAccounting =:doAccounting and "
 			+ "(e.collectMoneyStatus =:collectMoneyStatus or :collectMoneyStatus is null) "
 			+ "group by e")
 	List<Docsgeneral> searchDebit(@Param("doAccounting") Boolean doAccounting,
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
-			@Param(value="collectMoneyStatus") Integer collectMoneyStatus,
-			@Param(value="jobNo") String jobNo);
+			@Param(value="customer") Long customer,
+			@Param(value="collectMoneyStatus") Integer collectMoneyStatus);
 	
 	@Query(value = "SELECT d.id, d.jobNo, c.name FROM Docsgeneral d left join Customers c on d.customer = c.id", nativeQuery = true)
 	List<Object> findAllNotForSelection();

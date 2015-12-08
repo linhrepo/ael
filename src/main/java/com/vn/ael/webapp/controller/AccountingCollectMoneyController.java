@@ -63,77 +63,12 @@ public class AccountingCollectMoneyController extends BaseFormController {
         this.docsgeneralManager = docsgeneralManager;
     }
     
-	/*private CustomerManager customerManager;
-	
-	private ExfeetableManager exfeetableManager;
-	
-	private NhathauManager nhathauManager;
-	
-	private PackageinfoManager packageinfoManager;
-	
-	private TruckingserviceManager truckingserviceManager;
-	
-	private RefundManager refundManager;
-	
-	private RefundDetailManager refundDetailManager;
-	
-	private AdvanceDetailManager advanceDetailManager;
-	
-	private AdvanceFormManager advanceFormManager;
-	
-	@Autowired
-	public void setExfeetableManager(ExfeetableManager exfeetableManager){
-		this.exfeetableManager = exfeetableManager;
-	}
-	
-	@Autowired
-	public void setAdvanceDetailManager(AdvanceDetailManager advanceDetailManager){
-		this.advanceDetailManager = advanceDetailManager;
-	}
-	
-	@Autowired
-	public void setRefundDetailManager(RefundDetailManager refundDetailManager){
-		this.refundDetailManager = refundDetailManager;
-	}
-	
-	@Autowired
-	public void setCustomerManager(CustomerManager customerManager){
-		this.customerManager = customerManager;
-	}*/
-	
-    
-       
-   /* @Autowired
-	public void setPackageinfoManager(PackageinfoManager packageinfoManager) {
-		this.packageinfoManager = packageinfoManager;
-	}
-
+    private CustomerManager customerManager = null;
+	 
     @Autowired
-	public void setTruckingserviceManager(
-			TruckingserviceManager truckingserviceManager) {
-		this.truckingserviceManager = truckingserviceManager;
-	}
-        
-    @Autowired
-	public void setRefundManager(RefundManager refundManager) {
-		this.refundManager = refundManager;
-	}
-
-	public AccountingCollectMoneyController() {
-        setCancelView("redirect:"+URLReference.HOME_PAGE);
-        setSuccessView("redirect:"+URLReference.ACCOUNTING_CUSTOM_LIST);
+    public void setCustomerManager(final CustomerManager customerManager) {
+        this.customerManager = customerManager;
     }
-        
-    @Autowired
-    public void setNhathauManager(NhathauManager nhathauManager) {
-		this.nhathauManager = nhathauManager;
-	}
-
-    @Autowired
-	public void setAdvanceFormManager(AdvanceFormManager advanceFormManager) {
-		this.advanceFormManager = advanceFormManager;
-	}*/
-    
 	@Override
     @InitBinder
     protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
@@ -149,8 +84,8 @@ public class AccountingCollectMoneyController extends BaseFormController {
         
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
-        mav.addObject("jobList", docsgeneralManager.getAllJob());
-        
+        //mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("customers", customerManager.getAll()); 
         searchAccFee.setTypeOfDocs((long) ServicesType.DVTQ.getValue());
         mav.addObject("accountingCollectMoneyCondition", searchAccFee);
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_COLLECT_MONEY, searchAccFee);
@@ -168,8 +103,8 @@ public class AccountingCollectMoneyController extends BaseFormController {
 		
 		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
-        mav.addObject("jobList", docsgeneralManager.getAllJob());
-        
+        //mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("customers", customerManager.getAll()); 
 		List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchDebit);
 		mav.addObject(docsgenerals);
 
@@ -197,6 +132,7 @@ public class AccountingCollectMoneyController extends BaseFormController {
 	    	if (validate.length() == 0) {
 		        String id = request.getParameter("jobId");
 		        String feeType = request.getParameter("feeType");
+		        int statusReturn = 0;
 		        try {
 		        	Long idLong = Long.parseLong(id);
 		        	Integer feeTypeInt = Integer.parseInt(feeType);
@@ -206,11 +142,11 @@ public class AccountingCollectMoneyController extends BaseFormController {
 			    			BookType.BANKBOOK,
 			    			request);
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
-			    	this.docsgeneralManager.updateCollectMoneyStatus(idLong, feeTypeInt);
+			    	statusReturn = this.docsgeneralManager.updateCollectMoneyStatus(idLong, feeTypeInt);
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        }
-		        return "ok";
+		        return String.valueOf(statusReturn);
 		        
 	    	} else {
 	    		return validate;

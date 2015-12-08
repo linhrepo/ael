@@ -55,8 +55,9 @@
               	<td>
               		<c:choose>
               			<%-- no for: empty, isCollectedAll (1) and not collected Ael (!2) --%>
-              			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2}">
-              				<button onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 0, ${trucking.phiAel})">
+              			
+              			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2 and trucking.phiAel != '0.0000'}">
+              				<button id='${trucking.id}-0' onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 0, ${trucking.phiAel})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -66,8 +67,8 @@
               	</td>
               	<td>
               		<c:choose>
-              			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3}">
-              				<button onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 1, ${trucking.phiChiHo})">
+              			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3 and trucking.phiChiHo != '0.00'}">
+              				<button id='${trucking.id}-1' onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 1, ${trucking.phiChiHo})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -104,8 +105,8 @@
 		<tbody>
 			<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
 			<tr><td><fmt:message key="moneybook.feeType"/></td><td id="vi-feetype"></td></tr>
-			<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
-			<tr><td><fmt:message key="moneybook.collect.date"/></td><td><input id="vi-date" /></td></tr>
+			<tr><td><fmt:message key="moneybook.amount"/></td><td id="vi-amount"></td></tr>
+			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
 			<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
 			<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
 		</tbody>
@@ -114,37 +115,7 @@
 </div>
 <script>
 
-/* $(document).ready(function(){
-	if($("#approve").val() != null && $("#approve").val() != ""){
-		UTIL.showMessage('<fmt:message key="debit.approved"/>', "info");
-	}
-	$('.approveMoney').click(function(){			
-		 $.confirm({
-		    text: '<fmt:message key="debit.confirmApprove"/>',
-		    confirm: function() {
-		    	$(location).attr('href','<c:url value="approveCollectMoney?id="></c:url>' + $('#approveMoney').attr("value") + "&approve=1");
-		    },
-		    cancel: function() {
-		        // nothing to do
-		    }
-		});
-		
-		//docId=5
-		var id = $(this).closest("tr").attr("params");
-		id = id.substring(6);
-		alert(id);
-		$.ajax({
-		    type: "GET",
-		    url: "collectMoney",
-		    data: {"id": id},
-		    success: function(msg){
-		    	alert("done");
-		    }
-		}); 
-	});
-}); */
-
-function collectMoney(id, jobNo, feeType, amount) {
+function collectMoney(id, jobNo, feeType, amount, button) {
 	$.ajax({
 	    type: "GET",
 	    url: "collectMoney",
@@ -157,7 +128,7 @@ function collectMoney(id, jobNo, feeType, amount) {
 	}); 
 }
 
-function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo) {
+function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo, button) {
 	var data = JSON.parse(voucherInfo);
 	$("#vi-refcodes").html(jobNo);
 	var feeTypeName = feeType == 0 ? $("#phiAel").text() : $("#phiChiHo").text();
@@ -183,11 +154,23 @@ function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo) {
 	       		    			    "feeType": feeType, //for update docs collectMoneyStatus
 	       		    			    "jobNo": jobNo}, //for update docs collectMoneyStatus
             			    success: function(msg){
-            			    	if (msg == "ok") { 
-		        	       		   
-            			    	} else {
-            			    		alert(msg);
-            			    	}
+            			    	var status = msg;
+            			    	var td = $('#' + id + "-" + feeType).closest("td");
+	        	       		    td.html(amount);
+	        	       		    var statusStr = "";
+	        	       		    switch (status) {
+		        	       		    case "0" : statusStr = "<fmt:message key='debit.type.no'/>";
+		        	       		    break;
+		        	       			case "1" : statusStr = "<fmt:message key='debit.type.yes'/>";
+		        	       			td.closest("tr").removeClass("impress");
+		        	       			break;
+		        	       			case "2" : 
+		        	       			case "3" : statusStr = "<fmt:message key='debit.type.still'/>";
+		        	       			break;
+	        	       		    }
+	        	       		    
+	        	       		 	td.closest("tr").find("td").last().html(statusStr);
+            			    	
             			    },
             			    error: function(msg) {
             			    	alert(msg);

@@ -1,10 +1,12 @@
 package com.vn.ael.webapp.dto;
 
 
+
 public class AccountingCollectMoneyCondition {
 
 	private Long typeOfDocs;
 	private String job = null;
+	private Long customer;
 	private Integer collectMoneyStatus;
 	
 	/**
@@ -42,6 +44,12 @@ public class AccountingCollectMoneyCondition {
 	 */
 	public void setCollectMoneyStatus(Integer collectMoneyStatus) {
 		this.collectMoneyStatus = collectMoneyStatus;
+	}
+	public Long getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Long customer) {
+		this.customer = customer;
 	}
 	
 	
