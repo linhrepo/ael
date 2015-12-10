@@ -1,5 +1,9 @@
 <%@ include file="/common/taglibs.jsp" %>
-
+<style>
+.highlight {
+	background : #38b44a !important;
+}
+</style>
 <head>
     <title><fmt:message key="feeTablesacc.title"/></title>
     <meta name="menu" content="AccountingMenu"/>
@@ -57,7 +61,7 @@
               			<%-- no for: empty, isCollectedAll (1) and not collected Ael (!2) --%>
               			
               			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2 and trucking.phiAel != '0.0000'}">
-              				<button id='${trucking.id}-0' onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 0, ${trucking.phiAel})">
+              				<button id='${trucking.id}-0' onclick="collectMoney('${trucking.id}-0', '${trucking.jobNo}', ${trucking.phiAel})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -68,7 +72,7 @@
               	<td>
               		<c:choose>
               			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3 and trucking.phiChiHo != '0.00'}">
-              				<button id='${trucking.id}-1' onclick="collectMoney('${trucking.id}', '${trucking.jobNo}', 1, ${trucking.phiChiHo})">
+              				<button id='${trucking.id}-1' onclick="collectMoney('${trucking.id}-1', '${trucking.jobNo}', ${trucking.phiChiHo})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -114,13 +118,31 @@
 	<!-- <span id="error-msg" style="color: red;"></span> -->
 </div>
 <script>
-
-function collectMoney(id, jobNo, feeType, amount, button) {
+var multiplePrice = [];
+function collectMoney(buttonId, jobNo, amount) {
+	alert(multiplePrice.length);
+	var button = $("#"+buttonId);
+	var value = buttonId + "-" + jobNo + "-" + amount;
+	
+	if (button.hasClass("highlight")) {
+		var index = multiplePrice.indexOf(value);
+		if (index > -1) {
+			multiplePrice.splice(index, 1);
+			button.removeClass("highlight");
+		}	
+	} else {
+		multiplePrice.push(value);
+		button.addClass("highlight");
+	}
+}
+function processCollectMoney(money) {
 	$.ajax({
 	    type: "GET",
 	    url: "collectMoney",
+	    data: {"moneyType": money},
 	    success: function(msg){
-	    	reviewCollectMoney(id, jobNo, feeType, amount, msg);
+	    	/* reviewCollectMoney(id, jobNo, feeType, amount, msg); */
+	    	reviewCollectMoney(multiplePrice);
 	    },
 	    error: function(msg){
 	    	alert("not ok");
@@ -128,7 +150,10 @@ function collectMoney(id, jobNo, feeType, amount, button) {
 	}); 
 }
 
-function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo, button) {
+//function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo, button) {
+function reviewCollectMoney(multiplePrice) {
+	
+	
 	var data = JSON.parse(voucherInfo);
 	$("#vi-refcodes").html(jobNo);
 	var feeTypeName = feeType == 0 ? $("#phiAel").text() : $("#phiChiHo").text();

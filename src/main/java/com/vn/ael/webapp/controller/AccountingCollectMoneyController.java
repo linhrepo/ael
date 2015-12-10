@@ -115,7 +115,14 @@ public class AccountingCollectMoneyController extends BaseFormController {
     public @ResponseBody String loadCollectMoney(HttpServletRequest request, HttpServletResponse response)
     	    throws Exception {    	 
     	try {
-    		String result = ControllerUtil.createJsonObject(VoucherType.NTTK, this.accountingMoneyBookManager);
+    		String moneyType = request.getParameter("moneyType");
+    		String result = "";
+    		if (moneyType.equals("0")) {
+    			result = ControllerUtil.createJsonObject(VoucherType.PHIEUTHU, this.accountingMoneyBookManager);
+    		} else {
+    			result = ControllerUtil.createJsonObject(VoucherType.NTTK, this.accountingMoneyBookManager);
+    		}
+    		
     		return result;
     	} catch (Exception e) {
     		e.printStackTrace();
