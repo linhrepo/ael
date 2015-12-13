@@ -135,18 +135,22 @@ function collectMoney(buttonId, amount) {
 	}
 }
 function processCollectMoney(moneyType) {
-	$.ajax({
-	    type: "GET",
-	    url: "collectMoney",
-	    data: {"moneyType": moneyType},
-	    success: function(msg){
-	    	/* reviewCollectMoney(id, jobNo, feeType, amount, msg); */
-	    	reviewCollectMoney(moneyType, multiplePrice, msg);
-	    },
-	    error: function(msg){
-	    	alert("not ok");
-	    }
-	}); 
+	if (multiplePrice.length > 0) {
+		$.ajax({
+		    type: "GET",
+		    url: "collectMoney",
+		    data: {"moneyType": moneyType},
+		    success: function(msg){
+		    	/* reviewCollectMoney(id, jobNo, feeType, amount, msg); */
+		    	reviewCollectMoney(moneyType, multiplePrice, msg);
+		    },
+		    error: function(msg){
+		    	alert("not ok");
+		    }
+		}); 
+	} else {
+		alert('Please choose at least one row');
+	}
 }
 
 //function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo, button) {
