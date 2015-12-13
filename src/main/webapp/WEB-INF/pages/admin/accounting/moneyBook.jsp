@@ -186,6 +186,7 @@
 	}
 </style>
 <script>
+var res = "";
 function editMoneyBook(id, mbNo, mbDate, mbDes) {
 	$("#"+id).addClass("highlight");
 	bootbox.dialog({
@@ -197,6 +198,7 @@ function editMoneyBook(id, mbNo, mbDate, mbDes) {
 	    	   "Confirm": {
 	               className: "btn-blue",
 	               callback: function () {
+	            	res =  $(".modal-content #mb-des").val();
          	    	$.ajax({
          			    type: "POST",
          			    url:  "updateMoneybook",
@@ -210,7 +212,8 @@ function editMoneyBook(id, mbNo, mbDate, mbDes) {
 	         			    	$("#"+id).removeClass("highlight");
 	         			    	$("#"+id).find("td").eq(1).html(msg.voucherNo);
 	         			    	$("#"+id).find("td").eq(2).html(msg.date);
-	         			    	$("#"+id).find("td").eq(4).html(msg.reason);
+	         			    	//$("#"+id).find("td").eq(4).html(msg.reason);
+	         			    	$("#"+id).find("td").eq(4).html(res);
          			    	} else {
          			    		alert("Voucher no is wrong or duplicate");
          			    	}
