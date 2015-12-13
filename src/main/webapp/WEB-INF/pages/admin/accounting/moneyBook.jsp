@@ -29,7 +29,7 @@
             	<th><fmt:message key="moneybook.voucherNo"/></th>
                 <th><fmt:message key="moneybook.date"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
-                <th>RefNo(s)</th>
+                <!-- <th>RefNo(s)</th> -->
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -44,7 +44,7 @@
                 <th><fmt:message key="moneybook.voucherNo"/></th>
                 <th><fmt:message key="moneybook.date"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
-                <th>RefNo(s)</th>
+                <!-- <th>RefNo(s)</th> -->
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -65,9 +65,9 @@
                 <td>
                 	<fmt:message key="${mb.typeOfVoucher.printValue}"/>
                 </td>
-                <td>
+                <%-- <td>
                 	${mb.refNos}
-                </td>
+                </td> --%>
                 <td>
                 	${mb.description}
                 </td>
@@ -99,7 +99,7 @@
             	<th><fmt:message key="moneybook.voucherNo"/></th>
                 <th><fmt:message key="moneybook.date"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
-                <th>RefNo(s)</th>
+                <!-- <th>RefNo(s)</th> -->
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -114,7 +114,7 @@
                 <th><fmt:message key="moneybook.voucherNo"/></th>
                 <th><fmt:message key="moneybook.date.transaction"/></th>
                 <th><fmt:message key="moneybook.voucherType"/></th>
-                <th>RefNo(s)</th>
+                <!-- <th>RefNo(s)</th> -->
                 <th><fmt:message key="moneybook.description"/></th>
                 <th><fmt:message key="moneybook.paymentMoney"/></th>
                 <th><fmt:message key="moneybook.receptMoney"/></th>
@@ -135,9 +135,9 @@
                 <td>
                 	<fmt:message key="${mb.typeOfVoucher.printValue}"/>
                 </td>
-                <td>
+                <%-- <td>
                 	${mb.refNos}
-                </td>
+                </td> --%>
                 <td>
                 	${mb.description}
                 </td>
@@ -207,11 +207,10 @@ function editMoneyBook(id, mbNo, mbDate, mbDes) {
          			    success: function(data){
          			    	if (data != "notok") {
 	         			    	var msg = JSON.parse(data);
-	         			    	alert(data);
 	         			    	$("#"+id).removeClass("highlight");
 	         			    	$("#"+id).find("td").eq(1).html(msg.voucherNo);
 	         			    	$("#"+id).find("td").eq(2).html(msg.date);
-	         			    	$("#"+id).find("td").eq(5).html(msg.reason);
+	         			    	$("#"+id).find("td").eq(4).html(msg.reason);
          			    	} else {
          			    		alert("Voucher no is wrong or duplicate");
          			    	}

@@ -80,12 +80,7 @@ public class ControllerUtil {
 	 		String amount = request.getParameter("amount");
 	 		BigDecimal amountNumber = new BigDecimal(amount);
 	 		moneyBook.setRefNos(refCode);
-	 		if (voucherType.getValue() == 2) { 
-		    	moneyBook.setReceptMoney(amountNumber);
-		    } else {
-		    	//UNC
-		    	//moneyBook.setPaymentMoney(form.getMultipleTotal());
-		    }
+		    moneyBook.setReceptMoney(amountNumber);
 	 	}
 	 	return moneyBook;
     }

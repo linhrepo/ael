@@ -61,7 +61,7 @@
               			<%-- no for: empty, isCollectedAll (1) and not collected Ael (!2) --%>
               			
               			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2 and trucking.phiAel != '0.0000'}">
-              				<button id='${trucking.id}-0' onclick="collectMoney('${trucking.id}-0', '${trucking.jobNo}', ${trucking.phiAel})">
+              				<button id='${trucking.id}_0' onclick="collectMoney('${trucking.id}_0', ${trucking.phiAel})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -72,7 +72,7 @@
               	<td>
               		<c:choose>
               			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3 and trucking.phiChiHo != '0.00'}">
-              				<button id='${trucking.id}-1' onclick="collectMoney('${trucking.id}-1', '${trucking.jobNo}', ${trucking.phiChiHo})">
+              				<button id='${trucking.id}_1' onclick="collectMoney('${trucking.id}_1', ${trucking.phiChiHo})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -107,8 +107,8 @@
 <div id="voucher-info-modal" style="display:none;">
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
-			<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
-			<tr><td><fmt:message key="moneybook.feeType"/></td><td id="vi-feetype"></td></tr>
+			<%-- <tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr> --%>
+			<tr><td><fmt:message key="moneybook.feeType"/></td><td id="vi-vouchertype"></td></tr>
 			<tr><td><fmt:message key="moneybook.amount"/></td><td id="vi-amount"></td></tr>
 			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
 			<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
@@ -119,10 +119,9 @@
 </div>
 <script>
 var multiplePrice = [];
-function collectMoney(buttonId, jobNo, amount) {
-	alert(multiplePrice.length);
+function collectMoney(buttonId, amount) {
 	var button = $("#"+buttonId);
-	var value = buttonId + "-" + jobNo + "-" + amount;
+	var value = buttonId + "-" + amount;
 	
 	if (button.hasClass("highlight")) {
 		var index = multiplePrice.indexOf(value);
@@ -135,14 +134,14 @@ function collectMoney(buttonId, jobNo, amount) {
 		button.addClass("highlight");
 	}
 }
-function processCollectMoney(money) {
+function processCollectMoney(moneyType) {
 	$.ajax({
 	    type: "GET",
 	    url: "collectMoney",
-	    data: {"moneyType": money},
+	    data: {"moneyType": moneyType},
 	    success: function(msg){
 	    	/* reviewCollectMoney(id, jobNo, feeType, amount, msg); */
-	    	reviewCollectMoney(multiplePrice);
+	    	reviewCollectMoney(moneyType, multiplePrice, msg);
 	    },
 	    error: function(msg){
 	    	alert("not ok");
@@ -151,14 +150,24 @@ function processCollectMoney(money) {
 }
 
 //function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo, button) {
-function reviewCollectMoney(multiplePrice) {
-	
-	
+//var value = id +"-" +type + "-" + jobNo + "-" + amount;
+function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
+
+	var jobNo = "";
+	var feeType;
+	var amount = 0;
+	for (var i = 0; i < multiplePrice.length; i++) {
+		var v = multiplePrice[i].split("-");
+		jobNo += v[0] + ",";
+		amount += parseFloat(v[1]);
+	}
+
 	var data = JSON.parse(voucherInfo);
-	$("#vi-refcodes").html(jobNo);
-	var feeTypeName = feeType == 0 ? $("#phiAel").text() : $("#phiChiHo").text();
-	$("#vi-feetype").html(feeTypeName);
+	/* $("#vi-refcodes").html(jobNo); */
+	var feeTypeName = feeType == 0 ? "NTTK" : "PT";
+	$("#vi-vouchertype").html(feeTypeName);
 	$("#vi-amount").html(amount.toLocaleString('en-IN'));
+	
 	bootbox.dialog({
 		   closeButton: false,
 	       message: $("#voucher-info-modal").html(),
@@ -171,31 +180,35 @@ function reviewCollectMoney(multiplePrice) {
             	    	$.ajax({
             			    type: "POST",
             			    url:  "saveMoney",
-            			    data: { "jobId" : id,
+            			    data: { 
+            			    		"moneyType" : moneyType,
+            			    		//"data" : JSON.stringify(multiplePrice),
             			    		"date" : $(".modal-content #vi-date").val(),
 	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
 	       		    			    "reason" : $(".modal-content #vi-reason").val(),
 	       		    			 	"amount": amount,
-	       		    			    "feeType": feeType, //for update docs collectMoneyStatus
-	       		    			    "jobNo": jobNo}, //for update docs collectMoneyStatus
+	       		    			    "jobNo": jobNo
+	       		    			    }, //for update docs collectMoneyStatus
             			    success: function(msg){
-            			    	var status = msg;
-            			    	var td = $('#' + id + "-" + feeType).closest("td");
-	        	       		    td.html(amount);
-	        	       		    var statusStr = "";
-	        	       		    switch (status) {
-		        	       		    case "0" : statusStr = "<fmt:message key='debit.type.no'/>";
-		        	       		    break;
-		        	       			case "1" : statusStr = "<fmt:message key='debit.type.yes'/>";
-		        	       			td.closest("tr").removeClass("impress");
-		        	       			break;
-		        	       			case "2" : 
-		        	       			case "3" : statusStr = "<fmt:message key='debit.type.still'/>";
-		        	       			break;
-	        	       		    }
-	        	       		    
-	        	       		 	td.closest("tr").find("td").last().html(statusStr);
-            			    	
+            			    	for (var i = 0; i < multiplePrice.length; i++) {
+            			    		var v = multiplePrice[i].split("-");    		
+            			    		var td = $('#' + v[0]).closest("td");
+            			    		var am = v[1];
+		        	       		    td.html(am.toLocaleString('en-IN'));
+		        	       		    
+		        	       		    var statusStr = "Updated";
+		        	       		 	td.closest("tr").find("td").last().html(statusStr);
+			        	       		 /* switch (status) {
+			        	       		    case "0" : statusStr = "<fmt:message key='debit.type.no'/>";
+			        	       		    break;
+			        	       			case "1" : statusStr = "<fmt:message key='debit.type.yes'/>";
+			        	       			td.closest("tr").removeClass("impress");
+			        	       			break;
+			        	       			case "2" : 
+			        	       			case "3" : statusStr = "<fmt:message key='debit.type.still'/>";
+			        	       			break;
+		        	       		    } */
+            			    	}	        
             			    },
             			    error: function(msg) {
             			    	alert(msg);
@@ -208,7 +221,6 @@ function reviewCollectMoney(multiplePrice) {
 	           }
 	       }
 	});
-	
 	$(".modal-content #vi-id").val(data.voucherNoPrint);
 	$(".modal-content #vi-date").datepicker("setDate", new Date());
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {

@@ -52,8 +52,8 @@
 	<div class="row">
 		<div class="form-group col-md-10">
 			<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
-			<button class="btn btn-success" onclick="processCollectMoney(0)"><fmt:message key="debit.collect.cash"></fmt:message></button>
-			<button class="btn btn-success" onclick="processCollectMoney(1)"><fmt:message key="debit.collect.bank"></fmt:message></button>
+			<button type="button" class="btn btn-success" onclick="processCollectMoney(0)"><fmt:message key="debit.collect.cash"></fmt:message></button>
+			<button type="button" class="btn btn-success" onclick="processCollectMoney(1)"><fmt:message key="debit.collect.bank"></fmt:message></button>
 		</div>
 		 
 	</div> 

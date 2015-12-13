@@ -121,5 +121,6 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	//for thu tien khach hang
 	void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo);
 	void updatePhiAELAndChiHo(List<AccountingTransportExport> list);
-	Integer updateCollectMoneyStatus(Long jobId, int feeType);
+//	Integer updateCollectMoneyStatus(Long jobId, int feeType);
+	void updateCollectMoneyStatus(Map<Long, Integer> feeTypeMap);
 }
