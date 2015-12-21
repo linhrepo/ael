@@ -63,11 +63,11 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 	List<Exfeetable> findByDocsgeneralAndMasterFeeAndNameAndAmountAndVatAndInvoiceNo(Docsgeneral docsgeneral, 
 			Configuration masterFee, Configuration name,BigDecimal amount, BigDecimal vat, String invoiceNo);
 	
-	/**
-	 * Find all by docsgeneral
-	 * @param truckingdetail
-	 * @return
-	 */
-	@Query("from Exfeetable e where e.docsgeneral is not null ")
-	List<Exfeetable> findAllHaveDocsgeneral();
+	
+	
+	@Query("select e "
+			+ "from Exfeetable e where e.docsgeneral is not null "
+			+ "group by e.docsgeneral, e.masterFee, e.name, e.amount, e.vat, e.invoiceNo having count(e) > 1")
+	List<Exfeetable> findAllDuplicates();
+
 }

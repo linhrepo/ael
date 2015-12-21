@@ -103,7 +103,6 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 					mapFee.put(key, exfeetable);
 				} else {
 					mapFee.get(key).setIsDuplicated(true);//go back and set for the first-in exfeetable 
-					
 					exfeetable.setIsDuplicated(true);
 					hasDuplicated = true;
 				}
@@ -113,8 +112,8 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 	}
 
 	@Override
-	public List<Exfeetable> findAllHaveDocsgeneral() {
-		return exfeetableRepository.findAllHaveDocsgeneral();
+	public List<Exfeetable> findAllDuplicates() {
+		return exfeetableRepository.findAllDuplicates();
 	}
 
 }

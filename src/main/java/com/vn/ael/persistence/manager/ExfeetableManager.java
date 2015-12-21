@@ -32,7 +32,7 @@ public interface ExfeetableManager extends GenericManager<Exfeetable> {
 	
 	List<Exfeetable> findByRefund(Long id);
 	
-	List<Exfeetable> findAllHaveDocsgeneral();
+	List<Exfeetable> findAllDuplicates();
 	
 	boolean updateDuplicated(List<Exfeetable> exfeetables);
 

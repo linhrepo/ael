@@ -51,33 +51,17 @@ public class EntityServiceImpl implements EntityService {
 	@Override
 	public List<Docsgeneral> listContainsDuplicatedFees() {
 		List<Docsgeneral> duplicated = new ArrayList<Docsgeneral>();
-		List<Docsgeneral> docsgenerals = new ArrayList<Docsgeneral>();
+		
+		//List<Exfeetable> fees = exfeetableManager.findAllHaveDocsgeneral();
+		List<Exfeetable> fees = exfeetableManager.findAllDuplicates();
 		Map<Long, List<Exfeetable>> mapFee = new HashMap<Long, List<Exfeetable>>();
-		List<Exfeetable> fees = exfeetableManager.findAllHaveDocsgeneral();
 		for (Exfeetable fee : fees) {
-			if (fee.getDocsgeneral() != null) {
-				Long key = fee.getDocsgeneral().getId();
-				if (mapFee.get(key) == null) {
-					docsgenerals.add(fee.getDocsgeneral());
-					List<Exfeetable> list = new ArrayList<Exfeetable>();
-					list.add(fee);
-					mapFee.put(key, list);
-				} else {
-					mapFee.get(key).add(fee);
-				}
+			Long key = fee.getDocsgeneral().getId();
+			if (mapFee.get(key) == null) {
+				duplicated.add(fee.getDocsgeneral());
 			}
 		}
-
-		if (docsgenerals != null && !docsgenerals.isEmpty()){
-			for (Docsgeneral docsgeneral : docsgenerals){
-				//docsgeneral.setIsContainDuplicated(exfeetableManager.updateDuplicated(exfeetableManager.findByDocsgeneral(docsgeneral)));
-				docsgeneral.setIsContainDuplicated(exfeetableManager.updateDuplicated(mapFee.get(docsgeneral.getId())));
-				if (docsgeneral.getIsContainDuplicated()){
-					duplicated.add(docsgeneral);
-				}
-			}
-		}
-
+		
 		return duplicated;
 	}
 
