@@ -418,8 +418,13 @@ public class AccountingController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST);
 		
 		List<Docsgeneral> docsgenerals = docsgeneralManager.searchFeeTables(searchFeeTables);
-		if (searchFeeTables.getIsDuplicated()){
+		/*if (searchFeeTables.getIsDuplicated()){
 			docsgenerals = entityService.listContainsDuplicatedFees(docsgenerals);
+		}*/
+		if (searchFeeTables.getIsDuplicated()){
+			docsgenerals = entityService.listContainsDuplicatedFees();
+		} else {
+			docsgenerals = docsgeneralManager.searchFeeTables(searchFeeTables);
 		}
 		mav.addObject(docsgenerals);
 		
@@ -509,10 +514,12 @@ public class AccountingController extends BaseFormController {
 			throws Exception {
 		// Model model = new ExtendedModelMap();
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN);
-		
-		List<Docsgeneral> docsgenerals = docsgeneralManager.searchFeeTables(searchFeeTables);
+		System.out.println("isDupAdmin");
+		List<Docsgeneral> docsgenerals = null;
 		if (searchFeeTables.getIsDuplicated()){
-			docsgenerals = entityService.listContainsDuplicatedFees(docsgenerals);
+			docsgenerals = entityService.listContainsDuplicatedFees();
+		} else {
+			docsgenerals = docsgeneralManager.searchFeeTables(searchFeeTables);
 		}
 		mav.addObject(docsgenerals);
 		

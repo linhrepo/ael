@@ -82,13 +82,14 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 	private String refCode;
 	
 	public String getRefCode(){
-		if(this.getDocsgeneral() != null && this.getDocsgeneral().getId()!= null){
+		/*if(this.getDocsgeneral() != null && this.getDocsgeneral().getId()!= null){
 			User e = refund.getEmployee();
 			this.refCode = e.getUsername();
 			this.refCode = e.getUsername()+AELConst.SPLASH +String.valueOf(this.getDocsgeneral().getId());
 		}
-
-		return this.refCode;
+		
+		return this.refCode;*/
+		return this.refund.getRefCode();
 	}
 	
 	public Exfeetable() {

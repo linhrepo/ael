@@ -21,6 +21,6 @@ public interface EntityService {
 	 */
 	void checkUpdateInfo(BasedEntityTracking basedEntityTracking, boolean isNew, HttpServletRequest request);
 	
-	List<Docsgeneral> listContainsDuplicatedFees(List<Docsgeneral> docsgenerals);
+	List<Docsgeneral> listContainsDuplicatedFees();
 	
 }

@@ -2,24 +2,22 @@ package com.vn.ael.persistence.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.persistence.entity.BasedEntityTracking;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.manager.ConfigurationManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.UserManager;
-import com.vn.ael.persistence.repository.CustomerRepository;
-import com.vn.ael.persistence.repository.UserRepository;
 
 @Service
 public class EntityServiceImpl implements EntityService {
@@ -51,17 +49,35 @@ public class EntityServiceImpl implements EntityService {
 	
 
 	@Override
-	public List<Docsgeneral> listContainsDuplicatedFees(
-			List<Docsgeneral> docsgenerals) {
-		List<Docsgeneral> duplicated = new ArrayList<>();
+	public List<Docsgeneral> listContainsDuplicatedFees() {
+		List<Docsgeneral> duplicated = new ArrayList<Docsgeneral>();
+		List<Docsgeneral> docsgenerals = new ArrayList<Docsgeneral>();
+		Map<Long, List<Exfeetable>> mapFee = new HashMap<Long, List<Exfeetable>>();
+		List<Exfeetable> fees = exfeetableManager.findAllHaveDocsgeneral();
+		for (Exfeetable fee : fees) {
+			if (fee.getDocsgeneral() != null) {
+				Long key = fee.getDocsgeneral().getId();
+				if (mapFee.get(key) == null) {
+					docsgenerals.add(fee.getDocsgeneral());
+					List<Exfeetable> list = new ArrayList<Exfeetable>();
+					list.add(fee);
+					mapFee.put(key, list);
+				} else {
+					mapFee.get(key).add(fee);
+				}
+			}
+		}
+
 		if (docsgenerals != null && !docsgenerals.isEmpty()){
 			for (Docsgeneral docsgeneral : docsgenerals){
-				docsgeneral.setIsContainDuplicated(exfeetableManager.updateDuplicated(exfeetableManager.findByDocsgeneral(docsgeneral)));
+				//docsgeneral.setIsContainDuplicated(exfeetableManager.updateDuplicated(exfeetableManager.findByDocsgeneral(docsgeneral)));
+				docsgeneral.setIsContainDuplicated(exfeetableManager.updateDuplicated(mapFee.get(docsgeneral.getId())));
 				if (docsgeneral.getIsContainDuplicated()){
 					duplicated.add(docsgeneral);
 				}
 			}
 		}
+
 		return duplicated;
 	}
 

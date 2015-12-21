@@ -5,7 +5,9 @@ package com.vn.ael.persistence.manager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,22 +90,31 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 		return exfeetableRepository.findByRefund(refund);
 	}
 	public boolean updateDuplicated(List<Exfeetable> exfeetables) {
-		// TODO Auto-generated method stub
 		boolean hasDuplicated = false;
 		if (exfeetables != null && !exfeetables.isEmpty()){
-			for (Exfeetable exfeetable : exfeetables){
-				if (exfeetable.getTotal()!= null && exfeetable.getTotal().compareTo(BigDecimal.ZERO) >0 && exfeetable.getInvoiceNo() != null && !exfeetable.getInvoiceNo().isEmpty()){
-					List<Exfeetable> persitted = exfeetableRepository.findByDocsgeneralAndMasterFeeAndNameAndAmountAndVatAndInvoiceNo(exfeetable.getDocsgeneral(), exfeetable.getMasterFee(), exfeetable.getName()
-							,exfeetable.getAmount(), exfeetable.getVat(), exfeetable.getInvoiceNo());
-					exfeetable.setIsDuplicated(false);
-					if (persitted != null && !persitted.isEmpty() && persitted.size() >1){
-						exfeetable.setIsDuplicated(true);
-						hasDuplicated = true;
-					}
+			Map<String, Exfeetable> mapFee = new HashMap<String, Exfeetable>();
+			
+			for (Exfeetable exfeetable : exfeetables) {
+				
+				String key = exfeetable.getDocsgeneral().getId() + "_" +exfeetable.getMasterFee().getId() + "_" + exfeetable.getName().getId()
+						+ "_" + exfeetable.getAmount() + "_" + exfeetable.getVat() + "_" + exfeetable.getInvoiceNo();
+				
+				if (mapFee.get(key) == null) {
+					mapFee.put(key, exfeetable);
+				} else {
+					mapFee.get(key).setIsDuplicated(true);//go back and set for the first-in exfeetable 
+					
+					exfeetable.setIsDuplicated(true);
+					hasDuplicated = true;
 				}
 			}
 		}
 		return hasDuplicated;
+	}
+
+	@Override
+	public List<Exfeetable> findAllHaveDocsgeneral() {
+		return exfeetableRepository.findAllHaveDocsgeneral();
 	}
 
 }
