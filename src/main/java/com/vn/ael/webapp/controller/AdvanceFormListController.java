@@ -31,6 +31,7 @@ import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
+import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Advancedetail;
 import com.vn.ael.persistence.entity.Advanceform;
@@ -614,7 +615,9 @@ public class AdvanceFormListController extends BaseFormController {
 						for (Advancedetail ad : af.getAdvancedetails()) {
 							LiabilityDetail li = new LiabilityDetail();
 							li.setDate(af.getDate());
-							li.setType("Phiếu chi");
+							//li.setType("Phiếu chi");
+							li.setType(VoucherType.PHIEUCHI);
+							li.setVoucherNo(af.getMoneyBook() != null ? af.getMoneyBook().getVoucherNoPrint() : "");
 							li.setRefcode(af.getRefCode());
 							li.setExplain(ad.getDescription());
 							li.setDebt(ad.getAmount());
@@ -639,7 +642,9 @@ public class AdvanceFormListController extends BaseFormController {
 						for (Refunddetail rd : rf.getRefunddetails()) {
 							LiabilityDetail li = new LiabilityDetail();
 							li.setDate(rf.getDate());
-							li.setType("Phiếu thu");
+							//li.setType("Phiếu thu");
+							li.setType(VoucherType.PHIEUTHU);
+							li.setVoucherNo(rd.getRefund().getMoneyBook() != null ? rd.getRefund().getMoneyBook().getVoucherNoPrint() : "");
 							li.setRefcode(rf.getRefCode());
 							li.setExplain(rd.getDescription());
 							BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();
@@ -711,7 +716,9 @@ public class AdvanceFormListController extends BaseFormController {
 							for (Advancedetail ad : af.getAdvancedetails()) {
 								LiabilityDetail li = new LiabilityDetail();
 								li.setDate(af.getCreatedDate());
-								li.setType("Phiếu chi");
+								//li.setType("Phiếu chi");
+								li.setType(VoucherType.PHIEUCHI);
+								li.setVoucherNo(af.getMoneyBook() != null ? af.getMoneyBook().getVoucherNoPrint() : "");
 								li.setRefcode(af.getRefCode());
 								li.setExplain(ad.getDescription());
 								li.setDebt(ad.getAmount());
@@ -736,7 +743,9 @@ public class AdvanceFormListController extends BaseFormController {
 							for (Refunddetail rd : rf.getRefunddetails()) {
 								LiabilityDetail li = new LiabilityDetail();
 								li.setDate(rf.getCreatedDate());
-								li.setType("Phiếu thu");
+								//li.setType("Phiếu thu");
+								li.setType(VoucherType.PHIEUTHU);
+								li.setVoucherNo(rd.getRefund().getMoneyBook() != null ? rd.getRefund().getMoneyBook().getVoucherNoPrint() : "");
 								li.setRefcode(rf.getRefCode());
 								li.setExplain(rd.getDescription());
 								BigDecimal amount = rd.getAmount() != null ? rd.getAmount() : rd.getOAmount();

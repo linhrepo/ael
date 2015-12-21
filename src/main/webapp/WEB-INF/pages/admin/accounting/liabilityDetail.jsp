@@ -24,6 +24,7 @@
 				<th><fmt:message key="liability.date" /></th>
 				<%-- <th><fmt:message key="liability.id" /></th> --%>
 				<th><fmt:message key="liability.type" /></th>
+				<th><fmt:message key="liability.voucherno" /></th>
 				<th><fmt:message key="liability.refcode" /></th>
 				<th><fmt:message key="liability.explain" /></th>
 				<th><fmt:message key="liability.debt" /></th>
@@ -32,18 +33,7 @@
 	
 			</tr>
 		</thead>
-		<%-- <tfoot>
-			<tr>
-				<th><fmt:message key="liability.date" /></th>
-				<th><fmt:message key="liability.id" /></th>
-				<th><fmt:message key="liability.type" /></th>
-				<th><fmt:message key="liability.explain" /></th>
-				<th><fmt:message key="liability.debt" /></th>
-				<th><fmt:message key="liability.refund" /></th>
-				<th><fmt:message key="liability.remain" /></th>
-	
-			</tr>
-		</tfoot> --%>
+
 		<tbody>
 			<tr>
 				<td></td>
@@ -58,7 +48,8 @@
 				<tr>
 					<td><fmt:formatDate value="${li.date}" pattern="dd/MM/yyyy"/></td>
 					<%-- <td>${li.number}</td> --%>
-					<td>${li.type}</td>
+					<td><fmt:message key="${li.type.printValue}" /></td>
+					<td>${li.voucherNo}</td>
 					<td>${li.refcode}</td>
 					<td>${li.explain}</td>
 					<td><fmt:formatNumber pattern="#,###" value="${li.debt}"/></td>

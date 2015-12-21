@@ -6,6 +6,8 @@ package com.vn.ael.webapp.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.vn.ael.constants.VoucherType;
+
 /**
  * @author dbkp
  *
@@ -13,7 +15,8 @@ import java.util.Date;
 public class LiabilityDetail {
 	private Long employeeId;
 	private Date date;
-	private String type;
+	private VoucherType type;
+	private String voucherNo;
 	private String refcode;
 	private String explain;
 	private BigDecimal debt;
@@ -30,7 +33,7 @@ public class LiabilityDetail {
 	 * @param totalAdvanceAfter
 	 * @param totalRefundAfter
 	 */
-	public LiabilityDetail(Long id, Date date, String type,
+	public LiabilityDetail(Long id, Date date, VoucherType type,
 			String explain, BigDecimal debt,
 			BigDecimal refund, BigDecimal remain) {
 		super();
@@ -54,12 +57,18 @@ public class LiabilityDetail {
 	}
 
 
-	public String getType() {
+	public VoucherType getType() {
 		return type;
 	}
 
 
-	public void setType(String type) {
+	public String getVoucherNo() {
+		return voucherNo;
+	}
+	public void setVoucherNo(String voucherNo) {
+		this.voucherNo = voucherNo;
+	}
+	public void setType(VoucherType type) {
 		this.type = type;
 	}
 

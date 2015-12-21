@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,11 +13,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import org.appfuse.model.User;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.webapp.util.CalculationUtil;
 
@@ -59,7 +58,7 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 	@JoinColumn(name="masterFee")
 	private Configuration masterFee;
 	
-	@OneToOne(mappedBy = "feeowner")
+	@OneToOne(mappedBy = "feeowner", cascade = {CascadeType.ALL})
 	private Extendfeeacc extendfeeacc;
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)
