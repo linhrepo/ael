@@ -13,9 +13,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.appfuse.model.User;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.webapp.util.CalculationUtil;
 
@@ -81,14 +83,17 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 	private String refCode;
 	
 	public String getRefCode(){
-		/*if(this.getDocsgeneral() != null && this.getDocsgeneral().getId()!= null){
-			User e = refund.getEmployee();
-			this.refCode = e.getUsername();
-			this.refCode = e.getUsername()+AELConst.SPLASH +String.valueOf(this.getDocsgeneral().getId());
+		if (this.refund != null) {
+			return this.refund.getRefCode();
+		} else {
+			if(this.getDocsgeneral() != null && this.getDocsgeneral().getId()!= null){
+				User e = refund.getEmployee();
+				this.refCode = e.getUsername();
+				this.refCode = e.getUsername()+AELConst.SPLASH +String.valueOf(this.getDocsgeneral().getId());
+			}
+			
+			return this.refCode;
 		}
-		
-		return this.refCode;*/
-		return this.refund.getRefCode();
 	}
 	
 	public Exfeetable() {

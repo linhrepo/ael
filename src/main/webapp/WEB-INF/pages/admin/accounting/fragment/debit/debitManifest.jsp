@@ -3,6 +3,9 @@
 .highlight {
 	background : #38b44a !important;
 }
+.input-amount {
+	margin: 0.2em !important;
+}
 </style>
 <head>
     <title><fmt:message key="feeTablesacc.title"/></title>
@@ -61,7 +64,7 @@
               			<%-- no for: empty, isCollectedAll (1) and not collected Ael (!2) --%>
               			
               			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2 and trucking.phiAel != '0.0000'}">
-              				<button id='${trucking.id}_0' onclick="collectMoney('${trucking.id}_0', ${trucking.phiAel})">
+              				<button id='${trucking.id}_0' onclick="collectMoney('${trucking.jobNo}','${trucking.id}_0', ${trucking.phiAel})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -72,7 +75,7 @@
               	<td>
               		<c:choose>
               			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3 and trucking.phiChiHo != '0.00'}">
-              				<button id='${trucking.id}_1' onclick="collectMoney('${trucking.id}_1', ${trucking.phiChiHo})">
+              				<button id='${trucking.id}_1' onclick="collectMoney('${trucking.jobNo}', '${trucking.id}_1', ${trucking.phiChiHo})">
               				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
@@ -110,6 +113,7 @@
 			<%-- <tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr> --%>
 			<tr><td><fmt:message key="moneybook.feeType"/></td><td id="vi-vouchertype"></td></tr>
 			<tr><td><fmt:message key="moneybook.amount"/></td><td id="vi-amount"></td></tr>
+			<tr><td><fmt:message key="moneybook.sum"/></td><td id="vi-sum"></td></tr>
 			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
 			<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
 			<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
@@ -119,9 +123,10 @@
 </div>
 <script>
 var multiplePrice = [];
-function collectMoney(buttonId, amount) {
+var multipleAmount = "";
+function collectMoney(jobNo, buttonId, amountButton) {
 	var button = $("#"+buttonId);
-	var value = buttonId + "-" + amount;
+	var value = buttonId + "-" + amountButton;
 	
 	if (button.hasClass("highlight")) {
 		var index = multiplePrice.indexOf(value);
@@ -130,6 +135,13 @@ function collectMoney(buttonId, amount) {
 			button.removeClass("highlight");
 		}	
 	} else {
+		var type = buttonId.substring(buttonId.length - 1);
+		if (type == '0') {
+			jobNo += "_AEL";
+		} else {
+			jobNo += "_CH";
+		}
+		multipleAmount +=  jobNo + "<input class='input-amount' id='" + buttonId + "_" + amountButton + "' value='" + amountButton + "'></input><br>";
 		multiplePrice.push(value);
 		button.addClass("highlight");
 	}
@@ -170,7 +182,8 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	/* $("#vi-refcodes").html(jobNo); */
 	var feeTypeName = feeType == 0 ? "NTTK" : "PT";
 	$("#vi-vouchertype").html(feeTypeName);
-	$("#vi-amount").html(amount.toLocaleString('en-IN'));
+	$("#vi-amount").html(multipleAmount);
+	$("#vi-sum").html(amount.toLocaleString('en-IN'));
 	
 	bootbox.dialog({
 		   closeButton: false,
@@ -181,6 +194,8 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	    	   "Confirm": {
 	               className: "btn-blue",
 	               callback: function () {
+	            	   
+	               		
             	    	$.ajax({
             			    type: "POST",
             			    url:  "saveMoney",
