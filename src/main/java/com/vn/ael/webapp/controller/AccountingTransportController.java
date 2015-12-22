@@ -28,9 +28,8 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
-import com.vn.ael.persistence.entity.Nhathau;
-import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.CustomerManager;
+import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.OfferPriceManager;
 import com.vn.ael.persistence.service.AccountingTransService;
@@ -64,6 +63,13 @@ public class AccountingTransportController extends BaseFormController {
     @Autowired
     public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
         this.docsgeneralManager = docsgeneralManager;
+    }
+    
+    private DocsAccountingManager docsAccountingManager = null;
+    
+    @Autowired
+    public void setDocsAccountingManager(final DocsAccountingManager docsAccountingManager) {
+        this.docsAccountingManager = docsAccountingManager;
     }
     
     private AccountingTransService accountingTransService;
@@ -162,7 +168,7 @@ public class AccountingTransportController extends BaseFormController {
        if (accountingTrans!=null) {
     	   Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
     	   List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map.get("tranreports");
-    	   docsgeneralManager.updatePhiAELAndChiHo(accountingTransExport);
+    	   docsAccountingManager.updatePhiAELAndChiHo(accountingTransExport);
     	   
     	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
        }

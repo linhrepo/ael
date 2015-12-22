@@ -94,6 +94,7 @@ public interface URLReference {
 	String TRUCKING_SEARCH = "/admin/trucking/searchTrucking";
 	String ACCPACKAGEINFO_SEARCH = "/admin/accounting/searchAccPackageInfo";
 	String ACCEXHIBITION_SEARCH = "/admin/accounting/searchAccExhibition";	
+	//aaa
 	String FEETABLES_SEARCH = "/admin/accounting/searchFeeTables";
 	String FEETABLES_ADMIN_SEARCH = "/admin/searchFeeTables";
 	String FEENHATHAUTABLES_SEARCH = "/admin/accounting/searchFeeNhathauTables";
@@ -147,10 +148,15 @@ public interface URLReference {
 	
 	String ACCOUNTING_MANAGE_DEBIT = "/admin/accounting/manageDebit";
 	String ACCOUNT_SEARCH_DEBIT = "/admin/accounting/searchDebit";
-	//String DEBIT_APPROVE_COLLECT = "/admin/accounting/approveCollectMoney";
 	String ACCOUNTING_COLLECT_MONEY_AJAX = "/admin/accounting/collectMoney";
-	String ACCOUNTING_SAVE_MONEYBOOK_AJAX = "/admin/accounting/saveMoney";
 	
+	//trucking fee payment
+	String ACCOUNTING_MANAGE_CONTRACTOR_PAYMENT = "/admin/accounting/manageContractorPayment";
+	String ACCOUNT_SEARCH_TRUCKING_FEE = "/admin/accounting/searchTruckingFee";
+	String ACCOUNTING_PAY_MONEY_AJAX = "/admin/accounting/payMoney";
+	String ACCOUNTING_SAVE_TRUCKING_MONEYBOOK_AJAX = "/admin/accounting/saveTruckingMoney";
+	
+	String ACCOUNTING_SAVE_MONEYBOOK_AJAX = "/admin/accounting/saveMoney";
 	String ACCOUNTING_UPDATE_MONEYBOOK_AJAX = "/admin/accounting/updateMoneybook";
 	
 	String ACCOUNTING_TRANSPORT_SEARCH = "/admin/accounting/transportSearch";

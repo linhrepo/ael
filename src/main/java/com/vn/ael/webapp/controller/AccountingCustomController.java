@@ -29,6 +29,7 @@ import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.manager.AccountingcusManager;
 import com.vn.ael.persistence.manager.ConfigurationManager;
+import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.webapp.dto.DocsSelection;
@@ -51,6 +52,13 @@ public class AccountingCustomController extends BaseFormController {
     @Autowired
     public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
         this.docsgeneralManager = docsgeneralManager;
+    }
+    
+    private DocsAccountingManager docsAccountingManager = null;
+    
+    @Autowired
+    public void setDocsAccountingManager(final DocsAccountingManager docsAccountingManager) {
+        this.docsAccountingManager = docsAccountingManager;
     }
     
 	private AccountingcusManager accountingcusManager = null;
@@ -154,7 +162,7 @@ public class AccountingCustomController extends BaseFormController {
 	        if (chiHo == null) {
 	        	chiHo = BigDecimal.ZERO;
 	        }
-	        this.docsgeneralManager.updatePhiAELAndChiHo(docsgeneral, phiAel, chiHo);
+	        this.docsAccountingManager.updatePhiAELAndChiHo(docsgeneral, phiAel, chiHo);
 	        
 	        if (accountingcus!=null) {
 	        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, map);

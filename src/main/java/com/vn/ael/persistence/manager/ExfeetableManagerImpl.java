@@ -92,7 +92,7 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 		boolean hasDuplicated = false;
 		if (exfeetables != null && !exfeetables.isEmpty()){
 			for (Exfeetable exfeetable : exfeetables){
-				if (exfeetable.getTotal()!= null && exfeetable.getTotal().compareTo(BigDecimal.ZERO) >0 && exfeetable.getInvoiceNo() != null && !exfeetable.getInvoiceNo().isEmpty()){
+				if (exfeetable.getTotal()!= null && exfeetable.getTotal().compareTo(BigDecimal.ZERO) >0){// && exfeetable.getInvoiceNo() != null && !exfeetable.getInvoiceNo().isEmpty()){
 					List<Exfeetable> persitted = exfeetableRepository.findByDocsgeneralAndMasterFeeAndNameAndAmountAndVatAndInvoiceNo(exfeetable.getDocsgeneral(), exfeetable.getMasterFee(), exfeetable.getName()
 							,exfeetable.getAmount(), exfeetable.getVat(), exfeetable.getInvoiceNo());
 					exfeetable.setIsDuplicated(false);

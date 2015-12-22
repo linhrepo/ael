@@ -8,6 +8,7 @@ import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
+import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.Search;
@@ -114,6 +115,8 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
 	List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search);
 	
+	List<Docsgeneral> searchDocsTruckingFee(AccountingContractorPaymentCondition search);
+	
 	Map<Long,String> getJobForSelection();
 
 	void updateDelivery(Docsgeneral docsgeneral);
@@ -121,6 +124,5 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	//for thu tien khach hang
 	void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo);
 	void updatePhiAELAndChiHo(List<AccountingTransportExport> list);
-//	Integer updateCollectMoneyStatus(Long jobId, int feeType);
 	void updateCollectMoneyStatus(Map<Long, Integer> feeTypeMap);
 }

@@ -38,6 +38,7 @@ import com.vn.ael.persistence.repository.MultitypeRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
+import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
 import com.vn.ael.webapp.dto.Search;
@@ -556,6 +557,14 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		docsgeneralRepository.save(doc);
 	}
 	
+	
+	@Override
+	public List<Docsgeneral> searchDocsTruckingFee(
+			AccountingContractorPaymentCondition search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public void updatePhiAELAndChiHo(List<AccountingTransportExport> list) {
 		List<Long> ids = new ArrayList<Long>();
@@ -648,4 +657,5 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		//docsgeneralRepository.save(docs);
 		//return doc.getCollectMoneyStatus();
 	}
+
 }
