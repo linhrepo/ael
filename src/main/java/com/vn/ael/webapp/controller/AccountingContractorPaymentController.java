@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
-import com.vn.ael.enums.CollectMoneyStatusType;
+import com.vn.ael.enums.ContractorPaymentStatusType;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
@@ -62,20 +62,19 @@ public class AccountingContractorPaymentController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_MANAGE_CONTRACTOR_PAYMENT)
-    public ModelAndView manageDebitRequest(HttpServletRequest request) throws Exception {
+    public ModelAndView manageContractorPaymentRequest(HttpServletRequest request) throws Exception {
     	ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_CONTRACTOR_PAYMENT);
-        //model.addAttribute(docsgeneralManager.findByDoAccounting(true));
     	AccountingContractorPaymentCondition searchAccFee = new AccountingContractorPaymentCondition();
         
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
+        mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
         searchAccFee.setTypeOfDocs((long) ServicesType.DVTQ.getValue());
         mav.addObject("accountingContractorPaymentCondition", searchAccFee);
-        //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_COLLECT_MONEY, searchAccFee);
+        //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_CONTRACTOR_PAYMENT, searchAccFee);
            
-        //List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchAccFee);
-       // mav.addObject(docsgenerals);
+        List<Docsgeneral> docsgenerals = docsgeneralManager.searchDocsTruckingFee(searchAccFee);
+        mav.addObject(docsgenerals);
         return mav;
     }
     
@@ -86,7 +85,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT);
 		
 		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
+        mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
 		//List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchDebit);
 		//mav.addObject(docsgenerals);

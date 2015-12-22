@@ -15,7 +15,7 @@
 	<!-- Tab panes -->
 	<!-- <div class="tab-content"> -->
 		<input type="hidden" id="flag" value="${flag }">
-		<div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="fragment/debit/debitManifest.jsp"></jsp:include></div>
+		<div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="fragment/paymentnhathau/contractorPayment.jsp"></jsp:include></div>
 	<!-- </div> -->
 </div>
 

@@ -161,16 +161,16 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="customer") Long customer,
 			@Param(value="collectMoneyStatus") Integer collectMoneyStatus);
 	
-	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
+/*	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(e.customer.id = :customer or :customer is null) and "
-			+ "e.doAccounting =:doAccounting and "
-			+ "(e.collectMoneyStatus =:collectMoneyStatus or :collectMoneyStatus is null) "
+			+ "e.checkByAdmin =:checkByAdmin and "
+			+ "(e.collectMoneyStatus =:moneyStatus or :moneyStatus is null) "
 			+ "group by e")
-	List<Docsgeneral> searchTruckingFee(@Param("doAccounting") Boolean doAccounting,
+	List<Docsgeneral> searchTruckingFee(@Param("checkByAdmin") Boolean checkByAdmin,
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
-			@Param(value="customer") Long customer,
-			@Param(value="collectMoneyStatus") Integer collectMoneyStatus);
+			@Param(value="nhathau") Long nhathau,
+			@Param(value="moneyStatus") Integer moneyStatus);*/
 	
 	@Query(value = "SELECT d.id, d.jobNo, c.name FROM Docsgeneral d left join Customers c on d.customer = c.id", nativeQuery = true)
 	List<Object> findAllNotForSelection();

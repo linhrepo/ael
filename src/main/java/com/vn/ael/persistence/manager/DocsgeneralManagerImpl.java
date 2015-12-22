@@ -543,6 +543,19 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	}
 
 	@Override
+	public List<Docsgeneral> searchDocsTruckingFee(AccountingContractorPaymentCondition search) {
+		ServicesType servicesType = null;
+		Long nhathauId = search.getNhathauId();
+
+		/*if(search.getTypeOfDocs() == null){
+			return docsgeneralRepository.searchTruckingFee(true, servicesType, nhathauId, search.getCollectMoneyStatus());
+		}
+		return docsgeneralRepository.searchTruckingFee(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), nhathauId, search.getCollectMoneyStatus());
+*/
+		return null;
+	}
+	
+	@Override
 	public Map<Long, String> getJobForSelection() {
 		return ConvertUtil.fromDocsList2MapCusNativeNoCus(docsgeneralRepository.findAllNotForSelection());
 	}
@@ -555,14 +568,6 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		doc.setPhiChiHo(phiChiHo);
 
 		docsgeneralRepository.save(doc);
-	}
-	
-	
-	@Override
-	public List<Docsgeneral> searchDocsTruckingFee(
-			AccountingContractorPaymentCondition search) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override
