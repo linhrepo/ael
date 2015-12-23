@@ -18,7 +18,7 @@ public class Extendfeeacc extends BaseEntity implements Serializable {
 	@JoinColumn(name = "description")
 	private Configuration description;
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name= "feeowner")
 	private Exfeetable feeowner;
 

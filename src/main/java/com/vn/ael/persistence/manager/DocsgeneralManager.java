@@ -113,16 +113,15 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
 	List<Docsgeneral> findByDoAccountingAndIsCollectMoney(Boolean doAccounting, Boolean isCollectMoney);
 	
-	List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search);
 	
-	List<Docsgeneral> searchDocsTruckingFee(AccountingContractorPaymentCondition search);
 	
 	Map<Long,String> getJobForSelection();
 
 	void updateDelivery(Docsgeneral docsgeneral);
 	
-	//for thu tien khach hang
+	/*List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search);
+	List<Docsgeneral> searchDocsTruckingFee(AccountingContractorPaymentCondition search);
 	void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo);
 	void updatePhiAELAndChiHo(List<AccountingTransportExport> list);
-	void updateCollectMoneyStatus(Map<Long, Integer> feeTypeMap);
+	void updateCollectMoneyStatus(Map<Long, Integer> feeTypeMap);*/
 }

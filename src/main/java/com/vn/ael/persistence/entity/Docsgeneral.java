@@ -79,6 +79,9 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@OneToOne(mappedBy = "docsgeneral")
 	private Truckingservice truckingservice;
 	
+	@OneToOne(mappedBy = "docsgeneral")
+	private DocsAccounting docsAccounting;
+	
 	private String contactDelivery;
 	
 	private String contactReceive;
@@ -645,5 +648,19 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 
 	public void setCollectMoneyStatus(Integer collectMoneyStatus) {
 		this.collectMoneyStatus = collectMoneyStatus;
+	}
+
+	/**
+	 * @return the docsAccounting
+	 */
+	public DocsAccounting getDocsAccounting() {
+		return docsAccounting;
+	}
+
+	/**
+	 * @param docsAccounting the docsAccounting to set
+	 */
+	public void setDocsAccounting(DocsAccounting docsAccounting) {
+		this.docsAccounting = docsAccounting;
 	}
 }

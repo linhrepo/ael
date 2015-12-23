@@ -27,7 +27,7 @@ import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.CustomerManager;
-import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.util.ControllerUtil;
 
@@ -41,11 +41,11 @@ public class AccountingCollectMoneyController extends BaseFormController {
 		
 	}
 
-	private DocsgeneralManager docsgeneralManager;
+	private DocsAccountingManager docsAccountingManager;
 
     @Autowired
-    public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
-        this.docsgeneralManager = docsgeneralManager;
+    public void setDocsAccountingManager(final DocsAccountingManager docsAccountingManager) {
+        this.docsAccountingManager = docsAccountingManager;
     }
     
     private CustomerManager customerManager = null;
@@ -64,18 +64,18 @@ public class AccountingCollectMoneyController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_MANAGE_DEBIT)
     public ModelAndView manageDebitRequest(HttpServletRequest request) throws Exception {
     	ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT);
-        //model.addAttribute(docsgeneralManager.findByDoAccounting(true));
+        //model.addAttribute(docsAccountingManager.findByDoAccounting(true));
     	AccountingCollectMoneyCondition searchAccFee = new AccountingCollectMoneyCondition();
         
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
-        //mav.addObject("jobList", docsgeneralManager.getAllJob());
+        //mav.addObject("jobList", docsAccountingManager.getAllJob());
         mav.addObject("customers", customerManager.getAll()); 
         searchAccFee.setTypeOfDocs((long) ServicesType.DVTQ.getValue());
         mav.addObject("accountingCollectMoneyCondition", searchAccFee);
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_COLLECT_MONEY, searchAccFee);
            
-        List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchAccFee);
+        List<Docsgeneral> docsgenerals = docsAccountingManager.searchDebit(searchAccFee);
         mav.addObject(docsgenerals);
         return mav;
     }
@@ -88,9 +88,9 @@ public class AccountingCollectMoneyController extends BaseFormController {
 		
 		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
-        //mav.addObject("jobList", docsgeneralManager.getAllJob());
+        //mav.addObject("jobList", docsAccountingManager.getAllJob());
         mav.addObject("customers", customerManager.getAll()); 
-		List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchDebit);
+		List<Docsgeneral> docsgenerals = docsAccountingManager.searchDebit(searchDebit);
 		mav.addObject(docsgenerals);
 
 		return mav;
@@ -158,8 +158,8 @@ public class AccountingCollectMoneyController extends BaseFormController {
 			    			request);
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
-			    	//statusReturn = this.docsgeneralManager.updateCollectMoneyStatus(idLong, feeTypeInt);
-			    	this.docsgeneralManager.updateCollectMoneyStatus(statusMap);
+			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);
+			    	this.docsAccountingManager.updateCollectMoneyStatus(statusMap);
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        }

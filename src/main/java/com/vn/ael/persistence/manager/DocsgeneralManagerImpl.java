@@ -530,30 +530,6 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			Boolean doAccounting, Boolean isCollectMoney) {
 		return docsgeneralRepository.findByDoAccountingAndIsCollectMoney(doAccounting, isCollectMoney);
 	}
-
-	@Override
-	public List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search) {
-		ServicesType servicesType = null;
-		Long cusId = search.getCustomer();
-
-		if(search.getTypeOfDocs() == null){
-			return docsgeneralRepository.searchDebit(true, servicesType, cusId, search.getCollectMoneyStatus());
-		}
-		return docsgeneralRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), cusId, search.getCollectMoneyStatus());
-	}
-
-	@Override
-	public List<Docsgeneral> searchDocsTruckingFee(AccountingContractorPaymentCondition search) {
-		ServicesType servicesType = null;
-		Long nhathauId = search.getNhathauId();
-
-		/*if(search.getTypeOfDocs() == null){
-			return docsgeneralRepository.searchTruckingFee(true, servicesType, nhathauId, search.getCollectMoneyStatus());
-		}
-		return docsgeneralRepository.searchTruckingFee(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), nhathauId, search.getCollectMoneyStatus());
-*/
-		return null;
-	}
 	
 	@Override
 	public Map<Long, String> getJobForSelection() {
@@ -561,7 +537,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	}
 	
 	//for thu tien khach hang
-	@Override
+	/*@Override
 	public void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo) {
 		Docsgeneral doc = docsgeneralRepository.getOne(docsgeneral.getId());
 		doc.setPhiAEL(phiAel);
@@ -590,7 +566,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		}
 		
 		docsgeneralRepository.save(docs);
-	}
+	}*/
 	
 	/*@Override
 	public Integer updateCollectMoneyStatus(Long jobId, int feeType) {
@@ -621,7 +597,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		return doc.getCollectMoneyStatus();
 	}*/
 	
-	@Override
+	/*@Override
 	public void updateCollectMoneyStatus(Map<Long, Integer> feeTypeMap) {
 		Set<Long> listId = (Set<Long>) feeTypeMap.keySet();
 		List<Docsgeneral> docs = docsgeneralRepository.findAll(listId);
@@ -658,9 +634,6 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 			
 			docsgeneralRepository.save(doc);
 		}
-			
-		//docsgeneralRepository.save(docs);
-		//return doc.getCollectMoneyStatus();
-	}
+	}*/
 
 }

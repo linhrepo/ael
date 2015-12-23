@@ -26,7 +26,7 @@ import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
-import com.vn.ael.persistence.manager.DocsgeneralManager;
+import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
 import com.vn.ael.webapp.util.ControllerUtil;
@@ -40,12 +40,12 @@ public class AccountingContractorPaymentController extends BaseFormController {
 		this.accountingMoneyBookManager = accountingMoneyBookManager;
 		
 	}
-
-	private DocsgeneralManager docsgeneralManager;
+    
+    private DocsAccountingManager docsAccountingManager;
 
     @Autowired
-    public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
-        this.docsgeneralManager = docsgeneralManager;
+    public void setDocsAccountingManager(final DocsAccountingManager docsAccountingManager) {
+        this.docsAccountingManager = docsAccountingManager;
     }
     
     private NhathauManager nhathauManager = null;
@@ -73,7 +73,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
         mav.addObject("accountingContractorPaymentCondition", searchAccFee);
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_CONTRACTOR_PAYMENT, searchAccFee);
            
-        List<Docsgeneral> docsgenerals = docsgeneralManager.searchDocsTruckingFee(searchAccFee);
+        List<Docsgeneral> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
         mav.addObject(docsgenerals);
         return mav;
     }
@@ -87,7 +87,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
 		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
-		//List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchDebit);
+		//List<Docsgeneral> docsgenerals = docsAccountingManager.searchDebit(searchDebit);
 		//mav.addObject(docsgenerals);
 
 		return mav;
@@ -155,8 +155,8 @@ public class AccountingContractorPaymentController extends BaseFormController {
 			    			request);
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
-			    	//statusReturn = this.docsgeneralManager.updateCollectMoneyStatus(idLong, feeTypeInt);
-			    	this.docsgeneralManager.updateCollectMoneyStatus(statusMap);
+			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);
+			    	this.docsAccountingManager.updateCollectMoneyStatus(statusMap);
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        }

@@ -192,5 +192,29 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 			docsAccountingRepository.save(doc);
 		}*/
 	}
+	
+	
+	@Override
+	public List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search) {
+		ServicesType servicesType = null;
+		Long cusId = search.getCustomer();
+		//only check with docs ready for accounting
+		if(search.getTypeOfDocs() == null){
+			return docsAccountingRepository.searchDebit(true, servicesType, cusId, search.getCollectMoneyStatus());
+		}
+		return docsAccountingRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), cusId, search.getCollectMoneyStatus());
+	}
+
+	@Override
+	public List<Docsgeneral> searchDocsTruckingFee(AccountingContractorPaymentCondition search) {
+		ServicesType servicesType = null;
+		Long nhathauId = search.getNhathauId();
+		//only check with docs ready for accounting
+		/*if(search.getTypeOfDocs() == null){
+			return docsAccountingRepository.searchTruckingFee(true, servicesType, nhathauId, search.getPayMoneyStatus());
+		}
+		return docsAccountingRepository.searchTruckingFee(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), nhathauId, search.getPayMoneyStatus());*/
+		return null;
+	}
 
 }

@@ -150,7 +150,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="checkByAdmin") Boolean checkByAdmin,
 			@Param(value="approved") Boolean approved);
 	
-	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
+	/*	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(e.customer.id = :customer or :customer is null) and "
 			+ "e.doAccounting =:doAccounting and "
@@ -161,7 +161,7 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="customer") Long customer,
 			@Param(value="collectMoneyStatus") Integer collectMoneyStatus);
 	
-/*	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
+	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(e.customer.id = :customer or :customer is null) and "
 			+ "e.checkByAdmin =:checkByAdmin and "

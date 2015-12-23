@@ -7,7 +7,7 @@ public class AccountingContractorPaymentCondition {
 	private Long typeOfDocs;
 	private String job = null;
 	private Long nhathauId;
-	private Integer collectMoneyStatus;
+	private Integer payMoneyStatus;
 	
 	/**
 	 * @return the typeOfDocs
@@ -34,16 +34,16 @@ public class AccountingContractorPaymentCondition {
 		this.job = job;
 	}
 	/**
-	 * @return the collectMoneyStatus
+	 * @return the payMoneyStatus
 	 */
-	public Integer getCollectMoneyStatus() {
-		return collectMoneyStatus;
+	public Integer getPayMoneyStatus() {
+		return payMoneyStatus;
 	}
 	/**
-	 * @param collectMoneyStatus the collectMoneyStatus to set
+	 * @param payMoneyStatus the payMoneyStatus to set
 	 */
-	public void setCollectMoneyStatus(Integer collectMoneyStatus) {
-		this.collectMoneyStatus = collectMoneyStatus;
+	public void setPayMoneyStatus(Integer payMoneyStatus) {
+		this.payMoneyStatus = payMoneyStatus;
 	}
 	
 	public Long getNhathauId() {
