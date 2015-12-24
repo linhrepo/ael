@@ -43,132 +43,103 @@ public class DocsAccounting extends BaseEntity implements Serializable {
 	@JoinColumn(name = "docsgeneral")
 	private Docsgeneral docsgeneral;
 	
-	private BigDecimal phiAel;
-	private BigDecimal phiChiHo;
+	private BigDecimal phiAelChuaThu;
+	private BigDecimal phiChiHoChuaThu;
 	
 	private BigDecimal phiAelDaThu;
 	private BigDecimal phiChiHoDaThu;
 	
-	private BigDecimal tienTrucking;
-	private BigDecimal tienTruckingDaTra;
-	
 	private Integer collectMoneyStatus;
-	private Integer payMoneyStatus;
+
 	/**
 	 * @return the docsgeneral
 	 */
 	public Docsgeneral getDocsgeneral() {
 		return docsgeneral;
 	}
+
 	/**
 	 * @param docsgeneral the docsgeneral to set
 	 */
 	public void setDocsgeneral(Docsgeneral docsgeneral) {
 		this.docsgeneral = docsgeneral;
 	}
+
 	/**
-	 * @return the phiAel
+	 * @return the phiAelChuaThu
 	 */
-	public BigDecimal getPhiAel() {
-		return phiAel;
+	public BigDecimal getPhiAelChuaThu() {
+		return phiAelChuaThu;
 	}
+
 	/**
-	 * @param phiAel the phiAel to set
+	 * @param phiAelChuaThu the phiAelChuaThu to set
 	 */
-	public void setPhiAel(BigDecimal phiAel) {
-		this.phiAel = phiAel;
+	public void setPhiAelChuaThu(BigDecimal phiAelChuaThu) {
+		this.phiAelChuaThu = phiAelChuaThu;
 	}
+
 	/**
-	 * @return the phiChiHo
+	 * @return the phiChiHoChuaThu
 	 */
-	public BigDecimal getPhiChiHo() {
-		return phiChiHo;
+	public BigDecimal getPhiChiHoChuaThu() {
+		return phiChiHoChuaThu;
 	}
+
 	/**
-	 * @param phiChiHo the phiChiHo to set
+	 * @param phiChiHoChuaThu the phiChiHoChuaThu to set
 	 */
-	public void setPhiChiHo(BigDecimal phiChiHo) {
-		this.phiChiHo = phiChiHo;
+	public void setPhiChiHoChuaThu(BigDecimal phiChiHoChuaThu) {
+		this.phiChiHoChuaThu = phiChiHoChuaThu;
 	}
+
 	/**
 	 * @return the phiAelDaThu
 	 */
 	public BigDecimal getPhiAelDaThu() {
 		return phiAelDaThu;
 	}
+
 	/**
 	 * @param phiAelDaThu the phiAelDaThu to set
 	 */
 	public void setPhiAelDaThu(BigDecimal phiAelDaThu) {
 		this.phiAelDaThu = phiAelDaThu;
 	}
+
 	/**
 	 * @return the phiChiHoDaThu
 	 */
 	public BigDecimal getPhiChiHoDaThu() {
 		return phiChiHoDaThu;
 	}
+
 	/**
 	 * @param phiChiHoDaThu the phiChiHoDaThu to set
 	 */
 	public void setPhiChiHoDaThu(BigDecimal phiChiHoDaThu) {
 		this.phiChiHoDaThu = phiChiHoDaThu;
 	}
-	/**
-	 * @return the tienTrucking
-	 */
-	public BigDecimal getTienTrucking() {
-		return tienTrucking;
-	}
-	/**
-	 * @param tienTrucking the tienTrucking to set
-	 */
-	public void setTienTrucking(BigDecimal tienTrucking) {
-		this.tienTrucking = tienTrucking;
-	}
-	/**
-	 * @return the tienTruckingDaTra
-	 */
-	public BigDecimal getTienTruckingDaTra() {
-		return tienTruckingDaTra;
-	}
-	/**
-	 * @param tienTruckingDaTra the tienTruckingDaTra to set
-	 */
-	public void setTienTruckingDaTra(BigDecimal tienTruckingDaTra) {
-		this.tienTruckingDaTra = tienTruckingDaTra;
-	}
+
 	/**
 	 * @return the collectMoneyStatus
 	 */
 	public Integer getCollectMoneyStatus() {
 		return collectMoneyStatus;
 	}
+
 	/**
 	 * @param collectMoneyStatus the collectMoneyStatus to set
 	 */
 	public void setCollectMoneyStatus(Integer collectMoneyStatus) {
 		this.collectMoneyStatus = collectMoneyStatus;
 	}
-	/**
-	 * @return the payMoneyStatus
-	 */
-	public Integer getPayMoneyStatus() {
-		return payMoneyStatus;
-	}
-	/**
-	 * @param payMoneyStatus the payMoneyStatus to set
-	 */
-	public void setPayMoneyStatus(Integer payMoneyStatus) {
-		this.payMoneyStatus = payMoneyStatus;
-	}
+
 	/**
 	 * @return the serialversionuid
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 	
 }

@@ -76,11 +76,11 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		if (docAc == null) {
 			docAc = new DocsAccounting();
 			docAc.setDocsgeneral(docsgeneral);
-			docAc.setPhiAel(phiAel);
-			docAc.setPhiChiHo(phiChiHo);
+			docAc.setPhiAelChuaThu(phiAel);
+			docAc.setPhiChiHoChuaThu(phiChiHo);
 		} else {
-			docAc.setPhiAel(phiAel);
-			docAc.setPhiChiHo(phiChiHo);
+			docAc.setPhiAelChuaThu(phiAel);
+			docAc.setPhiChiHoChuaThu(phiChiHo);
 		}
 		docsAccountingRepository.save(docAc);
 	}
@@ -106,11 +106,11 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 			if (docAc == null) {
 				docAc = new DocsAccounting();
 				docAc.setDocsgeneral(docsgeneral);
-				docAc.setPhiAel(mapMoney.get(docsgeneral.getId())[0]);
-				docAc.setPhiChiHo(mapMoney.get(docsgeneral.getId())[1]);
+				docAc.setPhiAelChuaThu(mapMoney.get(docsgeneral.getId())[0]);
+				docAc.setPhiChiHoChuaThu(mapMoney.get(docsgeneral.getId())[1]);
 			} else {
-				docAc.setPhiAel(mapMoney.get(docsgeneral.getId())[0]);
-				docAc.setPhiChiHo(mapMoney.get(docsgeneral.getId())[1]);
+				docAc.setPhiAelChuaThu(mapMoney.get(docsgeneral.getId())[0]);
+				docAc.setPhiChiHoChuaThu(mapMoney.get(docsgeneral.getId())[1]);
 			}
 			docsAccountingRepository.save(docAc);
 			

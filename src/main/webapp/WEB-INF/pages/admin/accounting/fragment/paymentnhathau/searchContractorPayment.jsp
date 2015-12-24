@@ -43,7 +43,7 @@
 		</div>
 		<div class="form-group col-md-4">
 			<appfuse:label styleClass="control-label" key="contractor.payment.status" />
-			<form:select path="collectMoneyStatus" id="collectMoneyStatus"
+			<form:select path="payMoneyStatus" id="payMoneyStatus"
 				cssClass="form-control select2">
 				<form:option value="">
 					<fmt:message key="searchall" />

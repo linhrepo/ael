@@ -65,10 +65,10 @@
               			
               			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2 and trucking.phiAel != '0.0000'}">
               				<button id='${trucking.id}_0' onclick="collectMoney('${trucking.jobNo}','${trucking.id}_0', ${trucking.phiAel})">
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
+              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAelChuaThu}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber>
+              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAelChuaThu}"></fmt:formatNumber>
               			</c:otherwise>
               		</c:choose>
               	</td>
@@ -76,15 +76,15 @@
               		<c:choose>
               			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3 and trucking.phiChiHo != '0.00'}">
               				<button id='${trucking.id}_1' onclick="collectMoney('${trucking.jobNo}', '${trucking.id}_1', ${trucking.phiChiHo})">
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
+              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHoChuaThu}"></fmt:formatNumber></button>
               			</c:when>
               			<c:otherwise>
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber>
+              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHoChuaThu}"></fmt:formatNumber>
               			</c:otherwise>
               		</c:choose>
               	<td>
               		<c:if test="${not empty trucking.phiAel}">
-              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAel + trucking.phiChiHo}"></fmt:formatNumber>
+              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAelChuaThu + trucking.phiChiHoChuaThu}"></fmt:formatNumber>
               		</c:if>
               	</td>
               	<td>
