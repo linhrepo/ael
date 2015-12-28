@@ -162,7 +162,7 @@ public class AccountingCustomController extends BaseFormController {
 	        if (chiHo == null) {
 	        	chiHo = BigDecimal.ZERO;
 	        }
-	        this.docsAccountingManager.updatePhiAELAndChiHo(docsgeneral, phiAel, chiHo);
+	        this.docsAccountingManager.updateAccounting(docsgeneral, phiAel, chiHo);
 	        
 	        if (accountingcus!=null) {
 	        	ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS, ReportTeamplates.ACCOUNTING_CUSTOM_ITEMS_TEMPLATE, map);

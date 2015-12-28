@@ -149,6 +149,10 @@ public class AccountingTransportController extends BaseFormController {
         Locale locale = request.getLocale();
        
         accountingTransService.saveWholePackage(accountingTrans);
+        Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
+		List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map
+				.get("tranreports");
+		docsAccountingManager.updateAccounting(accountingTransExport);
         
         String key = "accountingcus.updated";
         saveMessage(request, getText(key, locale));
@@ -168,7 +172,6 @@ public class AccountingTransportController extends BaseFormController {
        if (accountingTrans!=null) {
     	   Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
     	   List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map.get("tranreports");
-    	   docsAccountingManager.updatePhiAELAndChiHo(accountingTransExport);
     	   
     	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
        }

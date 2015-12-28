@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Truckingdetail;
 
 /**
  * @author phuongdbk
@@ -39,18 +40,8 @@ public interface DocsAccountingRepository extends
 			@Param(value = "typeOfDocs") ServicesType typeOfDocs,
 			@Param(value = "customer") Long customer,
 			@Param(value = "collectMoneyStatus") Integer collectMoneyStatus);
-
-	/*@Query("SELECT e FROM Docsgeneral e inner join fetch e.docsAccounting f WHERE "
-			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
-			+ "(e.nhathau.id = :nhathau or :nhathau is null) and "
-			+ "e.doAccounting =:doAccounting and "
-			+ "(e.payMoneyStatus =:payMoneyStatus or :payMoneyStatus is null) "
-			)
-	List<Docsgeneral> searchTruckingFee(
-			@Param("doAccounting") Boolean checkByAdmin,
-			@Param(value = "typeOfDocs") ServicesType typeOfDocs,
-			@Param(value = "nhathau") Long nhathau,
-			@Param(value = "payMoneyStatus") Integer payMoneyStatus);*/
+	
+	
 	
 	/*@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "

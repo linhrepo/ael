@@ -115,4 +115,13 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			+ "group by (t.id) "
 			+ "order by t.consteal, t.id")
 	List<Truckingdetail> findByDoAccounting(@Param("doAccounting") Boolean doAccounting);
+	
+	//for accounting
+	@Query("SELECT e FROM Truckingdetail e inner join fetch e.truckAccounting f WHERE "
+			+ "(e.nhathau.id = :nhathau or :nhathau is null) and "
+			+ "(f.payMoneyStatus =:payMoneyStatus or :payMoneyStatus is null) "
+			)
+	List<Truckingdetail> searchTruckingFee(
+			@Param(value = "nhathau") Long nhathau,
+			@Param(value = "payMoneyStatus") Integer payMoneyStatus);
 }

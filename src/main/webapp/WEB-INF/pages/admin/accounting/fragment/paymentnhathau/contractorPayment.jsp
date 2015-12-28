@@ -28,7 +28,7 @@
             <tr>
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
-                <th><fmt:message key="trucking.typeOfDocs"/></th>
+                <%-- <th><fmt:message key="trucking.typeOfDocs"/></th> --%>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="trucking.phiAel"/></th>
                 <th><fmt:message key="trucking.phiChiHo"/></th>
@@ -42,7 +42,7 @@
             <tr>
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
-                <th><fmt:message key="trucking.typeOfDocs"/></th>
+                <%-- <th><fmt:message key="trucking.typeOfDocs"/></th> --%>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th id="phiAel"><fmt:message key="trucking.phiAel"/></th>
                 <th id="phiChiHo"><fmt:message key="trucking.phiChiHo"/></th>

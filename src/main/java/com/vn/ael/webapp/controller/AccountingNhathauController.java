@@ -178,18 +178,18 @@ public class AccountingNhathauController extends BaseFormController{
         String key = "accountingnhathau.updated";
         saveMessage(request, getText(key, locale));
         
-        String startDate = FormatterUtil.formatDate(accountingTrans.getCondition().getStartDate());        
+        /*String startDate = FormatterUtil.formatDate(accountingTrans.getCondition().getStartDate());        
         String endDate = FormatterUtil.formatDate(accountingTrans.getCondition().getEndDate());
-        startDate = startDate.replace("/", "%2F");
-        endDate = endDate.replace("/", "%2F");
         success = "redirect:"+URLReference.ACCOUNTING_NHATHAU+"?nhathauId=" + accountingTrans.getCondition().getNhathauId() + 
         		"&customerId=" + accountingTrans.getCondition().getCustomerId() +
         		"&job=" + accountingTrans.getCondition().getJob() + 
         		"&startDate=" + startDate +
         		"&endDate=" + endDate;
-//        nhathauId=46&customerId=&job=&startDate=01%2F04%2F2015&endDate=18%2F04%2F2015
         success = success.replace("null", "");
-        return success;
+        return success;*/
+        
+        String referer = request.getHeader("Referer");
+        return "redirect:"+ referer;
     }
 	
 	/**

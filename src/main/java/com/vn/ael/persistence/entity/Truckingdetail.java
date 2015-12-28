@@ -49,6 +49,9 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 	@JoinColumn(name="nhathau")
 	private Nhathau nhathau;
 	
+	@OneToOne(mappedBy = "truckingdetail",cascade = CascadeType.ALL)
+	private TruckAccounting truckAccounting;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "truckingdetail")
 	private List<Exfeetable> exfeetables;
 	
@@ -234,6 +237,14 @@ public class Truckingdetail extends BasedChildEntity implements Serializable {
 
 	public void setChihoTruckings(List<Exfeetable> chihoTruckings) {
 		this.chihoTruckings = chihoTruckings;
+	}
+
+	public TruckAccounting getTruckAccounting() {
+		return truckAccounting;
+	}
+
+	public void setTruckAccounting(TruckAccounting truckAccounting) {
+		this.truckAccounting = truckAccounting;
 	}
 	
 	

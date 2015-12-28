@@ -79,7 +79,7 @@ public class Docsgeneral extends BaseEntity implements Serializable {
 	@OneToOne(mappedBy = "docsgeneral")
 	private Truckingservice truckingservice;
 	
-	@OneToOne(mappedBy = "docsgeneral")
+	@OneToOne(mappedBy = "docsgeneral", cascade = CascadeType.ALL)
 	private DocsAccounting docsAccounting;
 	
 	private String contactDelivery;

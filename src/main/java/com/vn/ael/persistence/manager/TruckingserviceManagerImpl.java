@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.manager;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
+import com.vn.ael.persistence.entity.TruckAccounting;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.persistence.repository.ContsealRepository;
@@ -205,6 +207,31 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 			for (Truckingdetail truckingdetail : truckingdetails) {
 				Truckingdetail truckingdetail2 = truckingdetailRepository.findOne(truckingdetail.getId());
 				truckingdetail2.setPhuthu(truckingdetail.getPhuthu());
+				BigDecimal price = truckingdetail.getAccountingPrice() != null ? truckingdetail.getAccountingPrice() : BigDecimal.ZERO;
+				BigDecimal others = truckingdetail.getOtherFees() != null ? truckingdetail.getOtherFees() : BigDecimal.ZERO;
+				BigDecimal phuthu = truckingdetail.getPhuthu() != null ? truckingdetail.getPhuthu() : BigDecimal.ZERO;
+				BigDecimal phiAel = price.add(others).add(phuthu);
+				BigDecimal chiHo = truckingdetail.getChiho();
+				
+				if (truckingdetail2.getTruckAccounting() == null) {
+					//set accounting for this truck
+					TruckAccounting ta = new TruckAccounting();
+					ta.setPhiAelChuaChi(phiAel);
+					ta.setPhiChiHoChuaChi(chiHo);
+					ta.setPhiAelDaChi(BigDecimal.ZERO);
+					ta.setPhiChiHoDaChi(BigDecimal.ZERO);
+					ta.setPayMoneyStatus(0);
+					ta.setTruckingdetail(truckingdetail2);
+					truckingdetail2.setTruckAccounting(ta);
+				} else {
+					if (truckingdetail2.getTruckAccounting().getPayMoneyStatus() == 0) {
+						truckingdetail2.getTruckAccounting().setPhiAelChuaChi(phiAel);
+						truckingdetail2.getTruckAccounting().setPhiChiHoChuaChi(chiHo);
+						truckingdetail2.getTruckAccounting().setPhiAelDaChi(BigDecimal.ZERO);
+						truckingdetail2.getTruckAccounting().setPhiChiHoDaChi(BigDecimal.ZERO);
+					}
+				}
+
 				list.add(truckingdetail2);
 			}
 			truckingdetailRepository.save(list);

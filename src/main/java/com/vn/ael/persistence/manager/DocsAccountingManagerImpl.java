@@ -8,45 +8,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.vn.ael.constants.TypeOfContainer;
-import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.enums.ServicesType;
-import com.vn.ael.persistence.entity.Accountingcus;
-import com.vn.ael.persistence.entity.Accountingcusdetail;
-import com.vn.ael.persistence.entity.Attachment;
-import com.vn.ael.persistence.entity.Contseal;
 import com.vn.ael.persistence.entity.DocsAccounting;
-import com.vn.ael.persistence.entity.Docservice;
 import com.vn.ael.persistence.entity.Docsgeneral;
-import com.vn.ael.persistence.entity.Exfeetable;
-import com.vn.ael.persistence.entity.Inlandsize;
-import com.vn.ael.persistence.entity.Multitype;
 import com.vn.ael.persistence.entity.Truckingdetail;
-import com.vn.ael.persistence.repository.AttachmentRepository;
-import com.vn.ael.persistence.repository.ContsealRepository;
 import com.vn.ael.persistence.repository.DocsAccountingRepository;
-import com.vn.ael.persistence.repository.DocserviceRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
-import com.vn.ael.persistence.repository.ExfeetableRepository;
-import com.vn.ael.persistence.repository.InlandsizeRepository;
-import com.vn.ael.persistence.repository.MultitypeRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
-import com.vn.ael.persistence.repository.TruckingserviceRepository;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
-import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
-import com.vn.ael.webapp.dto.Search;
-import com.vn.ael.webapp.util.CommonUtil;
-import com.vn.ael.webapp.util.ConvertUtil;
-import com.vn.ael.webapp.util.EntityUtil;
 
 /**
  * @author liv1hc
@@ -63,31 +39,43 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
     private DocsgeneralRepository docsgeneralRepository;
     
     @Autowired
+    private TruckingdetailRepository truckingdetailRepository;
+    
+    @Autowired
     public DocsAccountingManagerImpl(final DocsAccountingRepository docsAccountingRepository) {
         this.docsAccountingRepository = docsAccountingRepository;
+        this.truckingdetailRepository = truckingdetailRepository;
         this.repository = docsAccountingRepository;
     }
 	
-	//for thu tien khach hang
+   
+    
+
+    
+	//for cus & exh
 	@Override
-	public void updatePhiAELAndChiHo(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo) {
-		DocsAccounting docAc = docsAccountingRepository.findByDocsgeneral(docsgeneral);
-		
+	public void updateAccounting(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo) {
+		//DocsAccounting docAc = docsAccountingRepository.findByDocsgeneral(docsgeneral);
+		DocsAccounting docAc = docsgeneral.getDocsAccounting();
 		if (docAc == null) {
 			docAc = new DocsAccounting();
 			docAc.setDocsgeneral(docsgeneral);
-			docAc.setPhiAel(phiAel);
-			docAc.setPhiChiHo(phiChiHo);
+			docAc.setPhiAelChuaThu(phiAel);
+			docAc.setPhiChiHoChuaThu(phiChiHo);
+			docAc.setCollectMoneyStatus(0);
+			docsgeneral.setDocsAccounting(docAc);
 		} else {
-			docAc.setPhiAel(phiAel);
-			docAc.setPhiChiHo(phiChiHo);
+			if (docAc.getCollectMoneyStatus() == 0) {
+				docsgeneral.getDocsAccounting().setPhiAelChuaThu(phiAel);
+				docsgeneral.getDocsAccounting().setPhiChiHoChuaThu(phiChiHo);
+			}
 		}
-		docsAccountingRepository.save(docAc);
+		docsgeneralRepository.save(docsgeneral);
 	}
 
 	
 	@Override
-	public void updatePhiAELAndChiHo(List<AccountingTransportExport> list) {
+	public void updateAccounting(List<AccountingTransportExport> list) {//for transport
 		List<Long> ids = new ArrayList<Long>();
 		Map<Long, BigDecimal[]> mapMoney = new HashMap<Long, BigDecimal[]>();
 		
@@ -101,26 +89,22 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		
 		for (Long id : ids) {
 			Docsgeneral docsgeneral = docsgeneralRepository.getOne(id);
-			DocsAccounting docAc = docsAccountingRepository.findByDocsgeneral(docsgeneral);
+			DocsAccounting docAc = docsgeneral.getDocsAccounting();
 			
 			if (docAc == null) {
 				docAc = new DocsAccounting();
 				docAc.setDocsgeneral(docsgeneral);
-				docAc.setPhiAel(mapMoney.get(docsgeneral.getId())[0]);
-				docAc.setPhiChiHo(mapMoney.get(docsgeneral.getId())[1]);
+				docAc.setPhiAelChuaThu(mapMoney.get(docsgeneral.getId())[0]);
+				docAc.setPhiChiHoChuaThu(mapMoney.get(docsgeneral.getId())[1]);
+				docAc.setCollectMoneyStatus(0);
+				docsgeneral.setDocsAccounting(docAc);
 			} else {
-				docAc.setPhiAel(mapMoney.get(docsgeneral.getId())[0]);
-				docAc.setPhiChiHo(mapMoney.get(docsgeneral.getId())[1]);
+				if (docAc.getCollectMoneyStatus() == 0) {
+					docsgeneral.getDocsAccounting().setPhiAelChuaThu(mapMoney.get(docsgeneral.getId())[0]);
+					docsgeneral.getDocsAccounting().setPhiChiHoChuaThu(mapMoney.get(docsgeneral.getId())[1]);
+				}
 			}
-			docsAccountingRepository.save(docAc);
-			
-			/*List<DocsAccounting> docAcs = docsAccountingRepository.findByDocsgeneralIds(ids);
-			for (DocsAccounting doc : docAcs) {
-				doc.setPhiAel(mapMoney.get(doc.getId())[0]);
-				doc.setPhiChiHo(mapMoney.get(doc.getId())[1]);
-			}
-			
-			docsAccountingRepository.save(docAcs);*/
+			docsgeneralRepository.save(docsgeneral);
 		}
 	}
 	
@@ -205,16 +189,13 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		return docsAccountingRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), cusId, search.getCollectMoneyStatus());
 	}
 
+
 	@Override
-	public List<Docsgeneral> searchDocsTruckingFee(AccountingContractorPaymentCondition search) {
+	public List<Truckingdetail> searchDocsTruckingFee(AccountingContractorPaymentCondition search) {
 		ServicesType servicesType = null;
 		Long nhathauId = search.getNhathauId();
 		//only check with docs ready for accounting
-		/*if(search.getTypeOfDocs() == null){
-			return docsAccountingRepository.searchTruckingFee(true, servicesType, nhathauId, search.getPayMoneyStatus());
-		}
-		return docsAccountingRepository.searchTruckingFee(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), nhathauId, search.getPayMoneyStatus());*/
-		return null;
+		
+		return truckingdetailRepository.searchTruckingFee(nhathauId, search.getPayMoneyStatus());
 	}
-
 }

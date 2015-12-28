@@ -23,8 +23,8 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.ContractorPaymentStatusType;
 import com.vn.ael.enums.ServicesType;
-import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
+import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.NhathauManager;
@@ -73,13 +73,13 @@ public class AccountingContractorPaymentController extends BaseFormController {
         mav.addObject("accountingContractorPaymentCondition", searchAccFee);
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_CONTRACTOR_PAYMENT, searchAccFee);
            
-        List<Docsgeneral> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
+        List<Truckingdetail> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
         mav.addObject(docsgenerals);
         return mav;
     }
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCOUNT_SEARCH_TRUCKING_FEE)
-	public ModelAndView searchDebit(HttpServletRequest request, AccountingContractorPaymentCondition searchDebit, BindingResult errors)
+	public ModelAndView searchDebit(HttpServletRequest request, AccountingContractorPaymentCondition searchAccFee, BindingResult errors)
 			throws Exception {
 		
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT);
@@ -87,8 +87,8 @@ public class AccountingContractorPaymentController extends BaseFormController {
 		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
-		//List<Docsgeneral> docsgenerals = docsAccountingManager.searchDebit(searchDebit);
-		//mav.addObject(docsgenerals);
+        List<Truckingdetail> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
+        mav.addObject(docsgenerals);
 
 		return mav;
 	}
