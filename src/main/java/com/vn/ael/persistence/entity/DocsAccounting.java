@@ -43,13 +43,15 @@ public class DocsAccounting extends BaseEntity implements Serializable {
 	@JoinColumn(name = "docsgeneral")
 	private Docsgeneral docsgeneral;
 	
-	private BigDecimal phiAelChuaThu;
-	private BigDecimal phiChiHoChuaThu;
+	private BigDecimal phiAelChuaThu = BigDecimal.ZERO;
+	private BigDecimal phiChiHoChuaThu = BigDecimal.ZERO;
 	
-	private BigDecimal phiAelDaThu;
-	private BigDecimal phiChiHoDaThu;
+	private BigDecimal phiAelDaThu = BigDecimal.ZERO;
+	private BigDecimal phiChiHoDaThu = BigDecimal.ZERO;
 	private Integer collectMoneyStatus;
-
+	
+	@Transient
+	private BigDecimal tong;
 	/**
 	 * @return the docsgeneral
 	 */
@@ -118,6 +120,22 @@ public class DocsAccounting extends BaseEntity implements Serializable {
 	 */
 	public void setCollectMoneyStatus(Integer collectMoneyStatus) {
 		this.collectMoneyStatus = collectMoneyStatus;
+	}
+
+	public BigDecimal getTong() {
+		BigDecimal tong = BigDecimal.ZERO;
+		BigDecimal s1 = this.getPhiAelChuaThu() == null ? tong : this.getPhiAelChuaThu();
+		BigDecimal s2 = this.getPhiAelDaThu() == null ? tong : this.getPhiAelDaThu();
+		BigDecimal s3 = this.getPhiChiHoChuaThu() == null ? tong : this.getPhiChiHoChuaThu();
+		BigDecimal s4 = this.getPhiChiHoDaThu() == null ? tong : this.getPhiChiHoDaThu();
+		
+		tong = tong.add(s1).add(s2).add(s3).add(s4);
+		System.out.println(tong.toString());
+		return tong;
+	}
+
+	public void setTong(BigDecimal tong) {
+		this.tong = tong;
 	}
 
 	/**

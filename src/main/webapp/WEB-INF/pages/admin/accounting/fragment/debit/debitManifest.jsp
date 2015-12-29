@@ -16,14 +16,6 @@
     <jsp:include page="searchDebit.jsp"></jsp:include>
     <input type="hidden" value="${approve }" id="approve"/>
     <table id="truckingList" class="display datatable" cellspacing="0" width="100%" >
-    	<%-- childDetailURL="/admin/accounting/feesDetail" 
-    	emptyMessage="accounting.fees.detailFailed"
-    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="packageInfo.masterFee" />,<fmt:message key="packageInfo.feeName" />,<fmt:message key="packageInfo.feevalue" />,<fmt:message key="packageInfo.feevavat" />,<fmt:message key="packageIngo.total" />,<fmt:message key="accounting.approval" />,<fmt:message key="accounting.approvalDate" />,<fmt:message key="accounting.feeAdminApproval" />,<fmt:message key="accounting.changeApproval" />"
-    	detailTableMapping="masterFee.value,name.value,amount[money],vat[money],total[money],approvedText[Key],dateChange[Date],checkByAdminText[Key]"
-    	editDetail="/admin/accounting/changeApproval"
-    	actionCheck = "checkByAdmin:false,null"
-    	successLoadMessage="accounting.fees.detailLoaded"
-    	> --%>
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
@@ -31,8 +23,8 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.phiAel"/></th>
                 <th><fmt:message key="trucking.phiChiHo"/></th>
-                <th><fmt:message key="trucking.phiAel"/></th>
-                <th><fmt:message key="trucking.phiChiHo"/></th>
+                <th><fmt:message key="trucking.phiAelDaThu"/></th>
+                <th><fmt:message key="trucking.phiChiHoDaThu"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
                 <th><fmt:message key="debit.thutien"/></th>
             </tr>
@@ -45,8 +37,8 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th id="phiAel"><fmt:message key="trucking.phiAel"/></th>
                 <th id="phiChiHo"><fmt:message key="trucking.phiChiHo"/></th>
-                <th id="phiAel"><fmt:message key="trucking.phiAel"/></th>
-                <th id="phiChiHo"><fmt:message key="trucking.phiChiHo"/></th>
+                <th><fmt:message key="trucking.phiAelDaThu"/></th>
+                <th><fmt:message key="trucking.phiChiHoDaThu"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
                 <th><fmt:message key="debit.thutien"/></th>
             </tr>
@@ -86,9 +78,7 @@
               	<td></td>
               	<td></td>
               	<td>
-              		<%-- <c:if test="${not empty trucking.docsAccounting.phiAelChuaThu}">
-              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAelChuaThu + trucking.phiChiHoChuaThu}"></fmt:formatNumber>
-              		</c:if> --%>
+              		${trucking.docsAccounting.tong}
               	</td>
               	<td>
               		<c:choose>
@@ -125,6 +115,7 @@
 var multiplePrice = [];
 var multipleAmount = "";
 function collectMoney(jobNo, buttonId, amountButton) {
+	multipleAmount = "";
 	var button = $("#"+buttonId);
 	var value = buttonId + "-" + amountButton;
 	
