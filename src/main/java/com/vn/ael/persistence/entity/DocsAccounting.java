@@ -48,15 +48,15 @@ public class DocsAccounting extends BaseEntity implements Serializable {
 	
 	private BigDecimal phiAelDaThu;
 	private BigDecimal phiChiHoDaThu;
-
-	
 	private Integer collectMoneyStatus;
+
 	/**
 	 * @return the docsgeneral
 	 */
 	public Docsgeneral getDocsgeneral() {
 		return docsgeneral;
 	}
+
 	/**
 	 * @param docsgeneral the docsgeneral to set
 	 */
@@ -73,27 +73,32 @@ public class DocsAccounting extends BaseEntity implements Serializable {
 	public BigDecimal getPhiChiHoChuaThu() {
 		return phiChiHoChuaThu;
 	}
+
 	public void setPhiChiHoChuaThu(BigDecimal phiChiHoChuaThu) {
 		this.phiChiHoChuaThu = phiChiHoChuaThu;
 	}
+
 	/**
 	 * @return the phiAelDaThu
 	 */
 	public BigDecimal getPhiAelDaThu() {
 		return phiAelDaThu;
 	}
+
 	/**
 	 * @param phiAelDaThu the phiAelDaThu to set
 	 */
 	public void setPhiAelDaThu(BigDecimal phiAelDaThu) {
 		this.phiAelDaThu = phiAelDaThu;
 	}
+
 	/**
 	 * @return the phiChiHoDaThu
 	 */
 	public BigDecimal getPhiChiHoDaThu() {
 		return phiChiHoDaThu;
 	}
+
 	/**
 	 * @param phiChiHoDaThu the phiChiHoDaThu to set
 	 */
@@ -107,13 +112,14 @@ public class DocsAccounting extends BaseEntity implements Serializable {
 	public Integer getCollectMoneyStatus() {
 		return collectMoneyStatus;
 	}
+
 	/**
 	 * @param collectMoneyStatus the collectMoneyStatus to set
 	 */
 	public void setCollectMoneyStatus(Integer collectMoneyStatus) {
 		this.collectMoneyStatus = collectMoneyStatus;
 	}
-	
+
 	/**
 	 * @return the serialversionuid
 	 */

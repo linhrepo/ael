@@ -60,7 +60,7 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 	@JoinColumn(name="masterFee")
 	private Configuration masterFee;
 	
-	@OneToOne(mappedBy = "feeowner", cascade = {CascadeType.MERGE})
+	@OneToOne(mappedBy = "feeowner")
 	private Extendfeeacc extendfeeacc;
 	
 	@NumberFormat(pattern = FormatterPattern.NUMBER_HAS_EXTENSION)

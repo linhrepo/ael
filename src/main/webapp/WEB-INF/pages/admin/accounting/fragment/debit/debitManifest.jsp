@@ -29,12 +29,12 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
-                <th><fmt:message key="trucking.typeOfContainer"/></th>
+                <th><fmt:message key="trucking.phiAel"/></th>
+                <th><fmt:message key="trucking.phiChiHo"/></th>
                 <th><fmt:message key="trucking.phiAel"/></th>
                 <th><fmt:message key="trucking.phiChiHo"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
                 <th><fmt:message key="debit.thutien"/></th>
-                <%-- <th><fmt:message key="table.action"/></th> --%>
             </tr>
         </thead>
  
@@ -43,56 +43,59 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
-                <th><fmt:message key="trucking.typeOfContainer"/></th>
+                <th id="phiAel"><fmt:message key="trucking.phiAel"/></th>
+                <th id="phiChiHo"><fmt:message key="trucking.phiChiHo"/></th>
                 <th id="phiAel"><fmt:message key="trucking.phiAel"/></th>
                 <th id="phiChiHo"><fmt:message key="trucking.phiChiHo"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
                 <th><fmt:message key="debit.thutien"/></th>
-                <%-- <th><fmt:message key="table.action"/></th> --%>
             </tr>
         </tfoot>
         <tbody>
         <c:forEach items="${docsgeneralList}" var="trucking" varStatus="idx">
-        	<tr params="docId=${trucking.id}" class="${trucking.collectMoneyStatus == 1 ? '':'impress' }">
+        	<tr params="docId=${trucking.id}" class="${trucking.docsAccounting.collectMoneyStatus != 1 ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
-              	<td>${trucking.typeOfContainer.value}</td>
-              	<%-- <td><button>${trucking.phiAel}</button></td> --%>
               	<td>
-              		<c:choose>
-              			<%-- no for: empty, isCollectedAll (1) and not collected Ael (!2) --%>
-              			
-              			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2 and trucking.phiAel != '0.0000'}">
-              				<button id='${trucking.id}_0' onclick="collectMoney('${trucking.jobNo}','${trucking.id}_0', ${trucking.phiAel})">
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
-              			</c:when>
-              			<c:otherwise>
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber>
-              			</c:otherwise>
-              		</c:choose>
+              		
+           			<c:if test="${trucking.docsAccounting.phiAelChuaThu != 0.00}">
+					<button id='${trucking.id}_0'
+						onclick="collectMoney('${trucking.jobNo}','${trucking.id}_0', ${trucking.docsAccounting.phiAelChuaThu})">
+						<fmt:formatNumber pattern="#,###"
+							value="${trucking.docsAccounting.phiAelChuaThu}"></fmt:formatNumber>
+					</button>
+					</c:if> 
+					<c:if test="${trucking.docsAccounting.phiAelChuaThu == 0.00}">
+           				0
+           			</c:if>
+
+				</td>
+              	<td>
+              		<c:if test="${trucking.docsAccounting.phiChiHoChuaThu > 0}">
+						<button id='${trucking.id}_1'
+							onclick="collectMoney('${trucking.jobNo}', '${trucking.id}_1', ${trucking.docsAccounting.phiChiHoChuaThu})">
+							<fmt:formatNumber pattern="#,###"
+								value="${trucking.docsAccounting.phiChiHoChuaThu}"></fmt:formatNumber>
+						</button>
+					</c:if> 
+					<c:if test="${trucking.docsAccounting.phiChiHoChuaThu == 0.00}">
+            			0
+            		</c:if>
+				</td>
+              	<td></td>
+              	<td></td>
+              	<td>
+              		<%-- <c:if test="${not empty trucking.docsAccounting.phiAelChuaThu}">
+              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAelChuaThu + trucking.phiChiHoChuaThu}"></fmt:formatNumber>
+              		</c:if> --%>
               	</td>
               	<td>
               		<c:choose>
-              			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3 and trucking.phiChiHo != '0.00'}">
-              				<button id='${trucking.id}_1' onclick="collectMoney('${trucking.jobNo}', '${trucking.id}_1', ${trucking.phiChiHo})">
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
-              			</c:when>
-              			<c:otherwise>
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber>
-              			</c:otherwise>
-              		</c:choose>
-              	<td>
-              		<c:if test="${not empty trucking.phiAel}">
-              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAel + trucking.phiChiHo}"></fmt:formatNumber>
-              		</c:if>
-              	</td>
-              	<td>
-              		<c:choose>
-              			<c:when test="${trucking.collectMoneyStatus == 0}">
+              			<c:when test="${trucking.docsAccounting.collectMoneyStatus == 0}">
               				<fmt:message key="debit.type.no"/>
               			</c:when>
-              			<c:when test="${trucking.collectMoneyStatus == 1}">
+              			<c:when test="${trucking.docsAccounting.collectMoneyStatus == 1}">
               				<fmt:message key="debit.type.yes"/>
               			</c:when>
               			<c:otherwise>
@@ -100,9 +103,6 @@
               			</c:otherwise>
               		</c:choose>
               	</td>
-              	<%-- <td>
-                	<a value="${trucking.id}" class="approveMoney" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
-                </td> --%>
             </tr> 
         </c:forEach>
         </tbody>

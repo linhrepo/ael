@@ -103,6 +103,7 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 					docsgeneral.getDocsAccounting().setPhiAelChuaThu(mapMoney.get(docsgeneral.getId())[0]);
 					docsgeneral.getDocsAccounting().setPhiChiHoChuaThu(mapMoney.get(docsgeneral.getId())[1]);
 				}
+
 			}
 			docsgeneralRepository.save(docsgeneral);
 		}

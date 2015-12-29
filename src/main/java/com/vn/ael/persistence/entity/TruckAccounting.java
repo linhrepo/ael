@@ -58,7 +58,6 @@ public class TruckAccounting extends BaseEntity implements Serializable {
 		this.truckingdetail = truckingdetail;
 	}
 
-	
 	public BigDecimal getPhiAelChuaChi() {
 		return phiAelChuaChi;
 	}
@@ -70,6 +69,7 @@ public class TruckAccounting extends BaseEntity implements Serializable {
 	public BigDecimal getPhiChiHoChuaChi() {
 		return phiChiHoChuaChi;
 	}
+
 
 	public void setPhiChiHoChuaChi(BigDecimal phiChiHoChuaChi) {
 		this.phiChiHoChuaChi = phiChiHoChuaChi;
@@ -90,6 +90,7 @@ public class TruckAccounting extends BaseEntity implements Serializable {
 	public void setPhiChiHoDaChi(BigDecimal phiChiHoDaChi) {
 		this.phiChiHoDaChi = phiChiHoDaChi;
 	}
+
 
 	public Integer getPayMoneyStatus() {
 		return payMoneyStatus;
