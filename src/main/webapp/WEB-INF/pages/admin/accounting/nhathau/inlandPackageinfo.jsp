@@ -15,6 +15,7 @@
 		
 		  <!-- Tab panes -->
 		  <div class="tab-content">
+		  	<br>
 		  	<input type="hidden" id="flag" value="${flag }">
 		    <div role="tabpanel" class="tab-pane active" id="home"><jsp:include page="../fragment/inlandpackageinfo/vantaiList.jsp"></jsp:include></div>
 		    <div role="tabpanel" class="tab-pane" id="settings"><jsp:include page="../fragment/inlandpackageinfo/thongquanList.jsp"></jsp:include></div>

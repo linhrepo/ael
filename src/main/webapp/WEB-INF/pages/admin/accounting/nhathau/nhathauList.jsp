@@ -19,10 +19,10 @@
 		    			<c:forEach items="${nhathauList}" var="nhathau">
 		    				<c:choose>
 			                    <c:when test="${conditions.nhathauId == nhathau.id}">
-			                        <option value="${nhathau.id}" selected="selected">${nhathau.name}</option>
+			                        <option value="${nhathau.id}" selected="selected">${nhathau.code}</option>
 			                    </c:when>
 			                    <c:otherwise>
-			                        <option value="${nhathau.id}">${nhathau.name}</option>
+			                        <option value="${nhathau.id}">${nhathau.code}</option>
 			                    </c:otherwise>
 			                </c:choose>
 		    			</c:forEach>
@@ -78,6 +78,7 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+            	<th><fmt:message key="accountingnhathau.code"/></th>
                 <th><fmt:message key="accountingnhathau.name"/></th>
                 <th><fmt:message key="accountingnhathau.address"/></th>
                 <th><fmt:message key="accountingnhathau.taxno"/></th>
@@ -88,6 +89,7 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="accountingnhathau.code"/></th>
                 <th><fmt:message key="accountingnhathau.name"/></th>
                 <th><fmt:message key="accountingnhathau.address"/></th>
                 <th><fmt:message key="accountingnhathau.taxno"/></th>
@@ -98,6 +100,7 @@
         <c:forEach items="${listNhathau}" var="nhathau" varStatus="idx">
         	<tr>
                 <td>${idx.index+1}</td>
+                <td>${nhathau.code}</td>
               	<td>${nhathau.name}</td>
               	<td>${nhathau.address}</td>
               	<td>${nhathau.taxNo}</td>              	
