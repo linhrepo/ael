@@ -156,7 +156,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
 			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);
-			    	this.docsAccountingManager.updateCollectMoneyStatus(statusMap);
+			    	//this.docsAccountingManager.updateCollectMoneyStatus(statusMap);
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        }

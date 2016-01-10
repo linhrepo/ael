@@ -130,7 +130,6 @@ public class DocsAccounting extends BaseEntity implements Serializable {
 		BigDecimal s4 = this.getPhiChiHoDaThu() == null ? tong : this.getPhiChiHoDaThu();
 		
 		tong = tong.add(s1).add(s2).add(s3).add(s4);
-		System.out.println(tong.toString());
 		return tong;
 	}
 

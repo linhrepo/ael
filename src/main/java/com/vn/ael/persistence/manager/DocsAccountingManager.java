@@ -15,7 +15,7 @@ public interface DocsAccountingManager extends GenericManager<DocsAccounting> {
 
 	void updateAccounting(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo);
 	void updateAccounting(List<AccountingTransportExport> list);
-	void updateCollectMoneyStatus(Map<Long, Integer> feeTypeMap);
+	void updateCollectMoneyStatus(Map<Long, DocsAccounting> accountingMap);
 	List<Docsgeneral> searchDebit(AccountingCollectMoneyCondition search);
 	List<Truckingdetail> searchDocsTruckingFee(AccountingContractorPaymentCondition search);
 }

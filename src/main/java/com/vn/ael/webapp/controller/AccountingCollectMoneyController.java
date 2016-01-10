@@ -1,6 +1,8 @@
 
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
@@ -30,6 +33,9 @@ import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.util.ControllerUtil;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 public class AccountingCollectMoneyController extends BaseFormController {
@@ -133,12 +139,38 @@ public class AccountingCollectMoneyController extends BaseFormController {
     	String validate = ControllerUtil.validateForm(request, voucherType, this.accountingMoneyBookManager);
     	try {
 	    	if (validate.length() == 0) {
-		        String data = request.getParameter("jobNo");
-		        //System.out.println(data);
-		        //8_1, 9_1, 9_0,
-		        String[] listMoney = data.split(",");
-		        Map<Long, Integer> statusMap = new HashMap<Long, Integer>();
-		        for (int i = 0; i < listMoney.length; i++) {
+	    		
+	    		Map<Long, DocsAccounting> accountingMap = new HashMap<Long, DocsAccounting>();
+	    		 
+		        String multiplePrice = request.getParameter("data");
+		        
+		        JSONObject jsonObject = JSONObject.fromObject(multiplePrice);
+		        
+		        JSONArray jsonArray = jsonObject.getJSONArray("moneys");
+		        //System.out.println(jsonArray.toString());
+		        for (int i = 0; i < jsonArray.length(); i++) {
+		        	JSONObject jsonObj = jsonArray.getJSONObject(i);
+		        	Long id = jsonObj.getLong("jobId");
+		        	
+		        	DocsAccounting docsAc = accountingMap.get(id);
+		        	if (docsAc == null) {
+		        		docsAc = new DocsAccounting();
+		        	} 
+		        	
+		        	BigDecimal inputMoney = new BigDecimal(jsonObj.getDouble("inputAmount"));
+		        	Integer type = jsonObj.getInt("type");
+		        	if (type == 0) {
+		        		docsAc.setPhiAelDaThu(inputMoney);
+		        	} else {
+		        		docsAc.setPhiChiHoDaThu(inputMoney);
+		        	}
+		        	docsAc.setCollectMoneyStatus(0);//init, calculate and change later
+		        	accountingMap.put(id, docsAc);
+				}
+		        
+		        //String[] listMoney = data.split(",");
+		        //Map<Long, Integer> statusMap = new HashMap<Long, Integer>();
+		        /*for (int i = 0; i < jsonObject.length; i++) {
 		        	String[] el = listMoney[i].split("_");
 		        	Long jobNo = Long.parseLong(el[0]);
 		        	Integer status = Integer.parseInt(el[1]);
@@ -147,7 +179,7 @@ public class AccountingCollectMoneyController extends BaseFormController {
 		        	} else {
 		        		statusMap.put(jobNo, 2);//both
 		        	}   	
-		        }
+		        }*/
 		        
 		        try {
 		        	//Long idLong = Long.parseLong(id);
@@ -159,7 +191,7 @@ public class AccountingCollectMoneyController extends BaseFormController {
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
 			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);
-			    	this.docsAccountingManager.updateCollectMoneyStatus(statusMap);
+			    	this.docsAccountingManager.updateCollectMoneyStatus(accountingMap);
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,11 +48,7 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
         this.truckingdetailRepository = truckingdetailRepository;
         this.repository = docsAccountingRepository;
     }
-	
-   
-    
 
-    
 	//for cus & exh
 	@Override
 	public void updateAccounting(Docsgeneral docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo) {
@@ -109,73 +106,47 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		}
 	}
 	
-	/*@Override
-	public Integer updateCollectMoneyStatus(Long jobId, int feeType) {
-		Docsgeneral doc = docsgeneralRepository.getOne(jobId);
-		BigDecimal phiAel = doc.getPhiAel();
-		BigDecimal phiChiHo = doc.getPhiChiHo();
-		int currentCollectMoneyStatus = doc.getCollectMoneyStatus();
-		//collect money type
-		// 0: chua thu (default)
-		// 1: da thu
-		// 2: chi moi thu AEL
-		// 3: chi moi thu phiChiHo
-		if (feeType == 0) {//phiAel
-			if (phiChiHo.compareTo(BigDecimal.ZERO) == 0 || currentCollectMoneyStatus == 3) {//phiChiHo = 0 hoac da thu chiho
-				doc.setCollectMoneyStatus(1);
-			} else {
-				doc.setCollectMoneyStatus(2);
-			} 
-		} else if (feeType == 1) {//phiChiHo
-			if (phiAel.compareTo(BigDecimal.ZERO) == 0 || currentCollectMoneyStatus == 2) {//phiAel = 0 hoac da thu ael
-				doc.setCollectMoneyStatus(1);
-			} else {
-				doc.setCollectMoneyStatus(3);
-			}
-		}
-
-		docsgeneralRepository.save(doc);
-		return doc.getCollectMoneyStatus();
-	}*/
-	
 	@Override
-	public void updateCollectMoneyStatus(Map<Long, Integer> feeTypeMap) {
-		/*Set<Long> listId = (Set<Long>) feeTypeMap.keySet();
-		List<Docsgeneral> docs = docsAccountingRepository.findAll(listId);
-		
-		for (Docsgeneral doc : docs) {
-			Integer feeType = feeTypeMap.get(doc.getId());
+	public void updateCollectMoneyStatus(Map<Long, DocsAccounting> accountingMap) {
+		Set<Long> listId = (Set<Long>) accountingMap.keySet();
+		//List<Docsgeneral> docs = docsgeneralRepository.findAll(listId);
+		for (Long id : listId) {
+			Docsgeneral doc = docsgeneralRepository.getOne(id);
+			DocsAccounting docsAcDb = docsAccountingRepository.getOne(doc.getDocsAccounting().getId());
 			
-			if (feeType == 2) {//done
-				doc.setCollectMoneyStatus(1);
+			//input docsAc
+			DocsAccounting docsAc = accountingMap.get(doc.getId());
+			
+			//DocsAccounting docsDb = doc.getDocsAccounting();
+			BigDecimal newAelChuaThu = docsAcDb.getPhiAelChuaThu().subtract(docsAc.getPhiAelDaThu());
+			BigDecimal newAelDaThu = docsAcDb.getPhiAelDaThu().add(docsAc.getPhiAelDaThu());
+			BigDecimal newChiHoChuaThu = docsAcDb.getPhiChiHoChuaThu().subtract(docsAc.getPhiChiHoDaThu());
+			BigDecimal newChiHoDaThu = docsAcDb.getPhiChiHoDaThu().add(docsAc.getPhiChiHoDaThu());
+			//System.out.println(newAelChuaThu + "-" + newAelDaThu + "-" + newChiHoChuaThu + "-" + newChiHoDaThu);
+			//update money
+			docsAcDb.setPhiAelChuaThu(newAelChuaThu);
+			docsAcDb.setPhiAelDaThu(newAelDaThu);
+			docsAcDb.setPhiChiHoChuaThu(newChiHoChuaThu);
+			docsAcDb.setPhiChiHoDaThu(newChiHoDaThu);
+			//update status
+			int status = 0;
+			if (newAelChuaThu.signum() < 1 && newChiHoChuaThu.signum() < 1) {
+				status = 1;//da thu
+			} else if (newAelDaThu.signum() < 1 && newChiHoDaThu.signum() < 1) {
+				status = 0;//chua thu
 			} else {
-				BigDecimal phiAel = doc.getPhiAel();
-				BigDecimal phiChiHo = doc.getPhiChiHo();
-				if (phiAel == null) phiAel = BigDecimal.ZERO;
-				if (phiChiHo == null) phiChiHo = BigDecimal.ZERO;
-				int currentCollectMoneyStatus = doc.getCollectMoneyStatus();
-				//collect money type
-				// 0: chua thu (default)
-				// 1: da thu
-				// 2: chi moi thu AEL
-				// 3: chi moi thu phiChiHo
-				if (feeType == 0) {//phiAel
-					if (phiChiHo.compareTo(BigDecimal.ZERO) == 0 || currentCollectMoneyStatus == 3) {//phiChiHo = 0 hoac da thu chiho
-						doc.setCollectMoneyStatus(1);
-					} else {
-						doc.setCollectMoneyStatus(2);
-					} 
-				} else if (feeType == 1) {//phiChiHo
-					if (phiAel.compareTo(BigDecimal.ZERO) == 0 || currentCollectMoneyStatus == 2) {//phiAel = 0 hoac da thu ael
-						doc.setCollectMoneyStatus(1);
-					} else {
-						doc.setCollectMoneyStatus(3);
-					}
-				}
+				status = 2; //con no
 			}
-			
-			docsAccountingRepository.save(doc);
-		}*/
+			docsAcDb.setCollectMoneyStatus(status);
+			//doc.setDocsAccounting(docsAcDb);
+			//docsgeneralRepository.save(doc);
+			/*System.out.println("=====");
+			System.out.println(docsAcDb.getPhiAelChuaThu());
+			System.out.println(docsAcDb.getPhiChiHoChuaThu());
+			System.out.println(docsAcDb.getPhiAelDaThu());
+			System.out.println(docsAcDb.getPhiChiHoDaThu());*/
+			docsAccountingRepository.save(docsAcDb);
+		}
 	}
 	
 	

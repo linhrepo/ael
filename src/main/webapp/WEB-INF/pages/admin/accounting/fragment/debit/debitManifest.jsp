@@ -21,8 +21,8 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
-                <th><fmt:message key="trucking.phiAel"/></th>
-                <th><fmt:message key="trucking.phiChiHo"/></th>
+                <th><fmt:message key="trucking.phiAelChuaThu"/></th>
+                <th><fmt:message key="trucking.phiChiHoChuaThu"/></th>
                 <th><fmt:message key="trucking.phiAelDaThu"/></th>
                 <th><fmt:message key="trucking.phiChiHoDaThu"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
@@ -35,8 +35,8 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
-                <th id="phiAel"><fmt:message key="trucking.phiAel"/></th>
-                <th id="phiChiHo"><fmt:message key="trucking.phiChiHo"/></th>
+                <th><fmt:message key="trucking.phiAelChuaThu"/></th>
+                <th><fmt:message key="trucking.phiChiHoChuaThu"/></th>
                 <th><fmt:message key="trucking.phiAelDaThu"/></th>
                 <th><fmt:message key="trucking.phiChiHoDaThu"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
@@ -45,20 +45,19 @@
         </tfoot>
         <tbody>
         <c:forEach items="${docsgeneralList}" var="trucking" varStatus="idx">
-        	<tr params="docId=${trucking.id}" class="${trucking.docsAccounting.collectMoneyStatus != 1 ? '':'impress' }">
+        	<tr params="docId=${trucking.id}" class="${trucking.docsAccounting.collectMoneyStatus == 1 ? '':'impress' }">
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
               	<td>
-              		
-           			<c:if test="${trucking.docsAccounting.phiAelChuaThu != 0.00}">
-					<button id='${trucking.id}_0'
-						onclick="collectMoney('${trucking.jobNo}','${trucking.id}_0', ${trucking.docsAccounting.phiAelChuaThu})">
-						<fmt:formatNumber pattern="#,###"
-							value="${trucking.docsAccounting.phiAelChuaThu}"></fmt:formatNumber>
-					</button>
+           			<c:if test="${trucking.docsAccounting.phiAelChuaThu > 0}">
+						<button id='${trucking.id}_0'
+							onclick="collectMoney('${trucking.jobNo}','${trucking.id}_0', ${trucking.docsAccounting.phiAelChuaThu})">
+							<fmt:formatNumber pattern="#,###"
+								value="${trucking.docsAccounting.phiAelChuaThu}"></fmt:formatNumber>
+						</button>
 					</c:if> 
-					<c:if test="${trucking.docsAccounting.phiAelChuaThu == 0.00}">
+					<c:if test="${trucking.docsAccounting.phiAelChuaThu == '0.00'}">
            				0
            			</c:if>
 
@@ -71,14 +70,18 @@
 								value="${trucking.docsAccounting.phiChiHoChuaThu}"></fmt:formatNumber>
 						</button>
 					</c:if> 
-					<c:if test="${trucking.docsAccounting.phiChiHoChuaThu == 0.00}">
+					<c:if test="${trucking.docsAccounting.phiChiHoChuaThu == '0.00'}">
             			0
             		</c:if>
 				</td>
-              	<td></td>
-              	<td></td>
-              	<td>
-              		${trucking.docsAccounting.tong}
+              	<td><fmt:formatNumber pattern="#,###"
+								value="${trucking.docsAccounting.phiAelDaThu}"></fmt:formatNumber>
+				</td>
+              	<td><fmt:formatNumber pattern="#,###"
+								value="${trucking.docsAccounting.phiChiHoDaThu}"></fmt:formatNumber>
+				</td>
+              	<td><fmt:formatNumber pattern="#,###"
+								value="${trucking.docsAccounting.tong}"></fmt:formatNumber>
               	</td>
               	<td>
               		<c:choose>
@@ -100,8 +103,7 @@
 <div id="voucher-info-modal" style="display:none;">
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
-			<%-- <tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr> --%>
-			<tr><td><fmt:message key="moneybook.feeType"/></td><td id="vi-vouchertype"></td></tr>
+			<tr><td><fmt:message key="moneybook.voucherType"/></td><td id="vi-vouchertype"></td></tr>
 			<tr><td><fmt:message key="moneybook.amount"/></td><td id="vi-amount"></td></tr>
 			<tr><td><fmt:message key="moneybook.sum"/></td><td id="vi-sum"></td></tr>
 			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
@@ -109,34 +111,48 @@
 			<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
 		</tbody>
 	</table>
-	<!-- <span id="error-msg" style="color: red;"></span> -->
+	<span id="error-msg" style="color: red;"></span>
 </div>
 <script>
 var multiplePrice = [];
-var multipleAmount = "";
-function collectMoney(jobNo, buttonId, amountButton) {
-	multipleAmount = "";
+function collectMoney(jobNo, buttonId, buttonAmount) {
 	var button = $("#"+buttonId);
-	var value = buttonId + "-" + amountButton;
-	
+	var priceLabel = jobNo;
 	if (button.hasClass("highlight")) {
-		var index = multiplePrice.indexOf(value);
+		var index = -1;
+		for (index = 0; index < multiplePrice.length; index++) {
+			if (multiplePrice[index].id === buttonId) {
+				break;
+			}
+		}
 		if (index > -1) {
 			multiplePrice.splice(index, 1);
 			button.removeClass("highlight");
 		}	
+		
 	} else {
+		var jobId = buttonId.split("_")[0];
 		var type = buttonId.substring(buttonId.length - 1);
 		if (type == '0') {
-			jobNo += "_AEL";
+			priceLabel += "_AEL";
 		} else {
-			jobNo += "_CH";
+			priceLabel += "_CH";
 		}
-		multipleAmount +=  jobNo + "<input class='input-amount' id='" + buttonId + "_" + amountButton + "' value='" + amountButton + "'></input><br>";
-		multiplePrice.push(value);
+		var buttonAmount = {
+				"id" : buttonId,
+				"jobId" : jobId,
+				"jobNo" : jobNo,
+				"type" : type,
+				"priceLabel": priceLabel,
+				"buttonAmount": buttonAmount,
+				"inputAmount" : buttonAmount
+				
+			};
+		multiplePrice.push(buttonAmount);
 		button.addClass("highlight");
 	}
 }
+
 function processCollectMoney(moneyType) {
 	if (multiplePrice.length > 0) {
 		$.ajax({
@@ -152,30 +168,26 @@ function processCollectMoney(moneyType) {
 		    }
 		}); 
 	} else {
-		alert('Please choose at least one row');
+		alert('Please choose at least one value');
 	}
 }
 
-//function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo, button) {
-//var value = id +"-" +type + "-" + jobNo + "-" + amount;
 function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
-
-	var jobNo = "";
-	var feeType;
-	var amount = 0;
+	var sumAmount = 0;
+	var multipleAmount = "";
 	for (var i = 0; i < multiplePrice.length; i++) {
-		var v = multiplePrice[i].split("-");
-		jobNo += v[0] + ",";
-		amount += parseFloat(v[1]);
+		var pi = multiplePrice[i];
+		sumAmount += pi.buttonAmount;
+		multipleAmount += pi.priceLabel  + "<input class='input-amount' id='" + pi.id + "' value='" + pi.buttonAmount + "'></input><br>";
 	}
 
 	var data = JSON.parse(voucherInfo);
-	/* $("#vi-refcodes").html(jobNo); */
-	var feeTypeName = feeType == 0 ? "NTTK" : "PT";
+	var feeTypeName = moneyType == 0 ? "<fmt:message key='moneybook.voucherType.phieuthu'/>" : 
+		 "<fmt:message key='moneybook.voucherType.nttk'/>";
 	$("#vi-vouchertype").html(feeTypeName);
 	$("#vi-amount").html(multipleAmount);
-	$("#vi-sum").html(amount.toLocaleString('en-IN'));
-	
+	$("#vi-sum").html(sumAmount.toLocaleString('en-IN'));
+	var jsonData = {"moneys" : multiplePrice};
 	bootbox.dialog({
 		   closeButton: false,
 	       message: $("#voucher-info-modal").html(),
@@ -185,22 +197,19 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	    	   "Confirm": {
 	               className: "btn-blue",
 	               callback: function () {
-	            	   
-	               		
             	    	$.ajax({
             			    type: "POST",
             			    url:  "saveMoney",
             			    data: { 
-            			    		"moneyType" : moneyType,
-            			    		//"data" : JSON.stringify(multiplePrice),
-            			    		"date" : $(".modal-content #vi-date").val(),
-	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
-	       		    			    "reason" : $(".modal-content #vi-reason").val(),
-	       		    			 	"amount": amount,
-	       		    			    "jobNo": jobNo
-	       		    			    }, //for update docs collectMoneyStatus
+           			    		"moneyType" : moneyType,
+           			    		"date" : $(".modal-content #vi-date").val(),
+       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
+       		    			    "amount" : sumAmount,
+       		    			    "reason" : $(".modal-content #vi-reason").val(),
+       		    				"data" : JSON.stringify(jsonData),
+	       		    		}, //for update docs collectMoneyStatus
             			    success: function(msg){
-            			    	for (var i = 0; i < multiplePrice.length; i++) {
+            			    	/* for (var i = 0; i < multiplePrice.length; i++) {
             			    		var v = multiplePrice[i].split("-");    		
             			    		var td = $('#' + v[0]).closest("td");
             			    		var am = v[1];
@@ -208,22 +217,15 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 		        	       		    
 		        	       		    var statusStr = "Updated";
 		        	       		 	td.closest("tr").find("td").last().html(statusStr);
-			        	       		 /* switch (status) {
-			        	       		    case "0" : statusStr = "<fmt:message key='debit.type.no'/>";
-			        	       		    break;
-			        	       			case "1" : statusStr = "<fmt:message key='debit.type.yes'/>";
-			        	       			td.closest("tr").removeClass("impress");
-			        	       			break;
-			        	       			case "2" : 
-			        	       			case "3" : statusStr = "<fmt:message key='debit.type.still'/>";
-			        	       			break;
-		        	       		    } */
-            			    	}	        
+			        	       		
+            			    	} */	        
+            			    	window.location = "manageDebit";
             			    },
             			    error: function(msg) {
             			    	alert(msg);
             			    }
             			})
+		               
 	               }
 	           }, 
 	           "Cancel": {
@@ -236,6 +238,32 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
 		$(this).datepicker('hide');
 	})
+	
+	$(".modal-content .input-amount").change(function() {
+		var v1 = parseFloat($(this).attr("value"));
+		var v2 = parseFloat($(this).val());
+	    if (v1 < v2) {
+	    	$(".modal-content #error-msg").text("To much");
+	    	
+	    	$(".modal-content button").first().hide();
+	    } else {
+	    	//update multiplePrice
+	    	for (var i = 0; i < multiplePrice.length; i++) {
+	    		var pi = multiplePrice[i];
+	    		if (pi.id == $(this).attr("id")) {
+	    			pi.inputAmount = $(this).val();
+	    		}
+	    	}
+	    	
+	    	sumAmount += v2 - v1;
+	    	$(".modal-content #vi-sum").html(sumAmount.toLocaleString('en-IN'));
+	    	
+	    	$(".modal-content #error-msg").text("");
+	    	$(".modal-content button").first().show();
+	    }
+	});
 }
+
+
 </script>
 <script src="../../scripts/bootbox/bootbox.js"></script>

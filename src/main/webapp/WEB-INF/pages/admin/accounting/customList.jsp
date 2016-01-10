@@ -34,20 +34,20 @@
         </tfoot>
         <tbody>
         <c:forEach items="${docsgeneralList}" var="trucking" varStatus="idx">
-        	<tr class="${empty trucking.accountingcus ? 'impress' :'' }">
+        	<tr class="${trucking.docsAccounting.collectMoneyStatus == 1 ? '' : 'impress'  }">
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
               	<td>
               	<c:if test="${not empty trucking.accountingcus.id }">
               		<c:choose>
-              			<c:when test="${trucking.collectMoneyStatus == 0}">
-              				<fmt:message key="debit.type.no"/>
+              			<c:when test="${trucking.docsAccounting.collectMoneyStatus == 2}">
+              				<fmt:message key="debit.type.still"/>
               			</c:when>
-              			<c:when test="${trucking.collectMoneyStatus == 1}">
+              			<c:when test="${trucking.docsAccounting.collectMoneyStatus == 1}">
               				<fmt:message key="debit.type.yes"/>
               			</c:when>
               			<c:otherwise>
-              				<fmt:message key="debit.type.still"/>
+              				<fmt:message key="debit.type.no"/>
               			</c:otherwise>
               		</c:choose>
               	</c:if>
