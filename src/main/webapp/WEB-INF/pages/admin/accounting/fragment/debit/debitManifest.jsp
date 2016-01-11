@@ -175,9 +175,11 @@ function processCollectMoney(moneyType) {
 function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	var sumAmount = 0;
 	var multipleAmount = "";
+	var refNo = "";
 	for (var i = 0; i < multiplePrice.length; i++) {
 		var pi = multiplePrice[i];
 		sumAmount += pi.buttonAmount;
+		refNo += pi.priceLabel + "_" + pi.inputAmount + ",";
 		multipleAmount += pi.priceLabel  + "<input class='input-amount' id='" + pi.id + "' value='" + pi.buttonAmount + "'></input><br>";
 	}
 
@@ -207,6 +209,7 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
        		    			    "amount" : sumAmount,
        		    			    "reason" : $(".modal-content #vi-reason").val(),
        		    				"data" : JSON.stringify(jsonData),
+       		    				"refNo" : refNo//for refNos
 	       		    		}, //for update docs collectMoneyStatus
             			    success: function(msg){
             			    	/* for (var i = 0; i < multiplePrice.length; i++) {
@@ -248,14 +251,17 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	    	$(".modal-content button").first().hide();
 	    } else {
 	    	//update multiplePrice
+	    	refNo = "";
 	    	for (var i = 0; i < multiplePrice.length; i++) {
 	    		var pi = multiplePrice[i];
 	    		if (pi.id == $(this).attr("id")) {
 	    			pi.inputAmount = $(this).val();
 	    		}
+	    		refNo += pi.priceLabel + "_" + pi.inputAmount + ",";
 	    	}
 	    	
 	    	sumAmount += v2 - v1;
+	    	
 	    	$(".modal-content #vi-sum").html(sumAmount.toLocaleString('en-IN'));
 	    	
 	    	$(".modal-content #error-msg").text("");

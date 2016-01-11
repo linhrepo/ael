@@ -76,7 +76,7 @@ public class ControllerUtil {
 		    	moneyBook.setReceptMoney(form.getMultipleTotal());
 		    }
 	 	} else {
-	 		String refCode = request.getParameter("jobNo");
+	 		String refCode = request.getParameter("refNo");
 	 		String amount = request.getParameter("amount");
 	 		BigDecimal amountNumber = new BigDecimal(amount);
 	 		moneyBook.setRefNos(refCode);
