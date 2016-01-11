@@ -107,4 +107,9 @@ public class CommonUtil {
 	public static String concate(String s1, String s2){
 		return s1 + AELConst.SPACE+ s2 + AELConst.NEW_LINE_REPORT;
 	}
+	
+	public static int getCurrentYearYYYY() {
+		Calendar c = Calendar.getInstance();
+		return c.get(Calendar.YEAR);
+	}
 }

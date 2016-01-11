@@ -18,6 +18,10 @@ public interface InlandRepository extends GenericRepository<Inland> {
 
 	@Query("SELECT max(e.counting) FROM Inland e WHERE e.docsgeneral.customer.id = :customerId")
 	Integer findMaxCountingByCustomer(@Param("customerId")Long id);
+	
+	@Query("SELECT max(e.counting) FROM Inland e WHERE e.docsgeneral.customer.id = :customerId and YEAR(createdDate) = :year")
+	Integer findMaxCountingByCustomerAndYear(@Param("customerId")Long id, @Param("year")Integer year);
+	
 	//Add Phuc 1.8
 	@Query("SELECT distinct e FROM Inland e left join fetch e.docsgeneral d left join fetch d.contseals c WHERE (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
 			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "

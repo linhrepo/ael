@@ -90,10 +90,14 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 						.startsWith(
 								exhibition.getDocsgeneral().getCustomer()
 										.getCode())) {
+			Integer currentYear = CommonUtil.getCurrentYearYYYY();
 			if (exhibition.getId() == null) {
+//				Integer counting = exhibitionRepository
+//						.findMaxCountingByCustomer(exhibition.getDocsgeneral()
+//								.getCustomer().getId());
 				Integer counting = exhibitionRepository
-						.findMaxCountingByCustomer(exhibition.getDocsgeneral()
-								.getCustomer().getId());
+						.findMaxCountingByCustomerAndYear(exhibition.getDocsgeneral()
+								.getCustomer().getId(), currentYear);
 				if (counting == null) {
 					counting = AELConst.START_COUNT_JOB_ID;
 				}
@@ -101,6 +105,11 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 			}
 			String jobNo = exhibition.getDocsgeneral().getCustomer().getCode()
 					+ ServicesType.EXHS.getLabel() + CommonUtil.addZero(exhibition.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
+			
+			if (currentYear > 2015) {
+				 jobNo = exhibition.getDocsgeneral().getCustomer().getCode()
+							+ ServicesType.EXHS.getLabel() + currentYear%1000 + "-" + CommonUtil.addZero(exhibition.getCounting(), CommonUtil.LENGTH_OF_COUNTER); 
+			}
 			exhibition.getDocsgeneral().setJobNo(jobNo);
 		}
 

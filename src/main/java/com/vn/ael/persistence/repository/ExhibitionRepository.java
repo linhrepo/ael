@@ -17,6 +17,10 @@ public interface ExhibitionRepository extends GenericRepository<Exhibition> {
 
 	@Query("SELECT max(e.counting) FROM Exhibition e WHERE e.docsgeneral.customer.id = :customerId")
 	Integer findMaxCountingByCustomer(@Param("customerId")Long id);
+	
+	@Query("SELECT max(e.counting) FROM Exhibition e WHERE e.docsgeneral.customer.id = :customerId and YEAR(createdDate) = :year")
+	Integer findMaxCountingByCustomerAndYear(@Param("customerId")Long id, @Param("year")Integer year);
+	
 //	Add Phuc 1.8
 	@Query("SELECT e FROM Exhibition e where (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
 			+ "(e.docsgeneral.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "

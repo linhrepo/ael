@@ -41,7 +41,7 @@
 				    <form:select path="nhathauId" id="nhathauId" class="form-control">
 				    	<form:option value=""><fmt:message key="searchall" /></form:option>
 		    			<c:forEach items="${nhathauList}" var="nhathau">
-		    				<option value="${nhathau.id}">${nhathau.name}</option>
+		    				<option value="${nhathau.id}">${nhathau.code}</option>
 		    			</c:forEach>
 			    	</form:select>
 			    </div>

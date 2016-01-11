@@ -87,14 +87,19 @@ public class InlandManagerImpl extends GenericManagerImpl<Inland> implements Inl
 	 */
 	private void updateJobNo(Inland inland){
 		if (inland.getId() == null || !inland.getDocsgeneral().getJobNo().startsWith(inland.getDocsgeneral().getCustomer().getCode())){
+			Integer currentYear = CommonUtil.getCurrentYearYYYY();
 			if (inland.getId() == null){
-				Integer counting = inlandRepository.findMaxCountingByCustomer(inland.getDocsgeneral().getCustomer().getId());
+				//Integer counting = inlandRepository.findMaxCountingByCustomer(inland.getDocsgeneral().getCustomer().getId());
+				Integer counting = inlandRepository.findMaxCountingByCustomerAndYear(inland.getDocsgeneral().getCustomer().getId(), currentYear);
 				if (counting == null ){
 					counting = AELConst.START_COUNT_JOB_ID;
 				}
 				inland.setCounting(counting+1);
 			}
 			String jobNo = inland.getDocsgeneral().getCustomer().getCode()+ServicesType.DVVT.getLabel()+CommonUtil.addZero(inland.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
+			if (currentYear > 2015) {
+				jobNo = inland.getDocsgeneral().getCustomer().getCode()+ServicesType.DVVT.getLabel()+ currentYear%1000 + "-" + CommonUtil.addZero(inland.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
+			}
 			inland.getDocsgeneral().setJobNo(jobNo);
 		}
 		

@@ -19,6 +19,9 @@ public interface PackageinfoRepository extends GenericRepository<Packageinfo> {
 	@Query("SELECT max(e.counting) FROM Packageinfo e WHERE e.docsgeneral.customer.id = :customerId")
 	Integer findMaxCountingByCustomer(@Param("customerId") Long customerId);
 	
+	@Query("SELECT max(e.counting) FROM Packageinfo e WHERE e.docsgeneral.customer.id = :customerId and YEAR(e.createdDate) = :year")
+	Integer findMaxCountingByCustomerAndYear(@Param("customerId") Long customerId, @Param("year") Integer year);
+	
 	@Query("SELECT e FROM Packageinfo e WHERE (e.docsgeneral.customer.id = :customerId or :customerId is null) and "
 			+ "(e.docsgeneral.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "

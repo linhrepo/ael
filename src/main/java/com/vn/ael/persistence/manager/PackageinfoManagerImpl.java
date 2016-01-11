@@ -78,14 +78,20 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
 	 */
 	private void updateJobNo(Packageinfo packageinfo){
 		if (packageinfo.getId() == null || !packageinfo.getDocsgeneral().getJobNo().startsWith(packageinfo.getDocsgeneral().getCustomer().getCode())){
+			Integer currentYear = CommonUtil.getCurrentYearYYYY();
 			if (packageinfo.getId() == null){
-				Integer counting = packageinfoRepository.findMaxCountingByCustomer(packageinfo.getDocsgeneral().getCustomer().getId());
+				//Integer counting = packageinfoRepository.findMaxCountingByCustomer(packageinfo.getDocsgeneral().getCustomer().getId());
+				Integer counting = packageinfoRepository.findMaxCountingByCustomerAndYear(packageinfo.getDocsgeneral().getCustomer().getId(), currentYear);
 				if (counting == null ){
 					counting = AELConst.START_COUNT_JOB_ID;
 				}
 				packageinfo.setCounting(counting+1);
 			}
 			String jobNo = packageinfo.getDocsgeneral().getCustomer().getCode()+ServicesType.DVTQ.getLabel()+CommonUtil.addZero(packageinfo.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
+			if (currentYear > 2015) {
+				 jobNo = packageinfo.getDocsgeneral().getCustomer().getCode()+ServicesType.DVTQ.getLabel() 
+						 + currentYear%1000 + "-" + CommonUtil.addZero(packageinfo.getCounting(), CommonUtil.LENGTH_OF_COUNTER);
+			}
 			packageinfo.getDocsgeneral().setJobNo(jobNo);
 		}
 		
