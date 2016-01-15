@@ -46,7 +46,7 @@
             <Item name="ViewRoles" title="menu.admin.roles" page="/admin/roles" image="/images/icons/employee.png" roles="ROLE_ADMIN"/>
             <Item name="ViewConfigs" title="menu.admin.configs" page="/admin/config/constantList" image="/images/icons/configure.png"/>
             <Item name="Nhathau" title="menu.tracking.nhathau" page="/admin/config/nhathauList" image="/images/icons/shipping.png"/>
-            <Item name="Fees" title="menu.docs.fees" page="/admin/feeTables" image="/images/icons/feeAcc.png" roles="ROLE_ADMIN"/>
+            <!-- <Item name="Fees" title="menu.docs.fees" page="/admin/feeTables" image="/images/icons/feeAcc.png" roles="ROLE_ADMIN"/> -->
         </Menu>
     </Menus>
 </MenuConfig>

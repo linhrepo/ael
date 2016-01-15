@@ -1,4 +1,4 @@
-/*<script type="text/javascript">*/
+<script>
     if ($.cookie("username") != null && $.cookie("username") != "") {
         $("#j_username").val($.cookie("username"));
         $("#j_password").focus();
@@ -10,7 +10,7 @@
         $.cookie("username",theForm.j_username.value, { expires: 30, path: "<c:url value="/"/>"});
     }
     
-    function validateForm(form) {                                                               
+    function validateForm(form) {                                   
         var valid = validateRequired(form);
         if (valid == false) {
             $(".form-group").addClass('error');
@@ -40,4 +40,4 @@
         this.aa = new Array("j_username", "<fmt:message key='errors.required'><fmt:param><fmt:message key='label.username'/></fmt:param></fmt:message>", new Function ("varName", " return this[varName];"));
         this.ab = new Array("j_password", "<fmt:message key='errors.required'><fmt:param><fmt:message key='label.password'/></fmt:param></fmt:message>", new Function ("varName", " return this[varName];"));
     } 
-/*</script>*/
+</script>
