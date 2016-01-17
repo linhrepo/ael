@@ -42,7 +42,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="accounting.approval" />
+					key="accounting.kt.approval" />
 				<form:select path="approved" id="doRelease"
 					cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>

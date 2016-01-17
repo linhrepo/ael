@@ -18,10 +18,10 @@
 				<c:forEach items="${nhathauList}" var="nhathau">
 					<c:choose>
 						<c:when test="${conditions.nhathauId == nhathau.id}">
-							<option value="${nhathau.id}" selected="selected">${nhathau.name}</option>
+							<option value="${nhathau.id}" selected="selected">${nhathau.code}</option>
 						</c:when>
 						<c:otherwise>
-							<option value="${nhathau.id}">${nhathau.name}</option>
+							<option value="${nhathau.id}">${nhathau.code}</option>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -64,11 +64,11 @@
 				<fmt:message key="button.search"></fmt:message>
 			</button>
 			<button type="button" class="btn btn-success"
-				onclick="processCollectMoney(0)">
+				onclick="processPayMoney(0)">
 				<fmt:message key="contractor.payment.cash"></fmt:message>
 			</button>
 			<button type="button" class="btn btn-success"
-				onclick="processCollectMoney(1)">
+				onclick="processPayMoney(1)">
 				<fmt:message key="contractor.payment.bank"></fmt:message>
 			</button>
 		</div>

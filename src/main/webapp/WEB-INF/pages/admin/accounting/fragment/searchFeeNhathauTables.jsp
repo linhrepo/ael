@@ -32,7 +32,7 @@
 				</form:select>
 			</div> --%>
 			
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="accountingnhathau.jobNo" />
 				<form:select path="job" id="job" 
@@ -42,20 +42,20 @@
 				</form:select>
 			</div>
 			
-		    <div class="form-group col-md-4">
+		    <div class="form-group col-md-3">
 			    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
 			    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
 		    </div>
-		    <div class="form-group col-md-4">
+		    <div class="form-group col-md-3">
 			    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
 			    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
 		    </div>
 		</div>
 		<div class="row">
 		    
-		    <div class="form-group col-md-4">
+		    <div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="accounting.approval" />
+					key="accounting.kt.approval" />
 				<form:select path="approved" id="doRelease"
 					cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
@@ -64,7 +64,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="accounting.feeAdminApproval" />
 				<form:select path="checkByAdmin" id="checkByAdmin"

@@ -17,9 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.TruckAccounting;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.repository.DocsAccountingRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
+import com.vn.ael.persistence.repository.TruckAccountingRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
@@ -43,9 +45,13 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
     private TruckingdetailRepository truckingdetailRepository;
     
     @Autowired
+    private TruckAccountingRepository truckAccountingRepository;
+    
+    @Autowired
     public DocsAccountingManagerImpl(final DocsAccountingRepository docsAccountingRepository) {
         this.docsAccountingRepository = docsAccountingRepository;
         this.truckingdetailRepository = truckingdetailRepository;
+        this.truckAccountingRepository = truckAccountingRepository;
         this.repository = docsAccountingRepository;
     }
 
@@ -138,13 +144,6 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 				status = 2; //con no
 			}
 			docsAcDb.setCollectMoneyStatus(status);
-			//doc.setDocsAccounting(docsAcDb);
-			//docsgeneralRepository.save(doc);
-			/*System.out.println("=====");
-			System.out.println(docsAcDb.getPhiAelChuaThu());
-			System.out.println(docsAcDb.getPhiChiHoChuaThu());
-			System.out.println(docsAcDb.getPhiAelDaThu());
-			System.out.println(docsAcDb.getPhiChiHoDaThu());*/
 			docsAccountingRepository.save(docsAcDb);
 		}
 	}
@@ -167,7 +166,85 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		ServicesType servicesType = null;
 		Long nhathauId = search.getNhathauId();
 		//only check with docs ready for accounting
-		
-		return truckingdetailRepository.searchTruckingFee(nhathauId, search.getPayMoneyStatus());
+		List<Truckingdetail> listTruck = truckingdetailRepository.searchTruckingFee(nhathauId, search.getPayMoneyStatus());
+		return listTruck;
+	}
+
+	@Override
+	public void updateTruckAccounting(Truckingdetail truckingdetail, BigDecimal phiAel, BigDecimal phiChiHo) {
+		TruckAccounting truckac = truckingdetail.getTruckAccounting();
+		if (truckac == null) {
+			truckac = new TruckAccounting();
+			truckac.setTruckingdetail(truckingdetail);
+			truckac.setPhiAelChuaChi(phiAel == null ? BigDecimal.ZERO : phiAel);
+			truckac.setPhiChiHoChuaChi(phiChiHo == null ? BigDecimal.ZERO : phiChiHo);
+			truckac.setPayMoneyStatus(0);
+			truckingdetail.setTruckAccounting(truckac);
+		} else {
+			if (truckac.getPayMoneyStatus() == 0) {
+				if (phiAel == null) {
+					phiAel = BigDecimal.ZERO;
+				} 
+				if (phiChiHo == null) {
+					phiChiHo = BigDecimal.ZERO;
+				}
+				BigDecimal phiAelUpdated = truckingdetail.getTruckAccounting().getPhiAelChuaChi();
+				if (phiAelUpdated != null) {
+					phiAelUpdated = phiAelUpdated.add(phiAel);
+				} else {
+					phiAelUpdated = BigDecimal.ZERO;
+				}
+				BigDecimal phiChiHoUpdated = truckingdetail.getTruckAccounting().getPhiChiHoChuaChi();
+				if (phiChiHoUpdated != null) {
+					phiChiHoUpdated = phiChiHoUpdated.add(phiChiHo);
+				} else {
+					phiChiHoUpdated = BigDecimal.ZERO;
+				}
+
+				truckingdetail.getTruckAccounting().setPhiAelChuaChi(phiAelUpdated);
+				truckingdetail.getTruckAccounting().setPhiChiHoChuaChi(phiChiHoUpdated);
+			}
+		}
+		truckingdetailRepository.save(truckingdetail);
+	}
+	
+	@Override
+	public void updatePayMoneyStatus(Map<Long, TruckAccounting> accountingMap) {
+		Set<Long> listId = (Set<Long>) accountingMap.keySet();
+		//List<Docsgeneral> docs = docsgeneralRepository.findAll(listId);
+		for (Long id : listId) {
+
+			Truckingdetail truckingdetail = truckingdetailRepository.getOne(id);
+			TruckAccounting truckAcDb = truckAccountingRepository.getOne(truckingdetail.getTruckAccounting().getId());
+			//input docsAc
+			TruckAccounting truckAc = accountingMap.get(truckingdetail.getId());
+			
+			//TruckAccounting docsDb = doc.getDocsAccounting();
+			BigDecimal newAelChuaChi = truckAcDb.getPhiAelChuaChi().subtract(truckAc.getPhiAelDaChi());
+			BigDecimal newAelDaChi = truckAcDb.getPhiAelDaChi() == null ? truckAc.getPhiAelDaChi()
+					: truckAcDb.getPhiAelDaChi().add(truckAc.getPhiAelDaChi());
+			
+			BigDecimal newChiHoChuaChi = truckAcDb.getPhiChiHoChuaChi().subtract(truckAc.getPhiChiHoDaChi());
+			BigDecimal newChiHoDaChi = truckAcDb.getPhiChiHoDaChi() == null ? truckAc.getPhiChiHoDaChi()
+					: truckAcDb.getPhiChiHoDaChi().add(truckAc.getPhiChiHoDaChi());
+			//System.out.println(newAelChuaThu + "-" + newAelDaThu + "-" + newChiHoChuaThu + "-" + newChiHoDaThu);
+			//update money
+			truckAcDb.setPhiAelChuaChi(newAelChuaChi);
+			truckAcDb.setPhiAelDaChi(newAelDaChi);
+			truckAcDb.setPhiChiHoChuaChi(newChiHoChuaChi);
+			truckAcDb.setPhiChiHoDaChi(newChiHoDaChi);
+			//update status
+			int status = 0;
+			if (newAelChuaChi.signum() < 1 && newChiHoChuaChi.signum() < 1) {
+				status = 1;//da thu
+			} else if (newAelDaChi.signum() < 1 && newChiHoDaChi.signum() < 1) {
+				status = 0;//chua thu
+			} else {
+				status = 2; //con no
+			}
+			truckAcDb.setPayMoneyStatus(status);
+
+			//docsAccountingRepository.save(docsAcDb);
+		}
 	}
 }

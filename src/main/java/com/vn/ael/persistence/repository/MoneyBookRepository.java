@@ -18,7 +18,8 @@ import com.vn.ael.persistence.entity.MoneyBook;
 public interface MoneyBookRepository extends GenericRepository<MoneyBook> {
 	
 	@Query("SELECT m FROM MoneyBook m WHERE "
-			+ "(m.date >= :startDate or :startDate is null) and (m.date <= :endDate or :endDate is null)  "
+			+ "(m.date >= :startDate or :startDate is null) and (m.date <= :endDate or :endDate is null) "
+			+ "order by m.date desc, m.voucherNo desc"
 			)
 	List<MoneyBook> findByDuration(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 	

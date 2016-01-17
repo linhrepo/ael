@@ -5,6 +5,7 @@
 }
 .input-amount {
 	margin: 0.2em !important;
+	width: 6em !important;
 }
 </style>
 <head>
@@ -16,25 +17,18 @@
     <jsp:include page="searchContractorPayment.jsp"></jsp:include>
     <input type="hidden" value="${approve }" id="approve"/>
     <table id="truckingList" class="display datatable" cellspacing="0" width="100%" >
-    	<%-- childDetailURL="/admin/accounting/feesDetail" 
-    	emptyMessage="accounting.fees.detailFailed"
-    	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="packageInfo.masterFee" />,<fmt:message key="packageInfo.feeName" />,<fmt:message key="packageInfo.feevalue" />,<fmt:message key="packageInfo.feevavat" />,<fmt:message key="packageIngo.total" />,<fmt:message key="accounting.approval" />,<fmt:message key="accounting.approvalDate" />,<fmt:message key="accounting.feeAdminApproval" />,<fmt:message key="accounting.changeApproval" />"
-    	detailTableMapping="masterFee.value,name.value,amount[money],vat[money],total[money],approvedText[Key],dateChange[Date],checkByAdminText[Key]"
-    	editDetail="/admin/accounting/changeApproval"
-    	actionCheck = "checkByAdmin:false,null"
-    	successLoadMessage="accounting.fees.detailLoaded"
-    	> --%>
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
-                <%-- <th><fmt:message key="trucking.typeOfDocs"/></th> --%>
-                <th><fmt:message key="trucking.typeOfContainer"/></th>
-                <th><fmt:message key="trucking.phiAel"/></th>
-                <th><fmt:message key="trucking.phiChiHo"/></th>
+            	<th><fmt:message key="trucking.nhathau"/></th>
+            	<th><fmt:message key="trucking.vehicleNo"/></th>
+                <th><fmt:message key="trucking.phiAelChuaChi"/></th>
+                <th><fmt:message key="trucking.phiChiHoChuaChi"/></th>
+                <th><fmt:message key="trucking.phiAelDaChi"/></th>
+                <th><fmt:message key="trucking.phiChiHoDaChi"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
-                <th><fmt:message key="debit.thutien"/></th>
-                <%-- <th><fmt:message key="table.action"/></th> --%>
+                <th><fmt:message key="trucking.chiTien"/></th>
             </tr>
         </thead>
  
@@ -42,76 +36,81 @@
             <tr>
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
-                <%-- <th><fmt:message key="trucking.typeOfDocs"/></th> --%>
-                <th><fmt:message key="trucking.typeOfContainer"/></th>
-                <th id="phiAel"><fmt:message key="trucking.phiAel"/></th>
-                <th id="phiChiHo"><fmt:message key="trucking.phiChiHo"/></th>
+                <th><fmt:message key="trucking.nhathau"/></th>
+                <th><fmt:message key="trucking.vehicleNo"/></th>
+                <th><fmt:message key="trucking.phiAelChuaChi"/></th>
+                <th><fmt:message key="trucking.phiChiHoChuaChi"/></th>
+                <th><fmt:message key="trucking.phiAelDaChi"/></th>
+                <th><fmt:message key="trucking.phiChiHoDaChi"/></th>
                 <th><fmt:message key="trucking.tongThuKhachHang"/></th>
-                <th><fmt:message key="debit.thutien"/></th>
-                <%-- <th><fmt:message key="table.action"/></th> --%>
+                <th><fmt:message key="trucking.chiTien"/></th>
             </tr>
         </tfoot>
         <tbody>
-        <c:forEach items="${docsgeneralList}" var="trucking" varStatus="idx">
-        	<tr params="docId=${trucking.id}" class="${trucking.collectMoneyStatus == 1 ? '':'impress' }">
+        <c:forEach items="${truckings}" var="trucking" varStatus="idx">
+        	<tr params="docId=${trucking.id}" class="${trucking.truckAccounting.payMoneyStatus == 1 ? '':'impress' }">
                 <td>${idx.index+1}</td>
-              	<td>${trucking.jobNo}</td>
-              	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
-              	<td>${trucking.typeOfContainer.value}</td>
-              	<%-- <td><button>${trucking.phiAel}</button></td> --%>
+                <td>${trucking.truckingservice.docsgeneral.jobNo}</td>
+                <td>${trucking.nhathau.code}</td>
+              	<td>${trucking.vehicleNo}</td>
+              	<!-- <td></td> -->
               	<td>
-              		<c:choose>
-              			<%-- no for: empty, isCollectedAll (1) and not collected Ael (!2) --%>
-              			
-              			<c:when test="${not empty trucking.phiAel and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 2 and trucking.phiAel != '0.0000'}">
-              				<button id='${trucking.id}_0' onclick="collectMoney('${trucking.jobNo}','${trucking.id}_0', ${trucking.phiAel})">
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber></button>
-              			</c:when>
-              			<c:otherwise>
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiAel}"></fmt:formatNumber>
-              			</c:otherwise>
-              		</c:choose>
+           			<c:if test="${not empty trucking.truckAccounting.phiAelChuaChi and trucking.truckAccounting.phiAelChuaChi > 0}">
+						<button id='${trucking.id}_0'
+							onclick="payMoney('${trucking.truckingservice.docsgeneral.jobNo}_${trucking.nhathau.code}','${trucking.id}_0', 
+							${trucking.truckAccounting.phiAelChuaChi})">
+							<fmt:formatNumber pattern="#,###"
+								value="${trucking.truckAccounting.phiAelChuaChi}"></fmt:formatNumber>
+						</button>
+					</c:if> 
+					<c:if test="${empty trucking.truckAccounting.phiAelChuaChi or trucking.truckAccounting.phiAelChuaChi == '0.00'}">
+           				0
+           			</c:if>
+
+				</td>
+              	<td>
+              		<c:if test="${not empty trucking.truckAccounting.phiChiHoChuaChi and trucking.truckAccounting.phiChiHoChuaChi > 0}">
+						<button id='${trucking.id}_1'
+							onclick="payMoney('${trucking.truckingservice.docsgeneral.jobNo}_${trucking.nhathau.code}', '${trucking.id}_1', 
+							${trucking.truckAccounting.phiChiHoChuaChi})">
+							<fmt:formatNumber pattern="#,###"
+								value="${trucking.truckAccounting.phiChiHoChuaChi}"></fmt:formatNumber>
+						</button>
+					</c:if> 
+					<c:if test="${empty trucking.truckAccounting.phiChiHoChuaChi or trucking.truckAccounting.phiChiHoChuaChi == '0.00'}">
+            			0
+            		</c:if>
+				</td>
+              	<td><fmt:formatNumber pattern="#,###"
+								value="${trucking.truckAccounting.phiAelDaChi}"></fmt:formatNumber>
+				</td>
+              	<td><fmt:formatNumber pattern="#,###"
+								value="${trucking.truckAccounting.phiChiHoDaChi}"></fmt:formatNumber>
+				</td>
+              	<td><fmt:formatNumber pattern="#,###"
+								value="${trucking.truckAccounting.tong}"></fmt:formatNumber>
               	</td>
               	<td>
               		<c:choose>
-              			<c:when test="${not empty trucking.phiChiHo and trucking.collectMoneyStatus != 1 and trucking.collectMoneyStatus != 3 and trucking.phiChiHo != '0.00'}">
-              				<button id='${trucking.id}_1' onclick="collectMoney('${trucking.jobNo}', '${trucking.id}_1', ${trucking.phiChiHo})">
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber></button>
+              			<c:when test="${trucking.truckAccounting.payMoneyStatus == 0}">
+              				<fmt:message key="contractor.payment.type.no"/>
+              			</c:when>
+              			<c:when test="${trucking.truckAccounting.payMoneyStatus == 1}">
+              				<fmt:message key="contractor.payment.type.yes"/>
               			</c:when>
               			<c:otherwise>
-              				<fmt:formatNumber pattern="#,###" value="${trucking.phiChiHo}"></fmt:formatNumber>
-              			</c:otherwise>
-              		</c:choose>
-              	<td>
-              		<c:if test="${not empty trucking.phiAel}">
-              			<fmt:formatNumber pattern="#,###" value="${trucking.phiAel + trucking.phiChiHo}"></fmt:formatNumber>
-              		</c:if>
-              	</td>
-              	<td>
-              		<c:choose>
-              			<c:when test="${trucking.collectMoneyStatus == 0}">
-              				<fmt:message key="debit.type.no"/>
-              			</c:when>
-              			<c:when test="${trucking.collectMoneyStatus == 1}">
-              				<fmt:message key="debit.type.yes"/>
-              			</c:when>
-              			<c:otherwise>
-              				<fmt:message key="debit.type.still"/>
+              				<fmt:message key="contractor.payment.type.still"/>
               			</c:otherwise>
               		</c:choose>
               	</td>
-              	<%-- <td>
-                	<a value="${trucking.id}" class="approveMoney" class="iconButton" title="<fmt:message key='table.buttonEditTitle'/>"><i class="fa fa-pencil-square-o"></i></a>
-                </td> --%>
             </tr> 
-        </c:forEach>
+        </c:forEach> 
         </tbody>
     </table>
 <div id="voucher-info-modal" style="display:none;">
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
-			<%-- <tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr> --%>
-			<tr><td><fmt:message key="moneybook.feeType"/></td><td id="vi-vouchertype"></td></tr>
+			<tr><td><fmt:message key="moneybook.voucherType"/></td><td id="vi-vouchertype"></td></tr>
 			<tr><td><fmt:message key="moneybook.amount"/></td><td id="vi-amount"></td></tr>
 			<tr><td><fmt:message key="moneybook.sum"/></td><td id="vi-sum"></td></tr>
 			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
@@ -119,97 +118,108 @@
 			<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
 		</tbody>
 	</table>
-	<!-- <span id="error-msg" style="color: red;"></span> -->
+	<span id="error-msg" style="color: red;"></span>
 </div>
 <script>
 var multiplePrice = [];
-var multipleAmount = "";
-function collectMoney(jobNo, buttonId, amountButton) {
+function payMoney(jobNo, buttonId, buttonAmount) {
 	var button = $("#"+buttonId);
-	var value = buttonId + "-" + amountButton;
-	
+	var priceLabel = jobNo;
 	if (button.hasClass("highlight")) {
-		var index = multiplePrice.indexOf(value);
+		var index = -1;
+		for (index = 0; index < multiplePrice.length; index++) {
+			if (multiplePrice[index].id === buttonId) {
+				break;
+			}
+		}
 		if (index > -1) {
 			multiplePrice.splice(index, 1);
 			button.removeClass("highlight");
 		}	
+		
 	} else {
+		var jobId = buttonId.split("_")[0];
 		var type = buttonId.substring(buttonId.length - 1);
 		if (type == '0') {
-			jobNo += "_AEL";
+			priceLabel += "_AEL";
 		} else {
-			jobNo += "_CH";
+			priceLabel += "_CH";
 		}
-		multipleAmount +=  jobNo + "<input class='input-amount' id='" + buttonId + "_" + amountButton + "' value='" + amountButton + "'></input><br>";
-		multiplePrice.push(value);
+		var buttonAmount = {
+				"id" : buttonId,
+				"jobId" : jobId,
+				"jobNo" : jobNo,
+				"type" : type,
+				"priceLabel": priceLabel,
+				"buttonAmount": buttonAmount,
+				"inputAmount" : buttonAmount
+				
+			};
+		multiplePrice.push(buttonAmount);
 		button.addClass("highlight");
 	}
 }
-function processCollectMoney(moneyType) {
+
+function processPayMoney(moneyType) {
 	if (multiplePrice.length > 0) {
 		$.ajax({
 		    type: "GET",
-		    url: "collectMoney",
+		    url: "payMoney",
 		    data: {"moneyType": moneyType},
 		    success: function(msg){
-		    	/* reviewCollectMoney(id, jobNo, feeType, amount, msg); */
-		    	reviewCollectMoney(moneyType, multiplePrice, msg);
+		    	/* reviewPayMoney(id, jobNo, feeType, amount, msg); */
+		    	reviewPayMoney(moneyType, multiplePrice, msg);
 		    },
 		    error: function(msg){
 		    	alert("not ok");
 		    }
 		}); 
 	} else {
-		alert('Please choose at least one row');
+		alert('Please choose at least one value');
 	}
 }
 
-//function reviewCollectMoney(id, jobNo, feeType, amount, voucherInfo, button) {
-//var value = id +"-" +type + "-" + jobNo + "-" + amount;
-function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
-
-	var jobNo = "";
-	var feeType;
-	var amount = 0;
+function reviewPayMoney(moneyType, multiplePrice, voucherInfo) {
+	var sumAmount = 0;
+	var multipleAmount = "";
+	var refNo = "";
 	for (var i = 0; i < multiplePrice.length; i++) {
-		var v = multiplePrice[i].split("-");
-		jobNo += v[0] + ",";
-		amount += parseFloat(v[1]);
+		var pi = multiplePrice[i];
+		sumAmount += pi.buttonAmount;
+		refNo += pi.priceLabel + "_" + pi.inputAmount + ",";
+		multipleAmount += pi.priceLabel  + "<input class='input-amount' id='" + pi.id + "' value='" + pi.buttonAmount + "'></input><br>";
 	}
 
 	var data = JSON.parse(voucherInfo);
-	/* $("#vi-refcodes").html(jobNo); */
-	var feeTypeName = feeType == 0 ? "NTTK" : "PT";
+	var feeTypeName = moneyType == 0 ? "<fmt:message key='moneybook.voucherType.phieuchi'/>" : 
+		 "<fmt:message key='moneybook.voucherType.unc'/>";
 	$("#vi-vouchertype").html(feeTypeName);
 	$("#vi-amount").html(multipleAmount);
-	$("#vi-sum").html(amount.toLocaleString('en-IN'));
-	
+	$("#vi-sum").html(sumAmount.toLocaleString('en-IN'));
+	var jsonData = {"moneys" : multiplePrice};
 	bootbox.dialog({
 		   closeButton: false,
 	       message: $("#voucher-info-modal").html(),
-	       title: "COLLECT MONEY CONFIRMATION",
+	       title: "PAY MONEY CONFIRMATION",
 	       className: "modal-darkorange",
 	       buttons: {
 	    	   "Confirm": {
 	               className: "btn-blue",
 	               callback: function () {
-	            	   
-	               		
             	    	$.ajax({
             			    type: "POST",
-            			    url:  "saveMoney",
+            			    url:  "saveTruckingMoney",
             			    data: { 
-            			    		"moneyType" : moneyType,
-            			    		//"data" : JSON.stringify(multiplePrice),
-            			    		"date" : $(".modal-content #vi-date").val(),
-	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
-	       		    			    "reason" : $(".modal-content #vi-reason").val(),
-	       		    			 	"amount": amount,
-	       		    			    "jobNo": jobNo
-	       		    			    }, //for update docs collectMoneyStatus
+           			    		"moneyType" : moneyType,
+           			    		"date" : $(".modal-content #vi-date").val(),
+       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
+       		    			    "amount" : sumAmount,
+       		    			    "reason" : $(".modal-content #vi-reason").val(),
+       		    				"data" : JSON.stringify(jsonData),
+       		    				"refNo" : refNo//for refNos
+	       		    		}, //for update docs payMoneyStatus
             			    success: function(msg){
-            			    	for (var i = 0; i < multiplePrice.length; i++) {
+            			    	/* for (var i = 0; i < multiplePrice.length; i++) {
             			    		var v = multiplePrice[i].split("-");    		
             			    		var td = $('#' + v[0]).closest("td");
             			    		var am = v[1];
@@ -217,22 +227,15 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 		        	       		    
 		        	       		    var statusStr = "Updated";
 		        	       		 	td.closest("tr").find("td").last().html(statusStr);
-			        	       		 /* switch (status) {
-			        	       		    case "0" : statusStr = "<fmt:message key='debit.type.no'/>";
-			        	       		    break;
-			        	       			case "1" : statusStr = "<fmt:message key='debit.type.yes'/>";
-			        	       			td.closest("tr").removeClass("impress");
-			        	       			break;
-			        	       			case "2" : 
-			        	       			case "3" : statusStr = "<fmt:message key='debit.type.still'/>";
-			        	       			break;
-		        	       		    } */
-            			    	}	        
+			        	       		
+            			    	} */	        
+            			    	window.location = "manageContractorPayment";
             			    },
             			    error: function(msg) {
             			    	alert(msg);
             			    }
             			})
+		               
 	               }
 	           }, 
 	           "Cancel": {
@@ -245,6 +248,35 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
 		$(this).datepicker('hide');
 	})
+	
+	$(".modal-content .input-amount").change(function() {
+		var v1 = parseFloat($(this).attr("value"));
+		var v2 = parseFloat($(this).val());
+	    if (v1 < v2) {
+	    	$(".modal-content #error-msg").text("To much");
+	    	
+	    	$(".modal-content button").first().hide();
+	    } else {
+	    	//update multiplePrice
+	    	refNo = "";
+	    	for (var i = 0; i < multiplePrice.length; i++) {
+	    		var pi = multiplePrice[i];
+	    		if (pi.id == $(this).attr("id")) {
+	    			pi.inputAmount = $(this).val();
+	    		}
+	    		refNo += pi.priceLabel + "_" + pi.inputAmount + ",";
+	    	}
+	    	
+	    	sumAmount += v2 - v1;
+	    	
+	    	$(".modal-content #vi-sum").html(sumAmount.toLocaleString('en-IN'));
+	    	
+	    	$(".modal-content #error-msg").text("");
+	    	$(".modal-content button").first().show();
+	    }
+	});
 }
+
+
 </script>
 <script src="../../scripts/bootbox/bootbox.js"></script>

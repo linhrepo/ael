@@ -42,13 +42,31 @@ public class TruckAccounting extends BaseEntity implements Serializable {
 	@JoinColumn(name = "truckingdetail")
 	private Truckingdetail truckingdetail;
 	
-	private BigDecimal phiAelChuaChi;
-	private BigDecimal phiChiHoChuaChi;
+	private BigDecimal phiAelChuaChi = BigDecimal.ZERO;
+	private BigDecimal phiChiHoChuaChi = BigDecimal.ZERO;
 	
-	private BigDecimal phiAelDaChi;
-	private BigDecimal phiChiHoDaChi;
+	private BigDecimal phiAelDaChi = BigDecimal.ZERO;
+	private BigDecimal phiChiHoDaChi = BigDecimal.ZERO;
 
 	private Integer payMoneyStatus;
+	
+	@Transient
+	private BigDecimal tong;
+	
+	public BigDecimal getTong() {
+		BigDecimal tong = BigDecimal.ZERO;
+		BigDecimal s1 = this.getPhiAelChuaChi() == null ? tong : this.getPhiAelChuaChi();
+		BigDecimal s2 = this.getPhiAelDaChi() == null ? tong : this.getPhiAelDaChi();
+		BigDecimal s3 = this.getPhiChiHoChuaChi() == null ? tong : this.getPhiChiHoChuaChi();
+		BigDecimal s4 = this.getPhiChiHoDaChi() == null ? tong : this.getPhiChiHoDaChi();
+		
+		tong = tong.add(s1).add(s2).add(s3).add(s4);
+		return tong;
+	}
+
+	public void setTong(BigDecimal tong) {
+		this.tong = tong;
+	}
 	
 	public Truckingdetail getTruckingdetail() {
 		return truckingdetail;

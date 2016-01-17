@@ -152,7 +152,8 @@ public interface URLReference {
 	
 	//trucking fee payment
 	String ACCOUNTING_MANAGE_CONTRACTOR_PAYMENT = "/admin/accounting/manageContractorPayment";
-	String ACCOUNT_SEARCH_TRUCKING_FEE = "/admin/accounting/searchTruckingFee";
+	String ACCOUNT_SEARCH_TRUCKING_FEE = "/admin/accounting/searchContractorPayment";
+	//String ACCOUNT_SEARCH_TRUCKING_FEE = "/admin/accounting/searchTruckingFee";
 	String ACCOUNTING_PAY_MONEY_AJAX = "/admin/accounting/payMoney";
 	String ACCOUNTING_SAVE_TRUCKING_MONEYBOOK_AJAX = "/admin/accounting/saveTruckingMoney";
 	

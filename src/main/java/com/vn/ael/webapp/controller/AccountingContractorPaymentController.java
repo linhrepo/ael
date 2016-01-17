@@ -1,6 +1,7 @@
 
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +24,18 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.ContractorPaymentStatusType;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.MoneyBook;
+import com.vn.ael.persistence.entity.TruckAccounting;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
 import com.vn.ael.webapp.util.ControllerUtil;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 public class AccountingContractorPaymentController extends BaseFormController {
@@ -74,21 +80,21 @@ public class AccountingContractorPaymentController extends BaseFormController {
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_CONTRACTOR_PAYMENT, searchAccFee);
            
         List<Truckingdetail> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
-        mav.addObject(docsgenerals);
+        mav.addObject("truckings", docsgenerals);
         return mav;
     }
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCOUNT_SEARCH_TRUCKING_FEE)
-	public ModelAndView searchDebit(HttpServletRequest request, AccountingContractorPaymentCondition searchAccFee, BindingResult errors)
+	public ModelAndView searchContractorPayment(HttpServletRequest request, AccountingContractorPaymentCondition searchAccFee, BindingResult errors)
 			throws Exception {
 		
-		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT);
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_CONTRACTOR_PAYMENT);
 		
 		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
-        List<Truckingdetail> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
-        mav.addObject(docsgenerals);
+        List<Truckingdetail> truckings = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
+        mav.addObject("truckings", truckings);
 
 		return mav;
 	}
@@ -100,9 +106,9 @@ public class AccountingContractorPaymentController extends BaseFormController {
     		String moneyType = request.getParameter("moneyType");
     		String result = "";
     		if (moneyType.equals("0")) {
-    			result = ControllerUtil.createJsonObject(VoucherType.PHIEUTHU, this.accountingMoneyBookManager);
+    			result = ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, this.accountingMoneyBookManager);
     		} else {
-    			result = ControllerUtil.createJsonObject(VoucherType.NTTK, this.accountingMoneyBookManager);
+    			result = ControllerUtil.createJsonObject(VoucherType.UNC, this.accountingMoneyBookManager);
     		}
     		
     		return result;
@@ -119,10 +125,10 @@ public class AccountingContractorPaymentController extends BaseFormController {
 		VoucherType voucherType;
 		BookType bookType;
 		if (moneyType.equals("0")) {
-			voucherType = VoucherType.PHIEUTHU;
+			voucherType = VoucherType.PHIEUCHI;
 			bookType = BookType.CASHBOOK;
 		} else {
-			voucherType = VoucherType.NTTK;
+			voucherType = VoucherType.UNC;
 			bookType = BookType.BANKBOOK;
 		}
 		
@@ -130,9 +136,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
     	String validate = ControllerUtil.validateForm(request, voucherType, this.accountingMoneyBookManager);
     	try {
 	    	if (validate.length() == 0) {
-		        String data = request.getParameter("jobNo");
-		        //System.out.println(data);
-		        //8_1, 9_1, 9_0,
+		        /*String data = request.getParameter("jobNo");
 		        String[] listMoney = data.split(",");
 		        Map<Long, Integer> statusMap = new HashMap<Long, Integer>();
 		        for (int i = 0; i < listMoney.length; i++) {
@@ -144,7 +148,35 @@ public class AccountingContractorPaymentController extends BaseFormController {
 		        	} else {
 		        		statusMap.put(jobNo, 2);//both
 		        	}   	
-		        }
+		        }*/
+		        
+		        Map<Long, TruckAccounting> accountingMap = new HashMap<Long, TruckAccounting>();
+	    		 
+		        String multiplePrice = request.getParameter("data");
+		        
+		        JSONObject jsonObject = JSONObject.fromObject(multiplePrice);
+		        
+		        JSONArray jsonArray = jsonObject.getJSONArray("moneys");
+		        //System.out.println(jsonArray.toString());
+		        for (int i = 0; i < jsonArray.length(); i++) {
+		        	JSONObject jsonObj = jsonArray.getJSONObject(i);
+		        	Long id = jsonObj.getLong("jobId");
+		        	
+		        	TruckAccounting truckAc = accountingMap.get(id);
+		        	if (truckAc == null) {
+		        		truckAc = new TruckAccounting();
+		        	} 
+		        	
+		        	BigDecimal inputMoney = new BigDecimal(jsonObj.getDouble("inputAmount"));
+		        	Integer type = jsonObj.getInt("type");
+		        	if (type == 0) {
+		        		truckAc.setPhiAelDaChi(inputMoney);
+		        	} else {
+		        		truckAc.setPhiChiHoDaChi(inputMoney);
+		        	}
+		        	truckAc.setPayMoneyStatus(0);//init, calculate and change later
+		        	accountingMap.put(id, truckAc);
+				}
 		        
 		        try {
 		        	//Long idLong = Long.parseLong(id);
@@ -156,7 +188,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
 			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);
-			    	//this.docsAccountingManager.updateCollectMoneyStatus(statusMap);
+			    	this.docsAccountingManager.updatePayMoneyStatus(accountingMap);
 		        } catch (Exception e) {
 		        	e.printStackTrace();
 		        }

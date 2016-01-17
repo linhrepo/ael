@@ -1,6 +1,7 @@
 
 package com.vn.ael.webapp.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,6 +35,7 @@ import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.AdvanceDetailManager;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
 import com.vn.ael.persistence.manager.CustomerManager;
+import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.NhathauManager;
@@ -65,6 +67,8 @@ public class AccountingController extends BaseFormController {
 	private AdvanceDetailManager advanceDetailManager;
 	
 	private AdvanceFormManager advanceFormManager;
+	
+	private DocsAccountingManager docsAccountingManager;
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -107,6 +111,11 @@ public class AccountingController extends BaseFormController {
     @Autowired
 	public void setRefundManager(RefundManager refundManager) {
 		this.refundManager = refundManager;
+	}
+    
+    @Autowired
+	public void setDocsAccountingManager(DocsAccountingManager docsAccountingManager) {
+		this.docsAccountingManager = docsAccountingManager;
 	}
 
 	public AccountingController() {
@@ -367,6 +376,16 @@ public class AccountingController extends BaseFormController {
     	if ((exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) && exfee.getApproved() != null && exfee.getApproved()){
     		exfee.setCheckByAdmin(true);
     		exfee.setDateChange(Calendar.getInstance().getTime());
+    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
+    		BigDecimal phi = null;
+    		if (exfee.getMasterFee().getId() == -10) {
+    			//chi ho
+    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getAmount());
+    		} else {
+    			//other
+    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getAmount(), null);
+    		}
+    		
     	}
     	else{
     		exfee.setCheckByAdmin(false);
@@ -514,7 +533,6 @@ public class AccountingController extends BaseFormController {
 			throws Exception {
 		// Model model = new ExtendedModelMap();
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN);
-		System.out.println("isDupAdmin");
 		List<Docsgeneral> docsgenerals = null;
 		if (searchFeeTables.getIsDuplicated()){
 			docsgenerals = entityService.listContainsDuplicatedFees();
