@@ -149,10 +149,10 @@ public class AccountingTransportController extends BaseFormController {
         Locale locale = request.getLocale();
        
         accountingTransService.saveWholePackage(accountingTrans);
-        Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
+        /*Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
 		List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map
 				.get("tranreports");
-		docsAccountingManager.updateAccounting(accountingTransExport);
+		docsAccountingManager.updateAccounting(accountingTransExport);*/
         
         String key = "accountingcus.updated";
         saveMessage(request, getText(key, locale));
@@ -160,9 +160,9 @@ public class AccountingTransportController extends BaseFormController {
         		"&job="+ accountingTrans.getCondition().getJob()+
         		"&startDate="+CommonUtil.getDateString(accountingTrans.getCondition().getStartDate())+
         		"&endDate="+CommonUtil.getDateString(accountingTrans.getCondition().getEndDate());
-        for (Docsgeneral dg : accountingTrans.getDocs()) {
+        /*for (Docsgeneral dg : accountingTrans.getDocs()) {
         	System.out.println(dg.getJobNo());
-        }
+        }*/
         return success;
     }
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_TRANSPORT)
@@ -173,7 +173,11 @@ public class AccountingTransportController extends BaseFormController {
     	   Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
     	   List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map.get("tranreports");
     	   
-    	   ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
+    	   	//accountingTransService.saveWholePackage(accountingTrans);
+          
+			docsAccountingManager.updateAccounting(accountingTransExport);
+   		
+    	    ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
        }
     }
      
@@ -202,7 +206,7 @@ public class AccountingTransportController extends BaseFormController {
                   	for (Docsgeneral docsgeneral : docs){
                   		this.docsgeneralManager.updateContTruckDetail(docsgeneral);
                   	}
-                  }
+               }
            }
           
            AccountingTrans accountingTrans = new AccountingTrans();

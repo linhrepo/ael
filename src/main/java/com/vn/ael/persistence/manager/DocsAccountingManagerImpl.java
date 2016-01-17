@@ -83,11 +83,21 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		Map<Long, BigDecimal[]> mapMoney = new HashMap<Long, BigDecimal[]>();
 		
 		for (AccountingTransportExport acc : list) {
-			ids.add(acc.getJobId());
-			BigDecimal[] ar = new BigDecimal[2];
-			ar[0] = acc.getTotal();
-			ar[1] = acc.getChiho();
-			mapMoney.put(acc.getJobId(), ar);
+			Long id = acc.getJobId();
+			if (mapMoney.get(id) == null) {
+				ids.add(acc.getJobId());
+				BigDecimal[] ar = new BigDecimal[2];
+				ar[0] = acc.getTotal();
+				ar[1] = acc.getChiho();
+				mapMoney.put(id, ar);
+			} else {
+				BigDecimal[] ar = mapMoney.get(id);
+				//update total from all trucking
+				ar[0] = ar[0].add(acc.getTotal());
+				//no need to update chiho, because it count only once for each job
+				mapMoney.put(id, ar);
+			}
+			
 		}
 		
 		for (Long id : ids) {

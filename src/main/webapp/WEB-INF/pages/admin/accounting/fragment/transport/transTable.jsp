@@ -4,10 +4,25 @@
 #detailsList .form-control {
 	min-width: 100px !important;
 }
+
+#detailsList .small{
+	min-width: 50px !important;
+	width: 50px !important;
+}
+
+#detailsList .medium{
+	min-width: 75px !important;
+	width: 75px !important;
+}
+
 #detailsList .form-group {
 	margin-bottom: 5px !important;
 }
-.table-outter { overflow-x: scroll; }
+/* .table-outter { overflow-x: scroll; } */
+.container {
+	max-width: 1600px !important;
+	width: 1600px !important;
+}
 </style>
 <div class="table-outter wrapper">
 	<table id="detailsList"
@@ -161,12 +176,12 @@
 	<!-- 					</div> -->
 	<!-- 				</td> -->
 					<td data-title="<fmt:message key="accountingtrans.total"/>">
-						<div class="form-group">
+						<div class="form-group small">
 							<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.vat" cssClass="form-control money2 vat" />
 						</div>
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.total"/>">
-						<div class="form-group">
+						<div class="form-group medium">
 							<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.vatValue" cssClass="form-control money vatAmount"/>
 						</div>
 					</td>
@@ -176,7 +191,7 @@
 						</div>
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.total"/>">
-						<div class="form-group">
+						<div class="form-group medium">
 							<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.otherFee" cssClass="form-control money"/>
 						</div>
 					</td>
