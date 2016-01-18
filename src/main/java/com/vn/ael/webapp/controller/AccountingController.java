@@ -209,6 +209,7 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         model.addAttribute("enumStatus", StatusType.values());
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("nhathauList", nhathauManager.getAll());
         return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST, model.asMap());
     }
     
@@ -233,6 +234,7 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         model.addAttribute("enumStatus", StatusType.values());
         model.addAttribute("jobList", docsgeneralManager.getAllJob());
+        model.addAttribute("nhathauList", nhathauManager.getAll());
         return new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN, model.asMap());
     }
     
@@ -516,7 +518,8 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("flag", 1);
-        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        //mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("nhathauList", nhathauManager.getAll()); 
         mav.addObject(docsgeneralManager.findByDoAccounting(true));
         mav.addObject("flag", 2);
 		return mav;
@@ -575,7 +578,8 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("flag", 1);
-        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        //mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("nhathauList", nhathauManager.getAll()); 
         mav.addObject(docsgeneralManager.findByDoAccounting(true));
 		return mav;
 	}

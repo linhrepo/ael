@@ -7,6 +7,7 @@ import com.vn.ael.enums.ServicesType;
 public class Search {
 
 	private Long customer;
+	private Long nhathau;
 	private Long typeOfImport;
 	private Long typeOfContainer;
 	private Boolean doDelivery;
@@ -201,4 +202,10 @@ public class Search {
 		this.contSeal = contSeal;
 	}*/	
 	//End Add Phuc 1.8
+	public Long getNhathau() {
+		return nhathau;
+	}
+	public void setNhathau(Long nhathau) {
+		this.nhathau = nhathau;
+	}
 }

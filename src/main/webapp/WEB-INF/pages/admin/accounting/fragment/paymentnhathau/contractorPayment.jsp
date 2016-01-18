@@ -57,7 +57,7 @@
               	<td>
            			<c:if test="${not empty trucking.truckAccounting.phiAelChuaChi and trucking.truckAccounting.phiAelChuaChi > 0}">
 						<button id='${trucking.id}_0'
-							onclick="payMoney('${trucking.truckingservice.docsgeneral.jobNo}_${trucking.nhathau.code}','${trucking.id}_0', 
+							onclick="payMoney('${trucking.nhathau.code}_${trucking.truckingservice.docsgeneral.jobNo}','${trucking.id}_0', 
 							${trucking.truckAccounting.phiAelChuaChi})">
 							<fmt:formatNumber pattern="#,###"
 								value="${trucking.truckAccounting.phiAelChuaChi}"></fmt:formatNumber>
@@ -71,7 +71,7 @@
               	<td>
               		<c:if test="${not empty trucking.truckAccounting.phiChiHoChuaChi and trucking.truckAccounting.phiChiHoChuaChi > 0}">
 						<button id='${trucking.id}_1'
-							onclick="payMoney('${trucking.truckingservice.docsgeneral.jobNo}_${trucking.nhathau.code}', '${trucking.id}_1', 
+							onclick="payMoney('${trucking.nhathau.code}_${trucking.truckingservice.docsgeneral.jobNo}', '${trucking.id}_1', 
 							${trucking.truckAccounting.phiChiHoChuaChi})">
 							<fmt:formatNumber pattern="#,###"
 								value="${trucking.truckAccounting.phiChiHoChuaChi}"></fmt:formatNumber>

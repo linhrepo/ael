@@ -2,31 +2,51 @@
 <hr>
 <style>
 #detailsList .form-control {
-	min-width: 100px !important;
+	/* min-width: 100px !important; */
+	min-width: 60px !important;
 }
 
 #detailsList .small{
-	min-width: 50px !important;
-	width: 50px !important;
+	min-width: 60px !important;
+	width: 60px !important;
 }
 
 #detailsList .medium{
-	min-width: 75px !important;
-	width: 75px !important;
+	min-width: 80px !important;
+	width: 80px !important;
 }
 
-#detailsList .form-group {
-	margin-bottom: 5px !important;
+#detailsList .large{
+	min-width: 100px !important;
+	width: 100px !important;
 }
+#detailsList input {
+	height: 30px !important;
+	padding: 4px 5px !important;
+}
+/* #detailsList .form-group {
+	margin-bottom: 5px !important;
+} */
 /* .table-outter { overflow-x: scroll; } */
 .container {
-	max-width: 1600px !important;
-	width: 1600px !important;
+	max-width: 1400px !important;
+	width: 1400px !important;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+  border: 1px solid #cccccc;
+  /* border-right-width:2px;
+  border-left-width:2px;  */
 }
 </style>
 <div class="table-outter wrapper">
 	<table id="detailsList"
-		class="display table table-condensed no-more-tables feeTable fullBorder" cellspacing="0"
+		class="display table table-condensed no-more-tables feeTable table-bordered"
 		width="100%">
 		<thead>
 			<tr>
@@ -166,7 +186,7 @@
 	<!-- 					</td> -->
 	<%-- 				</c:if> --%>
 					<td data-title="<fmt:message key="accountingtrans.price"/>">
-						<div class="form-group">
+						<div class="form-group large">
 							<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.priceUnit" cssClass="form-control money amount" />
 						</div>
 					</td>
@@ -186,7 +206,7 @@
 						</div>
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.total"/>">
-						<div class="form-group">
+						<div class="form-group large">
 							<form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.total" cssClass="form-control money total" readonly="true"/>
 						</div>
 					</td>
@@ -196,10 +216,10 @@
 						</div>
 					</td>
 					<td data-title="<fmt:message key="accountingtrans.total"/>">
-						<div class="form-group">
+						<div class="form-group medium">
 							<%-- <form:input path="docs[${idx.index}].truckingservice.truckingdetails[${indx.index}].transreportext.note" cssClass="form-control" maxlength="250"/>
 							 --%>
-							 <form:input path="docs[${idx.index}].note" cssClass="form-control" maxlength="250"/>
+							 <form:input path="docs[${idx.index}].note" cssClass="form-control" maxlength="350"/>
 						</div>
 					</td>
 					<%-- <td data-title="<fmt:message key="accountingtrans.total"/>">

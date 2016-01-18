@@ -8,7 +8,7 @@
 	<form:form commandName="search" method="post"
 		action="searchFeeNhathauTables" id="feeNhathauTabelsForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-3">
+			<%-- <div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="customer.title" />
 				<form:select path="customer" id="customer"
@@ -18,9 +18,9 @@
 						<form:option value="${cust.id}">${cust.code}</form:option>
 					</c:forEach>
 				</form:select>
-			</div>
+			</div> --%>
 			
-			<div class="form-group col-md-3">
+			<%-- <div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="accountingnhathau.jobNo" />
 				<form:select path="job" id="job" 
@@ -28,8 +28,25 @@
 					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<form:options items="${jobList }"/>
 				</form:select>
+			</div> --%>
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label" key="nhathau.name" />
+				<form:select path="nhathau" id="nhathauId" class="form-control">
+					<form:option value="">
+						<fmt:message key="searchall" />
+					</form:option>
+					<c:forEach items="${nhathauList}" var="nhathau">
+						<c:choose>
+							<c:when test="${search.nhathau == nhathau.id}">
+								<option value="${nhathau.id}" selected="selected">${nhathau.code}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${nhathau.id}">${nhathau.code}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</form:select>
 			</div>
-			
 		    <div class="form-group col-md-3">
 			    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
 			    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>

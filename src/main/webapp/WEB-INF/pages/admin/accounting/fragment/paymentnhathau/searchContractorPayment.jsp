@@ -17,7 +17,7 @@
 				</form:option>
 				<c:forEach items="${nhathauList}" var="nhathau">
 					<c:choose>
-						<c:when test="${conditions.nhathauId == nhathau.id}">
+						<c:when test="${accountingContractorPaymentCondition.nhathauId == nhathau.id}">
 							<option value="${nhathau.id}" selected="selected">${nhathau.code}</option>
 						</c:when>
 						<c:otherwise>
