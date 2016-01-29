@@ -27,5 +27,7 @@ public interface AdvanceFormManager extends GenericManager<Advanceform> {
 	
 	List<Advanceform> findByEmpoyeeForAccounting(Long employeeId, Boolean doApproval);
 	
+	List<Advanceform> findByMoneyBook(Long moneyBook);
+	
 	/*void updateAdvanceForm(Advanceform advanceform);*/
 }

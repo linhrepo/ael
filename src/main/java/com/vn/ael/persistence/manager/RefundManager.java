@@ -31,4 +31,6 @@ public interface RefundManager extends GenericManager<Refund> {
 	List<Refund> searchFeeRefund(Search search);
 	
 	List<Refund> findByDoApproval(Boolean doApproval);
+	
+	List<Refund> findByMoneyBook(Long moneyBook);
 }

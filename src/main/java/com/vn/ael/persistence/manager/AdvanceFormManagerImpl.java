@@ -170,4 +170,10 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 	public List<Advanceform> findByEmpoyeeForAccounting(Long employeeId, Boolean doApproval) {
 		return this.advanceFormRepository.findByEmployeeAndDoApproval(employeeId, doApproval);
 	}
+
+	@Override
+	public List<Advanceform> findByMoneyBook(Long moneyBook) {
+		// TODO Auto-generated method stub
+		return this.advanceFormRepository.findByMoneyBook(moneyBook);
+	}
 }

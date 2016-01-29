@@ -10,6 +10,7 @@ import org.appfuse.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
 
 /**
@@ -78,4 +79,7 @@ public interface RefundRepository extends GenericRepository<Refund> {
 			@Param(value="approved") Boolean approved);
 	
 	List<Refund> findByDoApproval(Boolean doApproval);
+	
+	@Query("SELECT e FROM Refund e WHERE e.moneyBook.id = :moneyBook")
+	List<Refund> findByMoneyBook(@Param("moneyBook") Long moneyBook);
 }

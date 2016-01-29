@@ -24,4 +24,6 @@ public interface DocsAccountingManager extends GenericManager<DocsAccounting> {
 	List<Truckingdetail> searchDocsTruckingFee(AccountingContractorPaymentCondition search);
 	
 	void updateTruckAccounting(Truckingdetail docsgeneral, BigDecimal phiAel, BigDecimal phiChiHo);
+	void revertDocsAccounting(Docsgeneral docsgeneral, BigDecimal phiAelRevert, BigDecimal phiChiHoRevert);
+	void revertTruckAccounting(Truckingdetail truckingdetail, BigDecimal phiAelRevert, BigDecimal phiChiHoRevert);
 }

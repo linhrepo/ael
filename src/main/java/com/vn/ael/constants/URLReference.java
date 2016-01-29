@@ -159,6 +159,7 @@ public interface URLReference {
 	
 	String ACCOUNTING_SAVE_MONEYBOOK_AJAX = "/admin/accounting/saveMoney";
 	String ACCOUNTING_UPDATE_MONEYBOOK_AJAX = "/admin/accounting/updateMoneybook";
+	String ACCOUNTING_DELETE_MONEYBOOK_AJAX = "/admin/accounting/deleteMoneybook";
 	
 	String ACCOUNTING_TRANSPORT_SEARCH = "/admin/accounting/transportSearch";
 	//Add by Phuc

@@ -19,6 +19,13 @@ import com.vn.ael.persistence.entity.Docsgeneral;
 public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	
 	/**
+	 * Find all by jobNo value
+	 * @param jobNo
+	 * @return
+	 */
+	Docsgeneral findByJobNo(String jobNo);
+	
+	/**
 	 * Find all by doDelivery value
 	 * @param doDelivery
 	 * @return

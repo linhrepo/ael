@@ -179,7 +179,7 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	for (var i = 0; i < multiplePrice.length; i++) {
 		var pi = multiplePrice[i];
 		sumAmount += pi.buttonAmount;
-		refNo += pi.priceLabel + "_" + pi.inputAmount + ",";
+		refNo += pi.id + "_" + pi.inputAmount + ",";
 		multipleAmount += pi.priceLabel  + "<input class='input-amount' id='" + pi.id + "' value='" + pi.buttonAmount + "'></input><br>";
 	}
 
@@ -209,7 +209,7 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
        		    			    "amount" : sumAmount,
        		    			    "reason" : $(".modal-content #vi-reason").val(),
        		    				"data" : JSON.stringify(jsonData),
-       		    				"refNo" : refNo//for refNos
+       		    				"refNo" : refNo
 	       		    		}, //for update docs collectMoneyStatus
             			    success: function(msg){
             			    	/* for (var i = 0; i < multiplePrice.length; i++) {
@@ -257,7 +257,7 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	    		if (pi.id == $(this).attr("id")) {
 	    			pi.inputAmount = $(this).val();
 	    		}
-	    		refNo += pi.priceLabel + "_" + pi.inputAmount + ",";
+	    		refNo += pi.id + "_" + pi.inputAmount + ",";
 	    	}
 	    	
 	    	sumAmount += v2 - v1;

@@ -382,10 +382,10 @@ public class AccountingController extends BaseFormController {
     		BigDecimal phi = null;
     		if (exfee.getMasterFee().getId() == -10) {
     			//chi ho
-    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getAmount());
+    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getTotal());
     		} else {
     			//other
-    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getAmount(), null);
+    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getTotal(), null);
     		}
     		
     	}

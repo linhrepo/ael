@@ -86,7 +86,12 @@
 								</td>
 								<td><span
 									onclick="editMoneyBook('${mb.id}', '${mb.voucherNoPrint}', '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '${mb.description}');"
-									class="label label-success"> Edit </span></td>
+									class="label label-success"> <i class="fa fa-pencil-square-o"></i> </span>
+									&nbsp;
+									<span
+									onclick="deleteMoneyBook('${mb.id}');"
+									class="label label-danger"> <i class="fa fa-trash"></i> </span>
+									</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -156,7 +161,12 @@
 								</td>
 								<td><span
 									onclick="editMoneyBook('${mb.id}', '${mb.voucherNoPrint}', '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '${mb.description}');"
-									class="label label-success"> Edit </span></td>
+									class="label label-success"> <i class="fa fa-pencil-square-o"></i> </span>
+									&nbsp;
+									<span
+									onclick="deleteMoneyBook('${mb.id}');"
+									class="label label-danger"> <i class="fa fa-trash"></i> </span>
+									</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -198,8 +208,7 @@
 	var res = "";
 	function editMoneyBook(id, mbNo, mbDate, mbDes) {
 		$("#" + id).addClass("highlight");
-		bootbox
-				.dialog({
+		bootbox.dialog({
 					closeButton : false,
 					message : $("#voucher-info-modal").html(),
 					title : "EDIT MONEY BOOK",
@@ -253,7 +262,11 @@
 							}
 						},
 						"Cancel" : {
-							className : "btn-red"
+							className : "btn-red",
+							callback : function() {
+								$("#" + id).removeClass(
+								"highlight");
+							}
 						}
 					}
 				});
@@ -268,6 +281,26 @@
 		})
 	}
 
+	function deleteMoneyBook(id) {
+	 	if(confirm("Delete will make some actions revert. Please make sure you want to remove this row")) {
+			$.ajax({
+				type : "POST",
+				url : "deleteMoneybook",
+				data : {
+					"id" : id
+				},
+				success : function(msg) {
+					$("#" + id).remove();
+					if (msg == "ok") {
+						alert("Delete successfully!")
+					} else {
+						alert("Problem when delete this row, please ask Phuong for this :) ")
+					}
+				}
+			});
+	 	}
+	}
+			
 	function saveFirstBalance() {
 		var amount = $("#cashAmount").val();
 		if (isNaN(amount)) {

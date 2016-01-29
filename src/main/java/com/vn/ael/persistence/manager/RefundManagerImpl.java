@@ -171,4 +171,9 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 	public List<Refund> findByDoApproval(Boolean doApproval) {
 		return this.refundRepository.findByDoApproval(doApproval);
 	}
+
+	@Override
+	public List<Refund> findByMoneyBook(Long moneyBook) {
+		return this.refundRepository.findByMoneyBook(moneyBook);
+	}
 }

@@ -57,4 +57,7 @@ public interface AdvanceFormRepository extends GenericRepository<Advanceform> {
 			+ "e.doApproval =:doApproval")
 	List<Advanceform> findByEmployeeAndDoApproval(@Param("employeeId") Long employeeId, 
 			@Param("doApproval") Boolean doApproval);
+	
+	@Query("SELECT e FROM Advanceform e WHERE e.moneyBook.id = :moneyBook")
+	List<Advanceform> findByMoneyBook(@Param("moneyBook") Long moneyBook);
 }

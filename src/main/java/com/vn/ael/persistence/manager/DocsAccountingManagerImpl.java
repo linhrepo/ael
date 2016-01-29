@@ -26,6 +26,8 @@ import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
+import com.vn.ael.webapp.util.CommonUtil;
+import com.vn.ael.webapp.util.ConvertUtil;
 
 /**
  * @author liv1hc
@@ -254,7 +256,65 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 			}
 			truckAcDb.setPayMoneyStatus(status);
 
-			//docsAccountingRepository.save(docsAcDb);
+			truckAccountingRepository.save(truckAcDb);
 		}
+	}
+	
+	@Override
+	public void revertDocsAccounting(Docsgeneral docsgeneral, BigDecimal phiAelRevert, BigDecimal phiChiHoRevert) {
+		DocsAccounting docsAcDb = docsAccountingRepository.getOne(docsgeneral.getDocsAccounting().getId());
+		
+		//revert money
+		BigDecimal newAelChuaThu = docsAcDb.getPhiAelChuaThu().add(ConvertUtil.getNotNullValue(phiAelRevert));
+		BigDecimal newAelDaThu = docsAcDb.getPhiAelDaThu().subtract(ConvertUtil.getNotNullValue(phiAelRevert));
+		BigDecimal newChiHoChuaThu = docsAcDb.getPhiChiHoChuaThu().add(ConvertUtil.getNotNullValue(phiChiHoRevert));
+		BigDecimal newChiHoDaThu = docsAcDb.getPhiChiHoDaThu().subtract(ConvertUtil.getNotNullValue(phiChiHoRevert));
+		//System.out.println(newAelChuaThu + "-" + newAelDaThu + "-" + newChiHoChuaThu + "-" + newChiHoDaThu);
+		//update money
+		docsAcDb.setPhiAelChuaThu(newAelChuaThu);
+		docsAcDb.setPhiAelDaThu(newAelDaThu);
+		docsAcDb.setPhiChiHoChuaThu(newChiHoChuaThu);
+		docsAcDb.setPhiChiHoDaThu(newChiHoDaThu);
+		//update status
+		int status = 0;
+		if (newAelChuaThu.signum() < 1 && newChiHoChuaThu.signum() < 1) {
+			status = 1;//da thu
+		} else if (newAelDaThu.signum() < 1 && newChiHoDaThu.signum() < 1) {
+			status = 0;//chua thu
+		} else {
+			status = 2; //con no
+		}
+		docsAcDb.setCollectMoneyStatus(status);
+		docsAccountingRepository.save(docsAcDb);
+	}
+	
+	@Override
+	public void revertTruckAccounting(Truckingdetail truckingdetail, BigDecimal phiAelRevert, BigDecimal phiChiHoRevert) {
+		//DocsAccounting docAc = docsAccountingRepository.findByDocsgeneral(docsgeneral);
+		TruckAccounting truckAcDb = truckAccountingRepository.getOne(truckingdetail.getTruckAccounting().getId());
+		
+		//revert money
+		BigDecimal newAelChuaChi = truckAcDb.getPhiAelChuaChi().add(ConvertUtil.getNotNullValue(phiAelRevert));
+		BigDecimal newAelDaChi = truckAcDb.getPhiAelDaChi().subtract(ConvertUtil.getNotNullValue(phiAelRevert));
+		
+		BigDecimal newChiHoChuaChi = truckAcDb.getPhiChiHoChuaChi().add(ConvertUtil.getNotNullValue(phiChiHoRevert));
+		BigDecimal newChiHoDaChi = truckAcDb.getPhiChiHoDaChi().subtract(ConvertUtil.getNotNullValue(phiChiHoRevert));
+		//System.out.println(newAelChuaThu + "-" + newAelDaThu + "-" + newChiHoChuaThu + "-" + newChiHoDaThu);
+		//update money
+		truckAcDb.setPhiAelChuaChi(newAelChuaChi);
+		truckAcDb.setPhiAelDaChi(newAelDaChi);
+		truckAcDb.setPhiChiHoChuaChi(newChiHoChuaChi);
+		truckAcDb.setPhiChiHoDaChi(newChiHoDaChi);
+		//update status
+		int status = 0;
+		if (newAelChuaChi.signum() < 1 && newChiHoChuaChi.signum() < 1) {
+			status = 1;//da thu
+		} else if (newAelDaChi.signum() < 1 && newChiHoDaChi.signum() < 1) {
+			status = 0;//chua thu
+		} else {
+			status = 2; //con no
+		}
+		truckAcDb.setPayMoneyStatus(status);
+		truckAccountingRepository.save(truckAcDb);
 	}
 }

@@ -46,10 +46,10 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	
 	private String refNos;
 
-	@OneToMany(mappedBy="moneyBook", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="moneyBook")
 	private List<Advanceform> advanceForms;
 	
-	@OneToMany(mappedBy="moneyBook", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="moneyBook")
 	private List<Refund> refunds;
 	
 	/**
