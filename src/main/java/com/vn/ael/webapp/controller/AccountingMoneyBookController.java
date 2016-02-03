@@ -1,6 +1,7 @@
 package com.vn.ael.webapp.controller;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.Advanceform;
-import com.vn.ael.persistence.entity.BasicAdvance;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.entity.Refund;
@@ -38,7 +38,6 @@ import com.vn.ael.persistence.manager.TruckingdetailManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.AccountingMoneyBookCondition;
 
-import net.sf.json.JSONObject;
 
 @Controller
 public class AccountingMoneyBookController extends BaseFormController {
@@ -188,29 +187,27 @@ public class AccountingMoneyBookController extends BaseFormController {
     public @ResponseBody String updateMoneyBook(HttpServletRequest request, HttpServletResponse response)
     	    throws Exception {    	 
 		String idStr = request.getParameter("id");
+		String date = request.getParameter("date");
+		String reason = request.getParameter("reason");
+		
 		boolean voucherNoProblem = false;
+		
 		MoneyBook mb = null;
     	try {
     		Long id = Long.parseLong(idStr);
-    		 mb = mbManager.get(id);
-    		
+    		mb = mbManager.get(id);
+    		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    		mb.setDate(df.parse(date));
+    		mb.setDescription(reason);
+
+    		mbManager.save(mb);
     	} catch (Exception e) {
     		e.printStackTrace();
     		voucherNoProblem = true;
 		}
     	
-    	if (!voucherNoProblem) {
-    		String refNo = mb.getRefNos();
-		    String description = "";
-		    
-	    	JSONObject obj = new JSONObject();
-	    	obj.put("description", description);
-	    	
-	    	return obj.toString();
-	        
-    	} else {
-    		return "notok";
-    	}
+    	return voucherNoProblem ? "notok" : "ok";
+    	
     }
 	
 	@RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_DELETE_MONEYBOOK_AJAX)

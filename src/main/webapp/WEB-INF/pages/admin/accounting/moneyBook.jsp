@@ -74,7 +74,7 @@
 							<tr id='${mb.id}'>
 								<td>${idx.index+1}</td>
 								<td>${mb.voucherNoPrint}</td>
-								<td><fmt:formatDate value="${mb.date}" pattern="yyyy-MM-dd" />
+								<td><fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy" />
 								</td>
 								<td><fmt:message key="${mb.typeOfVoucher.printValue}" /></td>
 								<td>${mb.description}</td>
@@ -148,7 +148,7 @@
 							<tr id='${mb.id}'>
 								<td>${idx.index+1}</td>
 								<td>${mb.voucherNoPrint}</td>
-								<td><fmt:formatDate value="${mb.date}" pattern="yyyy-MM-dd" />
+								<td><fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy" />
 								</td>
 								<td><fmt:message key="${mb.typeOfVoucher.printValue}" /></td>
 
@@ -181,7 +181,7 @@
 		<tbody>
 			<tr>
 				<td><fmt:message key="moneybook.voucherNo" /></td>
-				<td><input id="mb-no" /></td>
+				<td><span id="mb-no"></span></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="moneybook.date.transaction" /></td>
@@ -206,6 +206,8 @@
 </style>
 <script>
 	var res = "";
+	var date = "";
+	var voucherNo = "";
 	function editMoneyBook(id, mbNo, mbDate, mbDes) {
 		$("#" + id).addClass("highlight");
 		bootbox.dialog({
@@ -218,37 +220,23 @@
 							className : "btn-blue",
 							callback : function() {
 								res = $(".modal-content #mb-des").val();
-								$
-										.ajax({
+								date = $(".modal-content #mb-date").val();
+								voucherNo = $(".modal-content #mb-no").val();
+								$.ajax({
 											type : "POST",
 											url : "updateMoneybook",
 											data : {
 												"id" : id,
-												"date" : $(
-														".modal-content #mb-date")
-														.val(),
-												"voucherNo" : $(
-														".modal-content #mb-no")
-														.val(),
-												"reason" : $(
-														".modal-content #mb-des")
-														.val()
+												"date" : $(".modal-content #mb-date").val(),
+												"voucherNo" : $(".modal-content #mb-no").val(),
+												"reason" : $(".modal-content #mb-des").val()
 											},
 											success : function(data) {
-												if (data != "notok") {
-													var msg = JSON.parse(data);
-													$("#" + id).removeClass(
-															"highlight");
-													$("#" + id)
-															.find("td")
-															.eq(1)
-															.html(msg.voucherNo);
-													$("#" + id).find("td")
-															.eq(2).html(
-																	msg.date);
-													//$("#"+id).find("td").eq(4).html(msg.reason);
-													$("#" + id).find("td")
-															.eq(4).html(res);
+												if (data == "ok") {
+													$("#" + id).removeClass("highlight");
+													/* $("#" + id).find("td").eq(1).html(voucherNo); */
+													$("#" + id).find("td").eq(2).html(date);
+													$("#" + id).find("td").eq(4).html(res);
 												} else {
 													alert("Voucher no is wrong or duplicate");
 												}
@@ -271,7 +259,7 @@
 					}
 				});
 
-		$(".modal-content #mb-no").val(mbNo);
+		$(".modal-content #mb-no").html(mbNo);
 		$(".modal-content #mb-des").val(mbDes);
 		var dateArr = mbDate.split("-");
 		$(".modal-content #mb-date").datepicker("setDate",

@@ -80,7 +80,15 @@ public class ControllerUtil {
 	 		String amount = request.getParameter("amount");
 	 		BigDecimal amountNumber = new BigDecimal(amount);
 	 		moneyBook.setRefNos(refCode);
-		    moneyBook.setReceptMoney(amountNumber);
+//	 		PHIEUCHI(0, "PC", 5, "moneybook.voucherType.phieuchi"), 
+//	 		PHIEUTHU(1, "PT", 5, "moneybook.voucherType.phieuthu"), 
+//	 		NTTK(2, "NTTK", 4, "moneybook.voucherType.nttk"), 
+//	 		UNC(3, "UNC", 4, "moneybook.voucherType.unc");
+	 		if (voucherType.getValue() == 0 || voucherType.getValue() == 3) {
+	 			moneyBook.setPaymentMoney(amountNumber);
+	 		} else {
+	 			moneyBook.setReceptMoney(amountNumber);
+	 		}
 	 	}
 	 	return moneyBook;
     }
