@@ -17,7 +17,6 @@
     	editDetail="/admin/changeApproval"
     	successLoadMessage="accounting.fees.detailLoaded"
     	>
-    	<!-- actionCheck = "approved:true" -->
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>

@@ -8,29 +8,15 @@
 	<form:form commandName="search" method="post"
 		action="searchFeeNhathauTables" id="feeNhathauTabelsForm" cssClass="well">
 		<div class="row">
-			<%-- <div class="form-group col-md-3">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="accounting.nhathau" />
-				<form:select path="customer" id="customer"
+					key="accountingnhathau.jobNo" />
+				<form:select path="jobNo" id="jobNo" 
 					cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<c:forEach items="${docsSelection.nhathau}" var="nhathau">
-						<form:option value="${nhathau.id}">${nhathau.name}</form:option>
-					</c:forEach>
+					<form:options items="${jobList }"/>
 				</form:select>
-			</div> --%>
-
-			<%-- <div class="form-group col-md-3">
-				<appfuse:label styleClass="control-label"
-					key="customer.title" />
-				<form:select path="customer" id="customer"
-					cssClass="form-control select2">
-					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<c:forEach items="${docsSelection.customers}" var="cust">
-						<form:option value="${cust.id}">${cust.code}</form:option>
-					</c:forEach>
-				</form:select>
-			</div> --%>
+			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label" key="nhathau.name" />
 				<form:select path="nhathau" id="nhathauId" class="form-control">
@@ -49,15 +35,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<%-- <div class="form-group col-md-3">
-				<appfuse:label styleClass="control-label"
-					key="accountingnhathau.jobNo" />
-				<form:select path="job" id="job" 
-					cssClass="form-control select2">
-					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<form:options items="${jobList }"/>
-				</form:select>
-			</div> --%>
+			 
 			
 		    <div class="form-group col-md-3">
 			    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>

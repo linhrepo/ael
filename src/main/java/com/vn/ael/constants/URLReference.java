@@ -162,8 +162,6 @@ public interface URLReference {
 	String ACCOUNTING_DELETE_MONEYBOOK_AJAX = "/admin/accounting/deleteMoneybook";
 	
 	String ACCOUNTING_TRANSPORT_SEARCH = "/admin/accounting/transportSearch";
-	//Add by Phuc
-		String TRUCKING_SERVICE_DOWNLOAD = "/download";
-		//End Add by PHuc
+	String TRUCKING_SERVICE_DOWNLOAD = "/download";
 	String REFUND_JOB_FORM_DOWNLOAD = "/users/refundJob/phieuthu/download";
 }

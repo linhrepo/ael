@@ -20,15 +20,15 @@
 				</form:select>
 			</div> --%>
 			
-			<%-- <div class="form-group col-md-3">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="accountingnhathau.jobNo" />
-				<form:select path="job" id="job" 
+				<form:select path="jobNo" id="jobNo" 
 					cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
 					<form:options items="${jobList }"/>
 				</form:select>
-			</div> --%>
+			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label" key="nhathau.name" />
 				<form:select path="nhathau" id="nhathauId" class="form-control">

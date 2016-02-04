@@ -268,6 +268,7 @@ public class AccountingController extends BaseFormController {
     	return refunddetails;
     }
     
+    /*approved fee nhathau for account & admin*/
     //admin/accounting/changeApproval
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL)
     public @ResponseBody String approvalFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
@@ -275,16 +276,45 @@ public class AccountingController extends BaseFormController {
     	if (exfee == null){
     		return AELConst.AJAX_ERROR;
     	}
-    	if (exfee.getApproved() == null || !exfee.getApproved()){
-    		exfee.setApproved(true);
-    		exfee.setDateChange(Calendar.getInstance().getTime());
+    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
+	    	if (exfee.getApproved() == null || !exfee.getApproved()) {
+	    		exfee.setApproved(true);
+	    		exfee.setDateChange(Calendar.getInstance().getTime());
+	    		this.exfeetableManager.save(exfee);
+	    		return AELConst.AJAX_SUCCESS;
+	    	} 
     	}
-    	else if(exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()){
-    		exfee.setApproved(false);
-    	}
-    	this.exfeetableManager.save(exfee);
-    	return AELConst.AJAX_SUCCESS;
+		
+    	return AELConst.AJAX_ERROR;
     }
+    
+    //admin/changeApproval
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN)
+    public @ResponseBody String approvalAdminFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    	Exfeetable exfee = this.exfeetableManager.get(id);
+    	if (exfee == null){
+    		return AELConst.AJAX_ERROR;
+    	}
+	    if (exfee.getApproved() != null && exfee.getApproved()) {
+	    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
+	    		exfee.setCheckByAdmin(true);
+	    		exfee.setDateChange(Calendar.getInstance().getTime());
+	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
+	    		BigDecimal phi = null;
+	    		if (exfee.getMasterFee().getId() == -10) {
+	    			//chi ho
+	    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getTotal());
+	    		} else {
+	    			//other
+	    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getTotal(), null);
+	    		}
+	    		this.exfeetableManager.save(exfee);
+	    		return AELConst.AJAX_SUCCESS;
+	    	}
+	    }
+	    return AELConst.AJAX_ERROR;
+    }
+    //end approve fee nhathau  
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_REFUND_ADMIN_CHANGE_APPROVAL)
     public @ResponseBody String approvalFeeRefundAdminDetailRequest(@RequestParam(value="id") Long id) throws Exception {
@@ -366,33 +396,6 @@ public class AccountingController extends BaseFormController {
 	    	this.advanceFormManager.save(af);
     	}
     	
-    	return AELConst.AJAX_SUCCESS;
-    }
-    
-    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN)
-    public @ResponseBody String approvalAdminFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
-    	Exfeetable exfee = this.exfeetableManager.get(id);
-    	if (exfee == null){
-    		return AELConst.AJAX_ERROR;
-    	}
-    	if ((exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) && exfee.getApproved() != null && exfee.getApproved()){
-    		exfee.setCheckByAdmin(true);
-    		exfee.setDateChange(Calendar.getInstance().getTime());
-    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
-    		BigDecimal phi = null;
-    		if (exfee.getMasterFee().getId() == -10) {
-    			//chi ho
-    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getTotal());
-    		} else {
-    			//other
-    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getTotal(), null);
-    		}
-    		
-    	}
-    	else{
-    		exfee.setCheckByAdmin(false);
-    	}
-    	this.exfeetableManager.save(exfee);
     	return AELConst.AJAX_SUCCESS;
     }
     
@@ -518,9 +521,8 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("flag", 1);
-        //mav.addObject("jobList", docsgeneralManager.getAllJob());
-        mav.addObject("nhathauList", nhathauManager.getAll()); 
-        mav.addObject(docsgeneralManager.findByDoAccounting(true));
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("nhathauList", nhathauManager.getAll());
         mav.addObject("flag", 2);
 		return mav;
 	}
@@ -578,57 +580,10 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("flag", 1);
-        //mav.addObject("jobList", docsgeneralManager.getAllJob());
-        mav.addObject("nhathauList", nhathauManager.getAll()); 
-        mav.addObject(docsgeneralManager.findByDoAccounting(true));
-		return mav;
-	}
-    
-    /*@RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_MANAGE_DEBIT)
-    public ModelAndView manageDebitRequest() throws Exception {
-        Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccounting(true));
-        Search searchAccFee = new Search();
-        model.addAttribute("search", searchAccFee);
-        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        model.addAttribute("enumStatus", StatusType.values());
-        model.addAttribute("jobList", docsgeneralManager.getAllJob());
-        return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
-    }
-    
-    @RequestMapping(method = RequestMethod.POST, value = URLReference.DEBIT_SEARCH)
-	public ModelAndView searchDebit(Search searchDebit)
-			throws Exception {
-		// Model model = new ExtendedModelMap();
-		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT);
-		
-		List<Docsgeneral> docsgenerals = docsgeneralManager.searchDebit(searchDebit);
-		mav.addObject(docsgenerals);
-        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        mav.addObject("enumStatus", StatusType.values());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("nhathauList", nhathauManager.getAll()); 
 		return mav;
 	}
-    
-    @RequestMapping(method = RequestMethod.GET, value=URLReference.DEBIT_APPROVE_COLLECT)
-    public ModelAndView approvalMoneyDetailRequest(@RequestParam(value="id") Long id, @RequestParam(value="approve") String approve) throws Exception {
-    	Docsgeneral docsgeneral = docsgeneralManager.get(id);
-    	if(docsgeneral != null){
-    		if(docsgeneral.getIsCollectMoney() == null || !docsgeneral.getIsCollectMoney()){
-    			docsgeneral.setIsCollectMoney(true);
-    		}
-    	}
-    	this.docsgeneralManager.save(docsgeneral);
-    	Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccountingAndIsCollectMoney(true, false));
-        Search searchAccFee = new Search();
-        model.addAttribute("search", searchAccFee);
-        model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        model.addAttribute("enumStatus", StatusType.values());
-        model.addAttribute("jobList", docsgeneralManager.getAllJob());
-        model.addAttribute("approve", approve);
-        return new ModelAndView(URLReference.ACCOUNTING_MANAGE_DEBIT, model.asMap());
-    }*/
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_REFUND_LIST_DETAIL)
     public @ResponseBody List<Exfeetable> handleFeeRefundDetailRequest(@RequestParam(value="refundId") Long id) throws Exception {

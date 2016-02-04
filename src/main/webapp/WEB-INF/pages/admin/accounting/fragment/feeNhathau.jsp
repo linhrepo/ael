@@ -14,7 +14,7 @@
     	detailTableInfo="<fmt:message key="table.no"/>,<fmt:message key="packageInfo.masterFee" />,<fmt:message key="packageInfo.feeName" />,<fmt:message key="packageInfo.feevalue" />,<fmt:message key="packageInfo.feevavat" />,<fmt:message key="packageIngo.total" />,<fmt:message key="accounting.kt.approval" />,<fmt:message key="accounting.approvalDate" />,<fmt:message key="accounting.feeAdminApproval" />,<fmt:message key="accounting.changeApproval" />"
     	detailTableMapping="masterFee.value,name.value,amount[money],vat[money],total[money],approvedText[Key],dateChange[Date],checkByAdminText[Key]"
     	editDetail="/admin/accounting/changeApproval"
-    	actionCheck = "checkByAdmin:false,null"
+    	actionCheck = "approved:false,null"
     	successLoadMessage="accounting.fees.detailLoaded"
     	>
         <thead>
