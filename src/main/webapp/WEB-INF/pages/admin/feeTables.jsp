@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="feeTablesacc.title"/></title>
-    <meta name="menu" content="AdminMenu"/>
+    <meta name="menu" content="AccountingMenu"/>
 </head>
 
 <div class="col-sm-10">

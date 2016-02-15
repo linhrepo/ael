@@ -2,7 +2,7 @@
 
 <head>
 <title><fmt:message key="packageInfoList.title" /></title>
-<meta name="menu" content="AdminMenu" />
+<meta name="menu" content="AccountingMenu" />
 </head>
 
 	<form:form commandName="search" method="post"

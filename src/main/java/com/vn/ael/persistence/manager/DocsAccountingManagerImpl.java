@@ -193,7 +193,7 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 			truckac.setPayMoneyStatus(0);
 			truckingdetail.setTruckAccounting(truckac);
 		} else {
-			if (truckac.getPayMoneyStatus() == 0) {
+			/*if (truckac.getPayMoneyStatus() == 0) {*/
 				if (phiAel == null) {
 					phiAel = BigDecimal.ZERO;
 				} 
@@ -215,8 +215,14 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 
 				truckingdetail.getTruckAccounting().setPhiAelChuaChi(phiAelUpdated);
 				truckingdetail.getTruckAccounting().setPhiChiHoChuaChi(phiChiHoUpdated);
+				
+				//update status for new fee approved
+				if (truckingdetail.getTruckAccounting().getPayMoneyStatus() == 1) {
+					truckingdetail.getTruckAccounting().setPayMoneyStatus(2);
+				}
 			}
-		}
+		
+		/*}*/
 		truckingdetailRepository.save(truckingdetail);
 	}
 	

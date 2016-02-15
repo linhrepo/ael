@@ -277,12 +277,11 @@ public class AccountingController extends BaseFormController {
     		return AELConst.AJAX_ERROR;
     	}
     	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
-	    	if (exfee.getApproved() == null || !exfee.getApproved()) {
-	    		exfee.setApproved(true);
-	    		exfee.setDateChange(Calendar.getInstance().getTime());
-	    		this.exfeetableManager.save(exfee);
-	    		return AELConst.AJAX_SUCCESS;
-	    	} 
+			boolean updatedApprove = exfee.getApproved() ? false : true;
+    		exfee.setApproved(updatedApprove);
+    		exfee.setDateChange(Calendar.getInstance().getTime());
+    		this.exfeetableManager.save(exfee);
+    		return AELConst.AJAX_SUCCESS;
     	}
 		
     	return AELConst.AJAX_ERROR;
