@@ -263,9 +263,32 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 	@Override
 	public List<Truckingdetail> searchProfitLoss(
 			AccountingTransCondition accountingTransCondition) {
-		return truckingdetailRepository.searchProfitLoss(accountingTransCondition.getCustomerId(), true, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), ServicesType.fromValue(accountingTransCondition.getTypeOfDocs().intValue()), accountingTransCondition.getJob());
+    	if(accountingTransCondition.getTypeOfDocs() == null){
+    		return truckingdetailRepository.searchProfitLoss(accountingTransCondition.getCustomerId(), 
+    				true, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), 
+    				null, accountingTransCondition.getJob());
+
+		} else {
+			return truckingdetailRepository.searchProfitLoss(accountingTransCondition.getCustomerId(), 
+					true, accountingTransCondition.getStartDate(), accountingTransCondition.getEndDate(), 
+					ServicesType.fromValue(accountingTransCondition.getTypeOfDocs().intValue()), accountingTransCondition.getJob());
+		}
 	}
 
+    @Transactional(readOnly=true)
+	@Override
+	public List<Docsgeneral> searchProfitLossDocs(
+			AccountingTransCondition search) {
+
+		if(search.getTypeOfDocs() == null){
+			return truckingdetailRepository.searchProfitLossDocs(search.getCustomerId(), true, 
+					null, search.getJob());
+		} else {
+			return truckingdetailRepository.searchProfitLossDocs(search.getCustomerId(), true, 
+					ServicesType.fromValue(search.getTypeOfDocs().intValue()), search.getJob());
+		}
+	}
+    
     @Transactional(readOnly=true)
 	@Override
 	public List<Truckingdetail> findWithFullTruckingservice(

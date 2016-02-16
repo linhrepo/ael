@@ -19,6 +19,13 @@ public class AccountingProfitLossExport {
 	private BigDecimal debit;
 	private BigDecimal total;
 	private Date dateDev;
+	
+	//new implement
+	private BigDecimal tongThuAel;
+	private BigDecimal tongChiAel;
+	private BigDecimal tongThuHo;
+	private BigDecimal tongChiHo;
+	
 	public String getCusName() {
 		return cusName;
 	}
@@ -97,5 +104,28 @@ public class AccountingProfitLossExport {
 	public void setDebit(BigDecimal debit) {
 		this.debit = debit;
 	}
-	
+	public BigDecimal getTongThuAel() {
+		return tongThuAel;
+	}
+	public void setTongThuAel(BigDecimal tongThuAel) {
+		this.tongThuAel = tongThuAel;
+	}
+	public BigDecimal getTongChiAel() {
+		return tongChiAel;
+	}
+	public void setTongChiAel(BigDecimal tongChiAel) {
+		this.tongChiAel = tongChiAel;
+	}
+	public BigDecimal getTongThuHo() {
+		return tongThuHo;
+	}
+	public void setTongThuHo(BigDecimal tongThuHo) {
+		this.tongThuHo = tongThuHo;
+	}
+	public BigDecimal getTongChiHo() {
+		return tongChiHo;
+	}
+	public void setTongChiHo(BigDecimal tongChiHo) {
+		this.tongChiHo = tongChiHo;
+	}
 }

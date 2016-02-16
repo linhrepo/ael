@@ -491,6 +491,7 @@ public class ReportUtil {
 										ConvertUtil
 										.getNotNullValue(item.getVatAmount())));
 						item.setTotal(item.getFeeWithVat().add(ConvertUtil.getNotNullValue(item.getOtherFee())));
+						item.setAelTotal(item.getTotal());
 						
 						accountingTransExport.add(item);
 					}
@@ -545,6 +546,67 @@ public class ReportUtil {
 		finalTotal = finalTotal.add(chihoTotal);
 		beans.put("finalTotal", finalTotal);
 		beans.put("totalText",ConvertUtil.convertToVND(finalTotal) );
+		return beans;
+	}
+	
+	
+	public static Map<String, Object> prepareDataForSavingAccountingTransport(
+			AccountingTrans accountingTrans) {
+		List<AccountingTransportExport> accountingTransExport = new ArrayList<>();
+		BigDecimal chihoTotal = BigDecimal.ZERO;
+		BigDecimal giacaTotal = BigDecimal.ZERO;
+		BigDecimal otherFeeTotal = BigDecimal.ZERO;
+		BigDecimal vatAmountTotal = BigDecimal.ZERO;
+		List<List<Exfeetable>> feesListChiho = new ArrayList<>();
+		
+		if (accountingTrans.getDocs() != null) {
+			int i = 0;
+			for (Docsgeneral doc : accountingTrans.getDocs()) {
+				++i;
+				if (doc.getTruckingservice() != null
+						&& doc.getTruckingservice().getTruckingdetails() != null) {
+					chihoTotal = chihoTotal.add(ConvertUtil
+							.getNotNullValue(doc.getChiho()));
+					
+					for (Truckingdetail truckingdetail : doc
+							.getTruckingservice().getTruckingdetails()) {
+						AccountingTransportExport item = new AccountingTransportExport();
+						feesListChiho.add(truckingdetail.getChihoTruckings());
+						item.setJobId(doc.getId());
+						item.setJobNo(doc.getJobNo());
+						
+						if (truckingdetail.getTransreportext() != null){
+							item.setOtherFee(truckingdetail.getTransreportext().getOtherFee());
+							item.setAccountingPrice(truckingdetail
+									.getTransreportext().getPriceUnit());
+							item.setVat(truckingdetail
+									.getTransreportext().getVat());
+							item.setVatAmount(truckingdetail
+									.getTransreportext().getVatValue());
+							item.setNote(doc.getNote());
+						}
+						
+						otherFeeTotal = otherFeeTotal.add(ConvertUtil.getNotNullValue(item.getOtherFee()));
+						giacaTotal = giacaTotal.add(ConvertUtil
+								.getNotNullValue(item.getAccountingPrice()));
+						vatAmountTotal = vatAmountTotal.add(ConvertUtil.getNotNullValue(item.getVatAmount()));
+						
+						item.setIndex(i);
+						item.setFeeWithVat(ConvertUtil
+								.getNotNullValue(item.getAccountingPrice()).add(
+										ConvertUtil
+										.getNotNullValue(item.getVatAmount())));
+						item.setTotal(item.getFeeWithVat().add(ConvertUtil.getNotNullValue(item.getOtherFee())));
+						item.setAelTotal(item.getTotal());
+						
+						accountingTransExport.add(item);
+					}
+				}
+			}
+		}
+		Map<String, Object> beans = new LinkedHashMap<>();
+		beans.put("tranreports", accountingTransExport);
+		
 		return beans;
 	}
 	

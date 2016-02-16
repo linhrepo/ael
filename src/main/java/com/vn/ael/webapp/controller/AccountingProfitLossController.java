@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.ReportTeamplates;
+import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
+import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
@@ -54,7 +57,7 @@ public class AccountingProfitLossController extends BaseFormController{
 			DocsgeneralManager docsgeneralManager) {
 		this.docsgeneralManager = docsgeneralManager;
 	}
-
+	
 	@Autowired
 	public void setTruckingserviceManager(
 			TruckingserviceManager truckingserviceManager) {
@@ -68,13 +71,8 @@ public class AccountingProfitLossController extends BaseFormController{
 			throws Exception {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_PROFIT_LOSS);
 		
-		AccountingTrans accountingTrans = this.setUpDataProfitLoss(request,
-				accountingTransCondition);
-		
-		if (accountingTrans != null) {
-			Map<String,Object> parameter = this.prepareData(accountingTrans);
-			mav.addObject("summary", parameter);
-		}
+		Map<String,Object> parameter = this.prepareProfitLossForSearch(request, accountingTransCondition);
+		mav.addObject("summary", parameter);
 		
 		DocsSelection docsSelection = 
         		configurationManager.loadSelectionForDocsPage
@@ -106,43 +104,6 @@ public class AccountingProfitLossController extends BaseFormController{
 					ReportTeamplates.ACCOUNTING_PROFITLOSS_ITEMS_TEMPLATE,
 					parameter,ConvertUtil.generateMergeIndexForProfitLoss(accountingTrans.getTruckingdetails()),ConvertUtil.generateDynamicsMergeIndexForProfitLoss(parameter));
 		}
-	}
-	
-	public Map<String, Object> prepareData(
-			AccountingTrans accountingTrans) {
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		parameterMap.put("startDate", accountingTrans.getCondition().getStartDate());
-		parameterMap.put("endDate", accountingTrans.getCondition().getEndDate());
-		List<AccountingProfitLossExport> profitLossExports = new ArrayList<>();
-		Set<String> idHashSet = new HashSet<String>();
-		if (accountingTrans.getTruckingdetails() != null && !accountingTrans.getTruckingdetails().isEmpty()){
-			for (int i=0; i<accountingTrans.getTruckingdetails().size(); ++i){
-				Truckingdetail truckingdetail = accountingTrans.getTruckingdetails().get(i);
-				Docsgeneral docsgeneral = truckingdetail.getTruckingservice().getDocsgeneral(); 
-
-				AccountingProfitLossExport profitLossExport = new AccountingProfitLossExport();
-				profitLossExport.setJobNo(docsgeneral.getJobNo());
-				profitLossExport.setCusName(docsgeneral.getCustomer().getName());
-				//chi phi manifest
-				profitLossExport.setTongChi(ConvertUtil.getNotNullValue(docsgeneral.getTongChiPhi()));
-				//chi phi nha thau
-				profitLossExport.setTongThu(ConvertUtil.getNotNullValue(docsgeneral.getTongThu()));
-				//thu ho
-				profitLossExport.setThuHo(truckingdetail.getTruckingservice().getDocsgeneral().getChiho());
-				//debit
-				profitLossExport.setDebit(truckingdetail.getTruckingservice().getDocsgeneral().getDebit());
-				
-				profitLossExport.setProfitLoss(profitLossExport.getThuHo().add(profitLossExport.getDebit()).subtract(profitLossExport.getTongThu().add(profitLossExport.getTongChi())));
-				
-				String rowId = docsgeneral.getJobNo() + docsgeneral.getCustomer().getId();
-				if (!idHashSet.contains(rowId)) {
-					profitLossExports.add(profitLossExport);
-					idHashSet.add(rowId);
-				}
-			}
-		}
-		parameterMap.put("details", profitLossExports);
-		return parameterMap;
 	}
 	
 	private AccountingTrans setUpDataProfitLoss(HttpServletRequest request,
@@ -188,5 +149,58 @@ public class AccountingProfitLossController extends BaseFormController{
 		accountingTrans.setTruckingdetails(truckingdetails);
 		accountingTrans.setCondition(accountingTransCondition);
 		return accountingTrans;
+	}
+	
+	
+	private Map<String, Object> prepareProfitLossForSearch(HttpServletRequest request,
+			AccountingTransCondition accountingTrans) {
+		List<Docsgeneral> docsgenerals = this.truckingserviceManager.searchProfitLossDocs(accountingTrans);
+		
+		Set<AccountingProfitLossExport> profitLossSearchs = new HashSet<AccountingProfitLossExport>();
+		long t1 = System.currentTimeMillis();
+		if (docsgenerals != null && !docsgenerals.isEmpty()) {
+			for (Docsgeneral docsgeneral : docsgenerals) {
+				DocsAccounting docsAccounting = docsgeneral.getDocsAccounting();
+
+				List<Exfeetable> fees = exfeetableManager.findByDocsgeneralAndTruckingdetails(docsgeneral);
+				//calculate export
+				BigDecimal tongChiAel = BigDecimal.ZERO;
+				BigDecimal tongThuAel = BigDecimal.ZERO;
+				BigDecimal tongChiHo = BigDecimal.ZERO;
+				BigDecimal tongThuHo = BigDecimal.ZERO;
+				
+				for (Exfeetable fee : fees) {
+					if (fee.getMasterFee() != null && fee.getMasterFee().getId() != TypeOfFee.CHI_HO_ID) {				
+						tongChiAel = tongChiAel.add(ConvertUtil.getNotNullValue(fee.getTotal()));
+					}
+					if (fee.getMasterFee() != null && fee.getMasterFee().getId() == TypeOfFee.CHI_HO_ID) {
+						tongChiHo = tongChiHo.add(ConvertUtil.getNotNullValue(fee.getTotal()));
+					}
+				}
+				
+				if (docsAccounting != null) {
+					tongThuAel = ConvertUtil.getNotNullValue(docsAccounting.getPhiAelChuaThu())
+							.add(ConvertUtil.getNotNullValue(docsAccounting.getPhiAelDaThu()));
+					tongThuHo =  ConvertUtil.getNotNullValue(docsAccounting.getPhiChiHoDaThu());
+				}
+				
+				AccountingProfitLossExport profitLossSearch = new AccountingProfitLossExport();
+				profitLossSearch.setJobNo(docsgeneral.getJobNo());
+				profitLossSearch.setCusName(docsgeneral.getCustomer().getName());
+				profitLossSearch.setTongChiAel(tongChiAel);
+				profitLossSearch.setTongChiHo(tongChiHo);
+				profitLossSearch.setTongThuAel(tongThuAel);
+				profitLossSearch.setTongThuHo(tongThuHo);
+				
+				profitLossSearchs.add(profitLossSearch);
+				
+			}
+		}
+		
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("startDate", accountingTrans.getStartDate());
+		parameterMap.put("endDate", accountingTrans.getEndDate());
+		parameterMap.put("details", profitLossSearchs);
+		return parameterMap;
 	}
 }

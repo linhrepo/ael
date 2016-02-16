@@ -39,6 +39,7 @@
 						key="trucking.typeOfDocs" />
 					<form:select path="typeOfDocs" id="typeOfDocs"
 						cssClass="form-control select2">
+						<form:option value=""><fmt:message key="searchall" /></form:option>
 						<c:forEach var="entry" items="${typeOfDocs}">
 							<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
 						</c:forEach>
@@ -78,11 +79,12 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="profitloss.file"/></th>
                 <th><fmt:message key="profitloss.customer"/></th>
-                <th><fmt:message key="profitloss.tongchi"/></th>
-                <th><fmt:message key="profitloss.tongthu"/></th>
-                <th><fmt:message key="profitloss.thuho"/></th>
-                <th><fmt:message key="profitloss.debit"/></th>
-                <th><fmt:message key="profitloss.pl"/></th>
+                <th><fmt:message key="profitloss.tongchiael"/></th>
+                <th><fmt:message key="profitloss.tongchiho"/></th>
+                <th><fmt:message key="profitloss.tongthuael"/></th>
+                <th><fmt:message key="profitloss.tongthuho"/></th>
+                <th><fmt:message key="profitloss.plael"/></th>
+                <th><fmt:message key="profitloss.plchiho"/></th>
             </tr>
         </thead>
  
@@ -91,11 +93,12 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="profitloss.file"/></th>
                 <th><fmt:message key="profitloss.customer"/></th>
-                <th><fmt:message key="profitloss.tongchi"/></th>
-                <th><fmt:message key="profitloss.tongthu"/></th>
-                <th><fmt:message key="profitloss.thuho"/></th>
-                <th><fmt:message key="profitloss.debit"/></th>
-                <th><fmt:message key="profitloss.pl"/></th>
+                <th><fmt:message key="profitloss.tongchiael"/></th>
+                <th><fmt:message key="profitloss.tongchiho"/></th>
+                <th><fmt:message key="profitloss.tongthuael"/></th>
+                <th><fmt:message key="profitloss.tongthuho"/></th>
+                <th><fmt:message key="profitloss.plael"/></th>
+                <th><fmt:message key="profitloss.plchiho"/></th>
             </tr>
         </tfoot> 
         <tbody>
@@ -109,20 +112,24 @@
                  	${prolos.cusName}
                 </td>
                 <td>
-                 	<fmt:formatNumber pattern="#,###" value="${prolos.tongChi}"/>
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.tongChiAel}"/>
                 </td>
                 <td>
-                	<fmt:formatNumber pattern="#,###" value="${prolos.tongThu}"/>
+                	<fmt:formatNumber pattern="#,###" value="${prolos.tongChiHo}"/>
                 </td>
                 <td>
-                 	<fmt:formatNumber pattern="#,###" value="${prolos.thuHo}"/>
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.tongThuAel}"/>
                 </td>
                 <td>
-                 	<fmt:formatNumber pattern="#,###" value="${prolos.debit}"/>
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.tongThuHo}"/>
                 </td>
                 <td>
-                 	<fmt:formatNumber pattern="#,###" value="${prolos.profitLoss}"/>
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.tongThuAel - prolos.tongChiAel}"/>
                 </td>
+                <td>
+                 	<fmt:formatNumber pattern="#,###" value="${prolos.tongThuHo - prolos.tongChiHo}"/>
+                </td>
+
             </tr>
         </c:forEach>
         </tbody>

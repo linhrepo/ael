@@ -17,16 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.TruckAccounting;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.repository.DocsAccountingRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
+import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.TruckAccountingRepository;
 import com.vn.ael.persistence.repository.TruckingdetailRepository;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
 import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
 import com.vn.ael.webapp.dto.AccountingTransportExport;
-import com.vn.ael.webapp.util.CommonUtil;
 import com.vn.ael.webapp.util.ConvertUtil;
 
 /**
@@ -50,10 +51,14 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
     private TruckAccountingRepository truckAccountingRepository;
     
     @Autowired
+    private ExfeetableRepository exfeetableRepository;
+    
+    @Autowired
     public DocsAccountingManagerImpl(final DocsAccountingRepository docsAccountingRepository) {
         this.docsAccountingRepository = docsAccountingRepository;
         this.truckingdetailRepository = truckingdetailRepository;
         this.truckAccountingRepository = truckAccountingRepository;
+        this.exfeetableRepository = exfeetableRepository;
         this.repository = docsAccountingRepository;
     }
 
@@ -77,7 +82,6 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		}
 		docsgeneralRepository.save(docsgeneral);
 	}
-
 	
 	@Override
 	public void updateAccounting(List<AccountingTransportExport> list) {//for transport
@@ -89,14 +93,13 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 			if (mapMoney.get(id) == null) {
 				ids.add(acc.getJobId());
 				BigDecimal[] ar = new BigDecimal[2];
-				ar[0] = acc.getTotal();
-				ar[1] = acc.getChiho();
+				ar[0] = acc.getAelTotal();
+				ar[1] = calculateChiHo(id);
 				mapMoney.put(id, ar);
 			} else {
 				BigDecimal[] ar = mapMoney.get(id);
 				//update total from all trucking
 				ar[0] = ar[0].add(acc.getTotal());
-				//no need to update chiho, because it count only once for each job
 				mapMoney.put(id, ar);
 			}
 			
@@ -122,6 +125,15 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 			}
 			docsgeneralRepository.save(docsgeneral);
 		}
+	}
+	
+	private BigDecimal calculateChiHo(Long jobId) {
+		List<Exfeetable> fees = exfeetableRepository.findChiHoByDocsgeneralAndTruckingdetails(jobId);
+		BigDecimal chiHo = BigDecimal.ZERO;
+		for (Exfeetable ef : fees) {
+			chiHo = chiHo.add(ConvertUtil.getNotNullValue(ef.getTotal()));
+		}
+		return chiHo;
 	}
 	
 	@Override

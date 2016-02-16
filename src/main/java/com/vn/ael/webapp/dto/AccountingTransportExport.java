@@ -31,6 +31,8 @@ public class AccountingTransportExport {
 	private String invoiceMani = "";
 	private BigDecimal otherFee;
 	private List<FeeExportItem> convertedFeeThu;
+	
+	private BigDecimal aelTotal;
 	/**
 	 * @return the jobId
 	 */
@@ -351,5 +353,11 @@ public class AccountingTransportExport {
 	}
 	public void setOtherFee(BigDecimal otherFee) {
 		this.otherFee = otherFee;
+	}
+	public BigDecimal getAelTotal() {
+		return aelTotal;
+	}
+	public void setAelTotal(BigDecimal aelTotal) {
+		this.aelTotal = aelTotal;
 	}
 }

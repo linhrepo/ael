@@ -45,6 +45,8 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	
 	public List<Truckingdetail> searchProfitLoss(AccountingTransCondition accountingTransCondition);
 	
+	public List<Docsgeneral> searchProfitLossDocs(AccountingTransCondition accountingTransCondition);
+	
 	public List<Truckingdetail> findWithFullTruckingservice(Long truckingServiceId);
 	
 	public List<Truckingdetail> searchFeeNhathau(Search search);

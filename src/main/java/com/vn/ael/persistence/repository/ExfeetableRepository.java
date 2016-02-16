@@ -69,5 +69,19 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 			+ "from Exfeetable e where e.docsgeneral is not null "
 			+ "group by e.docsgeneral, e.masterFee, e.name, e.amount, e.vat, e.invoiceNo having count(e) > 1")
 	List<Exfeetable> findAllDuplicates();
+	
+	@Query(   " select e from Exfeetable e "
+			+ "  where e.docsgeneral.id = :docsId "
+			+ "  or e.truckingdetail in ( "
+			+ "  select td.id from Truckingdetail td where td.truckingservice.id = (select ts.id from Truckingservice ts where ts.docsgeneral.id = :docsId) "
+			+ " ) ")
+	List<Exfeetable> findByDocsgeneralAndTruckingdetails(@Param(value = "docsId")Long docsId);
+	
+	@Query(   " select e from Exfeetable e "
+			+ "  where (e.docsgeneral.id = :docsId "
+			+ "  or e.truckingdetail in ( "
+			+ "  select td.id from Truckingdetail td where td.truckingservice.id = (select ts.id from Truckingservice ts where ts.docsgeneral.id = :docsId) "
+			+ " )) and e.masterFee = -10 ")
+	List<Exfeetable> findChiHoByDocsgeneralAndTruckingdetails(@Param(value = "docsId")Long docsId);
 
 }

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 
@@ -85,7 +86,7 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables LEFT JOIN FETCH t.truckingservice.docsgeneral d WHERE "
 			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
 			+ "(d.customer.id = :customerId or :customerId is null) and "
-			+ "d.typeOfDocs =:typeOfDocs and "
+			+ "(d.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(d.jobNo = :jobNo or :jobNo = '') and "
 			+ "d.doAccounting =:doAccounting "
 			+ "group by t.id "
@@ -94,6 +95,17 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param("doAccounting") Boolean doAccounting,
 			@Param(value="startDate") Date startDate, 
 			@Param(value="endDate")Date endDate,
+			@Param(value="typeOfDocs") ServicesType typeOfDocs,
+			@Param(value="jobNo") String jobNo);
+	
+	@Query("from Docsgeneral d WHERE "
+			+ "(d.customer.id = :customerId or :customerId is null) and "
+			+ "(d.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
+			+ "(d.jobNo = :jobNo or :jobNo = '') and "
+			+ "d.doAccounting =:doAccounting "
+			+ "order by d.customer.id, d.jobNo")
+	List<Docsgeneral> searchProfitLossDocs(@Param("customerId") Long customerId,
+			@Param("doAccounting") Boolean doAccounting,
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
 			@Param(value="jobNo") String jobNo);
 	

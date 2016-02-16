@@ -28,6 +28,7 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Customer;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
@@ -149,36 +150,39 @@ public class AccountingTransportController extends BaseFormController {
         Locale locale = request.getLocale();
        
         accountingTransService.saveWholePackage(accountingTrans);
-        /*Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
-		List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map
-				.get("tranreports");
-		docsAccountingManager.updateAccounting(accountingTransExport);*/
+        
+        Map<String, Object> map = ReportUtil.prepareDataForSavingAccountingTransport(accountingTrans);
+		List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map.get("tranreports");
+		docsAccountingManager.updateAccounting(accountingTransExport);
         
         String key = "accountingcus.updated";
         saveMessage(request, getText(key, locale));
-        success = "redirect:"+URLReference.ACCOUNTING_TRANSPORT+"?customerId=" + accountingTrans.getCondition().getCustomerId()+
-        		"&job="+ accountingTrans.getCondition().getJob()+
+        /*success = "redirect:"+URLReference.ACCOUNTING_TRANSPORT+"?customerId=" + accountingTrans.getCondition().getCustomerId()+
+        		//"&job="+ accountingTrans.getCondition().getJob()+
         		"&startDate="+CommonUtil.getDateString(accountingTrans.getCondition().getStartDate())+
-        		"&endDate="+CommonUtil.getDateString(accountingTrans.getCondition().getEndDate());
-        /*for (Docsgeneral dg : accountingTrans.getDocs()) {
-        	System.out.println(dg.getJobNo());
-        }*/
+        		"&endDate="+CommonUtil.getDateString(accountingTrans.getCondition().getEndDate())+
+        		"&jobList="+docsgeneralManager.getJobForSelection();*/
+        
+        String referer = request.getHeader("Referer");
+        success = "redirect:" + referer;
+
         return success;
     }
     @RequestMapping(method=RequestMethod.GET, value =URLReference.AJAX_REPORT_ACCOUNTING_TRANSPORT)
     public void doDownload(HttpServletRequest request, AccountingTransCondition accountingTransCondition,
             HttpServletResponse response) throws IOException {
     	AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition,false);
-       if (accountingTrans!=null) {
-    	   Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
-    	   List<AccountingTransportExport> accountingTransExport = (List<AccountingTransportExport>) map.get("tranreports");
-    	   
-    	   	//accountingTransService.saveWholePackage(accountingTrans);
-          
-			docsAccountingManager.updateAccounting(accountingTransExport);
-   		
-    	    ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()),null);
-       }
+		if (accountingTrans != null) {
+			Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
+			// List<AccountingTransportExport> accountingTransExport =
+			// (List<AccountingTransportExport>) map.get("tranreports");
+			// docsAccountingManager.updateAccounting(accountingTransExport);
+			// accountingTransService.saveWholePackage(accountingTrans);
+
+			ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS,
+					ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,
+					ConvertUtil.generateMergeIndexForTrans(accountingTrans.getDocs()), null);
+		}
     }
      
     /**
