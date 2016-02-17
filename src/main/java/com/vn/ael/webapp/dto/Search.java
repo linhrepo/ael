@@ -31,6 +31,7 @@ public class Search {
 	private String job = null;
 	private Boolean isCollectMoney;
 	private Boolean isDuplicated;
+	private String cusDecOnNo;
 	
 	private Boolean hasRecord;
 	//Add Phuc 1.8
@@ -207,5 +208,11 @@ public class Search {
 	}
 	public void setNhathau(Long nhathau) {
 		this.nhathau = nhathau;
+	}
+	public String getCusDecOnNo() {
+		return cusDecOnNo;
+	}
+	public void setCusDecOnNo(String cusDecOnNo) {
+		this.cusDecOnNo = cusDecOnNo;
 	}
 }

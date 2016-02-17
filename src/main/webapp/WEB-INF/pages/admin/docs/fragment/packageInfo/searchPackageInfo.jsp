@@ -8,7 +8,7 @@
 	<form:form commandName="search" method="post"
 		action="searchPackageInfo" id="packageInfoForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.customerCode" />
 				<form:select path="customer" id="customercode"
@@ -19,7 +19,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="configuration.typeOfImport" />
 				<form:select path="typeOfImport" id="typeOfImport"
@@ -30,7 +30,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.typeOfContainer" />
 				<form:select path="typeOfContainer"
@@ -40,6 +40,11 @@
 						<form:option value="${entry.key}">${entry.value}</form:option>
 					</c:forEach>
 				</form:select>
+			</div>
+			<div class="form-group col-md-3">
+				<appfuse:label styleClass="control-label"
+					key="packageInfo.jobNo" />
+				<form:input path="jobNo" id="jobNo"	cssClass="form-control" maxlength="100"/>
 			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
@@ -72,7 +77,13 @@
 			    <appfuse:label styleClass="control-label" key="packageInfo.dateEndNCT"/>
 			    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
 		    </div>
+		    
+		    <div class="form-group col-md-3">
+			    <appfuse:label styleClass="control-label" key="packageInfo.cusDecOnNo"/>
+			    <form:input path="cusDecOnNo" maxlength="15" class="form-control" id="cusDecOnNo"/>
+		    </div>
 			<div class="form-group col-md-2">
+				<br>
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
 

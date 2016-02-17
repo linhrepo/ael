@@ -106,6 +106,7 @@ public class PackageinfoManagerImpl extends GenericManagerImpl<Packageinfo> impl
 	public List<Packageinfo> searchPackageInfo(Search search) {
 		return packageinfoRepository.searchPackageInfo(search.getCustomer(),
 				search.getTypeOfImport(), search.getTypeOfContainer(),
+				search.getJobNo(), search.getCusDecOnNo(),
 				search.getDoDelivery(), search.getDoRelease(),
 				search.getStartDate(), search.getEndDate());
 	}
