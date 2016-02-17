@@ -30,7 +30,6 @@ public class AccountingTransServiceImpl implements AccountingTransService{
 					for (Truckingdetail truckingdetail : docsgeneral.getTruckingservice().getTruckingdetails()){
 						if (truckingdetail.getId() != null){
 							truckingdetail.getTransreportext().setTruckingdetail(truckingdetail);
-							System.out.println(truckingdetail.getTransreportext().getNote());
 							transreportexts.add(truckingdetail.getTransreportext());
 						}
 					}
