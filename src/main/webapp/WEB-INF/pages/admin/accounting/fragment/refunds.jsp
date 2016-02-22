@@ -186,7 +186,7 @@
               	</td>
               	<td class="icon-status">
               		<c:if test="${adv.doPrint}">
-              			${adv.moneyBook.voucherNo}
+              			${adv.moneyBook.voucherNoPrint}
               		</c:if>
               	</td>
                 <td>

@@ -174,10 +174,10 @@ public class AccountingTransportController extends BaseFormController {
     	AccountingTrans accountingTrans = this.setupAccountingTrans(request, accountingTransCondition,false);
 		if (accountingTrans != null) {
 			Map<String, Object> map = ReportUtil.prepareDataForAccountingTransport(accountingTrans);
-			// List<AccountingTransportExport> accountingTransExport =
-			// (List<AccountingTransportExport>) map.get("tranreports");
-			// docsAccountingManager.updateAccounting(accountingTransExport);
-			// accountingTransService.saveWholePackage(accountingTrans);
+			 List<AccountingTransportExport> accountingTransExport =
+			 (List<AccountingTransportExport>) map.get("tranreports");
+			 docsAccountingManager.updateAccounting(accountingTransExport);
+			 //accountingTransService.saveWholePackage(accountingTrans);
 
 			ReportUtil.dispatchReport(response, ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS,
 					ReportTeamplates.ACCOUNTING_TRANSPORT_ITEMS_TEMPLATE, map,

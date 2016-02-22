@@ -54,10 +54,9 @@ public class EntityServiceImpl implements EntityService {
 		
 		//List<Exfeetable> fees = exfeetableManager.findAllHaveDocsgeneral();
 		List<Exfeetable> fees = exfeetableManager.findAllDuplicates();
-		Map<Long, List<Exfeetable>> mapFee = new HashMap<Long, List<Exfeetable>>();
 		for (Exfeetable fee : fees) {
-			Long key = fee.getDocsgeneral().getId();
-			if (mapFee.get(key) == null) {
+			Docsgeneral key = fee.getDocsgeneral();
+			if (!duplicated.contains(key)) {
 				duplicated.add(fee.getDocsgeneral());
 			}
 		}

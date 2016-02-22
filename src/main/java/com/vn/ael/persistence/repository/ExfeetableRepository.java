@@ -65,9 +65,10 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 	
 	
 	
-	@Query("select e "
+	@Query("select distinct e "
 			+ "from Exfeetable e where e.docsgeneral is not null "
-			+ "group by e.docsgeneral, e.masterFee, e.name, e.amount, e.vat, e.invoiceNo having count(e) > 1")
+			+ "group by e.docsgeneral, e.name, e.amount, e.vat, e.invoiceNo having count(e) > 1")
+			//+ "group by e.docsgeneral, e.masterFee, e.name, e.amount, e.vat, e.invoiceNo having count(e) > 1")
 	List<Exfeetable> findAllDuplicates();
 	
 	@Query(   " select e from Exfeetable e "
