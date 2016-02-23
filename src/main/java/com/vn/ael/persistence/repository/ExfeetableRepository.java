@@ -74,8 +74,10 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 	@Query(   " select e from Exfeetable e "
 			+ "  where e.docsgeneral.id = :docsId "
 			+ "  or e.truckingdetail in ( "
-			+ "  select td.id from Truckingdetail td where td.truckingservice.id = (select ts.id from Truckingservice ts where ts.docsgeneral.id = :docsId) "
-			+ " ) ")
+			+ "     select td.id from Truckingdetail td where td.truckingservice.id = "
+			+ "     (select ts.id from Truckingservice ts where ts.docsgeneral.id = :docsId) "
+			+ "  ) "
+			+ " order by e.truckingdetail asc, e.docsgeneral.id asc ")
 	List<Exfeetable> findByDocsgeneralAndTruckingdetails(@Param(value = "docsId")Long docsId);
 	
 	@Query(   " select e from Exfeetable e "

@@ -139,23 +139,24 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="shipper") String shipper,
 			@Param(value="jobNo") String jobNo);
 	
-	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE (e.customer.id = :customerId or :customerId is null) and "
-			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
+	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
+			+ "(e.customer.id = :customerId or :customerId is null) and "
+			+ "(e.jobNo like %:jobNo% or :jobNo is null) and "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
+			+ "e.doAccounting =:doAccounting "
+			/*
+			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
-			+ "e.doAccounting =:doAccounting and "
 			+ "(e.doDelivery =:doDelivery or :doDelivery is null) and "
 			+ "(f.checkByAdmin =:checkByAdmin or :checkByAdmin is null) and "
 			+ "(f.approved =:approved or :approved is null) "
+			*/
 			+ "group by e")
-	List<Docsgeneral> searchFeeTables(@Param("customerId") Long customerId,
-			@Param("typeOfImport") Long typeOfImport,
-			@Param("typeOfContainer") Long typeOfContainer,
+	List<Docsgeneral> searchFeeTables(
+			@Param("customerId") Long customerId,
+			@Param("jobNo") String jobNo,
 			@Param("doAccounting") Boolean doAccounting,
-			@Param(value="typeOfDocs") ServicesType typeOfDocs,
-			@Param(value="doDelivery") Boolean doDelivery,
-			@Param(value="checkByAdmin") Boolean checkByAdmin,
-			@Param(value="approved") Boolean approved);
+			@Param(value="typeOfDocs") ServicesType typeOfDocs);
 	
 	/*	@Query("SELECT e FROM Docsgeneral e left join fetch e.exfeetables f WHERE "
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "

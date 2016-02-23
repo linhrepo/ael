@@ -3,6 +3,7 @@ package com.vn.ael.webapp.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -349,6 +350,11 @@ public class EntityUtil {
 			for(Exfeetable exfeetable : refund.getExfeetables()){
 				if(exfeetable.getIsAdded() == null || !exfeetable.getIsAdded()){
 					exfeetable.setRefund(refund);
+					//24.2 change status correspondingly
+					exfeetable.setApproved(status);
+					if (exfeetable.getDateChange() == null) {
+						exfeetable.setDateChange(new Date());
+					}
 					exfeetables.add(exfeetable);
 				}
 			}

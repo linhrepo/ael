@@ -118,9 +118,8 @@ public class AdvanceFormListController extends BaseFormController {
 		Search searchAdvanceForm = new Search();
 		//by defaut search not approved job
 		searchAdvanceForm.setDoApproval(false);
-		model.addAttribute(advanceFormManager
-				.searchAdvanceForm(searchAdvanceForm));
-		model.addAttribute(refundManager.searchRefund(searchAdvanceForm));
+		//model.addAttribute(advanceFormManager.searchAdvanceForm(searchAdvanceForm));
+		//model.addAttribute(refundManager.searchRefund(searchAdvanceForm));
 		model.addAttribute("search", searchAdvanceForm);
 		DocsSelection docsSelection = configurationManager
 				.loadSelectionForDocsPage(true);

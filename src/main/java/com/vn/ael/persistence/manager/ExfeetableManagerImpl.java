@@ -71,8 +71,8 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 	}
 
 	@Override
-	public List<Exfeetable> findByDocsgeneralAndTruckingdetails(Docsgeneral docsgeneral) {
-		return this.exfeetableRepository.findByDocsgeneralAndTruckingdetails(docsgeneral.getId());
+	public List<Exfeetable> findByDocsgeneralAndTruckingdetails(Long docsId) {
+		return this.exfeetableRepository.findByDocsgeneralAndTruckingdetails(docsId);
 	}
 	
 	@Override

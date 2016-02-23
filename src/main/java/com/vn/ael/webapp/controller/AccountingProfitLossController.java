@@ -162,7 +162,7 @@ public class AccountingProfitLossController extends BaseFormController{
 			for (Docsgeneral docsgeneral : docsgenerals) {
 				DocsAccounting docsAccounting = docsgeneral.getDocsAccounting();
 
-				List<Exfeetable> fees = exfeetableManager.findByDocsgeneralAndTruckingdetails(docsgeneral);
+				List<Exfeetable> fees = exfeetableManager.findByDocsgeneralAndTruckingdetails(docsgeneral.getId());
 				//calculate export
 				BigDecimal tongChiAel = BigDecimal.ZERO;
 				BigDecimal tongThuAel = BigDecimal.ZERO;

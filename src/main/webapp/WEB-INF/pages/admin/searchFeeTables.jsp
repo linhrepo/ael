@@ -8,7 +8,7 @@
 	<form:form commandName="search" method="post"
 		action="searchFeeTables" id="feeTabelsForm" cssClass="well">
 		<div class="row">
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="trucking.customercode" />
 				<form:select path="customer" id="customercode"
@@ -19,7 +19,12 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-4">
+				<appfuse:label styleClass="control-label"
+					key="packageInfo.jobNo" />
+				<form:input path="jobNo" id="jobNo"	cssClass="form-control" maxlength="100"/>
+			</div>
+			<div class="form-group col-md-4">
 				<appfuse:label styleClass="control-label"
 					key="trucking.typeOfDocs" />
 				<form:select path="typeOfDocs" id="typeOfDocs"
@@ -30,7 +35,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-3">
+			<%-- <div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="trucking.typeOfContainer" />
 				<form:select path="typeOfContainer"
@@ -40,9 +45,9 @@
 						<form:option value="${entry.key}">${entry.value}</form:option>
 					</c:forEach>
 				</form:select>
-			</div>
+			</div> --%>
 		</div>
-		<div class="row">
+		<%-- <div class="row">
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="configuration.typeOfImport" />
@@ -76,7 +81,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-		</div>
+		</div> --%>
 		<div class="row">
 			<div class="form-group col-md-3">
 				<form:checkbox path="isDuplicated"/>

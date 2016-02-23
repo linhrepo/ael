@@ -2,6 +2,7 @@ package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -82,18 +83,28 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 	@Transient
 	private String refCode;
 	
-	public String getRefCode(){
+	@Transient
+	private String voucherNo;
+	
+	@Transient
+	private String payDate;
+	
+	public String getRefCode() {
 		if (this.refund != null) {
 			return this.refund.getRefCode();
-		} else {
-			if(this.getDocsgeneral() != null && this.getDocsgeneral().getId()!= null){
+		} else if(this.getDocsgeneral() != null && this.getDocsgeneral().getId()!= null) {
 				User e = refund.getEmployee();
 				this.refCode = e.getUsername();
 				this.refCode = e.getUsername()+AELConst.SPLASH +String.valueOf(this.getDocsgeneral().getId());
-			}
-			
 			return this.refCode;
+		} else if(this.getTruckingdetail() != null && this.getTruckingdetail().getId()!= null) {
+			if (this.getTruckingdetail().getNhathau() != null) {
+				String ref = getTruckingdetail().getNhathau().getCode();
+				return ref;
+			}
 		}
+		
+		return null;
 	}
 	
 	public Exfeetable() {
@@ -243,5 +254,38 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 			return this.docsgeneral.getJobNo();
 		}
 		return "";
+	}
+
+	public String getVoucherNo() {
+		if (this.refund != null && this.refund.getMoneyBook() != null) {
+			return this.refund.getMoneyBook().getVoucherNoPrint();
+		} else if (this.getTruckingdetail() != null){//chi phi trucking
+			return "-";
+		}
+		return voucherNo;
+	}
+
+	public void setVoucherNo(String voucherNo) {
+		this.voucherNo = voucherNo;
+	}
+
+	public String getPayDate() {
+		if (this.refund != null && this.refund.getMoneyBook() != null) {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				return sdf.format(this.refund.getMoneyBook().getDate());
+			} catch (Exception e) {
+				e.printStackTrace();
+				return payDate;
+			}
+		} else if (this.getTruckingdetail() != null){//chi phi trucking
+			return "-";
+		}
+		
+		return payDate;
+	}
+
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
 	}
 }

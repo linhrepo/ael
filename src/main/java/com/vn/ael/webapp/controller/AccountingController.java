@@ -243,8 +243,8 @@ public class AccountingController extends BaseFormController {
     public @ResponseBody List<Exfeetable> handleFeeDetailRequest(@RequestParam(value="docId",required = false) Long id,@RequestParam(value="refundId",required = false) Long refund) throws Exception {
     	List<Exfeetable> exfeetables = new ArrayList<>();
     	if (id != null){
-    		exfeetables = this.exfeetableManager.findByDocsgeneral(id);
-    	}else if (refund != null){
+    		exfeetables = this.exfeetableManager.findByDocsgeneralAndTruckingdetails(id);
+    	} else if (refund != null){
     		exfeetables = this.exfeetableManager.findByRefund(refund);
     	}
     	return exfeetables;
@@ -326,7 +326,6 @@ public class AccountingController extends BaseFormController {
     	}
     	if (refunddetail.getApproved() == null || !refunddetail.getApproved()){
     		refunddetail.setApproved(true);
-//    		refunddetail.setDateChange(Calendar.getInstance().getTime());
     	}
     	else if(refunddetail.getCheckByAdmin() == null || !refunddetail.getCheckByAdmin()){
     		refunddetail.setApproved(false);
@@ -359,6 +358,53 @@ public class AccountingController extends BaseFormController {
     	return AELConst.AJAX_SUCCESS;
     }
 
+
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_REFUND_JOB_CHANGE_APPROVAL)
+    public @ResponseBody String approvalFeeRefundJobDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    	Exfeetable exfee = this.exfeetableManager.get(id);
+    	if (exfee == null){
+    		return AELConst.AJAX_ERROR;
+    	}
+    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
+			boolean updatedApprove = true;
+			if (exfee.getApproved() != null) {
+				updatedApprove = exfee.getApproved() ? false : true;
+			}
+    		exfee.setApproved(updatedApprove);
+    		exfee.setDateChange(Calendar.getInstance().getTime());
+    		this.exfeetableManager.save(exfee);
+    		
+    		// check for details
+        	try {
+    	    	Refund rd = this.refundManager.get(exfee.getRefund().getId());
+    	    	if (rd == null){
+    	    		return AELConst.AJAX_ERROR;
+    	    	}
+    	    	this.refundManager.updateChilds(rd);
+    	    	int count = 0;
+    	    	if (rd.getExfeetables() != null) {
+    		    	for (Exfeetable ef : rd.getExfeetables()) {
+    		    		if (ef != null && ef.getApproved() != null && ef.getApproved()) {
+    		    			count++;
+    		    		}
+    		    	}
+    		    	if (count < rd.getExfeetables().size()) {
+    		    		rd.setDoApproval(false);
+    		    	} else {
+    		    		rd.setDoApproval(true);
+    		    	}
+    		    	this.refundManager.saveRefund(rd);
+    	    	}
+    	    	
+    	    	return AELConst.AJAX_SUCCESS;
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+    	}
+		
+    	return AELConst.AJAX_ERROR;
+    }
+    
     //admin/accounting/changeAdvanceApproval
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_ADVANCE_CHANGE_APPROVAL)
     public @ResponseBody String approvalAdvanceDetailRequest(@RequestParam(value="id") Long id) throws Exception {
@@ -535,7 +581,7 @@ public class AccountingController extends BaseFormController {
     	return exfeetables;
     }
     
-    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEETABLES_ADMIN_SEARCH)
+    /*@RequestMapping(method = RequestMethod.POST, value = URLReference.FEETABLES_ADMIN_SEARCH)
 	public ModelAndView searchFeeTableAdmin(Search searchFeeTables)
 			throws Exception {
 		// Model model = new ExtendedModelMap();
@@ -560,7 +606,7 @@ public class AccountingController extends BaseFormController {
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
 		return mav;
-	}
+	}*/
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.FEE_NHATHAU_TABLES_ADMIN_SEARCH)
 	public ModelAndView searchFeeNhathauAdmin(Search searchFeeTables)

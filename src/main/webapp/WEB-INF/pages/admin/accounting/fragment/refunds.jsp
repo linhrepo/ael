@@ -118,7 +118,7 @@
 	    	<fmt:message key="packageIngo.total" />,<fmt:message key="accounting.approval" />,
 	    	<fmt:message key="accounting.approvalDate" />,<fmt:message key="accounting.changeApproval" />"
     	detailTableMapping="docNo,masterFee.value,name.value,amount[money],vat[money],total[money],approvedText[Key],dateChange[Date]"
-    	editDetail="/admin/accounting/changeApproval"
+    	editDetail="/admin/accounting/changeRefundJobApproval"
     	actionCheck = "checkByAdmin:false,null"
     	actionConfirm = "true"    	
     	successLoadMessage="accounting.fees.detailLoaded"
