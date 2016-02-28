@@ -581,7 +581,7 @@ public class AccountingController extends BaseFormController {
     	return exfeetables;
     }
     
-    /*@RequestMapping(method = RequestMethod.POST, value = URLReference.FEETABLES_ADMIN_SEARCH)
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEETABLES_ADMIN_SEARCH)
 	public ModelAndView searchFeeTableAdmin(Search searchFeeTables)
 			throws Exception {
 		// Model model = new ExtendedModelMap();
@@ -606,7 +606,7 @@ public class AccountingController extends BaseFormController {
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
 		return mav;
-	}*/
+	}
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.FEE_NHATHAU_TABLES_ADMIN_SEARCH)
 	public ModelAndView searchFeeNhathauAdmin(Search searchFeeTables)
