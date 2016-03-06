@@ -37,4 +37,6 @@ public interface ExfeetableManager extends GenericManager<Exfeetable> {
 	boolean updateDuplicated(List<Exfeetable> exfeetables);
 
 	List<Exfeetable> findByDocsgeneralAndTruckingdetails(Long docsId);
+	
+	List<Exfeetable> findByListId(List<Long> listId);
 }

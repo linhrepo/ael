@@ -3,6 +3,7 @@ package com.vn.ael.persistence.manager;
 import java.util.List;
 
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
@@ -50,6 +51,8 @@ public interface TruckingserviceManager extends GenericManager<Truckingservice> 
 	public List<Truckingdetail> findWithFullTruckingservice(Long truckingServiceId);
 	
 	public List<Truckingdetail> searchFeeNhathau(Search search);
+	
+	public List<Truckingdetail> searchFeeNhathauAdvance(Search search);
 	
 	public List<Truckingdetail> findByDoAccounting(Boolean doAccounting);
 }

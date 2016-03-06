@@ -7,7 +7,7 @@
 
 
 	<h2><fmt:message key="feeNhathauTableAcc.heading"/></h2>
-    <jsp:include page="searchFeeNhathauTables.jsp"></jsp:include>
+    <jsp:include page="searchFeeNhathauTables.jsp"></jsp:include>    
     <table id="truckingList1" class="display nestedDatatable" cellspacing="0" width="100%" 
     	childDetailURL="/admin/accounting/feeNhathauDetail" 
     	emptyMessage="accounting.fees.detailFailed"

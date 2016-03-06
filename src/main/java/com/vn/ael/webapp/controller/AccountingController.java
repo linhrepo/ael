@@ -4,12 +4,15 @@ package com.vn.ael.webapp.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -190,11 +193,6 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_FEE_LIST)
     public ModelAndView handleFeeRequest() throws Exception {
         Model model = new ExtendedModelMap();
-      //Add comment by Phuc
-//      model.addAttribute(docsgeneralManager.findByDoAccounting(true));
-//      model.addAttribute(truckingserviceManager.findByDoAccounting(true));
-    //End Add comment by Phuc
-//      model.addAttribute(refundManager.findByDoApproval(true));
       Search searchAccFee = new Search();
       model.addAttribute("search", searchAccFee);
       //selection
@@ -216,10 +214,7 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_FEE_LIST_ADMIN)
     public ModelAndView handleFeeAdminRequest() throws Exception {
         Model model = new ExtendedModelMap();
-      //Add comment by Phuc
-//      model.addAttribute(docsgeneralManager.findByDoAccounting(true));
-//      model.addAttribute(truckingserviceManager.findByDoAccounting(true));
-    //End Add comment by Phuc
+
       Search searchAccFee = new Search();
       model.addAttribute("search", searchAccFee);
       //selection
@@ -290,6 +285,30 @@ public class AccountingController extends BaseFormController {
     	return AELConst.AJAX_ERROR;
     }
     
+    @Transactional
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_BULK)
+    public @ResponseBody String approvalBulkFeeDetailRequest(@RequestParam(value="ids") String ids) throws Exception {
+    	try {
+    	String[] idArr = ids.split(",");
+    	List<Long> listId = new ArrayList<Long>();
+    	for (String id : idArr) {
+    		listId.add(Long.parseLong(id));
+    	}
+    	List<Exfeetable> fees = exfeetableManager.findByListId(listId);
+    	for (Exfeetable exfee : fees) {
+			if (exfee.getApproved() == null || !exfee.getApproved()) {
+				exfee.setApproved(true);
+			}
+    		exfee.setDateChange(Calendar.getInstance().getTime());
+    		this.exfeetableManager.save(exfee);
+    	}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return "notok";
+    	}
+    	return AELConst.AJAX_SUCCESS;
+    }
+    
     //admin/changeApproval
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN)
     public @ResponseBody String approvalAdminFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
@@ -314,8 +333,29 @@ public class AccountingController extends BaseFormController {
 	    		return AELConst.AJAX_SUCCESS;
 	    	}
 	    }
-	    return AELConst.AJAX_ERROR;
+	    return AELConst.AJAX_SUCCESS;
     }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN_BULK)
+    public @ResponseBody String approvalBulkAdminFeeDetailRequest(@RequestParam(value="ids") String ids) throws Exception {
+    	
+    	String[] idArr = ids.split(",");
+    	List<Long> listId = new ArrayList<Long>();
+    	for (String id : idArr) {
+    		listId.add(Long.parseLong(id));
+    	}
+    	List<Exfeetable> fees = exfeetableManager.findByListId(listId);
+    	for (Exfeetable exfee : fees) {
+			if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
+				exfee.setCheckByAdmin(true);
+			}
+    		exfee.setDateChange(Calendar.getInstance().getTime());
+    		this.exfeetableManager.save(exfee);
+    	}
+    	return AELConst.AJAX_ERROR;
+    }
+    
     //end approve fee nhathau  
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_REFUND_ADMIN_CHANGE_APPROVAL)
@@ -511,6 +551,7 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("nhathauList", nhathauManager.getAll());
         mav.addObject("flag", 1);
 		return mav;
 	}
@@ -549,6 +590,7 @@ public class AccountingController extends BaseFormController {
         model.addAttribute("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         return new ModelAndView(URLReference.ACCOUNTING_PROFIT_LOSS, model.asMap());
     }
+    
     @RequestMapping(method = RequestMethod.POST, value = URLReference.FEENHATHAUTABLES_SEARCH)
 	public ModelAndView searchFeeNhathau(Search searchFeeTables)
 			throws Exception {
@@ -568,12 +610,80 @@ public class AccountingController extends BaseFormController {
         mav.addObject("docsSelection", docsSelection);
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
-        mav.addObject("flag", 1);
+        mav.addObject("flag", 2);
         mav.addObject("jobList", docsgeneralManager.getAllJob());
         mav.addObject("nhathauList", nhathauManager.getAll());
-        mav.addObject("flag", 2);
+        /*mav.addObject("flag", 2);*/
 		return mav;
 	}
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEENHATHAUTABLES_SEARCH_ADVANCE)
+	public ModelAndView searchFeeNhathauAdvance(Search searchFeeTables)
+			throws Exception {
+		// Model model = new ExtendedModelMap();
+		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST);
+		
+		List<Truckingdetail> truckings = truckingserviceManager.searchFeeNhathauAdvance(searchFeeTables);
+		
+		Map<Long, Exfeetable> exfeesMap = new HashMap<Long, Exfeetable>();
+		for (Truckingdetail truck : truckings) {
+			for (Exfeetable exfee : truck.getExfeetables()) {
+				if (exfeesMap.get(exfee.getId()) == null) {
+					exfeesMap.put(exfee.getId(), exfee);	
+				} 
+			}
+		}
+		mav.addObject("exfees", exfeesMap.values());
+		
+		//selection
+        DocsSelection docsSelection = 
+        		configurationManager.loadSelectionForDocsPage
+        		(
+        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+        				ConfigurationType.TYPE_OF_IMPORT
+        		);
+        mav.addObject("docsSelection", docsSelection);
+        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+        mav.addObject("enumStatus", StatusType.values());
+        mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("nhathauList", nhathauManager.getAll());
+        mav.addObject("flag", 3);
+		return mav;
+	}
+    
+    @RequestMapping(method = RequestMethod.POST, value = URLReference.FEENHATHAUTABLES_ADMIN_SEARCH_ADVANCE)
+   	public ModelAndView searchFeeNhathauAdminAdvance(Search searchFeeTables)
+   			throws Exception {
+   		// Model model = new ExtendedModelMap();
+   		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_FEE_LIST_ADMIN);
+   		
+   		List<Truckingdetail> truckings = truckingserviceManager.searchFeeNhathauAdvance(searchFeeTables);
+   		
+   		Map<Long, Exfeetable> exfeesMap = new HashMap<Long, Exfeetable>();
+   		for (Truckingdetail truck : truckings) {
+   			for (Exfeetable exfee : truck.getExfeetables()) {
+   				if (exfeesMap.get(exfee.getId()) == null) {
+   					exfeesMap.put(exfee.getId(), exfee);	
+   				} 
+   			}
+   		}
+   		mav.addObject("exfees", exfeesMap.values());
+   		
+   		//selection
+           DocsSelection docsSelection = 
+           		configurationManager.loadSelectionForDocsPage
+           		(
+           				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
+           				ConfigurationType.TYPE_OF_IMPORT
+           		);
+           mav.addObject("docsSelection", docsSelection);
+           mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+           mav.addObject("enumStatus", StatusType.values());
+           mav.addObject("jobList", docsgeneralManager.getAllJob());
+           mav.addObject("nhathauList", nhathauManager.getAll());
+           mav.addObject("flag", 3);
+   		return mav;
+   	}
     
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_NHATHAU_LIST_DETAIL)
     public @ResponseBody List<Exfeetable> handleFeeNhathauDetailRequest(@RequestParam(value="truckId") Long id) throws Exception {
@@ -605,6 +715,7 @@ public class AccountingController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", StatusType.values());
         mav.addObject("jobList", docsgeneralManager.getAllJob());
+        mav.addObject("nhathauList", nhathauManager.getAll());
 		return mav;
 	}
     

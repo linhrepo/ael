@@ -87,4 +87,7 @@ public interface ExfeetableRepository extends GenericRepository<Exfeetable> {
 			+ " )) and e.masterFee = -10 ")
 	List<Exfeetable> findChiHoByDocsgeneralAndTruckingdetails(@Param(value = "docsId")Long docsId);
 
+	@Query(   " select e from Exfeetable e "
+			+ "  where id in :listId ")
+	List<Exfeetable> findByListId(@Param(value = "listId")List<Long> listId);
 }

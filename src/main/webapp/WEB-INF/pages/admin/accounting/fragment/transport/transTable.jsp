@@ -28,10 +28,10 @@
 	margin-bottom: 5px !important;
 } */
 /* .table-outter { overflow-x: scroll; } */
-.container {
+/* .container {
 	max-width: 1400px !important;
 	width: 1400px !important;
-}
+} */
 
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -46,8 +46,7 @@
 </style>
 <div class="table-outter wrapper">
 	<table id="detailsList"
-		class="display table table-condensed no-more-tables feeTable table-bordered"
-		width="100%">
+		class="display table table-condensed no-more-tables feeTable table-bordered">
 		<thead>
 			<tr>
 				<th rowspan="2"><fmt:message key="table.no" /></th>

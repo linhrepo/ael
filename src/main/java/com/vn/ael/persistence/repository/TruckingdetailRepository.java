@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.entity.Truckingservice;
 
@@ -121,6 +122,19 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			+ "order by t.truckingservice.docsgeneral.jobNo, t.truckingservice.docsgeneral.customer, t.consteal, t.id")
 	List<Truckingdetail> searchFeeNhathau(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
 			@Param(value="jobNo")String jobNo, @Param(value="nhathau")Long nhathau, @Param("doAccounting") Boolean doAccounting,
+			@Param(value="checkByAdmin") Boolean checkByAdmin, @Param(value="approved") Boolean approved);
+	
+	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables f INNER JOIN FETCH t.truckingservice INNER JOIN FETCH t.truckingservice.docsgeneral d where "
+			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo is null  or :jobNo = '') and "
+			+ "(t.nhathau.id = :nhathau or :nhathau is null) and "
+			+ "(f.checkByAdmin =:checkByAdmin or :checkByAdmin is null) and "
+			+ "(f.approved =:approved or :approved is null) and "
+			+ "d.doAccounting = 1 "
+			+ "group by t.id, f.id, d.id "
+			+ "order by t.nhathau, f.id, d.id ")
+	List<Truckingdetail> searchFeeNhathauAdvance(@Param(value="startDate") Date startDate, @Param(value="endDate") Date endDate, 
+			@Param(value="jobNo")String jobNo, @Param(value="nhathau")Long nhathau, 
 			@Param(value="checkByAdmin") Boolean checkByAdmin, @Param(value="approved") Boolean approved);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables f LEFT JOIN FETCH t.truckingservice LEFT JOIN FETCH t.truckingservice.docsgeneral d where "

@@ -58,11 +58,13 @@ public interface URLReference {
 	String ACCOUNTING_FEE_REFUND_ADMIN_LIST_DETAIL = "/admin/accounting/feeRefundAdminDetail";
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL = "/admin/accounting/changeApproval";
+	String ACCOUNTING_FEE_CHANGE_APPROVAL_BULK = "/admin/accounting/changeApprovalBulk";
 	String ACCOUNTING_REFUND_JOB_CHANGE_APPROVAL = "/admin/accounting/changeRefundJobApproval";
 	String ACCOUNTING_REFUND_ADMIN_CHANGE_APPROVAL = "/admin/accounting/changeRefundAdminApproval";
 	String ACCOUNTING_ADVANCE_CHANGE_APPROVAL = "/admin/accounting/changeAdvanceApproval";
 	
 	String ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN = "/admin/changeApproval";
+	String ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN_BULK = "/admin/changeApprovalBulk";
 	String ACCOUNTING_FEE_LIST_ADMIN = "/admin/feeTables";
 	
 	String AJAX_ADD_CONSTANT = "/admin/config/constant";
@@ -99,6 +101,9 @@ public interface URLReference {
 	String FEETABLES_SEARCH = "/admin/accounting/searchFeeTables";
 	String FEETABLES_ADMIN_SEARCH = "/admin/searchFeeTables";
 	String FEENHATHAUTABLES_SEARCH = "/admin/accounting/searchFeeNhathauTables";
+	String FEENHATHAUTABLES_SEARCH_ADVANCE = "/admin/accounting/searchFeeNhathauTablesAdvance";
+	String FEENHATHAUTABLES_ADMIN_SEARCH_ADVANCE = "/admin/searchFeeNhathauTablesAdvance";
+	
 	String FEE_NHATHAU_TABLES_ADMIN_SEARCH = "/admin/searchFeeNhathauTables";
 	String ADVANCE_SEARCH = "/users/searchAdvance";
 	String REFUND_SEARCH = "/users/searchRefund";

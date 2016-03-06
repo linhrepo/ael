@@ -116,4 +116,9 @@ public class ExfeetableManagerImpl extends GenericManagerImpl<Exfeetable> implem
 		return exfeetableRepository.findAllDuplicates();
 	}
 
+	@Override
+	public List<Exfeetable> findByListId(List<Long> listId) {
+		return exfeetableRepository.findByListId(listId);
+	}
+
 }
