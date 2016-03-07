@@ -196,46 +196,46 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 
 	@Override
 	public void updateTruckAccounting(Truckingdetail truckingdetail, BigDecimal phiAel, BigDecimal phiChiHo) {
-		TruckAccounting truckac = truckingdetail.getTruckAccounting();
-		if (truckac == null) {
-			truckac = new TruckAccounting();
-			truckac.setTruckingdetail(truckingdetail);
-			truckac.setPhiAelChuaChi(phiAel == null ? BigDecimal.ZERO : phiAel);
-			truckac.setPhiChiHoChuaChi(phiChiHo == null ? BigDecimal.ZERO : phiChiHo);
-			truckac.setPayMoneyStatus(0);
-			truckingdetail.setTruckAccounting(truckac);
-		} else {
-			/*if (truckac.getPayMoneyStatus() == 0) {*/
+		try {
+			TruckAccounting truckac = truckAccountingRepository.findByTruckingdetail(truckingdetail.getId());
+			if (truckac == null) {
+				truckac = new TruckAccounting();
+				truckac.setTruckingdetail(truckingdetail);
+				truckac.setPhiAelChuaChi(phiAel == null ? BigDecimal.ZERO : phiAel);
+				truckac.setPhiChiHoChuaChi(phiChiHo == null ? BigDecimal.ZERO : phiChiHo);
+				truckac.setPayMoneyStatus(0);
+			} else {
+	
 				if (phiAel == null) {
 					phiAel = BigDecimal.ZERO;
 				} 
 				if (phiChiHo == null) {
 					phiChiHo = BigDecimal.ZERO;
 				}
-				BigDecimal phiAelUpdated = truckingdetail.getTruckAccounting().getPhiAelChuaChi();
+				BigDecimal phiAelUpdated = truckac.getPhiAelChuaChi();
 				if (phiAelUpdated != null) {
 					phiAelUpdated = phiAelUpdated.add(phiAel);
 				} else {
 					phiAelUpdated = BigDecimal.ZERO;
 				}
-				BigDecimal phiChiHoUpdated = truckingdetail.getTruckAccounting().getPhiChiHoChuaChi();
+				BigDecimal phiChiHoUpdated = truckac.getPhiChiHoChuaChi();
 				if (phiChiHoUpdated != null) {
 					phiChiHoUpdated = phiChiHoUpdated.add(phiChiHo);
 				} else {
 					phiChiHoUpdated = BigDecimal.ZERO;
 				}
-
-				truckingdetail.getTruckAccounting().setPhiAelChuaChi(phiAelUpdated);
-				truckingdetail.getTruckAccounting().setPhiChiHoChuaChi(phiChiHoUpdated);
+	
+				truckac.setPhiAelChuaChi(phiAelUpdated);
+				truckac.setPhiChiHoChuaChi(phiChiHoUpdated);
 				
 				//update status for new fee approved
-				if (truckingdetail.getTruckAccounting().getPayMoneyStatus() == 1) {
-					truckingdetail.getTruckAccounting().setPayMoneyStatus(2);
+				if (truckac.getPayMoneyStatus() == 1) {
+					truckac.setPayMoneyStatus(2);
 				}
 			}
-		
-		/*}*/
-		truckingdetailRepository.save(truckingdetail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

@@ -44,7 +44,7 @@
         <c:forEach items="${truckingdetailList}" var="trucking" varStatus="idx">
         	<tr params="truckId=${trucking.id}">
                 <td>${idx.index+1}</td>
-                <td>${trucking.nhathau.name }</td>
+                <td>${trucking.nhathau.code }</td>
               	<td>${trucking.truckingservice.docsgeneral.jobNo}</td>
               	<td>${trucking.consteal.noOfCont }</td>
               	<td><fmt:message key="${trucking.truckingservice.docsgeneral.typeOfDocs.textKey}"/></td>

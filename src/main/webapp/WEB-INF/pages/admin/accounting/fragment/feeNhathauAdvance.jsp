@@ -185,6 +185,7 @@
 			    		$('#' + approvedIds[i]).find('td:eq(11)').text("<fmt:formatDate type='time' value='${now}' pattern='dd/MM/yyyy'/>");
 			    		$('#' + approvedIds[i]).find('td:eq(10)').text("<fmt:message key='accounting.fee.isApproved' />");
 			    	}
+			    	$(".sum-value").val(0);
 			    	onOffButton();
 			    }
 			}); 

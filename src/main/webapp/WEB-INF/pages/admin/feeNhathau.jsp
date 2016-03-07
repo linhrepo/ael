@@ -20,10 +20,11 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
-                <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="accounting.ngaygiaohang"/></th>
             </tr>
         </thead>
@@ -31,10 +32,11 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
+                <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
-                <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="accounting.ngaygiaohang"/></th>
             </tr>
         </tfoot>
@@ -42,10 +44,11 @@
         <c:forEach items="${truckingdetailList}" var="trucking" varStatus="idx">
         	<tr params="truckId=${trucking.id}">
                 <td>${idx.index+1}</td>
+                <td>${trucking.nhathau.code }</td>
               	<td>${trucking.truckingservice.docsgeneral.jobNo}</td>
+              	<td>${trucking.consteal.noOfCont }</td>
               	<td><fmt:message key="${trucking.truckingservice.docsgeneral.typeOfDocs.textKey}"/></td>
               	<td>${trucking.truckingservice.docsgeneral.typeOfContainer.value}</td>
-              	<td>${trucking.nhathau.name }</td>
               	<td><fmt:formatDate value="${trucking.dateDev}" pattern="dd/MM/yyyy"/></td>
             </tr>
         </c:forEach>

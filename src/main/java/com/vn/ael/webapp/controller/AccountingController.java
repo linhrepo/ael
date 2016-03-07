@@ -321,7 +321,6 @@ public class AccountingController extends BaseFormController {
 	    		exfee.setCheckByAdmin(true);
 	    		exfee.setDateChange(Calendar.getInstance().getTime());
 	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
-	    		BigDecimal phi = null;
 	    		if (exfee.getMasterFee().getId() == -10) {
 	    			//chi ho
 	    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getTotal());
@@ -351,6 +350,15 @@ public class AccountingController extends BaseFormController {
 				exfee.setCheckByAdmin(true);
 			}
     		exfee.setDateChange(Calendar.getInstance().getTime());
+    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
+    		if (exfee.getMasterFee().getId() == -10) {
+    			//chi ho
+    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getTotal());
+    		} else {
+    			//other
+    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getTotal(), null);
+    		}
+    		
     		this.exfeetableManager.save(exfee);
     	}
     	return AELConst.AJAX_ERROR;

@@ -14,7 +14,7 @@
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><fmt:message key="accounting.feeSummary" /></a></li>
 		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><fmt:message key="accounting.feeNhathau" /></a></li>
-		<li role="presentation"><a href="#settings-advance" aria-controls="settings-advance" role="tab" data-toggle="tab"><fmt:message key="accounting.feeNhathau" /></a></li>
+		<li role="presentation"><a href="#settings-advance" aria-controls="settings-advance" role="tab" data-toggle="tab"><fmt:message key="accounting.feeNhathauAdvance" /></a></li>
 	</ul>
 	<!-- Tab panes -->
 	<div class="tab-content">
