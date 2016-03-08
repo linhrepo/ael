@@ -28,8 +28,9 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
-            	<th><fmt:message key="accounting.nhathau"/></th>
+            	
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="accounting.ngaygiaohang"/></th>
                 <th><fmt:message key="packageInfo.masterFee" /></th>
@@ -46,8 +47,8 @@
         <tfoot>
             <tr>
                 <th><fmt:message key="table.no"/></th>
-            	<th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="accounting.ngaygiaohang"/></th>
                 <th><fmt:message key="packageInfo.masterFee" /></th>
@@ -64,8 +65,8 @@
         <c:forEach items="${exfees}" var="exfee" varStatus="idx">
         	<tr id="${exfee.id}">
                 <td>${idx.index+1}</td>
-                <td>${exfee.truckingdetail.nhathau.code}</td>
                 <td>${exfee.truckingdetail.truckingservice.docsgeneral.jobNo}</td>
+                <td>${exfee.truckingdetail.nhathau.code}</td>
                 <td>${exfee.truckingdetail.consteal.noOfCont }</td>
                 <td><fmt:formatDate value="${exfee.truckingdetail.dateDev}" pattern="dd/MM/yyyy"/></td>
               	<td>${exfee.masterFee.value}</td>

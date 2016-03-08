@@ -186,7 +186,7 @@ public class TruckingserviceManagerImpl extends GenericManagerImpl<Truckingservi
 							if (exfeetable.getIsDeleted() != null && exfeetable.getIsDeleted() ==true){
 								exfeetableRepository.delete(exfeetable);
 							}
-							else{
+							else if (exfeetable.getAmount() != BigDecimal.ZERO){
 								exfeetables.add(exfeetable);
 							}
 						}

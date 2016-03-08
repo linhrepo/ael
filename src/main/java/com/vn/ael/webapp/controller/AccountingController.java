@@ -4,6 +4,8 @@ package com.vn.ael.webapp.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -289,19 +291,19 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_BULK)
     public @ResponseBody String approvalBulkFeeDetailRequest(@RequestParam(value="ids") String ids) throws Exception {
     	try {
-    	String[] idArr = ids.split(",");
-    	List<Long> listId = new ArrayList<Long>();
-    	for (String id : idArr) {
-    		listId.add(Long.parseLong(id));
-    	}
-    	List<Exfeetable> fees = exfeetableManager.findByListId(listId);
-    	for (Exfeetable exfee : fees) {
-			if (exfee.getApproved() == null || !exfee.getApproved()) {
-				exfee.setApproved(true);
-			}
-    		exfee.setDateChange(Calendar.getInstance().getTime());
-    		this.exfeetableManager.save(exfee);
-    	}
+	    	String[] idArr = ids.split(",");
+	    	List<Long> listId = new ArrayList<Long>();
+	    	for (String id : idArr) {
+	    		listId.add(Long.parseLong(id));
+	    	}
+	    	List<Exfeetable> fees = exfeetableManager.findByListId(listId);
+	    	for (Exfeetable exfee : fees) {
+				if (exfee.getApproved() == null || !exfee.getApproved()) {
+					exfee.setApproved(true);
+				}
+	    		exfee.setDateChange(Calendar.getInstance().getTime());
+	    		this.exfeetableManager.save(exfee);
+	    	}
     	} catch (Exception e) {
     		e.printStackTrace();
     		return "notok";
@@ -641,21 +643,34 @@ public class AccountingController extends BaseFormController {
 				} 
 			}
 		}
-		mav.addObject("exfees", exfeesMap.values());
+		
+		List<Exfeetable> listFee = new ArrayList<Exfeetable>(exfeesMap.values()); 
+		Collections.sort(listFee, new Comparator<Exfeetable>() {
+			@Override
+			public int compare(Exfeetable e1, Exfeetable e2) {
+				String j1 = e1.getTruckingdetail().getTruckingservice().getDocsgeneral().getJobNo();
+				String j2 = e2.getTruckingdetail().getTruckingservice().getDocsgeneral().getJobNo();
+				int compare = j1.compareToIgnoreCase(j2);
+				if (compare == 0) {
+					String c1 = e1.getTruckingdetail().getConsteal() == null ? "" : e1.getTruckingdetail().getConsteal().getNoOfCont();
+					String c2 = e2.getTruckingdetail().getConsteal() == null ? "" : e2.getTruckingdetail().getConsteal().getNoOfCont();
+					compare = c1.compareToIgnoreCase(c2);
+				}
+				return compare;
+			}
+			
+		});
+		mav.addObject("exfees", listFee);
 		
 		//selection
-        DocsSelection docsSelection = 
-        		configurationManager.loadSelectionForDocsPage
-        		(
-        				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-        				ConfigurationType.TYPE_OF_IMPORT
-        		);
-        mav.addObject("docsSelection", docsSelection);
-        mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-        mav.addObject("enumStatus", StatusType.values());
-        mav.addObject("jobList", docsgeneralManager.getAllJob());
-        mav.addObject("nhathauList", nhathauManager.getAll());
-        mav.addObject("flag", 3);
+		DocsSelection docsSelection = configurationManager
+				.loadSelectionForDocsPage(ConfigurationType.DOCS_TYPE_OF_CONTAINER, ConfigurationType.TYPE_OF_IMPORT);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("jobList", docsgeneralManager.getAllJob());
+		mav.addObject("nhathauList", nhathauManager.getAll());
+		mav.addObject("flag", 3);
 		return mav;
 	}
     
@@ -675,21 +690,35 @@ public class AccountingController extends BaseFormController {
    				} 
    			}
    		}
-   		mav.addObject("exfees", exfeesMap.values());
+   		
+   		List<Exfeetable> listFee = new ArrayList<Exfeetable>(exfeesMap.values()); 
+		Collections.sort(listFee, new Comparator<Exfeetable>() {
+			@Override
+			public int compare(Exfeetable e1, Exfeetable e2) {
+				String j1 = e1.getTruckingdetail().getTruckingservice().getDocsgeneral().getJobNo();
+				String j2 = e2.getTruckingdetail().getTruckingservice().getDocsgeneral().getJobNo();
+				int compare = j1.compareToIgnoreCase(j2);
+				if (compare == 0) {
+					String c1 = e1.getTruckingdetail().getConsteal() == null ? "" : e1.getTruckingdetail().getConsteal().getNoOfCont();
+					String c2 = e2.getTruckingdetail().getConsteal() == null ? "" : e2.getTruckingdetail().getConsteal().getNoOfCont();
+					compare = c1.compareToIgnoreCase(c2);
+				}
+				return compare;
+			}
+			
+		});
+		mav.addObject("exfees", listFee);
+   		
    		
    		//selection
-           DocsSelection docsSelection = 
-           		configurationManager.loadSelectionForDocsPage
-           		(
-           				ConfigurationType.DOCS_TYPE_OF_CONTAINER,
-           				ConfigurationType.TYPE_OF_IMPORT
-           		);
-           mav.addObject("docsSelection", docsSelection);
-           mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
-           mav.addObject("enumStatus", StatusType.values());
-           mav.addObject("jobList", docsgeneralManager.getAllJob());
-           mav.addObject("nhathauList", nhathauManager.getAll());
-           mav.addObject("flag", 3);
+		DocsSelection docsSelection = configurationManager
+				.loadSelectionForDocsPage(ConfigurationType.DOCS_TYPE_OF_CONTAINER, ConfigurationType.TYPE_OF_IMPORT);
+		mav.addObject("docsSelection", docsSelection);
+		mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
+		mav.addObject("enumStatus", StatusType.values());
+		mav.addObject("jobList", docsgeneralManager.getAllJob());
+		mav.addObject("nhathauList", nhathauManager.getAll());
+		mav.addObject("flag", 3);
    		return mav;
    	}
     

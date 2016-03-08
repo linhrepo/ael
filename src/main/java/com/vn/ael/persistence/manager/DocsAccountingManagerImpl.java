@@ -232,7 +232,9 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 				if (truckac.getPayMoneyStatus() == 1) {
 					truckac.setPayMoneyStatus(2);
 				}
+				
 			}
+			truckAccountingRepository.save(truckac);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

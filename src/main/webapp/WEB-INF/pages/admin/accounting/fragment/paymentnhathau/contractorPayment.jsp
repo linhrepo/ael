@@ -22,7 +22,7 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
             	<th><fmt:message key="trucking.nhathau"/></th>
-            	<th><fmt:message key="trucking.vehicleNo"/></th>
+            	<th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="trucking.phiAelChuaChi"/></th>
                 <th><fmt:message key="trucking.phiChiHoChuaChi"/></th>
                 <th><fmt:message key="trucking.phiAelDaChi"/></th>
@@ -37,7 +37,7 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.nhathau"/></th>
-                <th><fmt:message key="trucking.vehicleNo"/></th>
+                <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="trucking.phiAelChuaChi"/></th>
                 <th><fmt:message key="trucking.phiChiHoChuaChi"/></th>
                 <th><fmt:message key="trucking.phiAelDaChi"/></th>
@@ -52,7 +52,8 @@
                 <td>${idx.index+1}</td>
                 <td>${trucking.truckingservice.docsgeneral.jobNo}</td>
                 <td>${trucking.nhathau.code}</td>
-              	<td>${trucking.vehicleNo}</td>
+              	<%-- <td>${trucking.vehicleNo}</td> --%>
+              	<td>${trucking.consteal.noOfCont }</td>
               	<!-- <td></td> -->
               	<td>
            			<c:if test="${not empty trucking.truckAccounting.phiAelChuaChi and trucking.truckAccounting.phiAelChuaChi > 0}">
