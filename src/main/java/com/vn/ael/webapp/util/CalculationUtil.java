@@ -8,7 +8,8 @@ public class CalculationUtil {
 	private static final BigDecimal PERCENT = new BigDecimal(AELConst.VAT_PERCENT);
 	
 	public static final BigDecimal getVatFee(BigDecimal vat, BigDecimal total){
-		return  ConvertUtil.getNotNullValue(vat).multiply((ConvertUtil.getNotNullValue(total)).divide(PERCENT));
+		BigDecimal result =  ConvertUtil.getNotNullValue(vat).multiply((ConvertUtil.getNotNullValue(total)).divide(PERCENT));
+		return result.setScale(0, BigDecimal.ROUND_HALF_UP);
 	}
 	
 	public static final BigDecimal getTotalWithVat(BigDecimal vat, BigDecimal total){

@@ -73,7 +73,7 @@
 		</div>
 		<div class="row">
 			<div class="form-group col-md-2">
-				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
+				<button id="btn-search-advance" type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
 		</div> 
 	</form:form>

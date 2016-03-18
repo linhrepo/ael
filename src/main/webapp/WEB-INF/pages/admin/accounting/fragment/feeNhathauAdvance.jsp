@@ -135,14 +135,17 @@
  function clickRow(tr) {
 	var id = tr.attr('id');
 	var notApproved = tr.find("td").eq(10).html().indexOf('C') > -1;
-	if (id != null && notApproved) {
+	var money = tr.find('td').eq(9).text();
+	var moneyValid = money != null && money != 0;
+
+	if (id != null && notApproved && moneyValid) {
 		if(tr.hasClass("highlight")) {
 			tr.removeClass("highlight");
 			var index = approvedIds.indexOf(id);
 			if (index > -1) {
 				approvedIds.splice(index, 1);
 				
-				money = tr.find('td').eq(9).text();
+				//money = tr.find('td').eq(9).text();
 				sumValue -= parseInt(money.replace(/,/g, "")); 
 				$(".sum-value").val(sumValue.toLocaleString('en-IN'));
 			}
@@ -150,7 +153,7 @@
 			approvedIds.push(id);
 			tr.addClass("highlight");
 			
-			money = tr.find('td').eq(9).text();
+			//money = tr.find('td').eq(9).text();
 			sumValue += parseInt(money.replace(/,/g, "")); 
 			$(".sum-value").val(sumValue.toLocaleString('en-IN'));
 		}
@@ -180,14 +183,15 @@
 			    url: "./changeApprovalBulk",
 			    data: {"ids": ids},
 			    success: function(msg){
-			    	
-			    	for (var i = 0; i < approvedIds.length; i++) {
+			    	$('.btn-approve').addClass('disabled');
+			    	$("#btn-search-advance").click();
+			    	/* for (var i = 0; i < approvedIds.length; i++) {
 			    		$('#' + approvedIds[i]).removeClass('highlight');
 			    		$('#' + approvedIds[i]).find('td:eq(11)').text("<fmt:formatDate type='time' value='${now}' pattern='dd/MM/yyyy'/>");
 			    		$('#' + approvedIds[i]).find('td:eq(10)').text("<fmt:message key='accounting.fee.isApproved' />");
 			    	}
 			    	$(".sum-value").val(0);
-			    	onOffButton();
+			    	onOffButton(); */
 			    }
 			}); 
 	 	}

@@ -300,9 +300,9 @@ public class AccountingController extends BaseFormController {
 	    	for (Exfeetable exfee : fees) {
 				if (exfee.getApproved() == null || !exfee.getApproved()) {
 					exfee.setApproved(true);
+					exfee.setDateChange(Calendar.getInstance().getTime());
+		    		this.exfeetableManager.save(exfee);
 				}
-	    		exfee.setDateChange(Calendar.getInstance().getTime());
-	    		this.exfeetableManager.save(exfee);
 	    	}
     	} catch (Exception e) {
     		e.printStackTrace();
@@ -322,6 +322,7 @@ public class AccountingController extends BaseFormController {
 	    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
 	    		exfee.setCheckByAdmin(true);
 	    		exfee.setDateChange(Calendar.getInstance().getTime());
+	    		this.exfeetableManager.save(exfee);
 	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
 	    		if (exfee.getMasterFee().getId() == -10) {
 	    			//chi ho
@@ -330,7 +331,7 @@ public class AccountingController extends BaseFormController {
 	    			//other
 	    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getTotal(), null);
 	    		}
-	    		this.exfeetableManager.save(exfee);
+	    		
 	    		return AELConst.AJAX_SUCCESS;
 	    	}
 	    }
@@ -346,24 +347,30 @@ public class AccountingController extends BaseFormController {
     	for (String id : idArr) {
     		listId.add(Long.parseLong(id));
     	}
-    	List<Exfeetable> fees = exfeetableManager.findByListId(listId);
-    	for (Exfeetable exfee : fees) {
-			if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
-				exfee.setCheckByAdmin(true);
-			}
-    		exfee.setDateChange(Calendar.getInstance().getTime());
-    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
-    		if (exfee.getMasterFee().getId() == -10) {
-    			//chi ho
-    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getTotal());
-    		} else {
-    			//other
-    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getTotal(), null);
-    		}
-    		
-    		this.exfeetableManager.save(exfee);
+    	try {
+	    	List<Exfeetable> fees = exfeetableManager.findByListId(listId);
+	    	for (Exfeetable exfee : fees) {
+				if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
+					exfee.setCheckByAdmin(true);
+				}
+	    		exfee.setDateChange(Calendar.getInstance().getTime());
+	    		this.exfeetableManager.save(exfee);
+	    		
+	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
+	    		if (exfee.getMasterFee().getId() == -10) {
+	    			//chi ho
+	    			docsAccountingManager.updateTruckAccounting(truckingdetail, null, exfee.getTotal());
+	    		} else {
+	    			//other
+	    			docsAccountingManager.updateTruckAccounting(truckingdetail, exfee.getTotal(), null);
+	    		}
+	    		
+	    	}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return AELConst.AJAX_ERROR;
     	}
-    	return AELConst.AJAX_ERROR;
+    	return AELConst.AJAX_SUCCESS;
     }
     
     //end approve fee nhathau  
