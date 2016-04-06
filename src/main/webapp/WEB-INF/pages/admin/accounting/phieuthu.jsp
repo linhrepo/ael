@@ -42,9 +42,16 @@
 	          </button>
 	        </c:if>
 	        <c:if test="${not empty refund.id}">
-		        <button type="button" class="btn btn-info" name="addnew" onclick="addNewPhieuthu();">
-	              <i class="fa fa-plus"></i> <fmt:message key="button.addnew"/>
+		        <button type="button" class="btn btn-info" name="addnew" onclick="addNewPhieuthuAdmin();">
+	              <i class="fa fa-plus"></i> <fmt:message key="button.addPhieuthuAdmin"/>
 	            </button>
+	            <button type="button" class="btn btn-info" name="addnew" onclick="addNewPhieuthuJob();">
+	              <i class="fa fa-plus"></i> <fmt:message key="button.addPhieuthuJob"/>
+	            </button>
+	            <%-- <a class="btn btn-primary" href="<c:url value='phieuthu?isAdmin=1'/>">
+	            	<fmt:message key="button.addPhieuthuAdmin"/></a>
+		    	<a class="btn btn-primary" href="<c:url value='phieuthu?isAdmin=0'/>">
+		            <fmt:message key="button.addPhieuthuJob"/></a> --%>
             </c:if>
     	</div>
     </form:form>
@@ -62,10 +69,17 @@
 <v:javascript formName="phieuthuForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
 <script>
-function addNewPhieuthu() {
+function addNewPhieuthuAdmin() {
 	var msg = "<fmt:message key='notify.saveBeforeGo'/>";
 	if (confirm(msg)) {
-		window.location.href='phieuthu';
+		window.location.href='phieuthu?isAdmin=1';
+	}
+}
+
+function addNewPhieuthuJob() {
+	var msg = "<fmt:message key='notify.saveBeforeGo'/>";
+	if (confirm(msg)) {
+		window.location.href='phieuthu?isAdmin=0';
 	}
 }
 </script>

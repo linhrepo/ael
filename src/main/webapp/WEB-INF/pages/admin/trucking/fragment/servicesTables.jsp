@@ -382,7 +382,9 @@
 		</c:forEach>
 	</tbody>
 </table>
-<c:if test="${truckingservice.docsgeneral.typeOfContainer.id == -2}">
+<!-- only hide for FCL -->
+<c:if test="${truckingservice.docsgeneral.typeOfContainer.id != -1}">
+
 <div class="row">
 	<div class="col-md-10">
 	<span class="btn btn-primary" target-table="detailsList"> <i class="fa fa-plus"></i> <fmt:message key="button.add" /></span>

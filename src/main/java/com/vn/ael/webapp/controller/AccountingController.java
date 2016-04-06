@@ -273,15 +273,20 @@ public class AccountingController extends BaseFormController {
     	if (exfee == null){
     		return AELConst.AJAX_ERROR;
     	}
-    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
-			boolean updatedApprove = true;
-			if (exfee.getApproved() != null) {
-				updatedApprove = exfee.getApproved() ? false : true;
+    	try {
+			if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
+				boolean updatedApprove = true;
+				if (exfee.getApproved() != null) {
+					updatedApprove = exfee.getApproved() ? false : true;
+				}
+				exfee.setApproved(updatedApprove);
+				exfee.setDateChange(Calendar.getInstance().getTime());
+				this.exfeetableManager.save(exfee);
+				return AELConst.AJAX_SUCCESS;
 			}
-    		exfee.setApproved(updatedApprove);
-    		exfee.setDateChange(Calendar.getInstance().getTime());
-    		this.exfeetableManager.save(exfee);
-    		return AELConst.AJAX_SUCCESS;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return "notok";
     	}
 		
     	return AELConst.AJAX_ERROR;
@@ -312,6 +317,7 @@ public class AccountingController extends BaseFormController {
     }
     
     //admin/changeApproval
+    @Transactional
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN)
     public @ResponseBody String approvalAdminFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
     	Exfeetable exfee = this.exfeetableManager.get(id);
