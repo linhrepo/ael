@@ -10,6 +10,8 @@
             <i class="fa fa-plus"></i><fmt:message key="button.addPhieuthuAdmin"/></a>
     	<a class="btn btn-primary" href="<c:url value='phieuthu?isAdmin=0'/>">
             <i class="fa fa-plus"></i><fmt:message key="button.addPhieuthuJob"/></a>
+        <%-- <a class="btn btn-primary" href="<c:url value='phieuthu?isAdmin=2'/>">
+            <i class="fa fa-plus"></i><fmt:message key="button.addPhieuthuOther"/></a> --%>
         <a class="btn btn-success btn-download" onclick="downloadPhieuthu()">
             <i class="fa fa-print"></i> <fmt:message key="refund.printPayment"/></a>
     </div>
@@ -86,7 +88,6 @@
 			<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
 		</tbody>
 	</table>
-	<!-- <span id="error-msg" style="color: red;"></span> -->
 </div>
 
 <style>

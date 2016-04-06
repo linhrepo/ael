@@ -167,39 +167,6 @@ public class AccountingPhieuThuController extends BaseFormController {
     		 }
         }
         refundManager.updateChilds(refund);
-        //update reason
-        /*List<Refunddetail> listRefundDetail = new ArrayList<Refunddetail>();
-		List<Exfeetable> listExFeetable = new ArrayList<Exfeetable>();
-		listRefundDetail.addAll(refund.getRefunddetails());
-		listExFeetable.addAll(refund.getExfeetables());
-		StringBuilder payReason = new StringBuilder();
-		if (!listRefundDetail.isEmpty()) {
-			for (Refunddetail refunddetail : listRefundDetail) {
-				try {
-					String tmp = refunddetail.getDescription() ;
-					if (listRefundDetail.indexOf(refunddetail) != listRefundDetail.size()-1) {
-						tmp+=",";
-					}					
-					payReason.append(tmp);
-				} catch (Exception e) {
-					
-				}
-			}
-		}
-		if (!listExFeetable.isEmpty()) {
-			for (Exfeetable exfeetable : listExFeetable) {
-				try {
-					String tmp = exfeetable.getName().getValue();
-					if (listExFeetable.indexOf(exfeetable) != listExFeetable.size()-1) {
-						tmp+=",";
-					}					
-					payReason.append(tmp);
-				} catch (Exception e) {
-					
-				}
-			}
-		}
-        refund.setPayReason(payReason.toString());*/
         return refund;
     }
 	

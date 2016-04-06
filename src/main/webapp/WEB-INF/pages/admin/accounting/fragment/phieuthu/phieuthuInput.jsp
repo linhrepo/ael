@@ -4,13 +4,16 @@
     <form:hidden path="createdDate"/>
     <form:hidden path="isRAdmin"/>
     <div class="container-fluid">
-	    <div class="row">
+
+	
+
+	<div class="row">
 	    	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
 		    	<spring:bind path="refund.employee.id">
 			    <div class="form-group${(not empty status.errorMessage) ? ' has-error' : ''} col-md-3">
 			    </spring:bind>
 			        <appfuse:label styleClass="control-label" key="refund.employee"/>
-			        <form:select path="employee.id" cssClass="form-control select2">
+			        <form:select id="employee-selection" path="employee.id" cssClass="form-control select2">
 			        	<c:forEach items="${docsSelection.staff}" var="st">
 			        		<form:option value="${st.id}">${st.firstName}&nbsp;${st.lastName} </form:option>
 			        	</c:forEach>
@@ -33,10 +36,19 @@
 		        <form:input  path="date" id="date"  cssClass="form-control"/>
 		        <form:errors path="date" cssClass="help-block"/>
 		    </div>
-		    <div class="form-group col-md-2">
+		    <div class="form-group col-md-3">
 	    		<appfuse:label styleClass="control-label" key="phieuthu.total"/>
 	    		<input class="form-control money" value="${refund.totalAmount}" readonly="readonly" id="totalVal"/>
 	    	</div>
+	    	<c:if test="${not empty refund.moneyBook}">
+				<div class="form-group col-md-3">
+					<appfuse:label styleClass="control-label" key="accounting.voucherNo" />
+					<input class="form-control"
+						value="${refund.moneyBook.voucherNoPrint}" readonly="readonly" id="voucherNo" />
+				</div>
+			</c:if>
+	    	
+	    	
 		  <%--   <div class="form-group col-md-2">
 		    		<appfuse:label styleClass="control-label" key="refund.totalOAmount"/>
 		    		<input class="form-control money" value="${refund.totalOAmount}" readonly="readonly"/>
@@ -52,3 +64,4 @@
 		$("#date").datepicker();/* "setDate",new Date() */
 	});
 </script>
+

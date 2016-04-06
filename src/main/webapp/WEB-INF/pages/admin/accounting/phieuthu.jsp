@@ -29,13 +29,13 @@
 		        	</button>
 	        	</security:authorize>
 	        </c:if>
-	        <%--  <c:if test="${not empty refund.id}">
+	        <c:if test="${not empty refund.id and empty refund.moneyBook}">
 	        	<security:authorize ifAnyGranted="ROLE_ADMIN,ROLE_ACCOUNTING"> 
-		        	<a class="btn btn-success" href="phieuthu/download?id=${refund.id}">
+		        	<a class="btn btn-success" id="btn-download" onclick="downloadPhieuthu('${refund.id}')">
 		           	 <i class="fa fa-print"></i> <fmt:message key="refund.printPayment"/>
 		        	</a>
 	        	</security:authorize>
-	        </c:if> --%>
+	        </c:if>
 	        <c:if test="${not empty refund.id && refund.doApproval != true}">
 	          <button type="submit" class="btn btn-danger" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
 	              <i class="fa fa-trash"></i> <fmt:message key="button.delete"/>
@@ -48,10 +48,6 @@
 	            <button type="button" class="btn btn-info" name="addnew" onclick="addNewPhieuthuJob();">
 	              <i class="fa fa-plus"></i> <fmt:message key="button.addPhieuthuJob"/>
 	            </button>
-	            <%-- <a class="btn btn-primary" href="<c:url value='phieuthu?isAdmin=1'/>">
-	            	<fmt:message key="button.addPhieuthuAdmin"/></a>
-		    	<a class="btn btn-primary" href="<c:url value='phieuthu?isAdmin=0'/>">
-		            <fmt:message key="button.addPhieuthuJob"/></a> --%>
             </c:if>
     	</div>
     </form:form>
@@ -65,7 +61,19 @@
     	</div>
     </div>
 </div>
- 
+<div id="voucher-info-modal" style="display:none;">
+	<table class="display table table-striped table-bordered table-hover">
+		<tbody>
+			<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
+			<tr><td><fmt:message key="advanceform.employee"/></td><td id="vi-name"></td></tr>
+			<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
+			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
+			<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
+			<tr><td><fmt:message key="moneybook.description"/></td><td><input id="vi-reason" placeholder="Content"/></td></tr>
+		</tbody>
+	</table>
+	<!-- <span id="error-msg" style="color: red;"></span> -->
+</div>
 <v:javascript formName="phieuthuForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
 <script>
@@ -82,4 +90,77 @@ function addNewPhieuthuJob() {
 		window.location.href='phieuthu?isAdmin=0';
 	}
 }
+
+function addNewPhieuthuOther() {
+	var msg = "<fmt:message key='notify.saveBeforeGo'/>";
+	if (confirm(msg)) {
+		window.location.href='phieuthu?isAdmin=2';
+	}
+}
+
+function downloadPhieuthu(id) {
+	$.ajax({
+	    type: "POST",
+	    url: "phieuthu/print",
+	    data: {"id": id},
+	    success: function(msg){
+	    	reviewVoucherPayment(id, msg);
+	    },
+	    error: function(msg){
+	    	alert("not ok");
+	    }
+	}); 
+}
+
+function reviewVoucherPayment(ids, voucherInfo) {
+	var data = JSON.parse(voucherInfo);
+	var name = $("#employee-selection :selected").text();
+	$("#vi-name").html(name);
+	$("#vi-refcodes").html(data.refCodes);
+	$("#vi-amount").html(data.amount.toLocaleString('en-IN'));
+
+	bootbox.dialog({
+		   closeButton: false,
+	       message: $("#voucher-info-modal").html(),
+	       title: "PRINT RECEIPT CONFIRMATION",
+	       className: "modal-darkorange",
+	       buttons: {
+	    	   "Confirm": {
+	               className: "btn-blue",
+	               callback: function () {
+            	    	
+            	    	$.ajax({
+            			    type: "POST",
+            			    url:  "phieuthu/createmoneybook",
+            			    data: { "date" : $(".modal-content #vi-date").val(),
+	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
+	       		    			    "reason" : $(".modal-content #vi-reason").val()},
+            			    success: function(msg){
+            			    	if (msg == "ok") { 
+	        	       		    	window.location.href="phieuthu/download?id=" + ids;
+	        	       		    	$('#btn-download').addClass('disabled');
+            			    	} else {
+            			    		alert(msg);
+            			    		//reviewVoucherPayment(ids, voucherInfo, type);
+            			    	}
+            			    },
+            			    error: function(msg) {
+            			    	alert(msg);
+            			    }
+            			})
+	               }
+	           }, 
+	           "Cancel": {
+	               className: "btn-red"
+	           }
+	       }
+	});
+	
+	$(".modal-content #vi-id").val(data.voucherNoPrint);
+	$(".modal-content #vi-date").datepicker("setDate", new Date());
+	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
+		$(this).datepicker('hide');
+	})
+}
 </script>
+<script src="../../scripts/bootbox/bootbox.js"></script>
