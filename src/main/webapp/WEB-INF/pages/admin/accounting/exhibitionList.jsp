@@ -13,6 +13,7 @@
             <tr>
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="exhibition.devDate"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="table.action"/></th>
@@ -23,6 +24,7 @@
             <tr>
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="exhibition.devDate"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="table.action"/></th>
@@ -33,6 +35,7 @@
         	<tr>
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
+              	<td><fmt:formatDate value="${exhibition.devDate}" pattern="dd/MM/yyyy"/></td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
               	<td>${trucking.typeOfContainer.value}</td>
                 <td>

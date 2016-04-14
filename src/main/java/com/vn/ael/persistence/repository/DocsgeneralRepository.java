@@ -94,6 +94,8 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			+ "(e.doDelivery =:doDelivery or :doDelivery is null) and "
 			+ "(e.jobNo like %:jobNo% or :jobNo is null) and "
 			/*+ "(c.id =:contSeal or :contSeal is null) and "*/
+			+ "((e.truckingservice is not null) and (:startDate is null or e.truckingservice.createdDate >= :startDate) "
+			+ " and (:endDate is null or e.truckingservice.createdDate <= :endDate)) and "
 			+ "((e.truckingservice is not null and :hasRecord = true) or (e.truckingservice is null and :hasRecord = false) or ( :hasRecord is null))"
 			)
 	List<Docsgeneral> searchTrucking(@Param("customerId") Long customerId,
@@ -103,7 +105,9 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param(value="typeOfDocs") ServicesType typeOfDocs,
 			@Param(value="doDelivery") Boolean doDelivery,
 			@Param(value="hasRecord") Boolean hasRecord,
-			@Param(value="jobNo") String jobNo/*,
+			@Param(value="jobNo") String jobNo,
+			@Param(value="startDate") Date startDate,
+			@Param(value="endDate") Date endDate/*,
 			@Param(value="contSeal") String contSeal*/
 			);
 //	Add Phuc 1.8
@@ -112,12 +116,30 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "e.typeOfDocs =:typeOfDocs and "
 			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
-			+ "e.doAccounting =:doAccounting")
+			+ "e.doAccounting =:doAccounting and "
+			+ "(e.docReceiveDate >= :startDate or :startDate is null) and (e.docReceiveDate <= :endDate or :endDate is null) ")
 	List<Docsgeneral> searchAccounting(@Param("customerId") Long customerId,
 			@Param("typeOfImport") Long typeOfImport,
 			@Param("typeOfContainer") Long typeOfContainer,
 			@Param("doAccounting") Boolean doAccounting,
-			@Param(value="typeOfDocs") ServicesType typeOfDocs);
+			@Param(value="typeOfDocs") ServicesType typeOfDocs,
+			@Param("startDate") Date startDate,
+			@Param("endDate") Date endDate);
+	
+	@Query("SELECT e FROM Docsgeneral e inner join fetch e.exhibition ex WHERE (e.customer.id = :customerId or :customerId is null) and "
+			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
+			+ "e.typeOfDocs =:typeOfDocs and "
+			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
+			+ "e.doAccounting =:doAccounting and "
+			+ "(ex.devDate >= :startDate or :startDate is null) and (ex.devDate <= :endDate or :endDate is null) ")
+
+	List<Docsgeneral> searchExhibitionAccounting(@Param("customerId") Long customerId,
+			@Param("typeOfImport") Long typeOfImport,
+			@Param("typeOfContainer") Long typeOfContainer,
+			@Param("doAccounting") Boolean doAccounting,
+			@Param(value="typeOfDocs") ServicesType typeOfDocs,
+			@Param("startDate") Date startDate,
+			@Param("endDate") Date endDate);
 	
 	@Query("SELECT DISTINCT e.jobNo FROM Docsgeneral e")
 	List<String> getAllJob();

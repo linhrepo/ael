@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -26,11 +27,14 @@ public interface ExhibitionRepository extends GenericRepository<Exhibition> {
 			+ "(e.docsgeneral.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
 			+ "(e.docsgeneral.doDelivery =:doDelivery or :doDelivery is null) and "
 			+ "(e.docsgeneral.jobNo like %:jobNo% or :jobNo is null) and "
-			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null)")
+			+ "(e.docsgeneral.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
+			+ "(e.devDate >= :startDate or :startDate is null) and (e.devDate <= :endDate or :endDate is null) ")
 	List<Exhibition> searchExhibition(@Param("customerId") Long customerId,
 			@Param("typeOfImport") Long typeOfImport,
 			@Param("doDelivery") Boolean doDelivery,
 			@Param("typeOfContainer") Long typeOfContainer,
-			@Param(value="jobNo") String jobNo);
+			@Param(value="jobNo") String jobNo,
+			@Param(value="startDate") Date startDate,
+			@Param(value="endDate") Date endDate);
 //	Add Phuc 1.8
 }

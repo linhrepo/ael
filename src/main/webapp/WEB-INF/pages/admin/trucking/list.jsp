@@ -16,6 +16,7 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="trucking.status"/></th>
+                <th><fmt:message key="trucking.createDate"/></th>
                 <th><fmt:message key="truckingservice.doDelivery"/></th>
                 <th><fmt:message key="packageInfo.po"/></th>
                 <th><fmt:message key="notify.lastUpdated"/></th>
@@ -30,6 +31,7 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="trucking.status"/></th>
+                <th><fmt:message key="trucking.createDate"/></th>
                 <th><fmt:message key="truckingservice.doDelivery"/></th>
                 <th><fmt:message key="packageInfo.po"/></th>
                 <th><fmt:message key="notify.lastUpdated"/></th>
@@ -48,6 +50,10 @@
               			<a><i class="fa fa-check"></i></a>
               		</c:if>
               	</td>
+              	<td>
+	              	<c:if test="${not empty trucking.truckingservice}">
+              			<fmt:formatDate value="${trucking.truckingservice.createdDate}" pattern="dd/MM/yyyy"/>
+              		</c:if>
               	<td>
               		<c:if test="${trucking.truckingservice.doDelivery}">
               			<a><i class="fa fa-check"></i></a>

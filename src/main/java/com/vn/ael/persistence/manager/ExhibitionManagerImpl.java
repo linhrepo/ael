@@ -172,7 +172,7 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 	public List<Exhibition> searchInland(Search search) {
 //		Add Phuc 1.8
 		return exhibitionRepository.searchExhibition(search.getCustomer(), search.getTypeOfImport(), 
-				search.getDoDelivery(), search.getTypeOfContainer(), search.getJobNo());
+				search.getDoDelivery(), search.getTypeOfContainer(), search.getJobNo(), search.getStartDate(), search.getEndDate());
 //		End Add Phuc 1.8
 	}
 

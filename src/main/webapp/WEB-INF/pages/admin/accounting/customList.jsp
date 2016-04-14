@@ -13,6 +13,7 @@
             <tr>
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="packageInfo.dateStartNCT"/></th>
                 <th><fmt:message key="debit.thutien"/></th>
                 <th><fmt:message key="Debit No"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
@@ -25,6 +26,7 @@
             <tr>
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
+                <th><fmt:message key="packageInfo.dateStartNCT"/></th>
                 <th><fmt:message key="debit.thutien"/></th>
                 <th><fmt:message key="Debit No"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
@@ -37,6 +39,7 @@
         	<tr class="${trucking.docsAccounting.collectMoneyStatus == 1 ? '' : 'impress'  }">
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
+              	<td><fmt:formatDate value="${trucking.docReceiveDate}" pattern="dd/MM/yyyy"/></td>
               	<td>
               	<c:if test="${not empty trucking.accountingcus.id }">
               		<c:choose>

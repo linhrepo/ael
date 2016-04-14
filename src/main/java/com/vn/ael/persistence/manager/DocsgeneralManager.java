@@ -101,6 +101,8 @@ public interface DocsgeneralManager extends GenericManager<Docsgeneral> {
 	
 	List<Docsgeneral> searchAccounting(Search search);
 	
+	List<Docsgeneral> searchExhibitionAccounting(Search search);
+	
 	List<Docsgeneral> searchFeeTables(Search search);
 	
 	List<String> getAllJob();

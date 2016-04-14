@@ -148,7 +148,7 @@ public class AccountingController extends BaseFormController {
     @RequestMapping(method = RequestMethod.GET, value=URLReference.ACCOUNTING_CUSTOM_LIST)
     public ModelAndView handleRequest() throws Exception {
         Model model = new ExtendedModelMap();
-        model.addAttribute(docsgeneralManager.findByDoAccountingAndTypeOfDocs(true,ServicesType.DVTQ));
+        //model.addAttribute(docsgeneralManager.findByDoAccountingAndTypeOfDocs(true,ServicesType.DVTQ));
         Search searchAccPackageInfo = new Search();
         model.addAttribute("search", searchAccPackageInfo);
       //selection

@@ -21,6 +21,7 @@
                 <th><fmt:message key="exhibition.refNo"/></th>
                 <th><fmt:message key="exhibition.exName"/></th>
                 <th><fmt:message key="exhibition.typeOfEx"/></th>
+                <th><fmt:message key="exhibition.devDate"/></th>
                 <th><fmt:message key="exhibition.customerCode"/></th>
                 <th><fmt:message key="exhibition.typeOfContainer"/></th>
                 <th><fmt:message key="configuration.typeOfImport"/></th>
@@ -35,6 +36,7 @@
                 <th><fmt:message key="exhibition.refNo"/></th>
                 <th><fmt:message key="exhibition.exName"/></th>
                 <th><fmt:message key="exhibition.typeOfEx"/></th>
+                <th><fmt:message key="exhibition.devDate"/></th>
                 <th><fmt:message key="exhibition.customerCode"/></th>
                 <th><fmt:message key="exhibition.typeOfContainer"/></th>
                 <th><fmt:message key="configuration.typeOfImport"/></th>
@@ -55,6 +57,7 @@
 		    		</c:forEach>
 		    	</td>
               	<td>${exhibition.typeOfEx.value}</td>
+              	<td><fmt:formatDate value="${exhibition.devDate}" pattern="dd/MM/yyyy"/></td>
               	<td>${exhibition.docsgeneral.customer.code}</td>
               	<td>${exhibition.docsgeneral.typeOfContainer.value}</td>
               	<td>${exhibition.docsgeneral.typeOfImport.value}</td>

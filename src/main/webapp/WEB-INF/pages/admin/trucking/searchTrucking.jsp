@@ -10,7 +10,7 @@
 		<div class="row">
 				<!-- Add Phuc 1.8 -->
 			
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="trucking.customercode" />
 				<form:select path="customer" id="customercode"
@@ -21,7 +21,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="packageInfo.jobNo" />
 				<%-- <form:select path="jobNo" id="customercode"
@@ -33,7 +33,7 @@
 				</form:select> --%>
 				<form:input path="jobNo" cssClass="form-control" maxlength="100"/>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="trucking.typeOfDocs" />
 				<form:select path="typeOfDocs" id="typeOfDocs"
@@ -44,7 +44,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="trucking.typeOfContainer" />
 				<form:select path="typeOfContainer"
@@ -55,7 +55,7 @@
 					</c:forEach>
 				</form:select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="configuration.typeOfImport" />
 				<form:select path="typeOfImport" id="typeOfImport"
@@ -77,7 +77,7 @@
 					</c:forEach>
 				</form:select>
 			</div> --%>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="trucking.status" />
 				<form:select path="doAccounting" id="doAccounting"
@@ -100,7 +100,17 @@
 <%-- 					</c:forEach> --%>
 <%-- 				</form:select> --%>
 <!-- 			</div> -->
-			<div class="form-group col-md-4">
+
+			<div class="form-group col-md-3">
+			    <appfuse:label styleClass="control-label" key="trucking.createDateStart"/>
+			    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
+		    </div>
+		    
+		    <div class="form-group col-md-3">
+			    <appfuse:label styleClass="control-label" key="trucking.createDateEnd"/>
+			    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
+		    </div>
+			<div class="form-group col-md-3">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>
 			<!-- End Add Phuc 1.8 -->

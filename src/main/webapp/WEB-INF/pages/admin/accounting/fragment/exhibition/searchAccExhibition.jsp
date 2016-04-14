@@ -41,6 +41,16 @@
 				</c:forEach>
 			</form:select>
 		</div>
+		<div class="form-group col-md-4">
+		    <appfuse:label styleClass="control-label" key="exhibition.devDateStart"/>
+		    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
+	    </div>
+	    
+	    <div class="form-group col-md-4">
+		    <appfuse:label styleClass="control-label" key="exhibition.devDateEnd"/>
+		    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
+	    </div>
+		<div class="form-group col-md-4"></div>
 		<div class="form-group col-md-2">
 			<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 		</div>

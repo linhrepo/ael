@@ -130,11 +130,11 @@ public class AccountingExhibitionController extends BaseFormController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = URLReference.ACCEXHIBITION_SEARCH)
-	public ModelAndView searchAccPackageInfo(Search searchAccPackageInfo)
+	public ModelAndView searchAccPackageInfo(Search searchAccExhibition)
 			throws Exception {
 		ModelAndView mav = new ModelAndView(URLReference.ACCOUNTING_EXHIBITION_LIST);
-		searchAccPackageInfo.setServicesType(ServicesType.EXHS);
-		List<Docsgeneral> docsgenerals = docsgeneralManager.searchAccounting(searchAccPackageInfo);
+		searchAccExhibition.setServicesType(ServicesType.EXHS);
+		List<Docsgeneral> docsgenerals = docsgeneralManager.searchExhibitionAccounting(searchAccExhibition);
 		mav.addObject(docsgenerals);
 		
 		//selection

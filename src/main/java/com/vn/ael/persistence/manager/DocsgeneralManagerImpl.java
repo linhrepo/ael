@@ -402,16 +402,23 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 //		Add Phuc 1.8
 		if(search.getTypeOfDocs() == null){
 			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), 
-					servicesType, true,search.getHasRecord(), search.getJobNo());
+					servicesType, true,search.getHasRecord(), search.getJobNo(), search.getStartDate(), search.getEndDate());
 		}
 		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), 
-				ServicesType.fromValue(search.getTypeOfDocs().intValue()), true,search.getHasRecord(), search.getJobNo());
+				ServicesType.fromValue(search.getTypeOfDocs().intValue()), true,search.getHasRecord(), search.getJobNo(), search.getStartDate(), search.getEndDate());
 //		End Add Phuc 1.8
 	}
 
 	@Override
 	public List<Docsgeneral> searchAccounting(Search search) {
-		return docsgeneralRepository.searchAccounting(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), true, search.getServicesType());
+		return docsgeneralRepository.searchAccounting(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), 
+				true, search.getServicesType(), search.getStartDate(), search.getEndDate());
+	}
+	
+	@Override
+	public List<Docsgeneral> searchExhibitionAccounting(Search search) {
+		return docsgeneralRepository.searchExhibitionAccounting(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), 
+				true, search.getServicesType(), search.getStartDate(), search.getEndDate());
 	}
 
 	@Override
