@@ -75,6 +75,10 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 	
 	private String invoiceNo;
 	
+	private Date updatedOn;
+	
+	private String updatedBy;
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="refund")
@@ -287,5 +291,21 @@ public class Exfeetable extends ApprovableBasedChildEntity implements Serializab
 
 	public void setPayDate(String payDate) {
 		this.payDate = payDate;
+	}
+	
+	public Date getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(Date updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 }

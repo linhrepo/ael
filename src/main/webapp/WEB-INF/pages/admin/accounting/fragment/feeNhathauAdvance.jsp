@@ -28,11 +28,9 @@
         <thead>
             <tr>
             	<th><fmt:message key="table.no"/></th>
-            	
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="contseal.noOfCont" /></th>
-                <th><fmt:message key="contseal.typeOfCont" /></th>
                 <th><fmt:message key="contseal.typeOfCont" /></th>
                 <th><fmt:message key="accounting.ngaygiaohang"/></th>
                 <th><fmt:message key="packageInfo.masterFee" /></th>
@@ -71,7 +69,7 @@
                 <td>${exfee.truckingdetail.truckingservice.docsgeneral.jobNo}</td>
                 <td>${exfee.truckingdetail.nhathau.code}</td>
                 <td>${exfee.truckingdetail.consteal.noOfCont }</td>
-                <th>${exfee.truckingdetail.consteal.typeOfCont.value }</th>
+                <td>${exfee.truckingdetail.consteal.typeOfCont.value }</td>
                 <td><fmt:formatDate value="${exfee.truckingdetail.dateDev}" pattern="dd/MM/yyyy"/></td>
               	<td>${exfee.masterFee.value}</td>
               	<td>${exfee.name.value}</td>
@@ -138,8 +136,8 @@
 
  function clickRow(tr) {
 	var id = tr.attr('id');
-	var notApproved = tr.find("td").eq(10).html().indexOf('C') > -1;
-	var money = tr.find('td').eq(9).text();
+	var notApproved = tr.find("td").eq(11).html().indexOf('C') > -1;
+	var money = tr.find('td').eq(10).text();
 	var moneyValid = money != null && money != 0;
 
 	if (id != null && notApproved && moneyValid) {

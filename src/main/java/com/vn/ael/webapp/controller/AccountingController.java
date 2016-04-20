@@ -48,6 +48,7 @@ import com.vn.ael.persistence.manager.PackageinfoManager;
 import com.vn.ael.persistence.manager.RefundDetailManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.manager.TruckingserviceManager;
+import com.vn.ael.persistence.manager.UserManager;
 import com.vn.ael.webapp.dto.AccountingTransCondition;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.dto.Search;
@@ -74,6 +75,13 @@ public class AccountingController extends BaseFormController {
 	private AdvanceFormManager advanceFormManager;
 	
 	private DocsAccountingManager docsAccountingManager;
+	
+	private UserManager userManager;
+	
+	@Autowired
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
 	
 	@Autowired
 	public void setExfeetableManager(ExfeetableManager exfeetableManager){
@@ -268,7 +276,7 @@ public class AccountingController extends BaseFormController {
     /*approved fee nhathau for account & admin*/
     //admin/accounting/changeApproval
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL)
-    public @ResponseBody String approvalFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    public @ResponseBody String approvalFeeDetailRequest(@RequestParam(value="id") Long id, HttpServletRequest request) throws Exception {
     	Exfeetable exfee = this.exfeetableManager.get(id);
     	if (exfee == null){
     		return AELConst.AJAX_ERROR;
@@ -281,6 +289,8 @@ public class AccountingController extends BaseFormController {
 				}
 				exfee.setApproved(updatedApprove);
 				exfee.setDateChange(Calendar.getInstance().getTime());
+				exfee.setUpdatedOn(Calendar.getInstance().getTime());
+	    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
 				this.exfeetableManager.save(exfee);
 				return AELConst.AJAX_SUCCESS;
 			}
@@ -294,7 +304,7 @@ public class AccountingController extends BaseFormController {
     
     @Transactional
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_BULK)
-    public @ResponseBody String approvalBulkFeeDetailRequest(@RequestParam(value="ids") String ids) throws Exception {
+    public @ResponseBody String approvalBulkFeeDetailRequest(@RequestParam(value="ids") String ids, HttpServletRequest request) throws Exception {
     	try {
 	    	String[] idArr = ids.split(",");
 	    	List<Long> listId = new ArrayList<Long>();
@@ -306,6 +316,8 @@ public class AccountingController extends BaseFormController {
 				if (exfee.getApproved() == null || !exfee.getApproved()) {
 					exfee.setApproved(true);
 					exfee.setDateChange(Calendar.getInstance().getTime());
+					exfee.setUpdatedOn(Calendar.getInstance().getTime());
+		    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
 		    		this.exfeetableManager.save(exfee);
 				}
 	    	}
@@ -319,7 +331,7 @@ public class AccountingController extends BaseFormController {
     //admin/changeApproval
     @Transactional
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN)
-    public @ResponseBody String approvalAdminFeeDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    public @ResponseBody String approvalAdminFeeDetailRequest(@RequestParam(value="id") Long id, HttpServletRequest request) throws Exception {
     	Exfeetable exfee = this.exfeetableManager.get(id);
     	if (exfee == null){
     		return AELConst.AJAX_ERROR;
@@ -328,6 +340,8 @@ public class AccountingController extends BaseFormController {
 	    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
 	    		exfee.setCheckByAdmin(true);
 	    		exfee.setDateChange(Calendar.getInstance().getTime());
+	    		exfee.setUpdatedOn(Calendar.getInstance().getTime());
+	    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
 	    		this.exfeetableManager.save(exfee);
 	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
 	    		if (exfee.getMasterFee().getId() == -10) {
@@ -346,7 +360,7 @@ public class AccountingController extends BaseFormController {
     
     @Transactional
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_FEE_CHANGE_APPROVAL_ADMIN_BULK)
-    public @ResponseBody String approvalBulkAdminFeeDetailRequest(@RequestParam(value="ids") String ids) throws Exception {
+    public @ResponseBody String approvalBulkAdminFeeDetailRequest(@RequestParam(value="ids") String ids, HttpServletRequest request) throws Exception {
     	
     	String[] idArr = ids.split(",");
     	List<Long> listId = new ArrayList<Long>();
@@ -360,6 +374,8 @@ public class AccountingController extends BaseFormController {
 					exfee.setCheckByAdmin(true);
 				}
 	    		exfee.setDateChange(Calendar.getInstance().getTime());
+	    		exfee.setUpdatedOn(Calendar.getInstance().getTime());
+	    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
 	    		this.exfeetableManager.save(exfee);
 	    		
 	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
@@ -423,7 +439,7 @@ public class AccountingController extends BaseFormController {
 
 
     @RequestMapping(method = RequestMethod.POST, value=URLReference.ACCOUNTING_REFUND_JOB_CHANGE_APPROVAL)
-    public @ResponseBody String approvalFeeRefundJobDetailRequest(@RequestParam(value="id") Long id) throws Exception {
+    public @ResponseBody String approvalFeeRefundJobDetailRequest(@RequestParam(value="id") Long id, HttpServletRequest request) throws Exception {
     	Exfeetable exfee = this.exfeetableManager.get(id);
     	if (exfee == null){
     		return AELConst.AJAX_ERROR;
@@ -435,6 +451,8 @@ public class AccountingController extends BaseFormController {
 			}
     		exfee.setApproved(updatedApprove);
     		exfee.setDateChange(Calendar.getInstance().getTime());
+    		exfee.setUpdatedOn(Calendar.getInstance().getTime());
+    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
     		this.exfeetableManager.save(exfee);
     		
     		// check for details
@@ -477,7 +495,6 @@ public class AccountingController extends BaseFormController {
     	}
     	if (advancedetail.getApproved() == null || !advancedetail.getApproved()){
     		advancedetail.setApproved(true);
-//    		refunddetail.setDateChange(Calendar.getInstance().getTime());
     	}
     	else if(advancedetail.getCheckByAdmin() == null || !advancedetail.getCheckByAdmin()){
     		advancedetail.setApproved(false);

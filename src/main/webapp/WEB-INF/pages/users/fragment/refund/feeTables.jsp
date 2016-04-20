@@ -26,6 +26,7 @@
 			<th><fmt:message key="packageInfo.feeName" /></th>
 			<th><fmt:message key="packageInfo.feevalue" /></th>
 			<th><fmt:message key="packageInfo.feevavat" /></th>
+			<th><fmt:message key="packageInfo.feevat" /></th>
 			<th><fmt:message key="packageIngo.total" /></th>
 			<th><fmt:message key="inland.feeInvoiceNo" /></th>
 <%-- 			<th><fmt:message key="refund.accApproved" /></th> --%>
@@ -103,7 +104,19 @@
 						cssClass="form-control money vat" /> <form:errors
 						path="exfeetables[${idx.index}].vat"
 						cssClass="help-block" />
-					</div></td>
+					</div>
+				</td>
+				<td><spring:bind
+						path="refund.exfeetables[${idx.index}].vatAmount">
+						<div
+							class="form-group${(not empty status.errorMessage) ? ' has-error' : ''}">
+					</spring:bind> <form:input path="exfeetables[${idx.index}].vatAmount"
+						id="vatAmount${idx.index}" maxlength="16"  
+						cssClass="form-control money vatAmount" /> <form:errors
+						path="exfeetables[${idx.index}].vatAmount"
+						cssClass="help-block" />
+					</div>
+				</td>
 				<td>
 					<form:input path="exfeetables[${idx.index}].total"
 						id="total${idx.index}" maxlength="17"  

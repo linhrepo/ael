@@ -137,9 +137,9 @@
 
  function clickRow(tr) {
 	var id = tr.attr('id');
-	var notApproved = tr.find("td").eq(10).html().indexOf('C') == -1 
-		&& tr.find("td").eq(12).html().indexOf('C') > -1;
-	var money = tr.find('td').eq(9).text();
+	var notApproved = tr.find("td").eq(11).html().indexOf('C') == -1 
+		&& tr.find("td").eq(13).html().indexOf('C') > -1;
+	var money = tr.find('td').eq(10).text();
 	var moneyValid = money != null && money != 0;
 	if (id != null && notApproved && moneyValid) {
 		if(tr.hasClass("highlight")) {
