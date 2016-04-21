@@ -614,7 +614,6 @@ public class AdvanceFormListController extends BaseFormController {
 						for (Advancedetail ad : af.getAdvancedetails()) {
 							LiabilityDetail li = new LiabilityDetail();
 							li.setDate(af.getDate());
-							//li.setType("Phiếu chi");
 							li.setType(VoucherType.PHIEUCHI);
 							li.setVoucherNo(af.getMoneyBook() != null ? af.getMoneyBook().getVoucherNoPrint() : "");
 							li.setRefcode(af.getRefCode());
@@ -641,7 +640,6 @@ public class AdvanceFormListController extends BaseFormController {
 						for (Refunddetail rd : rf.getRefunddetails()) {
 							LiabilityDetail li = new LiabilityDetail();
 							li.setDate(rf.getDate());
-							//li.setType("Phiếu thu");
 							li.setType(VoucherType.PHIEUTHU);
 							li.setVoucherNo(rd.getRefund().getMoneyBook() != null ? rd.getRefund().getMoneyBook().getVoucherNoPrint() : "");
 							li.setRefcode(rf.getRefCode());

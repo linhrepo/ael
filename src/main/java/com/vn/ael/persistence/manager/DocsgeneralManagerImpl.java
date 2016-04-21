@@ -399,14 +399,12 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> searchTrucking(Search search) {
 		ServicesType servicesType = null;
-//		Add Phuc 1.8
 		if(search.getTypeOfDocs() == null){
 			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), 
-					servicesType, true,search.getHasRecord(), search.getJobNo(), search.getStartDate(), search.getEndDate());
+					servicesType, true,search.getHasRecord(), search.getJobNo());
 		}
 		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), 
-				ServicesType.fromValue(search.getTypeOfDocs().intValue()), true,search.getHasRecord(), search.getJobNo(), search.getStartDate(), search.getEndDate());
-//		End Add Phuc 1.8
+				ServicesType.fromValue(search.getTypeOfDocs().intValue()), true,search.getHasRecord(), search.getJobNo());
 	}
 
 	@Override

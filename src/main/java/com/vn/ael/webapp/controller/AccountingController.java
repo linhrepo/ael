@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,6 +79,8 @@ public class AccountingController extends BaseFormController {
 	private DocsAccountingManager docsAccountingManager;
 	
 	private UserManager userManager;
+	
+	protected final transient Log log = LogFactory.getLog(getClass());
 	
 	@Autowired
     public void setUserManager(UserManager userManager) {
@@ -339,6 +343,7 @@ public class AccountingController extends BaseFormController {
 	    if (exfee.getApproved() != null && exfee.getApproved()) {
 	    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
 	    		exfee.setCheckByAdmin(true);
+	    		log.info("exfee /admin/changeApproval: " + exfee.getId());
 	    		exfee.setDateChange(Calendar.getInstance().getTime());
 	    		exfee.setUpdatedOn(Calendar.getInstance().getTime());
 	    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
@@ -372,6 +377,7 @@ public class AccountingController extends BaseFormController {
 	    	for (Exfeetable exfee : fees) {
 				if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
 					exfee.setCheckByAdmin(true);
+					log.info("exfee /admin/changeApprovalBulk: " + exfee.getId());
 				}
 	    		exfee.setDateChange(Calendar.getInstance().getTime());
 	    		exfee.setUpdatedOn(Calendar.getInstance().getTime());

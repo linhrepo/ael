@@ -6,6 +6,8 @@ public interface URLReference {
 	
 	String NHATHAU_FORM = "/admin/config/nhathauForm";
 	String NHATHAU_LIST = "/admin/config/nhathauList";
+	String BANK_FORM = "/admin/config/bankForm";
+	String BANK_LIST = "/admin/config/bankList";
 	
 	String CONSTANST_FORM = "/admin/config/constantForm";
 	String CONSTANST_LIST = "/admin/config/constantList";
