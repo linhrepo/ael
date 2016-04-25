@@ -41,6 +41,11 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 	}
 
 	@Override
+	public List<MoneyBook> findByDurationAndBank(Date startDate, Date endDate, Long bankId) {
+		return this.moneyBookRepository.findByDurationAndBank(startDate, endDate, bankId);
+	}
+	
+	@Override
 	public List<MoneyBook> findByMoneyVoucher(Integer typeOfVoucher) {
 		//return this.moneyBookRepository.findByMoneyVoucher(1);
 		return null;

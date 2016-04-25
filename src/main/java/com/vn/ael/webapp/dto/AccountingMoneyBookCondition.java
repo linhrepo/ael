@@ -7,6 +7,7 @@ public class AccountingMoneyBookCondition {
 	private Date endDate;
 	private Integer typeOfBook;
 	private Integer typeOfVoucher;
+	private Long bankId;
 	/**
 	 * @return the startDate
 	 */
@@ -54,6 +55,12 @@ public class AccountingMoneyBookCondition {
 	 */
 	public void setTypeOfVoucher(Integer typeOfVoucher) {
 		this.typeOfVoucher = typeOfVoucher;
+	}
+	public Long getBankId() {
+		return bankId;
+	}
+	public void setBankId(Long bankId) {
+		this.bankId = bankId;
 	}
 
 	

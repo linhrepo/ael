@@ -25,12 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.Advanceform;
+import com.vn.ael.persistence.entity.Bank;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
+import com.vn.ael.persistence.manager.BankManager;
 import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.RefundManager;
@@ -46,7 +48,9 @@ public class AccountingMoneyBookController extends BaseFormController {
 
 	private final String ACCOUNTING_MONEY_BOOK = "/admin/accounting/moneyBook";
 	
-	private final String ACCOUNTING_MONEY_BOOK_SEARCH = "/admin/accounting/searchMoneyBook";
+	private final String ACCOUNTING_MONEY_CASH_BOOK_SEARCH = "/admin/accounting/searchMoneyCashBook";
+	
+	private final String ACCOUNTING_MONEY_BANK_BOOK_SEARCH = "/admin/accounting/searchMoneyBankBook";
 	
 	private final String ACCOUNTING_MONEY_BOOK_SAVE_FIRST_BALANCE = "/admin/accounting/moneybook/saveFirstBalance";
 	
@@ -91,6 +95,13 @@ public class AccountingMoneyBookController extends BaseFormController {
         this.truckingdetailManager = truckingdetailManager;
     }
     
+    private BankManager bankManager;
+
+    @Autowired
+    public void setBankManager(final BankManager bankManager) {
+        this.bankManager = bankManager;
+    }
+    
 	private PermissionCheckingService permissionCheckingService;
 
 	@Autowired
@@ -123,7 +134,7 @@ public class AccountingMoneyBookController extends BaseFormController {
 				.loadSelectionForDocsPage(true);
 		model.addAttribute("docsSelection", docsSelection);
 		model.addAttribute("enumStatus", StatusType.values());*/
-		ModelAndView mav = this.searchByDate(searchBook.getStartDate(), searchBook.getEndDate());
+		ModelAndView mav = this.searchByDateCashBook(searchBook.getStartDate(), searchBook.getEndDate());
 		
 		MoneyBook cashBookFirst = mbManager.checkFirstBalance(0);
 		MoneyBook bankBookFirst = mbManager.checkFirstBalance(1);
@@ -135,13 +146,16 @@ public class AccountingMoneyBookController extends BaseFormController {
 			mav.addObject("firstBankBalance", bankBookFirst);
 		}
 		
+		List<Bank> banks = bankManager.getAll();
+		mav.addObject("banks", banks);
+		
 		mav.addObject(SEARCH_MODEL, searchBook);
 		
 		return mav;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = ACCOUNTING_MONEY_BOOK_SEARCH)
-	public ModelAndView handlePostRequest(
+	@RequestMapping(method = RequestMethod.POST, value = ACCOUNTING_MONEY_CASH_BOOK_SEARCH)
+	public ModelAndView handlePostRequestForCashBook(
 			HttpServletRequest request,
 			@ModelAttribute(SEARCH_MODEL) AccountingMoneyBookCondition searchBook, 
 			BindingResult errors)
@@ -154,7 +168,25 @@ public class AccountingMoneyBookController extends BaseFormController {
 		c.add(Calendar.DATE, 1);
 		endDate = c.getTime();
 		
-		return this.searchByDate(startDate, endDate);
+		return this.searchByDateCashBook(startDate, endDate);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = ACCOUNTING_MONEY_BANK_BOOK_SEARCH)
+	public ModelAndView handlePostRequestForBankBook(
+			HttpServletRequest request,
+			@ModelAttribute(SEARCH_MODEL) AccountingMoneyBookCondition searchBook, 
+			BindingResult errors)
+			throws Exception {
+		
+		Date startDate = searchBook.getStartDate();
+		Date endDate = searchBook.getEndDate();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(endDate); 
+		c.add(Calendar.DATE, 1);
+		endDate = c.getTime();
+		
+		Long bankId = searchBook.getBankId();
+		return this.searchByDateBankBook(startDate, endDate, bankId);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = ACCOUNTING_MONEY_BOOK_SAVE_FIRST_BALANCE)
@@ -164,22 +196,37 @@ public class AccountingMoneyBookController extends BaseFormController {
 		return "success";
 	}
 	
-	private ModelAndView searchByDate(Date startDate, Date endDate) {
+	private ModelAndView searchByDateCashBook(Date startDate, Date endDate) {
 		ModelAndView mav = new ModelAndView(ACCOUNTING_MONEY_BOOK);
 		List<MoneyBook> books = mbManager.findByDuration(startDate, endDate);
 		List<MoneyBook> cashbooks = new ArrayList<MoneyBook>();
-		List<MoneyBook> bankbooks = new ArrayList<MoneyBook>();
 		for (MoneyBook mb : books) {
 			if (mb.getTypeOfBook() == 0) {
 				cashbooks.add(mb);
-			} else {
-				bankbooks.add(mb);
 			}
 		}
 
+		List<Bank> banks = bankManager.getAll();
+		mav.addObject("banks", banks);
 		mav.addObject("cashbooks", cashbooks);
-		mav.addObject("bankbooks", bankbooks);
+		mav.addObject("flag", 0);
+		return mav;
+	}
+	
+	private ModelAndView searchByDateBankBook(Date startDate, Date endDate, Long bankId) {
+		ModelAndView mav = new ModelAndView(ACCOUNTING_MONEY_BOOK);
+		List<MoneyBook> books = mbManager.findByDurationAndBank(startDate, endDate, bankId);
+		List<MoneyBook> bankbooks = new ArrayList<MoneyBook>();
+		for (MoneyBook mb : books) {
+			if (mb.getTypeOfBook() == 1) {
+				bankbooks.add(mb);
+			}
+		}
 		
+		List<Bank> banks = bankManager.getAll();
+		mav.addObject("banks", banks);
+		mav.addObject("bankbooks", bankbooks);
+		mav.addObject("flag", 1);
 		return mav;
 	}
 	
@@ -189,6 +236,7 @@ public class AccountingMoneyBookController extends BaseFormController {
 		String idStr = request.getParameter("id");
 		String date = request.getParameter("date");
 		String reason = request.getParameter("reason");
+		String bankId = request.getParameter("bankId");
 		
 		boolean voucherNoProblem = false;
 		
@@ -199,7 +247,12 @@ public class AccountingMoneyBookController extends BaseFormController {
     		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
     		mb.setDate(df.parse(date));
     		mb.setDescription(reason);
-
+    		System.out.println("Bankid: " + bankId);
+    		if (StringUtils.isNotEmpty(bankId)) {
+    			Long bId = Long.parseLong(bankId);
+    			Bank bank = bankManager.get(bId);
+    			mb.setBank(bank);
+    		}
     		mbManager.save(mb);
     	} catch (Exception e) {
     		e.printStackTrace();

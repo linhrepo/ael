@@ -342,11 +342,11 @@ public class AccountingController extends BaseFormController {
     	}
 	    if (exfee.getApproved() != null && exfee.getApproved()) {
 	    	if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
-	    		exfee.setCheckByAdmin(true);
-	    		log.info("exfee /admin/changeApproval: " + exfee.getId());
+	    		System.out.println("exfee /admin/changeApproval: " + exfee.getId());
 	    		exfee.setDateChange(Calendar.getInstance().getTime());
 	    		exfee.setUpdatedOn(Calendar.getInstance().getTime());
 	    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
+	    		exfee.setCheckByAdmin(true);
 	    		this.exfeetableManager.save(exfee);
 	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();
 	    		if (exfee.getMasterFee().getId() == -10) {
@@ -376,12 +376,12 @@ public class AccountingController extends BaseFormController {
 	    	List<Exfeetable> fees = exfeetableManager.findByListId(listId);
 	    	for (Exfeetable exfee : fees) {
 				if (exfee.getCheckByAdmin() == null || !exfee.getCheckByAdmin()) {
+					exfee.setDateChange(Calendar.getInstance().getTime());
+		    		exfee.setUpdatedOn(Calendar.getInstance().getTime());
+		    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
 					exfee.setCheckByAdmin(true);
-					log.info("exfee /admin/changeApprovalBulk: " + exfee.getId());
 				}
-	    		exfee.setDateChange(Calendar.getInstance().getTime());
-	    		exfee.setUpdatedOn(Calendar.getInstance().getTime());
-	    		exfee.setUpdatedBy(this.userManager.getLoggedUser(request).getUsername());
+	    		System.out.println("exfee /admin/changeApprovalBulk: " + exfee.getId());
 	    		this.exfeetableManager.save(exfee);
 	    		
 	    		Truckingdetail truckingdetail = exfee.getTruckingdetail();

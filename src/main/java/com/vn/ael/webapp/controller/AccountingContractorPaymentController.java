@@ -24,11 +24,12 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.ContractorPaymentStatusType;
 import com.vn.ael.enums.ServicesType;
-import com.vn.ael.persistence.entity.DocsAccounting;
+import com.vn.ael.persistence.entity.Bank;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.entity.TruckAccounting;
 import com.vn.ael.persistence.entity.Truckingdetail;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
+import com.vn.ael.persistence.manager.BankManager;
 import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.NhathauManager;
 import com.vn.ael.webapp.dto.AccountingContractorPaymentCondition;
@@ -55,11 +56,14 @@ public class AccountingContractorPaymentController extends BaseFormController {
     }
     
     private NhathauManager nhathauManager = null;
-	 
+    private BankManager bankManager = null;
+    
     @Autowired
-    public void setnhathauManager(final NhathauManager nhathauManager) {
+    public void setManager(final NhathauManager nhathauManager, final BankManager bankManager) {
         this.nhathauManager = nhathauManager;
+        this.bankManager = bankManager;
     }
+    
 	@Override
     @InitBinder
     protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
@@ -75,6 +79,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
+        mav.addObject("banks", bankManager.getAll());
         searchAccFee.setTypeOfDocs((long) ServicesType.DVTQ.getValue());
         mav.addObject("accountingContractorPaymentCondition", searchAccFee);
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_CONTRACTOR_PAYMENT, searchAccFee);
@@ -124,6 +129,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
     	String moneyType = request.getParameter("moneyType");
 		VoucherType voucherType;
 		BookType bookType;
+		Long bankId = Long.parseLong(request.getParameter("bankId"));
 		if (moneyType.equals("0")) {
 			voucherType = VoucherType.PHIEUCHI;
 			bookType = BookType.CASHBOOK;
@@ -161,7 +167,6 @@ public class AccountingContractorPaymentController extends BaseFormController {
 		        for (int i = 0; i < jsonArray.length(); i++) {
 		        	JSONObject jsonObj = jsonArray.getJSONObject(i);
 		        	Long id = jsonObj.getLong("jobId");
-		        	
 		        	TruckAccounting truckAc = accountingMap.get(id);
 		        	if (truckAc == null) {
 		        		truckAc = new TruckAccounting();
@@ -185,6 +190,10 @@ public class AccountingContractorPaymentController extends BaseFormController {
 			    			voucherType,
 			    			bookType,
 			    			request);
+			        
+			        System.out.println("bankID: " + bankId);
+			        Bank bank = bankManager.get(bankId);
+			        mb.setBank(bank);
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
 			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);

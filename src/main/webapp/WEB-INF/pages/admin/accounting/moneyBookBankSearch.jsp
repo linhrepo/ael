@@ -6,19 +6,19 @@
 </head>
 
 	<form:form modelAttribute="accountingMoneyBookCondition" method="post"
-		action="searchMoneyBook" id="refundForm" cssClass="well" showLoading="false">
+		action="searchMoneyBankBook" id="refundForm" cssClass="well" showLoading="false">
 		<div class="row">
-			<%-- <div class="form-group col-md-3">
+			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
-					key="moneybook.voucherType" />
-				<form:select path="typeOfVoucher" id="typeOfVoucher"
+					key="bank.name" />
+				<form:select path="bankId" id="bankId"
 					cssClass="form-control select2">
 					<form:option value=""><fmt:message key="searchall" /></form:option>
-					<c:forEach var="entry" items="${typeOfVoucher}">
-						<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
+					<c:forEach var="entry" items="${banks}">
+						<form:option value="${entry.id}"><fmt:message key="${entry.code} - ${entry.name}" /></form:option>
 					</c:forEach>
 				</form:select>
-			</div> --%>
+			</div>
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="moneybook.startdate" />

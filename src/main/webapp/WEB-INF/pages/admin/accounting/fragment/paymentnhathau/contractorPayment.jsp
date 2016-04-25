@@ -38,6 +38,7 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.nhathau"/></th>
                 <th><fmt:message key="contseal.noOfCont" /></th>
+                <%-- <th><fmt:message key="contseal.typeOfCont" /></th> --%>
                 <th><fmt:message key="trucking.phiAelChuaChi"/></th>
                 <th><fmt:message key="trucking.phiChiHoChuaChi"/></th>
                 <th><fmt:message key="trucking.phiAelDaChi"/></th>
@@ -112,6 +113,13 @@
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
 			<tr><td><fmt:message key="moneybook.voucherType"/></td><td id="vi-vouchertype"></td></tr>
+			<tr><td><fmt:message key="bank.name"/></td>
+				<td><select id="vi-bank">
+					<c:forEach var="entry" items="${banks}">
+						<option value="${entry.id}">${entry.code}-${entry.name}</option>
+					</c:forEach>
+				</select></td>
+			</tr>
 			<tr><td><fmt:message key="moneybook.amount"/></td><td id="vi-amount"></td></tr>
 			<tr><td><fmt:message key="moneybook.sum"/></td><td id="vi-sum"></td></tr>
 			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
@@ -212,6 +220,7 @@ function reviewPayMoney(moneyType, multiplePrice, voucherInfo) {
             			    url:  "saveTruckingMoney",
             			    data: { 
            			    		"moneyType" : moneyType,
+           			    		"bankId": $(".modal-content #vi-bank").val(),
            			    		"date" : $(".modal-content #vi-date").val(),
        		    			    "voucherNo" : $(".modal-content #vi-id").val(),
        		    			    "amount" : sumAmount,
@@ -249,6 +258,9 @@ function reviewPayMoney(moneyType, multiplePrice, voucherInfo) {
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
 		$(this).datepicker('hide');
 	})
+	
+	$(".modal-content .select2-container").remove();
+	$(".modal-content #vi-bank").css({"display": "inline"});
 	
 	$(".modal-content .input-amount").change(function() {
 		var v1 = parseFloat($(this).attr("value"));

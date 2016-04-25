@@ -1,6 +1,8 @@
 package com.vn.ael.persistence.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -20,6 +22,9 @@ public class Bank extends com.vn.ael.persistence.entity.BaseEntity implements Se
 	private String accountNo;
 	
 	private String branch;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bank")
+	private List<MoneyBook> moneyBooks;
 	
 	public Bank() {
 	}

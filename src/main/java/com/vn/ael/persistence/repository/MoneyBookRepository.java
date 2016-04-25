@@ -18,10 +18,18 @@ import com.vn.ael.persistence.entity.MoneyBook;
 public interface MoneyBookRepository extends GenericRepository<MoneyBook> {
 	
 	@Query("SELECT m FROM MoneyBook m WHERE "
+			+ "m.typeOfBook = 0 and "
 			+ "(m.date >= :startDate or :startDate is null) and (m.date <= :endDate or :endDate is null) "
 			+ "order by m.date desc, m.voucherNo desc"
 			)
 	List<MoneyBook> findByDuration(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+	
+	@Query("SELECT m FROM MoneyBook m WHERE "
+			+ "m.typeOfBook = 1 and (:bankId is null or m.bank.id = :bankId) and " 
+			+ "(m.date >= :startDate or :startDate is null) and (m.date <= :endDate or :endDate is null) "
+			+ "order by m.date desc, m.voucherNo desc"
+			)
+	List<MoneyBook> findByDurationAndBank(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("bankId") Long bankId);
 	
 	@Query("SELECT max(e.voucherNo) FROM MoneyBook e WHERE e.typeOfVoucher = :type")
 	Integer findMaxVoucherNoByType(@Param("type") VoucherType type);

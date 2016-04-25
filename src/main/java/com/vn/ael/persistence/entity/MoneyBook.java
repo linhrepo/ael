@@ -5,8 +5,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -46,6 +48,10 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	
 	private String refNos;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="bank")
+	private Bank bank;
+	
 	@OneToMany(mappedBy="moneyBook")
 	private List<Advanceform> advanceForms;
 	
@@ -194,6 +200,14 @@ public class MoneyBook extends BaseEntity implements Serializable {
 
 	public void setRefunds(List<Refund> refunds) {
 		this.refunds = refunds;
+	}
+
+	public Bank getBank() {
+		return bank;
+	}
+
+	public void setBank(Bank bank) {
+		this.bank = bank;
 	}
 	
 	

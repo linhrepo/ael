@@ -53,13 +53,13 @@
 				<i class="fa fa-floppy-o"></i>
 				<fmt:message key="button.save" />
 			</button>
-			<c:if test="${not empty bank.id}">
+			<%-- <c:if test="${not empty bank.id}">
 				<button type="submit" class="btn btn-danger" name="delete"
 					onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
 					<i class="fa fa-trash"></i>
 					<fmt:message key="button.delete" />
 				</button>
-			</c:if>
+			</c:if> --%>
 			<button type="submit" class="btn btn-default" name="cancel"
 				onclick="bCancel=true">
 				<i class="fa fa-sign-out"></i>

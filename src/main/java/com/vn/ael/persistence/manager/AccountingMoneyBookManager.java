@@ -16,6 +16,8 @@ public interface AccountingMoneyBookManager extends GenericManager<MoneyBook> {
 	
 	List<MoneyBook> findByDuration(Date startDate, Date endDate);
 	
+	List<MoneyBook> findByDurationAndBank(Date startDate, Date endDate, Long bankId);
+	
 	List<MoneyBook> findByMoneyVoucher(Integer typeOfVoucher);
 	
 	MoneyBook checkFirstBalance(Integer bookType);

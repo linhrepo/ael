@@ -20,7 +20,7 @@ import com.vn.ael.persistence.entity.Bank;
 import com.vn.ael.persistence.manager.BankManager;
 
 @Controller
-public class BankListController extends BaseFormController {
+public class BankController extends BaseFormController {
 
 	private BankManager bankManager;
 	
@@ -29,7 +29,7 @@ public class BankListController extends BaseFormController {
 		this.bankManager = bankManager;
 	}
 	
-    public BankListController() {
+    public BankController() {
         setCancelView("redirect:"+URLReference.HOME_PAGE);
         setSuccessView("redirect:"+URLReference.BANK_LIST);
     }
@@ -49,7 +49,7 @@ public class BankListController extends BaseFormController {
         Bank bank = null;
         if (!StringUtils.isBlank(id)) {
         	bank = bankManager.get(new Long(id));
-        }else{
+        } else {
         	bank = new Bank();
         }
         mav.addObject("bank", bank);     

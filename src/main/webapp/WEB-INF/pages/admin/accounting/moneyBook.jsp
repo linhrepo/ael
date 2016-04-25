@@ -4,8 +4,7 @@
 	<h2>
 		<fmt:message key='moneybook.title' />
 	</h2>
-	<jsp:include page="moneyBookSearch.jsp"></jsp:include>
-	<br />
+	
 
 	<%-- <h3>
 		<fmt:message key='moneybook.cashbook.title' />
@@ -25,6 +24,8 @@
 		</ul>
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="cashbooktab">
+				<br>
+				<jsp:include page="moneyBookCashSearch.jsp"></jsp:include>
 				<br>
 				<table>
 					<tr>
@@ -85,7 +86,7 @@
 								<td class="money"><fmt:formatNumber>${mb.balance}</fmt:formatNumber>
 								</td>
 								<td><span
-									onclick="editMoneyBook('${mb.id}', '${mb.voucherNoPrint}', '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '${mb.description}');"
+									onclick="editMoneyBook(0,'${mb.id}', '${mb.voucherNoPrint}', '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '${mb.description}');"
 									class="label label-success"> <i class="fa fa-pencil-square-o"></i> </span>
 									&nbsp;
 									<span
@@ -99,6 +100,8 @@
 			</div>
 
 			<div role="tabpanel" class="tab-pane" id="bankbooktab">
+				<br>
+				<jsp:include page="moneyBookBankSearch.jsp"></jsp:include>
 				<br>
 				<table>
 					<tr>
@@ -119,6 +122,7 @@
 					<thead>
 						<tr>
 							<th><fmt:message key="table.no" /></th>
+							<th><fmt:message key="bank.name" /></th>
 							<th><fmt:message key="moneybook.voucherNo" /></th>
 							<th><fmt:message key="moneybook.date" /></th>
 							<th><fmt:message key="moneybook.voucherType" /></th>
@@ -133,6 +137,7 @@
 					<tfoot>
 						<tr>
 							<th><fmt:message key="table.no" /></th>
+							<th><fmt:message key="bank.name" /></th>
 							<th><fmt:message key="moneybook.voucherNo" /></th>
 							<th><fmt:message key="moneybook.date.transaction" /></th>
 							<th><fmt:message key="moneybook.voucherType" /></th>
@@ -147,6 +152,7 @@
 						<c:forEach items="${bankbooks}" var="mb" varStatus="idx">
 							<tr id='${mb.id}'>
 								<td>${idx.index+1}</td>
+								<td>${mb.bank.code}</td>
 								<td>${mb.voucherNoPrint}</td>
 								<td><fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy" />
 								</td>
@@ -160,7 +166,7 @@
 								<td class="money"><fmt:formatNumber>${mb.balance}</fmt:formatNumber>
 								</td>
 								<td><span
-									onclick="editMoneyBook('${mb.id}', '${mb.voucherNoPrint}', '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '${mb.description}');"
+									onclick="editMoneyBook(1, '${mb.id}', '${mb.voucherNoPrint}', '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '${mb.description}');"
 									class="label label-success"> <i class="fa fa-pencil-square-o"></i> </span>
 									&nbsp;
 									<span
@@ -175,10 +181,19 @@
 		</div>
 	</div>
 </div>
-
+<input type="hidden" id="flag" value="${flag}">
 <div id="voucher-info-modal" style="display: none;">
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
+			<c:if test="${flag == 1}">
+				<tr><td><fmt:message key="bank.name"/></td>
+					<td><select id="mb-bank">
+						<c:forEach var="entry" items="${banks}">
+							<option value="${entry.id}">${entry.code}</option>
+						</c:forEach>
+					</select></td>
+				</tr>
+			</c:if>
 			<tr>
 				<td><fmt:message key="moneybook.voucherNo" /></td>
 				<td><span id="mb-no"></span></td>
@@ -208,7 +223,8 @@
 	var res = "";
 	var date = "";
 	var voucherNo = "";
-	function editMoneyBook(id, mbNo, mbDate, mbDes) {
+	var bank = "";
+	function editMoneyBook(bookType, id, mbNo, mbDate, mbDes) {
 		$("#" + id).addClass("highlight");
 		bootbox.dialog({
 					closeButton : false,
@@ -222,31 +238,38 @@
 								res = $(".modal-content #mb-des").val();
 								date = $(".modal-content #mb-date").val();
 								voucherNo = $(".modal-content #mb-no").val();
+								bank = $(".modal-content #mb-bank :selected").text();
 								$.ajax({
-											type : "POST",
-											url : "updateMoneybook",
-											data : {
-												"id" : id,
-												"date" : $(".modal-content #mb-date").val(),
-												"voucherNo" : $(".modal-content #mb-no").val(),
-												"reason" : $(".modal-content #mb-des").val()
-											},
-											success : function(data) {
-												if (data == "ok") {
-													$("#" + id).removeClass("highlight");
-													/* $("#" + id).find("td").eq(1).html(voucherNo); */
-													$("#" + id).find("td").eq(2).html(date);
-													$("#" + id).find("td").eq(4).html(res);
-												} else {
-													alert("Voucher no is wrong or duplicate");
-												}
-											},
-											error : function(msg) {
-												$("#" + id).removeClass(
-														"highlight");
-												alert(msg);
+									type : "POST",
+									url : "updateMoneybook",
+									data : {
+										"id" : id,
+										"bankId": $(".modal-content #mb-bank").val(),
+										"date" : $(".modal-content #mb-date").val(),
+										"voucherNo" : $(".modal-content #mb-no").val(),
+										"reason" : $(".modal-content #mb-des").val()
+									},
+									success : function(data) {
+										if (data == "ok") {
+											$("#" + id).removeClass("highlight");
+											if (bookType == 0) {
+												$("#" + id).find("td").eq(2).html(date);
+												$("#" + id).find("td").eq(4).html(res);
+											} else {
+												$("#" + id).find("td").eq(1).html(bank);
+												$("#" + id).find("td").eq(3).html(date);
+												$("#" + id).find("td").eq(5).html(res);
 											}
-										})
+										} else {
+											alert("Voucher no is wrong or duplicate");
+										}
+									},
+									error : function(msg) {
+										$("#" + id).removeClass(
+												"highlight");
+										alert(msg);
+									}
+								})
 							}
 						},
 						"Cancel" : {
@@ -259,6 +282,8 @@
 					}
 				});
 
+		$(".modal-content .select2-container").remove();
+		$(".modal-content #mb-bank").css({"display": "inline"});
 		$(".modal-content #mb-no").html(mbNo);
 		$(".modal-content #mb-des").val(mbDes);
 		var dateArr = mbDate.split("-");
@@ -306,5 +331,13 @@
 			});
 		}
 	}
+	
+	$(document).ready(function() {
+		if ($('#flag').val() == "0") {
+			$('.nav-tabs a[href="#cashbooktab"]').tab('show');
+		} else if ($('#flag').val() == "1") {
+			$('.nav-tabs a[href="#bankbooktab"]').tab('show');
+		}
+	})
 </script>
 <script src="../../scripts/bootbox/bootbox.js"></script>
