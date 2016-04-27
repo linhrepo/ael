@@ -136,6 +136,7 @@ public interface URLReference {
 
 	String PHIEU_CHI_CREATE_MONEYBOOK_ADVANCE_FORM = "/users/advanceForm/phieuchi/createmoneybook";
 	String PHIEU_CHI_CREATE_MONEYBOOK_REFUND = "/users/refund/phieuchi/createmoneybook";
+	String PHIEU_CHI_CREATE_MONEYBOOK_REFUND_UNC = "/users/unc/phieuchi/createmoneybook";
 	String PHIEU_THU_CREATE_MONEYBOOK = "/admin/accounting/phieuthu/createmoneybook";
 
 	String PHIEU_CHI_DOWNLOAD_ADVANCE_FORM = "/users/advanceForm/phieuchi/download";

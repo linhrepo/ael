@@ -197,7 +197,14 @@
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
 			<tr><td><fmt:message key="advanceform.refcode"/></td><td id="vi-refcodes"></td></tr>
-			<tr><td><fmt:message key="customer.title"/></td><td id="vi-name"></td></tr>
+			<tr><td><fmt:message key="advanceform.employee"/></td><td id="vi-name"></td></tr>
+			<tr id="bank-info"><td><fmt:message key="bank.name"/></td>
+				<td><select id="mb-bank">
+					<c:forEach var="entry" items="${banks}">
+						<option value="${entry.id}">${entry.code}</option>
+					</c:forEach>
+				</select></td>
+			</tr>
 			<tr><td><fmt:message key="advanceform.total"/></td><td id="vi-amount"></td></tr>
 			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
 			<tr><td><fmt:message key="moneybook.voucherNo"/></td><td><input id="vi-id" placeholder="Input voucher no"/></td></tr>
@@ -288,7 +295,7 @@ function downloadPhieuchi(voucherType) {
 		for(var i = 1; i < printedIds.length; i ++) {
 			ids += "," + printedIds[i];
 		}
-		if(voucherType == 0) {//advanceForm
+		if (voucherType == 0) {//advanceForm
 			$.ajax({
 			    type: "POST",
 			    url: "../../users/advanceForm/phieuchi/print",
@@ -297,13 +304,22 @@ function downloadPhieuchi(voucherType) {
 			    	reviewVoucherPayment(ids, msg, "advanceForm");
 			    }
 			}); 
-		} else {
+		} else if (voucherType == 1) {
 			$.ajax({
 			    type: "POST",
 			    url: "../../users/refund/phieuchi/print",
 			    data: {"id": ids},
 			    success: function(msg){
 			    	reviewVoucherPayment(ids, msg, "refund");
+			    }
+			}); 
+		} else { //2 : UNC refund
+			$.ajax({
+			    type: "POST",
+			    url: "../../users/refund/phieuchi/print?unc=1",
+			    data: {"id": ids},
+			    success: function(msg){
+			    	reviewVoucherPayment(ids, msg, "unc");
 			    }
 			}); 
 		}
@@ -326,17 +342,18 @@ function reviewVoucherPayment(ids, voucherInfo, type) {
 	    	   "Confirm": {
 	               className: "btn-blue",
 	               callback: function () {
-            	    	
             	    	$.ajax({
             			    type: "POST",
             			    url: "../../users/" + type + "/phieuchi/createmoneybook",
             			    data: { "date" : $(".modal-content #vi-date").val(),
 	       		    			    "voucherNo" : $(".modal-content #vi-id").val(),
-	       		    			    "reason" : $(".modal-content #vi-reason").val()},
+	       		    			    "reason" : $(".modal-content #vi-reason").val(),
+	       		    			    "bankId": $(".modal-content #mb-bank").val()},
             			    success: function(msg){
             			    	if (msg == "ok") { 
-	        	       		    	window.location.href="../../users/" + type + "/phieuchi/download?id=" + ids;
-	        	       		    	
+            			    		if (type != "unc") {
+	        	       		    		window.location.href="../../users/" + type + "/phieuchi/download?id=" + ids;
+            			    		}
 	        	       		    	for (var i = 0; i < currentRow.length; i++) {
 	        	       		    		currentRow[i].find("td").eq(7).html($(".modal-content #vi-id").val());
 	        	       		        	currentRow[i].find("td").removeClass("highlight");
@@ -363,6 +380,12 @@ function reviewVoucherPayment(ids, voucherInfo, type) {
 	       }
 	});
 	
+	if (type != "unc") {
+		$(".modal-content #bank-info").remove();
+	} else {
+		$(".modal-content .select2-container").remove();
+		$(".modal-content #mb-bank").css({"display": "inline"});
+	}
 	$(".modal-content #vi-id").val(data.voucherNoPrint);
 	/* $(".modal-content #vi-reason").val(data.reason); */
 	$(".modal-content #vi-date").datepicker("setDate", new Date());

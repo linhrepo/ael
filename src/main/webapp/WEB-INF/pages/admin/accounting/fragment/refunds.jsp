@@ -9,6 +9,9 @@
         <a class="btn btn-success btn-download" onclick="downloadPhieuchi(1)">
        	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
        </a>
+       <a class="btn btn-success btn-download" onclick="downloadPhieuchi(2)">
+       	<i class="fa fa-plus"></i> UNC
+       </a>
     <!-- </div> -->
     <br><br>
     <table id="refundList1" class="display nestedDatatable" cellspacing="0" width="100%" 
@@ -103,11 +106,15 @@
     </table>
     <hr>
      <a class="btn btn-primary" href="<c:url value='/users/refundJob'/>">
-            <i class="fa fa-plus"></i><fmt:message key="button.addRefundJob"/></a>
+        <i class="fa fa-plus"></i><fmt:message key="button.addRefundJob"/>
+     </a>
      <a class="btn btn-success btn-download" onclick="downloadPhieuchi(1)">
-         	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
-       </a>
-            <br><br>
+       	<i class="fa fa-print"></i> <fmt:message key="advanceform.printPayment"/>
+     </a>
+     <a class="btn btn-success btn-download" onclick="downloadPhieuchi(2)">
+     	<i class="fa fa-plus"></i> UNC
+     </a>
+     <br><br>
         
      <table id="refundList1Job" class="display nestedDatatable" cellspacing="0" width="100%" 
      	childDetailURL="/admin/accounting/feesDetail" 

@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vn.ael.constants.AELConst;
 import com.vn.ael.constants.FormatterPattern;
 import com.vn.ael.constants.ReportTeamplates;
 import com.vn.ael.constants.URLReference;
@@ -38,6 +37,7 @@ import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.AdvanceFormManager;
+import com.vn.ael.persistence.manager.BankManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.webapp.dto.AdvanceSumary;
@@ -62,11 +62,13 @@ public class AdvanceFormListController extends BaseFormController {
 	}
 
 	private RefundManager refundManager;
+	
+	private BankManager bankManager;
 
 	@Autowired
-	public void setRefundManager(RefundManager refundManager) {
+	public void setRefundManager(RefundManager refundManager, BankManager bankManager) {
 		this.refundManager = refundManager;
-
+		this.bankManager = bankManager;
 	}
 	
 	private DocsgeneralManager docsgeneralManager;
@@ -126,6 +128,7 @@ public class AdvanceFormListController extends BaseFormController {
 		model.addAttribute("docsSelection", docsSelection);
 		model.addAttribute("enumStatus", StatusType.values());
 		model.addAttribute("jobList", docsgeneralManager.getAllJob());
+		model.addAttribute("banks", bankManager.getAll());
 		return new ModelAndView(URLReference.ADVANCE_FORM_ACC, model.asMap());
 	}
 
@@ -188,6 +191,7 @@ public class AdvanceFormListController extends BaseFormController {
 		mav.addObject("docsSelection", docsSelection);
 		mav.addObject("enumStatus", StatusType.values());
 		mav.addObject("jobList", docsgeneralManager.getAllJob());
+		mav.addObject("banks", bankManager.getAll());
 		mav.addObject("flag", 1);
 		Search search = new Search();
 		//by defaut search not approved job
@@ -210,6 +214,7 @@ public class AdvanceFormListController extends BaseFormController {
 		mav.addObject("docsSelection", docsSelection);
 		mav.addObject("enumStatus", StatusType.values());
 		mav.addObject("jobList", docsgeneralManager.getAllJob());
+		mav.addObject("banks", bankManager.getAll());
 		Search searchAdvanceForm = new Search();
 		//by defaut search not approved job
 		searchAdvanceForm.setDoApproval(false);

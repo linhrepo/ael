@@ -26,22 +26,20 @@ import com.vn.ael.constants.SessionNames;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.ConfigurationType;
-import com.vn.ael.persistence.entity.Refund;
+import com.vn.ael.persistence.entity.Bank;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.entity.Refund;
 import com.vn.ael.persistence.entity.Refunddetail;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
+import com.vn.ael.persistence.manager.BankManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExfeetableManager;
 import com.vn.ael.persistence.manager.RefundManager;
 import com.vn.ael.persistence.service.PermissionCheckingService;
 import com.vn.ael.webapp.dto.DocsSelection;
 import com.vn.ael.webapp.util.ControllerUtil;
-import com.vn.ael.webapp.util.ConvertUtil;
 import com.vn.ael.webapp.util.ReportUtil;
-
-import net.sf.json.JSONObject;
 
 @Controller
 public class RefundFormController extends BaseFormController {
@@ -52,6 +50,8 @@ public class RefundFormController extends BaseFormController {
 	
 	private ExfeetableManager exfeetableManager;
 	
+	private BankManager bankManager;
+	
 	private AccountingMoneyBookManager accountingMoneyBookManager;
 	
 	@Autowired
@@ -61,9 +61,9 @@ public class RefundFormController extends BaseFormController {
 	}
 	
 	@Autowired
-	public void setExfeetableManager(ExfeetableManager exfeetableManager){
+	public void setExfeetableManager(ExfeetableManager exfeetableManager, BankManager bankManager){
 		this.exfeetableManager = exfeetableManager;
-		
+		this.bankManager = bankManager;
 	}
 	
 	private RefundManager refundManager;
@@ -241,7 +241,7 @@ public class RefundFormController extends BaseFormController {
             saveMessage(request, getText(key, locale));
             success = "redirect:"+URLReference.REFUND_FORM+"?id=" + refund.getId();
         }
- 
+
         return success;
     }
     @RequestMapping(method = RequestMethod.GET, value=URLReference.REFUND_FORM_DOWNLOAD)
@@ -273,8 +273,13 @@ public class RefundFormController extends BaseFormController {
     @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_PRINT_REFUND)
     public @ResponseBody String phieuChiPrint(HttpServletRequest request,  HttpServletResponse response)
     	    throws Exception {    	 
+    	boolean isUNC = "1".equals(request.getParameter("unc"));
         Refund refund = this.loadRefundByRequest(request);
         request.getSession().setAttribute(SessionNames.REFUND_PRINT_PHIEU_CHI, refund);
+        
+        if (isUNC) {
+        	return ControllerUtil.createJsonObject(VoucherType.UNC, refund, this.accountingMoneyBookManager, request);
+        }
         return ControllerUtil.createJsonObject(VoucherType.PHIEUCHI, refund, this.accountingMoneyBookManager, request);
     }
     
@@ -291,6 +296,37 @@ public class RefundFormController extends BaseFormController {
 		    			VoucherType.PHIEUCHI,
 		    			BookType.CASHBOOK,
 		    			request);
+			    
+		    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
+		        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
+		        refund.setMoneyBook(moneyBook);
+		        return "ok";
+	        } 
+    	} else {
+    		return validate;
+    	}
+        return "error";
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value=URLReference.PHIEU_CHI_CREATE_MONEYBOOK_REFUND_UNC)
+    public @ResponseBody String updateMoneyBookUNC(HttpServletRequest request,  HttpServletResponse response)
+    	    throws Exception {    	 
+    	String bankId = request.getParameter("bankId");
+    	
+    	Refund refund = (Refund) request.getSession().getAttribute(SessionNames.REFUND_PRINT_PHIEU_CHI);
+    	String validate = ControllerUtil.validateForm(request, VoucherType.PHIEUCHI, this.accountingMoneyBookManager);
+    	if (validate.length() == 0) {
+	        if (refund != null) {
+		        MoneyBook mb = ControllerUtil.createMoneyBook(
+		        		refund,
+		    			VoucherType.UNC,
+		    			BookType.BANKBOOK,
+		    			request);
+		        if (StringUtils.isNotEmpty(bankId)) {
+		        	Long bId = Long.parseLong(bankId);
+		        	Bank b = bankManager.get(bId);
+				    mb.setBank(b);
+		        }
 			    
 		    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 		        this.accountingMoneyBookManager.updateBasicAdvance(refund, moneyBook);
