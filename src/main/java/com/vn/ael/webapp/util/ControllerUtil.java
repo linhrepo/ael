@@ -65,7 +65,7 @@ public class ControllerUtil {
 	 	moneyBook.setVoucherNo(voucherNo);
 	 	moneyBook.setDate(date);
 	 	moneyBook.setDescription(reason);
-	 	moneyBook.setTypeOfBook(bookType.getValue());//cashbook
+	 	moneyBook.setTypeOfBook(bookType);//cashbook
 	 	moneyBook.setTypeOfVoucher(voucherType);
 	 	moneyBook.setBalance(null);
 	 	if (form != null) {

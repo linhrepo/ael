@@ -4,7 +4,8 @@ public enum VoucherType {
 	PHIEUCHI(0, "PC", 5, "moneybook.voucherType.phieuchi"), 
 	PHIEUTHU(1, "PT", 5, "moneybook.voucherType.phieuthu"), 
 	NTTK(2, "NTTK", 4, "moneybook.voucherType.nttk"), 
-	UNC(3, "UNC", 4, "moneybook.voucherType.unc");
+	UNC(3, "UNC", 4, "moneybook.voucherType.unc"),
+	BALANCE(-1, "-", 0, "-");
 
     private final int value;
     private final String prefix;

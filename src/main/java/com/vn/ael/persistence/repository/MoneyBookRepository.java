@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.MoneyBook;
 
@@ -37,6 +38,10 @@ public interface MoneyBookRepository extends GenericRepository<MoneyBook> {
 	@Query("SELECT DISTINCT m FROM MoneyBook m WHERE voucherNo = :voucherNo and typeOfVoucher = :type")
 	MoneyBook findByVoucherNoAndType(@Param("voucherNo") Integer voucherNo, @Param("type") VoucherType type);
 	
-	@Query("SELECT m FROM MoneyBook m WHERE typeOfBook = :bookType and id = -2")
-	MoneyBook findFistBalance(@Param("bookType") Integer bookType);
+	@Query("SELECT m FROM MoneyBook m WHERE typeOfBook = :bookType and typeOfVoucher = :typeOfVoucher")
+	List<MoneyBook> findFirstCashBalance(@Param("bookType") BookType bookType, @Param("typeOfVoucher") VoucherType typeOfVoucher);
+	
+	@Query("SELECT m FROM MoneyBook m WHERE typeOfBook = :bookType and typeOfVoucher = :typeOfVoucher and bank.id = :bankId")
+	List<MoneyBook> findFirstBankBalance(@Param("bookType") BookType bookType, @Param("typeOfVoucher") VoucherType typeOfVoucher,
+			@Param("bankId") Long bankId);
 }

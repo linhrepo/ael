@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.webapp.util.CommonUtil;
 
@@ -27,7 +28,7 @@ public class MoneyBook extends BaseEntity implements Serializable {
 
 	private Date date;
 	
-	private Integer typeOfBook;
+	private BookType typeOfBook;
 	
 	/*private Integer typeOfVoucher;//payment(chi): 0, recept(thu): 1
 */	
@@ -75,14 +76,14 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	/**
 	 * @return the typeOfBook
 	 */
-	public Integer getTypeOfBook() {
+	public BookType getTypeOfBook() {
 		return typeOfBook;
 	}
 
 	/**
 	 * @param typeOfBook the typeOfBook to set
 	 */
-	public void setTypeOfBook(Integer typeOfBook) {
+	public void setTypeOfBook(BookType typeOfBook) {
 		this.typeOfBook = typeOfBook;
 	}
 
@@ -110,8 +111,10 @@ public class MoneyBook extends BaseEntity implements Serializable {
 	public String getVoucherNoPrint() {
 		String prefix = typeOfVoucher.getPrefix();
 		String number = CommonUtil.addZero(String.valueOf(voucherNo), typeOfVoucher.getLengthOfCounter());
-
-		String voucherNoPrint = prefix + number ;
+		String voucherNoPrint = "-";
+		if (!"-".equals(prefix)) {
+			voucherNoPrint = prefix + number ;
+		}
 		return voucherNoPrint;
 	}
 

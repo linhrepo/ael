@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.vn.ael.constants.BookType;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.persistence.entity.Advanceform;
 import com.vn.ael.persistence.entity.MoneyBook;
@@ -90,10 +91,17 @@ public class AccountingMoneyBookManagerImpl extends GenericManagerImpl<MoneyBook
 	}
 	
 	@Override
-	public MoneyBook checkFirstBalance(Integer bookType) {
-		MoneyBook moneyBook = this.moneyBookRepository.findFistBalance(bookType);
-
-		return moneyBook;
+	public MoneyBook checkFirstBalance(BookType bookType, Long bankId) {
+		List<MoneyBook> moneyBooks = null;
+		if (bookType == BookType.CASHBOOK) {
+			moneyBooks = this.moneyBookRepository.findFirstCashBalance(bookType, VoucherType.BALANCE);
+		} else {
+			moneyBooks = this.moneyBookRepository.findFirstBankBalance(bookType, VoucherType.BALANCE, bankId);
+		}
+		if (moneyBooks == null || moneyBooks.size() == 0) {
+			return null;
+		}
+		return moneyBooks.get(0);
 	}
 	
 	@Override

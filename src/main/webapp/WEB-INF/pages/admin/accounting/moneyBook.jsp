@@ -1,14 +1,17 @@
 <%@ include file="/common/taglibs.jsp"%>
 <br>
+<style>
+	table.dataTable td, table.dataTable th, table.dataTable {
+		border: 1px solid black;
+		border-collapse: collapse;
+		font-size: 13px;
+	} 
+
+</style>
 <div class="col-sm-10">
 	<h2>
 		<fmt:message key='moneybook.title' />
 	</h2>
-	
-
-	<%-- <h3>
-		<fmt:message key='moneybook.cashbook.title' />
-	</h3> --%>
 
 	<div role="tabpanel">
 		<!-- Nav tabs -->
@@ -27,7 +30,7 @@
 				<br>
 				<jsp:include page="moneyBookCashSearch.jsp"></jsp:include>
 				<br>
-				<table>
+				<%-- <table>
 					<tr>
 						<td><fmt:message key="moneybook.first.balance" />&nbsp;</td>
 						<c:if test="${empty firstCashBalance}">
@@ -39,9 +42,13 @@
 							<td><button onclick="editFirstBalance()">Edit</button></td>
 						</c:if>
 					</tr>
-				</table>
+				</table> --%>
+				<c:if test="${empty firstCashBalance}">
+					<button class="btn-balance" onclick="addEditBalance(0, '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '<fmt:message key="moneybook.first.balance" />');"><fmt:message key="moneybook.first.balance" /></button>
+				</c:if>
 				<br>
-				<table id="cashbook" class="display datatable" cellspacing="0"
+				<br>
+				<table id="cashbook" class="display datatable booktable" cellspacing="0"
 					width="100%">
 					<thead>
 						<tr>
@@ -103,7 +110,7 @@
 				<br>
 				<jsp:include page="moneyBookBankSearch.jsp"></jsp:include>
 				<br>
-				<table>
+				<%-- <table>
 					<tr>
 						<td><fmt:message key="moneybook.first.balance" />&nbsp;</td>
 						<c:if test="${empty firstBankBalance}">
@@ -115,9 +122,13 @@
 							<td><button onclick="editFirstBalance()">Edit</button></td>
 						</c:if>
 					</tr>
-				</table>
+				</table> --%>
+				<c:if test="${empty firstBankBalance}">
+					<button class="btn-balance" onclick="addEditBalance(1, '<fmt:formatDate value="${mb.date}" pattern="dd-MM-yyyy"/>', '<fmt:message key="moneybook.first.balance" />');"><fmt:message key="moneybook.first.balance" /></button>
+				</c:if>
 				<br>
-				<table id="bankbook" class="display datatable" cellspacing="0"
+				<br>
+				<table id="bankbook" class="display datatable booktable" cellspacing="0"
 					width="100%">
 					<thead>
 						<tr>
@@ -210,6 +221,36 @@
 	</table>
 	<!-- <span id="error-msg" style="color: red;"></span> -->
 </div>
+
+<div id="voucher-info-balance-modal" style="display: none;">
+	<table class="display table table-striped table-bordered table-hover">
+		<tbody>
+			
+			<tr id="bank-info-balance"><td><fmt:message key="bank.name"/></td>
+				<td><select id="mb-bank-balance">
+					<c:forEach var="entry" items="${banks}">
+						<option value="${entry.id}">${entry.code}</option>
+					</c:forEach>
+				</select></td>
+			</tr>
+			
+			<tr>
+				<td><fmt:message key="moneybook.first.balance" /></td>
+				<td><input id="mb-money-balance" /></td>
+			</tr>
+			<tr>
+				<td><fmt:message key="moneybook.date.transaction" /></td>
+				<td><input id="mb-date-balance" /></td>
+			</tr>
+			<tr>
+				<td><fmt:message key="moneybook.description" /></td>
+				<td><span id="mb-des-balance"></span></td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- <span id="error-msg" style="color: red;"></span> -->
+</div>
+
 <style>
 .label {
 	cursor: pointer;
@@ -294,6 +335,59 @@
 		})
 	}
 
+	function addEditBalance(bookType, mbDate, mbDes) {
+		bootbox.dialog({
+			closeButton : false,
+			message : $("#voucher-info-balance-modal").html(),
+			title : "MONEY BOOK BALANCE",
+			className : "modal-darkorange",
+			buttons : {
+				"Confirm" : {
+					className : "btn-blue",
+					callback : function() {
+						date = $(".modal-content #mb-date-balance").val();
+						bank = $(".modal-content #mb-bank :selected").text();
+						$.ajax({
+							type : "POST",
+							url : "updateMoneybookBalance",
+							data : {
+								"bankId": $(".modal-content #mb-bank-balance").val(),
+								"date" : $(".modal-content #mb-date-balance").val(),
+								"balance" : $(".modal-content #mb-money-balance").val(),
+								"des" : mbDes
+							},
+							success : function(data) {
+								if (data == "ok") {
+									alert("Add successfully");
+									$(".btn-balance").hide();
+								} else {
+									alert("Voucher no is wrong or duplicate");
+								}
+							},
+							error : function(msg) {
+								alert(msg);
+							}
+						})
+					}
+				},
+				"Cancel" : {
+					className : "btn-red"
+				}
+			}
+		});
+		if (bookType == 1) {
+			$(".modal-content .select2-container").remove();
+			$(".modal-content #mb-bank-balance").css({"display": "inline"});
+		} else {
+			$(".modal-content #bank-info-balance").remove();
+		}
+		$(".modal-content #mb-des-balance").text(mbDes);
+		$(".modal-content #mb-date-balance").datepicker("setDate", new Date(2015, 5, 1));
+		$(".modal-content #mb-date-balance").datepicker().on('changeDate', function(e) {
+			$(this).datepicker('hide');
+		})
+	}
+	
 	function deleteMoneyBook(id) {
 	 	if(confirm("Delete will make some actions revert. Please make sure you want to remove this row")) {
 			$.ajax({
