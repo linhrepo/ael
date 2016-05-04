@@ -127,7 +127,6 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 	
 	@Query("SELECT e FROM Docsgeneral e inner join fetch e.exhibition ex WHERE (e.customer.id = :customerId or :customerId is null) and "
 			+ "(e.typeOfImport.id =:typeOfImport or :typeOfImport is null) and "
-			+ "e.typeOfDocs =:typeOfDocs and "
 			+ "(e.typeOfContainer.id =:typeOfContainer or :typeOfContainer is null) and "
 			+ "e.doAccounting =:doAccounting and "
 			+ "(ex.devDate >= :startDate or :startDate is null) and (ex.devDate <= :endDate or :endDate is null) ")
@@ -136,7 +135,6 @@ public interface DocsgeneralRepository extends GenericRepository<Docsgeneral> {
 			@Param("typeOfImport") Long typeOfImport,
 			@Param("typeOfContainer") Long typeOfContainer,
 			@Param("doAccounting") Boolean doAccounting,
-			@Param(value="typeOfDocs") ServicesType typeOfDocs,
 			@Param("startDate") Date startDate,
 			@Param("endDate") Date endDate);
 	

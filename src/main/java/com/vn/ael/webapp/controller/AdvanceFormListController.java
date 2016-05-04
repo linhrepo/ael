@@ -243,7 +243,7 @@ public class AdvanceFormListController extends BaseFormController {
 		} catch (Exception e) {
 			log.error("CAN'T GET USER: " + e.getMessage());
 		}
-		if (employee.getId() != null) {
+		if (employee.getId() != null && employee.getId() > 0) {
 			listSumary.add(this.getAdvanceSumaryForEmployee(employee,
 					startDate, endDate));
 		} else {
@@ -282,27 +282,12 @@ public class AdvanceFormListController extends BaseFormController {
 		Date endDate = searchAdvanceSumary.getEndSumDate() != null ? searchAdvanceSumary
 				.getEndSumDate() : cal.getTime();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
-//		User employee = new User();
-//		try {
-//			employee = advanceFormManager.getUserById(searchAdvanceSumary
-//					.getEmployee());
-//		} catch (Exception e) {
-//			log.error("CAN'T GET USER: " + e.getMessage());
-//		}
-		if (loggedInUser.getId() != null) {
+
+		if (loggedInUser.getId() != null && loggedInUser.getId() > 0) {
 			listSumary.add(this.getAdvanceSumaryForEmployee(loggedInUser,
 					startDate, endDate));
 		} 
-//		else {
-//			List<User> employees = new ArrayList<User>();
-//			employees.addAll(getUserManager().getAllUser());
-//			if (!employees.isEmpty()) {
-//				for (User user : employees) {
-//					listSumary.add(this.getAdvanceSumaryForEmployee(user,
-//							startDate, endDate));
-//				}
-//			}
-//		}
+
 		mav.addObject(listSumary);
 		mav.addObject(advanceFormManager.findByEmpoyee(loggedInUser,false));
 		mav.addObject(refundManager.findByEmpoyee(loggedInUser,false));
@@ -336,27 +321,12 @@ public class AdvanceFormListController extends BaseFormController {
 		Date endDate = searchAdvanceSumary.getEndSumDate() != null ? searchAdvanceSumary
 				.getEndSumDate() : cal.getTime();
 		List<AdvanceSumary> listSumary = new ArrayList<AdvanceSumary>();
-//		User employee = new User();
-//		try {
-//			employee = advanceFormManager.getUserById(searchAdvanceSumary
-//					.getEmployee());
-//		} catch (Exception e) {
-//			log.error("CAN'T GET USER: " + e.getMessage());
-//		}
-		if (loggedInUser.getId() != null) {
+
+		if (loggedInUser.getId() != null && loggedInUser.getId() > 0) {
 			listSumary.add(this.getAdvanceSumaryForEmployee(loggedInUser,
 					startDate, endDate));
 		} 
-//		else {
-//			List<User> employees = new ArrayList<User>();
-//			employees.addAll(getUserManager().getAllUser());
-//			if (!employees.isEmpty()) {
-//				for (User user : employees) {
-//					listSumary.add(this.getAdvanceSumaryForEmployee(user,
-//							startDate, endDate));
-//				}
-//			}
-//		}
+
 		if (!listSumary.isEmpty()) {
 			for (AdvanceSumary advanceSumary : listSumary) {
 				totalAdBefore = totalAdBefore.add(advanceSumary
@@ -443,12 +413,19 @@ public class AdvanceFormListController extends BaseFormController {
 			}
 
 		}
-		beans.put("totalAdBefore", NumberFormat.getCurrencyInstance().format(totalAdBefore).replace("$", ""));
+		/*beans.put("totalAdBefore", NumberFormat.getCurrencyInstance().format(totalAdBefore).replace("$", ""));
 		beans.put("totalAdBetween", NumberFormat.getCurrencyInstance().format(totalAdBetween).replace("$", ""));
 		beans.put("totalAdAfter", NumberFormat.getCurrencyInstance().format(totalAdAfter).replace("$", ""));
 		beans.put("totalRefBefore", NumberFormat.getCurrencyInstance().format(totalRefBefore).replace("$", ""));
 		beans.put("totalRefBetween", NumberFormat.getCurrencyInstance().format(totalRefBetween).replace("$", ""));
-		beans.put("totalRefAfter", NumberFormat.getCurrencyInstance().format(totalRefAfter).replace("$", ""));
+		beans.put("totalRefAfter", NumberFormat.getCurrencyInstance().format(totalRefAfter).replace("$", ""));*/
+		beans.put("totalAdBefore", totalAdBefore);
+		beans.put("totalAdBetween", totalAdBetween);
+		beans.put("totalAdAfter", totalAdAfter);
+		beans.put("totalRefBefore", totalRefBefore);
+		beans.put("totalRefBetween", totalRefBetween);
+		beans.put("totalRefAfter", totalRefAfter);
+		
 		beans.put("advanceSumary", ReportUtil.convertAdvSumaryForExport(listSumary));
 		beans.put("startDate", CommonUtil.getDateString(startDate));
 		beans.put("endDate", CommonUtil.getDateString(endDate));

@@ -416,7 +416,7 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	@Override
 	public List<Docsgeneral> searchExhibitionAccounting(Search search) {
 		return docsgeneralRepository.searchExhibitionAccounting(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), 
-				true, search.getServicesType(), search.getStartDate(), search.getEndDate());
+				true, search.getStartDate(), search.getEndDate());
 	}
 
 	@Override

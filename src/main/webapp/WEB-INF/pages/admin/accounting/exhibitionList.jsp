@@ -35,7 +35,7 @@
         	<tr>
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
-              	<td><fmt:formatDate value="${exhibition.devDate}" pattern="dd/MM/yyyy"/></td>
+              	<td><fmt:formatDate value="${trucking.docReceiveDate}" pattern="dd/MM/yyyy"/></td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
               	<td>${trucking.typeOfContainer.value}</td>
                 <td>
