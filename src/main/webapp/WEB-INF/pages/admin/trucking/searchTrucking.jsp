@@ -55,6 +55,17 @@
 					</c:forEach>
 				</form:select>
 			</div>
+			
+			<div class="form-group col-md-3">
+			    <appfuse:label styleClass="control-label" key="trucking.startDate"/>
+			    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
+		    </div>
+		    
+		    <div class="form-group col-md-3">
+			    <appfuse:label styleClass="control-label" key="trucking.endDate"/>
+			    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
+		    </div> 
+		    
 			<div class="form-group col-md-3">
 				<appfuse:label styleClass="control-label"
 					key="configuration.typeOfImport" />
@@ -101,15 +112,9 @@
 <%-- 				</form:select> --%>
 <!-- 			</div> -->
 
-			<%-- <div class="form-group col-md-3">
-			    <appfuse:label styleClass="control-label" key="trucking.createDateStart"/>
-			    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
-		    </div>
-		    
-		    <div class="form-group col-md-3">
-			    <appfuse:label styleClass="control-label" key="trucking.createDateEnd"/>
-			    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
-		    </div> --%>
+			<div class="form-group col-md-12">
+				<span style="font-weight: 10px;">*<fmt:message key="trucking.explainDate"></fmt:message></span>
+			</div>
 			<div class="form-group col-md-3">
 				<button type="submit" class="btn btn-primary" onclick="bCancel=false" name="search" style="margin-top: 24px;"><i class="fa fa-search"></i> <fmt:message key="button.search"></fmt:message></button>
 			</div>

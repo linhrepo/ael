@@ -32,7 +32,7 @@
                 <th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="contseal.typeOfCont" /></th>
-                <th><fmt:message key="accounting.ngaygiaohang"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
                 <th><fmt:message key="packageInfo.masterFee" /></th>
                 <th><fmt:message key="packageInfo.feeName" /></th>
 				<th><fmt:message key="packageInfo.feevalue" /></th>
@@ -51,7 +51,7 @@
             	<th><fmt:message key="accounting.nhathau"/></th>
                 <th><fmt:message key="contseal.noOfCont" /></th>
                 <th><fmt:message key="contseal.typeOfCont" /></th>
-                <th><fmt:message key="accounting.ngaygiaohang"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
                 <th><fmt:message key="packageInfo.masterFee" /></th>
                 <th><fmt:message key="packageInfo.feeName" /></th>
 				<th><fmt:message key="packageInfo.feevalue" /></th>
@@ -70,7 +70,7 @@
                 <td>${exfee.truckingdetail.nhathau.code}</td>
                 <td>${exfee.truckingdetail.consteal.noOfCont }</td>
                 <td>${exfee.truckingdetail.consteal.typeOfCont.value}</td>
-                <td><fmt:formatDate value="${exfee.truckingdetail.dateDev}" pattern="dd/MM/yyyy"/></td>
+                <td><%-- <fmt:formatDate value="${exfee.truckingdetail.truckingservice.docsgeneral.docReceiveDate}" pattern="dd/MM/yyyy"/> --%></td>
               	<td>${exfee.masterFee.value}</td>
               	<td>${exfee.name.value}</td>
               	<td><fmt:formatNumber>${exfee.amount}</fmt:formatNumber></td>

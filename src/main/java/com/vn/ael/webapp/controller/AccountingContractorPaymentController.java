@@ -129,7 +129,10 @@ public class AccountingContractorPaymentController extends BaseFormController {
     	String moneyType = request.getParameter("moneyType");
 		VoucherType voucherType;
 		BookType bookType;
-		Long bankId = Long.parseLong(request.getParameter("bankId"));
+		Long bankId = null;
+		if (request.getParameter("bankId") != null) {
+			bankId = Long.parseLong(request.getParameter("bankId"));
+		}
 		if (moneyType.equals("0")) {
 			voucherType = VoucherType.PHIEUCHI;
 			bookType = BookType.CASHBOOK;
@@ -191,9 +194,10 @@ public class AccountingContractorPaymentController extends BaseFormController {
 			    			bookType,
 			    			request);
 			        
-			        System.out.println("bankID: " + bankId);
-			        Bank bank = bankManager.get(bankId);
-			        mb.setBank(bank);
+			        if (bankId != null) {
+				        Bank bank = bankManager.get(bankId);
+				        mb.setBank(bank);
+			        }
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
 			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);

@@ -401,10 +401,10 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 		ServicesType servicesType = null;
 		if(search.getTypeOfDocs() == null){
 			return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), 
-					servicesType, true,search.getHasRecord(), search.getJobNo());
+					servicesType, true,search.getHasRecord(), search.getJobNo(), search.getStartDate(), search.getEndDate());
 		}
 		return docsgeneralRepository.searchTrucking(search.getCustomer(), search.getTypeOfImport(), search.getTypeOfContainer(), search.getDoAccounting(), 
-				ServicesType.fromValue(search.getTypeOfDocs().intValue()), true,search.getHasRecord(), search.getJobNo());
+				ServicesType.fromValue(search.getTypeOfDocs().intValue()), true,search.getHasRecord(), search.getJobNo(), search.getStartDate(), search.getEndDate());
 	}
 
 	@Override
@@ -423,9 +423,9 @@ public class DocsgeneralManagerImpl extends GenericManagerImpl<Docsgeneral> impl
 	public List<Docsgeneral> searchFeeTables(Search search) {
 		ServicesType servicesType = null;
 		if(search.getTypeOfDocs() == null){
-			return docsgeneralRepository.searchFeeTables(search.getCustomer(), search.getJobNo(), true, servicesType);
+			return docsgeneralRepository.searchFeeTables(search.getCustomer(), search.getJobNo(), true, servicesType, search.getStartDate(), search.getEndDate());
 		}
-		return docsgeneralRepository.searchFeeTables(search.getCustomer(), search.getJobNo(), true, ServicesType.fromValue(search.getTypeOfDocs().intValue()));
+		return docsgeneralRepository.searchFeeTables(search.getCustomer(), search.getJobNo(), true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), search.getStartDate(), search.getEndDate());
 	}
 
 	@Override

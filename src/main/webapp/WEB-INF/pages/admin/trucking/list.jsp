@@ -16,7 +16,7 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="trucking.status"/></th>
-                <th><fmt:message key="trucking.createDate"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
                 <th><fmt:message key="truckingservice.doDelivery"/></th>
                 <th><fmt:message key="packageInfo.po"/></th>
                 <th><fmt:message key="notify.lastUpdated"/></th>
@@ -31,7 +31,7 @@
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
                 <th><fmt:message key="trucking.status"/></th>
-                <th><fmt:message key="trucking.createDate"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
                 <th><fmt:message key="truckingservice.doDelivery"/></th>
                 <th><fmt:message key="packageInfo.po"/></th>
                 <th><fmt:message key="notify.lastUpdated"/></th>

@@ -113,7 +113,7 @@
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
 			<tr><td><fmt:message key="moneybook.voucherType"/></td><td id="vi-vouchertype"></td></tr>
-			<tr><td><fmt:message key="bank.name"/></td>
+			<tr id="bank-info"><td><fmt:message key="bank.name"/></td>
 				<td><select id="vi-bank">
 					<c:forEach var="entry" items="${banks}">
 						<option value="${entry.id}">${entry.code}-${entry.name}</option>
@@ -253,6 +253,14 @@ function reviewPayMoney(moneyType, multiplePrice, voucherInfo) {
 	           }
 	       }
 	});
+	
+	if (moneyType == 0) {
+		$(".modal-content #bank-info").remove();
+	} else {
+		$(".modal-content .select2-container").remove();
+		$(".modal-content #mb-bank").css({"display": "inline"});
+	}
+	
 	$(".modal-content #vi-id").val(data.voucherNoPrint);
 	$(".modal-content #vi-date").datepicker("setDate", new Date());
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {

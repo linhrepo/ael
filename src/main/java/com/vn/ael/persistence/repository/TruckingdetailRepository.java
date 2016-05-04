@@ -112,7 +112,7 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	
 
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables f LEFT JOIN FETCH t.truckingservice LEFT JOIN FETCH t.truckingservice.docsgeneral d where "
-			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.truckingservice.docsgeneral.docReceiveDate >= :startDate or :startDate is null) and (t.truckingservice.docsgeneral.docReceiveDate <= :endDate or :endDate is null) and "
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo is null  or :jobNo = '') and "
 			+ "(t.nhathau.id = :nhathau or :nhathau is null) and "
 			+ "(f.checkByAdmin =:checkByAdmin or :checkByAdmin is null) and "
@@ -125,7 +125,7 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 			@Param(value="checkByAdmin") Boolean checkByAdmin, @Param(value="approved") Boolean approved);
 	
 	@Query("from Truckingdetail t LEFT JOIN FETCH t.exfeetables f INNER JOIN FETCH t.truckingservice INNER JOIN FETCH t.truckingservice.docsgeneral d where "
-			+ "(t.dateDev >= :startDate or :startDate is null) and (t.dateDev <= :endDate or :endDate is null) and "
+			+ "(t.truckingservice.docsgeneral.docReceiveDate >= :startDate or :startDate is null) and (t.truckingservice.docsgeneral.docReceiveDate <= :endDate or :endDate is null) and "
 			+ "(t.truckingservice.docsgeneral.jobNo = :jobNo or :jobNo is null  or :jobNo = '') and "
 			+ "(t.nhathau.id = :nhathau or :nhathau is null) and "
 			+ "(f.checkByAdmin =:checkByAdmin or :checkByAdmin is null) and "

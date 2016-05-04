@@ -72,6 +72,8 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 		this.updateJobNo(exhibition);
 		exhibition.getDocsgeneral().setTypeOfDocs(ServicesType.EXHS);
 		exhibition.getDocsgeneral().setExhibition(exhibition);
+		//set devDate = docRevDate for searching
+		exhibition.getDocsgeneral().setDocReceiveDate(exhibition.getDevDate());
 		EntityUtil.wiredChildOfDocsGeneral(exhibition.getDocsgeneral());
 		Docsgeneral docsgeneral = docsgeneralRepository.save(exhibition.getDocsgeneral());
 		return docsgeneral.getExhibition();

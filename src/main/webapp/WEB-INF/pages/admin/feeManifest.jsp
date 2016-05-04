@@ -33,6 +33,7 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
             </tr>
         </thead>
  
@@ -42,15 +43,17 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
                 <th><fmt:message key="trucking.typeOfContainer"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
             </tr>
         </tfoot>
         <tbody>
-        <c:forEach items="${docsgeneralList}" var="trucking" varStatus="idx">
-        	<tr params="docId=${trucking.id}">
+        <c:forEach items="${docsgeneralList}" var="docs" varStatus="idx">
+        	<tr params="docId=${docs.id}">
                 <td>${idx.index+1}</td>
-              	<td>${trucking.jobNo}</td>
-              	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
-              	<td>${trucking.typeOfContainer.value}</td>
+              	<td>${docs.jobNo}</td>
+              	<td><fmt:message key="${docs.typeOfDocs.textKey}"/></td>
+              	<td>${docs.typeOfContainer.value}</td>
+              	<td><fmt:formatDate value="${docs.docReceiveDate}" pattern="dd/MM/yyyy"/></td>
             </tr>
         </c:forEach>
         </tbody>
