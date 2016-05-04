@@ -178,10 +178,12 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		ServicesType servicesType = null;
 		Long cusId = search.getCustomer();
 		//only check with docs ready for accounting
-		if(search.getTypeOfDocs() == null){
-			return docsAccountingRepository.searchDebit(true, servicesType, cusId, search.getCollectMoneyStatus());
+		if (search.getTypeOfDocs() == null) {
+			return docsAccountingRepository.searchDebit(true, servicesType, cusId, search.getCollectMoneyStatus(),
+					search.getStartDate(), search.getEndDate());
 		}
-		return docsAccountingRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()), cusId, search.getCollectMoneyStatus());
+		return docsAccountingRepository.searchDebit(true, ServicesType.fromValue(search.getTypeOfDocs().intValue()),
+				cusId, search.getCollectMoneyStatus(), search.getStartDate(), search.getEndDate());
 	}
 
 
@@ -190,8 +192,13 @@ public class DocsAccountingManagerImpl extends GenericManagerImpl<DocsAccounting
 		ServicesType servicesType = null;
 		Long nhathauId = search.getNhathauId();
 		//only check with docs ready for accounting
-		List<Truckingdetail> listTruck = truckingdetailRepository.searchTruckingFee(nhathauId, search.getPayMoneyStatus());
-		return listTruck;
+	
+		if (search.getTypeOfDocs() == null) {
+			return truckingdetailRepository.searchTruckingFee(nhathauId, search.getPayMoneyStatus(), null,
+					search.getStartDate(), search.getEndDate());
+		}
+		return truckingdetailRepository.searchTruckingFee(nhathauId, search.getPayMoneyStatus(), ServicesType.fromValue(search.getTypeOfDocs().intValue()),
+				search.getStartDate(), search.getEndDate());
 	}
 
 	@Override

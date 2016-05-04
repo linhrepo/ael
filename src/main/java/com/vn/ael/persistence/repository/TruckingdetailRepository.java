@@ -144,11 +144,16 @@ public interface TruckingdetailRepository extends GenericRepository<Truckingdeta
 	List<Truckingdetail> findByDoAccounting(@Param("doAccounting") Boolean doAccounting);
 	
 	//for accounting
-	@Query("SELECT e FROM Truckingdetail e inner join fetch e.truckAccounting f WHERE "
+	@Query("FROM Truckingdetail e LEFT JOIN FETCH e.truckingservice.docsgeneral d INNER JOIN FETCH e.truckAccounting f WHERE "
 			+ "(e.nhathau.id = :nhathau or :nhathau is null) and "
+			+ "(d.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
+			+ "(d.docReceiveDate >= :startDate or :startDate is null) and (d.docReceiveDate <= :endDate or :endDate is null) and "
 			+ "(f.payMoneyStatus =:payMoneyStatus or :payMoneyStatus is null) "
 			)
 	List<Truckingdetail> searchTruckingFee(
 			@Param(value = "nhathau") Long nhathau,
-			@Param(value = "payMoneyStatus") Integer payMoneyStatus);
+			@Param(value = "payMoneyStatus") Integer payMoneyStatus,
+			@Param(value = "typeOfDocs") ServicesType docsType,
+			@Param(value = "startDate") Date startDate,
+			@Param(value = "endDate") Date endDate);
 }

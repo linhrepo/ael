@@ -23,6 +23,8 @@
                 <th><fmt:message key="trucking.refNo"/></th>
             	<th><fmt:message key="trucking.nhathau"/></th>
             	<th><fmt:message key="contseal.noOfCont" /></th>
+            	<th><fmt:message key="contseal.typeOfCont" /></th>
+            	<th><fmt:message key="trucking.searchDate" /></th>
                 <th><fmt:message key="trucking.phiAelChuaChi"/></th>
                 <th><fmt:message key="trucking.phiChiHoChuaChi"/></th>
                 <th><fmt:message key="trucking.phiAelDaChi"/></th>
@@ -38,7 +40,8 @@
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.nhathau"/></th>
                 <th><fmt:message key="contseal.noOfCont" /></th>
-                <%-- <th><fmt:message key="contseal.typeOfCont" /></th> --%>
+            	<th><fmt:message key="contseal.typeOfCont" /></th>
+            	<th><fmt:message key="trucking.searchDate" /></th>
                 <th><fmt:message key="trucking.phiAelChuaChi"/></th>
                 <th><fmt:message key="trucking.phiChiHoChuaChi"/></th>
                 <th><fmt:message key="trucking.phiAelDaChi"/></th>
@@ -53,9 +56,9 @@
                 <td>${idx.index+1}</td>
                 <td>${trucking.truckingservice.docsgeneral.jobNo}</td>
                 <td>${trucking.nhathau.code}</td>
-              	<%-- <td>${trucking.vehicleNo}</td> --%>
               	<td>${trucking.consteal.noOfCont }</td>
-              	<!-- <td></td> -->
+              	<td>${trucking.consteal.typeOfCont.value}</td>
+              	<td>${trucking.truckingservice.docsgeneral.docReceiveDate}</td>
               	<td>
            			<c:if test="${not empty trucking.truckAccounting.phiAelChuaChi and trucking.truckAccounting.phiAelChuaChi > 0}">
 						<button id='${trucking.id}_0'
@@ -116,7 +119,7 @@
 			<tr id="bank-info"><td><fmt:message key="bank.name"/></td>
 				<td><select id="vi-bank">
 					<c:forEach var="entry" items="${banks}">
-						<option value="${entry.id}">${entry.code}-${entry.name}</option>
+						<option value="${entry.id}">${entry.code}</option>
 					</c:forEach>
 				</select></td>
 			</tr>
@@ -258,7 +261,7 @@ function reviewPayMoney(moneyType, multiplePrice, voucherInfo) {
 		$(".modal-content #bank-info").remove();
 	} else {
 		$(".modal-content .select2-container").remove();
-		$(".modal-content #mb-bank").css({"display": "inline"});
+		$(".modal-content #vi-bank").css({"display": "inline"});
 	}
 	
 	$(".modal-content #vi-id").val(data.voucherNoPrint);
@@ -266,9 +269,6 @@ function reviewPayMoney(moneyType, multiplePrice, voucherInfo) {
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {
 		$(this).datepicker('hide');
 	})
-	
-	$(".modal-content .select2-container").remove();
-	$(".modal-content #vi-bank").css({"display": "inline"});
 	
 	$(".modal-content .input-amount").change(function() {
 		var v1 = parseFloat($(this).attr("value"));

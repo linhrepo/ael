@@ -1,6 +1,6 @@
 package com.vn.ael.webapp.dto;
 
-
+import java.util.Date;
 
 public class AccountingContractorPaymentCondition {
 
@@ -8,6 +8,8 @@ public class AccountingContractorPaymentCondition {
 	private String job = null;
 	private Long nhathauId;
 	private Integer payMoneyStatus;
+	private Date startDate;
+	private Date endDate;
 	
 	/**
 	 * @return the typeOfDocs
@@ -51,6 +53,18 @@ public class AccountingContractorPaymentCondition {
 	}
 	public void setNhathauId(Long nhathauId) {
 		this.nhathauId = nhathauId;
+	}
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 	

@@ -9,7 +9,7 @@
 	method="post" action="searchContractorPayment" id="feeTabelsForm"
 	cssClass="well">
 	<div class="row">
-		<div class="form-group col-md-4">
+		<div class="form-group col-md-3">
 			<appfuse:label styleClass="control-label" key="nhathau.name" />
 			<form:select path="nhathauId" id="nhathauId" class="form-control">
 				<form:option value="">
@@ -27,21 +27,27 @@
 				</c:forEach>
 			</form:select>
 		</div>
-		<%-- <div class="form-group col-md-4">
-			<appfuse:label styleClass="control-label" key="trucking.typeOfDocs" />
+
+		<div class="form-group col-md-3">
+			<appfuse:label styleClass="control-label"
+				key="trucking.typeOfDocs" />
 			<form:select path="typeOfDocs" id="typeOfDocs"
 				cssClass="form-control select2">
-				<form:option value="">
-					<fmt:message key="searchall" />
-				</form:option>
+				<form:option value=""><fmt:message key="searchall" /></form:option>
 				<c:forEach var="entry" items="${typeOfDocs}">
-					<form:option value="${entry.key}">
-						<fmt:message key="${entry.value}" />
-					</form:option>
+					<form:option value="${entry.key}"><fmt:message key="${entry.value}" /></form:option>
 				</c:forEach>
 			</form:select>
-		</div> --%>
-		<div class="form-group col-md-4">
+		</div>
+		<div class="form-group col-md-3">
+		    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
+		    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
+	    </div>
+	    <div class="form-group col-md-3">
+		    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
+		    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
+	    </div>
+		<div class="form-group col-md-3">
 			<appfuse:label styleClass="control-label" key="contractor.payment.status" />
 			<form:select path="payMoneyStatus" id="payMoneyStatus"
 				cssClass="form-control select2">
@@ -55,6 +61,7 @@
 				</c:forEach>
 			</form:select>
 		</div>
+		
 	</div>
 	<div class="row">
 		<div class="form-group col-md-10">

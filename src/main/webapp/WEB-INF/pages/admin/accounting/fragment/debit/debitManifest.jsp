@@ -21,6 +21,7 @@
             	<th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
                 <th><fmt:message key="trucking.phiAelChuaThu"/></th>
                 <th><fmt:message key="trucking.phiChiHoChuaThu"/></th>
                 <th><fmt:message key="trucking.phiAelDaThu"/></th>
@@ -35,6 +36,7 @@
                 <th><fmt:message key="table.no"/></th>
                 <th><fmt:message key="trucking.refNo"/></th>
                 <th><fmt:message key="trucking.typeOfDocs"/></th>
+                <th><fmt:message key="trucking.searchDate"/></th>
                 <th><fmt:message key="trucking.phiAelChuaThu"/></th>
                 <th><fmt:message key="trucking.phiChiHoChuaThu"/></th>
                 <th><fmt:message key="trucking.phiAelDaThu"/></th>
@@ -49,6 +51,7 @@
                 <td>${idx.index+1}</td>
               	<td>${trucking.jobNo}</td>
               	<td><fmt:message key="${trucking.typeOfDocs.textKey}"/></td>
+              	<td><fmt:formatDate value="${trucking.truckingservice.docsgeneral.docReceiveDate}" pattern="dd/MM/yyyy"/></td>
               	<td>
            			<c:if test="${trucking.docsAccounting.phiAelChuaThu > 0}">
 						<button id='${trucking.id}_0'
@@ -104,6 +107,13 @@
 	<table class="display table table-striped table-bordered table-hover">
 		<tbody>
 			<tr><td><fmt:message key="moneybook.voucherType"/></td><td id="vi-vouchertype"></td></tr>
+			<tr id="bank-info"><td><fmt:message key="bank.name"/></td>
+				<td><select id="vi-bank">
+					<c:forEach var="entry" items="${banks}">
+						<option value="${entry.id}">${entry.code}</option>
+					</c:forEach>
+				</select></td>
+			</tr>
 			<tr><td><fmt:message key="moneybook.amount"/></td><td id="vi-amount"></td></tr>
 			<tr><td><fmt:message key="moneybook.sum"/></td><td id="vi-sum"></td></tr>
 			<tr><td><fmt:message key="moneybook.date"/></td><td><input id="vi-date" /></td></tr>
@@ -204,6 +214,7 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
             			    url:  "saveMoney",
             			    data: { 
            			    		"moneyType" : moneyType,
+           			    		"bankId": $(".modal-content #vi-bank").val(),
            			    		"date" : $(".modal-content #vi-date").val(),
        		    			    "voucherNo" : $(".modal-content #vi-id").val(),
        		    			    "amount" : sumAmount,
@@ -236,6 +247,13 @@ function reviewCollectMoney(moneyType, multiplePrice, voucherInfo) {
 	           }
 	       }
 	});
+	
+	if (moneyType == 0) {
+		$(".modal-content #bank-info").remove();
+	} else {
+		$(".modal-content .select2-container").remove();
+		$(".modal-content #vi-bank").css({"display": "inline"});
+	}
 	$(".modal-content #vi-id").val(data.voucherNoPrint);
 	$(".modal-content #vi-date").datepicker("setDate", new Date());
 	$(".modal-content #vi-date").datepicker().on('changeDate', function(e) {

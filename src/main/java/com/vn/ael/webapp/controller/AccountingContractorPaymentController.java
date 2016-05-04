@@ -80,12 +80,11 @@ public class AccountingContractorPaymentController extends BaseFormController {
         mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
         mav.addObject("banks", bankManager.getAll());
-        searchAccFee.setTypeOfDocs((long) ServicesType.DVTQ.getValue());
         mav.addObject("accountingContractorPaymentCondition", searchAccFee);
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_CONTRACTOR_PAYMENT, searchAccFee);
            
-        List<Truckingdetail> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
-        mav.addObject("truckings", docsgenerals);
+        //List<Truckingdetail> docsgenerals = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
+        //mav.addObject("truckings", docsgenerals);
         return mav;
     }
     
@@ -99,6 +98,7 @@ public class AccountingContractorPaymentController extends BaseFormController {
         mav.addObject("enumStatus", ContractorPaymentStatusType.getLabelsMap());
         mav.addObject("nhathauList", nhathauManager.getAll()); 
         List<Truckingdetail> truckings = docsAccountingManager.searchDocsTruckingFee(searchAccFee);
+        mav.addObject("banks", bankManager.getAll());
         mav.addObject("truckings", truckings);
 
 		return mav;
@@ -145,19 +145,6 @@ public class AccountingContractorPaymentController extends BaseFormController {
     	String validate = ControllerUtil.validateForm(request, voucherType, this.accountingMoneyBookManager);
     	try {
 	    	if (validate.length() == 0) {
-		        /*String data = request.getParameter("jobNo");
-		        String[] listMoney = data.split(",");
-		        Map<Long, Integer> statusMap = new HashMap<Long, Integer>();
-		        for (int i = 0; i < listMoney.length; i++) {
-		        	String[] el = listMoney[i].split("_");
-		        	Long jobNo = Long.parseLong(el[0]);
-		        	Integer status = Integer.parseInt(el[1]);
-		        	if (statusMap.get(jobNo) == null) {
-		        		statusMap.put(jobNo, status);//0: ael, 1: chiHo
-		        	} else {
-		        		statusMap.put(jobNo, 2);//both
-		        	}   	
-		        }*/
 		        
 		        Map<Long, TruckAccounting> accountingMap = new HashMap<Long, TruckAccounting>();
 	    		 

@@ -8,7 +8,7 @@
 <form:form commandName="accountingCollectMoneyCondition" method="post"
 	action="searchDebit" id="feeTabelsForm" cssClass="well">
 	<div class="row">
-		<div class="form-group col-md-4">
+		<div class="form-group col-md-3">
 			<%-- <appfuse:label styleClass="control-label"
 				key="accountingnhathau.jobNo" />
 			<form:select path="job" id="job" 
@@ -26,7 +26,7 @@
 				</c:forEach>
 			</form:select>
 		</div>
-		<div class="form-group col-md-4">
+		<div class="form-group col-md-3">
 			<appfuse:label styleClass="control-label"
 				key="trucking.typeOfDocs" />
 			<form:select path="typeOfDocs" id="typeOfDocs"
@@ -37,7 +37,19 @@
 				</c:forEach>
 			</form:select>
 		</div>
-		<div class="form-group col-md-4">
+		
+		<div class="form-group col-md-3">
+		    <appfuse:label styleClass="control-label" key="accountingnhathau.startdate"/>
+		    <form:input path="startDate" provide="datepicker" maxlength="45"  class="form-control" id="startDate"/>
+	    </div>
+	    <div class="form-group col-md-3">
+		    <appfuse:label styleClass="control-label" key="accountingnhathau.enddate"/>
+		    <form:input path="endDate" provide="datepicker" maxlength="45"  class="form-control" id="endDate"/>
+	    </div>
+	    
+	</div>
+	<div class="row">
+	   <div class="form-group col-md-3">
 			<appfuse:label styleClass="control-label"
 				key="debit.collectMoney" />
 			<form:select path="collectMoneyStatus" id="collectMoneyStatus"
@@ -48,6 +60,7 @@
 				</c:forEach>
 			</form:select>
 		</div>
+		
 	</div>
 	<div class="row">
 		<div class="form-group col-md-10">

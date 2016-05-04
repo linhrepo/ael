@@ -3,6 +3,7 @@
  */
 package com.vn.ael.persistence.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,6 @@ import org.springframework.data.repository.query.Param;
 import com.vn.ael.enums.ServicesType;
 import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.Docsgeneral;
-import com.vn.ael.persistence.entity.Truckingdetail;
 
 /**
  * @author phuongdbk
@@ -34,12 +34,15 @@ public interface DocsAccountingRepository extends
 			+ "(e.typeOfDocs =:typeOfDocs or :typeOfDocs is null) and "
 			+ "(e.customer.id = :customer or :customer is null) and "
 			+ "e.doAccounting =:doAccounting and "
+			+ "(e.docReceiveDate >= :startDate or :startDate is null) and (e.docReceiveDate <= :endDate or :endDate is null) and "
 			+ "(e.collectMoneyStatus =:collectMoneyStatus or :collectMoneyStatus is null) "
 			)
 	List<Docsgeneral> searchDebit(@Param("doAccounting") Boolean doAccounting,
 			@Param(value = "typeOfDocs") ServicesType typeOfDocs,
 			@Param(value = "customer") Long customer,
-			@Param(value = "collectMoneyStatus") Integer collectMoneyStatus);
+			@Param(value = "collectMoneyStatus") Integer collectMoneyStatus,
+			@Param(value = "startDate") Date startDate,
+			@Param(value = "endDate") Date endDate);
 	
 	
 	

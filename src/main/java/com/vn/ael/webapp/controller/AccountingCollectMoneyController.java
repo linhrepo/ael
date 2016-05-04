@@ -25,10 +25,12 @@ import com.vn.ael.constants.URLReference;
 import com.vn.ael.constants.VoucherType;
 import com.vn.ael.enums.CollectMoneyStatusType;
 import com.vn.ael.enums.ServicesType;
+import com.vn.ael.persistence.entity.Bank;
 import com.vn.ael.persistence.entity.DocsAccounting;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.MoneyBook;
 import com.vn.ael.persistence.manager.AccountingMoneyBookManager;
+import com.vn.ael.persistence.manager.BankManager;
 import com.vn.ael.persistence.manager.CustomerManager;
 import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.webapp.dto.AccountingCollectMoneyCondition;
@@ -48,7 +50,7 @@ public class AccountingCollectMoneyController extends BaseFormController {
 	}
 
 	private DocsAccountingManager docsAccountingManager;
-
+	private BankManager bankManager = null;
     @Autowired
     public void setDocsAccountingManager(final DocsAccountingManager docsAccountingManager) {
         this.docsAccountingManager = docsAccountingManager;
@@ -57,8 +59,9 @@ public class AccountingCollectMoneyController extends BaseFormController {
     private CustomerManager customerManager = null;
 	 
     @Autowired
-    public void setCustomerManager(final CustomerManager customerManager) {
+    public void setCustomerManager(final CustomerManager customerManager, final BankManager bankManager) {
         this.customerManager = customerManager;
+        this.bankManager = bankManager;
     }
 	@Override
     @InitBinder
@@ -75,14 +78,13 @@ public class AccountingCollectMoneyController extends BaseFormController {
         
         mav.addObject("typeOfDocs", ServicesType.getUsageMapSearchTruck());
         mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
-        //mav.addObject("jobList", docsAccountingManager.getAllJob());
+        mav.addObject("banks", bankManager.getAll());
         mav.addObject("customers", customerManager.getAll()); 
-        searchAccFee.setTypeOfDocs((long) ServicesType.DVTQ.getValue());
         mav.addObject("accountingCollectMoneyCondition", searchAccFee);
         //request.getSession().setAttribute(SessionNames.FORM_SEARCH_ACCOUNTING_COLLECT_MONEY, searchAccFee);
            
-        List<Docsgeneral> docsgenerals = docsAccountingManager.searchDebit(searchAccFee);
-        mav.addObject(docsgenerals);
+        //List<Docsgeneral> docsgenerals = docsAccountingManager.searchDebit(searchAccFee);
+        //mav.addObject(docsgenerals);
         return mav;
     }
     
@@ -96,6 +98,7 @@ public class AccountingCollectMoneyController extends BaseFormController {
         mav.addObject("enumStatus", CollectMoneyStatusType.getLabelsMap());
         //mav.addObject("jobList", docsAccountingManager.getAllJob());
         mav.addObject("customers", customerManager.getAll()); 
+        mav.addObject("banks", bankManager.getAll());
 		List<Docsgeneral> docsgenerals = docsAccountingManager.searchDebit(searchDebit);
 		mav.addObject(docsgenerals);
 
@@ -135,7 +138,11 @@ public class AccountingCollectMoneyController extends BaseFormController {
 			bookType = BookType.BANKBOOK;
 		}
 		
-
+		Long bankId = null;
+		if (request.getParameter("bankId") != null) {
+			bankId = Long.parseLong(request.getParameter("bankId"));
+		}
+		
     	String validate = ControllerUtil.validateForm(request, voucherType, this.accountingMoneyBookManager);
     	try {
 	    	if (validate.length() == 0) {
@@ -168,19 +175,6 @@ public class AccountingCollectMoneyController extends BaseFormController {
 		        	accountingMap.put(id, docsAc);
 				}
 		        
-		        //String[] listMoney = data.split(",");
-		        //Map<Long, Integer> statusMap = new HashMap<Long, Integer>();
-		        /*for (int i = 0; i < jsonObject.length; i++) {
-		        	String[] el = listMoney[i].split("_");
-		        	Long jobNo = Long.parseLong(el[0]);
-		        	Integer status = Integer.parseInt(el[1]);
-		        	if (statusMap.get(jobNo) == null) {
-		        		statusMap.put(jobNo, status);//0: ael, 1: chiHo
-		        	} else {
-		        		statusMap.put(jobNo, 2);//both
-		        	}   	
-		        }*/
-		        
 		        try {
 		        	//Long idLong = Long.parseLong(id);
 			        MoneyBook mb = ControllerUtil.createMoneyBook(
@@ -188,6 +182,10 @@ public class AccountingCollectMoneyController extends BaseFormController {
 			    			voucherType,
 			    			bookType,
 			    			request);
+			        if (bankId != null) {
+				        Bank bank = bankManager.get(bankId);
+				        mb.setBank(bank);
+			        }
 			    	MoneyBook moneyBook = this.accountingMoneyBookManager.insertMoneyBook(mb);
 			    	
 			    	//statusReturn = this.docsAccountingManager.updateCollectMoneyStatus(idLong, feeTypeInt);
