@@ -70,7 +70,7 @@
                 <td>${exfee.truckingdetail.nhathau.code}</td>
                 <td>${exfee.truckingdetail.consteal.noOfCont }</td>
                 <td>${exfee.truckingdetail.consteal.typeOfCont.value }</td>
-                <td><fmt:formatDate value="${exfee.truckingdetail.truckingservice.docsgeneral.docReceiveDate}" pattern="dd/MM/yyyy"/></td>
+                <td><fmt:formatDate value="${exfee.truckingdetail.dateDev}" pattern="dd/MM/yyyy"/></td>
               	<td>${exfee.masterFee.value}</td>
               	<td>${exfee.name.value}</td>
               	<td><fmt:formatNumber>${exfee.amount}</fmt:formatNumber></td>

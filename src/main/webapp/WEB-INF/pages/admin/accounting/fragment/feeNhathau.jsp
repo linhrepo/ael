@@ -52,7 +52,7 @@
               	<td>${trucking.consteal.typeOfCont.value}</td>
               	<td><fmt:message key="${trucking.truckingservice.docsgeneral.typeOfDocs.textKey}"/></td>
               	<td>${trucking.truckingservice.docsgeneral.typeOfContainer.value}</td>
-              	<td><fmt:formatDate value="${trucking.truckingservice.docsgeneral.docReceiveDate}" pattern="dd/MM/yyyy"/></td>
+              	<td><fmt:formatDate value="${trucking.dateDev}" pattern="dd/MM/yyyy"/></td>
             </tr>
         </c:forEach>
         </tbody>
