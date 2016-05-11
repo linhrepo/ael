@@ -29,5 +29,7 @@ public interface AdvanceFormManager extends GenericManager<Advanceform> {
 	
 	List<Advanceform> findByMoneyBook(Long moneyBook);
 	
+	List<Advanceform> findAll();
+	
 	/*void updateAdvanceForm(Advanceform advanceform);*/
 }

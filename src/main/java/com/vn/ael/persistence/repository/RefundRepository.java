@@ -40,10 +40,7 @@ public interface RefundRepository extends GenericRepository<Refund> {
 			@Param("endDate") Date endDate,
 			@Param("doApproval") Boolean doApproval);
 
-	@Query("SELECT e FROM Refund e WHERE (e.isPhieuThu = true) and (e.employee.id = :employeeId or :employeeId is null) "
-//			+ "and "			
-//			+ "e.doApproval =:doApproval"
-			)
+	@Query("SELECT e FROM Refund e WHERE (e.isPhieuThu = true) and (e.employee.id = :employeeId or :employeeId is null) ")
 	List<Refund> findPhieuThuByEmployeeAndDoApproval(@Param("employeeId") Long employeeId);
 	
 	@Query("SELECT e FROM Refund e WHERE e.isPhieuThu = true")

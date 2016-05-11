@@ -148,7 +148,6 @@ public class RefundManagerImpl extends GenericManagerImpl<Refund> implements Ref
 
 	@Override
 	public List<Refund> findAllPhieuThu() {
-		// TODO Auto-generated method stub
 		return this.refundRepository.findAllPhieuThu();
 	}
 	

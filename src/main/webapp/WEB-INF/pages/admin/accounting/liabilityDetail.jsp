@@ -4,7 +4,14 @@
     <title><fmt:message key="liability.title"/></title>
     <meta name="menu" content="AccountingMenu"/>
 </head>
+<style>
+	table td, table th, table {
+		border: 1px solid black;
+		border-collapse: collapse;
+		font-size: 13px;
+	} 
 
+</style>
 <div class="col-sm-10">
 	<h2><fmt:message key="liability.heading"/></h2>
 	<fmt:formatDate value="${startDate}" pattern="dd/MM/yyyy" var="sd"/>
@@ -22,7 +29,6 @@
 		<thead>
 			<tr>
 				<th><fmt:message key="liability.date" /></th>
-				<%-- <th><fmt:message key="liability.id" /></th> --%>
 				<th><fmt:message key="liability.type" /></th>
 				<th><fmt:message key="liability.voucherno" /></th>
 				<th><fmt:message key="liability.refcode" /></th>
@@ -43,6 +49,7 @@
 				<td></td>
 				<td></td>
 				<td><b><i><fmt:formatNumber pattern="#,###" value="${remainStart}"/></i></b></td>
+				<td></td>
 			</tr>
 			<c:forEach items="${liabilities}" var="li">
 				<tr>
@@ -65,6 +72,7 @@
 				<td></td>
 				<td></td>
 				<td><b><i><fmt:formatNumber pattern="#,###" value="${remainEnd}"/></i></b></td>
+				<td></td>
 			</tr>
 		</tbody>
 	</table>

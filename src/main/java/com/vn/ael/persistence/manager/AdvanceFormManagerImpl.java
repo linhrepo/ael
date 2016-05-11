@@ -173,7 +173,11 @@ public class AdvanceFormManagerImpl extends GenericManagerImpl<Advanceform> impl
 
 	@Override
 	public List<Advanceform> findByMoneyBook(Long moneyBook) {
-		// TODO Auto-generated method stub
 		return this.advanceFormRepository.findByMoneyBook(moneyBook);
+	}
+
+	@Override
+	public List<Advanceform> findAll() {
+		return this.advanceFormRepository.findAll();
 	}
 }
