@@ -93,7 +93,7 @@ public class Refund extends BasicAdvance implements Serializable {
 			if ((this.isAdmin != null && !this.isAdmin)){
 				if (this.exfeetables != null && !this.exfeetables.isEmpty()){
 					for (Exfeetable exfeetable : this.exfeetables){
-						if (exfeetable.getVatAmount() != null && exfeetable.getVat() != BigDecimal.ZERO) {
+						if (exfeetable.getVatAmount() != null && exfeetable.getVatAmount() != BigDecimal.ZERO) {
 							this.totalAmount = this.totalAmount.add(exfeetable.getAmount()).add(exfeetable.getVatAmount());
 						} else {
 							this.totalAmount = this.totalAmount.add(CalculationUtil.getTotalWithVat(exfeetable.getVat(),exfeetable.getAmount()));

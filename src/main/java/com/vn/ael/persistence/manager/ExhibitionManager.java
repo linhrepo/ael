@@ -2,6 +2,8 @@ package com.vn.ael.persistence.manager;
 
 import java.util.List;
 
+import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
 import com.vn.ael.webapp.dto.Search;
 
@@ -40,5 +42,9 @@ public interface ExhibitionManager extends GenericManager<Exhibition> {
 	void saveWholeExhReport(Exhibition exhibition);
 	
 	List<Exhibition> searchInland(Search search);
+	
+	List<Exfeetable> findFeeChiHo(Long exhibitionId);
+	
+	Docsgeneral findDocsgeneral(Long docsId);
 
 }

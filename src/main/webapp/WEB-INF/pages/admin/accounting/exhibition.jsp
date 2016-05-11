@@ -14,6 +14,7 @@
     <div class="container-fluid">
     	<jsp:include page="fragment/exhibition/generalInput.jsp"></jsp:include>
     	<jsp:include page="fragment/exhibition/feeTables.jsp"></jsp:include>
+    	<jsp:include page="fragment/exhibition/feeChiHoTables.jsp"></jsp:include>
 	</div>
     <div class="form-group form-actions">
     <a class="btn btn-success" href="exhibition/download?id=${exhibition.id}">

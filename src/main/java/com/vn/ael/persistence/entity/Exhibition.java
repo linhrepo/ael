@@ -65,6 +65,9 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 	@OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL)
 	private List<Exfeetable> exfeetables;
 	
+	@Transient
+	private List<Exfeetable> feeChiHo;
+	
 	@ManyToOne
 	@JoinColumn(name="mode")
 	private Configuration mode;
@@ -346,5 +349,11 @@ public class Exhibition extends BasedEntityTracking implements Serializable {
 	}
 	public void setDateRe(Date dateRe) {
 		this.dateRe = dateRe;
+	}
+	public List<Exfeetable> getFeeChiHo() {
+		return feeChiHo;
+	}
+	public void setFeeChiHo(List<Exfeetable> feeChiHo) {
+		this.feeChiHo = feeChiHo;
 	}
 }

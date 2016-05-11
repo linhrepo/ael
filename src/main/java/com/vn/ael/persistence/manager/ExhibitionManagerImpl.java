@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.vn.ael.constants.AELConst;
+import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.enums.ServicesType;
-import com.vn.ael.persistence.entity.Attachment;
 import com.vn.ael.persistence.entity.Docsgeneral;
 import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
@@ -20,11 +20,10 @@ import com.vn.ael.persistence.repository.CustomerRepository;
 import com.vn.ael.persistence.repository.DocsgeneralRepository;
 import com.vn.ael.persistence.repository.ExfeetableRepository;
 import com.vn.ael.persistence.repository.ExhibitionRepository;
-import com.vn.ael.persistence.repository.RealattachmentRepository;
 import com.vn.ael.persistence.repository.UserRepository;
 import com.vn.ael.webapp.dto.Search;
-import com.vn.ael.webapp.util.EntityUtil;
 import com.vn.ael.webapp.util.CommonUtil;
+import com.vn.ael.webapp.util.EntityUtil;
 
 /**
  * @author liv1hc
@@ -124,6 +123,21 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 		List<Exfeetable> exfeetables;
 		if (exhibition != null){
 			exfeetables = this.exfeetableRepository.findByExhibition(exhibition);
+			
+			List<Exfeetable> chihoFee = exfeetableRepository.findWithTruckingService(exhibition.getDocsgeneral().getTruckingservice().getId());
+			if (chihoFee != null){
+				chihoFee.addAll(exfeetables);
+			}
+			List<Exfeetable> chiho = new ArrayList<Exfeetable>();
+			if (chihoFee != null && !chihoFee.isEmpty()){
+				for (Exfeetable exfeetable : chihoFee){
+					if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
+						chiho.add(exfeetable);
+					}
+				}
+			}
+			exhibition.setFeeChiHo(chiho);
+			
 		}else{
 			exhibition = new Exhibition();
 			exfeetables = null;
@@ -172,10 +186,20 @@ public class ExhibitionManagerImpl extends GenericManagerImpl<Exhibition> implem
 
 	@Override
 	public List<Exhibition> searchInland(Search search) {
-//		Add Phuc 1.8
 		return exhibitionRepository.searchExhibition(search.getCustomer(), search.getTypeOfImport(), 
 				search.getDoDelivery(), search.getTypeOfContainer(), search.getJobNo(), search.getStartDate(), search.getEndDate());
-//		End Add Phuc 1.8
+	}
+
+	@Override
+	public List<Exfeetable> findFeeChiHo(Long id) {
+		Exhibition exhibition = this.exhibitionRepository.findOne(new Long(id));
+		List<Exfeetable> chihoFee = exfeetableRepository.findWithTruckingService(exhibition.getDocsgeneral().getTruckingservice().getId());
+		return chihoFee;
+	}
+
+	@Override
+	public Docsgeneral findDocsgeneral(Long docsId) {
+		return this.exhibitionRepository.findDocsgeneral(docsId); 
 	}
 
 }

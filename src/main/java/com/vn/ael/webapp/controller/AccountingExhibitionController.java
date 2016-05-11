@@ -1,14 +1,14 @@
 package com.vn.ael.webapp.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vn.ael.constants.ReportTeamplates;
+import com.vn.ael.constants.TypeOfFee;
 import com.vn.ael.constants.URLReference;
 import com.vn.ael.enums.ConfigurationType;
 import com.vn.ael.enums.NhathauType;
@@ -24,7 +25,9 @@ import com.vn.ael.enums.ServicesType;
 import com.vn.ael.enums.StatusType;
 import com.vn.ael.persistence.entity.Configuration;
 import com.vn.ael.persistence.entity.Docsgeneral;
+import com.vn.ael.persistence.entity.Exfeetable;
 import com.vn.ael.persistence.entity.Exhibition;
+import com.vn.ael.persistence.manager.DocsAccountingManager;
 import com.vn.ael.persistence.manager.DocsgeneralManager;
 import com.vn.ael.persistence.manager.ExhibitionManager;
 import com.vn.ael.persistence.manager.NhathauManager;
@@ -38,6 +41,7 @@ import com.vn.ael.webapp.util.ReportUtil;
 public class AccountingExhibitionController extends BaseFormController {
 
 	private NhathauManager nhathauManager;
+	private DocsAccountingManager docsAccountingManager;
 	
 	@Autowired
 	private void setNhauthauManager(NhathauManager nhathauManager){
@@ -49,8 +53,9 @@ public class AccountingExhibitionController extends BaseFormController {
 	private DocsgeneralManager docsgeneralManager;
 	
 	@Autowired
-	public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager) {
+	public void setDocsgeneralManager(final DocsgeneralManager docsgeneralManager, final DocsAccountingManager docsAccountingManager) {
 		this.docsgeneralManager = docsgeneralManager;
+		this.docsAccountingManager = docsAccountingManager;
 	}
 
     @Autowired
@@ -110,7 +115,27 @@ public class AccountingExhibitionController extends BaseFormController {
         	exhibitionManager.saveWholeExhReport(exhibition);
             String key = (isNew) ? "exhibition.added" : "exhibition.updated";
             saveMessage(request, getText(key, locale));
- 
+            BigDecimal phiAel = BigDecimal.ZERO;
+	        BigDecimal chiHo = BigDecimal.ZERO;
+            if (exhibition.getExfeetables() != null) {
+            	for (Exfeetable fee : exhibition.getExfeetables()) {
+            		phiAel = phiAel.add(fee.getAmount());
+            	}
+            }
+            
+            List<Exfeetable> chihoFee = exhibitionManager.findFeeChiHo(exhibition.getId());
+			if (chihoFee != null && !chihoFee.isEmpty()){
+				for (Exfeetable exfeetable : chihoFee){
+					if (exfeetable.getMasterFee() != null && exfeetable.getMasterFee().getId() == TypeOfFee.CHI_HO_ID){
+						chiHo = chiHo.add(exfeetable.getTotal());
+					}
+				}
+			}
+            System.out.println(phiAel);
+            System.out.println(chiHo);
+            Docsgeneral docs = exhibitionManager.findDocsgeneral(exhibition.getId());
+	        this.docsAccountingManager.updateAccounting(docs, phiAel, chiHo);
+	        
             if (!isNew) {
                 success = "redirect:"+URLReference.ACCOUNTING_EXHIBITION+"?id=" + exhibition.getId();
             }
